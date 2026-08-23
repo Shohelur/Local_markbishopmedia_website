@@ -383,7 +383,26 @@ function createUltraPurchaseBadge(icon, mainText, subText, colorHex, bgHex) {
   return tex;
 }
 
+function createFloatingHoverBannerTexture() {
+  const c = document.createElement('canvas');
+  c.width = 480; c.height = 120;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = 'rgba(6, 22, 38, 0.98)';
+  ctx.strokeStyle = '#b8ff57';
+  ctx.lineWidth = 4;
+  ctx.shadowColor = '#b8ff57';
+  ctx.shadowBlur = 25;
+  ctx.beginPath(); ctx.roundRect(10, 10, 460, 100, 24); ctx.fill(); ctx.stroke();
+  ctx.font = 'bold 44px sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#b8ff57'; ctx.fillText('🏪', 30, 60);
+  ctx.font = '800 30px "Space Grotesk", sans-serif'; ctx.fillStyle = '#ffffff'; ctx.fillText('SMALL BUSINESS', 96, 46);
+  ctx.font = 'bold 16px "JetBrains Mono", monospace'; ctx.fillStyle = '#00d4ff'; ctx.fillText('● VERIFIED LOCAL STOREFRONT', 96, 80);
+  const tex = new THREE.CanvasTexture(c);
+  tex.needsUpdate = true;
+  return tex;
+}
+
 const customerTex = createCustomerTexture();
+const hoverBannerTex = createFloatingHoverBannerTexture();
 const purchaseTextures = [
   createUltraPurchaseBadge('💰', '+$450 BOOKING', 'LOCAL CLIENT ACQUIRED', '#b8ff57', 'rgba(6, 26, 16, 0.96)'),
   createUltraPurchaseBadge('📞', 'NEW INBOUND CALL', 'HIGH-INTENT BUYER', '#00d4ff', 'rgba(4, 20, 38, 0.96)'),
@@ -483,6 +502,13 @@ shopGroup.add(winGlass);
 const shopDoor = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.9, 0.08), shopMats.doorLime);
 shopDoor.position.set(0.45, 0.0, 0.79);
 shopGroup.add(shopDoor);
+
+// Hover-Only Banner
+const hoverBannerMat = new THREE.SpriteMaterial({ map: hoverBannerTex, transparent: true, opacity: 0.0, depthTest: false });
+const hoverBannerSprite = new THREE.Sprite(hoverBannerMat);
+hoverBannerSprite.position.set(0, 2.5, 0);
+hoverBannerSprite.scale.set(0.001, 0.001, 0.001);
+pinGroup.add(hoverBannerSprite);
 
 const tipGeo = new THREE.ConeGeometry(2.38, 3.8, 32);
 const tipMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.35 });
@@ -612,12 +638,42 @@ function triggerSeamlessIntro() {
   tl.to('#hero-left', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.6, ease: "power3.out" }, 1.6);
 }
 
+const raycaster = new THREE.Raycaster();
+const mouseVec = new THREE.Vector2();
+let isHoveringCircle = false;
+
+const mobileContainer = document.getElementById('mobile-frame');
+mobileContainer.addEventListener('mousemove', (e) => {
+  const rect = mobileContainer.getBoundingClientRect();
+  mouseVec.x = ((e.clientX - rect.left) / 393) * 2 - 1;
+  mouseVec.y = -((e.clientY - rect.top) / 852) * 2 + 1;
+});
+mobileContainer.addEventListener('click', (e) => {
+  const rect = mobileContainer.getBoundingClientRect();
+  mouseVec.x = ((e.clientX - rect.left) / 393) * 2 - 1;
+  mouseVec.y = -((e.clientY - rect.top) / 852) * 2 + 1;
+});
+
 const clock = new THREE.Clock();
 let rippleProgress = 0;
 
 function animate() {
   requestAnimationFrame(animate);
   const time = clock.getElapsedTime();
+
+  raycaster.setFromCamera(mouseVec, camera);
+  const intersects = raycaster.intersectObjects([headMesh, shopWalls, winGlass, shopDoor], true);
+  
+  if (intersects.length > 0 && !isHoveringCircle) {
+    isHoveringCircle = true;
+    gsap.to(hoverBannerSprite.position, { y: 2.5, duration: 0.45, ease: "back.out(2)" });
+    gsap.to(hoverBannerSprite.scale, { x: 4.8, y: 1.2, duration: 0.45, ease: "back.out(2)" });
+    gsap.to(hoverBannerSprite.material, { opacity: 1.0, duration: 0.3 });
+  } else if (intersects.length === 0 && isHoveringCircle) {
+    isHoveringCircle = false;
+    gsap.to(hoverBannerSprite.scale, { x: 0.001, y: 0.001, duration: 0.35, ease: "power2.in" });
+    gsap.to(hoverBannerSprite.material, { opacity: 0.0, duration: 0.3 });
+  }
 
   camera.lookAt(lookAtTarget.x, lookAtTarget.y, lookAtTarget.z);
   pinGroup.rotation.y = time * 0.35;
