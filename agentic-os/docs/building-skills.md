@@ -1,0 +1,87 @@
+# Building New Skills
+
+Always ask for reference skills first. Never guess at methodology.
+
+---
+
+## Skill structure
+
+```text
+.claude/skills/{category}-{skill-name}/
+├── SKILL.md
+├── references/
+├── scripts/
+└── assets/
+```
+
+## Auto-Setup Convention
+
+Skills that need external binaries must include a `scripts/setup.sh` that:
+- checks `command -v` first
+- uses `brew` on macOS when available, with other fallbacks when needed
+- reports clear success or failure
+- runs only when dependencies are missing
+- avoids user interaction unless absolutely necessary
+
+## YAML frontmatter rules
+
+- About 100 words, under 1024 characters
+- Include trigger phrases and negative triggers
+- Do not use XML angle brackets
+
+## Skill Dependencies
+
+Declare dependencies in a `## Dependencies` section in `SKILL.md`.
+
+| Skill | Required? | What it provides | Without it |
+|-------|-----------|------------------|------------|
+| `tool-youtube` | Optional | YouTube transcript fetching | Ask the user to paste content manually |
+
+**Rules:**
+- Required dependencies must be installed for the skill to function
+- Optional dependencies must declare their fallback
+- If a required dependency is missing, tell the user which skill to install
+- Utility (`tool-`) skills never depend on execution skills
+
+## Registration checklist
+
+- [ ] Folder name matches `{category}-{skill-name}`
+- [ ] Frontmatter `name` matches the folder name exactly
+- [ ] Add the skill to `docs/skill-registry.md` and to the Skill Registry in `AGENTS.md`
+- [ ] Add a row to `docs/context-matrix.md` and to the Context Matrix in `AGENTS.md`
+- [ ] Frontmatter stays under 1024 chars
+- [ ] `SKILL.md` stays under 200 lines
+- [ ] References are self-contained
+- [ ] Dependencies are declared when needed
+- [ ] Output folders use the same category prefix
+- [ ] External services are registered in `AGENTS.md`, `.env.example`, and README.md
+- [ ] Publishable text skills include the humanizer gate
+
+## Folder naming
+
+- Format: `{category}-{skill-name}` in kebab-case
+- Cannot contain "claude" or "anthropic"
+
+## Skill & MCP Reconciliation
+
+Compare what is on disk against what is registered. Fix additions silently; confirm removals with the user.
+
+- **New skill on disk, not registered?** Read its frontmatter + `SKILL.md`, add it to the Skill Registry (`docs/skill-registry.md`) and Context Matrix (`docs/context-matrix.md`), add a section to `context/learnings.md`, scan for external-service dependencies, and update `README.md`. Tell the user what was registered.
+- **Skill registered but its folder is missing?** Ask before removing it from the registry, `README.md`, and `context/learnings.md`.
+- **New MCP in `.claude/settings.json`, not in the README?** Add it under a Connected Tools section and tell the user.
+- **Documented MCP removed from `settings.json`?** Ask before removing it from the README.
+- **New external service detected?** Add it to `.env.example` and the README, and tell the user the fallback.
+
+## Skill Local Overrides
+
+Every skill can have a `SKILL.local.md` beside its `SKILL.md`:
+
+- `SKILL.md` — the base definition, shipped by upstream, never modified by the user.
+- `SKILL.local.md` — user-owned additions: extra `## Rules` entries, section overrides, context notes. Never overwritten by updates.
+
+When invoking any skill, check for `SKILL.local.md` and, if present, read it alongside `SKILL.md`; local rules take precedence. Format mirrors `SKILL.md` — at minimum a `## Rules` section with dated entries:
+
+```
+## Rules
+- 2026-05-03: always do X when Y
+```
