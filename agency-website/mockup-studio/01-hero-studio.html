@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Mark Bishop Media · Ultra Visual Mockup Studio & Whiteboard</title>
+<title>Mark Bishop Media · Ultra Visual Mockup Studio (Figma + Excalidraw Hybrid)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@ body{
 }
 
 /* ═══════════════════════════════════════════════════════════
-   1. TOP HEADER BAR
+   1. TOP STUDIO HEADER
    ═══════════════════════════════════════════════════════════ */
 .studio-header{
   min-height:58px;
@@ -158,7 +158,7 @@ body{
 .btn-toggle-sidebar:hover{background:rgba(0, 212, 255, 0.2)}
 
 /* ═══════════════════════════════════════════════════════════
-   2. PRESET BAR
+   2. PRESET QUICK BAR
    ═══════════════════════════════════════════════════════════ */
 .preset-bar{
   background:#080c14;
@@ -187,28 +187,45 @@ body{
 .btn-preset:hover{background:rgba(0, 212, 255, 0.15);border-color:#00d4ff;color:#00d4ff}
 
 /* ═══════════════════════════════════════════════════════════
-   3. FLOATING EXCALIDRAW-STYLE TOOLBAR (TOP-CENTER)
+   3. DRAGGABLE FLOATING EXCALIDRAW TOOLBAR
    ═══════════════════════════════════════════════════════════ */
-.excalidraw-toolbar{
+#draggable-toolbar{
   position:absolute;
-  top:16px;
+  top:76px;
   left:50%;
   transform:translateX(-50%);
   z-index:9500;
-  background:rgba(14, 20, 32, 0.94);
-  border:1px solid rgba(0, 212, 255, 0.4);
-  box-shadow:0 10px 40px rgba(0,0,0,0.85), 0 0 25px rgba(0, 212, 255, 0.2);
-  border-radius:14px;
+  background:rgba(12, 17, 28, 0.94);
+  border:1.5px solid rgba(0, 212, 255, 0.45);
+  box-shadow:0 12px 45px rgba(0,0,0,0.9), 0 0 25px rgba(0, 212, 255, 0.25);
+  border-radius:16px;
   padding:5px 8px;
   display:flex;
   align-items:center;
   gap:4px;
-  backdrop-filter:blur(16px);
+  backdrop-filter:blur(18px);
+  touch-action:none;
+  cursor:default;
 }
 
+.toolbar-drag-grip{
+  cursor:grab;
+  padding:4px 6px;
+  color:rgba(0, 212, 255, 0.6);
+  font-size:14px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  user-select:none;
+  border-radius:6px;
+  transition:background 0.2s, color 0.2s;
+}
+.toolbar-drag-grip:hover{background:rgba(0, 212, 255, 0.15);color:#00d4ff}
+.toolbar-drag-grip:active{cursor:grabbing}
+
 .tool-item{
-  width:38px;
-  height:38px;
+  width:36px;
+  height:36px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -222,10 +239,10 @@ body{
   transition:all 0.15s ease;
   touch-action:manipulation;
 }
-.tool-item svg{width:18px;height:18px;stroke-width:2}
+.tool-item svg{width:17px;height:17px;stroke-width:2}
 .tool-item .shortcut-num{
   position:absolute;
-  bottom:2px;
+  bottom:1px;
   right:3px;
   font-size:8px;
   font-family:'JetBrains Mono',monospace;
@@ -246,17 +263,36 @@ body{
   margin:0 4px;
 }
 
+/* UNDO / REDO BUTTONS */
+.btn-history{
+  width:32px;
+  height:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.8);
+  border-radius:6px;
+  cursor:pointer;
+  transition:all 0.15s;
+}
+.btn-history:hover{background:rgba(0, 212, 255, 0.2);color:#00d4ff;border-color:#00d4ff}
+.btn-history:active{transform:scale(0.92)}
+.btn-history:disabled{opacity:0.3;cursor:not-allowed}
+
+/* COLOR PALETTE */
 .floating-palette{
   display:flex;
   align-items:center;
-  gap:6px;
-  padding-left:4px;
+  gap:5px;
+  padding-left:2px;
 }
 .color-dot{
-  width:20px;
-  height:20px;
+  width:18px;
+  height:18px;
   border-radius:50%;
-  border:2px solid rgba(255,255,255,0.6);
+  border:2px solid rgba(255,255,255,0.5);
   cursor:pointer;
   transition:transform 0.15s, border-color 0.15s;
 }
@@ -304,7 +340,7 @@ body{
 #artboard-canvas-wrapper.tablet{width:820px;height:880px;border-radius:32px;border-width:12px;border-color:#182133}
 #artboard-canvas-wrapper.mobile{width:393px;height:840px;border-radius:48px;border-width:12px;border-color:#161f30}
 
-/* ACTIVE DRAWING CANVAS (COVERS ARTBOARD) */
+/* ACTIVE DRAWING CANVAS */
 #drawing-surface{
   position:absolute;
   inset:0;
@@ -502,6 +538,44 @@ body{
 }
 
 /* ═══════════════════════════════════════════════════════════
+   FIGMA STICKY ANNOTATION NOTES
+   ═══════════════════════════════════════════════════════════ */
+.sticky-note{
+  position:absolute;
+  width:160px;
+  min-height:90px;
+  background:#ffe066;
+  color:#1a1500;
+  border-radius:8px;
+  padding:10px;
+  font-family:'Inter',sans-serif;
+  font-size:12px;
+  font-weight:600;
+  line-height:1.4;
+  box-shadow:0 10px 25px rgba(0,0,0,0.5);
+  z-index:600;
+  cursor:move;
+  transform:rotate(-2deg);
+  border:1px solid #ffd43b;
+}
+.sticky-note .note-delete-btn{
+  position:absolute;
+  top:-8px;
+  right:-8px;
+  width:20px;
+  height:20px;
+  background:#ff3b30;
+  color:#fff;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  cursor:pointer;
+  border:none;
+}
+
+/* ═══════════════════════════════════════════════════════════
    6. COLLAPSIBLE RIGHT PROPERTIES SIDEBAR
    ═══════════════════════════════════════════════════════════ */
 .sidebar-wrapper{
@@ -590,6 +664,28 @@ body{
   cursor:pointer;
 }
 
+/* FIGMA QUICK ALIGNMENT BUTTONS */
+.figma-align-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:6px;
+}
+.btn-align{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.12);
+  color:#fff;
+  padding:6px;
+  border-radius:6px;
+  font-size:10px;
+  font-weight:700;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+}
+.btn-align:hover{background:rgba(0, 212, 255, 0.2);border-color:#00d4ff;color:#00d4ff}
+
 /* ═══════════════════════════════════════════════════════════
    7. EXPORT MODAL
    ═══════════════════════════════════════════════════════════ */
@@ -659,7 +755,7 @@ body{
 <header class="studio-header">
   <div class="brand-badge-box">
     <div class="brand-title">MARK BISHOP <span>MEDIA</span></div>
-    <div class="status-pill">EXCALIDRAW MOCKUP STUDIO</div>
+    <div class="status-pill">FIGMA + EXCALIDRAW STUDIO</div>
   </div>
 
   <!-- DEVICE SELECTOR -->
@@ -702,11 +798,26 @@ body{
 <!-- 3. STUDIO MAIN WORKSPACE -->
 <div class="studio-main">
 
-  <!-- FLOATING EXCALIDRAW-STYLE TOOLBAR -->
-  <div class="excalidraw-toolbar">
+  <!-- DRAGGABLE FLOATING EXCALIDRAW TOOLBAR -->
+  <div id="draggable-toolbar">
     
+    <!-- DRAG GRIP HANDLE -->
+    <div class="toolbar-drag-grip" id="toolbar-grip" title="Drag to reposition toolbar anywhere!">
+      ⋮⋮
+    </div>
+
+    <!-- UNDO & REDO BUTTONS -->
+    <button class="btn-history" id="btn-undo" title="Undo (Ctrl+Z)" onclick="performUndoAction()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+    </button>
+    <button class="btn-history" id="btn-redo" title="Redo (Ctrl+Y)" onclick="performRedoAction()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/></svg>
+    </button>
+
+    <div class="toolbar-separator"></div>
+
     <!-- 1. Selection Tool -->
-    <button class="tool-item active" id="tool-select" title="Selection / Move (Key: 1)" onclick="setActiveWhiteboardTool('select')">
+    <button class="tool-item active" id="tool-select" title="Selection & Move (Key: 1)" onclick="setActiveWhiteboardTool('select')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>
       <span class="shortcut-num">1</span>
     </button>
@@ -724,7 +835,7 @@ body{
     </button>
 
     <!-- 4. Arrow Tool -->
-    <button class="tool-item" id="tool-arrow" title="Draw Arrow (Key: 4)" onclick="setActiveWhiteboardTool('arrow')">
+    <button class="tool-item" id="tool-arrow" title="Draw Arrow ➔ (Key: 4)" onclick="setActiveWhiteboardTool('arrow')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       <span class="shortcut-num">4</span>
     </button>
@@ -747,10 +858,16 @@ body{
       <span class="shortcut-num">7</span>
     </button>
 
-    <!-- 8. Eraser Tool -->
-    <button class="tool-item" id="tool-eraser" title="Eraser (Key: 8)" onclick="setActiveWhiteboardTool('eraser')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 20H7L3 16C2 15 2 13 3 12L13 2C14 1 16 1 17 2L22 7C23 8 23 10 22 11L14 19"/></svg>
+    <!-- 8. Figma Sticky Note -->
+    <button class="tool-item" id="tool-sticky" title="Add Sticky Note (Key: 8)" onclick="spawnStickyNote()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       <span class="shortcut-num">8</span>
+    </button>
+
+    <!-- 9. Eraser Tool -->
+    <button class="tool-item" id="tool-eraser" title="Eraser (Key: 9)" onclick="setActiveWhiteboardTool('eraser')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 20H7L3 16C2 15 2 13 3 12L13 2C14 1 16 1 17 2L22 7C23 8 23 10 22 11L14 19"/></svg>
+      <span class="shortcut-num">9</span>
     </button>
 
     <div class="toolbar-separator"></div>
@@ -848,6 +965,13 @@ body{
         <div class="control-label"><span>LEFT:</span> <span class="control-val" id="disp-pos-left">--</span></div>
       </div>
 
+      <div class="panel-header-title">FIGMA AUTO-ALIGN</div>
+      <div class="figma-align-grid">
+        <button class="btn-align" onclick="alignSelectedElement('left')">⬅️ Left</button>
+        <button class="btn-align" onclick="alignSelectedElement('center')">🎯 Center</button>
+        <button class="btn-align" onclick="alignSelectedElement('right')">➡️ Right</button>
+      </div>
+
       <div class="panel-header-title">RESIZE & TOUCH SLIDERS</div>
 
       <div class="control-field">
@@ -866,16 +990,12 @@ body{
         <span>🧹 ERASE ALL DRAWINGS</span>
       </button>
 
-      <div class="panel-header-title">SHORTCUT KEYS</div>
+      <div class="panel-header-title">FIGMA & EXCALIDRAW TIPS</div>
       <p style="font-size:11.5px;line-height:1.6;color:rgba(255,255,255,0.6)">
-        <b>1:</b> Select & Drag<br>
-        <b>2:</b> Draw Rectangle<br>
-        <b>3:</b> Draw Circle<br>
-        <b>4:</b> Draw Arrow ➔<br>
-        <b>5:</b> Draw Line<br>
-        <b>6:</b> Freehand Pen<br>
-        <b>7:</b> Text Edit<br>
-        <b>8:</b> Eraser
+        <b>⋮⋮ Grip:</b> টুলবার ধরে যেকোনো জায়গায় নিয়ে যান।<br>
+        <b>Ctrl+Z / Ctrl+Y:</b> Undo এবং Redo করুন।<br>
+        <b>Key 8:</b> Figma-এর মতো স্টিকি নোট যুক্ত করুন।<br>
+        <b>Key 4:</b> সরাসরি তীর ➔ এঁকে নোট দিন।
       </p>
     </aside>
   </div>
@@ -941,7 +1061,136 @@ function setElementCoordinates(id, top, left, width, height) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   2. COLLAPSIBLE SIDEBAR ENGINE
+   2. DRAGGABLE FLOATING TOOLBAR ENGINE
+   ═══════════════════════════════════════════════════════════════════ */
+const dragToolbar = document.getElementById('draggable-toolbar');
+const gripHandle = document.getElementById('toolbar-grip');
+let isDraggingToolbar = false;
+let tbStartX = 0, tbStartY = 0;
+let tbInitialLeft = 0, tbInitialTop = 0;
+
+gripHandle.addEventListener('pointerdown', (e) => {
+  isDraggingToolbar = true;
+  tbStartX = e.clientX;
+  tbStartY = e.clientY;
+  tbInitialLeft = dragToolbar.offsetLeft;
+  tbInitialTop = dragToolbar.offsetTop;
+  
+  dragToolbar.style.transform = 'none'; // remove center translate
+  dragToolbar.style.left = `${tbInitialLeft}px`;
+  dragToolbar.style.top = `${tbInitialTop}px`;
+
+  gripHandle.setPointerCapture(e.pointerId);
+  e.preventDefault();
+});
+
+window.addEventListener('pointermove', (e) => {
+  if (!isDraggingToolbar) return;
+  const dx = e.clientX - tbStartX;
+  const dy = e.clientY - tbStartY;
+
+  let newLeft = Math.max(10, Math.min(window.innerWidth - dragToolbar.offsetWidth - 10, tbInitialLeft + dx));
+  let newTop = Math.max(10, Math.min(window.innerHeight - dragToolbar.offsetHeight - 10, tbInitialTop + dy));
+
+  dragToolbar.style.left = `${newLeft}px`;
+  dragToolbar.style.top = `${newTop}px`;
+});
+
+window.addEventListener('pointerup', (e) => {
+  if (isDraggingToolbar) {
+    isDraggingToolbar = false;
+    try { gripHandle.releasePointerCapture(e.pointerId); } catch(err){}
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════════════
+   3. UNDO / REDO HISTORY ENGINE (FOR SHAPES & ELEMENTS)
+   ═══════════════════════════════════════════════════════════════════ */
+let undoHistory = [];
+let redoHistory = [];
+
+function recordHistoryState() {
+  const snapshot = {
+    drawnShapes: JSON.parse(JSON.stringify(drawnShapesHistory)),
+    elements: captureAllElementPositions()
+  };
+  undoHistory.push(snapshot);
+  if (undoHistory.length > 30) undoHistory.shift(); // keep last 30
+  redoHistory = []; // clear redo on new action
+}
+
+function captureAllElementPositions() {
+  const ids = ['elem-nav', 'elem-badge', 'elem-headline', 'elem-ticker', 'elem-cta', 'elem-3d-pin'];
+  const pos = {};
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      pos[id] = {
+        top: el.style.top,
+        left: el.style.left,
+        width: el.style.width,
+        fontSize: el.style.fontSize
+      };
+    }
+  });
+  return pos;
+}
+
+function performUndoAction() {
+  if (undoHistory.length === 0) return;
+  const currentState = {
+    drawnShapes: JSON.parse(JSON.stringify(drawnShapesHistory)),
+    elements: captureAllElementPositions()
+  };
+  redoHistory.push(currentState);
+
+  const prevState = undoHistory.pop();
+  drawnShapesHistory = prevState.drawnShapes;
+  restoreElementPositions(prevState.elements);
+  redrawAllSavedShapes();
+}
+
+function performRedoAction() {
+  if (redoHistory.length === 0) return;
+  const currentState = {
+    drawnShapes: JSON.parse(JSON.stringify(drawnShapesHistory)),
+    elements: captureAllElementPositions()
+  };
+  undoHistory.push(currentState);
+
+  const nextState = redoHistory.pop();
+  drawnShapesHistory = nextState.drawnShapes;
+  restoreElementPositions(nextState.elements);
+  redrawAllSavedShapes();
+}
+
+function restoreElementPositions(elemState) {
+  for (let id in elemState) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.style.top = elemState[id].top;
+      el.style.left = elemState[id].left;
+      el.style.width = elemState[id].width;
+      el.style.fontSize = elemState[id].fontSize;
+    }
+  }
+}
+
+// KEYBOARD SHORTCUTS: Ctrl+Z (Undo) and Ctrl+Y (Redo)
+window.addEventListener('keydown', (e) => {
+  if (e.target.isContentEditable) return;
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+    if (e.shiftKey) performRedoAction();
+    else performUndoAction();
+    e.preventDefault();
+  } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+    performRedoAction();
+    e.preventDefault();
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════════════
+   4. COLLAPSIBLE SIDEBAR ENGINE
    ═══════════════════════════════════════════════════════════════════ */
 let isSidebarOpen = true;
 const sidebarPanel = document.getElementById('studio-sidebar-panel');
@@ -963,7 +1212,7 @@ function toggleSidebar() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   3. EXCALIDRAW FLOATING TOOLBAR & DRAWING ENGINE
+   5. EXCALIDRAW DRAWING ENGINE
    ═══════════════════════════════════════════════════════════════════ */
 let activeTool = 'select';
 let activeColor = '#00d4ff';
@@ -972,7 +1221,7 @@ const ctx = drawingCanvas.getContext('2d');
 
 let isDrawingAction = false;
 let startX = 0, startY = 0;
-let drawnShapesHistory = []; // Keeps all drawings
+let drawnShapesHistory = [];
 
 function resizeDrawingCanvas() {
   drawingCanvas.width = artboardBox.clientWidth;
@@ -997,7 +1246,6 @@ function setActiveWhiteboardTool(tool) {
     drawingCanvas.classList.remove('interactive');
     editables.forEach(e => e.setAttribute('contenteditable', 'true'));
   } else {
-    // Pen, Arrow, Rect, Circle, Line, Eraser
     drawingCanvas.classList.add('interactive');
     editables.forEach(e => e.setAttribute('contenteditable', 'false'));
   }
@@ -1012,17 +1260,20 @@ function pickPaletteColor(col, element) {
   }
 }
 
-// KEYBOARD SHORTCUTS (1 to 8)
+// Tool shortcuts 1 to 9
 window.addEventListener('keydown', (e) => {
   if (e.target.isContentEditable) return;
   const keyMap = {
     '1': 'select', '2': 'rect', '3': 'circle', '4': 'arrow',
-    '5': 'line', '6': 'pen', '7': 'text', '8': 'eraser'
+    '5': 'line', '6': 'pen', '7': 'text', '8': 'sticky', '9': 'eraser'
   };
-  if (keyMap[e.key]) setActiveWhiteboardTool(keyMap[e.key]);
+  if (keyMap[e.key]) {
+    if (keyMap[e.key] === 'sticky') spawnStickyNote();
+    else setActiveWhiteboardTool(keyMap[e.key]);
+  }
 });
 
-/* DRAWING ENGINE EVENTS (MOUSE & TOUCH VIA POINTER EVENTS) */
+/* DRAWING SURFACE EVENTS */
 let currentPathPoints = [];
 
 drawingCanvas.addEventListener('pointerdown', (e) => {
@@ -1057,7 +1308,6 @@ drawingCanvas.addEventListener('pointermove', (e) => {
   } else if (activeTool === 'eraser') {
     eraseNearPoint(curX, curY);
   } else {
-    // Live preview of shapes (Arrow, Rect, Circle, Line)
     redrawAllSavedShapes();
     drawShapePreview(activeTool, startX, startY, curX, curY, activeColor);
   }
@@ -1071,6 +1321,8 @@ drawingCanvas.addEventListener('pointerup', (e) => {
   const rect = drawingCanvas.getBoundingClientRect();
   const endX = e.clientX - rect.left;
   const endY = e.clientY - rect.top;
+
+  recordHistoryState();
 
   if (activeTool === 'pen' && currentPathPoints.length > 1) {
     drawnShapesHistory.push({ type: 'pen', points: [...currentPathPoints], color: activeColor, width: 4 });
@@ -1136,13 +1388,11 @@ function drawArrowOnCanvas(x1, y1, x2, y2, color) {
   ctx.shadowColor = color;
   ctx.shadowBlur = 12;
 
-  // Main Shaft
   ctx.beginPath();
   ctx.moveTo(x1, y1);
   ctx.lineTo(x2, y2);
   ctx.stroke();
 
-  // Arrow Head
   ctx.beginPath();
   ctx.moveTo(x2, y2);
   ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI / 6), y2 - headLen * Math.sin(angle - Math.PI / 6));
@@ -1163,6 +1413,7 @@ function redrawAllSavedShapes() {
 }
 
 function eraseNearPoint(x, y) {
+  recordHistoryState();
   drawnShapesHistory = drawnShapesHistory.filter(s => {
     if (s.type === 'pen') {
       return !s.points.some(p => Math.hypot(p.x - x, p.y - y) < 25);
@@ -1179,13 +1430,78 @@ function eraseNearPoint(x, y) {
 }
 
 function clearAllDrawingCanvas() {
+  recordHistoryState();
   drawnShapesHistory = [];
   ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   4. ELEMENT DRAG & TOUCH ENGINE (POINTER EVENTS)
-   ═══════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   6. FIGMA STICKY NOTES ENGINE
+   ═══════════════════════════════════════════════════════════ */
+function spawnStickyNote() {
+  const note = document.createElement('div');
+  note.className = 'sticky-note';
+  note.style.top = '220px';
+  note.style.left = '320px';
+  note.innerHTML = `
+    <button class="note-delete-btn" onclick="this.parentElement.remove()">✕</button>
+    <div contenteditable="true">💡 Click to write note...</div>
+  `;
+  artboardBox.appendChild(note);
+
+  // Make Sticky Note Draggable
+  let isNoteDragging = false;
+  let nStartX = 0, nStartY = 0, nLeft = 0, nTop = 0;
+
+  note.addEventListener('pointerdown', (e) => {
+    if (e.target.classList.contains('note-delete-btn') || e.target.isContentEditable) return;
+    isNoteDragging = true;
+    nStartX = e.clientX;
+    nStartY = e.clientY;
+    nLeft = note.offsetLeft;
+    nTop = note.offsetTop;
+    note.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+
+  note.addEventListener('pointermove', (e) => {
+    if (!isNoteDragging) return;
+    note.style.left = `${nLeft + (e.clientX - nStartX)}px`;
+    note.style.top = `${nTop + (e.clientY - nStartY)}px`;
+  });
+
+  note.addEventListener('pointerup', (e) => {
+    isNoteDragging = false;
+    try { note.releasePointerCapture(e.pointerId); } catch(err){}
+  });
+
+  setActiveWhiteboardTool('select');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   7. FIGMA AUTO-ALIGNMENT ACTIONS
+   ═══════════════════════════════════════════════════════════ */
+function alignSelectedElement(direction) {
+  if (!activeSelectedElem) return;
+  recordHistoryState();
+
+  const artW = artboardBox.clientWidth;
+  const elemW = activeSelectedElem.offsetWidth;
+
+  if (direction === 'left') {
+    activeSelectedElem.style.left = '40px';
+  } else if (direction === 'center') {
+    activeSelectedElem.style.left = `${Math.round((artW - elemW) / 2)}px`;
+  } else if (direction === 'right') {
+    activeSelectedElem.style.left = `${artW - elemW - 40}px`;
+  }
+  syncInspector(activeSelectedElem);
+  saveLayoutToLocalStorage();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   8. ELEMENT DRAG & TOUCH ENGINE
+   ═══════════════════════════════════════════════════════════ */
 let activeSelectedElem = null;
 let isPointerDragging = false;
 let startPointerX = 0, startPointerY = 0;
@@ -1195,6 +1511,8 @@ document.querySelectorAll('.studio-element').forEach(el => {
   el.addEventListener('pointerdown', (e) => {
     if (activeTool !== 'select') return;
     selectTargetElement(el);
+
+    recordHistoryState();
 
     isPointerDragging = true;
     startPointerX = e.clientX;
@@ -1249,6 +1567,7 @@ function syncInspector(el) {
 
 function changeSelectedWidth(w) {
   if (!activeSelectedElem) return;
+  recordHistoryState();
   activeSelectedElem.style.width = `${w}px`;
   document.getElementById('disp-elem-width').innerText = `${w}px`;
   saveLayoutToLocalStorage();
@@ -1256,15 +1575,17 @@ function changeSelectedWidth(w) {
 
 function changeSelectedFontSize(sz) {
   if (!activeSelectedElem) return;
+  recordHistoryState();
   activeSelectedElem.style.fontSize = `${sz}px`;
   document.getElementById('disp-font-size').innerText = `${sz}px`;
   saveLayoutToLocalStorage();
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   5. PRESETS & EXPORT
-   ═══════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   9. PRESETS & EXPORT
+   ═══════════════════════════════════════════════════════════ */
 function applyLayoutPreset(type) {
+  recordHistoryState();
   if (type === 'golden') {
     setElementCoordinates('elem-nav', 20, 40);
     setElementCoordinates('elem-badge', 140, 50);
