@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mark Bishop Media · Visual Layout Customizer Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#080b12;
+  color:#fff;
+  font-family:'Space Grotesk',sans-serif;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  user-select:none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TOP STUDIO CONTROL TOOLBAR
+   ═══════════════════════════════════════════════════════════ */
+.studio-top-bar{
+  height:60px;
+  background:#0d131f;
+  border-bottom:1px solid rgba(0, 212, 255, 0.25);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 24px;
+  z-index:10000;
+  box-shadow:0 4px 20px rgba(0,0,0,0.6);
+}
+
+.studio-brand{
+  font-size:14px;
+  font-weight:800;
+  letter-spacing:0.08em;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.studio-brand span{
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.studio-pill{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;
+  font-weight:700;
+  color:#b8ff57;
+  background:rgba(184, 255, 87, 0.1);
+  border:1px solid rgba(184, 255, 87, 0.3);
+  padding:3px 8px;
+  border-radius:100px;
+}
+
+.tool-group{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(0,0,0,0.4);
+  padding:4px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.btn-tool{
+  background:transparent;
+  border:1px solid transparent;
+  color:rgba(255,255,255,0.7);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:700;
+  padding:6px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  transition:all 0.2s;
+}
+.btn-tool:hover{color:#fff;background:rgba(255,255,255,0.06)}
+.btn-tool.active{
+  background:rgba(0, 212, 255, 0.18);
+  border-color:rgba(0, 212, 255, 0.5);
+  color:#00d4ff;
+  box-shadow:0 0 12px rgba(0, 212, 255, 0.3);
+}
+
+.btn-action-export{
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  color:#020205;
+  border:none;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:12px;
+  font-weight:800;
+  padding:8px 18px;
+  border-radius:8px;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(0, 212, 255, 0.4);
+  display:flex;
+  align-items:center;
+  gap:6px;
+  transition:transform 0.2s;
+}
+.btn-action-export:hover{transform:scale(1.04)}
+
+/* ═══════════════════════════════════════════════════════════
+   STUDIO WORKSPACE LAYOUT
+   ═══════════════════════════════════════════════════════════ */
+.studio-body{
+  flex:1;
+  display:flex;
+  position:relative;
+  overflow:hidden;
+}
+
+/* CANVAS STAGE (CENTER) */
+.stage-viewport{
+  flex:1;
+  background:#04060a;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:auto;
+  padding:40px;
+  background-image:radial-gradient(rgba(0, 212, 255, 0.08) 1px, transparent 1px);
+  background-size:24px 24px;
+}
+
+/* THE SIMULATED ARTBOARD */
+#artboard{
+  background:#020205;
+  position:relative;
+  box-shadow:0 25px 80px rgba(0,0,0,0.95), 0 0 40px rgba(0, 212, 255, 0.15);
+  border:1px solid rgba(0, 212, 255, 0.3);
+  transition:width 0.3s ease, height 0.3s ease, border-radius 0.3s ease;
+  overflow:hidden;
+}
+
+#artboard.desktop-size{width:1280px;height:740px;border-radius:12px}
+#artboard.tablet-size{width:820px;height:860px;border-radius:30px;border-width:10px;border-color:#1c2638}
+#artboard.mobile-size{width:393px;height:820px;border-radius:45px;border-width:10px;border-color:#1b2438}
+
+/* DRAWING CANVAS OVERLAY */
+#draw-canvas{
+  position:absolute;
+  inset:0;
+  z-index:9000;
+  pointer-events:none;
+}
+#draw-canvas.drawing-active{pointer-events:all;cursor:crosshair}
+
+/* ═══════════════════════════════════════════════════════════
+   DRAGGABLE & EDITABLE UI ELEMENTS INSIDE ARTBOARD
+   ═══════════════════════════════════════════════════════════ */
+.drag-element{
+  position:absolute;
+  cursor:grab;
+  border:1px dashed transparent;
+  padding:8px 12px;
+  border-radius:10px;
+  transition:border-color 0.15s;
+  z-index:100;
+}
+.drag-element:hover{
+  border-color:rgba(0, 212, 255, 0.6);
+  background:rgba(0, 212, 255, 0.04);
+}
+.drag-element.selected{
+  border-color:#b8ff57 !important;
+  background:rgba(184, 255, 87, 0.08) !important;
+  box-shadow:0 0 20px rgba(184, 255, 87, 0.25);
+}
+.drag-element:active{cursor:grabbing}
+
+.drag-handle{
+  display:none;
+  position:absolute;
+  top:-18px;
+  left:0;
+  background:#00d4ff;
+  color:#020205;
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;
+  font-weight:800;
+  padding:2px 6px;
+  border-radius:4px;
+  pointer-events:none;
+}
+.drag-element:hover .drag-handle,
+.drag-element.selected .drag-handle{display:block}
+
+/* Direct Text Editable Elements */
+[contenteditable="true"]{
+  outline:none;
+  cursor:text;
+  user-select:text;
+}
+[contenteditable="true"]:focus{
+  background:rgba(0, 212, 255, 0.15);
+  border-radius:6px;
+  box-shadow:0 0 10px rgba(0,212,255,0.4);
+}
+
+/* ─── 1. NAVBAR COMPONENT ─── */
+#elem-nav{
+  top:20px;
+  left:40px;
+  right:40px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.art-brand{font-size:15px;font-weight:800;letter-spacing:0.1em;color:#fff;display:flex;align-items:center;gap:8px}
+.art-brand span{background:linear-gradient(135deg, #00d4ff, #b8ff57);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.art-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;color:#00d4ff;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);padding:3px 8px;border-radius:6px}
+.art-nav-links{display:flex;gap:24px;list-style:none}
+.art-nav-link{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.65)}
+.art-nav-btn{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.4);color:#00d4ff;font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:0.1em;padding:6px 16px;border-radius:100px}
+
+/* ─── 2. PILL BADGE ─── */
+#elem-badge{
+  top:140px;
+  left:50px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(0, 212, 255, 0.08);
+  border:1px solid rgba(0, 212, 255, 0.35);
+  box-shadow:0 0 20px rgba(0, 212, 255, 0.2);
+  padding:5px 16px;
+  border-radius:100px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px;
+  font-weight:700;
+  letter-spacing:0.22em;
+  color:#00d4ff;
+}
+.art-pulse{width:6px;height:6px;border-radius:50%;background:#b8ff57;box-shadow:0 0 10px #b8ff57}
+
+/* ─── 3. HERO HEADLINE ─── */
+#elem-headline{
+  top:190px;
+  left:50px;
+  max-width:540px;
+  font-size:42px;
+  font-weight:800;
+  line-height:1.20;
+  letter-spacing:-0.03em;
+  text-transform:uppercase;
+}
+.art-capsule{
+  display:inline-block;
+  background:rgba(0, 212, 255, 0.12);
+  border:1.5px solid rgba(0, 212, 255, 0.6);
+  padding:2px 14px;
+  border-radius:12px;
+  color:#00d4ff;
+}
+.art-lime{color:#b8ff57;text-shadow:0 0 20px rgba(184, 255, 87, 0.7)}
+
+/* ─── 4. DYNAMIC TICKER ─── */
+#elem-ticker{
+  top:380px;
+  left:50px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12.5px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.art-ticker-label{color:rgba(255,255,255,0.6);letter-spacing:0.08em}
+.art-ticker-val{color:#b8ff57;text-shadow:0 0 15px rgba(184, 255, 87, 0.4)}
+
+/* ─── 5. CTA BUTTON ─── */
+#elem-cta{
+  top:435px;
+  left:50px;
+}
+.art-btn-primary{
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  color:#020205;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:0.06em;
+  padding:14px 32px;
+  border-radius:100px;
+  box-shadow:0 0 35px rgba(0,212,255,0.5);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* ─── 6. 3D PIN VISUAL STAGE BOX ─── */
+#elem-3d-pin{
+  top:130px;
+  right:60px;
+  width:460px;
+  height:480px;
+  border:2px dashed rgba(0, 212, 255, 0.4);
+  background:radial-gradient(circle at center, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
+  border-radius:24px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.art-pin-visual{
+  font-size:80px;
+  filter:drop-shadow(0 0 30px #00d4ff);
+  animation:floatPin 3s ease-in-out infinite;
+}
+@keyframes floatPin{
+  0%,100%{transform:translateY(0px) rotate(0deg)}
+  50%{transform:translateY(-12px) rotate(3deg)}
+}
+.art-pin-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.18em;
+  color:#00d4ff;
+  margin-top:12px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RIGHT INSPECTOR CONTROL PANEL
+   ═══════════════════════════════════════════════════════════ */
+.inspector-panel{
+  width:320px;
+  background:#0d131f;
+  border-left:1px solid rgba(0, 212, 255, 0.25);
+  display:flex;
+  flex-direction:column;
+  padding:20px;
+  gap:20px;
+  overflow-y:auto;
+}
+
+.insp-section-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.2em;
+  color:#00d4ff;
+  text-transform:uppercase;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  padding-bottom:8px;
+}
+
+.prop-row{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.prop-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:rgba(255,255,255,0.6);
+  display:flex;
+  justify-content:space-between;
+}
+.prop-val{color:#b8ff57;font-weight:700}
+
+.slider-ctrl{
+  width:100%;
+  accent-color:#00d4ff;
+  cursor:pointer;
+}
+
+.drawing-tools-box{
+  display:flex;
+  gap:8px;
+}
+.btn-color-dot{
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  border:2px solid #fff;
+  cursor:pointer;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EXPORT MODAL
+   ═══════════════════════════════════════════════════════════ */
+.export-modal-backdrop{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  z-index:99999;
+  backdrop-filter:blur(10px);
+  align-items:center;
+  justify-content:center;
+}
+.export-modal-backdrop.show{display:flex}
+
+.export-modal{
+  width:600px;
+  background:#0d131f;
+  border:1px solid #00d4ff;
+  border-radius:16px;
+  padding:24px;
+  box-shadow:0 0 50px rgba(0,212,255,0.4);
+}
+.modal-title{font-size:16px;font-weight:800;margin-bottom:8px;color:#00d4ff}
+.modal-desc{font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:14px}
+.export-textarea{
+  width:100%;
+  height:220px;
+  background:#04060a;
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:8px;
+  color:#b8ff57;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;
+  padding:12px;
+  resize:none;
+  outline:none;
+}
+.modal-btn-row{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:16px;
+}
+.btn-modal-close{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.2);
+  color:#fff;
+  padding:8px 16px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.btn-modal-copy{
+  background:#00d4ff;
+  border:none;
+  color:#020205;
+  font-weight:800;
+  padding:8px 18px;
+  border-radius:8px;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- TOP STUDIO TOOLBAR -->
+<header class="studio-top-bar">
+  <div class="studio-brand">
+    <span>MARK BISHOP MEDIA</span>
+    <span class="studio-pill">LAYOUT CUSTOMIZER STUDIO</span>
+  </div>
+
+  <!-- DEVICE SWITCHER -->
+  <div class="tool-group">
+    <button class="btn-tool active" id="btn-dev-desktop" onclick="setStudioDevice('desktop')">
+      <span>💻 DESKTOP</span>
+    </button>
+    <button class="btn-tool" id="btn-dev-tablet" onclick="setStudioDevice('tablet')">
+      <span>📱 TABLET (iPad)</span>
+    </button>
+    <button class="btn-tool" id="btn-dev-mobile" onclick="setStudioDevice('mobile')">
+      <span>📱 MOBILE (iPhone)</span>
+    </button>
+  </div>
+
+  <!-- MODE SWITCHER: DRAG vs DRAW vs EDIT -->
+  <div class="tool-group">
+    <button class="btn-tool active" id="btn-mode-drag" onclick="setInteractionMode('drag')">
+      <span>🖱️ DRAG & MOVE</span>
+    </button>
+    <button class="btn-tool" id="btn-mode-draw" onclick="setInteractionMode('draw')">
+      <span>✏️ DRAW / ARROWS</span>
+    </button>
+    <button class="btn-tool" id="btn-mode-edit" onclick="setInteractionMode('edit')">
+      <span>📝 DIRECT TEXT EDIT</span>
+    </button>
+  </div>
+
+  <button class="btn-action-export" onclick="exportCustomLayout()">
+    <span>📋 EXPORT MY DESIGN SPECS</span>
+  </button>
+</header>
+
+<!-- WORKSPACE BODY -->
+<div class="studio-body">
+
+  <!-- CENTER STAGE -->
+  <main class="stage-viewport">
+    <div id="artboard" class="desktop-size">
+
+      <!-- DRAWING CANVAS OVERLAY -->
+      <canvas id="draw-canvas"></canvas>
+
+      <!-- 1. DRAGGABLE NAVBAR -->
+      <div class="drag-element" id="elem-nav" data-name="Navbar Header">
+        <span class="drag-handle">NAVBAR</span>
+        <div class="art-brand">
+          <div contenteditable="false">MARK BISHOP <span>MEDIA</span></div>
+          <div class="art-badge" contenteditable="false">LOCAL VISIBILITY</div>
+        </div>
+        <ul class="art-nav-links" id="art-nav-menu">
+          <li class="art-nav-link">What We Do</li>
+          <li class="art-nav-link">3D System</li>
+          <li class="art-nav-link">Results</li>
+        </ul>
+        <button class="art-nav-btn" contenteditable="false">⚡ FREE AUDIT</button>
+      </div>
+
+      <!-- 2. DRAGGABLE PILL BADGE -->
+      <div class="drag-element" id="elem-badge" data-name="Pill Badge">
+        <span class="drag-handle">PILL BADGE</span>
+        <span class="art-pulse"></span>
+        <span class="editable-txt" contenteditable="false">LOCAL VISIBILITY OPERATING SYSTEM</span>
+      </div>
+
+      <!-- 3. DRAGGABLE HEADLINE -->
+      <div class="drag-element" id="elem-headline" data-name="Main Headline">
+        <span class="drag-handle">HEADLINE</span>
+        <div class="editable-txt" contenteditable="false">
+          YOUR LOCAL CLIENTS<br>
+          <span class="art-capsule">ARE SEARCHING</span><br>
+          WE MAKE SURE THEY<br>
+          FIND <span class="art-lime">YOU FIRST.</span>
+        </div>
+      </div>
+
+      <!-- 4. DRAGGABLE TICKER -->
+      <div class="drag-element" id="elem-ticker" data-name="Dynamic Ticker">
+        <span class="drag-handle">TICKER LINE</span>
+        <span class="art-ticker-label" contenteditable="false">DOMINANCE ENGINE:</span>
+        <span class="art-ticker-val" contenteditable="false">9-Mile Local Geo-Grid Coverage</span>
+      </div>
+
+      <!-- 5. DRAGGABLE CTA BUTTON -->
+      <div class="drag-element" id="elem-cta" data-name="CTA Button">
+        <span class="drag-handle">CTA BUTTON</span>
+        <div class="art-btn-primary" contenteditable="false">
+          <span>⚡ EXPLORE WHAT WE DO</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+      <!-- 6. DRAGGABLE 3D PIN STAGE -->
+      <div class="drag-element" id="elem-3d-pin" data-name="3D Pin Stage">
+        <span class="drag-handle">3D PIN & STOREFRONT STAGE</span>
+        <div class="art-pin-visual">📍</div>
+        <div class="art-pin-label">3D GOOGLE PIN + ROTATING STARS + STOREFRONT</div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- RIGHT INSPECTOR PANEL -->
+  <aside class="inspector-panel">
+    <div class="insp-section-title">SELECTED ELEMENT</div>
+    
+    <div class="prop-row">
+      <div class="prop-label"><span>NAME:</span> <span class="prop-val" id="insp-name">Click an element</span></div>
+      <div class="prop-label"><span>POS X (Left):</span> <span class="prop-val" id="insp-pos-x">--</span></div>
+      <div class="prop-label"><span>POS Y (Top):</span> <span class="prop-val" id="insp-pos-y">--</span></div>
+    </div>
+
+    <div class="insp-section-title">QUICK RESIZE & SCALE</div>
+
+    <div class="prop-row">
+      <div class="prop-label"><span>FONT / OBJECT SIZE:</span> <span class="prop-val" id="insp-size-val">100%</span></div>
+      <input type="range" min="10" max="80" value="42" class="slider-ctrl" id="slider-size" oninput="adjustSelectedSize(this.value)">
+    </div>
+
+    <div class="prop-row">
+      <div class="prop-label"><span>WIDTH / MAX-WIDTH:</span> <span class="prop-val" id="insp-width-val">540px</span></div>
+      <input type="range" min="200" max="900" value="540" class="slider-ctrl" id="slider-width" oninput="adjustSelectedWidth(this.value)">
+    </div>
+
+    <div class="insp-section-title">DRAWING & PEN TOOLS</div>
+    
+    <div class="prop-row">
+      <div class="prop-label"><span>PEN COLOR:</span></div>
+      <div class="drawing-tools-box">
+        <div class="btn-color-dot" style="background:#00d4ff" onclick="setPenColor('#00d4ff')"></div>
+        <div class="btn-color-dot" style="background:#b8ff57" onclick="setPenColor('#b8ff57')"></div>
+        <div class="btn-color-dot" style="background:#ff3b30" onclick="setPenColor('#ff3b30')"></div>
+        <div class="btn-color-dot" style="background:#ffffff" onclick="setPenColor('#ffffff')"></div>
+      </div>
+    </div>
+
+    <button class="btn-tool" style="width:100%;justify-content:center;margin-top:10px" onclick="clearDrawingCanvas()">
+      <span>🧹 CLEAR ALL DRAWINGS</span>
+    </button>
+
+    <div class="insp-section-title">INSTRUCTIONS</div>
+    <p style="font-size:11.5px;line-height:1.5;color:rgba(255,255,255,0.6)">
+      1. <b>Drag & Move:</b> মাউস দিয়ে যেকোনো বক্স টেনে আপনার পছন্দের জায়গায় বসান।<br><br>
+      2. <b>Draw / Arrows:</b> মাউস দিয়ে স্ক্রিনের ওপর তীর এঁকে বা নোট লিখে দিন।<br><br>
+      3. <b>Export:</b> ডিজাইন শেষ হলে উপরের <b style="color:#00d4ff">EXPORT</b> বাটনে চাপ দিয়ে টেক্সট কপি করে চ্যাটে দিয়ে দিন!
+    </p>
+  </aside>
+
+</div>
+
+<!-- EXPORT MODAL -->
+<div class="export-modal-backdrop" id="export-modal">
+  <div class="export-modal">
+    <div class="modal-title">🎉 YOUR CUSTOM LAYOUT SPECIFICATIONS</div>
+    <div class="modal-desc">এই টেক্সটটুকু কপি করে চ্যাটে পেস্ট করে দিন। আমি হুবহু আপনার কাস্টম লেআউট কোড করে দেব!</div>
+    <textarea class="export-textarea" id="export-text" readonly></textarea>
+    <div class="modal-btn-row">
+      <button class="btn-modal-close" onclick="closeExportModal()">Close</button>
+      <button class="btn-modal-copy" onclick="copyExportText()">📋 COPY SPECS TO CLIPBOARD</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   1. DEVICE ARTBOARD SWITCHER
+   ═══════════════════════════════════════════════════════════════════ */
+let currentDevice = 'desktop';
+const artboard = document.getElementById('artboard');
+
+function setStudioDevice(dev) {
+  currentDevice = dev;
+  document.querySelectorAll('#btn-dev-desktop, #btn-dev-tablet, #btn-dev-mobile').forEach(b => b.classList.remove('active'));
+  document.getElementById(`btn-dev-${dev}`).classList.add('active');
+
+  artboard.className = `${dev}-size`;
+
+  // Auto-adjust default positions for each device
+  if (dev === 'mobile') {
+    document.getElementById('art-nav-menu').style.display = 'none';
+    setElementPos('elem-nav', 10, 10);
+    setElementPos('elem-3d-pin', 60, 20, 350, 280);
+    setElementPos('elem-badge', 360, 20);
+    setElementPos('elem-headline', 400, 15, 360);
+    document.getElementById('elem-headline').style.fontSize = '20px';
+    document.getElementById('elem-headline').style.textAlign = 'center';
+    setElementPos('elem-ticker', 540, 20);
+    setElementPos('elem-cta', 590, 20);
+  } else if (dev === 'tablet') {
+    document.getElementById('art-nav-menu').style.display = 'flex';
+    setElementPos('elem-nav', 16, 20);
+    setElementPos('elem-badge', 120, 24);
+    setElementPos('elem-headline', 170, 24, 380);
+    document.getElementById('elem-headline').style.fontSize = '28px';
+    document.getElementById('elem-headline').style.textAlign = 'left';
+    setElementPos('elem-ticker', 360, 24);
+    setElementPos('elem-cta', 410, 24);
+    setElementPos('elem-3d-pin', 120, 420, 380, 460);
+  } else {
+    document.getElementById('art-nav-menu').style.display = 'flex';
+    setElementPos('elem-nav', 20, 40);
+    setElementPos('elem-badge', 140, 50);
+    setElementPos('elem-headline', 190, 50, 540);
+    document.getElementById('elem-headline').style.fontSize = '42px';
+    document.getElementById('elem-headline').style.textAlign = 'left';
+    setElementPos('elem-ticker', 380, 50);
+    setElementPos('elem-cta', 435, 50);
+    setElementPos('elem-3d-pin', 130, 720, 460, 480);
+  }
+
+  resizeDrawingCanvas();
+}
+
+function setElementPos(id, top, left, width, height) {
+  const el = document.getElementById(id);
+  if (top !== undefined) el.style.top = `${top}px`;
+  if (left !== undefined) el.style.left = `${left}px`;
+  if (width !== undefined) el.style.width = `${width}px`;
+  if (height !== undefined) el.style.height = `${height}px`;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   2. INTERACTION MODES: DRAG vs DRAW vs EDIT
+   ═══════════════════════════════════════════════════════════════════ */
+let currentMode = 'drag';
+
+function setInteractionMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('#btn-mode-drag, #btn-mode-draw, #btn-mode-edit').forEach(b => b.classList.remove('active'));
+  document.getElementById(`btn-mode-${mode}`).classList.add('active');
+
+  const drawCanvas = document.getElementById('draw-canvas');
+  const editables = document.querySelectorAll('[contenteditable]');
+
+  if (mode === 'draw') {
+    drawCanvas.classList.add('drawing-active');
+    editables.forEach(e => e.setAttribute('contenteditable', 'false'));
+  } else if (mode === 'edit') {
+    drawCanvas.classList.remove('drawing-active');
+    editables.forEach(e => e.setAttribute('contenteditable', 'true'));
+  } else {
+    drawCanvas.classList.remove('drawing-active');
+    editables.forEach(e => e.setAttribute('contenteditable', 'false'));
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   3. DRAG & DROP ENGINE
+   ═══════════════════════════════════════════════════════════════════ */
+let selectedEl = null;
+let isDragging = false;
+let startMouseX = 0, startMouseY = 0;
+let startElemX = 0, startElemY = 0;
+
+document.querySelectorAll('.drag-element').forEach(el => {
+  el.addEventListener('mousedown', (e) => {
+    if (currentMode !== 'drag') return;
+    selectElement(el);
+
+    isDragging = true;
+    startMouseX = e.clientX;
+    startMouseY = e.clientY;
+    startElemX = el.offsetLeft;
+    startElemY = el.offsetTop;
+
+    e.preventDefault();
+  });
+});
+
+window.addEventListener('mousemove', (e) => {
+  if (!isDragging || !selectedEl || currentMode !== 'drag') return;
+
+  const dx = e.clientX - startMouseX;
+  const dy = e.clientY - startMouseY;
+
+  let newX = Math.max(0, Math.min(artboard.clientWidth - selectedEl.offsetWidth, startElemX + dx));
+  let newY = Math.max(0, Math.min(artboard.clientHeight - selectedEl.offsetHeight, startElemY + dy));
+
+  selectedEl.style.left = `${newX}px`;
+  selectedEl.style.top = `${newY}px`;
+
+  updateInspector(selectedEl);
+});
+
+window.addEventListener('mouseup', () => {
+  isDragging = false;
+});
+
+function selectElement(el) {
+  if (selectedEl) selectedEl.classList.remove('selected');
+  selectedEl = el;
+  selectedEl.classList.add('selected');
+  updateInspector(selectedEl);
+}
+
+function updateInspector(el) {
+  document.getElementById('insp-name').innerText = el.dataset.name || el.id;
+  document.getElementById('insp-pos-x').innerText = `${el.offsetLeft}px`;
+  document.getElementById('insp-pos-y').innerText = `${el.offsetTop}px`;
+  document.getElementById('slider-width').value = el.offsetWidth;
+  document.getElementById('insp-width-val').innerText = `${el.offsetWidth}px`;
+}
+
+function adjustSelectedWidth(val) {
+  if (!selectedEl) return;
+  selectedEl.style.width = `${val}px`;
+  document.getElementById('insp-width-val').innerText = `${val}px`;
+}
+
+function adjustSelectedSize(val) {
+  if (!selectedEl) return;
+  selectedEl.style.fontSize = `${val}px`;
+  document.getElementById('insp-size-val').innerText = `${val}px`;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   4. DRAWING CANVAS ENGINE
+   ═══════════════════════════════════════════════════════════════════ */
+const drawCanvas = document.getElementById('draw-canvas');
+const ctx = drawCanvas.getContext('2d');
+let isDrawing = false;
+let penColor = '#00d4ff';
+
+function resizeDrawingCanvas() {
+  drawCanvas.width = artboard.clientWidth;
+  drawCanvas.height = artboard.clientHeight;
+}
+window.addEventListener('resize', resizeDrawingCanvas);
+setTimeout(resizeDrawingCanvas, 100);
+
+function setPenColor(col) {
+  penColor = col;
+  setInteractionMode('draw');
+}
+
+drawCanvas.addEventListener('mousedown', (e) => {
+  if (currentMode !== 'draw') return;
+  isDrawing = true;
+  const rect = drawCanvas.getBoundingClientRect();
+  ctx.beginPath();
+  ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+  ctx.strokeStyle = penColor;
+  ctx.lineWidth = 3.5;
+  ctx.lineCap = 'round';
+  ctx.shadowColor = penColor;
+  ctx.shadowBlur = 10;
+});
+
+drawCanvas.addEventListener('mousemove', (e) => {
+  if (!isDrawing || currentMode !== 'draw') return;
+  const rect = drawCanvas.getBoundingClientRect();
+  ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+  ctx.stroke();
+});
+
+window.addEventListener('mouseup', () => { isDrawing = false; });
+
+function clearDrawingCanvas() {
+  ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   5. EXPORT CUSTOM LAYOUT SPECS
+   ═══════════════════════════════════════════════════════════════════ */
+function exportCustomLayout() {
+  const elements = ['elem-nav', 'elem-badge', 'elem-headline', 'elem-ticker', 'elem-cta', 'elem-3d-pin'];
+  const specs = {
+    activeDevice: currentDevice,
+    timestamp: new Date().toLocaleTimeString(),
+    positions: {}
+  };
+
+  elements.forEach(id => {
+    const el = document.getElementById(id);
+    specs.positions[id] = {
+      name: el.dataset.name,
+      top: el.style.top || `${el.offsetTop}px`,
+      left: el.style.left || `${el.offsetLeft}px`,
+      width: el.style.width || `${el.offsetWidth}px`,
+      fontSize: window.getComputedStyle(el).fontSize,
+      textAlign: window.getComputedStyle(el).textAlign
+    };
+  });
+
+  const formattedOutput = `/* ═══ MARK BISHOP MEDIA: USER CUSTOMIZED LAYOUT ═══ */
+DEVICE: ${specs.activeDevice.toUpperCase()}
+
+1. NAVBAR:
+   - Position: Top ${specs.positions['elem-nav'].top}, Left ${specs.positions['elem-nav'].left}
+
+2. PILL BADGE:
+   - Position: Top ${specs.positions['elem-badge'].top}, Left ${specs.positions['elem-badge'].left}
+
+3. MAIN HEADLINE:
+   - Position: Top ${specs.positions['elem-headline'].top}, Left ${specs.positions['elem-headline'].left}
+   - Font Size: ${specs.positions['elem-headline'].fontSize}
+   - Max Width: ${specs.positions['elem-headline'].width}
+   - Text Align: ${specs.positions['elem-headline'].textAlign}
+
+4. DYNAMIC TICKER:
+   - Position: Top ${specs.positions['elem-ticker'].top}, Left ${specs.positions['elem-ticker'].left}
+
+5. CTA BUTTON:
+   - Position: Top ${specs.positions['elem-cta'].top}, Left ${specs.positions['elem-cta'].left}
+
+6. 3D PIN & STOREFRONT STAGE:
+   - Position: Top ${specs.positions['elem-3d-pin'].top}, Left ${specs.positions['elem-3d-pin'].left}
+   - Stage Box Size: ${specs.positions['elem-3d-pin'].width}
+`;
+
+  document.getElementById('export-text').value = formattedOutput;
+  document.getElementById('export-modal').classList.add('show');
+}
+
+function closeExportModal() {
+  document.getElementById('export-modal').classList.remove('show');
+}
+
+function copyExportText() {
+  const txt = document.getElementById('export-text');
+  txt.select();
+  document.execCommand('copy');
+  alert('🎉 Layout specs copied to clipboard! Paste it into our Antigravity chat!');
+}
+</script>
+</body>
+</html>
