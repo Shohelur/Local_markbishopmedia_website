@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Mark Bishop Media · Ultra Visual Mockup Studio (Touch & Drag Enabled)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- html2canvas for 1-Click HD PNG Export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  background:#06080e;
+  color:#fff;
+  font-family:'Space Grotesk',sans-serif;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  user-select:none;
+  touch-action:none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TOP CONTROL STUDIO BAR (TOUCH OPTIMIZED)
+   ═══════════════════════════════════════════════════════════ */
+.studio-header{
+  min-height:64px;
+  background:#0c111c;
+  border-bottom:1px solid rgba(0, 212, 255, 0.25);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  z-index:10000;
+  box-shadow:0 4px 25px rgba(0,0,0,0.8);
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.brand-badge-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.brand-title{
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:0.08em;
+}
+.brand-title span{
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.status-pill{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  font-weight:700;
+  color:#b8ff57;
+  background:rgba(184, 255, 87, 0.12);
+  border:1px solid rgba(184, 255, 87, 0.35);
+  padding:3px 10px;
+  border-radius:100px;
+}
+
+.studio-toolbar{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(0,0,0,0.5);
+  padding:5px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.btn-ctrl{
+  background:transparent;
+  border:1px solid transparent;
+  color:rgba(255,255,255,0.75);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  touch-action:manipulation;
+  transition:all 0.2s;
+}
+.btn-ctrl:hover{color:#fff;background:rgba(255,255,255,0.08)}
+.btn-ctrl.active{
+  background:rgba(0, 212, 255, 0.2);
+  border-color:rgba(0, 212, 255, 0.6);
+  color:#00d4ff;
+  box-shadow:0 0 14px rgba(0, 212, 255, 0.35);
+}
+
+.action-btn-group{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.btn-png-download{
+  background:linear-gradient(135deg, #ff9500, #ff2d55);
+  color:#fff;
+  border:none;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:12px;
+  font-weight:800;
+  padding:9px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(255, 45, 85, 0.4);
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.btn-png-download:active{transform:scale(0.96)}
+
+.btn-export-specs{
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  color:#020205;
+  border:none;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:12px;
+  font-weight:800;
+  padding:9px 18px;
+  border-radius:8px;
+  cursor:pointer;
+  box-shadow:0 0 25px rgba(0, 212, 255, 0.45);
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.btn-export-specs:active{transform:scale(0.96)}
+
+/* ═══════════════════════════════════════════════════════════
+   PRESET QUICK-SWITCH BAR
+   ═══════════════════════════════════════════════════════════ */
+.preset-bar{
+  background:#090d16;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:8px 20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:12px;
+  overflow-x:auto;
+}
+.preset-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em;white-space:nowrap}
+.btn-preset{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.12);
+  color:#fff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  padding:5px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:all 0.2s;
+}
+.btn-preset:hover{background:rgba(0, 212, 255, 0.15);border-color:#00d4ff;color:#00d4ff}
+
+/* ═══════════════════════════════════════════════════════════
+   STUDIO MAIN WORKSPACE
+   ═══════════════════════════════════════════════════════════ */
+.studio-main{
+  flex:1;
+  display:flex;
+  position:relative;
+  overflow:hidden;
+}
+
+.stage-scroll-container{
+  flex:1;
+  background:#030408;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:auto;
+  padding:30px;
+  background-image:radial-gradient(rgba(0, 212, 255, 0.09) 1.2px, transparent 1.2px);
+  background-size:26px 26px;
+}
+
+/* ARTBOARD SIMULATOR */
+#mockup-artboard{
+  background:#020205;
+  position:relative;
+  box-shadow:0 30px 100px rgba(0,0,0,0.98), 0 0 45px rgba(0, 212, 255, 0.2);
+  border:1px solid rgba(0, 212, 255, 0.35);
+  transition:width 0.35s cubic-bezier(0.4, 0, 0.2, 1), height 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.35s ease;
+  overflow:hidden;
+  flex-shrink:0;
+}
+
+#mockup-artboard.desktop{width:1280px;height:740px;border-radius:14px}
+#mockup-artboard.tablet{width:820px;height:880px;border-radius:32px;border-width:12px;border-color:#182133}
+#mockup-artboard.mobile{width:393px;height:840px;border-radius:48px;border-width:12px;border-color:#161f30}
+
+/* TOUCH DRAWING CANVAS */
+#touch-draw-canvas{
+  position:absolute;
+  inset:0;
+  z-index:9000;
+  pointer-events:none;
+}
+#touch-draw-canvas.pen-active{pointer-events:all;cursor:crosshair}
+
+/* ═══════════════════════════════════════════════════════════
+   DRAGGABLE & TOUCHABLE UI COMPONENTS
+   ═══════════════════════════════════════════════════════════ */
+.touch-element{
+  position:absolute;
+  cursor:move;
+  border:1.5px dashed transparent;
+  padding:10px 14px;
+  border-radius:12px;
+  touch-action:none;
+  user-select:none;
+  z-index:100;
+  transition:border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+.touch-element:hover{
+  border-color:rgba(0, 212, 255, 0.6);
+  background:rgba(0, 212, 255, 0.05);
+}
+.touch-element.active-selected{
+  border-color:#b8ff57 !important;
+  background:rgba(184, 255, 87, 0.1) !important;
+  box-shadow:0 0 25px rgba(184, 255, 87, 0.35);
+}
+
+.element-tag{
+  display:none;
+  position:absolute;
+  top:-20px;
+  left:0;
+  background:#00d4ff;
+  color:#020205;
+  font-family:'JetBrains Mono',monospace;
+  font-size:9.5px;
+  font-weight:800;
+  padding:2px 8px;
+  border-radius:4px;
+  pointer-events:none;
+  box-shadow:0 2px 8px rgba(0,0,0,0.5);
+}
+.touch-element:hover .element-tag,
+.touch-element.active-selected .element-tag{display:block}
+
+/* EDITABLE TEXT BOXES */
+[contenteditable="true"]{
+  outline:none;
+  cursor:text;
+  user-select:text;
+}
+[contenteditable="true"]:focus{
+  background:rgba(0, 212, 255, 0.2);
+  border-radius:6px;
+  box-shadow:0 0 14px rgba(0, 212, 255, 0.5);
+}
+
+/* 1. NAVBAR */
+#touch-nav{
+  top:22px;
+  left:35px;
+  right:35px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand-txt{font-size:15px;font-weight:800;letter-spacing:0.1em;color:#fff;display:flex;align-items:center;gap:8px}
+.brand-txt span{background:linear-gradient(135deg, #00d4ff, #b8ff57);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.brand-sub-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;color:#00d4ff;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);padding:3px 8px;border-radius:6px}
+.nav-menu-list{display:flex;gap:24px;list-style:none}
+.nav-menu-item{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.7)}
+.nav-btn-audit{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.4);color:#00d4ff;font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:0.1em;padding:6px 16px;border-radius:100px}
+
+/* 2. PILL BADGE */
+#touch-badge{
+  top:140px;
+  left:50px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(0, 212, 255, 0.08);
+  border:1px solid rgba(0, 212, 255, 0.35);
+  box-shadow:0 0 20px rgba(0, 212, 255, 0.2);
+  padding:6px 18px;
+  border-radius:100px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.22em;
+  color:#00d4ff;
+}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:#b8ff57;box-shadow:0 0 10px #b8ff57}
+
+/* 3. HEADLINE */
+#touch-headline{
+  top:195px;
+  left:50px;
+  max-width:560px;
+  font-size:44px;
+  font-weight:800;
+  line-height:1.20;
+  letter-spacing:-0.03em;
+  text-transform:uppercase;
+}
+.capsule-box{
+  display:inline-block;
+  background:rgba(0, 212, 255, 0.12);
+  border:1.5px solid rgba(0, 212, 255, 0.6);
+  padding:2px 14px;
+  border-radius:12px;
+  color:#00d4ff;
+}
+.lime-highlight{color:#b8ff57;text-shadow:0 0 20px rgba(184, 255, 87, 0.7)}
+
+/* 4. TICKER */
+#touch-ticker{
+  top:400px;
+  left:50px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.ticker-lbl{color:rgba(255,255,255,0.6);letter-spacing:0.08em}
+.ticker-val-glow{color:#b8ff57;text-shadow:0 0 15px rgba(184, 255, 87, 0.4)}
+
+/* 5. CTA BUTTON */
+#touch-cta{
+  top:460px;
+  left:50px;
+}
+.cta-button-visual{
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  color:#020205;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:13.5px;
+  font-weight:800;
+  letter-spacing:0.06em;
+  padding:15px 34px;
+  border-radius:100px;
+  box-shadow:0 0 35px rgba(0,212,255,0.5);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* 6. 3D PIN VISUAL CONTAINER */
+#touch-3d-pin{
+  top:120px;
+  right:50px;
+  width:480px;
+  height:500px;
+  border:2px dashed rgba(0, 212, 255, 0.45);
+  background:radial-gradient(circle at center, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+  border-radius:28px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.pin-emoji-glow{
+  font-size:90px;
+  filter:drop-shadow(0 0 35px #00d4ff);
+  animation:floatPinAnim 3s ease-in-out infinite;
+}
+@keyframes floatPinAnim{
+  0%,100%{transform:translateY(0px) rotate(0deg)}
+  50%{transform:translateY(-14px) rotate(3deg)}
+}
+.pin-tag-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;
+  font-weight:700;
+  letter-spacing:0.2em;
+  color:#00d4ff;
+  margin-top:14px;
+}
+.pin-tag-sub{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  color:#b8ff57;
+  margin-top:4px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SIDEBAR TOUCH INSPECTOR & SLIDERS
+   ═══════════════════════════════════════════════════════════ */
+.studio-sidebar{
+  width:330px;
+  background:#0c111c;
+  border-left:1px solid rgba(0, 212, 255, 0.25);
+  display:flex;
+  flex-direction:column;
+  padding:20px;
+  gap:18px;
+  overflow-y:auto;
+  touch-action:pan-y;
+}
+
+.panel-header-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.2em;
+  color:#00d4ff;
+  text-transform:uppercase;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  padding-bottom:6px;
+}
+
+.control-field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.control-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:rgba(255,255,255,0.65);
+  display:flex;
+  justify-content:space-between;
+}
+.control-val{color:#b8ff57;font-weight:700}
+
+.range-slider{
+  width:100%;
+  height:8px;
+  accent-color:#00d4ff;
+  cursor:pointer;
+}
+
+.pen-color-row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+.color-circle{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  border:2px solid #fff;
+  cursor:pointer;
+  transition:transform 0.15s;
+}
+.color-circle:active{transform:scale(1.2)}
+
+.btn-secondary-tool{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.15);
+  color:#fff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+.btn-secondary-tool:hover{background:rgba(255,255,255,0.1)}
+
+/* ═══════════════════════════════════════════════════════════
+   EXPORT SPECS POPUP MODAL
+   ═══════════════════════════════════════════════════════════ */
+.specs-modal-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  z-index:99999;
+  backdrop-filter:blur(10px);
+  align-items:center;
+  justify-content:center;
+}
+.specs-modal-overlay.open{display:flex}
+
+.specs-modal-card{
+  width:620px;
+  background:#0c111c;
+  border:1.5px solid #00d4ff;
+  border-radius:18px;
+  padding:24px;
+  box-shadow:0 0 60px rgba(0,212,255,0.45);
+}
+.specs-title{font-size:17px;font-weight:800;color:#00d4ff;margin-bottom:6px}
+.specs-subtitle{font-size:12px;color:rgba(255,255,255,0.65);margin-bottom:14px}
+.specs-textarea{
+  width:100%;
+  height:240px;
+  background:#04060a;
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:10px;
+  color:#b8ff57;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  padding:14px;
+  resize:none;
+  outline:none;
+}
+.modal-actions-bar{
+  display:flex;
+  justify-content:flex-end;
+  gap:12px;
+  margin-top:16px;
+}
+.btn-card-close{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.25);
+  color:#fff;
+  padding:8px 18px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.btn-card-copy{
+  background:#00d4ff;
+  border:none;
+  color:#020205;
+  font-weight:800;
+  padding:8px 22px;
+  border-radius:8px;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- TOP STUDIO BAR -->
+<header class="studio-header">
+  <div class="brand-badge-box">
+    <div class="brand-title">MARK BISHOP <span>MEDIA</span></div>
+    <div class="status-pill">TOUCH MOCKUP STUDIO</div>
+  </div>
+
+  <!-- DEVICE SELECTOR -->
+  <div class="studio-toolbar">
+    <button class="btn-ctrl active" id="btn-device-desktop" onclick="switchStudioDevice('desktop')">
+      <span>💻 DESKTOP</span>
+    </button>
+    <button class="btn-ctrl" id="btn-device-tablet" onclick="switchStudioDevice('tablet')">
+      <span>📱 TABLET (iPad)</span>
+    </button>
+    <button class="btn-ctrl" id="btn-device-mobile" onclick="switchStudioDevice('mobile')">
+      <span>📱 MOBILE (iPhone)</span>
+    </button>
+  </div>
+
+  <!-- INTERACTION MODES -->
+  <div class="studio-toolbar">
+    <button class="btn-ctrl active" id="btn-tool-drag" onclick="setStudioTool('drag')">
+      <span>👆 TOUCH / DRAG</span>
+    </button>
+    <button class="btn-ctrl" id="btn-tool-draw" onclick="setStudioTool('draw')">
+      <span>✏️ PEN / ARROWS</span>
+    </button>
+    <button class="btn-ctrl" id="btn-tool-text" onclick="setStudioTool('text')">
+      <span>📝 EDIT TEXT</span>
+    </button>
+  </div>
+
+  <!-- EXPORT & DOWNLOAD BUTTONS -->
+  <div class="action-btn-group">
+    <button class="btn-png-download" onclick="captureAndDownloadScreenshot()">
+      <span>📸 DOWNLOAD PNG</span>
+    </button>
+    <button class="btn-export-specs" onclick="generateAndOpenSpecs()">
+      <span>📋 COPY SPECS</span>
+    </button>
+  </div>
+</header>
+
+<!-- QUICK PRESETS BAR -->
+<div class="preset-bar">
+  <span class="preset-label">⚡ 1-Click Layout Presets:</span>
+  <button class="btn-preset" onclick="applyLayoutPreset('golden')">1. Golden Ratio (Classic)</button>
+  <button class="btn-preset" onclick="applyLayoutPreset('spotlight')">2. 3D Spotlight (Center Top)</button>
+  <button class="btn-preset" onclick="applyLayoutPreset('split')">3. High-Ticket Split (Left 3D)</button>
+  <button class="btn-preset" onclick="applyLayoutPreset('appstack')">4. Mobile App Stack</button>
+  <button class="btn-preset" style="color:#ff3b30;border-color:rgba(255,59,48,0.3)" onclick="resetStudioLayout()">🔄 Reset Default</button>
+</div>
+
+<!-- STUDIO MAIN WORKSPACE -->
+<div class="studio-main">
+
+  <!-- SCROLLABLE CANVAS STAGE -->
+  <main class="stage-scroll-container">
+    <div id="mockup-artboard" class="desktop">
+
+      <!-- DRAWING CANVAS -->
+      <canvas id="touch-draw-canvas"></canvas>
+
+      <!-- 1. TOUCH NAVBAR -->
+      <div class="touch-element" id="touch-nav" data-name="Navbar Header">
+        <span class="element-tag">NAVBAR</span>
+        <div class="brand-txt">
+          <div contenteditable="false">MARK BISHOP <span>MEDIA</span></div>
+          <div class="brand-sub-badge" contenteditable="false">LOCAL VISIBILITY</div>
+        </div>
+        <ul class="nav-menu-list" id="nav-menu-container">
+          <li class="nav-menu-item">What We Do</li>
+          <li class="nav-menu-item">3D System</li>
+          <li class="nav-menu-item">Results</li>
+        </ul>
+        <button class="nav-btn-audit" contenteditable="false">⚡ FREE AUDIT</button>
+      </div>
+
+      <!-- 2. TOUCH PILL BADGE -->
+      <div class="touch-element" id="touch-badge" data-name="Pill Badge">
+        <span class="element-tag">PILL BADGE</span>
+        <span class="pulse-dot"></span>
+        <span class="editable-content" contenteditable="false">LOCAL VISIBILITY OPERATING SYSTEM</span>
+      </div>
+
+      <!-- 3. TOUCH MAIN HEADLINE -->
+      <div class="touch-element" id="touch-headline" data-name="Main Headline">
+        <span class="element-tag">MAIN HEADLINE</span>
+        <div class="editable-content" contenteditable="false">
+          YOUR LOCAL CLIENTS<br>
+          <span class="capsule-box">ARE SEARCHING</span><br>
+          WE MAKE SURE THEY<br>
+          FIND <span class="lime-highlight">YOU FIRST.</span>
+        </div>
+      </div>
+
+      <!-- 4. TOUCH DYNAMIC TICKER -->
+      <div class="touch-element" id="touch-ticker" data-name="Dynamic Ticker">
+        <span class="element-tag">DYNAMIC TICKER</span>
+        <span class="ticker-lbl" contenteditable="false">DOMINANCE TARGET:</span>
+        <span class="ticker-val-glow" contenteditable="false">#1 Google Maps 3-Pack Positioning</span>
+      </div>
+
+      <!-- 5. TOUCH CTA BUTTON -->
+      <div class="touch-element" id="touch-cta" data-name="CTA Button">
+        <span class="element-tag">CTA BUTTON</span>
+        <div class="cta-button-visual" contenteditable="false">
+          <span>⚡ EXPLORE WHAT WE DO</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+      <!-- 6. TOUCH 3D PIN CONTAINER -->
+      <div class="touch-element" id="touch-3d-pin" data-name="3D Pin & Storefront">
+        <span class="element-tag">3D PIN & STOREFRONT</span>
+        <div class="pin-emoji-glow">📍</div>
+        <div class="pin-tag-title">3D GOOGLE MAP PIN + STOREFRONT</div>
+        <div class="pin-tag-sub">5 ORBITING STARS + REAL-TIME CONVERSION BADGES</div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- SIDEBAR INSPECTOR -->
+  <aside class="studio-sidebar">
+    <div class="panel-header-title">SELECTED ELEMENT</div>
+    
+    <div class="control-field">
+      <div class="control-label"><span>ELEMENT:</span> <span class="control-val" id="disp-elem-name">Tap or Click Any Item</span></div>
+      <div class="control-label"><span>TOP:</span> <span class="control-val" id="disp-pos-top">--</span></div>
+      <div class="control-label"><span>LEFT:</span> <span class="control-val" id="disp-pos-left">--</span></div>
+    </div>
+
+    <div class="panel-header-title">RESIZE & TOUCH SLIDERS</div>
+
+    <div class="control-field">
+      <div class="control-label"><span>FONT / EMOJI SIZE:</span> <span class="control-val" id="disp-font-size">44px</span></div>
+      <input type="range" min="12" max="80" value="44" class="range-slider" id="slider-font-size" oninput="changeSelectedFontSize(this.value)">
+    </div>
+
+    <div class="control-field">
+      <div class="control-label"><span>WIDTH / STAGE BOX:</span> <span class="control-val" id="disp-elem-width">560px</span></div>
+      <input type="range" min="160" max="950" value="560" class="range-slider" id="slider-elem-width" oninput="changeSelectedWidth(this.value)">
+    </div>
+
+    <div class="panel-header-title">TOUCH PEN & DRAWING</div>
+    
+    <div class="control-field">
+      <div class="control-label"><span>PEN COLOR:</span></div>
+      <div class="pen-color-row">
+        <div class="color-circle" style="background:#00d4ff" onclick="pickPenColor('#00d4ff')"></div>
+        <div class="color-circle" style="background:#b8ff57" onclick="pickPenColor('#b8ff57')"></div>
+        <div class="color-circle" style="background:#ff3b30" onclick="pickPenColor('#ff3b30')"></div>
+        <div class="color-circle" style="background:#ffcc00" onclick="pickPenColor('#ffcc00')"></div>
+        <div class="color-circle" style="background:#ffffff" onclick="pickPenColor('#ffffff')"></div>
+      </div>
+    </div>
+
+    <button class="btn-secondary-tool" onclick="wipeDrawingCanvas()">
+      <span>🧹 ERASE ALL DRAWINGS</span>
+    </button>
+
+    <div class="panel-header-title">TOUCH INSTRUCTIONS</div>
+    <p style="font-size:12px;line-height:1.55;color:rgba(255,255,255,0.65)">
+      👉 <b>Touch Drag:</b> আপনার আঙুল বা মাউস দিয়ে যেকোনো বক্স টেনে বসান।<br><br>
+      👉 <b>Pen Mode:</b> স্ক্রিনে সরাসরি হাত দিয়ে তীর চিহ্ন এঁকে বুঝিয়ে দিন।<br><br>
+      👉 <b>PNG Download:</b> কাজ শেষ হলে উপরে <b style="color:#ff2d55">DOWNLOAD PNG</b> বাটনে চাপ দিলেই পুরো মকআপের ছবি ডাউনলোড হয়ে যাবে!
+    </p>
+  </aside>
+
+</div>
+
+<!-- SPECS MODAL -->
+<div class="specs-modal-overlay" id="specs-modal-box">
+  <div class="specs-modal-card">
+    <div class="specs-title">🎉 YOUR CUSTOM LAYOUT BLUEPRINT</div>
+    <div class="specs-subtitle">এই টেক্সটটুকু কপি করে চ্যাটে দিয়ে দিন। আমি হুবহু কোড করে দেব!</div>
+    <textarea class="specs-textarea" id="specs-export-data" readonly></textarea>
+    <div class="modal-actions-bar">
+      <button class="btn-card-close" onclick="closeSpecsModal()">Close</button>
+      <button class="btn-card-copy" onclick="copySpecsData()">📋 COPY BLUEPRINT</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   1. DEVICE SWITCHER ENGINE
+   ═══════════════════════════════════════════════════════════════════ */
+let currentDeviceType = 'desktop';
+const artboardBox = document.getElementById('mockup-artboard');
+
+function switchStudioDevice(dev) {
+  currentDeviceType = dev;
+  document.querySelectorAll('#btn-device-desktop, #btn-device-tablet, #btn-device-mobile').forEach(b => b.classList.remove('active'));
+  document.getElementById(`btn-device-${dev}`).classList.add('active');
+
+  artboardBox.className = dev;
+
+  if (dev === 'mobile') {
+    document.getElementById('nav-menu-container').style.display = 'none';
+    applyLayoutPreset('appstack');
+  } else if (dev === 'tablet') {
+    document.getElementById('nav-menu-container').style.display = 'flex';
+    setElementCoordinates('touch-nav', 16, 20);
+    setElementCoordinates('touch-badge', 120, 24);
+    setElementCoordinates('touch-headline', 170, 24, 380);
+    document.getElementById('touch-headline').style.fontSize = '28px';
+    document.getElementById('touch-headline').style.textAlign = 'left';
+    setElementCoordinates('touch-ticker', 360, 24);
+    setElementCoordinates('touch-cta', 415, 24);
+    setElementCoordinates('touch-3d-pin', 120, 420, 380, 460);
+  } else {
+    document.getElementById('nav-menu-container').style.display = 'flex';
+    applyLayoutPreset('golden');
+  }
+
+  resizeTouchCanvas();
+  saveLayoutToLocalStorage();
+}
+
+function setElementCoordinates(id, top, left, width, height) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (top !== undefined) el.style.top = `${top}px`;
+  if (left !== undefined) el.style.left = `${left}px`;
+  if (width !== undefined) el.style.width = `${width}px`;
+  if (height !== undefined) el.style.height = `${height}px`;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   2. 1-CLICK PRESETS
+   ═══════════════════════════════════════════════════════════════════ */
+function applyLayoutPreset(type) {
+  if (type === 'golden') {
+    setElementCoordinates('touch-nav', 20, 40);
+    setElementCoordinates('touch-badge', 140, 50);
+    setElementCoordinates('touch-headline', 195, 50, 560);
+    document.getElementById('touch-headline').style.fontSize = '44px';
+    document.getElementById('touch-headline').style.textAlign = 'left';
+    setElementCoordinates('touch-ticker', 400, 50);
+    setElementCoordinates('touch-cta', 460, 50);
+    setElementCoordinates('touch-3d-pin', 120, 720, 480, 500);
+  } else if (type === 'spotlight') {
+    setElementCoordinates('touch-nav', 20, 40);
+    setElementCoordinates('touch-3d-pin', 90, 440, 400, 320);
+    setElementCoordinates('touch-badge', 430, 490);
+    setElementCoordinates('touch-headline', 480, 240, 800);
+    document.getElementById('touch-headline').style.fontSize = '36px';
+    document.getElementById('touch-headline').style.textAlign = 'center';
+    setElementCoordinates('touch-ticker', 610, 450);
+    setElementCoordinates('touch-cta', 655, 500);
+  } else if (type === 'split') {
+    setElementCoordinates('touch-nav', 20, 40);
+    setElementCoordinates('touch-3d-pin', 120, 50, 480, 500);
+    setElementCoordinates('touch-badge', 140, 600);
+    setElementCoordinates('touch-headline', 195, 600, 580);
+    document.getElementById('touch-headline').style.fontSize = '42px';
+    document.getElementById('touch-headline').style.textAlign = 'left';
+    setElementCoordinates('touch-ticker', 400, 600);
+    setElementCoordinates('touch-cta', 460, 600);
+  } else if (type === 'appstack') {
+    setElementCoordinates('touch-nav', 10, 10);
+    setElementCoordinates('touch-3d-pin', 55, 20, 350, 270);
+    setElementCoordinates('touch-badge', 340, 20);
+    setElementCoordinates('touch-headline', 380, 15, 360);
+    document.getElementById('touch-headline').style.fontSize = '20px';
+    document.getElementById('touch-headline').style.textAlign = 'center';
+    setElementCoordinates('touch-ticker', 525, 20);
+    setElementCoordinates('touch-cta', 575, 20);
+  }
+  saveLayoutToLocalStorage();
+}
+
+function resetStudioLayout() {
+  localStorage.removeItem('mbm_custom_studio_layout');
+  switchStudioDevice('desktop');
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   3. UNIVERSAL TOUCH & MOUSE DRAG ENGINE (POINTER EVENTS)
+   ═══════════════════════════════════════════════════════════════════ */
+let activeSelectedElem = null;
+let isPointerDragging = false;
+let startPointerX = 0, startPointerY = 0;
+let startElemLeft = 0, startElemTop = 0;
+let currentToolMode = 'drag';
+
+function setStudioTool(tool) {
+  currentToolMode = tool;
+  document.querySelectorAll('#btn-tool-drag, #btn-tool-draw, #btn-tool-text').forEach(b => b.classList.remove('active'));
+  document.getElementById(`btn-tool-${tool}`).classList.add('active');
+
+  const drawCanvas = document.getElementById('touch-draw-canvas');
+  const editables = document.querySelectorAll('[contenteditable]');
+
+  if (tool === 'draw') {
+    drawCanvas.classList.add('pen-active');
+    editables.forEach(e => e.setAttribute('contenteditable', 'false'));
+  } else if (tool === 'text') {
+    drawCanvas.classList.remove('pen-active');
+    editables.forEach(e => e.setAttribute('contenteditable', 'true'));
+  } else {
+    drawCanvas.classList.remove('pen-active');
+    editables.forEach(e => e.setAttribute('contenteditable', 'false'));
+  }
+}
+
+document.querySelectorAll('.touch-element').forEach(el => {
+  // Universal Pointer Support for Finger Touch & Mouse
+  el.addEventListener('pointerdown', (e) => {
+    if (currentToolMode !== 'drag') return;
+    selectTargetElement(el);
+
+    isPointerDragging = true;
+    startPointerX = e.clientX;
+    startPointerY = e.clientY;
+    startElemLeft = el.offsetLeft;
+    startElemTop = el.offsetTop;
+
+    el.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+
+  el.addEventListener('pointermove', (e) => {
+    if (!isPointerDragging || activeSelectedElem !== el || currentToolMode !== 'drag') return;
+
+    const dx = e.clientX - startPointerX;
+    const dy = e.clientY - startPointerY;
+
+    let nextLeft = Math.max(0, Math.min(artboardBox.clientWidth - el.offsetWidth, startElemLeft + dx));
+    let nextTop = Math.max(0, Math.min(artboardBox.clientHeight - el.offsetHeight, startElemTop + dy));
+
+    // Magnetic Snap (every 10px)
+    nextLeft = Math.round(nextLeft / 10) * 10;
+    nextTop = Math.round(nextTop / 10) * 10;
+
+    el.style.left = `${nextLeft}px`;
+    el.style.top = `${nextTop}px`;
+
+    syncInspector(el);
+  });
+
+  el.addEventListener('pointerup', (e) => {
+    isPointerDragging = false;
+    try { el.releasePointerCapture(e.pointerId); } catch(err){}
+    saveLayoutToLocalStorage();
+  });
+});
+
+function selectTargetElement(el) {
+  if (activeSelectedElem) activeSelectedElem.classList.remove('active-selected');
+  activeSelectedElem = el;
+  activeSelectedElem.classList.add('active-selected');
+  syncInspector(el);
+}
+
+function syncInspector(el) {
+  document.getElementById('disp-elem-name').innerText = el.dataset.name || el.id;
+  document.getElementById('disp-pos-top').innerText = `${el.offsetTop}px`;
+  document.getElementById('disp-pos-left').innerText = `${el.offsetLeft}px`;
+  document.getElementById('slider-elem-width').value = el.offsetWidth;
+  document.getElementById('disp-elem-width').innerText = `${el.offsetWidth}px`;
+}
+
+function changeSelectedWidth(w) {
+  if (!activeSelectedElem) return;
+  activeSelectedElem.style.width = `${w}px`;
+  document.getElementById('disp-elem-width').innerText = `${w}px`;
+  saveLayoutToLocalStorage();
+}
+
+function changeSelectedFontSize(sz) {
+  if (!activeSelectedElem) return;
+  activeSelectedElem.style.fontSize = `${sz}px`;
+  document.getElementById('disp-font-size').innerText = `${sz}px`;
+  saveLayoutToLocalStorage();
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   4. TOUCH DRAWING ENGINE
+   ═══════════════════════════════════════════════════════════════════ */
+const drawCanvas = document.getElementById('touch-draw-canvas');
+const ctx = drawCanvas.getContext('2d');
+let isDrawingStroke = false;
+let activePenColor = '#00d4ff';
+
+function resizeTouchCanvas() {
+  drawCanvas.width = artboardBox.clientWidth;
+  drawCanvas.height = artboardBox.clientHeight;
+}
+window.addEventListener('resize', resizeTouchCanvas);
+setTimeout(resizeTouchCanvas, 100);
+
+function pickPenColor(col) {
+  activePenColor = col;
+  setStudioTool('draw');
+}
+
+drawCanvas.addEventListener('pointerdown', (e) => {
+  if (currentToolMode !== 'draw') return;
+  isDrawingStroke = true;
+  const rect = drawCanvas.getBoundingClientRect();
+  ctx.beginPath();
+  ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+  ctx.strokeStyle = activePenColor;
+  ctx.lineWidth = 4;
+  ctx.lineCap = 'round';
+  ctx.shadowColor = activePenColor;
+  ctx.shadowBlur = 12;
+  e.preventDefault();
+});
+
+drawCanvas.addEventListener('pointermove', (e) => {
+  if (!isDrawingStroke || currentToolMode !== 'draw') return;
+  const rect = drawCanvas.getBoundingClientRect();
+  ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+  ctx.stroke();
+});
+
+drawCanvas.addEventListener('pointerup', () => { isDrawingStroke = false; });
+
+function wipeDrawingCanvas() {
+  ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   5. 1-CLICK HD PNG SCREENSHOT CAPTURE
+   ═══════════════════════════════════════════════════════════════════ */
+async function captureAndDownloadScreenshot() {
+  const btn = document.querySelector('.btn-png-download');
+  btn.innerText = '⏳ CAPTURING...';
+
+  try {
+    const canvas = await html2canvas(artboardBox, {
+      backgroundColor: '#020205',
+      scale: 2,
+      useCORS: true
+    });
+    const link = document.createElement('a');
+    link.download = `mbm-hero-layout-${currentDeviceType}-${Date.now()}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    btn.innerText = '✅ DOWNLOADED!';
+    setTimeout(() => { btn.innerText = '📸 DOWNLOAD PNG'; }, 2000);
+  } catch (err) {
+    alert('Capture failed: ' + err.message);
+    btn.innerText = '📸 DOWNLOAD PNG';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   6. EXPORT BLUEPRINT & LOCALSTORAGE SAVE
+   ═══════════════════════════════════════════════════════════════════ */
+function saveLayoutToLocalStorage() {
+  const ids = ['touch-nav', 'touch-badge', 'touch-headline', 'touch-ticker', 'touch-cta', 'touch-3d-pin'];
+  const state = {};
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      state[id] = {
+        top: el.style.top,
+        left: el.style.left,
+        width: el.style.width,
+        fontSize: el.style.fontSize
+      };
+    }
+  });
+  localStorage.setItem(`mbm_layout_${currentDeviceType}`, JSON.stringify(state));
+}
+
+function generateAndOpenSpecs() {
+  const ids = ['touch-nav', 'touch-badge', 'touch-headline', 'touch-ticker', 'touch-cta', 'touch-3d-pin'];
+  const specs = {
+    device: currentDeviceType.toUpperCase(),
+    exportedAt: new Date().toLocaleTimeString(),
+    positions: {}
+  };
+
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    specs.positions[id] = {
+      name: el.dataset.name,
+      top: el.style.top || `${el.offsetTop}px`,
+      left: el.style.left || `${el.offsetLeft}px`,
+      width: el.style.width || `${el.offsetWidth}px`,
+      fontSize: window.getComputedStyle(el).fontSize,
+      textAlign: window.getComputedStyle(el).textAlign
+    };
+  });
+
+  const formattedOutput = `/* ═══ MARK BISHOP MEDIA: USER APPROVED BLUEPRINT ═══ */
+ACTIVE_DEVICE: ${specs.device}
+TIMESTAMP: ${specs.exportedAt}
+
+1. NAVBAR:
+   - Top: ${specs.positions['touch-nav'].top}, Left: ${specs.positions['touch-nav'].left}
+
+2. PILL BADGE:
+   - Top: ${specs.positions['touch-badge'].top}, Left: ${specs.positions['touch-badge'].left}
+
+3. MAIN HEADLINE:
+   - Top: ${specs.positions['touch-headline'].top}, Left: ${specs.positions['touch-headline'].left}
+   - Font Size: ${specs.positions['touch-headline'].fontSize}
+   - Width: ${specs.positions['touch-headline'].width}
+   - Align: ${specs.positions['touch-headline'].textAlign}
+
+4. DYNAMIC TICKER:
+   - Top: ${specs.positions['touch-ticker'].top}, Left: ${specs.positions['touch-ticker'].left}
+
+5. CTA BUTTON:
+   - Top: ${specs.positions['touch-cta'].top}, Left: ${specs.positions['touch-cta'].left}
+
+6. 3D PIN & STOREFRONT:
+   - Top: ${specs.positions['touch-3d-pin'].top}, Left: ${specs.positions['touch-3d-pin'].left}
+   - Stage Width: ${specs.positions['touch-3d-pin'].width}
+`;
+
+  document.getElementById('specs-export-data').value = formattedOutput;
+  document.getElementById('specs-modal-box').classList.add('open');
+}
+
+function closeSpecsModal() {
+  document.getElementById('specs-modal-box').classList.remove('open');
+}
+
+function copySpecsData() {
+  const box = document.getElementById('specs-export-data');
+  box.select();
+  document.execCommand('copy');
+  alert('🎉 Layout blueprint copied! Paste it in Antigravity chat!');
+}
+</script>
+</body>
+</html>
