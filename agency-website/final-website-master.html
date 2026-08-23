@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mark Bishop Media · Local Visibility Division (Universal Responsive System)</title>
+<title>Mark Bishop Media · Local Visibility Division (Flawless Universal Responsive)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -24,20 +24,20 @@ html,body{
 }
 
 /* ═══════════════════════════════════════════════════════════
-   DEVICE VIEWPORT SWITCHER CONTROLLER (TOP CENTER)
+   DEVICE VIEWPORT SWITCHER CONTROLLER (TOP FLOATING)
    ═══════════════════════════════════════════════════════════ */
 .viewport-controller-bar{
   position:fixed;
-  top:14px;
+  top:12px;
   left:50%;
   transform:translateX(-50%);
   z-index:999999;
   display:flex;
   align-items:center;
   gap:6px;
-  background:rgba(6, 16, 32, 0.94);
-  border:1px solid rgba(0, 212, 255, 0.4);
-  box-shadow:0 10px 35px rgba(0, 0, 0, 0.85), 0 0 25px rgba(0, 212, 255, 0.25);
+  background:rgba(6, 16, 32, 0.96);
+  border:1px solid rgba(0, 212, 255, 0.45);
+  box-shadow:0 10px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(0, 212, 255, 0.25);
   backdrop-filter:blur(16px);
   padding:6px 12px;
   border-radius:100px;
@@ -51,7 +51,7 @@ html,body{
   font-size:11px;
   font-weight:700;
   letter-spacing:0.04em;
-  padding:7px 15px;
+  padding:6px 14px;
   border-radius:100px;
   cursor:pointer;
   display:inline-flex;
@@ -96,40 +96,38 @@ html,body{
   width:100%;
   min-height:100vh;
   position:relative;
-  transition:all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background:#020205;
+  overflow-x:hidden;
 }
 
-/* Tablet Simulator Mode (iPad 820px) */
 body.tablet-frame-mode{
   background:#010103;
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
-  padding:80px 0 40px;
+  padding:70px 0 30px;
 }
 body.tablet-frame-mode #app-viewport-root{
   width:820px;
-  height:960px;
-  min-height:960px;
-  max-height:960px;
+  height:940px;
+  min-height:940px;
+  max-height:940px;
   overflow-y:auto;
   overflow-x:hidden;
   border:14px solid #1c2638;
   border-radius:44px;
   box-shadow:0 25px 80px rgba(0,0,0,0.9), 0 0 50px rgba(0, 212, 255, 0.3);
-  background:#020205;
-  position:relative;
 }
 
-/* Mobile Simulator Mode (iPhone 15 Pro 393px) */
 body.mobile-frame-mode{
   background:#010103;
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
-  padding:80px 0 40px;
+  padding:70px 0 30px;
 }
 body.mobile-frame-mode #app-viewport-root{
   width:393px;
@@ -141,14 +139,12 @@ body.mobile-frame-mode #app-viewport-root{
   border:12px solid #1b2438;
   border-radius:54px;
   box-shadow:0 25px 80px rgba(0,0,0,0.9), 0 0 50px rgba(0, 212, 255, 0.35);
-  background:#020205;
-  position:relative;
 }
 
 .mobile-dynamic-island{
   display:none;
   position:fixed;
-  top:92px;
+  top:82px;
   left:50%;
   transform:translateX(-50%);
   width:116px;
@@ -173,7 +169,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
   align-items:center;
   justify-content:center;
   pointer-events:none;
-  transition:opacity 0.8s ease, transform 0.8s ease;
+  transition:opacity 0.6s ease, transform 0.6s ease;
 }
 
 .preloader-content{
@@ -187,7 +183,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 }
 
 .splash-brand-title{
-  font-size:clamp(26px, 5.0vw, 48px);
+  font-size:clamp(24px, 5.0vw, 48px);
   font-weight:800;
   letter-spacing:0.12em;
   line-height:1;
@@ -222,8 +218,8 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 }
 
 .splash-progress-container{
-  margin-top:26px;
-  width:150px;
+  margin-top:24px;
+  width:140px;
   height:2px;
   background:rgba(255,255,255,0.06);
   border-radius:2px;
@@ -238,7 +234,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 }
 
 /* ═══════════════════════════════════════════════════════════
-   STAGE 2: MASTER CONTINUOUS 3D CANVAS
+   STAGE 2: MASTER 3D CANVAS
    ═══════════════════════════════════════════════════════════ */
 #master-3d-canvas{
   position:fixed;
@@ -246,8 +242,9 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
   width:100%;
   height:100%;
   z-index:1;
-  pointer-events:all;
+  pointer-events:none;
 }
+
 .scene-vignette{
   position:fixed;
   inset:0;
@@ -257,7 +254,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 }
 
 /* ═══════════════════════════════════════════════════════════
-   STAGE 3: LUXURY NAVIGATION (CONTAINED IN 1320PX GRID)
+   STAGE 3: LUXURY NAVIGATION
    ═══════════════════════════════════════════════════════════ */
 .site-nav{
   position:fixed;
@@ -265,8 +262,8 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
   left:0;
   width:100%;
   z-index:100;
-  padding:20px 5%;
-  background:linear-gradient(180deg, rgba(2,2,5,0.9) 0%, rgba(2,2,5,0) 100%);
+  padding:18px 5%;
+  background:linear-gradient(180deg, rgba(2,2,5,0.95) 0%, rgba(2,2,5,0) 100%);
   backdrop-filter:blur(10px);
   opacity:0;
   transform:translateY(-20px);
@@ -281,7 +278,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
   width:100%;
 }
 
-.brand-logo{font-size:16px;font-weight:800;letter-spacing:0.1em;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand-logo{font-size:15px;font-weight:800;letter-spacing:0.1em;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}
 .brand-logo span{background:linear-gradient(135deg, #00d4ff, #b8ff57);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .brand-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;color:#00d4ff;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);padding:3px 8px;border-radius:6px}
 
@@ -292,7 +289,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 .nav-btn:hover{background:#00d4ff;color:#020205;box-shadow:0 0 20px rgba(0,212,255,0.6)}
 
 /* ═══════════════════════════════════════════════════════════
-   STAGE 4: HERO VIEWPORT (CONTAINED 1320PX LUXURY GRID)
+   STAGE 4: HERO VIEWPORT
    ═══════════════════════════════════════════════════════════ */
 .hero-wrapper{
   position:relative;
@@ -316,8 +313,8 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 
 .hero-left-content{
   position:relative;
-  z-index:10;
-  max-width:620px;
+  z-index:30;
+  max-width:580px;
   width:100%;
   opacity:0;
   transform:translateX(-30px);
@@ -334,7 +331,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
   box-shadow:0 0 20px rgba(0, 212, 255, 0.2);
   padding:6px 18px;
   border-radius:100px;
-  margin-bottom:22px;
+  margin-bottom:20px;
   font-family:'JetBrains Mono',monospace;
   font-size:11px;
   font-weight:700;
@@ -345,7 +342,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 
 /* Frosted Neon Glass Capsule Headline */
 .hero-headline{
-  font-size:clamp(30px, 3.8vw, 56px);
+  font-size:clamp(28px, 3.8vw, 54px);
   font-weight:800;
   line-height:1.20;
   letter-spacing:-0.03em;
@@ -373,7 +370,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
   font-family:'JetBrains Mono',monospace;
   font-size:clamp(12px, 1.2vw, 14px);
   font-weight:700;
-  margin-bottom:34px;
+  margin-bottom:30px;
   display:flex;
   align-items:center;
   gap:10px;
@@ -418,7 +415,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
   z-index:20;
   width:100%;
   padding:120px 5% 140px;
-  background:linear-gradient(180deg, rgba(2,2,5,0) 0%, rgba(3,10,22,0.95) 20%, rgba(3,10,22,0.98) 80%, rgba(2,2,5,1) 100%);
+  background:linear-gradient(180deg, rgba(2,2,5,0) 0%, rgba(3,10,22,0.98) 20%, rgba(3,10,22,0.98) 80%, rgba(2,2,5,1) 100%);
   border-top:1px solid rgba(0, 212, 255, 0.15);
   border-bottom:1px solid rgba(0, 212, 255, 0.15);
 }
@@ -495,38 +492,128 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 .m-stat-desc{font-family:'Inter',sans-serif;font-size:12px;line-height:1.5;color:rgba(255,255,255,0.6)}
 
 /* ═══════════════════════════════════════════════════════════
-   UNIVERSAL RESPONSIVE CSS (TABLET & MOBILE SIMULATOR)
+   TABLET RESPONSIVE RULES (768px - 1024px & Simulator)
    ═══════════════════════════════════════════════════════════ */
-@media(max-width:960px), body.tablet-frame-mode {
-  .manifesto-grid{grid-template-columns:1fr;gap:30px}
-  .manifesto-sub-row{grid-template-columns:repeat(3, 1fr);gap:18px}
-  .manifesto-label-col{position:static}
-  .hero-left-content{max-width:500px}
+@media(max-width:1024px), body.tablet-frame-mode {
+  .hero-wrapper{
+    padding:110px 30px 40px;
+    min-height:100vh;
+  }
+  .hero-inner-container{
+    flex-direction:row;
+    align-items:center;
+  }
+  .hero-left-content{
+    max-width:440px;
+  }
+  .hero-headline{
+    font-size:30px;
+    line-height:1.22;
+  }
+  .hero-ticker-line{
+    font-size:12px;
+  }
+  .manifesto-grid{
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+  .manifesto-label-col{
+    position:static;
+  }
+  .manifesto-sub-row{
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+  }
 }
 
-@media(max-width:768px), body.mobile-frame-mode {
-  .manifesto-grid{grid-template-columns:1fr;gap:26px}
-  .manifesto-sub-row{grid-template-columns:1fr;gap:16px}
+/* ═══════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE RULES (<768px & Simulator)
+   ═══════════════════════════════════════════════════════════ */
+@media(max-width:767px), body.mobile-frame-mode {
   .nav-links{display:none}
   .brand-badge{display:none}
-  .site-nav{padding:18px 20px}
-  .hero-wrapper{padding:100px 20px 40px;text-align:center;align-items:center}
-  .hero-inner-container{flex-direction:column;justify-content:center}
-  .hero-left-content{max-width:100%}
-  .hero-headline{font-size:26px;line-height:1.24}
-  .hero-ticker-line{justify-content:center;font-size:12px}
-  .hero-cta-row{justify-content:center}
-  .btn-primary-glow{width:100%;justify-content:center}
-  .editorial-manifesto-section{padding:80px 20px 100px}
-  .manifesto-big-text{font-size:21px;line-height:1.45}
+  .site-nav{padding:16px 18px}
+  .brand-logo{font-size:13px}
+  .nav-btn{padding:6px 14px;font-size:11px}
+
+  .hero-wrapper{
+    padding:80px 16px 40px;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+  }
+  .hero-inner-container{
+    flex-direction:column;
+    align-items:center;
+    width:100%;
+    justify-content:center;
+  }
+  .hero-left-content{
+    max-width:100%;
+    margin-top:0px;
+    background:rgba(4, 12, 24, 0.72);
+    padding:24px 16px;
+    border-radius:22px;
+    backdrop-filter:blur(14px);
+    border:1px solid rgba(0, 212, 255, 0.25);
+    box-shadow:0 10px 40px rgba(0,0,0,0.85);
+  }
+  .hero-pill-badge{
+    font-size:9.5px;
+    padding:5px 14px;
+    margin-bottom:14px;
+  }
+  .hero-headline{
+    font-size:23px;
+    line-height:1.26;
+    margin-bottom:14px;
+  }
+  .hero-headline .glass-capsule{
+    font-size:21px;
+    padding:2px 10px;
+  }
+  .hero-ticker-line{
+    justify-content:center;
+    font-size:11px;
+    margin-bottom:22px;
+    flex-wrap:wrap;
+    text-align:center;
+  }
+  .hero-cta-row{
+    justify-content:center;
+    width:100%;
+  }
+  .btn-primary-glow{
+    width:100%;
+    justify-content:center;
+    padding:13px 20px;
+    font-size:13px;
+  }
+
+  .editorial-manifesto-section{
+    padding:60px 16px 80px;
+  }
+  .manifesto-grid{
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+  .manifesto-big-text{
+    font-size:19px;
+    line-height:1.45;
+  }
+  .manifesto-sub-row{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════════
-     VIEWPORT CONTROLLER BAR (DESKTOP / TABLET / MOBILE)
-     ═══════════════════════════════════════════════════════════ -->
+<!-- VIEWPORT CONTROLLER BAR -->
 <div class="viewport-controller-bar">
   <button class="view-toggle-btn active" id="btn-desktop-view" onclick="setDeviceView('desktop')">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
@@ -546,15 +633,13 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
   <div class="controller-divider"></div>
 
   <button class="btn-ctrl-replay" onclick="triggerSeamlessIntro()">
-    <span>↻ REPLAY INTRO</span>
+    <span>↻ REPLAY</span>
   </button>
 </div>
 
 <div class="mobile-dynamic-island"></div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     MAIN APP ROOT CONTAINER
-     ═══════════════════════════════════════════════════════════ -->
+<!-- MAIN APP ROOT -->
 <div id="app-viewport-root">
 
   <!-- 1. 3D PRELOADER SPLASH LAYER -->
@@ -585,7 +670,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
     </div>
   </nav>
 
-  <!-- 4. HERO VIEWPORT (1320PX CONTAINER) -->
+  <!-- 4. HERO VIEWPORT -->
   <main class="hero-wrapper">
     <div class="hero-inner-container">
       <div class="hero-left-content" id="hero-left">
@@ -666,6 +751,7 @@ function setDeviceView(mode) {
   const btnDesktop = document.getElementById('btn-desktop-view');
   const btnTablet = document.getElementById('btn-tablet-view');
   const btnMobile = document.getElementById('btn-mobile-view');
+  const root = document.getElementById('app-viewport-root');
 
   document.body.classList.remove('mobile-frame-mode', 'tablet-frame-mode');
   btnDesktop.classList.remove('active');
@@ -682,6 +768,7 @@ function setDeviceView(mode) {
     btnDesktop.classList.add('active');
   }
 
+  root.scrollTop = 0;
   onResizeViewport();
   update3DCoordinatesForDevice();
 }
@@ -690,24 +777,26 @@ function update3DCoordinatesForDevice() {
   if (!isInHeroMode) return;
 
   if (currentDeviceMode === 'mobile') {
-    gsap.to(pinGroup.position, { x: 0, y: -0.5, z: -2.0, duration: 1.0, ease: "power3.out" });
-    gsap.to(pinGroup.scale, { x: 0.72, y: 0.72, z: 0.72, duration: 1.0, ease: "power3.out" });
-    gsap.to(lookAtTarget, { x: 0, y: 0.0, z: 0, duration: 1.0, ease: "power3.out" });
+    // Mobile: Float 3D Pin gracefully as atmospheric background behind frosted card
+    gsap.to(pinGroup.position, { x: 0, y: 1.2, z: -5.0, duration: 0.8, ease: "power3.out" });
+    gsap.to(pinGroup.scale, { x: 0.65, y: 0.65, z: 0.65, duration: 0.8, ease: "power3.out" });
+    gsap.to(lookAtTarget, { x: 0, y: 0.6, z: 0, duration: 0.8, ease: "power3.out" });
   } else if (currentDeviceMode === 'tablet') {
-    gsap.to(pinGroup.position, { x: 4.6, y: 0.4, z: 0, duration: 1.0, ease: "power3.out" });
-    gsap.to(pinGroup.scale, { x: 0.88, y: 0.88, z: 0.88, duration: 1.0, ease: "power3.out" });
-    gsap.to(lookAtTarget, { x: 1.2, y: 0.6, z: 0, duration: 1.0, ease: "power3.out" });
+    // Tablet: Position on right side cleanly without text collision
+    gsap.to(pinGroup.position, { x: 4.2, y: 0.4, z: -0.5, duration: 0.8, ease: "power3.out" });
+    gsap.to(pinGroup.scale, { x: 0.78, y: 0.78, z: 0.78, duration: 0.8, ease: "power3.out" });
+    gsap.to(lookAtTarget, { x: 1.0, y: 0.6, z: 0, duration: 0.8, ease: "power3.out" });
   } else {
-    // 22" - 32" WIDESCREEN & LAPTOP GOLDEN RATIO (X: 5.6 Bridges the Gap Perfectly)
-    gsap.to(pinGroup.position, { x: 5.6, y: 0.5, z: 0, duration: 1.0, ease: "power3.out" });
-    gsap.to(pinGroup.scale, { x: 1.05, y: 1.05, z: 1.05, duration: 1.0, ease: "power3.out" });
-    gsap.to(lookAtTarget, { x: 1.2, y: 0.7, z: 0, duration: 1.0, ease: "power3.out" });
+    // Desktop: 5.6 Golden Ratio X coordinate
+    gsap.to(pinGroup.position, { x: 5.6, y: 0.5, z: 0, duration: 0.8, ease: "power3.out" });
+    gsap.to(pinGroup.scale, { x: 1.05, y: 1.05, z: 1.05, duration: 0.8, ease: "power3.out" });
+    gsap.to(lookAtTarget, { x: 1.2, y: 0.7, z: 0, duration: 0.8, ease: "power3.out" });
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════
    DYNAMIC TICKER ENGINE
-   ═══════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════ */
 const tickerItems = [
   { label: "DOMINANCE ENGINE:", val: "9-Mile Local Geo-Grid Coverage" },
   { label: "DOMINANCE TARGET:", val: "#1 Google Maps 3-Pack Positioning" },
@@ -747,9 +836,9 @@ function cycleTicker() {
 
 setInterval(cycleTicker, 3200);
 
-/* ═══════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════
    THREE.JS & GSAP: UNIVERSAL MULTI-SCREEN ENGINE
-   ═══════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════ */
 
 const canvas = document.getElementById('master-3d-canvas');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -768,7 +857,7 @@ function onResizeViewport() {
   if (currentDeviceMode === 'mobile') {
     w = 393; h = 852;
   } else if (currentDeviceMode === 'tablet') {
-    w = 820; h = 960;
+    w = 820; h = 940;
   }
 
   camera.aspect = w / h;
@@ -1064,57 +1153,58 @@ function triggerSeamlessIntro() {
 
   masterTL = gsap.timeline();
 
-  // Splash Sequence (0.0s - 2.4s)
-  const pinTargetScale = currentDeviceMode === 'mobile' ? 0.72 : (currentDeviceMode === 'tablet' ? 0.88 : 1.05);
-  masterTL.to(pinGroup.scale, { x: pinTargetScale, y: pinTargetScale, z: pinTargetScale, duration: 1.1, ease: "elastic.out(1.2, 0.6)" }, 0.1);
+  // Splash Sequence (0.0s - 1.6s)
+  const isMob = window.innerWidth <= 768 || currentDeviceMode === 'mobile';
+  const isTab = (window.innerWidth <= 1024 && window.innerWidth > 768) || currentDeviceMode === 'tablet';
+
+  const pinTargetScale = isMob ? 0.65 : (isTab ? 0.78 : 1.05);
+  masterTL.to(pinGroup.scale, { x: pinTargetScale, y: pinTargetScale, z: pinTargetScale, duration: 0.8, ease: "elastic.out(1.2, 0.6)" }, 0.1);
   starMeshes.forEach((s, idx) => {
-    masterTL.to(s.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.6, ease: "back.out(2)" }, 0.3 + idx * 0.1);
+    masterTL.to(s.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.5, ease: "back.out(2)" }, 0.2 + idx * 0.08);
   });
-  masterTL.to('#splash-title', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: "power3.out" }, 0.5);
-  masterTL.to('#splash-subline', { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.7);
-  masterTL.to('#splash-progress', { opacity: 1, duration: 0.3 }, 0.6);
-  masterTL.to('#splash-progress-line', { width: '100%', duration: 1.5, ease: "power2.inOut" }, 0.7);
+  masterTL.to('#splash-title', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.5, ease: "power3.out" }, 0.3);
+  masterTL.to('#splash-subline', { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.4);
+  masterTL.to('#splash-progress', { opacity: 1, duration: 0.2 }, 0.3);
+  masterTL.to('#splash-progress-line', { width: '100%', duration: 1.0, ease: "power2.inOut" }, 0.4);
 
-  // UNBROKEN SEAMLESS TRANSITION (PERFECT GOLDEN RATIO COORDINATES)
-  masterTL.to('#preloader-layer', { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 2.4);
+  masterTL.to('#preloader-layer', { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 1.4);
 
-  let heroDockX = 5.6; // Widescreen / Desktop Default
+  let heroDockX = 5.6;
   let heroDockY = 0.5;
   let heroDockZ = 0;
   let heroLookAtX = 1.2;
   let heroLookAtY = 0.7;
 
-  if (currentDeviceMode === 'mobile') {
-    heroDockX = 0; heroDockY = -0.5; heroDockZ = -2.0; heroLookAtX = 0; heroLookAtY = 0;
-  } else if (currentDeviceMode === 'tablet') {
-    heroDockX = 4.6; heroDockY = 0.4; heroLookAtX = 1.2; heroLookAtY = 0.6;
+  if (isMob) {
+    heroDockX = 0; heroDockY = 1.2; heroDockZ = -5.0; heroLookAtX = 0; heroLookAtY = 0.6;
+  } else if (isTab) {
+    heroDockX = 4.2; heroDockY = 0.4; heroDockZ = -0.5; heroLookAtX = 1.0; heroLookAtY = 0.6;
   }
 
   masterTL.to(pinGroup.position, {
     x: heroDockX,
     y: heroDockY,
     z: heroDockZ,
-    duration: 1.5,
+    duration: 1.0,
     ease: "power3.inOut"
-  }, 2.4);
+  }, 1.4);
 
   masterTL.to(lookAtTarget, {
     x: heroLookAtX,
     y: heroLookAtY,
     z: 0,
-    duration: 1.5,
+    duration: 1.0,
     ease: "power3.inOut",
     onComplete: () => {
       isInHeroMode = true;
       isHeroPurchasesEnabled = true;
     }
-  }, 2.4);
+  }, 1.4);
 
-  masterTL.to('#hero-nav', { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 2.6);
-  masterTL.to('#hero-left', { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.8, ease: "power3.out" }, 2.7);
+  masterTL.to('#hero-nav', { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 1.5);
+  masterTL.to('#hero-left', { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.6, ease: "power3.out" }, 1.6);
 }
 
-/* ─── INTERACTIVE RAYCASTER ─── */
 const raycaster = new THREE.Raycaster();
 const mouseVec = new THREE.Vector2();
 let isHoveringCircle = false;
@@ -1145,9 +1235,9 @@ function animate() {
     gsap.to(hoverBannerSprite.material, { opacity: 0.0, duration: 0.3 });
   }
 
-  // Camera Parallax
-  const targetCamX = isInHeroMode ? (currentDeviceMode === 'mobile' ? 0 : mouseVec.x * 1.5) : mouseVec.x * 3.0;
-  const targetCamY = isInHeroMode ? (currentDeviceMode === 'mobile' ? 0.8 : mouseVec.y * 1.0 + 0.8) : mouseVec.y * 2.0 + 1.2;
+  const isMob = window.innerWidth <= 768 || currentDeviceMode === 'mobile';
+  const targetCamX = isInHeroMode ? (isMob ? 0 : mouseVec.x * 1.5) : mouseVec.x * 3.0;
+  const targetCamY = isInHeroMode ? (isMob ? 0.8 : mouseVec.y * 1.0 + 0.8) : mouseVec.y * 2.0 + 1.2;
   camera.position.x += (targetCamX - camera.position.x) * 0.04;
   camera.position.y += (targetCamY - camera.position.y) * 0.04;
   
@@ -1155,7 +1245,6 @@ function animate() {
 
   pinGroup.rotation.y = time * 0.35;
 
-  // Expanding Wave
   if (isHeroPurchasesEnabled) {
     rippleProgress += 0.012;
     if (rippleProgress >= 1.0) rippleProgress = 0;
@@ -1166,7 +1255,6 @@ function animate() {
     purchaseRipple.material.opacity = 0;
   }
 
-  // Float Badges
   for (let i = activePurchaseBadges.length - 1; i >= 0; i--) {
     const b = activePurchaseBadges[i];
     b.progress += b.speed;
@@ -1180,7 +1268,6 @@ function animate() {
     }
   }
 
-  // Customer Flocking
   customerAvatars.forEach(c => {
     c.progress += c.speed;
     if (c.progress >= 1.0) c.progress = 0;
@@ -1193,7 +1280,6 @@ function animate() {
     c.sprite.material.opacity = alpha * 0.85;
   });
 
-  // 5 Stars
   const orbitR = 5.4;
   starMeshes.forEach((star, idx) => {
     const angle = time * 1.0 + (idx * (Math.PI * 2 / 5));
@@ -1222,7 +1308,7 @@ function animate() {
 
 animate();
 window.addEventListener('load', () => {
-  setTimeout(triggerSeamlessIntro, 150);
+  setTimeout(triggerSeamlessIntro, 100);
 });
 </script>
 </body>
