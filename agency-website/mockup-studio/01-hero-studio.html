@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Mark Bishop Media · Ultra Visual Mockup Studio (Touch & Drag Enabled)</title>
+<title>Mark Bishop Media · Ultra Visual Mockup Studio & Whiteboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,20 +26,19 @@ body{
 }
 
 /* ═══════════════════════════════════════════════════════════
-   TOP CONTROL STUDIO BAR (TOUCH OPTIMIZED)
+   1. TOP HEADER BAR
    ═══════════════════════════════════════════════════════════ */
 .studio-header{
-  min-height:64px;
-  background:#0c111c;
+  min-height:58px;
+  background:#0b0f19;
   border-bottom:1px solid rgba(0, 212, 255, 0.25);
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 20px;
+  padding:0 18px;
   z-index:10000;
-  box-shadow:0 4px 25px rgba(0,0,0,0.8);
-  flex-wrap:wrap;
-  gap:10px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.8);
+  gap:12px;
 }
 
 .brand-badge-box{
@@ -48,9 +47,10 @@ body{
   gap:10px;
 }
 .brand-title{
-  font-size:15px;
+  font-size:14.5px;
   font-weight:800;
   letter-spacing:0.08em;
+  white-space:nowrap;
 }
 .brand-title span{
   background:linear-gradient(135deg, #00d4ff, #b8ff57);
@@ -59,66 +59,64 @@ body{
 }
 .status-pill{
   font-family:'JetBrains Mono',monospace;
-  font-size:10px;
+  font-size:9.5px;
   font-weight:700;
   color:#b8ff57;
   background:rgba(184, 255, 87, 0.12);
   border:1px solid rgba(184, 255, 87, 0.35);
-  padding:3px 10px;
+  padding:2px 8px;
   border-radius:100px;
 }
 
-.studio-toolbar{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  background:rgba(0,0,0,0.5);
-  padding:5px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,0.08);
-}
-
-.btn-ctrl{
-  background:transparent;
-  border:1px solid transparent;
-  color:rgba(255,255,255,0.75);
-  font-family:'Space Grotesk',sans-serif;
-  font-size:12px;
-  font-weight:700;
-  padding:8px 14px;
-  border-radius:8px;
-  cursor:pointer;
+/* DEVICE SWITCHER */
+.device-btn-group{
   display:flex;
   align-items:center;
   gap:6px;
-  touch-action:manipulation;
-  transition:all 0.2s;
+  background:rgba(0,0,0,0.5);
+  padding:4px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.08);
 }
-.btn-ctrl:hover{color:#fff;background:rgba(255,255,255,0.08)}
-.btn-ctrl.active{
-  background:rgba(0, 212, 255, 0.2);
-  border-color:rgba(0, 212, 255, 0.6);
-  color:#00d4ff;
-  box-shadow:0 0 14px rgba(0, 212, 255, 0.35);
-}
-
-.action-btn-group{
+.btn-device{
+  background:transparent;
+  border:1px solid transparent;
+  color:rgba(255,255,255,0.7);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:700;
+  padding:6px 12px;
+  border-radius:6px;
+  cursor:pointer;
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:5px;
+  transition:all 0.2s;
+}
+.btn-device:hover{color:#fff;background:rgba(255,255,255,0.06)}
+.btn-device.active{
+  background:rgba(0, 212, 255, 0.18);
+  border-color:rgba(0, 212, 255, 0.55);
+  color:#00d4ff;
+  box-shadow:0 0 12px rgba(0, 212, 255, 0.3);
 }
 
+.header-action-group{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
 .btn-png-download{
   background:linear-gradient(135deg, #ff9500, #ff2d55);
   color:#fff;
   border:none;
   font-family:'Space Grotesk',sans-serif;
-  font-size:12px;
+  font-size:11.5px;
   font-weight:800;
-  padding:9px 16px;
+  padding:8px 14px;
   border-radius:8px;
   cursor:pointer;
-  box-shadow:0 0 20px rgba(255, 45, 85, 0.4);
+  box-shadow:0 0 16px rgba(255, 45, 85, 0.35);
   display:flex;
   align-items:center;
   gap:6px;
@@ -130,40 +128,57 @@ body{
   color:#020205;
   border:none;
   font-family:'Space Grotesk',sans-serif;
-  font-size:12px;
+  font-size:11.5px;
   font-weight:800;
-  padding:9px 18px;
+  padding:8px 16px;
   border-radius:8px;
   cursor:pointer;
-  box-shadow:0 0 25px rgba(0, 212, 255, 0.45);
+  box-shadow:0 0 20px rgba(0, 212, 255, 0.4);
   display:flex;
   align-items:center;
   gap:6px;
 }
 .btn-export-specs:active{transform:scale(0.96)}
 
-/* ═══════════════════════════════════════════════════════════
-   PRESET QUICK-SWITCH BAR
-   ═══════════════════════════════════════════════════════════ */
-.preset-bar{
-  background:#090d16;
-  border-bottom:1px solid rgba(255,255,255,0.06);
-  padding:8px 20px;
+.btn-toggle-sidebar{
+  background:#131a29;
+  border:1px solid rgba(0, 212, 255, 0.4);
+  color:#00d4ff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:700;
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
   display:flex;
   align-items:center;
-  gap:10px;
-  font-size:12px;
+  gap:6px;
+  transition:all 0.2s;
+}
+.btn-toggle-sidebar:hover{background:rgba(0, 212, 255, 0.2)}
+
+/* ═══════════════════════════════════════════════════════════
+   2. PRESET BAR
+   ═══════════════════════════════════════════════════════════ */
+.preset-bar{
+  background:#080c14;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:6px 18px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:11px;
   overflow-x:auto;
 }
-.preset-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em;white-space:nowrap}
+.preset-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em;white-space:nowrap}
 .btn-preset{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
   color:#fff;
   font-family:'Space Grotesk',sans-serif;
-  font-size:11px;
+  font-size:10.5px;
   font-weight:700;
-  padding:5px 12px;
+  padding:4px 10px;
   border-radius:6px;
   cursor:pointer;
   white-space:nowrap;
@@ -172,7 +187,87 @@ body{
 .btn-preset:hover{background:rgba(0, 212, 255, 0.15);border-color:#00d4ff;color:#00d4ff}
 
 /* ═══════════════════════════════════════════════════════════
-   STUDIO MAIN WORKSPACE
+   3. FLOATING EXCALIDRAW-STYLE TOOLBAR (TOP-CENTER)
+   ═══════════════════════════════════════════════════════════ */
+.excalidraw-toolbar{
+  position:absolute;
+  top:16px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:9500;
+  background:rgba(14, 20, 32, 0.94);
+  border:1px solid rgba(0, 212, 255, 0.4);
+  box-shadow:0 10px 40px rgba(0,0,0,0.85), 0 0 25px rgba(0, 212, 255, 0.2);
+  border-radius:14px;
+  padding:5px 8px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  backdrop-filter:blur(16px);
+}
+
+.tool-item{
+  width:38px;
+  height:38px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  border:1px solid transparent;
+  color:rgba(255,255,255,0.8);
+  border-radius:8px;
+  cursor:pointer;
+  position:relative;
+  transition:all 0.15s ease;
+  touch-action:manipulation;
+}
+.tool-item svg{width:18px;height:18px;stroke-width:2}
+.tool-item .shortcut-num{
+  position:absolute;
+  bottom:2px;
+  right:3px;
+  font-size:8px;
+  font-family:'JetBrains Mono',monospace;
+  color:rgba(255,255,255,0.4);
+}
+.tool-item:hover{background:rgba(255,255,255,0.08);color:#fff}
+.tool-item.active{
+  background:rgba(0, 212, 255, 0.25);
+  border-color:#00d4ff;
+  color:#00d4ff;
+  box-shadow:0 0 12px rgba(0, 212, 255, 0.4);
+}
+
+.toolbar-separator{
+  width:1px;
+  height:24px;
+  background:rgba(255,255,255,0.12);
+  margin:0 4px;
+}
+
+.floating-palette{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding-left:4px;
+}
+.color-dot{
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,0.6);
+  cursor:pointer;
+  transition:transform 0.15s, border-color 0.15s;
+}
+.color-dot:hover, .color-dot.active{
+  transform:scale(1.25);
+  border-color:#fff;
+  box-shadow:0 0 10px currentColor;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   4. STUDIO MAIN STAGE
    ═══════════════════════════════════════════════════════════ */
 .studio-main{
   flex:1;
@@ -181,7 +276,7 @@ body{
   overflow:hidden;
 }
 
-.stage-scroll-container{
+.stage-viewport{
   flex:1;
   background:#030408;
   display:flex;
@@ -190,38 +285,42 @@ body{
   position:relative;
   overflow:auto;
   padding:30px;
-  background-image:radial-gradient(rgba(0, 212, 255, 0.09) 1.2px, transparent 1.2px);
-  background-size:26px 26px;
+  background-image:radial-gradient(rgba(0, 212, 255, 0.08) 1.2px, transparent 1.2px);
+  background-size:24px 24px;
 }
 
 /* ARTBOARD SIMULATOR */
-#mockup-artboard{
+#artboard-canvas-wrapper{
   background:#020205;
   position:relative;
   box-shadow:0 30px 100px rgba(0,0,0,0.98), 0 0 45px rgba(0, 212, 255, 0.2);
   border:1px solid rgba(0, 212, 255, 0.35);
-  transition:width 0.35s cubic-bezier(0.4, 0, 0.2, 1), height 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.35s ease;
+  transition:width 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.3s ease;
   overflow:hidden;
   flex-shrink:0;
 }
 
-#mockup-artboard.desktop{width:1280px;height:740px;border-radius:14px}
-#mockup-artboard.tablet{width:820px;height:880px;border-radius:32px;border-width:12px;border-color:#182133}
-#mockup-artboard.mobile{width:393px;height:840px;border-radius:48px;border-width:12px;border-color:#161f30}
+#artboard-canvas-wrapper.desktop{width:1280px;height:740px;border-radius:14px}
+#artboard-canvas-wrapper.tablet{width:820px;height:880px;border-radius:32px;border-width:12px;border-color:#182133}
+#artboard-canvas-wrapper.mobile{width:393px;height:840px;border-radius:48px;border-width:12px;border-color:#161f30}
 
-/* TOUCH DRAWING CANVAS */
-#touch-draw-canvas{
+/* ACTIVE DRAWING CANVAS (COVERS ARTBOARD) */
+#drawing-surface{
   position:absolute;
   inset:0;
-  z-index:9000;
+  z-index:500;
   pointer-events:none;
+  touch-action:none;
 }
-#touch-draw-canvas.pen-active{pointer-events:all;cursor:crosshair}
+#drawing-surface.interactive{
+  pointer-events:all !important;
+  cursor:crosshair;
+}
 
 /* ═══════════════════════════════════════════════════════════
-   DRAGGABLE & TOUCHABLE UI COMPONENTS
+   5. DRAGGABLE & TOUCHABLE UI ELEMENTS
    ═══════════════════════════════════════════════════════════ */
-.touch-element{
+.studio-element{
   position:absolute;
   cursor:move;
   border:1.5px dashed transparent;
@@ -229,14 +328,14 @@ body{
   border-radius:12px;
   touch-action:none;
   user-select:none;
-  z-index:100;
+  z-index:200;
   transition:border-color 0.15s, background 0.15s, box-shadow 0.15s;
 }
-.touch-element:hover{
+.studio-element:hover{
   border-color:rgba(0, 212, 255, 0.6);
   background:rgba(0, 212, 255, 0.05);
 }
-.touch-element.active-selected{
+.studio-element.selected-box{
   border-color:#b8ff57 !important;
   background:rgba(184, 255, 87, 0.1) !important;
   box-shadow:0 0 25px rgba(184, 255, 87, 0.35);
@@ -257,10 +356,10 @@ body{
   pointer-events:none;
   box-shadow:0 2px 8px rgba(0,0,0,0.5);
 }
-.touch-element:hover .element-tag,
-.touch-element.active-selected .element-tag{display:block}
+.studio-element:hover .element-tag,
+.studio-element.selected-box .element-tag{display:block}
 
-/* EDITABLE TEXT BOXES */
+/* Direct Text Editable Elements */
 [contenteditable="true"]{
   outline:none;
   cursor:text;
@@ -272,8 +371,8 @@ body{
   box-shadow:0 0 14px rgba(0, 212, 255, 0.5);
 }
 
-/* 1. NAVBAR */
-#touch-nav{
+/* NAVBAR */
+#elem-nav{
   top:22px;
   left:35px;
   right:35px;
@@ -288,8 +387,8 @@ body{
 .nav-menu-item{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.7)}
 .nav-btn-audit{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.4);color:#00d4ff;font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:0.1em;padding:6px 16px;border-radius:100px}
 
-/* 2. PILL BADGE */
-#touch-badge{
+/* PILL BADGE */
+#elem-badge{
   top:140px;
   left:50px;
   display:inline-flex;
@@ -308,8 +407,8 @@ body{
 }
 .pulse-dot{width:6px;height:6px;border-radius:50%;background:#b8ff57;box-shadow:0 0 10px #b8ff57}
 
-/* 3. HEADLINE */
-#touch-headline{
+/* HEADLINE */
+#elem-headline{
   top:195px;
   left:50px;
   max-width:560px;
@@ -329,8 +428,8 @@ body{
 }
 .lime-highlight{color:#b8ff57;text-shadow:0 0 20px rgba(184, 255, 87, 0.7)}
 
-/* 4. TICKER */
-#touch-ticker{
+/* TICKER */
+#elem-ticker{
   top:400px;
   left:50px;
   font-family:'JetBrains Mono',monospace;
@@ -343,8 +442,8 @@ body{
 .ticker-lbl{color:rgba(255,255,255,0.6);letter-spacing:0.08em}
 .ticker-val-glow{color:#b8ff57;text-shadow:0 0 15px rgba(184, 255, 87, 0.4)}
 
-/* 5. CTA BUTTON */
-#touch-cta{
+/* CTA BUTTON */
+#elem-cta{
   top:460px;
   left:50px;
 }
@@ -363,8 +462,8 @@ body{
   gap:8px;
 }
 
-/* 6. 3D PIN VISUAL CONTAINER */
-#touch-3d-pin{
+/* 3D PIN CONTAINER */
+#elem-3d-pin{
   top:120px;
   right:50px;
   width:480px;
@@ -403,39 +502,81 @@ body{
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SIDEBAR TOUCH INSPECTOR & SLIDERS
+   6. COLLAPSIBLE RIGHT PROPERTIES SIDEBAR
    ═══════════════════════════════════════════════════════════ */
+.sidebar-wrapper{
+  position:relative;
+  display:flex;
+}
+
 .studio-sidebar{
-  width:330px;
+  width:310px;
   background:#0c111c;
   border-left:1px solid rgba(0, 212, 255, 0.25);
   display:flex;
   flex-direction:column;
-  padding:20px;
-  gap:18px;
+  padding:18px;
+  gap:16px;
   overflow-y:auto;
   touch-action:pan-y;
+  transition:transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease, padding 0.3s ease;
+}
+
+.studio-sidebar.collapsed{
+  transform:translateX(100%);
+  width:0;
+  padding:0;
+  border-left:none;
+  overflow:hidden;
+}
+
+/* FLOATING SIDEBAR TOGGLE ARROW */
+.sidebar-collapse-handle{
+  position:absolute;
+  top:50%;
+  left:-26px;
+  transform:translateY(-50%);
+  width:26px;
+  height:56px;
+  background:#0c111c;
+  border:1px solid rgba(0, 212, 255, 0.4);
+  border-right:none;
+  border-radius:10px 0 0 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:#00d4ff;
+  font-size:13px;
+  font-weight:800;
+  z-index:9000;
+  box-shadow:-4px 0 15px rgba(0,0,0,0.5);
+  transition:all 0.2s;
+}
+.sidebar-collapse-handle:hover{
+  background:rgba(0, 212, 255, 0.2);
+  color:#b8ff57;
 }
 
 .panel-header-title{
   font-family:'JetBrains Mono',monospace;
-  font-size:11px;
+  font-size:10.5px;
   font-weight:700;
   letter-spacing:0.2em;
   color:#00d4ff;
   text-transform:uppercase;
   border-bottom:1px solid rgba(255,255,255,0.08);
-  padding-bottom:6px;
+  padding-bottom:5px;
 }
 
 .control-field{
   display:flex;
   flex-direction:column;
-  gap:6px;
+  gap:5px;
 }
 .control-label{
   font-family:'JetBrains Mono',monospace;
-  font-size:11px;
+  font-size:10.5px;
   color:rgba(255,255,255,0.65);
   display:flex;
   justify-content:space-between;
@@ -444,45 +585,13 @@ body{
 
 .range-slider{
   width:100%;
-  height:8px;
+  height:7px;
   accent-color:#00d4ff;
   cursor:pointer;
 }
 
-.pen-color-row{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-.color-circle{
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  border:2px solid #fff;
-  cursor:pointer;
-  transition:transform 0.15s;
-}
-.color-circle:active{transform:scale(1.2)}
-
-.btn-secondary-tool{
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.15);
-  color:#fff;
-  font-family:'Space Grotesk',sans-serif;
-  font-size:12px;
-  font-weight:700;
-  padding:8px 14px;
-  border-radius:8px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-}
-.btn-secondary-tool:hover{background:rgba(255,255,255,0.1)}
-
 /* ═══════════════════════════════════════════════════════════
-   EXPORT SPECS POPUP MODAL
+   7. EXPORT MODAL
    ═══════════════════════════════════════════════════════════ */
 .specs-modal-overlay{
   display:none;
@@ -546,51 +655,41 @@ body{
 </head>
 <body>
 
-<!-- TOP STUDIO BAR -->
+<!-- 1. TOP STUDIO HEADER -->
 <header class="studio-header">
   <div class="brand-badge-box">
     <div class="brand-title">MARK BISHOP <span>MEDIA</span></div>
-    <div class="status-pill">TOUCH MOCKUP STUDIO</div>
+    <div class="status-pill">EXCALIDRAW MOCKUP STUDIO</div>
   </div>
 
   <!-- DEVICE SELECTOR -->
-  <div class="studio-toolbar">
-    <button class="btn-ctrl active" id="btn-device-desktop" onclick="switchStudioDevice('desktop')">
+  <div class="device-btn-group">
+    <button class="btn-device active" id="btn-dev-desktop" onclick="switchStudioDevice('desktop')">
       <span>💻 DESKTOP</span>
     </button>
-    <button class="btn-ctrl" id="btn-device-tablet" onclick="switchStudioDevice('tablet')">
+    <button class="btn-device" id="btn-dev-tablet" onclick="switchStudioDevice('tablet')">
       <span>📱 TABLET (iPad)</span>
     </button>
-    <button class="btn-ctrl" id="btn-device-mobile" onclick="switchStudioDevice('mobile')">
+    <button class="btn-device" id="btn-dev-mobile" onclick="switchStudioDevice('mobile')">
       <span>📱 MOBILE (iPhone)</span>
     </button>
   </div>
 
-  <!-- INTERACTION MODES -->
-  <div class="studio-toolbar">
-    <button class="btn-ctrl active" id="btn-tool-drag" onclick="setStudioTool('drag')">
-      <span>👆 TOUCH / DRAG</span>
-    </button>
-    <button class="btn-ctrl" id="btn-tool-draw" onclick="setStudioTool('draw')">
-      <span>✏️ PEN / ARROWS</span>
-    </button>
-    <button class="btn-ctrl" id="btn-tool-text" onclick="setStudioTool('text')">
-      <span>📝 EDIT TEXT</span>
-    </button>
-  </div>
-
-  <!-- EXPORT & DOWNLOAD BUTTONS -->
-  <div class="action-btn-group">
+  <!-- EXPORT & SIDEBAR TOGGLE -->
+  <div class="header-action-group">
     <button class="btn-png-download" onclick="captureAndDownloadScreenshot()">
       <span>📸 DOWNLOAD PNG</span>
     </button>
     <button class="btn-export-specs" onclick="generateAndOpenSpecs()">
       <span>📋 COPY SPECS</span>
     </button>
+    <button class="btn-toggle-sidebar" id="btn-toggle-panel" onclick="toggleSidebar()">
+      <span id="txt-sidebar-toggle">👁️ HIDE PANEL</span>
+    </button>
   </div>
 </header>
 
-<!-- QUICK PRESETS BAR -->
+<!-- 2. PRESETS BAR -->
 <div class="preset-bar">
   <span class="preset-label">⚡ 1-Click Layout Presets:</span>
   <button class="btn-preset" onclick="applyLayoutPreset('golden')">1. Golden Ratio (Classic)</button>
@@ -600,18 +699,82 @@ body{
   <button class="btn-preset" style="color:#ff3b30;border-color:rgba(255,59,48,0.3)" onclick="resetStudioLayout()">🔄 Reset Default</button>
 </div>
 
-<!-- STUDIO MAIN WORKSPACE -->
+<!-- 3. STUDIO MAIN WORKSPACE -->
 <div class="studio-main">
 
-  <!-- SCROLLABLE CANVAS STAGE -->
-  <main class="stage-scroll-container">
-    <div id="mockup-artboard" class="desktop">
+  <!-- FLOATING EXCALIDRAW-STYLE TOOLBAR -->
+  <div class="excalidraw-toolbar">
+    
+    <!-- 1. Selection Tool -->
+    <button class="tool-item active" id="tool-select" title="Selection / Move (Key: 1)" onclick="setActiveWhiteboardTool('select')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>
+      <span class="shortcut-num">1</span>
+    </button>
 
-      <!-- DRAWING CANVAS -->
-      <canvas id="touch-draw-canvas"></canvas>
+    <!-- 2. Rectangle Box -->
+    <button class="tool-item" id="tool-rect" title="Rectangle Box (Key: 2)" onclick="setActiveWhiteboardTool('rect')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+      <span class="shortcut-num">2</span>
+    </button>
 
-      <!-- 1. TOUCH NAVBAR -->
-      <div class="touch-element" id="touch-nav" data-name="Navbar Header">
+    <!-- 3. Circle / Ellipse -->
+    <button class="tool-item" id="tool-circle" title="Circle Highlight (Key: 3)" onclick="setActiveWhiteboardTool('circle')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/></svg>
+      <span class="shortcut-num">3</span>
+    </button>
+
+    <!-- 4. Arrow Tool -->
+    <button class="tool-item" id="tool-arrow" title="Draw Arrow (Key: 4)" onclick="setActiveWhiteboardTool('arrow')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <span class="shortcut-num">4</span>
+    </button>
+
+    <!-- 5. Straight Line -->
+    <button class="tool-item" id="tool-line" title="Draw Line (Key: 5)" onclick="setActiveWhiteboardTool('line')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="4" y1="20" x2="20" y2="4"/></svg>
+      <span class="shortcut-num">5</span>
+    </button>
+
+    <!-- 6. Freehand Pen -->
+    <button class="tool-item" id="tool-pen" title="Freehand Pen (Key: 6)" onclick="setActiveWhiteboardTool('pen')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+      <span class="shortcut-num">6</span>
+    </button>
+
+    <!-- 7. Text Note -->
+    <button class="tool-item" id="tool-text" title="Direct Text Edit (Key: 7)" onclick="setActiveWhiteboardTool('text')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+      <span class="shortcut-num">7</span>
+    </button>
+
+    <!-- 8. Eraser Tool -->
+    <button class="tool-item" id="tool-eraser" title="Eraser (Key: 8)" onclick="setActiveWhiteboardTool('eraser')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 20H7L3 16C2 15 2 13 3 12L13 2C14 1 16 1 17 2L22 7C23 8 23 10 22 11L14 19"/></svg>
+      <span class="shortcut-num">8</span>
+    </button>
+
+    <div class="toolbar-separator"></div>
+
+    <!-- COLOR PALETTE -->
+    <div class="floating-palette">
+      <div class="color-dot active" style="background:#00d4ff" onclick="pickPaletteColor('#00d4ff', this)"></div>
+      <div class="color-dot" style="background:#b8ff57" onclick="pickPaletteColor('#b8ff57', this)"></div>
+      <div class="color-dot" style="background:#ff3366" onclick="pickPaletteColor('#ff3366', this)"></div>
+      <div class="color-dot" style="background:#ffcc00" onclick="pickPaletteColor('#ffcc00', this)"></div>
+      <div class="color-dot" style="background:#ffffff" onclick="pickPaletteColor('#ffffff', this)"></div>
+    </div>
+
+  </div>
+
+  <!-- SCROLLABLE ARTBOARD VIEWPORT -->
+  <main class="stage-viewport">
+    <div id="artboard-canvas-wrapper" class="desktop">
+
+      <!-- FULL CANVAS FOR DRAWING OVERLAY -->
+      <canvas id="drawing-surface"></canvas>
+
+      <!-- 1. NAVBAR COMPONENT -->
+      <div class="studio-element" id="elem-nav" data-name="Navbar Header">
         <span class="element-tag">NAVBAR</span>
         <div class="brand-txt">
           <div contenteditable="false">MARK BISHOP <span>MEDIA</span></div>
@@ -625,15 +788,15 @@ body{
         <button class="nav-btn-audit" contenteditable="false">⚡ FREE AUDIT</button>
       </div>
 
-      <!-- 2. TOUCH PILL BADGE -->
-      <div class="touch-element" id="touch-badge" data-name="Pill Badge">
+      <!-- 2. PILL BADGE -->
+      <div class="studio-element" id="elem-badge" data-name="Pill Badge">
         <span class="element-tag">PILL BADGE</span>
         <span class="pulse-dot"></span>
         <span class="editable-content" contenteditable="false">LOCAL VISIBILITY OPERATING SYSTEM</span>
       </div>
 
-      <!-- 3. TOUCH MAIN HEADLINE -->
-      <div class="touch-element" id="touch-headline" data-name="Main Headline">
+      <!-- 3. MAIN HEADLINE -->
+      <div class="studio-element" id="elem-headline" data-name="Main Headline">
         <span class="element-tag">MAIN HEADLINE</span>
         <div class="editable-content" contenteditable="false">
           YOUR LOCAL CLIENTS<br>
@@ -643,15 +806,15 @@ body{
         </div>
       </div>
 
-      <!-- 4. TOUCH DYNAMIC TICKER -->
-      <div class="touch-element" id="touch-ticker" data-name="Dynamic Ticker">
+      <!-- 4. DYNAMIC TICKER -->
+      <div class="studio-element" id="elem-ticker" data-name="Dynamic Ticker">
         <span class="element-tag">DYNAMIC TICKER</span>
         <span class="ticker-lbl" contenteditable="false">DOMINANCE TARGET:</span>
         <span class="ticker-val-glow" contenteditable="false">#1 Google Maps 3-Pack Positioning</span>
       </div>
 
-      <!-- 5. TOUCH CTA BUTTON -->
-      <div class="touch-element" id="touch-cta" data-name="CTA Button">
+      <!-- 5. CTA BUTTON -->
+      <div class="studio-element" id="elem-cta" data-name="CTA Button">
         <span class="element-tag">CTA BUTTON</span>
         <div class="cta-button-visual" contenteditable="false">
           <span>⚡ EXPLORE WHAT WE DO</span>
@@ -659,8 +822,8 @@ body{
         </div>
       </div>
 
-      <!-- 6. TOUCH 3D PIN CONTAINER -->
-      <div class="touch-element" id="touch-3d-pin" data-name="3D Pin & Storefront">
+      <!-- 6. 3D PIN CONTAINER -->
+      <div class="studio-element" id="elem-3d-pin" data-name="3D Pin & Storefront">
         <span class="element-tag">3D PIN & STOREFRONT</span>
         <div class="pin-emoji-glow">📍</div>
         <div class="pin-tag-title">3D GOOGLE MAP PIN + STOREFRONT</div>
@@ -670,56 +833,56 @@ body{
     </div>
   </main>
 
-  <!-- SIDEBAR INSPECTOR -->
-  <aside class="studio-sidebar">
-    <div class="panel-header-title">SELECTED ELEMENT</div>
-    
-    <div class="control-field">
-      <div class="control-label"><span>ELEMENT:</span> <span class="control-val" id="disp-elem-name">Tap or Click Any Item</span></div>
-      <div class="control-label"><span>TOP:</span> <span class="control-val" id="disp-pos-top">--</span></div>
-      <div class="control-label"><span>LEFT:</span> <span class="control-val" id="disp-pos-left">--</span></div>
+  <!-- COLLAPSIBLE RIGHT SIDEBAR -->
+  <div class="sidebar-wrapper">
+    <div class="sidebar-collapse-handle" onclick="toggleSidebar()" title="Toggle Sidebar">
+      <span id="handle-arrow">❯</span>
     </div>
 
-    <div class="panel-header-title">RESIZE & TOUCH SLIDERS</div>
-
-    <div class="control-field">
-      <div class="control-label"><span>FONT / EMOJI SIZE:</span> <span class="control-val" id="disp-font-size">44px</span></div>
-      <input type="range" min="12" max="80" value="44" class="range-slider" id="slider-font-size" oninput="changeSelectedFontSize(this.value)">
-    </div>
-
-    <div class="control-field">
-      <div class="control-label"><span>WIDTH / STAGE BOX:</span> <span class="control-val" id="disp-elem-width">560px</span></div>
-      <input type="range" min="160" max="950" value="560" class="range-slider" id="slider-elem-width" oninput="changeSelectedWidth(this.value)">
-    </div>
-
-    <div class="panel-header-title">TOUCH PEN & DRAWING</div>
-    
-    <div class="control-field">
-      <div class="control-label"><span>PEN COLOR:</span></div>
-      <div class="pen-color-row">
-        <div class="color-circle" style="background:#00d4ff" onclick="pickPenColor('#00d4ff')"></div>
-        <div class="color-circle" style="background:#b8ff57" onclick="pickPenColor('#b8ff57')"></div>
-        <div class="color-circle" style="background:#ff3b30" onclick="pickPenColor('#ff3b30')"></div>
-        <div class="color-circle" style="background:#ffcc00" onclick="pickPenColor('#ffcc00')"></div>
-        <div class="color-circle" style="background:#ffffff" onclick="pickPenColor('#ffffff')"></div>
+    <aside class="studio-sidebar" id="studio-sidebar-panel">
+      <div class="panel-header-title">SELECTED COMPONENT</div>
+      
+      <div class="control-field">
+        <div class="control-label"><span>ELEMENT:</span> <span class="control-val" id="disp-elem-name">Tap Any Item</span></div>
+        <div class="control-label"><span>TOP:</span> <span class="control-val" id="disp-pos-top">--</span></div>
+        <div class="control-label"><span>LEFT:</span> <span class="control-val" id="disp-pos-left">--</span></div>
       </div>
-    </div>
 
-    <button class="btn-secondary-tool" onclick="wipeDrawingCanvas()">
-      <span>🧹 ERASE ALL DRAWINGS</span>
-    </button>
+      <div class="panel-header-title">RESIZE & TOUCH SLIDERS</div>
 
-    <div class="panel-header-title">TOUCH INSTRUCTIONS</div>
-    <p style="font-size:12px;line-height:1.55;color:rgba(255,255,255,0.65)">
-      👉 <b>Touch Drag:</b> আপনার আঙুল বা মাউস দিয়ে যেকোনো বক্স টেনে বসান।<br><br>
-      👉 <b>Pen Mode:</b> স্ক্রিনে সরাসরি হাত দিয়ে তীর চিহ্ন এঁকে বুঝিয়ে দিন।<br><br>
-      👉 <b>PNG Download:</b> কাজ শেষ হলে উপরে <b style="color:#ff2d55">DOWNLOAD PNG</b> বাটনে চাপ দিলেই পুরো মকআপের ছবি ডাউনলোড হয়ে যাবে!
-    </p>
-  </aside>
+      <div class="control-field">
+        <div class="control-label"><span>FONT / EMOJI SIZE:</span> <span class="control-val" id="disp-font-size">44px</span></div>
+        <input type="range" min="12" max="80" value="44" class="range-slider" id="slider-font-size" oninput="changeSelectedFontSize(this.value)">
+      </div>
+
+      <div class="control-field">
+        <div class="control-label"><span>WIDTH / STAGE BOX:</span> <span class="control-val" id="disp-elem-width">560px</span></div>
+        <input type="range" min="160" max="950" value="560" class="range-slider" id="slider-elem-width" oninput="changeSelectedWidth(this.value)">
+      </div>
+
+      <div class="panel-header-title">WHITEBOARD ACTIONS</div>
+      
+      <button class="btn-preset" style="width:100%;padding:10px;justify-content:center;color:#ff3b30;border-color:rgba(255,59,48,0.4)" onclick="clearAllDrawingCanvas()">
+        <span>🧹 ERASE ALL DRAWINGS</span>
+      </button>
+
+      <div class="panel-header-title">SHORTCUT KEYS</div>
+      <p style="font-size:11.5px;line-height:1.6;color:rgba(255,255,255,0.6)">
+        <b>1:</b> Select & Drag<br>
+        <b>2:</b> Draw Rectangle<br>
+        <b>3:</b> Draw Circle<br>
+        <b>4:</b> Draw Arrow ➔<br>
+        <b>5:</b> Draw Line<br>
+        <b>6:</b> Freehand Pen<br>
+        <b>7:</b> Text Edit<br>
+        <b>8:</b> Eraser
+      </p>
+    </aside>
+  </div>
 
 </div>
 
-<!-- SPECS MODAL -->
+<!-- SPECS EXPORT MODAL -->
 <div class="specs-modal-overlay" id="specs-modal-box">
   <div class="specs-modal-card">
     <div class="specs-title">🎉 YOUR CUSTOM LAYOUT BLUEPRINT</div>
@@ -734,15 +897,15 @@ body{
 
 <script>
 /* ═══════════════════════════════════════════════════════════════════
-   1. DEVICE SWITCHER ENGINE
+   1. DEVICE ARTBOARD SWITCHER
    ═══════════════════════════════════════════════════════════════════ */
 let currentDeviceType = 'desktop';
-const artboardBox = document.getElementById('mockup-artboard');
+const artboardBox = document.getElementById('artboard-canvas-wrapper');
 
 function switchStudioDevice(dev) {
   currentDeviceType = dev;
-  document.querySelectorAll('#btn-device-desktop, #btn-device-tablet, #btn-device-mobile').forEach(b => b.classList.remove('active'));
-  document.getElementById(`btn-device-${dev}`).classList.add('active');
+  document.querySelectorAll('#btn-dev-desktop, #btn-dev-tablet, #btn-dev-mobile').forEach(b => b.classList.remove('active'));
+  document.getElementById(`btn-dev-${dev}`).classList.add('active');
 
   artboardBox.className = dev;
 
@@ -751,20 +914,20 @@ function switchStudioDevice(dev) {
     applyLayoutPreset('appstack');
   } else if (dev === 'tablet') {
     document.getElementById('nav-menu-container').style.display = 'flex';
-    setElementCoordinates('touch-nav', 16, 20);
-    setElementCoordinates('touch-badge', 120, 24);
-    setElementCoordinates('touch-headline', 170, 24, 380);
-    document.getElementById('touch-headline').style.fontSize = '28px';
-    document.getElementById('touch-headline').style.textAlign = 'left';
-    setElementCoordinates('touch-ticker', 360, 24);
-    setElementCoordinates('touch-cta', 415, 24);
-    setElementCoordinates('touch-3d-pin', 120, 420, 380, 460);
+    setElementCoordinates('elem-nav', 16, 20);
+    setElementCoordinates('elem-badge', 120, 24);
+    setElementCoordinates('elem-headline', 170, 24, 380);
+    document.getElementById('elem-headline').style.fontSize = '28px';
+    document.getElementById('elem-headline').style.textAlign = 'left';
+    setElementCoordinates('elem-ticker', 360, 24);
+    setElementCoordinates('elem-cta', 415, 24);
+    setElementCoordinates('elem-3d-pin', 120, 420, 380, 460);
   } else {
     document.getElementById('nav-menu-container').style.display = 'flex';
     applyLayoutPreset('golden');
   }
 
-  resizeTouchCanvas();
+  resizeDrawingCanvas();
   saveLayoutToLocalStorage();
 }
 
@@ -778,87 +941,259 @@ function setElementCoordinates(id, top, left, width, height) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   2. 1-CLICK PRESETS
+   2. COLLAPSIBLE SIDEBAR ENGINE
    ═══════════════════════════════════════════════════════════════════ */
-function applyLayoutPreset(type) {
-  if (type === 'golden') {
-    setElementCoordinates('touch-nav', 20, 40);
-    setElementCoordinates('touch-badge', 140, 50);
-    setElementCoordinates('touch-headline', 195, 50, 560);
-    document.getElementById('touch-headline').style.fontSize = '44px';
-    document.getElementById('touch-headline').style.textAlign = 'left';
-    setElementCoordinates('touch-ticker', 400, 50);
-    setElementCoordinates('touch-cta', 460, 50);
-    setElementCoordinates('touch-3d-pin', 120, 720, 480, 500);
-  } else if (type === 'spotlight') {
-    setElementCoordinates('touch-nav', 20, 40);
-    setElementCoordinates('touch-3d-pin', 90, 440, 400, 320);
-    setElementCoordinates('touch-badge', 430, 490);
-    setElementCoordinates('touch-headline', 480, 240, 800);
-    document.getElementById('touch-headline').style.fontSize = '36px';
-    document.getElementById('touch-headline').style.textAlign = 'center';
-    setElementCoordinates('touch-ticker', 610, 450);
-    setElementCoordinates('touch-cta', 655, 500);
-  } else if (type === 'split') {
-    setElementCoordinates('touch-nav', 20, 40);
-    setElementCoordinates('touch-3d-pin', 120, 50, 480, 500);
-    setElementCoordinates('touch-badge', 140, 600);
-    setElementCoordinates('touch-headline', 195, 600, 580);
-    document.getElementById('touch-headline').style.fontSize = '42px';
-    document.getElementById('touch-headline').style.textAlign = 'left';
-    setElementCoordinates('touch-ticker', 400, 600);
-    setElementCoordinates('touch-cta', 460, 600);
-  } else if (type === 'appstack') {
-    setElementCoordinates('touch-nav', 10, 10);
-    setElementCoordinates('touch-3d-pin', 55, 20, 350, 270);
-    setElementCoordinates('touch-badge', 340, 20);
-    setElementCoordinates('touch-headline', 380, 15, 360);
-    document.getElementById('touch-headline').style.fontSize = '20px';
-    document.getElementById('touch-headline').style.textAlign = 'center';
-    setElementCoordinates('touch-ticker', 525, 20);
-    setElementCoordinates('touch-cta', 575, 20);
-  }
-  saveLayoutToLocalStorage();
-}
+let isSidebarOpen = true;
+const sidebarPanel = document.getElementById('studio-sidebar-panel');
+const handleArrow = document.getElementById('handle-arrow');
+const txtSidebarToggle = document.getElementById('txt-sidebar-toggle');
 
-function resetStudioLayout() {
-  localStorage.removeItem('mbm_custom_studio_layout');
-  switchStudioDevice('desktop');
+function toggleSidebar() {
+  isSidebarOpen = !isSidebarOpen;
+  if (isSidebarOpen) {
+    sidebarPanel.classList.remove('collapsed');
+    handleArrow.innerText = '❯';
+    txtSidebarToggle.innerText = '👁️ HIDE PANEL';
+  } else {
+    sidebarPanel.classList.add('collapsed');
+    handleArrow.innerText = '❮';
+    txtSidebarToggle.innerText = '👁️ SHOW PANEL';
+  }
+  setTimeout(resizeDrawingCanvas, 320);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   3. UNIVERSAL TOUCH & MOUSE DRAG ENGINE (POINTER EVENTS)
+   3. EXCALIDRAW FLOATING TOOLBAR & DRAWING ENGINE
+   ═══════════════════════════════════════════════════════════════════ */
+let activeTool = 'select';
+let activeColor = '#00d4ff';
+const drawingCanvas = document.getElementById('drawing-surface');
+const ctx = drawingCanvas.getContext('2d');
+
+let isDrawingAction = false;
+let startX = 0, startY = 0;
+let drawnShapesHistory = []; // Keeps all drawings
+
+function resizeDrawingCanvas() {
+  drawingCanvas.width = artboardBox.clientWidth;
+  drawingCanvas.height = artboardBox.clientHeight;
+  redrawAllSavedShapes();
+}
+window.addEventListener('resize', resizeDrawingCanvas);
+setTimeout(resizeDrawingCanvas, 150);
+
+function setActiveWhiteboardTool(tool) {
+  activeTool = tool;
+  document.querySelectorAll('.tool-item').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById(`tool-${tool}`);
+  if (btn) btn.classList.add('active');
+
+  const editables = document.querySelectorAll('[contenteditable]');
+
+  if (tool === 'select') {
+    drawingCanvas.classList.remove('interactive');
+    editables.forEach(e => e.setAttribute('contenteditable', 'false'));
+  } else if (tool === 'text') {
+    drawingCanvas.classList.remove('interactive');
+    editables.forEach(e => e.setAttribute('contenteditable', 'true'));
+  } else {
+    // Pen, Arrow, Rect, Circle, Line, Eraser
+    drawingCanvas.classList.add('interactive');
+    editables.forEach(e => e.setAttribute('contenteditable', 'false'));
+  }
+}
+
+function pickPaletteColor(col, element) {
+  activeColor = col;
+  document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+  element.classList.add('active');
+  if (activeTool === 'select' || activeTool === 'text') {
+    setActiveWhiteboardTool('pen');
+  }
+}
+
+// KEYBOARD SHORTCUTS (1 to 8)
+window.addEventListener('keydown', (e) => {
+  if (e.target.isContentEditable) return;
+  const keyMap = {
+    '1': 'select', '2': 'rect', '3': 'circle', '4': 'arrow',
+    '5': 'line', '6': 'pen', '7': 'text', '8': 'eraser'
+  };
+  if (keyMap[e.key]) setActiveWhiteboardTool(keyMap[e.key]);
+});
+
+/* DRAWING ENGINE EVENTS (MOUSE & TOUCH VIA POINTER EVENTS) */
+let currentPathPoints = [];
+
+drawingCanvas.addEventListener('pointerdown', (e) => {
+  if (activeTool === 'select' || activeTool === 'text') return;
+  
+  isDrawingAction = true;
+  const rect = drawingCanvas.getBoundingClientRect();
+  startX = e.clientX - rect.left;
+  startY = e.clientY - rect.top;
+
+  drawingCanvas.setPointerCapture(e.pointerId);
+
+  if (activeTool === 'pen') {
+    currentPathPoints = [{ x: startX, y: startY }];
+  } else if (activeTool === 'eraser') {
+    eraseNearPoint(startX, startY);
+  }
+  e.preventDefault();
+});
+
+drawingCanvas.addEventListener('pointermove', (e) => {
+  if (!isDrawingAction) return;
+
+  const rect = drawingCanvas.getBoundingClientRect();
+  const curX = e.clientX - rect.left;
+  const curY = e.clientY - rect.top;
+
+  if (activeTool === 'pen') {
+    currentPathPoints.push({ x: curX, y: curY });
+    redrawAllSavedShapes();
+    drawFreehandStroke(currentPathPoints, activeColor, 4);
+  } else if (activeTool === 'eraser') {
+    eraseNearPoint(curX, curY);
+  } else {
+    // Live preview of shapes (Arrow, Rect, Circle, Line)
+    redrawAllSavedShapes();
+    drawShapePreview(activeTool, startX, startY, curX, curY, activeColor);
+  }
+});
+
+drawingCanvas.addEventListener('pointerup', (e) => {
+  if (!isDrawingAction) return;
+  isDrawingAction = false;
+  try { drawingCanvas.releasePointerCapture(e.pointerId); } catch(err){}
+
+  const rect = drawingCanvas.getBoundingClientRect();
+  const endX = e.clientX - rect.left;
+  const endY = e.clientY - rect.top;
+
+  if (activeTool === 'pen' && currentPathPoints.length > 1) {
+    drawnShapesHistory.push({ type: 'pen', points: [...currentPathPoints], color: activeColor, width: 4 });
+  } else if (activeTool === 'arrow') {
+    drawnShapesHistory.push({ type: 'arrow', x1: startX, y1: startY, x2: endX, y2: endY, color: activeColor });
+  } else if (activeTool === 'rect') {
+    drawnShapesHistory.push({ type: 'rect', x: Math.min(startX, endX), y: Math.min(startY, endY), w: Math.abs(endX - startX), h: Math.abs(endY - startY), color: activeColor });
+  } else if (activeTool === 'circle') {
+    drawnShapesHistory.push({ type: 'circle', cx: (startX + endX)/2, cy: (startY + endY)/2, rx: Math.abs(endX - startX)/2, ry: Math.abs(endY - startY)/2, color: activeColor });
+  } else if (activeTool === 'line') {
+    drawnShapesHistory.push({ type: 'line', x1: startX, y1: startY, x2: endX, y2: endY, color: activeColor });
+  }
+
+  currentPathPoints = [];
+  redrawAllSavedShapes();
+});
+
+function drawFreehandStroke(pts, color, width) {
+  if (pts.length < 2) return;
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, pts[0].y);
+  for (let i = 1; i < pts.length; i++) {
+    ctx.lineTo(pts[i].x, pts[i].y);
+  }
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 10;
+  ctx.stroke();
+}
+
+function drawShapePreview(type, x1, y1, x2, y2, color) {
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 3.5;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 10;
+
+  if (type === 'rect') {
+    ctx.strokeRect(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x2 - x1), Math.abs(y2 - y1));
+  } else if (type === 'circle') {
+    ctx.beginPath();
+    ctx.ellipse((x1 + x2)/2, (y1 + y2)/2, Math.abs(x2 - x1)/2, Math.abs(y2 - y1)/2, 0, 0, Math.PI * 2);
+    ctx.stroke();
+  } else if (type === 'line') {
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+  } else if (type === 'arrow') {
+    drawArrowOnCanvas(x1, y1, x2, y2, color);
+  }
+}
+
+function drawArrowOnCanvas(x1, y1, x2, y2, color) {
+  const headLen = 16;
+  const angle = Math.atan2(y2 - y1, x2 - x1);
+
+  ctx.strokeStyle = color;
+  ctx.fillStyle = color;
+  ctx.lineWidth = 3.5;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 12;
+
+  // Main Shaft
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.stroke();
+
+  // Arrow Head
+  ctx.beginPath();
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI / 6), y2 - headLen * Math.sin(angle - Math.PI / 6));
+  ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI / 6), y2 - headLen * Math.sin(angle + Math.PI / 6));
+  ctx.closePath();
+  ctx.fill();
+}
+
+function redrawAllSavedShapes() {
+  ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+  drawnShapesHistory.forEach(s => {
+    if (s.type === 'pen') drawFreehandStroke(s.points, s.color, s.width);
+    else if (s.type === 'arrow') drawArrowOnCanvas(s.x1, s.y1, s.x2, s.y2, s.color);
+    else if (s.type === 'rect') drawShapePreview('rect', s.x, s.y, s.x + s.w, s.y + s.h, s.color);
+    else if (s.type === 'circle') drawShapePreview('circle', s.cx - s.rx, s.cy - s.ry, s.cx + s.rx, s.cy + s.ry, s.color);
+    else if (s.type === 'line') drawShapePreview('line', s.x1, s.y1, s.x2, s.y2, s.color);
+  });
+}
+
+function eraseNearPoint(x, y) {
+  drawnShapesHistory = drawnShapesHistory.filter(s => {
+    if (s.type === 'pen') {
+      return !s.points.some(p => Math.hypot(p.x - x, p.y - y) < 25);
+    } else if (s.type === 'arrow' || s.type === 'line') {
+      return Math.hypot(s.x1 - x, s.y1 - y) >= 25 && Math.hypot(s.x2 - x, s.y2 - y) >= 25;
+    } else if (s.type === 'rect') {
+      return Math.hypot(s.x - x, s.y - y) >= 25;
+    } else if (s.type === 'circle') {
+      return Math.hypot(s.cx - x, s.cy - y) >= 25;
+    }
+    return true;
+  });
+  redrawAllSavedShapes();
+}
+
+function clearAllDrawingCanvas() {
+  drawnShapesHistory = [];
+  ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   4. ELEMENT DRAG & TOUCH ENGINE (POINTER EVENTS)
    ═══════════════════════════════════════════════════════════════════ */
 let activeSelectedElem = null;
 let isPointerDragging = false;
 let startPointerX = 0, startPointerY = 0;
 let startElemLeft = 0, startElemTop = 0;
-let currentToolMode = 'drag';
 
-function setStudioTool(tool) {
-  currentToolMode = tool;
-  document.querySelectorAll('#btn-tool-drag, #btn-tool-draw, #btn-tool-text').forEach(b => b.classList.remove('active'));
-  document.getElementById(`btn-tool-${tool}`).classList.add('active');
-
-  const drawCanvas = document.getElementById('touch-draw-canvas');
-  const editables = document.querySelectorAll('[contenteditable]');
-
-  if (tool === 'draw') {
-    drawCanvas.classList.add('pen-active');
-    editables.forEach(e => e.setAttribute('contenteditable', 'false'));
-  } else if (tool === 'text') {
-    drawCanvas.classList.remove('pen-active');
-    editables.forEach(e => e.setAttribute('contenteditable', 'true'));
-  } else {
-    drawCanvas.classList.remove('pen-active');
-    editables.forEach(e => e.setAttribute('contenteditable', 'false'));
-  }
-}
-
-document.querySelectorAll('.touch-element').forEach(el => {
-  // Universal Pointer Support for Finger Touch & Mouse
+document.querySelectorAll('.studio-element').forEach(el => {
   el.addEventListener('pointerdown', (e) => {
-    if (currentToolMode !== 'drag') return;
+    if (activeTool !== 'select') return;
     selectTargetElement(el);
 
     isPointerDragging = true;
@@ -872,7 +1207,7 @@ document.querySelectorAll('.touch-element').forEach(el => {
   });
 
   el.addEventListener('pointermove', (e) => {
-    if (!isPointerDragging || activeSelectedElem !== el || currentToolMode !== 'drag') return;
+    if (!isPointerDragging || activeSelectedElem !== el || activeTool !== 'select') return;
 
     const dx = e.clientX - startPointerX;
     const dy = e.clientY - startPointerY;
@@ -880,7 +1215,7 @@ document.querySelectorAll('.touch-element').forEach(el => {
     let nextLeft = Math.max(0, Math.min(artboardBox.clientWidth - el.offsetWidth, startElemLeft + dx));
     let nextTop = Math.max(0, Math.min(artboardBox.clientHeight - el.offsetHeight, startElemTop + dy));
 
-    // Magnetic Snap (every 10px)
+    // Magnetic Snap 10px
     nextLeft = Math.round(nextLeft / 10) * 10;
     nextTop = Math.round(nextTop / 10) * 10;
 
@@ -898,9 +1233,9 @@ document.querySelectorAll('.touch-element').forEach(el => {
 });
 
 function selectTargetElement(el) {
-  if (activeSelectedElem) activeSelectedElem.classList.remove('active-selected');
+  if (activeSelectedElem) activeSelectedElem.classList.remove('selected-box');
   activeSelectedElem = el;
-  activeSelectedElem.classList.add('active-selected');
+  activeSelectedElem.classList.add('selected-box');
   syncInspector(el);
 }
 
@@ -927,55 +1262,72 @@ function changeSelectedFontSize(sz) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   4. TOUCH DRAWING ENGINE
+   5. PRESETS & EXPORT
    ═══════════════════════════════════════════════════════════════════ */
-const drawCanvas = document.getElementById('touch-draw-canvas');
-const ctx = drawCanvas.getContext('2d');
-let isDrawingStroke = false;
-let activePenColor = '#00d4ff';
-
-function resizeTouchCanvas() {
-  drawCanvas.width = artboardBox.clientWidth;
-  drawCanvas.height = artboardBox.clientHeight;
-}
-window.addEventListener('resize', resizeTouchCanvas);
-setTimeout(resizeTouchCanvas, 100);
-
-function pickPenColor(col) {
-  activePenColor = col;
-  setStudioTool('draw');
-}
-
-drawCanvas.addEventListener('pointerdown', (e) => {
-  if (currentToolMode !== 'draw') return;
-  isDrawingStroke = true;
-  const rect = drawCanvas.getBoundingClientRect();
-  ctx.beginPath();
-  ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
-  ctx.strokeStyle = activePenColor;
-  ctx.lineWidth = 4;
-  ctx.lineCap = 'round';
-  ctx.shadowColor = activePenColor;
-  ctx.shadowBlur = 12;
-  e.preventDefault();
-});
-
-drawCanvas.addEventListener('pointermove', (e) => {
-  if (!isDrawingStroke || currentToolMode !== 'draw') return;
-  const rect = drawCanvas.getBoundingClientRect();
-  ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-  ctx.stroke();
-});
-
-drawCanvas.addEventListener('pointerup', () => { isDrawingStroke = false; });
-
-function wipeDrawingCanvas() {
-  ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+function applyLayoutPreset(type) {
+  if (type === 'golden') {
+    setElementCoordinates('elem-nav', 20, 40);
+    setElementCoordinates('elem-badge', 140, 50);
+    setElementCoordinates('elem-headline', 195, 50, 560);
+    document.getElementById('elem-headline').style.fontSize = '44px';
+    document.getElementById('elem-headline').style.textAlign = 'left';
+    setElementCoordinates('elem-ticker', 400, 50);
+    setElementCoordinates('elem-cta', 460, 50);
+    setElementCoordinates('elem-3d-pin', 120, 720, 480, 500);
+  } else if (type === 'spotlight') {
+    setElementCoordinates('elem-nav', 20, 40);
+    setElementCoordinates('elem-3d-pin', 90, 440, 400, 320);
+    setElementCoordinates('elem-badge', 430, 490);
+    setElementCoordinates('elem-headline', 480, 240, 800);
+    document.getElementById('elem-headline').style.fontSize = '36px';
+    document.getElementById('elem-headline').style.textAlign = 'center';
+    setElementCoordinates('elem-ticker', 610, 450);
+    setElementCoordinates('elem-cta', 655, 500);
+  } else if (type === 'split') {
+    setElementCoordinates('elem-nav', 20, 40);
+    setElementCoordinates('elem-3d-pin', 120, 50, 480, 500);
+    setElementCoordinates('elem-badge', 140, 600);
+    setElementCoordinates('elem-headline', 195, 600, 580);
+    document.getElementById('elem-headline').style.fontSize = '42px';
+    document.getElementById('elem-headline').style.textAlign = 'left';
+    setElementCoordinates('elem-ticker', 400, 600);
+    setElementCoordinates('elem-cta', 460, 600);
+  } else if (type === 'appstack') {
+    setElementCoordinates('elem-nav', 10, 10);
+    setElementCoordinates('elem-3d-pin', 55, 20, 350, 270);
+    setElementCoordinates('elem-badge', 340, 20);
+    setElementCoordinates('elem-headline', 380, 15, 360);
+    document.getElementById('elem-headline').style.fontSize = '20px';
+    document.getElementById('elem-headline').style.textAlign = 'center';
+    setElementCoordinates('elem-ticker', 525, 20);
+    setElementCoordinates('elem-cta', 575, 20);
+  }
+  saveLayoutToLocalStorage();
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   5. 1-CLICK HD PNG SCREENSHOT CAPTURE
-   ═══════════════════════════════════════════════════════════════════ */
+function resetStudioLayout() {
+  localStorage.removeItem('mbm_custom_studio_layout');
+  clearAllDrawingCanvas();
+  switchStudioDevice('desktop');
+}
+
+function saveLayoutToLocalStorage() {
+  const ids = ['elem-nav', 'elem-badge', 'elem-headline', 'elem-ticker', 'elem-cta', 'elem-3d-pin'];
+  const state = {};
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      state[id] = {
+        top: el.style.top,
+        left: el.style.left,
+        width: el.style.width,
+        fontSize: el.style.fontSize
+      };
+    }
+  });
+  localStorage.setItem(`mbm_layout_${currentDeviceType}`, JSON.stringify(state));
+}
+
 async function captureAndDownloadScreenshot() {
   const btn = document.querySelector('.btn-png-download');
   btn.innerText = '⏳ CAPTURING...';
@@ -998,28 +1350,8 @@ async function captureAndDownloadScreenshot() {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   6. EXPORT BLUEPRINT & LOCALSTORAGE SAVE
-   ═══════════════════════════════════════════════════════════════════ */
-function saveLayoutToLocalStorage() {
-  const ids = ['touch-nav', 'touch-badge', 'touch-headline', 'touch-ticker', 'touch-cta', 'touch-3d-pin'];
-  const state = {};
-  ids.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      state[id] = {
-        top: el.style.top,
-        left: el.style.left,
-        width: el.style.width,
-        fontSize: el.style.fontSize
-      };
-    }
-  });
-  localStorage.setItem(`mbm_layout_${currentDeviceType}`, JSON.stringify(state));
-}
-
 function generateAndOpenSpecs() {
-  const ids = ['touch-nav', 'touch-badge', 'touch-headline', 'touch-ticker', 'touch-cta', 'touch-3d-pin'];
+  const ids = ['elem-nav', 'elem-badge', 'elem-headline', 'elem-ticker', 'elem-cta', 'elem-3d-pin'];
   const specs = {
     device: currentDeviceType.toUpperCase(),
     exportedAt: new Date().toLocaleTimeString(),
@@ -1043,26 +1375,26 @@ ACTIVE_DEVICE: ${specs.device}
 TIMESTAMP: ${specs.exportedAt}
 
 1. NAVBAR:
-   - Top: ${specs.positions['touch-nav'].top}, Left: ${specs.positions['touch-nav'].left}
+   - Top: ${specs.positions['elem-nav'].top}, Left: ${specs.positions['elem-nav'].left}
 
 2. PILL BADGE:
-   - Top: ${specs.positions['touch-badge'].top}, Left: ${specs.positions['touch-badge'].left}
+   - Top: ${specs.positions['elem-badge'].top}, Left: ${specs.positions['elem-badge'].left}
 
 3. MAIN HEADLINE:
-   - Top: ${specs.positions['touch-headline'].top}, Left: ${specs.positions['touch-headline'].left}
-   - Font Size: ${specs.positions['touch-headline'].fontSize}
-   - Width: ${specs.positions['touch-headline'].width}
-   - Align: ${specs.positions['touch-headline'].textAlign}
+   - Top: ${specs.positions['elem-headline'].top}, Left: ${specs.positions['elem-headline'].left}
+   - Font Size: ${specs.positions['elem-headline'].fontSize}
+   - Width: ${specs.positions['elem-headline'].width}
+   - Align: ${specs.positions['elem-headline'].textAlign}
 
 4. DYNAMIC TICKER:
-   - Top: ${specs.positions['touch-ticker'].top}, Left: ${specs.positions['touch-ticker'].left}
+   - Top: ${specs.positions['elem-ticker'].top}, Left: ${specs.positions['elem-ticker'].left}
 
 5. CTA BUTTON:
-   - Top: ${specs.positions['touch-cta'].top}, Left: ${specs.positions['touch-cta'].left}
+   - Top: ${specs.positions['elem-cta'].top}, Left: ${specs.positions['elem-cta'].left}
 
 6. 3D PIN & STOREFRONT:
-   - Top: ${specs.positions['touch-3d-pin'].top}, Left: ${specs.positions['touch-3d-pin'].left}
-   - Stage Width: ${specs.positions['touch-3d-pin'].width}
+   - Top: ${specs.positions['elem-3d-pin'].top}, Left: ${specs.positions['elem-3d-pin'].left}
+   - Stage Width: ${specs.positions['elem-3d-pin'].width}
 `;
 
   document.getElementById('specs-export-data').value = formattedOutput;
