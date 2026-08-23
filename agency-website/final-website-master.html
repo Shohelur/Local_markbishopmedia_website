@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mark Bishop Media · Local Visibility Division (Master Responsive Prototype)</title>
+<title>Mark Bishop Media · Local Visibility Division (Universal Responsive System)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -34,10 +34,10 @@ html,body{
   z-index:999999;
   display:flex;
   align-items:center;
-  gap:8px;
-  background:rgba(6, 16, 32, 0.92);
+  gap:6px;
+  background:rgba(6, 16, 32, 0.94);
   border:1px solid rgba(0, 212, 255, 0.4);
-  box-shadow:0 10px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 212, 255, 0.25);
+  box-shadow:0 10px 35px rgba(0, 0, 0, 0.85), 0 0 25px rgba(0, 212, 255, 0.25);
   backdrop-filter:blur(16px);
   padding:6px 12px;
   border-radius:100px;
@@ -48,15 +48,15 @@ html,body{
   border:1px solid transparent;
   color:rgba(255,255,255,0.7);
   font-family:'Space Grotesk',sans-serif;
-  font-size:12px;
+  font-size:11px;
   font-weight:700;
   letter-spacing:0.04em;
-  padding:7px 18px;
+  padding:7px 15px;
   border-radius:100px;
   cursor:pointer;
   display:inline-flex;
   align-items:center;
-  gap:7px;
+  gap:6px;
   transition:all 0.3s ease;
 }
 .view-toggle-btn:hover{color:#fff;border-color:rgba(0, 212, 255, 0.35)}
@@ -82,7 +82,7 @@ html,body{
   font-size:11px;
   font-weight:700;
   letter-spacing:0.06em;
-  padding:6px 14px;
+  padding:6px 12px;
   border-radius:100px;
   cursor:pointer;
   transition:all 0.2s ease;
@@ -90,16 +90,39 @@ html,body{
 .btn-ctrl-replay:hover{background:rgba(0,212,255,0.2);color:#fff}
 
 /* ═══════════════════════════════════════════════════════════
-   APP WRAPPER & MOBILE SIMULATOR FRAME
+   APP WRAPPER & SIMULATOR FRAMES
    ═══════════════════════════════════════════════════════════ */
 #app-viewport-root{
   width:100%;
   min-height:100vh;
   position:relative;
-  transition:all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Mobile Simulator Active Mode */
+/* Tablet Simulator Mode (iPad 820px) */
+body.tablet-frame-mode{
+  background:#010103;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:80px 0 40px;
+}
+body.tablet-frame-mode #app-viewport-root{
+  width:820px;
+  height:960px;
+  min-height:960px;
+  max-height:960px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  border:14px solid #1c2638;
+  border-radius:44px;
+  box-shadow:0 25px 80px rgba(0,0,0,0.9), 0 0 50px rgba(0, 212, 255, 0.3);
+  background:#020205;
+  position:relative;
+}
+
+/* Mobile Simulator Mode (iPhone 15 Pro 393px) */
 body.mobile-frame-mode{
   background:#010103;
   display:flex;
@@ -108,7 +131,6 @@ body.mobile-frame-mode{
   min-height:100vh;
   padding:80px 0 40px;
 }
-
 body.mobile-frame-mode #app-viewport-root{
   width:393px;
   height:852px;
@@ -121,10 +143,8 @@ body.mobile-frame-mode #app-viewport-root{
   box-shadow:0 25px 80px rgba(0,0,0,0.9), 0 0 50px rgba(0, 212, 255, 0.35);
   background:#020205;
   position:relative;
-  scroll-behavior:smooth;
 }
 
-/* Dynamic Island Notch in Mobile Simulator */
 .mobile-dynamic-island{
   display:none;
   position:fixed;
@@ -167,7 +187,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 }
 
 .splash-brand-title{
-  font-size:clamp(24px, 5.5vw, 52px);
+  font-size:clamp(26px, 5.0vw, 48px);
   font-weight:800;
   letter-spacing:0.12em;
   line-height:1;
@@ -186,7 +206,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 
 .splash-subline{
   font-family:'JetBrains Mono',monospace;
-  font-size:clamp(11px, 1.8vw, 15px);
+  font-size:clamp(11px, 1.8vw, 14px);
   font-weight:700;
   letter-spacing:0.35em;
   color:#00d4ff;
@@ -237,7 +257,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 }
 
 /* ═══════════════════════════════════════════════════════════
-   STAGE 3: LUXURY NAVIGATION
+   STAGE 3: LUXURY NAVIGATION (CONTAINED IN 1320PX GRID)
    ═══════════════════════════════════════════════════════════ */
 .site-nav{
   position:fixed;
@@ -245,42 +265,60 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
   left:0;
   width:100%;
   z-index:100;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:22px 6%;
+  padding:20px 5%;
   background:linear-gradient(180deg, rgba(2,2,5,0.9) 0%, rgba(2,2,5,0) 100%);
   backdrop-filter:blur(10px);
   opacity:0;
   transform:translateY(-20px);
 }
+
+.nav-container{
+  max-width:1320px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+}
+
 .brand-logo{font-size:16px;font-weight:800;letter-spacing:0.1em;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}
 .brand-logo span{background:linear-gradient(135deg, #00d4ff, #b8ff57);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .brand-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;color:#00d4ff;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);padding:3px 8px;border-radius:6px}
 
 .nav-links{display:flex;align-items:center;gap:28px;list-style:none}
-.nav-link{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,0.65);text-decoration:none}
-.nav-btn{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.4);color:#00d4ff;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;padding:8px 20px;border-radius:100px;cursor:pointer;backdrop-filter:blur(8px)}
+.nav-link{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,0.65);text-decoration:none;transition:color 0.2s}
+.nav-link:hover{color:#00d4ff}
+.nav-btn{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.4);color:#00d4ff;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;padding:8px 20px;border-radius:100px;cursor:pointer;backdrop-filter:blur(8px);transition:all 0.3s}
+.nav-btn:hover{background:#00d4ff;color:#020205;box-shadow:0 0 20px rgba(0,212,255,0.6)}
 
 /* ═══════════════════════════════════════════════════════════
-   STAGE 4: HERO VIEWPORT
+   STAGE 4: HERO VIEWPORT (CONTAINED 1320PX LUXURY GRID)
    ═══════════════════════════════════════════════════════════ */
 .hero-wrapper{
   position:relative;
   width:100%;
   min-height:100vh;
   display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:140px 6% 40px;
+  align-items:center;
+  padding:120px 5% 40px;
   z-index:10;
   pointer-events:none;
+}
+
+.hero-inner-container{
+  max-width:1320px;
+  width:100%;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
 .hero-left-content{
   position:relative;
   z-index:10;
-  max-width:560px;
+  max-width:620px;
+  width:100%;
   opacity:0;
   transform:translateX(-30px);
   filter:blur(10px);
@@ -307,9 +345,9 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 
 /* Frosted Neon Glass Capsule Headline */
 .hero-headline{
-  font-size:clamp(30px, 4.0vw, 54px);
+  font-size:clamp(30px, 3.8vw, 56px);
   font-weight:800;
-  line-height:1.22;
+  line-height:1.20;
   letter-spacing:-0.03em;
   margin-bottom:20px;
   text-transform:uppercase;
@@ -333,7 +371,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 /* Dynamic Cycling Ticker Line */
 .hero-ticker-line{
   font-family:'JetBrains Mono',monospace;
-  font-size:clamp(12px, 1.3vw, 14px);
+  font-size:clamp(12px, 1.2vw, 14px);
   font-weight:700;
   margin-bottom:34px;
   display:flex;
@@ -359,7 +397,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
   font-size:14px;
   font-weight:800;
   letter-spacing:0.06em;
-  padding:15px 34px;
+  padding:15px 36px;
   border-radius:100px;
   border:none;
   cursor:pointer;
@@ -379,14 +417,14 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
   position:relative;
   z-index:20;
   width:100%;
-  padding:120px 6% 140px;
+  padding:120px 5% 140px;
   background:linear-gradient(180deg, rgba(2,2,5,0) 0%, rgba(3,10,22,0.95) 20%, rgba(3,10,22,0.98) 80%, rgba(2,2,5,1) 100%);
   border-top:1px solid rgba(0, 212, 255, 0.15);
   border-bottom:1px solid rgba(0, 212, 255, 0.15);
 }
 
 .manifesto-grid{
-  max-width:1200px;
+  max-width:1320px;
   margin:0 auto;
   display:grid;
   grid-template-columns:260px 1fr;
@@ -423,7 +461,7 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 
 .manifesto-big-text{
   font-family:'Inter',sans-serif;
-  font-size:clamp(22px, 3.0vw, 40px);
+  font-size:clamp(22px, 2.8vw, 38px);
   font-weight:500;
   line-height:1.38;
   letter-spacing:-0.02em;
@@ -457,22 +495,29 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 .m-stat-desc{font-family:'Inter',sans-serif;font-size:12px;line-height:1.5;color:rgba(255,255,255,0.6)}
 
 /* ═══════════════════════════════════════════════════════════
-   RESPONSIVE CSS RULES (FOR REAL MOBILE & SIMULATOR MODE)
+   UNIVERSAL RESPONSIVE CSS (TABLET & MOBILE SIMULATOR)
    ═══════════════════════════════════════════════════════════ */
-@media(max-width:900px), body.mobile-frame-mode {
+@media(max-width:960px), body.tablet-frame-mode {
+  .manifesto-grid{grid-template-columns:1fr;gap:30px}
+  .manifesto-sub-row{grid-template-columns:repeat(3, 1fr);gap:18px}
+  .manifesto-label-col{position:static}
+  .hero-left-content{max-width:500px}
+}
+
+@media(max-width:768px), body.mobile-frame-mode {
   .manifesto-grid{grid-template-columns:1fr;gap:26px}
   .manifesto-sub-row{grid-template-columns:1fr;gap:16px}
-  .nav-links{display:none} /* Mobile Clean Header */
+  .nav-links{display:none}
   .brand-badge{display:none}
   .site-nav{padding:18px 20px}
   .hero-wrapper{padding:100px 20px 40px;text-align:center;align-items:center}
+  .hero-inner-container{flex-direction:column;justify-content:center}
   .hero-left-content{max-width:100%}
   .hero-headline{font-size:26px;line-height:1.24}
   .hero-ticker-line{justify-content:center;font-size:12px}
   .hero-cta-row{justify-content:center}
   .btn-primary-glow{width:100%;justify-content:center}
   .editorial-manifesto-section{padding:80px 20px 100px}
-  .manifesto-label-col{position:static}
   .manifesto-big-text{font-size:21px;line-height:1.45}
 }
 </style>
@@ -480,17 +525,22 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 <body>
 
 <!-- ═══════════════════════════════════════════════════════════
-     VIEWPORT CONTROLLER BAR (DESKTOP / MOBILE SWITCHER)
+     VIEWPORT CONTROLLER BAR (DESKTOP / TABLET / MOBILE)
      ═══════════════════════════════════════════════════════════ -->
 <div class="viewport-controller-bar">
   <button class="view-toggle-btn active" id="btn-desktop-view" onclick="setDeviceView('desktop')">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
-    <span>DESKTOP VIEW</span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+    <span>DESKTOP (22"-32")</span>
+  </button>
+
+  <button class="view-toggle-btn" id="btn-tablet-view" onclick="setDeviceView('tablet')">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="12" x2="12.01" y1="18" y2="18"/></svg>
+    <span>TABLET (iPad)</span>
   </button>
 
   <button class="view-toggle-btn" id="btn-mobile-view" onclick="setDeviceView('mobile')">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
-    <span>MOBILE PREVIEW (iPhone)</span>
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
+    <span>MOBILE (iPhone)</span>
   </button>
 
   <div class="controller-divider"></div>
@@ -524,42 +574,46 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 
   <!-- 3. NAVIGATION -->
   <nav class="site-nav" id="hero-nav">
-    <a href="#" class="brand-logo">MARK BISHOP <span>MEDIA</span> <span class="brand-badge">LOCAL VISIBILITY</span></a>
-    <ul class="nav-links">
-      <li><a href="#what-we-do" class="nav-link">What We Do</a></li>
-      <li><a href="#system" class="nav-link">3D System</a></li>
-      <li><a href="#proof" class="nav-link">Results</a></li>
-    </ul>
-    <button class="nav-btn">⚡ FREE AUDIT</button>
+    <div class="nav-container">
+      <a href="#" class="brand-logo">MARK BISHOP <span>MEDIA</span> <span class="brand-badge">LOCAL VISIBILITY</span></a>
+      <ul class="nav-links">
+        <li><a href="#what-we-do" class="nav-link">What We Do</a></li>
+        <li><a href="#system" class="nav-link">3D System</a></li>
+        <li><a href="#proof" class="nav-link">Results</a></li>
+      </ul>
+      <button class="nav-btn">⚡ FREE AUDIT</button>
+    </div>
   </nav>
 
-  <!-- 4. HERO VIEWPORT -->
+  <!-- 4. HERO VIEWPORT (1320PX CONTAINER) -->
   <main class="hero-wrapper">
-    <div class="hero-left-content" id="hero-left">
-      <div class="hero-pill-badge">
-        <span class="pulse-dot"></span>
-        <span>LOCAL VISIBILITY OPERATING SYSTEM</span>
-      </div>
-
-      <h1 class="hero-headline">
-        YOUR LOCAL CLIENTS<br>
-        <span class="glass-capsule">ARE SEARCHING</span><br>
-        WE MAKE SURE THEY<br>
-        FIND <span class="lime-accent">YOU FIRST.</span>
-      </h1>
-
-      <div class="hero-ticker-line">
-        <span class="ticker-label" id="ticker-label">DOMINANCE ENGINE:</span>
-        <div class="ticker-val-container">
-          <span class="ticker-val" id="ticker-val">9-Mile Local Geo-Grid Coverage</span>
+    <div class="hero-inner-container">
+      <div class="hero-left-content" id="hero-left">
+        <div class="hero-pill-badge">
+          <span class="pulse-dot"></span>
+          <span>LOCAL VISIBILITY OPERATING SYSTEM</span>
         </div>
-      </div>
 
-      <div class="hero-cta-row">
-        <a href="#what-we-do" class="btn-primary-glow">
-          <span>⚡ EXPLORE WHAT WE DO</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+        <h1 class="hero-headline">
+          YOUR LOCAL CLIENTS<br>
+          <span class="glass-capsule">ARE SEARCHING</span><br>
+          WE MAKE SURE THEY<br>
+          FIND <span class="lime-accent">YOU FIRST.</span>
+        </h1>
+
+        <div class="hero-ticker-line">
+          <span class="ticker-label" id="ticker-label">DOMINANCE ENGINE:</span>
+          <div class="ticker-val-container">
+            <span class="ticker-val" id="ticker-val">9-Mile Local Geo-Grid Coverage</span>
+          </div>
+        </div>
+
+        <div class="hero-cta-row">
+          <a href="#what-we-do" class="btn-primary-glow">
+            <span>⚡ EXPLORE WHAT WE DO</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </main>
@@ -603,41 +657,51 @@ body.mobile-frame-mode .mobile-dynamic-island{display:block}
 
 <script>
 /* ═══════════════════════════════════════════════════════════════════
-   DEVICE VIEWPORT SWITCHER LOGIC (DESKTOP / MOBILE SIMULATOR)
+   UNIVERSAL DEVICE VIEWPORT SWITCHER LOGIC
    ═══════════════════════════════════════════════════════════════════ */
-let isMobileMode = false;
+let currentDeviceMode = 'desktop';
 
 function setDeviceView(mode) {
-  const root = document.getElementById('app-viewport-root');
+  currentDeviceMode = mode;
   const btnDesktop = document.getElementById('btn-desktop-view');
+  const btnTablet = document.getElementById('btn-tablet-view');
   const btnMobile = document.getElementById('btn-mobile-view');
 
+  document.body.classList.remove('mobile-frame-mode', 'tablet-frame-mode');
+  btnDesktop.classList.remove('active');
+  btnTablet.classList.remove('active');
+  btnMobile.classList.remove('active');
+
   if (mode === 'mobile') {
-    isMobileMode = true;
     document.body.classList.add('mobile-frame-mode');
     btnMobile.classList.add('active');
-    btnDesktop.classList.remove('active');
-
-    // Adapt 3D Scene for Mobile iPhone Frame
-    onResizeViewport();
-    if (isInHeroMode) {
-      gsap.to(pinGroup.position, { x: 0, y: -0.6, z: -2.0, duration: 1.0, ease: "power3.out" });
-      gsap.to(pinGroup.scale, { x: 0.72, y: 0.72, z: 0.72, duration: 1.0, ease: "power3.out" });
-      gsap.to(lookAtTarget, { x: 0, y: 0.0, z: 0, duration: 1.0, ease: "power3.out" });
-    }
+  } else if (mode === 'tablet') {
+    document.body.classList.add('tablet-frame-mode');
+    btnTablet.classList.add('active');
   } else {
-    isMobileMode = false;
-    document.body.classList.remove('mobile-frame-mode');
     btnDesktop.classList.add('active');
-    btnMobile.classList.remove('active');
+  }
 
-    // Adapt 3D Scene for Full Desktop
-    onResizeViewport();
-    if (isInHeroMode) {
-      gsap.to(pinGroup.position, { x: 8.8, y: 0.6, z: 0, duration: 1.0, ease: "power3.out" });
-      gsap.to(pinGroup.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 1.0, ease: "power3.out" });
-      gsap.to(lookAtTarget, { x: 2.2, y: 0.8, z: 0, duration: 1.0, ease: "power3.out" });
-    }
+  onResizeViewport();
+  update3DCoordinatesForDevice();
+}
+
+function update3DCoordinatesForDevice() {
+  if (!isInHeroMode) return;
+
+  if (currentDeviceMode === 'mobile') {
+    gsap.to(pinGroup.position, { x: 0, y: -0.5, z: -2.0, duration: 1.0, ease: "power3.out" });
+    gsap.to(pinGroup.scale, { x: 0.72, y: 0.72, z: 0.72, duration: 1.0, ease: "power3.out" });
+    gsap.to(lookAtTarget, { x: 0, y: 0.0, z: 0, duration: 1.0, ease: "power3.out" });
+  } else if (currentDeviceMode === 'tablet') {
+    gsap.to(pinGroup.position, { x: 4.6, y: 0.4, z: 0, duration: 1.0, ease: "power3.out" });
+    gsap.to(pinGroup.scale, { x: 0.88, y: 0.88, z: 0.88, duration: 1.0, ease: "power3.out" });
+    gsap.to(lookAtTarget, { x: 1.2, y: 0.6, z: 0, duration: 1.0, ease: "power3.out" });
+  } else {
+    // 22" - 32" WIDESCREEN & LAPTOP GOLDEN RATIO (X: 5.6 Bridges the Gap Perfectly)
+    gsap.to(pinGroup.position, { x: 5.6, y: 0.5, z: 0, duration: 1.0, ease: "power3.out" });
+    gsap.to(pinGroup.scale, { x: 1.05, y: 1.05, z: 1.05, duration: 1.0, ease: "power3.out" });
+    gsap.to(lookAtTarget, { x: 1.2, y: 0.7, z: 0, duration: 1.0, ease: "power3.out" });
   }
 }
 
@@ -684,7 +748,7 @@ function cycleTicker() {
 setInterval(cycleTicker, 3200);
 
 /* ═══════════════════════════════════════════════════════════════════
-   THREE.JS & GSAP: RESPONSIVE CONTINUOUS UNIVERSE
+   THREE.JS & GSAP: UNIVERSAL MULTI-SCREEN ENGINE
    ═══════════════════════════════════════════════════════════════════ */
 
 const canvas = document.getElementById('master-3d-canvas');
@@ -698,9 +762,15 @@ camera.position.set(0, 1.2, 22);
 const lookAtTarget = { x: 0, y: 1.2, z: 0 };
 
 function onResizeViewport() {
-  const root = document.getElementById('app-viewport-root');
-  const w = isMobileMode ? 393 : window.innerWidth;
-  const h = isMobileMode ? 852 : window.innerHeight;
+  let w = window.innerWidth;
+  let h = window.innerHeight;
+
+  if (currentDeviceMode === 'mobile') {
+    w = 393; h = 852;
+  } else if (currentDeviceMode === 'tablet') {
+    w = 820; h = 960;
+  }
+
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
   renderer.setSize(w, h);
@@ -995,7 +1065,7 @@ function triggerSeamlessIntro() {
   masterTL = gsap.timeline();
 
   // Splash Sequence (0.0s - 2.4s)
-  const pinTargetScale = isMobileMode ? 0.72 : 1.0;
+  const pinTargetScale = currentDeviceMode === 'mobile' ? 0.72 : (currentDeviceMode === 'tablet' ? 0.88 : 1.05);
   masterTL.to(pinGroup.scale, { x: pinTargetScale, y: pinTargetScale, z: pinTargetScale, duration: 1.1, ease: "elastic.out(1.2, 0.6)" }, 0.1);
   starMeshes.forEach((s, idx) => {
     masterTL.to(s.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.6, ease: "back.out(2)" }, 0.3 + idx * 0.1);
@@ -1005,14 +1075,20 @@ function triggerSeamlessIntro() {
   masterTL.to('#splash-progress', { opacity: 1, duration: 0.3 }, 0.6);
   masterTL.to('#splash-progress-line', { width: '100%', duration: 1.5, ease: "power2.inOut" }, 0.7);
 
-  // UNBROKEN SEAMLESS TRANSITION
+  // UNBROKEN SEAMLESS TRANSITION (PERFECT GOLDEN RATIO COORDINATES)
   masterTL.to('#preloader-layer', { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 2.4);
 
-  const heroDockX = isMobileMode ? 0 : 8.8;
-  const heroDockY = isMobileMode ? -0.6 : 0.6;
-  const heroDockZ = isMobileMode ? -2.0 : 0;
-  const heroLookAtX = isMobileMode ? 0 : 2.2;
-  const heroLookAtY = isMobileMode ? 0 : 0.8;
+  let heroDockX = 5.6; // Widescreen / Desktop Default
+  let heroDockY = 0.5;
+  let heroDockZ = 0;
+  let heroLookAtX = 1.2;
+  let heroLookAtY = 0.7;
+
+  if (currentDeviceMode === 'mobile') {
+    heroDockX = 0; heroDockY = -0.5; heroDockZ = -2.0; heroLookAtX = 0; heroLookAtY = 0;
+  } else if (currentDeviceMode === 'tablet') {
+    heroDockX = 4.6; heroDockY = 0.4; heroLookAtX = 1.2; heroLookAtY = 0.6;
+  }
 
   masterTL.to(pinGroup.position, {
     x: heroDockX,
@@ -1069,9 +1145,9 @@ function animate() {
     gsap.to(hoverBannerSprite.material, { opacity: 0.0, duration: 0.3 });
   }
 
-  // Parallax
-  const targetCamX = isInHeroMode ? (isMobileMode ? 0 : mouseVec.x * 1.5) : mouseVec.x * 3.0;
-  const targetCamY = isInHeroMode ? (isMobileMode ? 0.8 : mouseVec.y * 1.0 + 0.8) : mouseVec.y * 2.0 + 1.2;
+  // Camera Parallax
+  const targetCamX = isInHeroMode ? (currentDeviceMode === 'mobile' ? 0 : mouseVec.x * 1.5) : mouseVec.x * 3.0;
+  const targetCamY = isInHeroMode ? (currentDeviceMode === 'mobile' ? 0.8 : mouseVec.y * 1.0 + 0.8) : mouseVec.y * 2.0 + 1.2;
   camera.position.x += (targetCamX - camera.position.x) * 0.04;
   camera.position.y += (targetCamY - camera.position.y) * 0.04;
   
@@ -1121,14 +1197,11 @@ function animate() {
   const orbitR = 5.4;
   starMeshes.forEach((star, idx) => {
     const angle = time * 1.0 + (idx * (Math.PI * 2 / 5));
-    const sx = Math.cos(angle) * orbitR;
-    const sz = Math.sin(angle) * orbitR;
-    const sy = Math.sin(time * 1.8 + idx) * 0.6;
-    star.position.set(sx, sy, sz);
+    star.position.set(Math.cos(angle) * orbitR, Math.sin(time * 1.8 + idx) * 0.6, Math.sin(angle) * orbitR);
     star.rotation.y = time * 1.4;
 
     const trail = starTrails[idx];
-    trail.history.unshift({ x: sx, y: sy, z: sz });
+    trail.history.unshift({ x: star.position.x, y: star.position.y, z: star.position.z });
     if (trail.history.length > TRAIL_LENGTH) trail.history.pop();
     const posArray = trail.points.geometry.attributes.position.array;
     for (let j = 0; j < TRAIL_LENGTH; j++) {
