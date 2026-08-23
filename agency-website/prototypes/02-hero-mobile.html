@@ -3,31 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mark Bishop Media · Local Visibility Operating System</title>
+<title>Mark Bishop Media · Hero Section (Mobile iPhone Version)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- Three.js & GSAP CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{
-  width:100%;
-  height:100%;
+body{
   background:#020205;
   font-family:'Space Grotesk',sans-serif;
   color:#fff;
-  overflow-x:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:20px 0;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   STAGE 1: 3D PRELOADER SPLASH LAYER
-   ═══════════════════════════════════════════════════════════ */
+/* MOBILE IPHONE SIMULATOR FRAME */
+.mobile-container{
+  width:393px;
+  height:852px;
+  background:#020205;
+  border:12px solid #1b2438;
+  border-radius:50px;
+  box-shadow:0 25px 80px rgba(0,0,0,0.95), 0 0 50px rgba(0, 212, 255, 0.3);
+  position:relative;
+  overflow:hidden;
+}
+
+.dynamic-island{
+  position:absolute;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+  width:110px;
+  height:28px;
+  background:#000;
+  border-radius:20px;
+  z-index:99999;
+  box-shadow:0 0 10px rgba(0,0,0,0.8);
+}
+
+/* PRELOADER */
 #preloader-layer{
-  position:fixed;
+  position:absolute;
   inset:0;
   z-index:500;
   display:flex;
@@ -39,13 +63,13 @@ html,body{
 }
 
 .splash-brand-title{
-  font-size:clamp(22px, 4.0vw, 44px);
+  font-size:22px;
   font-weight:800;
-  letter-spacing:0.12em;
+  letter-spacing:0.10em;
   line-height:1;
   text-transform:uppercase;
   color:#ffffff;
-  text-shadow:0 0 40px rgba(0,212,255,0.6), 0 2px 20px rgba(0,0,0,0.9);
+  text-shadow:0 0 40px rgba(0,212,255,0.6);
   opacity:0;
   transform:translateY(16px);
   filter:blur(6px);
@@ -58,24 +82,23 @@ html,body{
 
 .splash-subline{
   font-family:'JetBrains Mono',monospace;
-  font-size:clamp(9.5px, 1.2vw, 12px);
+  font-size:9.5px;
   font-weight:700;
-  letter-spacing:0.3em;
+  letter-spacing:0.25em;
   color:#00d4ff;
   text-transform:uppercase;
-  margin-top:12px;
+  margin-top:10px;
   background:rgba(0,212,255,0.08);
   border:1px solid rgba(0,212,255,0.35);
-  padding:5px 16px;
+  padding:4px 14px;
   border-radius:100px;
-  box-shadow:0 0 25px rgba(0,212,255,0.25);
   opacity:0;
   transform:translateY(10px);
 }
 
 .splash-progress-container{
-  margin-top:20px;
-  width:130px;
+  margin-top:16px;
+  width:100px;
   height:2px;
   background:rgba(255,255,255,0.06);
   border-radius:2px;
@@ -89,91 +112,61 @@ html,body{
   box-shadow:0 0 12px #00d4ff;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   STAGE 2: MASTER 3D CANVAS
-   ═══════════════════════════════════════════════════════════ */
+/* 3D CANVAS */
 #master-3d-canvas{
-  position:fixed;
+  position:absolute;
   inset:0;
-  width:100vw;
-  height:100vh;
+  width:100%;
+  height:100%;
   z-index:1;
   pointer-events:none;
 }
-
 .scene-vignette{
-  position:fixed;
+  position:absolute;
   inset:0;
   z-index:2;
   pointer-events:none;
   background:radial-gradient(circle at center, transparent 35%, rgba(2,2,5,0.45) 75%, #020205 100%);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   STAGE 3: LUXURY NAVIGATION
-   ═══════════════════════════════════════════════════════════ */
+/* NAVIGATION */
 .site-nav{
-  position:fixed;
-  top:0;
-  left:0;
+  position:relative;
   width:100%;
   z-index:100;
-  padding:22px 5%;
+  padding:14px 12px;
   background:linear-gradient(180deg, rgba(2,2,5,0.95) 0%, rgba(2,2,5,0) 100%);
-  backdrop-filter:blur(10px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   opacity:0;
   transform:translateY(-20px);
 }
-
-.nav-container{
-  max-width:1320px;
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  width:100%;
-}
-
-.brand-logo{font-size:15px;font-weight:800;letter-spacing:0.1em;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand-logo{font-size:11px;font-weight:800;letter-spacing:0.06em;color:#fff;text-decoration:none}
 .brand-logo span{background:linear-gradient(135deg, #00d4ff, #b8ff57);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.brand-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;color:#00d4ff;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);padding:3px 8px;border-radius:6px}
+.nav-btn{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.4);color:#00d4ff;font-family:'Space Grotesk',sans-serif;font-size:9.5px;font-weight:700;padding:4px 10px;border-radius:100px;cursor:pointer}
 
-.nav-links{display:flex;align-items:center;gap:26px;list-style:none}
-.nav-link{font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;color:rgba(255,255,255,0.65);text-decoration:none;transition:color 0.2s}
-.nav-link:hover{color:#00d4ff}
-.nav-btn{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.4);color:#00d4ff;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;padding:7px 18px;border-radius:100px;cursor:pointer;backdrop-filter:blur(8px);transition:all 0.3s}
-.nav-btn:hover{background:#00d4ff;color:#020205;box-shadow:0 0 20px rgba(0,212,255,0.6)}
-
-/* ═══════════════════════════════════════════════════════════
-   STAGE 4: HERO VIEWPORT (DESKTOP DEFAULT)
-   ═══════════════════════════════════════════════════════════ */
+/* HERO MOBILE */
 .hero-wrapper{
   position:relative;
   width:100%;
-  min-height:100vh;
+  height:calc(100% - 60px);
   display:flex;
+  flex-direction:column;
   align-items:center;
-  padding:0 5%;
+  text-align:center;
+  padding:10px 14px 20px;
   z-index:10;
   pointer-events:none;
-}
-
-.hero-inner-container{
-  max-width:1320px;
-  width:100%;
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
 }
 
 .hero-left-content{
   position:relative;
   z-index:30;
-  max-width:580px;
-  width:100%;
+  max-width:100%;
+  margin-top:295px; /* Clean 30px breathing room below upper 3D pin */
   opacity:0;
-  transform:translateX(-30px);
+  transform:translateY(20px);
   filter:blur(10px);
   pointer-events:all;
 }
@@ -181,56 +174,54 @@ html,body{
 .hero-pill-badge{
   display:inline-flex;
   align-items:center;
-  gap:8px;
+  gap:6px;
   background:rgba(0, 212, 255, 0.08);
   border:1px solid rgba(0, 212, 255, 0.35);
-  box-shadow:0 0 20px rgba(0, 212, 255, 0.2);
-  padding:5px 16px;
+  padding:3px 10px;
   border-radius:100px;
-  margin-bottom:20px;
+  margin-bottom:8px;
   font-family:'JetBrains Mono',monospace;
-  font-size:10.5px;
+  font-size:8.5px;
   font-weight:700;
-  letter-spacing:0.22em;
+  letter-spacing:0.20em;
   color:#00d4ff;
 }
-.hero-pill-badge span.pulse-dot{width:6px;height:6px;border-radius:50%;background:#b8ff57;box-shadow:0 0 10px #b8ff57}
+.hero-pill-badge span.pulse-dot{width:4px;height:4px;border-radius:50%;background:#b8ff57;box-shadow:0 0 10px #b8ff57}
 
 .hero-headline{
-  font-size:46px;
+  font-size:19px;
   font-weight:800;
-  line-height:1.20;
-  letter-spacing:-0.03em;
-  margin-bottom:20px;
+  line-height:1.24;
+  letter-spacing:-0.02em;
+  margin-bottom:10px;
   text-transform:uppercase;
 }
 .hero-headline .glass-capsule{
   display:inline-block;
   background:rgba(0, 212, 255, 0.12);
   border:1.5px solid rgba(0, 212, 255, 0.6);
-  box-shadow:0 0 25px rgba(0, 212, 255, 0.35), inset 0 0 15px rgba(0, 212, 255, 0.2);
-  padding:2px 14px;
-  border-radius:12px;
+  padding:1px 7px;
+  border-radius:8px;
   color:#00d4ff;
-  text-shadow:0 0 15px rgba(0, 212, 255, 0.8);
-  margin:4px 0;
+  margin:2px 0;
 }
 .hero-headline .lime-accent{
   color:#b8ff57;
-  text-shadow:0 0 20px rgba(184, 255, 87, 0.7);
+  text-shadow:0 0 15px rgba(184, 255, 87, 0.7);
 }
 
 .hero-ticker-line{
   font-family:'JetBrains Mono',monospace;
-  font-size:13px;
+  font-size:10px;
   font-weight:700;
-  margin-bottom:30px;
+  margin-bottom:16px;
   display:flex;
+  justify-content:center;
   align-items:center;
-  gap:10px;
-  min-height:24px;
+  gap:6px;
+  flex-wrap:wrap;
 }
-.ticker-label{color:rgba(255,255,255,0.6);letter-spacing:0.08em;text-transform:uppercase}
+.ticker-label{color:rgba(255,255,255,0.6);letter-spacing:0.06em;text-transform:uppercase}
 .ticker-val-container{position:relative;display:inline-block;overflow:hidden}
 .ticker-val{color:#b8ff57;display:inline-block;white-space:nowrap;text-shadow:0 0 15px rgba(184, 255, 87, 0.4)}
 
@@ -238,152 +229,49 @@ html,body{
   background:linear-gradient(135deg, #00d4ff, #b8ff57);
   color:#020205;
   font-family:'Space Grotesk',sans-serif;
-  font-size:13.5px;
+  font-size:11.5px;
   font-weight:800;
   letter-spacing:0.06em;
-  padding:14px 34px;
+  padding:11px 20px;
   border-radius:100px;
   border:none;
   cursor:pointer;
   box-shadow:0 0 35px rgba(0,212,255,0.5);
-  transition:all 0.3s ease;
   display:inline-flex;
   align-items:center;
-  gap:10px;
-  text-decoration:none;
-}
-.btn-primary-glow:hover{transform:scale(1.05) translateY(-2px);box-shadow:0 0 50px rgba(184,255,87,0.75)}
-
-/* ═══════════════════════════════════════════════════════════
-   STAGE 5: CUBERTO-STYLE EDITORIAL MANIFESTO SECTION
-   ═══════════════════════════════════════════════════════════ */
-.editorial-manifesto-section{
-  position:relative;
-  z-index:20;
+  justify-content:center;
   width:100%;
-  padding:100px 5% 120px;
-  background:linear-gradient(180deg, rgba(2,2,5,0) 0%, rgba(3,10,22,0.98) 20%, rgba(3,10,22,0.98) 80%, rgba(2,2,5,1) 100%);
-  border-top:1px solid rgba(0, 212, 255, 0.15);
-  border-bottom:1px solid rgba(0, 212, 255, 0.15);
-}
-
-.manifesto-grid{
-  max-width:1320px;
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:240px 1fr;
-  gap:50px;
-  align-items:start;
-}
-
-.manifesto-label-col{position:sticky;top:80px}
-.manifesto-tag{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.25em;color:#00d4ff;text-transform:uppercase;background:rgba(0, 212, 255, 0.08);border:1px solid rgba(0, 212, 255, 0.3);padding:7px 16px;border-radius:100px}
-.manifesto-content-col{display:flex;flex-direction:column;gap:30px}
-
-.manifesto-big-text{font-family:'Inter',sans-serif;font-size:32px;font-weight:500;line-height:1.40;letter-spacing:-0.02em;color:rgba(255,255,255,0.92)}
-.manifesto-big-text span.highlight-white{color:#ffffff;font-weight:700}
-.manifesto-big-text span.highlight-lime{color:#b8ff57;font-weight:700}
-.manifesto-big-text span.highlight-cyan{color:#00d4ff;font-weight:700}
-
-.manifesto-sub-row{display:grid;grid-template-columns:repeat(3, 1fr);gap:22px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.08)}
-.manifesto-stat-card{background:rgba(8, 20, 40, 0.55);border:1px solid rgba(0, 212, 255, 0.25);padding:18px 20px;border-radius:14px;backdrop-filter:blur(12px)}
-.manifesto-stat-card:nth-child(2){border-color:rgba(184, 255, 87, 0.25)}
-
-.m-stat-num{font-size:24px;font-weight:800;letter-spacing:-0.02em;margin-bottom:5px}
-.m-stat-num span.cyan{color:#00d4ff}
-.m-stat-num span.lime{color:#b8ff57}
-.m-stat-title{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;color:#fff;letter-spacing:0.1em;margin-bottom:5px;text-transform:uppercase}
-.m-stat-desc{font-family:'Inter',sans-serif;font-size:11.5px;line-height:1.5;color:rgba(255,255,255,0.6)}
-
-/* ═══════════════════════════════════════════════════════════
-   PURE MEDIA QUERIES: TABLET (768px to 1023px)
-   ═══════════════════════════════════════════════════════════ */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .site-nav{padding:16px 24px}
-  .nav-links{gap:16px}
-  .hero-wrapper{padding:0 24px}
-  .hero-left-content{max-width:380px}
-  .hero-headline{font-size:27px;line-height:1.24;margin-bottom:16px}
-  .hero-headline .glass-capsule{font-size:25px;padding:1px 10px}
-  .hero-ticker-line{font-size:11.5px;margin-bottom:24px}
-  .manifesto-grid{grid-template-columns:1fr;gap:20px}
-  .manifesto-label-col{position:static}
-  .manifesto-big-text{font-size:24px}
-  .manifesto-sub-row{grid-template-columns:repeat(3, 1fr);gap:14px}
-}
-
-/* ═══════════════════════════════════════════════════════════
-   PURE MEDIA QUERIES: MOBILE (< 768px)
-   ═══════════════════════════════════════════════════════════ */
-@media (max-width: 767px) {
-  .nav-links{display:none}
-  .brand-badge{display:none}
-  .site-nav{padding:14px 12px}
-  .brand-logo{font-size:11px}
-  .nav-btn{padding:4px 10px;font-size:9.5px}
-
-  .hero-wrapper{
-    padding:10px 14px 30px;
-    flex-direction:column;
-    justify-content:flex-start;
-    align-items:center;
-    text-align:center;
-  }
-  .hero-inner-container{
-    flex-direction:column;
-    align-items:center;
-    width:100%;
-  }
-  .hero-left-content{
-    max-width:100%;
-    margin-top:295px; /* Clean breathing room below upper 3D pin */
-    transform:translateY(20px);
-  }
-  .hero-pill-badge{font-size:8.5px;padding:3px 10px;margin-bottom:8px}
-  .hero-headline{font-size:19px;line-height:1.24;margin-bottom:10px}
-  .hero-headline .glass-capsule{font-size:17px;padding:1px 7px;margin:2px 0}
-  .hero-ticker-line{justify-content:center;font-size:10px;margin-bottom:16px;flex-wrap:wrap}
-  .btn-primary-glow{width:100%;justify-content:center;padding:11px 16px;font-size:11.5px}
-
-  .editorial-manifesto-section{padding:45px 14px 50px}
-  .manifesto-grid{grid-template-columns:1fr;gap:14px}
-  .manifesto-label-col{position:static}
-  .manifesto-big-text{font-size:16px;line-height:1.45}
-  .manifesto-sub-row{grid-template-columns:1fr;gap:10px;padding-top:16px}
+  gap:8px;
+  text-decoration:none;
 }
 </style>
 </head>
 <body>
 
-<!-- 1. 3D PRELOADER LAYER -->
-<div id="preloader-layer">
-  <h1 class="splash-brand-title" id="splash-title">MARK BISHOP <span>MEDIA</span></h1>
-  <div class="splash-subline" id="splash-subline">LOCAL VISIBILITY DIVISION</div>
-  <div class="splash-progress-container" id="splash-progress">
-    <div class="splash-progress-line" id="splash-progress-line"></div>
+<div class="mobile-container" id="mobile-frame">
+  <div class="dynamic-island"></div>
+
+  <!-- 1. PRELOADER -->
+  <div id="preloader-layer">
+    <h1 class="splash-brand-title" id="splash-title">MARK BISHOP <span>MEDIA</span></h1>
+    <div class="splash-subline" id="splash-subline">LOCAL VISIBILITY DIVISION</div>
+    <div class="splash-progress-container" id="splash-progress">
+      <div class="splash-progress-line" id="splash-progress-line"></div>
+    </div>
   </div>
-</div>
 
-<!-- 2. MASTER 3D CANVAS -->
-<canvas id="master-3d-canvas"></canvas>
-<div class="scene-vignette"></div>
+  <!-- 2. 3D CANVAS -->
+  <canvas id="master-3d-canvas"></canvas>
+  <div class="scene-vignette"></div>
 
-<!-- 3. NAVIGATION -->
-<nav class="site-nav" id="hero-nav">
-  <div class="nav-container">
-    <a href="#" class="brand-logo">MARK BISHOP <span>MEDIA</span> <span class="brand-badge">LOCAL VISIBILITY</span></a>
-    <ul class="nav-links">
-      <li><a href="#what-we-do" class="nav-link">What We Do</a></li>
-      <li><a href="#system" class="nav-link">3D System</a></li>
-      <li><a href="#proof" class="nav-link">Results</a></li>
-    </ul>
+  <!-- 3. NAVIGATION -->
+  <nav class="site-nav" id="hero-nav">
+    <a href="#" class="brand-logo">MARK BISHOP <span>MEDIA</span></a>
     <button class="nav-btn">⚡ FREE AUDIT</button>
-  </div>
-</nav>
+  </nav>
 
-<!-- 4. HERO VIEWPORT -->
-<main class="hero-wrapper">
-  <div class="hero-inner-container">
+  <!-- 4. HERO MOBILE -->
+  <main class="hero-wrapper">
     <div class="hero-left-content" id="hero-left">
       <div class="hero-pill-badge">
         <span class="pulse-dot"></span>
@@ -407,50 +295,15 @@ html,body{
       <div>
         <a href="#what-we-do" class="btn-primary-glow">
           <span>⚡ EXPLORE WHAT WE DO</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
     </div>
-  </div>
-</main>
-
-<!-- 5. WHAT WE DO EDITORIAL MANIFESTO -->
-<section class="editorial-manifesto-section" id="what-we-do">
-  <div class="manifesto-grid">
-    <div class="manifesto-label-col">
-      <div class="manifesto-tag">WHAT WE DO</div>
-    </div>
-
-    <div class="manifesto-content-col">
-      <p class="manifesto-big-text">
-        We turn <span class="highlight-white">local search algorithms</span> into predictable <span class="highlight-lime">client acquisition engines</span>. Through synchronized citation networks, Google Maps authority protocols, and geo-grid reputation mechanics, we engineer <span class="highlight-cyan">market dominance</span> for ambitious local businesses.
-      </p>
-
-      <div class="manifesto-sub-row">
-        <div class="manifesto-stat-card">
-          <div class="m-stat-num"><span class="cyan">#1</span> RANK</div>
-          <div class="m-stat-title">GEO-GRID RADIUS</div>
-          <div class="m-stat-desc">Complete map domination across neighboring target zip codes.</div>
-        </div>
-
-        <div class="manifesto-stat-card">
-          <div class="m-stat-num"><span class="lime">150+</span> SECURED</div>
-          <div class="m-stat-title">CITATION DIRECTORIES</div>
-          <div class="m-stat-desc">Synchronized NAP consistency across all Tier-1 networks.</div>
-        </div>
-
-        <div class="manifesto-stat-card">
-          <div class="m-stat-num"><span class="cyan">+318%</span> GROWTH</div>
-          <div class="m-stat-title">INBOUND CALL VOLUME</div>
-          <div class="m-stat-desc">Predictable flow of high-intent buyers calling directly.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  </main>
+</div>
 
 <script>
-/* ─── DYNAMIC TICKER ENGINE ─── */
+/* ─── DYNAMIC TICKER ─── */
 const tickerItems = [
   { label: "DOMINANCE ENGINE:", val: "9-Mile Local Geo-Grid Coverage" },
   { label: "DOMINANCE TARGET:", val: "#1 Google Maps 3-Pack Positioning" },
@@ -479,25 +332,18 @@ function cycleTicker() {
 }
 setInterval(cycleTicker, 3200);
 
-/* ─── THREE.JS PURE RESPONSIVE ENGINE ─── */
+/* ─── THREE.JS MOBILE SCENE ─── */
+const frameEl = document.getElementById('mobile-frame');
 const canvas = document.getElementById('master-3d-canvas');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(45, 393 / 852, 0.1, 1000);
 camera.position.set(0, 1.2, 22);
 
 const lookAtTarget = { x: 0, y: 1.2, z: 0 };
-
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  update3DTargetForCurrentScreen();
-}
-window.addEventListener('resize', onWindowResize);
-onWindowResize();
+renderer.setSize(393, 852);
 
 const ambLight = new THREE.AmbientLight(0x0a182e, 2.8); scene.add(ambLight);
 const dirLight = new THREE.DirectionalLight(0xffffff, 3.2); dirLight.position.set(8, 14, 10); scene.add(dirLight);
@@ -532,6 +378,7 @@ const purchaseTextures = [
   createUltraPurchaseBadge('⚡', '+$680 RETAINER', 'REPEAT APPOINTMENT', '#b8ff57', 'rgba(6, 26, 16, 0.96)')
 ];
 
+/* ─── 850 PARTICLES ─── */
 const dustCount = 850;
 const dustGeo = new THREE.BufferGeometry();
 const dustPos = new Float32Array(dustCount * 3);
@@ -553,6 +400,7 @@ dustGeo.setAttribute('color', new THREE.BufferAttribute(dustCols, 3));
 const dustMat = new THREE.PointsMaterial({ size: 0.18, vertexColors: true, transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending });
 scene.add(new THREE.Points(dustGeo, dustMat));
 
+/* ─── CUSTOMER AVATARS ─── */
 const customerGroup = new THREE.Group();
 scene.add(customerGroup);
 const customerMat = new THREE.SpriteMaterial({ map: customerTex, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending });
@@ -573,6 +421,7 @@ for (let i = 0; i < 24; i++) {
   });
 }
 
+/* ─── 3D PIN & STOREFRONT ─── */
 const pinGroup = new THREE.Group();
 pinGroup.position.set(0, 2.5, 0);
 scene.add(pinGroup);
@@ -644,6 +493,7 @@ purchaseRipple.rotation.x = -Math.PI / 2;
 purchaseRipple.position.y = 1.2;
 pinGroup.add(purchaseRipple);
 
+/* ─── PURCHASE BADGES ─── */
 const floatingBadgeGroup = new THREE.Group();
 pinGroup.add(floatingBadgeGroup);
 
@@ -668,6 +518,7 @@ function spawnPurchaseBadge() {
 }
 setInterval(spawnPurchaseBadge, 1800);
 
+/* ─── 5 GOLDEN STARS ─── */
 const starGroup = new THREE.Group();
 pinGroup.add(starGroup);
 
@@ -701,28 +552,8 @@ for (let i = 0; i < 5; i++) {
   starTrails.push({ points: trailPoints, history: [] });
 }
 
+/* ─── GSAP MOBILE TIMELINE ─── */
 let isInHeroMode = false;
-
-function update3DTargetForCurrentScreen() {
-  if (!isInHeroMode) return;
-  const w = window.innerWidth;
-  if (w < 768) {
-    // Mobile: Upper Stage, scale 0.34
-    gsap.to(pinGroup.position, { x: 0.0, y: 4.1, z: -1.2, duration: 0.6, ease: "power2.out" });
-    gsap.to(pinGroup.scale, { x: 0.34, y: 0.34, z: 0.34, duration: 0.6, ease: "power2.out" });
-    gsap.to(lookAtTarget, { x: 0.0, y: 1.8, z: 0, duration: 0.6, ease: "power2.out" });
-  } else if (w < 1024) {
-    // Tablet: Shifted right, scale 0.65
-    gsap.to(pinGroup.position, { x: 3.4, y: 0.2, z: 0.0, duration: 0.6, ease: "power2.out" });
-    gsap.to(pinGroup.scale, { x: 0.65, y: 0.65, z: 0.65, duration: 0.6, ease: "power2.out" });
-    gsap.to(lookAtTarget, { x: 0.8, y: 0.4, z: 0, duration: 0.6, ease: "power2.out" });
-  } else {
-    // Desktop: Golden Ratio 5.2, scale 1.0
-    gsap.to(pinGroup.position, { x: 5.2, y: 0.5, z: 0.0, duration: 0.6, ease: "power2.out" });
-    gsap.to(pinGroup.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.6, ease: "power2.out" });
-    gsap.to(lookAtTarget, { x: 1.0, y: 0.6, z: 0, duration: 0.6, ease: "power2.out" });
-  }
-}
 
 function triggerSeamlessIntro() {
   isInHeroMode = false;
@@ -740,13 +571,10 @@ function triggerSeamlessIntro() {
   gsap.set('#splash-progress-line', { width: '0%' });
 
   gsap.set('#hero-nav', { opacity: 0, y: -20 });
-  gsap.set('#hero-left', { opacity: 0, x: -30, filter: 'blur(10px)' });
+  gsap.set('#hero-left', { opacity: 0, y: 20, filter: 'blur(10px)' });
 
   const tl = gsap.timeline();
-  const w = window.innerWidth;
-  const initialScale = w < 768 ? 0.45 : (w < 1024 ? 0.72 : 1.0);
-
-  tl.to(pinGroup.scale, { x: initialScale, y: initialScale, z: initialScale, duration: 0.8, ease: "elastic.out(1.2, 0.6)" }, 0.1);
+  tl.to(pinGroup.scale, { x: 0.45, y: 0.45, z: 0.45, duration: 0.8, ease: "elastic.out(1.2, 0.6)" }, 0.1);
   starMeshes.forEach((s, idx) => {
     tl.to(s.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.5, ease: "back.out(2)" }, 0.2 + idx * 0.08);
   });
@@ -757,17 +585,11 @@ function triggerSeamlessIntro() {
 
   tl.to('#preloader-layer', { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 1.3);
 
-  let targetX = 5.2, targetY = 0.5, targetZ = 0, targetScale = 1.0, lookX = 1.0, lookY = 0.6;
-  if (w < 768) {
-    targetX = 0.0; targetY = 4.1; targetZ = -1.2; targetScale = 0.34; lookX = 0.0; lookY = 1.8;
-  } else if (w < 1024) {
-    targetX = 3.4; targetY = 0.2; targetZ = 0.0; targetScale = 0.65; lookX = 0.8; lookY = 0.4;
-  }
-
-  tl.to(pinGroup.position, { x: targetX, y: targetY, z: targetZ, duration: 0.9, ease: "power3.inOut" }, 1.3);
-  tl.to(pinGroup.scale, { x: targetScale, y: targetScale, z: targetScale, duration: 0.9, ease: "power3.inOut" }, 1.3);
+  // Mobile Upper Stage Docking (Y: 4.1, Scale: 0.34) -> 0% Overlap
+  tl.to(pinGroup.position, { x: 0.0, y: 4.1, z: -1.2, duration: 0.9, ease: "power3.inOut" }, 1.3);
+  tl.to(pinGroup.scale, { x: 0.34, y: 0.34, z: 0.34, duration: 0.9, ease: "power3.inOut" }, 1.3);
   tl.to(lookAtTarget, {
-    x: lookX, y: lookY, z: 0, duration: 0.9, ease: "power3.inOut",
+    x: 0.0, y: 1.8, z: 0, duration: 0.9, ease: "power3.inOut",
     onComplete: () => {
       isInHeroMode = true;
       isHeroPurchasesEnabled = true;
@@ -775,14 +597,8 @@ function triggerSeamlessIntro() {
   }, 1.3);
 
   tl.to('#hero-nav', { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 1.4);
-  tl.to('#hero-left', { opacity: 1, x: 0, y: 0, filter: 'blur(0px)', duration: 0.6, ease: "power3.out" }, 1.5);
+  tl.to('#hero-left', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.6, ease: "power3.out" }, 1.5);
 }
-
-const mouseVec = new THREE.Vector2();
-window.addEventListener('mousemove', (e) => {
-  mouseVec.x = (e.clientX / window.innerWidth) * 2 - 1;
-  mouseVec.y = -(e.clientY / window.innerHeight) * 2 + 1;
-});
 
 const clock = new THREE.Clock();
 let rippleProgress = 0;
@@ -791,13 +607,7 @@ function animate() {
   requestAnimationFrame(animate);
   const time = clock.getElapsedTime();
 
-  const isMob = window.innerWidth < 768;
-  const targetCamX = isInHeroMode ? (isMob ? 0 : mouseVec.x * 1.2) : mouseVec.x * 2.5;
-  const targetCamY = isInHeroMode ? (isMob ? 0.8 : mouseVec.y * 0.8 + 0.8) : mouseVec.y * 1.8 + 1.2;
-  camera.position.x += (targetCamX - camera.position.x) * 0.04;
-  camera.position.y += (targetCamY - camera.position.y) * 0.04;
   camera.lookAt(lookAtTarget.x, lookAtTarget.y, lookAtTarget.z);
-
   pinGroup.rotation.y = time * 0.35;
 
   if (isHeroPurchasesEnabled) {
