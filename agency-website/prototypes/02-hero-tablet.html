@@ -44,10 +44,20 @@ body{
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:flex-end;
-  padding-bottom:120px;
+  justify-content:center;
   pointer-events:none;
   background:transparent;
+}
+
+.preloader-content{
+  position:relative;
+  z-index:10;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  pointer-events:none;
+  margin-top:130px;
 }
 
 .splash-brand-title{
@@ -237,10 +247,12 @@ body{
 <div class="tablet-container" id="tablet-frame">
   <!-- 1. PRELOADER -->
   <div id="preloader-layer">
-    <h1 class="splash-brand-title" id="splash-title">MARK BISHOP <span>MEDIA</span></h1>
-    <div class="splash-subline" id="splash-subline">LOCAL VISIBILITY DIVISION</div>
-    <div class="splash-progress-container" id="splash-progress">
-      <div class="splash-progress-line" id="splash-progress-line"></div>
+    <div class="preloader-content">
+      <h1 class="splash-brand-title" id="splash-title">MARK BISHOP <span>MEDIA</span></h1>
+      <div class="splash-subline" id="splash-subline">LOCAL VISIBILITY DIVISION</div>
+      <div class="splash-progress-container" id="splash-progress">
+        <div class="splash-progress-line" id="splash-progress-line"></div>
+      </div>
     </div>
   </div>
 
