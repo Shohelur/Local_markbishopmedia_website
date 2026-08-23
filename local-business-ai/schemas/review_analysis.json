@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Review Analysis Output",
+  "description": "Structured findings and intelligence derived from review and reputation data.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "insufficient_data", "failed"],
+      "description": "Execution status of the review analysis."
+    },
+    "summary": { "type": "string" },
+    "reputation_health": {
+      "type": "string",
+      "enum": ["strong", "healthy", "moderate", "needs_attention", "high_priority", "insufficient_data"]
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "total_reviews": { "type": ["integer", "null"] },
+        "average_rating": { "type": ["number", "null"] },
+        "latest_review_date": { "type": ["string", "null"], "format": "date-time" },
+        "recent_review_count": { "type": ["integer", "null"] }
+      }
+    },
+    "velocity": {
+      "type": "object",
+      "properties": {
+        "status": { "type": "string", "enum": ["available", "unavailable"] },
+        "period": { "type": ["string", "null"] },
+        "review_count": { "type": ["integer", "null"] },
+        "calculated_velocity": { "type": ["string", "null"] },
+        "evidence_ids": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "recent_activity": { "type": "string" },
+    "response_behavior": { "type": "string" },
+    "positive_themes": { "type": "array", "items": { "type": "string" } },
+    "negative_themes": { "type": "array", "items": { "type": "string" } },
+    "competitor_comparison": { "type": "string" },
+    "strengths": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/review_finding" }
+    },
+    "opportunities": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/review_finding" }
+    },
+    "evidence_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "evidence_id": { "type": "string" },
+          "source_type": { "type": "string" },
+          "source_url": { "type": "string" },
+          "source_title": { "type": "string" },
+          "observation": { "type": "string" },
+          "captured_at": { "type": "string", "format": "date-time" },
+          "verification_status": { "type": "string" }
+        },
+        "required": ["evidence_id", "source_url", "observation"]
+      }
+    },
+    "service_recommendations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "analysis_notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": [
+    "status",
+    "summary",
+    "reputation_health",
+    "metrics",
+    "findings",
+    "evidence_references"
+  ],
+  "definitions": {
+    "review_finding": {
+      "type": "object",
+      "properties": {
+        "finding_id": { "type": "string" },
+        "finding_type": { 
+          "type": "string",
+          "enum": [
+            "review_volume_gap", 
+            "rating_gap", 
+            "recency_issue", 
+            "velocity_gap", 
+            "response_activity_issue", 
+            "response_quality_opportunity", 
+            "positive_theme", 
+            "negative_theme", 
+            "recurring_customer_concern", 
+            "competitor_review_gap", 
+            "review_generation_opportunity", 
+            "reputation_strength"
+          ]
+        },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "fact": { "type": "string", "description": "Objective data observed." },
+        "interpretation": { "type": "string", "description": "Meaning of the evidence." },
+        "recommendation": { "type": "string", "description": "Suggested action." },
+        "impact_level": { 
+          "type": "string",
+          "enum": ["very_high", "high", "moderate", "low"]
+        },
+        "evidence_confidence": { 
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "actionability": { 
+          "type": "string",
+          "enum": ["high", "moderate", "low"]
+        },
+        "relevance_reason": { "type": "string" },
+        "evidence_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "service_mapping": { "type": "string" }
+      },
+      "required": [
+        "finding_id",
+        "finding_type",
+        "title",
+        "fact",
+        "interpretation",
+        "recommendation",
+        "evidence_ids"
+      ]
+    }
+  }
+}

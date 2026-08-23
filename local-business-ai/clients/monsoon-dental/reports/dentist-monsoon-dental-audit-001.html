@@ -1,0 +1,2720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Monsoon Dental — Local Business Visibility Report</title>
+  <meta name="description" content="Local business visibility assessment for Monsoon Dental, Tucson, Arizona. Prepared by Mark Bishop Media.">
+  <style>
+/* ── DESIGN TOKENS ──────────────────────────────────────────────────────── */
+:root {
+  /* Brand */
+  --c-primary:          #0B192C;
+  --c-primary-dark:     #050D1A;
+  --c-primary-mid:      #1E3E62;
+  --c-secondary:        #D97706;
+  --c-secondary-light:  #F59E0B;
+  --c-secondary-dark:   #B45309;
+
+  /* Surfaces */
+  --c-bg:               #FFFFFF;
+  --c-bg-alt:           #F8FAFC;
+  --c-bg-muted:         #F1F5F9;
+  --c-bg-dark:          #0B192C;
+
+  /* Text */
+  --c-text-primary:   #0F172A;
+  --c-text-secondary: #334155;
+  --c-text-muted:     #64748B;
+  --c-text-light:     #94A3B8;
+  --c-text-white:     #FFFFFF;
+
+  /* Borders */
+  --c-border:         #E2E8F0;
+  --c-border-subtle:  #F1F5F9;
+  --c-divider:        #CBD5E1;
+
+  /* Priority System */
+  --c-ph:             #991B1B; --c-ph-bg: #FEF2F2; --c-ph-border: #FECACA;
+  --c-p1:             #B45309; --c-p1-bg: #FFFBEB; --c-p1-border: #FDE68A;
+  --c-p2:             #1D4ED8; --c-p2-bg: #EFF6FF; --c-p2-border: #BFDBFE;
+  --c-p3:             #475569; --c-p3-bg: #F8FAFC; --c-p3-border: #E2E8F0;
+
+  /* Semantics */
+  --c-strength:        #059669; --c-strength-bg: #ECFDF5; --c-strength-border: #A7F3D0;
+  --c-opportunity:     #0284C7; --c-opportunity-bg: #F0F9FF; --c-opportunity-border: #BAE6FD;
+
+  /* Typography */
+  --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-body:    system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --fs-cover-name: clamp(1.95rem, 3.8vw, 2.75rem);
+  --fs-hero:      clamp(2.0rem, 4vw, 3.0rem);
+  --fs-h1:        clamp(1.6rem, 3.5vw, 2.25rem);
+  --fs-h2:        clamp(1.25rem, 2.4vw, 1.65rem);
+  --fs-h3:        1.1rem;
+  --fs-body-lg:   1.025rem;
+  --fs-body:      0.95rem;
+  --fs-body-sm:   0.875rem;
+  --fs-small:     0.78rem;
+  --fs-tiny:      0.72rem;
+  --lh-heading:   1.15;
+  --lh-body:      1.65;
+
+  /* Spacing */
+  --sp-section: clamp(3.0rem, 5.5vw, 4.5rem);
+  --sp-inner:   clamp(1.25rem, 4vw, 2.25rem);
+  --sp-card:    1.25rem;
+  --sp-gap:     1.25rem;
+  --sp-gap-sm:  0.625rem;
+
+  /* Radius */
+  --r-sm:   6px;
+  --r-md:   10px;
+  --r-lg:   16px;
+  --r-pill: 9999px;
+
+  /* Shadows */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.07);
+  --shadow-lg:  0 12px 32px rgba(0,0,0,0.12);
+
+  /* Layout */
+  --max-w: 1140px;
+  --nav-h: 56px;
+}
+
+/* ── RESET & BASE ───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--c-text-primary);
+  background: var(--c-bg);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  line-height: var(--lh-heading);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+p { margin-bottom: 0.6em; }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--c-secondary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+ul { list-style: none; }
+img { max-width: 100%; height: auto; }
+
+/* ── LAYOUT UTILITIES ───────────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--sp-inner);
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-gap); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-gap); }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-gap); }
+
+/* ── STICKY NAVIGATION ──────────────────────────────────────────────────── */
+.report-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(11, 25, 44, 0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+}
+
+.report-nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: 800;
+  color: rgba(255,255,255,0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+
+.nav-link {
+  font-size: var(--fs-tiny);
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+  transition: color 0.2s, background 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+}
+.nav-link:hover {
+  color: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.08);
+  text-decoration: none;
+}
+.nav-link.active {
+  color: #F59E0B;
+  background: rgba(217,119,6,0.15);
+}
+
+/* ── SECTION BASE ───────────────────────────────────────────────────────── */
+.report-section {
+  padding: var(--sp-section) 0;
+  border-bottom: 1px solid var(--c-border);
+}
+.report-section:last-child { border-bottom: none; }
+
+.section-eyebrow {
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  color: var(--c-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.section-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  background: var(--c-secondary);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  color: var(--c-primary);
+  font-weight: 800;
+  margin-bottom: 0.65rem;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.section-lead {
+  font-size: var(--fs-body-lg);
+  color: var(--c-text-secondary);
+  max-width: 760px;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+/* ── COVER SECTION (Compact, Balanced Two-Column Composition) ───────────── */
+.section-cover {
+  position: relative;
+  background: linear-gradient(145deg, #060E1C 0%, #0B192C 50%, #102A45 100%);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2.75rem, 5vw, 3.75rem) var(--sp-inner);
+  overflow: hidden;
+  border-bottom: 4px solid var(--c-secondary);
+}
+
+.cover-geo {
+  position: absolute;
+  right: 0; top: 0;
+  width: 48%; height: 100%;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.cover-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.cover-hero {
+  max-width: 600px;
+  width: 100%;
+}
+
+.cover-brand-block {
+  margin-bottom: 1.0rem;
+}
+
+.cover-brand-mark-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cover-brand-mark {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #F59E0B;
+}
+
+.cover-brand-sep {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.cover-brand-descriptor {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.cover-report-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(217, 119, 6, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.38);
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--r-pill);
+  margin-bottom: 0.85rem;
+}
+
+.cover-badge-dot {
+  width: 6px;
+  height: 6px;
+  background: #F59E0B;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
+}
+
+.cover-report-label {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #FDE68A;
+}
+
+.cover-business-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-cover-name);
+  font-weight: 900;
+  color: #FFFFFF;
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.025em;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.cover-gold-rule {
+  width: 56px;
+  height: 3px;
+  background: linear-gradient(90deg, #D97706, #F59E0B);
+  border-radius: 2px;
+  margin-bottom: 0.85rem;
+}
+
+.cover-location {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #E2E8F0;
+  margin-bottom: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.cover-intro {
+  font-size: 0.98rem;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 540px;
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
+  overflow-wrap: break-word;
+}
+
+.cover-meta-bar {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 0.85rem;
+}
+
+.cover-prepared-for {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.cover-audit-date {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Right-side Brand / Trust Card (Dedicated 320px-350px Card — NO CTA) */
+.cover-right-panel {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.cover-trust-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--r-lg);
+  padding: 1.75rem 1.6rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  width: 100%;
+  max-width: 330px;
+  position: relative;
+  overflow: hidden;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.cover-trust-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #D97706, #F59E0B);
+}
+
+.cover-trust-card-brand {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #F59E0B;
+  margin-bottom: 0.55rem;
+}
+
+.cover-trust-card-headline {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.35;
+  margin-bottom: 0.65rem;
+}
+
+.cover-trust-card-body {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── LOCAL VISIBILITY AT A GLANCE (2x2 Visual Diagnostic Matrix) ────────── */
+.glance-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.glance-matrix-card {
+  background: #FFFFFF;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 4px 12px rgba(11, 25, 44, 0.04);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.glance-matrix-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(11, 25, 44, 0.08);
+}
+
+.glance-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--c-border-subtle);
+}
+
+.glance-card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.glance-card-num {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--c-text-muted);
+  background: var(--c-bg-muted);
+  width: 26px; height: 26px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glance-card-name {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--c-primary);
+}
+
+.glance-card-body {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.glance-gauge-wrap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glance-card-info {
+  flex: 1;
+}
+
+.glance-card-metric-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+}
+
+.glance-card-desc {
+  font-size: 0.86rem;
+  color: var(--c-text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.scorecard-badge {
+  font-size: var(--fs-tiny);
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--r-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.badge-strong      { background: var(--c-strength-bg); color: var(--c-strength); border: 1px solid var(--c-strength-border); }
+.badge-opportunity { background: var(--c-opportunity-bg); color: var(--c-opportunity); border: 1px solid var(--c-opportunity-border); }
+.badge-attention   { background: var(--c-ph-bg); color: #B45309; border: 1px solid #FDE68A; }
+.badge-neutral     { background: var(--c-bg-muted); color: var(--c-text-secondary); border: 1px solid var(--c-border); }
+
+.scorecard-tag {
+  font-size: var(--fs-tiny);
+  font-weight: 600;
+  color: var(--c-text-muted);
+  text-align: right;
+}
+
+.glance-insights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.glance-insight-card {
+  background: #FFFFFF;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  padding: 1.35rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.glance-insight-card.opportunity {
+  border-left: 4px solid #D97706;
+  background: linear-gradient(180deg, #FFFBEB 0%, #FFFFFF 100%);
+}
+.glance-insight-card.strength {
+  border-left: 4px solid var(--c-strength);
+  background: linear-gradient(180deg, #ECFDF5 0%, #FFFFFF 100%);
+}
+
+.insight-eyebrow {
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+}
+.glance-insight-card.opportunity .insight-eyebrow { color: #B45309; }
+.glance-insight-card.strength .insight-eyebrow    { color: var(--c-strength); }
+
+.insight-title {
+  font-size: var(--fs-h3);
+  font-weight: 800;
+  color: var(--c-primary);
+  margin-bottom: 0.4rem;
+}
+.insight-desc {
+  font-size: var(--fs-body-sm);
+  color: var(--c-text-secondary);
+  line-height: 1.6;
+}
+
+/* ── WHAT'S WORKING ─────────────────────────────────────────────────────── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.stat-block {
+  background: var(--c-strength-bg);
+  border: 1px solid var(--c-strength-border);
+  border-radius: var(--r-md);
+  padding: 1.35rem;
+  text-align: center;
+}
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--c-strength);
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+.stat-label {
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #065F46;
+  margin-bottom: 0.25rem;
+}
+.stat-context {
+  font-size: var(--fs-tiny);
+  color: var(--c-text-muted);
+}
+
+.strengths-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.strength-item {
+  background: #FFFFFF;
+  border: 1px solid var(--c-border);
+  border-left: 4px solid var(--c-strength);
+  border-radius: var(--r-sm);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.strength-icon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--c-strength-bg);
+  color: var(--c-strength);
+  font-size: 0.875rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.strength-area {
+  font-size: var(--fs-body);
+  font-weight: 700;
+  color: var(--c-primary);
+  margin-bottom: 0.2rem;
+}
+.strength-observation {
+  font-size: var(--fs-body-sm);
+  color: var(--c-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.strategic-note {
+  background: var(--c-bg-alt);
+  border: 1px dashed var(--c-divider);
+  border-radius: var(--r-md);
+  padding: 1rem 1.35rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.strategic-note-icon { font-size: 1.3rem; flex-shrink: 0; }
+.strategic-note p { font-size: var(--fs-body-sm); color: #475569; margin: 0; line-height: 1.6; }
+
+/* ── PRIORITY FINDING SECTIONS (Tightened Vertical Flow) ─────────────────── */
+.finding-section {
+  padding: var(--sp-section) 0;
+  border-bottom: 1px solid var(--c-border);
+}
+.finding-section:nth-child(even) {
+  background: var(--c-bg-alt);
+}
+
+.finding-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 0.85rem;
+}
+
+.finding-rank-badge {
+  width: 48px; height: 48px;
+  background: var(--c-primary);
+  color: #FFFFFF;
+  border-radius: var(--r-md);
+  font-size: 1.25rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+}
+
+.finding-header-text { flex: 1; min-width: 0; }
+
+.finding-priority-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.75rem;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.4rem;
+}
+.priority-ph { background: var(--c-ph-bg); color: var(--c-ph); border: 1px solid var(--c-ph-border); }
+.priority-p1 { background: var(--c-p1-bg); color: var(--c-p1); border: 1px solid var(--c-p1-border); }
+.priority-p2 { background: var(--c-p2-bg); color: var(--c-p2); border: 1px solid var(--c-p2-border); }
+.priority-p3 { background: var(--c-p3-bg); color: var(--c-p3); border: 1px solid var(--c-p3-border); }
+
+.finding-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 800;
+  color: var(--c-primary);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Primary Visual Container — Content-Driven Height */
+.finding-visual {
+  background: #FFFFFF;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: 1.25rem 1.5rem 1rem;
+  margin: 0.75rem 0 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.finding-visual-caption {
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+/* Consultative Flow: What -> Evidence Link -> Why -> Action */
+.finding-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 1.5rem;
+}
+
+.finding-col {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--c-border-subtle);
+}
+.finding-col:last-child { border-bottom: none; padding-bottom: 0; }
+
+.finding-col-label {
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.finding-col.what .finding-col-label   { color: var(--c-text-muted); }
+.finding-col.why .finding-col-label    { color: #92400E; }
+.finding-col.action .finding-col-label { color: #1D4ED8; }
+
+.finding-col p {
+  font-size: var(--fs-body);
+  color: var(--c-text-primary);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 820px;
+}
+.finding-col.action p {
+  color: var(--c-primary);
+  font-weight: 600;
+}
+
+/* Subtle Verification Link */
+.finding-evidence-links {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+.evidence-link {
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  color: #2563EB;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.evidence-link:hover {
+  color: #1D4ED8;
+  text-decoration: underline;
+}
+.evidence-link-arrow {
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: transform 0.2s;
+}
+.evidence-link:hover .evidence-link-arrow {
+  transform: translateX(2px);
+}
+
+/* Business Impact Banner (Non-Technical Owner Hook) */
+.business-impact-banner {
+  background: linear-gradient(135deg, #FEF3C7 0%, #FFFBEB 100%);
+  border: 1px solid #FCD34D;
+  border-left: 4px solid #D97706;
+  border-radius: var(--r-md);
+  padding: 0.85rem 1.15rem;
+  margin: 0.75rem 0 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.business-impact-icon {
+  font-size: 1.1rem;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+.business-impact-text {
+  font-size: 0.88rem;
+  color: #78350F;
+  line-height: 1.45;
+  margin: 0;
+}
+.business-impact-text strong {
+  color: #92400E;
+}
+
+/* Before vs After Transformation Comparison Cards */
+.before-after-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.25rem 0 0.5rem;
+}
+.before-card {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-radius: var(--r-md);
+  padding: 1rem 1.2rem;
+}
+.before-card-header {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #991B1B;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.before-card-body {
+  font-size: 0.86rem;
+  color: #7F1D1D;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.after-card {
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  border-radius: var(--r-md);
+  padding: 1rem 1.2rem;
+}
+.after-card-header {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #047857;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.after-card-body {
+  font-size: 0.86rem;
+  color: #064E3B;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Inline Solution Bridge CTA */
+.inline-solution-bridge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--r-md);
+  padding: 0.85rem 1.25rem;
+  margin-top: 1.25rem;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.inline-solution-bridge:hover {
+  background: #EFF6FF;
+  border-color: #93C5FD;
+  transform: translateY(-1px);
+}
+.inline-bridge-label {
+  font-size: 0.88rem;
+  color: var(--c-text-primary);
+  font-weight: 600;
+}
+.inline-bridge-btn {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #2563EB;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* See More Progressive Disclosure */
+.see-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #FFFFFF;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  padding: 0.45rem 1.1rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  font-weight: 700;
+  color: var(--c-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+.see-more-btn:hover {
+  border-color: var(--c-primary);
+  color: var(--c-primary);
+  background: var(--c-bg-alt);
+}
+.see-more-icon { font-size: 0.65rem; transition: transform 0.3s; }
+.see-more-btn[aria-expanded="true"] .see-more-icon { transform: rotate(180deg); }
+
+.see-more-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.see-more-panel.is-open { max-height: 3000px; }
+
+.see-more-inner {
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--c-border);
+  margin-top: 1.1rem;
+}
+
+.detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.detail-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  font-size: var(--fs-body-sm);
+  color: var(--c-text-secondary);
+  padding: 0.55rem 0.85rem;
+  background: #FFFFFF;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  line-height: 1.5;
+}
+.detail-item::before { content: "›"; color: var(--c-secondary); font-weight: 800; font-size: 1.1rem; line-height: 1; }
+.detail-item.technical {
+  background: #F8FAFC;
+  border-left: 3px solid var(--c-text-light);
+}
+.technical-badge {
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  color: var(--c-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+/* ── CHARTS & VISUAL ELEMENTS ───────────────────────────────────────────── */
+.chart-container { width: 100%; }
+.chart-svg { display: block; width: 100%; overflow: visible; }
+
+.metric-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+.metric-block {
+  text-align: center;
+  padding: 1.25rem;
+  border-radius: var(--r-md);
+  border: 1px solid var(--c-border);
+  background: var(--c-bg-alt);
+}
+.metric-block.primary-metric {
+  background: #EFF6FF;
+  border-color: #BFDBFE;
+}
+.metric-block-value {
+  font-family: var(--font-display);
+  font-size: 2.35rem;
+  font-weight: 900;
+  color: var(--c-primary);
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+.metric-block-label {
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-text-muted);
+  margin-bottom: 0.2rem;
+}
+.metric-block-context {
+  font-size: var(--fs-tiny);
+  color: var(--c-text-light);
+}
+
+.qlbar-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.qlbar-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--c-bg-alt);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+}
+.qlbar-label {
+  font-size: var(--fs-body-sm);
+  font-weight: 700;
+  width: 200px;
+  flex-shrink: 0;
+  color: var(--c-primary);
+}
+.qlbar-segs {
+  display: flex;
+  gap: 4px;
+  width: 120px;
+  flex-shrink: 0;
+}
+.qlbar-seg {
+  height: 7px;
+  border-radius: 3px;
+  flex: 1;
+}
+.qlbar-badge-wrap {
+  width: 130px;
+  flex-shrink: 0;
+}
+.qlbar-badge {
+  display: inline-block;
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--r-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.qlbar-badge.strong      { background: var(--c-strength-bg); color: var(--c-strength); }
+.qlbar-badge.opportunity { background: var(--c-opportunity-bg); color: var(--c-opportunity); }
+.qlbar-badge.attention   { background: var(--c-ph-bg); color: #B45309; }
+
+.qlbar-items {
+  font-size: var(--fs-tiny);
+  color: var(--c-text-secondary);
+  flex: 1;
+}
+
+.cov-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  font-size: var(--fs-body-sm);
+}
+.cov-table th {
+  background: var(--c-primary);
+  color: #FFFFFF;
+  padding: 0.75rem 1.1rem;
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: left;
+}
+.cov-table td {
+  padding: 0.75rem 1.1rem;
+  border-bottom: 1px solid var(--c-border);
+  vertical-align: middle;
+}
+.cov-table tr:last-child td { border-bottom: none; }
+.cov-table tr:nth-child(even) td { background: var(--c-bg-alt); }
+.cov-name-cell strong { color: var(--c-primary); display: block; }
+.cov-item-detail { font-size: var(--fs-tiny); color: var(--c-text-muted); }
+.cov-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--r-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cov-status.strong      { background: var(--c-strength-bg); color: var(--c-strength); }
+.cov-status.attention   { background: var(--c-ph-bg); color: #B45309; }
+.cov-status.opportunity { background: var(--c-opportunity-bg); color: var(--c-opportunity); }
+.cov-status.neutral     { background: var(--c-bg-muted); color: var(--c-text-muted); }
+
+/* ── COMPETITOR SNAPSHOT (Compact High-Density Snapshot) ────────────────── */
+.competitor-profiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.competitor-profile {
+  border-radius: var(--r-md);
+  padding: 1.1rem 1.35rem;
+  box-shadow: var(--shadow-sm);
+}
+.competitor-profile.target    { background: #EFF6FF; border: 1px solid #BFDBFE; border-left: 4px solid #2563EB; }
+.competitor-profile.benchmark { background: #FFFFFF; border: 1px solid var(--c-border); border-left: 4px solid var(--c-text-muted); }
+.comp-profile-role {
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+}
+.competitor-profile.target .comp-profile-role { color: #1D4ED8; }
+.competitor-profile.benchmark .comp-profile-role { color: var(--c-text-muted); }
+.comp-profile-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 800;
+  margin-bottom: 0.15rem;
+}
+.competitor-profile.target .comp-profile-name { color: #1E3A8A; }
+.competitor-profile.benchmark .comp-profile-name { color: var(--c-text-primary); }
+.comp-profile-sub {
+  font-size: var(--fs-tiny);
+  color: var(--c-text-muted);
+}
+
+.comp-metrics-panel {
+  background: #FFFFFF;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.comp-metrics-title {
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-text-muted);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.v3-comp-row {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--c-border-subtle);
+}
+.v3-comp-row:last-of-type { margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: none; }
+
+.v3-comp-label {
+  font-size: var(--fs-body-sm);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--c-primary);
+  margin-bottom: 0.65rem;
+  text-align: center;
+}
+.v3-comp-metrics {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.v3-comp-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.v3-comp-side.target { align-items: flex-end; text-align: right; }
+.v3-comp-side.comp   { align-items: flex-start; text-align: left; }
+
+.v3-comp-name {
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--c-text-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+.v3-comp-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 3.5vw, 2.5rem);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.v3-comp-bar-container {
+  width: 100%;
+  max-width: 240px;
+  height: 6px;
+  background: var(--c-border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.v3-comp-bar {
+  height: 100%;
+  border-radius: 3px;
+}
+.v3-comp-divider {
+  font-size: var(--fs-tiny);
+  font-weight: 900;
+  color: var(--c-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--c-bg-muted);
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--r-pill);
+}
+
+.comp-summary-note {
+  font-size: var(--fs-body-sm);
+  color: var(--c-text-secondary);
+  background: var(--c-bg-alt);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--r-sm);
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+  line-height: 1.5;
+}
+.comp-summary-note em { font-weight: 700; color: var(--c-primary); font-style: normal; }
+
+.comp-opportunity-box {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-left: 4px solid #2563EB;
+  border-radius: var(--r-md);
+  padding: 1.1rem 1.4rem;
+  margin-top: 1.25rem;
+}
+.comp-opp-label {
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #1D4ED8;
+  margin-bottom: 0.35rem;
+}
+.comp-opp-text {
+  font-size: var(--fs-body);
+  color: #1E3A8A;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Patient Traffic Flow & Market Leak Diagnostic Card */
+.comp-traffic-leak-card {
+  background: #FFFFFF;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.traffic-leak-header {
+  margin-bottom: 1rem;
+}
+.leak-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: #EFF6FF;
+  color: #1D4ED8;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--r-pill);
+  margin-bottom: 0.4rem;
+}
+.leak-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--c-primary);
+  margin: 0;
+}
+.traffic-leak-svg {
+  display: block;
+  width: 100%;
+  margin: 1rem 0;
+}
+.traffic-leak-takeaway {
+  background: #F8FAFC;
+  border-left: 3px solid #059669;
+  border-radius: var(--r-sm);
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
+  color: var(--c-text-primary);
+  line-height: 1.5;
+}
+
+/* ── GROWTH OPPORTUNITIES ───────────────────────────────────────────────── */
+.opportunities-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+.opportunity-item {
+  background: var(--c-bg-alt);
+  border: 1px solid var(--c-border);
+  border-left: 4px solid var(--c-opportunity);
+  border-radius: var(--r-md);
+  padding: 1.15rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+.opp-title {
+  font-size: var(--fs-body);
+  font-weight: 700;
+  color: var(--c-primary);
+  margin-bottom: 0.3rem;
+}
+.opp-observation {
+  font-size: var(--fs-body-sm);
+  color: var(--c-text-secondary);
+  margin-bottom: 0.4rem;
+  line-height: 1.55;
+}
+.opp-action {
+  font-size: var(--fs-tiny);
+  font-weight: 700;
+  color: var(--c-opportunity);
+}
+
+/* ── ACTION ROADMAP ─────────────────────────────────────────────────────── */
+.roadmap-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.roadmap-step {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: #FFFFFF;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  padding: 1.1rem 1.35rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.roadmap-step:hover { box-shadow: var(--shadow-md); transform: translateX(3px); }
+.roadmap-step-num {
+  width: 38px; height: 38px;
+  background: var(--c-primary);
+  color: #FFFFFF;
+  border-radius: var(--r-sm);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.roadmap-step-text {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--c-text-primary);
+  flex: 1;
+  line-height: 1.5;
+}
+.roadmap-step-arrow { color: var(--c-text-light); font-size: 1.1rem; }
+
+/* ── CTA SECTION ────────────────────────────────────────────────────────── */
+.section-cta { background: var(--c-bg-alt); }
+
+.cta-card {
+  background: linear-gradient(145deg, #060E1C 0%, #0B192C 60%, #153255 100%);
+  color: #FFFFFF;
+  border-radius: var(--r-lg);
+  padding: 3.5rem 2.25rem;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.cta-card-geo {
+  position: absolute;
+  right: -5%; bottom: -20%;
+  width: 55%; height: 140%;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.cta-eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(217,119,6,0.18);
+  border: 1px solid rgba(245,158,11,0.35);
+  border-radius: var(--r-pill);
+  padding: 0.35rem 1rem;
+  margin-bottom: 1.25rem;
+}
+.cta-eyebrow-text {
+  font-size: var(--fs-tiny);
+  font-weight: 800;
+  color: #FDE68A;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.cta-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 0.85rem;
+  line-height: 1.2;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-body {
+  font-size: var(--fs-body);
+  color: rgba(255,255,255,0.8);
+  max-width: 600px;
+  margin: 0 auto 1.75rem;
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-contacts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #FFFFFF;
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.2s;
+}
+.cta-contact-link:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.4);
+  text-decoration: none;
+}
+.cta-contact-link.primary-cta {
+  background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(217,119,6,0.45);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cta-contact-link.primary-cta:hover {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.cta-subtext {
+  font-size: var(--fs-tiny);
+  color: rgba(255,255,255,0.5);
+  position: relative;
+  z-index: 1;
+}
+
+.cta-methodology {
+  background: #FFFFFF;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  padding: 0.85rem 1.35rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  font-size: var(--fs-tiny);
+  color: var(--c-text-muted);
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .scorecard-row { grid-template-columns: 1fr; gap: 0.75rem; }
+  .scorecard-tag { text-align: left; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .glance-insights-grid { grid-template-columns: 1fr; }
+  .competitor-profiles { grid-template-columns: 1fr; }
+  .cover-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .cover-right-panel { justify-content: flex-start; }
+  .cover-trust-card { max-width: 480px; }
+  .cover-hero { max-width: 100%; }
+}
+
+@media (max-width: 640px) {
+  .grid-2, .grid-3, .grid-4, .stat-grid, .opportunities-grid { grid-template-columns: 1fr; }
+  .section-cover { padding: 2.25rem 1.25rem; }
+  .cover-business-name { font-size: clamp(1.75rem, 7vw, 2.25rem); }
+  .cover-brand-trust { font-size: 0.8rem; }
+  .cover-report-label { font-size: 0.9rem; }
+  .cover-intro { font-size: 0.92rem; }
+  .cover-trust-card { padding: 1.4rem 1.25rem; }
+  .nav-brand { display: none; }
+  .cta-card { padding: 2.5rem 1.25rem; }
+  .cta-contacts { gap: 0.875rem; }
+  .section-title { font-size: clamp(1.4rem, 5vw, 1.9rem); }
+  .finding-title { font-size: clamp(1.15rem, 4.5vw, 1.4rem); }
+  .v3-comp-metrics { flex-direction: column; gap: 0.75rem; }
+  .v3-comp-side.target, .v3-comp-side.comp { align-items: center; text-align: center; }
+  .qlbar-row { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+  .qlbar-label { width: 100%; }
+}
+
+/* ── PRINT STYLES ───────────────────────────────────────────────────────── */
+@media print {
+  .report-nav { display: none; }
+  .see-more-btn { display: none; }
+  .see-more-panel { max-height: none !important; }
+  .report-section, .finding-section { page-break-inside: avoid; }
+  .cta-card { background: #0B192C !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+  
+<nav class="report-nav" id="report-nav" role="navigation" aria-label="Report sections">
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+    <span class="nav-brand">Local Growth Division</span>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="nav-links"><a href="#overview" class="nav-link" data-section="overview">Overview</a><a href="#glance" class="nav-link" data-section="glance">Assessment</a><a href="#working" class="nav-link" data-section="working">What&#39;s Working</a><a href="#findings" class="nav-link" data-section="findings">Key Opportunities</a><a href="#competition" class="nav-link" data-section="competition">Competition</a><a href="#growth" class="nav-link" data-section="growth">Growth Signals</a><a href="#action-plan" class="nav-link" data-section="action-plan">Action Plan</a></div>
+      <button onclick="window.print()" class="nav-print-btn" title="Download or print this report as PDF" style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.12); color:#FFFFFF; border:1px solid rgba(255,255,255,0.25); border-radius:6px; padding:5px 12px; font-size:12px; font-weight:600; cursor:pointer;">
+        <span>🖨</span> Print / Save PDF
+      </button>
+    </div>
+  </div>
+</nav>
+
+  <main id="report-main" role="main">
+
+    
+<section id="overview" class="section-cover" aria-label="Report cover">
+  <div class="cover-geo" aria-hidden="true"><svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMid slice">
+    <defs>
+      <pattern id="geo-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+        <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" stroke-width="0.5"/>
+      </pattern>
+    </defs>
+    <rect width="600" height="800" fill="url(#geo-grid)"/>
+    <circle cx="450" cy="200" r="180" fill="none" stroke="white" stroke-width="0.8" opacity="0.6"/>
+    <circle cx="450" cy="200" r="300" fill="none" stroke="white" stroke-width="0.4" opacity="0.4"/>
+    <circle cx="520" cy="600" r="120" fill="none" stroke="white" stroke-width="0.6" opacity="0.5"/>
+  </svg></div>
+  <div class="container">
+    <div class="cover-layout">
+      <!-- LEFT / MAIN CONTENT -->
+      <div class="cover-hero">
+        <div class="cover-brand-block">
+          <div class="cover-brand-mark-row">
+            <span class="cover-brand-mark">Mark Bishop Media</span>
+            <span class="cover-brand-sep" aria-hidden="true">&middot;</span>
+            <span class="cover-brand-descriptor">Local Business Growth</span>
+          </div>
+        </div>
+
+        <div class="cover-report-badge">
+          <span class="cover-badge-dot" aria-hidden="true"></span>
+          <span class="cover-report-label">Local Visibility Audit</span>
+        </div>
+
+        <h1 class="cover-business-name">Monsoon Dental</h1>
+        <div class="cover-gold-rule" aria-hidden="true"></div>
+        <div class="cover-location">&#x1F4CD; Tucson, Arizona</div>
+
+        <p class="cover-intro">We reviewed the public signals that shape how your business is discovered, compared, and trusted locally — and identified the opportunities worth addressing first.</p>
+
+        <div class="cover-meta-bar">
+          <div class="cover-prepared-for">Prepared specifically for Monsoon Dental</div>
+          <div class="cover-audit-date">&#x1F4C5; August 11, 2026</div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: COMPACT BRAND TRUST CARD (NO CTA / NO CONTACT INFO) -->
+      <div class="cover-right-panel" aria-label="Brand credibility overview">
+        <div class="cover-trust-card">
+          <div class="cover-trust-card-brand">Mark Bishop Media</div>
+          <div class="cover-trust-card-headline">Serving Tucson-area businesses for more than 10 years.</div>
+          <p class="cover-trust-card-body">We help local businesses get found, trusted, and chosen through targeted digital and traditional marketing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    
+<section id="glance" class="report-section" aria-label="Local visibility overview">
+  <div class="container">
+    <div class="section-eyebrow">Local Presence Assessment</div>
+    <h2 class="section-title">LOCAL VISIBILITY AT A GLANCE</h2>
+    <p class="section-lead">A visual diagnostic of your local market footprint across the four core pillars of local discovery and customer acquisition.</p>
+
+    <!-- Primary Visual Anchor: 2x2 Interactive Graphical Diagnostic Matrix -->
+    <div class="glance-matrix-grid" role="region" aria-label="Presence diagnostic visual matrix">
+      
+    <div class="glance-matrix-card" style="border-top: 3px solid #DC2626;">
+      <div class="glance-card-top">
+        <div class="glance-card-title-group">
+          <span class="glance-card-num">01</span>
+          <span class="glance-card-name">📍 Citations &amp; Directories</span>
+        </div>
+        <span class="scorecard-badge badge-attention">Action Recommended</span>
+      </div>
+
+      <div class="glance-card-body">
+        <div class="glance-gauge-wrap">
+          
+  <svg width="84" height="84" viewBox="0 0 84 84" class="radial-gauge-svg" aria-hidden="true" style="overflow:visible;">
+    <!-- Track Circle -->
+    <circle cx="42" cy="42" r="32"
+            fill="none" stroke="#E2E8F0" stroke-width="6" />
+    <!-- Progress Arc -->
+    <circle cx="42" cy="42" r="32"
+            fill="none" stroke="#DC2626" stroke-width="6"
+            stroke-linecap="round"
+            stroke-dasharray="201.06192982974676"
+            stroke-dashoffset="120.63715789784806"
+            transform="rotate(-90 42 42)" />
+    <!-- Center Icon -->
+    <text x="42" y="48"
+          text-anchor="middle"
+          font-family="system-ui, -apple-system, sans-serif"
+          font-size="17"
+          font-weight="800"
+          fill="#DC2626">!</text>
+  </svg>
+        </div>
+        <div class="glance-card-info">
+          <div class="glance-card-metric-chip" style="color:#DC2626;">
+            <span>●</span> Directory Gap Identified
+          </div>
+          <p class="glance-card-desc">Inconsistent NAP or missing presence across high-authority local directories.</p>
+        </div>
+      </div>
+    </div>
+    <div class="glance-matrix-card" style="border-top: 3px solid #D97706;">
+      <div class="glance-card-top">
+        <div class="glance-card-title-group">
+          <span class="glance-card-num">02</span>
+          <span class="glance-card-name">🏢 Google Business Profile</span>
+        </div>
+        <span class="scorecard-badge badge-opportunity">Growth Opportunity</span>
+      </div>
+
+      <div class="glance-card-body">
+        <div class="glance-gauge-wrap">
+          
+  <svg width="84" height="84" viewBox="0 0 84 84" class="radial-gauge-svg" aria-hidden="true" style="overflow:visible;">
+    <!-- Track Circle -->
+    <circle cx="42" cy="42" r="32"
+            fill="none" stroke="#E2E8F0" stroke-width="6" />
+    <!-- Progress Arc -->
+    <circle cx="42" cy="42" r="32"
+            fill="none" stroke="#D97706" stroke-width="6"
+            stroke-linecap="round"
+            stroke-dasharray="201.06192982974676"
+            stroke-dashoffset="80.4247719318987"
+            transform="rotate(-90 42 42)" />
+    <!-- Center Icon -->
+    <text x="42" y="48"
+          text-anchor="middle"
+          font-family="system-ui, -apple-system, sans-serif"
+          font-size="17"
+          font-weight="800"
+          fill="#D97706">⚡</text>
+  </svg>
+        </div>
+        <div class="glance-card-info">
+          <div class="glance-card-metric-chip" style="color:#D97706;">
+            <span>●</span> 8 Services Listed
+          </div>
+          <p class="glance-card-desc">Profile active; catalog expansion and category optimization will increase reach.</p>
+        </div>
+      </div>
+    </div>
+    <div class="glance-matrix-card" style="border-top: 3px solid #059669;">
+      <div class="glance-card-top">
+        <div class="glance-card-title-group">
+          <span class="glance-card-num">03</span>
+          <span class="glance-card-name">⭐ Customer Reviews &amp; CX</span>
+        </div>
+        <span class="scorecard-badge badge-strong">Established Asset</span>
+      </div>
+
+      <div class="glance-card-body">
+        <div class="glance-gauge-wrap">
+          
+  <svg width="84" height="84" viewBox="0 0 84 84" class="radial-gauge-svg" aria-hidden="true" style="overflow:visible;">
+    <!-- Track Circle -->
+    <circle cx="42" cy="42" r="32"
+            fill="none" stroke="#E2E8F0" stroke-width="6" />
+    <!-- Progress Arc -->
+    <circle cx="42" cy="42" r="32"
+            fill="none" stroke="#059669" stroke-width="6"
+            stroke-linecap="round"
+            stroke-dasharray="201.06192982974676"
+            stroke-dashoffset="0"
+            transform="rotate(-90 42 42)" />
+    <!-- Center Icon -->
+    <text x="42" y="48"
+          text-anchor="middle"
+          font-family="system-ui, -apple-system, sans-serif"
+          font-size="17"
+          font-weight="800"
+          fill="#059669">★</text>
+  </svg>
+        </div>
+        <div class="glance-card-info">
+          <div class="glance-card-metric-chip" style="color:#059669;">
+            <span>●</span> 21 Verified Reviews (5★)
+          </div>
+          <p class="glance-card-desc">Authentic customer sentiment is strong; active review velocity sustains rankings.</p>
+        </div>
+      </div>
+    </div>
+    <div class="glance-matrix-card" style="border-top: 3px solid #2563EB;">
+      <div class="glance-card-top">
+        <div class="glance-card-title-group">
+          <span class="glance-card-num">04</span>
+          <span class="glance-card-name">🌐 Website Signals &amp; Schema</span>
+        </div>
+        <span class="scorecard-badge badge-opportunity">Technical Opportunity</span>
+      </div>
+
+      <div class="glance-card-body">
+        <div class="glance-gauge-wrap">
+          
+  <svg width="84" height="84" viewBox="0 0 84 84" class="radial-gauge-svg" aria-hidden="true" style="overflow:visible;">
+    <!-- Track Circle -->
+    <circle cx="42" cy="42" r="32"
+            fill="none" stroke="#E2E8F0" stroke-width="6" />
+    <!-- Progress Arc -->
+    <circle cx="42" cy="42" r="32"
+            fill="none" stroke="#2563EB" stroke-width="6"
+            stroke-linecap="round"
+            stroke-dasharray="201.06192982974676"
+            stroke-dashoffset="120.63715789784806"
+            transform="rotate(-90 42 42)" />
+    <!-- Center Icon -->
+    <text x="42" y="48"
+          text-anchor="middle"
+          font-family="system-ui, -apple-system, sans-serif"
+          font-size="17"
+          font-weight="800"
+          fill="#2563EB">⚙</text>
+  </svg>
+        </div>
+        <div class="glance-card-info">
+          <div class="glance-card-metric-chip" style="color:#2563EB;">
+            <span>●</span> Schema / SEO Gap
+          </div>
+          <p class="glance-card-desc">Active website present; local business structured JSON-LD data needed.</p>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Supporting Strategic Insights -->
+    <div class="glance-insights-grid">
+      
+    <div class="glance-insight-card opportunity">
+      <div class="insight-eyebrow">&#9888; Biggest Opportunity</div>
+      <h3 class="insight-title">Claim Healthcare-Specific Directory Profiles</h3>
+      <p class="insight-desc">Monsoon Dental is verified on Google and Yelp, but key healthcare directories including Healthgrades, Zocdoc, and WebMD Care lack claimed or complete provider profiles.</p>
+    </div>
+      
+    <div class="glance-insight-card strength">
+      <div class="insight-eyebrow">&#10003; Strongest Asset</div>
+      <h3 class="insight-title">Customer Sentiment &amp; Trust</h3>
+      <p class="insight-desc">Your flawless 5.0-star rating across 21 reviews highlights exceptional patient satisfaction and gentle clinical care.</p>
+    </div>
+    </div>
+  </div>
+</section>
+
+    
+<section id="working" class="report-section" aria-label="Business strengths">
+  <div class="container">
+    <div class="section-eyebrow">Business Foundation</div>
+    <h2 class="section-title">WHAT IS ALREADY WORKING</h2>
+    <p class="section-lead">The following areas represent verified strengths identified during the audit.</p>
+
+    
+    <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);">
+      
+        <div class="stat-block">
+          <div class="stat-value">5★</div>
+          <div class="stat-label">Google Rating</div>
+          <div class="stat-context">Average across 21 reviews</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-value">21</div>
+          <div class="stat-label">Google Reviews</div>
+          <div class="stat-context">Verified customer feedback</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-value">8</div>
+          <div class="stat-label">Services Listed</div>
+          <div class="stat-context">On Google Business Profile</div>
+        </div>
+    </div>
+
+    <div class="strengths-list">
+    <div class="strength-item">
+      <div class="strength-icon" aria-hidden="true">&#10003;</div>
+      <div>
+        <div class="strength-area">Customer Sentiment &amp; Trust</div>
+        <p class="strength-observation">Your flawless 5.0-star rating across 21 reviews highlights exceptional patient satisfaction and gentle clinical care.</p>
+      </div>
+    </div>
+    <div class="strength-item">
+      <div class="strength-icon" aria-hidden="true">&#10003;</div>
+      <div>
+        <div class="strength-area">Google Business Profile Foundation</div>
+        <p class="strength-observation">Your profile is claimed, verified, and established in the Northwest Tucson (Magee Rd) corridor.</p>
+      </div>
+    </div>
+    <div class="strength-item">
+      <div class="strength-icon" aria-hidden="true">&#10003;</div>
+      <div>
+        <div class="strength-area">Modern Digital Experience</div>
+        <p class="strength-observation">Your practice website is modern, mobile-friendly, and offers convenient online scheduling and patient financing.</p>
+      </div>
+    </div></div>
+
+    <div class="strategic-note">
+      <div class="strategic-note-icon">&#128270;</div>
+      <p>The opportunities outlined in this report build on this foundation. Addressing them can extend your existing visibility advantage to a wider audience of prospective customers.</p>
+    </div>
+  </div>
+</section>
+
+    <div id="findings" aria-label="Priority findings">
+      
+<section id="findings-1" class="finding-section" aria-label="Priority finding 1">
+  <div class="container">
+    <!-- 1. TITLE & PRIORITY HEADER -->
+    <div class="finding-header">
+      <div class="finding-rank-badge" aria-hidden="true">01</div>
+      <div class="finding-header-text">
+        <div class="finding-priority-badge priority-high">High Priority &nbsp;&middot;&nbsp; Healthcare Directory Claiming</div>
+        <h2 class="finding-title">Claim Healthcare-Specific Directory Profiles</h2>
+      </div>
+    </div>
+
+    <!-- 2. BIG PRIMARY VISUAL (Tightly Integrated) -->
+    
+    <div class="finding-visual" role="figure" aria-label="Supporting evidence for Claim Healthcare-Specific Directory Profiles">
+      
+    <div class="chart-container">
+      <div class="finding-visual-caption">Directory &amp; Platform Coverage</div>
+      <div class="qlbar-panel">
+        
+      <div class="qlbar-row">
+        <div class="qlbar-label">Google Business Profile</div>
+        <div class="qlbar-segs" aria-hidden="true"><div class="qlbar-seg" style="background:#059669;"></div><div class="qlbar-seg" style="background:#059669;"></div><div class="qlbar-seg" style="background:#059669;"></div><div class="qlbar-seg" style="background:#059669;"></div><div class="qlbar-seg" style="background:#059669;"></div></div>
+        <div class="qlbar-badge-wrap">
+          <span class="qlbar-badge strong">Claimed</span>
+        </div>
+        <div class="qlbar-items">Claimed &amp; Verified</div>
+      </div>
+
+      <div class="qlbar-row">
+        <div class="qlbar-label">Yelp</div>
+        <div class="qlbar-segs" aria-hidden="true"><div class="qlbar-seg" style="background:#059669;"></div><div class="qlbar-seg" style="background:#059669;"></div><div class="qlbar-seg" style="background:#059669;"></div><div class="qlbar-seg" style="background:#059669;"></div><div class="qlbar-seg" style="background:#059669;"></div></div>
+        <div class="qlbar-badge-wrap">
+          <span class="qlbar-badge strong">Claimed</span>
+        </div>
+        <div class="qlbar-items">Claimed</div>
+      </div>
+
+      <div class="qlbar-row">
+        <div class="qlbar-label">Healthgrades</div>
+        <div class="qlbar-segs" aria-hidden="true"><div class="qlbar-seg" style="background:#D97706;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div></div>
+        <div class="qlbar-badge-wrap">
+          <span class="qlbar-badge attention">Missing / Gap</span>
+        </div>
+        <div class="qlbar-items">Profile not claimed / Missing</div>
+      </div>
+
+      <div class="qlbar-row">
+        <div class="qlbar-label">Zocdoc</div>
+        <div class="qlbar-segs" aria-hidden="true"><div class="qlbar-seg" style="background:#D97706;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div></div>
+        <div class="qlbar-badge-wrap">
+          <span class="qlbar-badge attention">Missing / Gap</span>
+        </div>
+        <div class="qlbar-items">Profile not claimed / Missing</div>
+      </div>
+
+      <div class="qlbar-row">
+        <div class="qlbar-label">WebMD Care</div>
+        <div class="qlbar-segs" aria-hidden="true"><div class="qlbar-seg" style="background:#D97706;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div></div>
+        <div class="qlbar-badge-wrap">
+          <span class="qlbar-badge attention">Missing / Gap</span>
+        </div>
+        <div class="qlbar-items">Profile not claimed / Missing</div>
+      </div>
+
+      <div class="qlbar-row">
+        <div class="qlbar-label">Dental Directories</div>
+        <div class="qlbar-segs" aria-hidden="true"><div class="qlbar-seg" style="background:#D97706;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div></div>
+        <div class="qlbar-badge-wrap">
+          <span class="qlbar-badge attention">Missing / Gap</span>
+        </div>
+        <div class="qlbar-items">Profile not claimed / Missing</div>
+      </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- 2b. PLAIN-ENGLISH BUSINESS IMPACT BANNER (NON-TECHNICAL HOOK) -->
+    <div class="business-impact-banner" role="note" aria-label="Business Impact Summary">
+      <span class="business-impact-icon">💡</span>
+      <p class="business-impact-text">
+        <strong>Direct Revenue &amp; Patient Impact:</strong> Inconsistent directory records and missing healthcare/trade listings confuse search algorithms, causing potential local customers searching for urgent services to be routed to competitors.
+      </p>
+    </div>
+
+    <!-- 3. WHAT WE FOUND (+ Verification Link) -> WHY -> ACTION -->
+    <div class="finding-body">
+      <div class="finding-col what">
+        <div class="finding-col-label">
+          <span aria-hidden="true">&#9679;</span> What We Found
+        </div>
+        <p>Monsoon Dental is verified on Google and Yelp, but key healthcare directories including Healthgrades, Zocdoc, and WebMD Care lack claimed or complete provider profiles.</p>
+        
+      </div>
+      <div class="finding-col why">
+        <div class="finding-col-label">
+          <span aria-hidden="true">&#9755;</span> Why This Matters
+        </div>
+        <p>Healthcare search systems and patients cross-reference doctor credentials and accepted dental insurance across specialized medical directories.</p>
+      </div>
+      <div class="finding-col action">
+        <div class="finding-col-label">
+          <span aria-hidden="true">&#9889;</span> Recommended Action
+        </div>
+        <p>Claim and optimize practice profiles on Healthgrades, Zocdoc, and WebMD Care with complete dentist bio and insurance listings.</p>
+      </div>
+    </div>
+
+    <!-- 3b. BEFORE VS AFTER TRANSFORMATION COMPARISON CARDS -->
+    <div class="before-after-grid">
+      <div class="before-card">
+        <div class="before-card-header">
+          <span>✕</span> Current Search Bottleneck
+        </div>
+        <p class="before-card-body">Conflicting NAP details &amp; unverified directory listings create trust friction with search engines and patients.</p>
+      </div>
+      <div class="after-card">
+        <div class="after-card-header">
+          <span>✓</span> Optimized Growth State
+        </div>
+        <p class="after-card-body">100% verified, synced directory footprint across all primary platforms, maximizing local search confidence.</p>
+      </div>
+    </div>
+
+    <!-- 3c. INLINE CONSULTATIVE SOLUTION BRIDGE -->
+    <a href="#cta" class="inline-solution-bridge" aria-label="Discuss implementation in strategy call">
+      <span class="inline-bridge-label">⚡ Want our team to implement this solution for Monsoon Dental?</span>
+      <span class="inline-bridge-btn">Discuss on our 20-min review call &rarr;</span>
+    </a>
+
+    <!-- 4. CONDITIONAL PROGRESSIVE DISCLOSURE -->
+    
+  </div>
+</section>
+
+<section id="findings-2" class="finding-section" aria-label="Priority finding 2">
+  <div class="container">
+    <!-- 1. TITLE & PRIORITY HEADER -->
+    <div class="finding-header">
+      <div class="finding-rank-badge" aria-hidden="true">02</div>
+      <div class="finding-header-text">
+        <div class="finding-priority-badge priority-high">High Priority &nbsp;&middot;&nbsp; Review Generation</div>
+        <h2 class="finding-title">Accelerate Patient Review Acquisition Process</h2>
+      </div>
+    </div>
+
+    <!-- 2. BIG PRIMARY VISUAL (Tightly Integrated) -->
+    
+    <div class="finding-visual" role="figure" aria-label="Supporting evidence for Accelerate Patient Review Acquisition Process">
+      
+    <div class="chart-container">
+      <div class="finding-visual-caption">Google Review Footprint</div>
+      <svg width="100%" viewBox="0 0 646 112"
+           xmlns="http://www.w3.org/2000/svg"
+           class="chart-svg"
+           role="img" aria-label="Google Review Footprint">
+        
+      <!-- label -->
+      <text x="170" y="26"
+            text-anchor="end"
+            font-family="system-ui, -apple-system, sans-serif" font-size="13.5" font-weight="700"
+            fill="#1E293B">Monsoon Dental</text>
+      <!-- track -->
+      <rect x="196" y="4" width="340" height="34"
+            rx="6" fill="#F1F5F9"/>
+      <!-- bar -->
+      <rect x="196" y="4" width="14" height="34"
+            rx="6" fill="#2563EB" opacity="0.95"/>
+      <!-- value label -->
+      <text x="222" y="27"
+            font-family="system-ui, -apple-system, sans-serif" font-size="17" font-weight="800"
+            fill="#2563EB">21 Reviews</text>
+
+      <!-- label -->
+      <text x="170" y="78"
+            text-anchor="end"
+            font-family="system-ui, -apple-system, sans-serif" font-size="13.5" font-weight="700"
+            fill="#1E293B">Gentle Dental (Oracle Rd)</text>
+      <!-- track -->
+      <rect x="196" y="56" width="340" height="34"
+            rx="6" fill="#F1F5F9"/>
+      <!-- bar -->
+      <rect x="196" y="56" width="340" height="34"
+            rx="6" fill="#94A3B8" opacity="0.95"/>
+      <!-- value label -->
+      <text x="548" y="79"
+            font-family="system-ui, -apple-system, sans-serif" font-size="17" font-weight="800"
+            fill="#94A3B8">520 Reviews</text>
+      </svg>
+    </div>
+    </div>
+
+    <!-- 2b. PLAIN-ENGLISH BUSINESS IMPACT BANNER (NON-TECHNICAL HOOK) -->
+    <div class="business-impact-banner" role="note" aria-label="Business Impact Summary">
+      <span class="business-impact-icon">💡</span>
+      <p class="business-impact-text">
+        <strong>Direct Revenue &amp; Patient Impact:</strong> While your rating sentiment is positive, competitors with higher review volume capture up to 3–4x more search impressions during peak decision hours.
+      </p>
+    </div>
+
+    <!-- 3. WHAT WE FOUND (+ Verification Link) -> WHY -> ACTION -->
+    <div class="finding-body">
+      <div class="finding-col what">
+        <div class="finding-col-label">
+          <span aria-hidden="true">&#9679;</span> What We Found
+        </div>
+        <p>Monsoon Dental has a flawless 5.0-star rating across 21 reviews. However, benchmark competitor Gentle Dental maintains over 520 reviews in the Northwest Tucson corridor.</p>
+        
+      </div>
+      <div class="finding-col why">
+        <div class="finding-col-label">
+          <span aria-hidden="true">&#9755;</span> Why This Matters
+        </div>
+        <p>While 5.0-star sentiment is a major trust asset, higher monthly review volume strongly reinforces local search visibility and conversion rates.</p>
+      </div>
+      <div class="finding-col action">
+        <div class="finding-col-label">
+          <span aria-hidden="true">&#9889;</span> Recommended Action
+        </div>
+        <p>Deploy an automated post-appointment SMS review request workflow to consistently capture feedback from satisfied patients.</p>
+      </div>
+    </div>
+
+    <!-- 3b. BEFORE VS AFTER TRANSFORMATION COMPARISON CARDS -->
+    <div class="before-after-grid">
+      <div class="before-card">
+        <div class="before-card-header">
+          <span>✕</span> Current Search Bottleneck
+        </div>
+        <p class="before-card-body">Review acquisition is sporadic, allowing aggressive competitors to dominate local volume and market share.</p>
+      </div>
+      <div class="after-card">
+        <div class="after-card-header">
+          <span>✓</span> Optimized Growth State
+        </div>
+        <p class="after-card-body">Systematic review acquisition process steadily grows social proof and secures sustainable top-3 map pack rankings.</p>
+      </div>
+    </div>
+
+    <!-- 3c. INLINE CONSULTATIVE SOLUTION BRIDGE -->
+    <a href="#cta" class="inline-solution-bridge" aria-label="Discuss implementation in strategy call">
+      <span class="inline-bridge-label">⚡ Want our team to implement this solution for Monsoon Dental?</span>
+      <span class="inline-bridge-btn">Discuss on our 20-min review call &rarr;</span>
+    </a>
+
+    <!-- 4. CONDITIONAL PROGRESSIVE DISCLOSURE -->
+    
+  </div>
+</section>
+
+<section id="findings-3" class="finding-section" aria-label="Priority finding 3">
+  <div class="container">
+    <!-- 1. TITLE & PRIORITY HEADER -->
+    <div class="finding-header">
+      <div class="finding-rank-badge" aria-hidden="true">03</div>
+      <div class="finding-header-text">
+        <div class="finding-priority-badge priority-high">High Priority &nbsp;&middot;&nbsp; GBP Optimization</div>
+        <h2 class="finding-title">Expand Google Business Profile Dental Service Descriptions</h2>
+      </div>
+    </div>
+
+    <!-- 2. BIG PRIMARY VISUAL (Tightly Integrated) -->
+    
+    <div class="finding-visual" role="figure" aria-label="Supporting evidence for Expand Google Business Profile Dental Service Descriptions">
+      
+    <div class="chart-container">
+      <div class="finding-visual-caption">Services Represented on Google</div>
+      <svg width="100%" viewBox="0 0 646 112"
+           xmlns="http://www.w3.org/2000/svg"
+           class="chart-svg"
+           role="img" aria-label="Services Represented on Google">
+        
+      <!-- label -->
+      <text x="170" y="26"
+            text-anchor="end"
+            font-family="system-ui, -apple-system, sans-serif" font-size="13.5" font-weight="700"
+            fill="#1E293B">Monsoon Dental</text>
+      <!-- track -->
+      <rect x="196" y="4" width="340" height="34"
+            rx="6" fill="#F1F5F9"/>
+      <!-- bar -->
+      <rect x="196" y="4" width="181" height="34"
+            rx="6" fill="#2563EB" opacity="0.95"/>
+      <!-- value label -->
+      <text x="389" y="27"
+            font-family="system-ui, -apple-system, sans-serif" font-size="17" font-weight="800"
+            fill="#2563EB">8 Services</text>
+
+      <!-- label -->
+      <text x="170" y="78"
+            text-anchor="end"
+            font-family="system-ui, -apple-system, sans-serif" font-size="13.5" font-weight="700"
+            fill="#1E293B">Gentle Dental (Oracle Rd)</text>
+      <!-- track -->
+      <rect x="196" y="56" width="340" height="34"
+            rx="6" fill="#F1F5F9"/>
+      <!-- bar -->
+      <rect x="196" y="56" width="340" height="34"
+            rx="6" fill="#94A3B8" opacity="0.95"/>
+      <!-- value label -->
+      <text x="548" y="79"
+            font-family="system-ui, -apple-system, sans-serif" font-size="17" font-weight="800"
+            fill="#94A3B8">15 Services</text>
+      </svg>
+    </div>
+    </div>
+
+    <!-- 2b. PLAIN-ENGLISH BUSINESS IMPACT BANNER (NON-TECHNICAL HOOK) -->
+    <div class="business-impact-banner" role="note" aria-label="Business Impact Summary">
+      <span class="business-impact-icon">💡</span>
+      <p class="business-impact-text">
+        <strong>Direct Revenue &amp; Patient Impact:</strong> Customers searching for specific high-value procedures/services fail to find your profile because they aren&#39;t explicitly cataloged in your Google Business Profile.
+      </p>
+    </div>
+
+    <!-- 3. WHAT WE FOUND (+ Verification Link) -> WHY -> ACTION -->
+    <div class="finding-body">
+      <div class="finding-col what">
+        <div class="finding-col-label">
+          <span aria-hidden="true">&#9679;</span> What We Found
+        </div>
+        <p>Your profile is claimed and verified, but lacks detailed descriptions for specialized offerings such as TMJ/TMD therapy, dental implants, and cosmetic whitening.</p>
+        
+      </div>
+      <div class="finding-col why">
+        <div class="finding-col-label">
+          <span aria-hidden="true">&#9755;</span> Why This Matters
+        </div>
+        <p>Patients searching for specific dental procedures often fail to discover profiles that omit detailed category and service listings.</p>
+      </div>
+      <div class="finding-col action">
+        <div class="finding-col-label">
+          <span aria-hidden="true">&#9889;</span> Recommended Action
+        </div>
+        <p>Add comprehensive descriptions and custom service entries for dental implants, TMJ therapy, and cosmetic dentistry to your Google profile.</p>
+      </div>
+    </div>
+
+    <!-- 3b. BEFORE VS AFTER TRANSFORMATION COMPARISON CARDS -->
+    <div class="before-after-grid">
+      <div class="before-card">
+        <div class="before-card-header">
+          <span>✕</span> Current Search Bottleneck
+        </div>
+        <p class="before-card-body">General category only; high-intent service keywords (e.g. repairs, implants, emergency care) are absent from search queries.</p>
+      </div>
+      <div class="after-card">
+        <div class="after-card-header">
+          <span>✓</span> Optimized Growth State
+        </div>
+        <p class="after-card-body">Complete catalog with explicit service descriptions, capturing high-intent search traffic across the market.</p>
+      </div>
+    </div>
+
+    <!-- 3c. INLINE CONSULTATIVE SOLUTION BRIDGE -->
+    <a href="#cta" class="inline-solution-bridge" aria-label="Discuss implementation in strategy call">
+      <span class="inline-bridge-label">⚡ Want our team to implement this solution for Monsoon Dental?</span>
+      <span class="inline-bridge-btn">Discuss on our 20-min review call &rarr;</span>
+    </a>
+
+    <!-- 4. CONDITIONAL PROGRESSIVE DISCLOSURE -->
+    
+  </div>
+</section>
+
+<section id="findings-4" class="finding-section" aria-label="Priority finding 4">
+  <div class="container">
+    <!-- 1. TITLE & PRIORITY HEADER -->
+    <div class="finding-header">
+      <div class="finding-rank-badge" aria-hidden="true">04</div>
+      <div class="finding-header-text">
+        <div class="finding-priority-badge priority-moderate">Moderate Priority &nbsp;&middot;&nbsp; Website Schema Fix</div>
+        <h2 class="finding-title">Implement Dentist JSON-LD Structured Schema Markup</h2>
+      </div>
+    </div>
+
+    <!-- 2. BIG PRIMARY VISUAL (Tightly Integrated) -->
+    
+    <div class="finding-visual" role="figure" aria-label="Supporting evidence for Implement Dentist JSON-LD Structured Schema Markup">
+      
+    <div class="chart-container">
+      <div class="finding-visual-caption">Technical &amp; Discovery Signals</div>
+      <div class="qlbar-panel">
+        
+      <div class="qlbar-row">
+        <div class="qlbar-label">Structured Schema Markup</div>
+        <div class="qlbar-segs" aria-hidden="true"><div class="qlbar-seg" style="background:#D97706;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div></div>
+        <div class="qlbar-badge-wrap">
+          <span class="qlbar-badge attention">Missing / Gap</span>
+        </div>
+        <div class="qlbar-items">JSON-LD not detected</div>
+      </div>
+
+      <div class="qlbar-row">
+        <div class="qlbar-label">Website Infrastructure</div>
+        <div class="qlbar-segs" aria-hidden="true"><div class="qlbar-seg" style="background:#059669;"></div><div class="qlbar-seg" style="background:#059669;"></div><div class="qlbar-seg" style="background:#059669;"></div><div class="qlbar-seg" style="background:#059669;"></div><div class="qlbar-seg" style="background:#059669;"></div></div>
+        <div class="qlbar-badge-wrap">
+          <span class="qlbar-badge strong">Claimed</span>
+        </div>
+        <div class="qlbar-items">Active web presence confirmed</div>
+      </div>
+
+      <div class="qlbar-row">
+        <div class="qlbar-label">Mobile Optimization</div>
+        <div class="qlbar-segs" aria-hidden="true"><div class="qlbar-seg" style="background:#0284C7;"></div><div class="qlbar-seg" style="background:#0284C7;"></div><div class="qlbar-seg" style="background:#0284C7;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div><div class="qlbar-seg" style="background:#E2E8F0;"></div></div>
+        <div class="qlbar-badge-wrap">
+          <span class="qlbar-badge opportunity">Opportunity</span>
+        </div>
+        <div class="qlbar-items">Performance optimization recommended</div>
+      </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- 2b. PLAIN-ENGLISH BUSINESS IMPACT BANNER (NON-TECHNICAL HOOK) -->
+    <div class="business-impact-banner" role="note" aria-label="Business Impact Summary">
+      <span class="business-impact-icon">💡</span>
+      <p class="business-impact-text">
+        <strong>Direct Revenue &amp; Patient Impact:</strong> Without structured local business schema, search engines have to guess your exact specialties, location coordinates, and service radius.
+      </p>
+    </div>
+
+    <!-- 3. WHAT WE FOUND (+ Verification Link) -> WHY -> ACTION -->
+    <div class="finding-body">
+      <div class="finding-col what">
+        <div class="finding-col-label">
+          <span aria-hidden="true">&#9679;</span> What We Found
+        </div>
+        <p>Your website currently contains no structured Schema.org/Dentist or LocalBusiness markup detailing your office location, phone, and hours.</p>
+        
+      </div>
+      <div class="finding-col why">
+        <div class="finding-col-label">
+          <span aria-hidden="true">&#9755;</span> Why This Matters
+        </div>
+        <p>Structured data enables search engines to accurately index provider credentials, operating hours, and location data.</p>
+      </div>
+      <div class="finding-col action">
+        <div class="finding-col-label">
+          <span aria-hidden="true">&#9889;</span> Recommended Action
+        </div>
+        <p>Deploy complete Dentist JSON-LD schema markup on the monsoondental.com homepage.</p>
+      </div>
+    </div>
+
+    <!-- 3b. BEFORE VS AFTER TRANSFORMATION COMPARISON CARDS -->
+    <div class="before-after-grid">
+      <div class="before-card">
+        <div class="before-card-header">
+          <span>✕</span> Current Search Bottleneck
+        </div>
+        <p class="before-card-body">Unstructured website markup leaves search engine crawlers with incomplete contextual business signals.</p>
+      </div>
+      <div class="after-card">
+        <div class="after-card-header">
+          <span>✓</span> Optimized Growth State
+        </div>
+        <p class="after-card-body">Rich Schema.org JSON-LD structured data directly feeds search engines with verified practice credentials and services.</p>
+      </div>
+    </div>
+
+    <!-- 3c. INLINE CONSULTATIVE SOLUTION BRIDGE -->
+    <a href="#cta" class="inline-solution-bridge" aria-label="Discuss implementation in strategy call">
+      <span class="inline-bridge-label">⚡ Want our team to implement this solution for Monsoon Dental?</span>
+      <span class="inline-bridge-btn">Discuss on our 20-min review call &rarr;</span>
+    </a>
+
+    <!-- 4. CONDITIONAL PROGRESSIVE DISCLOSURE -->
+    
+  </div>
+</section>
+    </div>
+
+    
+<section id="competition" class="report-section" aria-label="Competitive snapshot">
+  <div class="container">
+    <div class="section-eyebrow">Market Intelligence</div>
+    <h2 class="section-title">YOU VS LOCAL COMPETITOR</h2>
+    <p class="section-lead">
+      Direct benchmark comparison of public search and reputation signals against Gentle Dental (Oracle Rd) in the Tucson, Arizona market.
+    </p>
+
+    <div class="competitor-profiles">
+      
+    <div class="competitor-profile target">
+      <div class="comp-profile-role">Your Business</div>
+      <div class="comp-profile-name">Monsoon Dental</div>
+      <div class="comp-profile-sub">Tucson, Arizona · Target Business</div>
+    </div>
+      
+    <div class="competitor-profile benchmark">
+      <div class="comp-profile-role">Local Competitor</div>
+      <div class="comp-profile-name">Gentle Dental (Oracle Rd)</div>
+      <div class="comp-profile-sub">Tucson, Arizona · Local Benchmark</div>
+    </div>
+    </div>
+
+    
+    <div class="comp-traffic-leak-card" role="figure" aria-label="Patient search traffic capture analysis">
+      <div class="traffic-leak-header">
+        <span class="leak-badge">Local Patient Search Flow Analysis</span>
+        <h3 class="leak-title">Where Do Searching Patients in Tucson, Arizona Go?</h3>
+      </div>
+      <svg width="100%" viewBox="0 0 740 155" class="traffic-leak-svg" aria-hidden="true" style="overflow:visible;">
+        <!-- Funnel Box -->
+        <rect x="10" y="47" width="180" height="60" rx="8" fill="#0B192C" />
+        <text x="100" y="73" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="11.5" font-weight="800" letter-spacing="0.05em">100 PATIENTS SEARCHING</text>
+        <text x="100" y="92" text-anchor="middle" fill="#93C5FD" font-family="system-ui, -apple-system, sans-serif" font-size="11">Active Dental Inquiries</text>
+
+        <!-- Top Branch to Competitor -->
+        <path d="M 190 67 C 240 67, 260 36, 310 36" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-dasharray="4,4" />
+        <polygon points="310,32 320,36 310,40" fill="#DC2626" />
+        <text x="250" y="32" fill="#DC2626" font-family="system-ui, -apple-system, sans-serif" font-size="11.5" font-weight="800">~90% Volume</text>
+
+        <!-- Bottom Branch to Target Business -->
+        <path d="M 190 87 C 240 87, 260 118, 310 118" fill="none" stroke="#059669" stroke-width="2.5" />
+        <polygon points="310,114 320,118 310,122" fill="#059669" />
+        <text x="250" y="138" fill="#059669" font-family="system-ui, -apple-system, sans-serif" font-size="11.5" font-weight="800">~10% Volume</text>
+
+        <!-- Competitor Box -->
+        <rect x="325" y="12" width="405" height="50" rx="6" fill="#FEF2F2" stroke="#FECACA" />
+        <text x="340" y="33" fill="#991B1B" font-family="system-ui, -apple-system, sans-serif" font-size="12.5" font-weight="800">Gentle Dental (Oracle Rd) (520 Reviews)</text>
+        <text x="340" y="50" fill="#7F1D1D" font-family="system-ui, -apple-system, sans-serif" font-size="11">Dominates high-volume local map pack searches</text>
+
+        <!-- Target Business Box -->
+        <rect x="325" y="93" width="405" height="50" rx="6" fill="#ECFDF5" stroke="#A7F3D0" />
+        <text x="340" y="114" fill="#065F46" font-family="system-ui, -apple-system, sans-serif" font-size="12.5" font-weight="800">Monsoon Dental (5★ Rating)</text>
+        <text x="340" y="131" fill="#047857" font-family="system-ui, -apple-system, sans-serif" font-size="11">High conversion trust, but captures fewer initial search views</text>
+      </svg>
+      <div class="traffic-leak-takeaway">
+        <strong>Strategic Opportunity:</strong> Expanding your Google Business Profile service catalog and systematically acquiring 5–10 reviews monthly directly diverts prospective patients from Gentle Dental (Oracle Rd) to Monsoon Dental.
+      </div>
+    </div>
+
+    
+    <div class="comp-metrics-panel">
+      <div class="comp-metrics-title">Direct Signal-by-Signal Benchmark</div>
+      
+    <div class="v3-comp-row">
+      <div class="v3-comp-label">Average Customer Rating</div>
+      <div class="v3-comp-metrics">
+        <div class="v3-comp-side target">
+          <div class="v3-comp-name">YOU</div>
+          <div class="v3-comp-value" style="color:#059669;">5★</div>
+          <div class="v3-comp-bar-container"><div class="v3-comp-bar" style="width:100%;background:#059669;"></div></div>
+        </div>
+        <div class="v3-comp-divider">vs</div>
+        <div class="v3-comp-side comp">
+          <div class="v3-comp-name">BENCHMARK</div>
+          <div class="v3-comp-value" style="color:#64748B;">4.8★</div>
+          <div class="v3-comp-bar-container"><div class="v3-comp-bar" style="width:96%;background:#64748B;"></div></div>
+        </div>
+      </div>
+    </div>
+      
+    <div class="v3-comp-row">
+      <div class="v3-comp-label">Google Review Volume</div>
+      <div class="v3-comp-metrics">
+        <div class="v3-comp-side target">
+          <div class="v3-comp-name">YOU</div>
+          <div class="v3-comp-value" style="color:#2563EB;">21</div>
+          <div class="v3-comp-bar-container"><div class="v3-comp-bar" style="width:4%;background:#2563EB;"></div></div>
+        </div>
+        <div class="v3-comp-divider">vs</div>
+        <div class="v3-comp-side comp">
+          <div class="v3-comp-name">BENCHMARK</div>
+          <div class="v3-comp-value" style="color:#64748B;">520</div>
+          <div class="v3-comp-bar-container"><div class="v3-comp-bar" style="width:100%;background:#64748B;"></div></div>
+        </div>
+      </div>
+    </div>
+      
+    <div class="v3-comp-row">
+      <div class="v3-comp-label">Google Business Profile Listed Services</div>
+      <div class="v3-comp-metrics">
+        <div class="v3-comp-side target">
+          <div class="v3-comp-name">YOU</div>
+          <div class="v3-comp-value" style="color:#D97706;">8</div>
+          <div class="v3-comp-bar-container"><div class="v3-comp-bar" style="width:53%;background:#D97706;"></div></div>
+        </div>
+        <div class="v3-comp-divider">vs</div>
+        <div class="v3-comp-side comp">
+          <div class="v3-comp-name">BENCHMARK</div>
+          <div class="v3-comp-value" style="color:#64748B;">15</div>
+          <div class="v3-comp-bar-container"><div class="v3-comp-bar" style="width:100%;background:#64748B;"></div></div>
+        </div>
+      </div>
+    </div>
+      <div class="comp-summary-note">
+        <em>Takeaway:</em> Your customer satisfaction rating is higher. The competitor's visible review and service footprint is currently larger.
+      </div>
+    </div>
+
+    <div class="comp-opportunity-box">
+      <div class="comp-opp-label">&#127919; Competitive Advantage Opportunity</div>
+      <p class="comp-opp-text">Deploying an automated patient review invitation workflow will steadily build review volume while maintaining your superior 5.0-star satisfaction advantage.</p>
+    </div>
+  </div>
+</section>
+
+    
+<section id="growth" class="report-section" aria-label="Additional growth opportunities">
+  <div class="container">
+    <div class="section-eyebrow">Secondary Opportunities</div>
+    <h2 class="section-title">ADDITIONAL GROWTH OPPORTUNITIES</h2>
+    <p class="section-lead">Additional secondary opportunities identified during the audit.</p>
+    <div class="opportunities-grid">
+    <div class="opportunity-item">
+      <div class="opp-title">Showcase Office &amp; Operatory Photos on GBP</div>
+      <p class="opp-observation">Adding high-definition photos of your modern Magee Rd operatory and friendly team increases local profile engagement.</p>
+      <div class="opp-action">&#10003; Upload 10-15 new practice and operatory photos to Google Business Profile.</div>
+    </div>
+    <div class="opportunity-item">
+      <div class="opp-title">Publish Patient Education FAQs on Website</div>
+      <p class="opp-observation">Adding FAQ content for TMJ therapy, dental implants, and insurance coverage captures high-intent local dental searches.</p>
+      <div class="opp-action">&#10003; Add structured dental FAQs to your primary service pages.</div>
+    </div></div>
+  </div>
+</section>
+
+    
+<section id="action-plan" class="report-section" aria-label="Recommended action plan">
+  <div class="container">
+    <div class="section-eyebrow">Strategic Execution Plan</div>
+    <h2 class="section-title">RECOMMENDED ACTION ROADMAP</h2>
+    <p class="section-lead">Recommended sequential action roadmap to execute all audit recommendations:</p>
+    <div class="roadmap-steps">
+    <div class="roadmap-step">
+      <div class="roadmap-step-num" aria-hidden="true">01</div>
+      <div class="roadmap-step-text">Claim and complete practice profiles on Healthgrades, Zocdoc, and WebMD Care.</div>
+      <div class="roadmap-step-arrow" aria-hidden="true">&#8594;</div>
+    </div>
+    <div class="roadmap-step">
+      <div class="roadmap-step-num" aria-hidden="true">02</div>
+      <div class="roadmap-step-text">Deploy an automated post-visit SMS review request system for all completed appointments.</div>
+      <div class="roadmap-step-arrow" aria-hidden="true">&#8594;</div>
+    </div>
+    <div class="roadmap-step">
+      <div class="roadmap-step-num" aria-hidden="true">03</div>
+      <div class="roadmap-step-text">Expand Google Business Profile service catalog with detailed descriptions for TMJ and implant services.</div>
+      <div class="roadmap-step-arrow" aria-hidden="true">&#8594;</div>
+    </div>
+    <div class="roadmap-step">
+      <div class="roadmap-step-num" aria-hidden="true">04</div>
+      <div class="roadmap-step-text">Install Dentist JSON-LD schema markup with complete provider details on monsoondental.com.</div>
+      <div class="roadmap-step-arrow" aria-hidden="true">&#8594;</div>
+    </div></div>
+  </div>
+</section>
+
+    
+<section id="cta" class="report-section section-cta" aria-label="Contact and next steps">
+  <div class="container">
+    <div class="cta-card">
+      <div class="cta-card-geo" aria-hidden="true"><svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMid slice">
+    <defs>
+      <pattern id="geo-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+        <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" stroke-width="0.5"/>
+      </pattern>
+    </defs>
+    <rect width="600" height="800" fill="url(#geo-grid)"/>
+    <circle cx="450" cy="200" r="180" fill="none" stroke="white" stroke-width="0.8" opacity="0.6"/>
+    <circle cx="450" cy="200" r="300" fill="none" stroke="white" stroke-width="0.4" opacity="0.4"/>
+    <circle cx="520" cy="600" r="120" fill="none" stroke="white" stroke-width="0.6" opacity="0.5"/>
+  </svg></div>
+
+      <div class="cta-eyebrow-pill" aria-hidden="true">
+        <span class="cta-eyebrow-text">The Natural Next Step</span>
+      </div>
+
+      <h2 class="cta-heading">Ready to Expand Monsoon Dental’s Patient Visibility in Tucson?</h2>
+      <p class="cta-body">Let&#39;s review these findings together. We&#39;ll walk you through the priority action plan and discuss how to close the competitive review gap identified in this report.</p>
+
+      <div class="cta-contacts">
+        
+        <a href="tel:+1(520)349-6378" class="cta-contact-link" aria-label="Call Mark Bishop Media">📞 +1 (520) 349-6378</a>
+        <a href="mailto:mark@markbishopmedia.com" class="cta-contact-link" aria-label="Email Mark Bishop Media">✉ mark@markbishopmedia.com</a>
+      </div>
+
+      <p class="cta-subtext">No obligation &nbsp;·&nbsp; 20-minute review &nbsp;·&nbsp; Actionable recommendations specific to Monsoon Dental</p>
+    </div>
+
+    <div class="cta-methodology">
+      <span><strong>Assessment Methodology:</strong> Multi-channel local presence review covering directory citations, Google Business Profile, customer reviews, competitive benchmarking, and website presence signals.</span>
+      <span>Mark Bishop Media &nbsp;·&nbsp; mark@markbishopmedia.com &nbsp;·&nbsp; +1 (520) 349-6378</span>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <script>
+(function () {
+  'use strict';
+
+  // ── See More / See Less toggle ───────────────────────────────────────────
+  document.querySelectorAll('.see-more-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var targetId = this.getAttribute('data-target');
+      var panel    = document.getElementById(targetId);
+      if (!panel) return;
+      var isOpen   = panel.classList.contains('is-open');
+      panel.classList.toggle('is-open', !isOpen);
+      this.setAttribute('aria-expanded', !isOpen);
+      var label = this.querySelector('.see-more-label');
+      var icon  = this.querySelector('.see-more-icon');
+      if (label) label.textContent = isOpen ? 'See More Details' : 'See Less';
+      if (icon)  icon.innerHTML    = isOpen ? '&#9660;' : '&#9650;';
+    });
+  });
+
+  // ── Navigation scroll spy ────────────────────────────────────────────────
+  var sections = [];
+  var navLinks = document.querySelectorAll('.nav-link[data-section]');
+
+  function collectSections() {
+    sections = [];
+    navLinks.forEach(function (link) {
+      var id  = link.getAttribute('data-section');
+      var el  = document.getElementById(id);
+      if (el) sections.push({ id: id, el: el, link: link });
+    });
+  }
+
+  function updateActiveNav() {
+    var scrollY  = window.pageYOffset;
+    var navH     = 64;
+    var current  = '';
+    sections.forEach(function (s) {
+      if (s.el.getBoundingClientRect().top + scrollY - navH <= scrollY) {
+        current = s.id;
+      }
+    });
+    navLinks.forEach(function (link) {
+      var active = link.getAttribute('data-section') === current;
+      link.classList.toggle('active', active);
+    });
+  }
+
+  // ── Smooth scroll for nav links ──────────────────────────────────────────
+  navLinks.forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      var id  = this.getAttribute('data-section');
+      var el  = document.getElementById(id);
+      if (!el) return;
+      var navH = document.getElementById('report-nav') ? document.getElementById('report-nav').offsetHeight : 56;
+      var top  = el.getBoundingClientRect().top + window.pageYOffset - navH - 8;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    });
+  });
+
+  // ── Init ─────────────────────────────────────────────────────────────────
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  window.addEventListener('resize', collectSections, { passive: true });
+  collectSections();
+  updateActiveNav();
+})();
+</script>
+</body>
+</html>

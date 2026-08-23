@@ -1,0 +1,17 @@
+{
+  "name": "local-business-ai-web-report",
+  "version": "1.0.0",
+  "description": "Self-contained interactive HTML report generator for LOCAL BUSINESS AI. No CDN dependencies.",
+  "main": "generate.js",
+  "scripts": {
+    "generate:sample": "node sample/generate_sample.js",
+    "test": "node test/validate_renderer.js"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}

@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Citation Analysis Output",
+  "description": "Structured findings and analysis derived from the citation-research output.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "insufficient_data", "failed"],
+      "description": "Execution status of the analysis."
+    },
+    "summary": {
+      "type": "string",
+      "description": "High-level summary of the citation landscape for the business."
+    },
+    "strengths": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Genuine strengths regarding the business's citation coverage or consistency."
+    },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/finding" },
+      "description": "Actionable, root-cause merged findings."
+    },
+    "opportunities": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/finding" },
+      "description": "Specifically formatted missing opportunities derived from research."
+    },
+    "coverage_assessment": { "type": "string" },
+    "consistency_assessment": { "type": "string" },
+    "industry_assessment": { "type": "string" },
+    "local_assessment": { "type": "string" },
+    "competitive_assessment": { "type": "string" },
+    "evidence_references": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of evidence_ids referenced from citation-research."
+    },
+    "service_recommendations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Services mapped to findings (e.g., 'Citation Building', 'Citation Cleanup')."
+    },
+    "analysis_notes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "General research context or edge-case reasoning."
+    }
+  },
+  "required": [
+    "status",
+    "summary",
+    "findings"
+  ],
+  "definitions": {
+    "finding": {
+      "type": "object",
+      "properties": {
+        "finding_id": { "type": "string" },
+        "finding_type": { 
+          "type": "string",
+          "enum": [
+            "citation_coverage_gap", 
+            "missing_core_citation", 
+            "missing_industry_citation", 
+            "missing_local_citation", 
+            "competitor_citation_gap", 
+            "incomplete_listing", 
+            "inconsistent_listing", 
+            "citation_quality_issue", 
+            "citation_strength", 
+            "citation_opportunity",
+            "no_material_citation_issue"
+          ]
+        },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "fact": { "type": "string", "description": "What was observed (objective data)." },
+        "interpretation": { "type": "string", "description": "What that evidence reasonably means." },
+        "recommendation": { "type": "string", "description": "What the business could do about it." },
+        "impact_level": { 
+          "type": "string",
+          "enum": ["very_high", "high", "moderate", "low"]
+        },
+        "evidence_confidence": { 
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "actionability": { 
+          "type": "string",
+          "enum": ["high", "moderate", "low"]
+        },
+        "relevance_reason": { "type": "string" },
+        "competitive_context": { "type": "string" },
+        "evidence_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "service_mapping": { "type": "string" }
+      },
+      "required": [
+        "finding_id",
+        "finding_type",
+        "title",
+        "fact",
+        "interpretation",
+        "recommendation",
+        "evidence_ids"
+      ]
+    }
+  }
+}

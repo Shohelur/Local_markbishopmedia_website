@@ -1,0 +1,196 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Report Design Specification",
+  "description": "A structured visual design specification produced by the Report Designer, ready for the PDF Generator to render.",
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "design_version": { "type": "string", "default": "1.0" },
+        "business_name": { "type": "string" },
+        "report_id": { "type": "string" },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "source_content_version": { "type": "string" }
+      },
+      "required": ["business_name"]
+    },
+    "branding_config": {
+      "type": "object",
+      "description": "All branding values are externally configurable and injected at render time. Never hard-coded.",
+      "properties": {
+        "brand_name": { "type": "string", "default": "LocalRank AI" },
+        "logo_url": { "type": ["string", "null"], "description": "URL or path to brand logo. Null = use text placeholder." },
+        "primary_color": { "type": "string", "default": "#1B2D4F", "description": "Deep navy default." },
+        "secondary_color": { "type": "string", "default": "#C9963F", "description": "Warm gold default." },
+        "booking_url": { "type": ["string", "null"], "description": "CTA booking URL. Null = use placeholder text." },
+        "contact_info": { "type": ["string", "null"] }
+      }
+    },
+    "page_settings": {
+      "type": "object",
+      "properties": {
+        "format": { "type": "string", "enum": ["A4", "Letter"], "default": "Letter" },
+        "orientation": { "type": "string", "enum": ["portrait", "landscape"], "default": "portrait" },
+        "margins": {
+          "type": "object",
+          "properties": {
+            "top": { "type": "string", "default": "20mm" },
+            "bottom": { "type": "string", "default": "20mm" },
+            "left": { "type": "string", "default": "18mm" },
+            "right": { "type": "string", "default": "18mm" }
+          }
+        }
+      }
+    },
+    "design_tokens": {
+      "type": "object",
+      "description": "All design tokens are centralized here. Components reference token names, not raw values.",
+      "properties": {
+        "colors": {
+          "type": "object",
+          "properties": {
+            "primary": { "type": "string" },
+            "secondary": { "type": "string" },
+            "surface": { "type": "string", "description": "Page/card background." },
+            "surface_alt": { "type": "string", "description": "Alternate section background." },
+            "text_primary": { "type": "string" },
+            "text_secondary": { "type": "string" },
+            "text_muted": { "type": "string" },
+            "border": { "type": "string" },
+            "divider": { "type": "string" },
+            "priority_very_high": { "type": "string" },
+            "priority_high": { "type": "string" },
+            "priority_moderate": { "type": "string" },
+            "priority_low": { "type": "string" },
+            "strength": { "type": "string" },
+            "opportunity": { "type": "string" }
+          }
+        },
+        "typography": {
+          "type": "object",
+          "properties": {
+            "font_primary": { "type": "string", "default": "Inter" },
+            "font_display": { "type": "string", "default": "Inter" },
+            "scale": {
+              "type": "object",
+              "properties": {
+                "display": { "type": "string", "default": "32px" },
+                "h1": { "type": "string", "default": "24px" },
+                "h2": { "type": "string", "default": "18px" },
+                "h3": { "type": "string", "default": "14px" },
+                "body": { "type": "string", "default": "11px" },
+                "small": { "type": "string", "default": "9px" },
+                "evidence": { "type": "string", "default": "8px" }
+              }
+            },
+            "line_height": {
+              "type": "object",
+              "properties": {
+                "heading": { "type": "number", "default": 1.2 },
+                "body": { "type": "number", "default": 1.6 }
+              }
+            }
+          }
+        },
+        "spacing": {
+          "type": "object",
+          "properties": {
+            "section_gap": { "type": "string", "default": "24px" },
+            "card_padding": { "type": "string", "default": "16px" },
+            "paragraph_gap": { "type": "string", "default": "8px" },
+            "heading_gap": { "type": "string", "default": "12px" }
+          }
+        },
+        "radius": { "type": "string", "default": "6px" },
+        "shadow": { "type": "string", "default": "0 1px 4px rgba(0,0,0,0.08)" }
+      }
+    },
+    "components": {
+      "type": "object",
+      "description": "Reusable component specifications. Each component is named and referenced by pages.",
+      "properties": {
+        "Cover": { "$ref": "#/definitions/component_spec" },
+        "SectionHeader": { "$ref": "#/definitions/component_spec" },
+        "SnapshotCard": { "$ref": "#/definitions/component_spec" },
+        "StrengthCard": { "$ref": "#/definitions/component_spec" },
+        "PriorityCard": { "$ref": "#/definitions/component_spec" },
+        "PriorityBadge": { "$ref": "#/definitions/component_spec" },
+        "CompetitorComparison": { "$ref": "#/definitions/component_spec" },
+        "OpportunityCard": { "$ref": "#/definitions/component_spec" },
+        "NextStepTimeline": { "$ref": "#/definitions/component_spec" },
+        "CTASection": { "$ref": "#/definitions/component_spec" },
+        "Footer": { "$ref": "#/definitions/component_spec" },
+        "EvidenceNote": { "$ref": "#/definitions/component_spec" }
+      }
+    },
+    "pages": {
+      "type": "array",
+      "description": "Ordered page definitions for the PDF Generator.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "page_number": { "type": "integer" },
+          "page_type": {
+            "type": "string",
+            "enum": ["cover", "snapshot", "foundation", "priorities", "competitive", "opportunities", "next_steps", "cta"]
+          },
+          "source_content_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "References to sections in report_content.json."
+          },
+          "components": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "component_name": { "type": "string" },
+                "source_content_id": { "type": "string" },
+                "evidence_ids": { "type": "array", "items": { "type": "string" } },
+                "source_finding_ids": { "type": "array", "items": { "type": "string" } },
+                "props": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "description": "Component-specific display props (e.g. rank, priority_level)."
+                }
+              },
+              "required": ["component_name"]
+            }
+          }
+        },
+        "required": ["page_number", "page_type", "components"]
+      }
+    },
+    "footer": {
+      "type": "object",
+      "properties": {
+        "show_page_numbers": { "type": "boolean", "default": true },
+        "brand_name": { "type": "string" },
+        "disclaimer": { "type": ["string", "null"] }
+      }
+    },
+    "evidence_display": {
+      "type": "object",
+      "properties": {
+        "show_evidence_refs": { "type": "boolean", "default": false, "description": "If true, show evidence IDs as footnotes." },
+        "evidence_style": { "type": "string", "enum": ["footnote", "tooltip", "none"], "default": "none" }
+      }
+    }
+  },
+  "required": ["metadata", "page_settings", "design_tokens", "pages"],
+  "definitions": {
+    "component_spec": {
+      "type": "object",
+      "properties": {
+        "description": { "type": "string" },
+        "layout": { "type": "string", "description": "flex, grid, block, etc." },
+        "token_overrides": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Token overrides specific to this component."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Website Audit Output",
+  "description": "Structured findings from a conditional local business website audit.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "insufficient_data", "failed"],
+      "description": "Execution status of the website audit."
+    },
+    "audit_trigger": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["recommended", "skipped", "not_applicable", "insufficient_data"]
+        },
+        "reason": { "type": "string" },
+        "supporting_evidence_ids": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["status", "reason"]
+    },
+    "website_presence": {
+      "type": "string",
+      "enum": ["present", "missing", "inaccessible", "unknown"]
+    },
+    "website_url": { "type": ["string", "null"] },
+    "health": {
+      "type": "string",
+      "enum": ["strong", "healthy", "moderate", "needs_attention", "high_priority", "insufficient_data", "not_applicable"]
+    },
+    "summary": { "type": ["string", "null"] },
+    "strengths": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Areas where the website performs well (e.g., strong service clarity, fast loading)."
+    },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/website_finding" }
+    },
+    "opportunities": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/website_finding" }
+    },
+    "performance": {
+      "type": "object",
+      "properties": {
+        "status": { "type": "string", "enum": ["available", "unavailable"] },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "schema": {
+      "type": "object",
+      "properties": {
+        "status": { "type": "string", "enum": ["present", "missing", "unavailable"] },
+        "types_detected": { "type": "array", "items": { "type": "string" } },
+        "issues": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "local_seo": { "type": ["string", "null"] },
+    "content": { "type": ["string", "null"] },
+    "ux": { "type": ["string", "null"] },
+    "competitor_comparison": { "type": ["string", "null"] },
+    "evidence_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "evidence_id": { "type": "string" },
+          "source_type": { "type": "string" },
+          "source_url": { "type": "string" },
+          "source_title": { "type": "string" },
+          "observation": { "type": "string" },
+          "captured_at": { "type": "string", "format": "date-time" },
+          "verification_status": { "type": "string" }
+        },
+        "required": ["evidence_id", "observation"]
+      }
+    },
+    "service_recommendations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "analysis_notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": [
+    "status",
+    "audit_trigger",
+    "website_presence"
+  ],
+  "definitions": {
+    "website_finding": {
+      "type": "object",
+      "properties": {
+        "finding_id": { "type": "string" },
+        "finding_type": { 
+          "type": "string",
+          "enum": [
+            "website_accessibility_issue", 
+            "mobile_ux_issue", 
+            "title_issue", 
+            "meta_issue", 
+            "heading_issue", 
+            "service_clarity_gap", 
+            "location_relevance_gap", 
+            "contact_information_issue", 
+            "nap_consistency_issue", 
+            "schema_gap", 
+            "schema_issue", 
+            "local_seo_gap", 
+            "internal_linking_opportunity", 
+            "indexability_issue", 
+            "security_issue", 
+            "performance_issue", 
+            "content_quality_gap", 
+            "trust_signal_gap", 
+            "conversion_opportunity", 
+            "competitor_website_gap", 
+            "website_strength"
+          ]
+        },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "fact": { "type": "string" },
+        "interpretation": { "type": "string" },
+        "recommendation": { "type": "string" },
+        "impact_level": { 
+          "type": "string",
+          "enum": ["very_high", "high", "moderate", "low"]
+        },
+        "evidence_confidence": { 
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "actionability": { 
+          "type": "string",
+          "enum": ["high", "moderate", "low"]
+        },
+        "relevance_reason": { "type": "string" },
+        "evidence_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "service_mapping": { "type": "string" }
+      },
+      "required": [
+        "finding_id",
+        "finding_type",
+        "title",
+        "fact",
+        "interpretation",
+        "recommendation",
+        "evidence_ids"
+      ]
+    }
+  }
+}

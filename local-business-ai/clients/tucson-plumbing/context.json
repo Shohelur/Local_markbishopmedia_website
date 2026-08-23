@@ -1,0 +1,33 @@
+{
+  "business_name": "Tucson Plumbing",
+  "address": "3322 N Richey Blvd",
+  "city": "Tucson",
+  "state": "AZ",
+  "zip": "85716",
+  "country": "US",
+  "phone": "(520) 881-6000",
+  "website": "https://tucsonplumbing.com/",
+  "primary_category": "Plumber",
+  "secondary_categories": [
+    "Plumbing contractor",
+    "Emergency plumbing service"
+  ],
+  "services": [
+    "24/7 Emergency Repairs",
+    "Drain Cleaning",
+    "Water Heater Installation & Repair",
+    "Gas Line Installation",
+    "Water Filtration & Softening",
+    "Backflow Testing",
+    "New Construction Plumbing"
+  ],
+  "business_description": "Full-service plumbing contractor in Tucson, AZ providing residential and commercial plumbing, 24/7 emergency service, and water heater repairs since 1948.",
+  "google_business_profile_url": "https://maps.app.goo.gl/b43TWz7fkWaXgGPp6",
+  "target_location": "Tucson, Arizona",
+  "metadata": {
+    "source": "Google Maps Live Profile",
+    "rating": 4.6,
+    "reviews_count": 272,
+    "bbb_rating": "A+"
+  }
+}

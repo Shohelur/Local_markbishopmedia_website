@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Evidence Validation Output",
+  "description": "Structured output from the Evidence Validator, evaluating findings against their attached evidence.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "insufficient_data", "failed"],
+      "description": "Execution status of the evidence validation process."
+    },
+    "summary": { "type": "string" },
+    "validated_findings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/validated_finding_object" },
+      "description": "Findings that have passed or passed with modification."
+    },
+    "rejected_findings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/validated_finding_object" },
+      "description": "Findings that were entirely rejected due to lack of evidence or identity mismatch."
+    },
+    "rewrite_candidates": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/validated_finding_object" },
+      "description": "Findings that need rewriting (e.g., removing causal claims) but contain valid underlying facts."
+    },
+    "evidence_issues": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "duplicate_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "primary_finding_id": { "type": "string" },
+          "duplicate_finding_ids": { "type": "array", "items": { "type": "string" } },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "validation_notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": [
+    "status",
+    "summary",
+    "validated_findings",
+    "rejected_findings"
+  ],
+  "definitions": {
+    "validated_finding_object": {
+      "type": "object",
+      "properties": {
+        "finding_id": { "type": "string" },
+        "source_skill": { "type": "string" },
+        "original_title": { "type": "string" },
+        "original_finding": {
+          "type": "object",
+          "description": "The exact original finding payload for traceability."
+        },
+        "validation_status": {
+          "type": "string",
+          "enum": ["approved", "approved_with_caution", "needs_more_evidence", "needs_rewrite", "rejected"]
+        },
+        "evidence_status": {
+          "type": "string",
+          "enum": ["supported", "partially_supported", "insufficient", "contradicted"]
+        },
+        "evidence_confidence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "identity_status": {
+          "type": "string",
+          "enum": ["verified", "likely_match", "uncertain", "not_a_match"]
+        },
+        "temporal_status": {
+          "type": "string",
+          "enum": ["current", "outdated", "unknown"]
+        },
+        "claim_strength": {
+          "type": "string",
+          "enum": ["appropriate", "too_strong", "unsupported"]
+        },
+        "causal_claim_status": {
+          "type": "string",
+          "enum": ["safe", "needs_rewrite", "unsupported"]
+        },
+        "client_facing_status": {
+          "type": "string",
+          "enum": ["client_ready", "internal_only", "needs_rewrite", "needs_more_evidence", "rejected"]
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "issues": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Specific validation issues identified."
+        },
+        "validated_finding": {
+          "type": "object",
+          "properties": {
+            "fact": { "type": "string" },
+            "interpretation": { "type": "string" },
+            "recommendation": { "type": "string" }
+          },
+          "description": "The sanitized and safe finding payload. May be null if rejected."
+        },
+        "validation_notes": { "type": "string" }
+      },
+      "required": [
+        "finding_id",
+        "source_skill",
+        "original_finding",
+        "validation_status",
+        "evidence_status",
+        "identity_status",
+        "claim_strength",
+        "causal_claim_status"
+      ]
+    }
+  }
+}

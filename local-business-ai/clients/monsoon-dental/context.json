@@ -1,0 +1,36 @@
+{
+  "business_name": "Monsoon Dental",
+  "address": "2195 W Magee Rd, Suite 120",
+  "city": "Tucson",
+  "state": "AZ",
+  "zip": "85742",
+  "country": "US",
+  "phone": "(520) 441-2505",
+  "website": "https://monsoondental.com/",
+  "primary_category": "Dentist",
+  "secondary_categories": [
+    "Cosmetic dentist",
+    "Dental clinic",
+    "Emergency dental service"
+  ],
+  "services": [
+    "Preventive Dentistry",
+    "Restorative Dentistry",
+    "Cosmetic Dentistry",
+    "Dental Implants",
+    "Emergency Dental Care",
+    "TMJ / TMD Treatment",
+    "Crowns & Bridges",
+    "Teeth Whitening"
+  ],
+  "business_description": "Comprehensive family and cosmetic dental practice in Northwest Tucson (Magee Rd) led by Dr. Bradley Konecnik, DDS, providing preventive, restorative, cosmetic, implant, and emergency dentistry.",
+  "google_business_profile_url": "https://maps.app.goo.gl/7on5BA6Zj6R5YRzM6",
+  "target_location": "Tucson, Arizona",
+  "metadata": {
+    "source": "Google Maps Live Profile (https://maps.app.goo.gl/7on5BA6Zj6R5YRzM6)",
+    "rating": 5,
+    "reviews_count": 21,
+    "lead_dentist": "Dr. Bradley Konecnik, DDS",
+    "office_hours": "Mon-Thu 8:00 AM - 4:30 PM, Fri-Sun Closed"
+  }
+}

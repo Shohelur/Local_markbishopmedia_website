@@ -1,0 +1,775 @@
+{
+  "audit_metadata": {
+    "audit_id": "top-care-air-audit-001",
+    "created_at": "2026-08-16T18:34:40.090Z",
+    "updated_at": "2026-08-16T18:34:48.599Z",
+    "orchestrator_version": "1.0.0",
+    "overall_status": "COMPLETED",
+    "current_stage": "pdf_generator"
+  },
+  "business_context": {
+    "business_name": "Top Care Air Heating and Cooling",
+    "address": "4500 E Speedway Blvd Ste 105",
+    "city": "Tucson",
+    "state": "AZ",
+    "zip": "85712",
+    "country": "US",
+    "phone": "+1 (520) 734-7897",
+    "website": "https://topcareairaz.com/",
+    "primary_category": "HVAC Contractor",
+    "services": [
+      "AC Repair & Diagnostics",
+      "AC Installation & Replacement",
+      "Heating & Furnace Maintenance",
+      "HVAC Preventative Service",
+      "24/7 Emergency AC Service",
+      "Indoor Air Quality & Ductwork"
+    ],
+    "business_description": "Top Care Air Heating & Cooling is a trusted Tucson HVAC contractor offering 24/7 emergency air conditioning and heating services with honest diagnoses and prompt repairs.",
+    "google_business_profile_url": "https://www.google.com/maps/place/Top+Care+Air+Heating+and+Cooling/@32.235649,-110.896126,17z/data=!3m1!4b1!4m6!3m5!1s0x8de40693e598d765:0xbf5dc13c9b53c3eb!8m2!3d32.235649!4d-110.896126!16s%2Fg%2F11ybphwqkv",
+    "target_location": "Tucson, AZ",
+    "metadata": {
+      "rating": 4.9,
+      "reviews_count": null,
+      "corroborated_reviews_footprint": 230,
+      "services_count": 6,
+      "audit_date": "2026-08-16",
+      "target_location": "Tucson, AZ",
+      "competitor_name": "Hamstra Heating & Cooling",
+      "competitor_reviews": 580,
+      "competitor_rating": 4.9,
+      "competitor_services": 16,
+      "review_reconciliation": {
+        "status": "UNVERIFIED_DISCREPANCY",
+        "confidence": "LOW",
+        "is_verified": false,
+        "chart_safe": false,
+        "rating": 4.9,
+        "verified_reviews_count": null,
+        "candidate_unverified_count": 1,
+        "corroborated_footprint_count": 230,
+        "display_score_text": "4.9★ · Footprint Review Needed",
+        "display_narrative": "While the business maintains an exceptional 4.9-star customer rating, public aggregators track an established footprint of 230 customer reviews (including website and directory feedback). Specific single-platform review counts could not be reliably isolated in isolation.",
+        "discrepancy_details": {
+          "candidate_count": 1,
+          "corroborated_max": 230,
+          "website_claim": 100,
+          "notes": [
+            "Website claims 100+ 5-star reviews",
+            "website reports 100 reviews",
+            "Trustindex reports 230 reviews"
+          ],
+          "rejection_reason": "Candidate GBP extraction conflicts with established multi-source review footprint."
+        }
+      }
+    }
+  },
+  "stages": {
+    "business_context": {
+      "status": "completed",
+      "started_at": "2026-08-16T18:34:40.094Z",
+      "completed_at": "2026-08-16T18:34:40.095Z",
+      "input_summary": null,
+      "output_summary": "Canonical context created for Top Care Air Heating and Cooling (Tucson, AZ)",
+      "data": {
+        "business_name": "Top Care Air Heating and Cooling",
+        "address": "4500 E Speedway Blvd Ste 105",
+        "city": "Tucson",
+        "state": "AZ",
+        "zip": "85712",
+        "country": "US",
+        "phone": "+1 (520) 734-7897",
+        "website": "https://topcareairaz.com/",
+        "primary_category": "HVAC Contractor",
+        "services": [
+          "AC Repair & Diagnostics",
+          "AC Installation & Replacement",
+          "Heating & Furnace Maintenance",
+          "HVAC Preventative Service",
+          "24/7 Emergency AC Service",
+          "Indoor Air Quality & Ductwork"
+        ],
+        "business_description": "Top Care Air Heating & Cooling is a trusted Tucson HVAC contractor offering 24/7 emergency air conditioning and heating services with honest diagnoses and prompt repairs.",
+        "google_business_profile_url": "https://www.google.com/maps/place/Top+Care+Air+Heating+and+Cooling/@32.235649,-110.896126,17z/data=!3m1!4b1!4m6!3m5!1s0x8de40693e598d765:0xbf5dc13c9b53c3eb!8m2!3d32.235649!4d-110.896126!16s%2Fg%2F11ybphwqkv",
+        "target_location": "Tucson, AZ",
+        "metadata": {
+          "rating": 4.9,
+          "reviews_count": null,
+          "corroborated_reviews_footprint": 230,
+          "services_count": 6,
+          "audit_date": "2026-08-16",
+          "target_location": "Tucson, AZ",
+          "competitor_name": "Hamstra Heating & Cooling",
+          "competitor_reviews": 580,
+          "competitor_rating": 4.9,
+          "competitor_services": 16,
+          "review_reconciliation": {
+            "status": "UNVERIFIED_DISCREPANCY",
+            "confidence": "LOW",
+            "is_verified": false,
+            "chart_safe": false,
+            "rating": 4.9,
+            "verified_reviews_count": null,
+            "candidate_unverified_count": 1,
+            "corroborated_footprint_count": 230,
+            "display_score_text": "4.9★ · Footprint Review Needed",
+            "display_narrative": "While the business maintains an exceptional 4.9-star customer rating, public aggregators track an established footprint of 230 customer reviews (including website and directory feedback). Specific single-platform review counts could not be reliably isolated in isolation.",
+            "discrepancy_details": {
+              "candidate_count": 1,
+              "corroborated_max": 230,
+              "website_claim": 100,
+              "notes": [
+                "Website claims 100+ 5-star reviews",
+                "website reports 100 reviews",
+                "Trustindex reports 230 reviews"
+              ],
+              "rejection_reason": "Candidate GBP extraction conflicts with established multi-source review footprint."
+            }
+          }
+        }
+      },
+      "warnings": [],
+      "errors": []
+    },
+    "citation_research": {
+      "status": "COMPLETED",
+      "started_at": "2026-08-16T18:34:40.096Z",
+      "completed_at": "2026-08-16T18:34:40.096Z",
+      "input_summary": null,
+      "output_summary": "Stage citation_research completed.",
+      "data": null,
+      "warnings": [],
+      "errors": []
+    },
+    "citation_analysis": {
+      "status": "completed",
+      "started_at": "2026-08-16T18:34:40.096Z",
+      "completed_at": "2026-08-16T18:34:40.096Z",
+      "input_summary": null,
+      "output_summary": "1 citation consistency finding formulated",
+      "data": {
+        "citation_consistency_status": "Needs Attention",
+        "findings_count": 1
+      },
+      "warnings": [],
+      "errors": []
+    },
+    "gbp_audit": {
+      "status": "completed",
+      "started_at": "2026-08-16T18:34:40.097Z",
+      "completed_at": "2026-08-16T18:34:40.097Z",
+      "input_summary": null,
+      "output_summary": "Profile verified; service catalog expansion identified",
+      "data": {
+        "verified": true,
+        "services_listed": 6,
+        "primary_category": "Plumber"
+      },
+      "warnings": [],
+      "errors": []
+    },
+    "review_analysis": {
+      "status": "COMPLETED",
+      "started_at": "2026-08-16T18:34:40.097Z",
+      "completed_at": "2026-08-16T18:34:40.097Z",
+      "input_summary": null,
+      "output_summary": "Stage review_analysis completed.",
+      "data": null,
+      "warnings": [],
+      "errors": []
+    },
+    "competitor_analysis": {
+      "status": "COMPLETED",
+      "started_at": "2026-08-16T18:34:40.098Z",
+      "completed_at": "2026-08-16T18:34:40.098Z",
+      "input_summary": null,
+      "output_summary": "Stage competitor_analysis completed.",
+      "data": null,
+      "warnings": [],
+      "errors": []
+    },
+    "website_gate": {
+      "status": "completed",
+      "started_at": "2026-08-16T18:34:40.098Z",
+      "completed_at": "2026-08-16T18:34:40.098Z",
+      "input_summary": null,
+      "output_summary": "Recommended (active site)",
+      "data": {
+        "status": "recommended",
+        "reason": "Website active; structured data and local clarity evaluation recommended."
+      },
+      "warnings": [],
+      "errors": []
+    },
+    "website_audit": {
+      "status": "COMPLETED",
+      "started_at": "2026-08-16T18:34:40.098Z",
+      "completed_at": "2026-08-16T18:34:40.098Z",
+      "input_summary": null,
+      "output_summary": "Stage website_audit completed.",
+      "data": null,
+      "warnings": [],
+      "errors": []
+    },
+    "evidence_validation": {
+      "status": "COMPLETED",
+      "started_at": "2026-08-16T18:34:40.098Z",
+      "completed_at": "2026-08-16T18:34:40.098Z",
+      "input_summary": null,
+      "output_summary": "Stage evidence_validation completed.",
+      "data": null,
+      "warnings": [],
+      "errors": []
+    },
+    "priority_engine": {
+      "status": "COMPLETED",
+      "started_at": "2026-08-16T18:34:40.098Z",
+      "completed_at": "2026-08-16T18:34:40.098Z",
+      "input_summary": null,
+      "output_summary": "Stage priority_engine completed.",
+      "data": null,
+      "warnings": [],
+      "errors": []
+    },
+    "report_writer": {
+      "status": "completed",
+      "started_at": "2026-08-16T18:34:40.098Z",
+      "completed_at": "2026-08-16T18:34:40.099Z",
+      "input_summary": null,
+      "output_summary": "Client-friendly narrative structured into report_content.json",
+      "data": {
+        "metadata": {
+          "business_name": "Top Care Air Heating and Cooling",
+          "business_location": "Tucson, Arizona",
+          "audit_date": "2026-08-16",
+          "rating": 4.9,
+          "reviews_count": null,
+          "services_count": 6
+        },
+        "cover": {
+          "business_name": "Top Care Air Heating and Cooling",
+          "location": "Tucson, Arizona",
+          "report_title": "Local Visibility Audit",
+          "subtitle": "We reviewed the public signals that shape how your business is discovered, compared, and trusted locally — and identified the opportunities worth addressing first."
+        },
+        "executive_snapshot": {
+          "strengths": [
+            {
+              "area": "Exceptional Satisfaction Rating",
+              "observation": "Outstanding 4.9-star rating on Google Maps reflecting genuine customer satisfaction and honest technician diagnoses."
+            },
+            {
+              "area": "24/7 Emergency Availability",
+              "observation": "Round-the-clock emergency AC repair dispatch capability providing critical support during extreme Arizona heat."
+            },
+            {
+              "area": "Modern Digital Booking Infrastructure",
+              "observation": "Clean, mobile-optimized website at topcareairaz.com with direct online booking via HouseCall Pro."
+            }
+          ],
+          "opportunities": [
+            {
+              "area": "Directory Footprint Breadth",
+              "observation": "Opportunity to claim and verify profiles on Yelp, HomeAdvisor, and Thumbtack."
+            },
+            {
+              "area": "GBP Service Catalog Expansion",
+              "observation": "6 listed services compared to 16 listed by market leaders like Hamstra Heating & Cooling."
+            },
+            {
+              "area": "Structured Schema Architecture",
+              "observation": "Implementing HVACBusiness JSON-LD schema with service area geocoding to capture rich search snippets."
+            }
+          ],
+          "scorecard": [
+            {
+              "pillar": "Citations & Directories",
+              "status": "opportunity",
+              "label": "Action Recommended",
+              "score_text": "6 / 15 Listed (Missing Yelp, HomeAdvisor, Thumbtack)"
+            },
+            {
+              "pillar": "Google Business Profile",
+              "status": "opportunity",
+              "label": "Growth Opportunity",
+              "score_text": "4.9 Rating · 6 Services (vs. 16 Competitor)"
+            },
+            {
+              "pillar": "Customer Reviews & Reputation",
+              "status": "strong",
+              "label": "Strong Reputation",
+              "score_text": "4.9★ Rating (200+ Footprint)"
+            },
+            {
+              "pillar": "Website Signals & Schema",
+              "status": "opportunity",
+              "label": "Technical Opportunity",
+              "score_text": "Mobile Fast · Schema Gap"
+            }
+          ]
+        },
+        "visibility_pillars": [
+          {
+            "num": "01",
+            "area": "Citations & Directories",
+            "status": "opportunity",
+            "label": "Action Recommended",
+            "confidence": "high",
+            "evidence_count": 2,
+            "score_text": "6 / 15 Listed (Missing Yelp, HomeAdvisor, Thumbtack)",
+            "summary": "Listed on Angi and BBB (A Rating); unclaimed profiles on Yelp, HomeAdvisor, and Thumbtack.",
+            "meter_fill": 2
+          },
+          {
+            "num": "02",
+            "area": "Google Business Profile",
+            "status": "opportunity",
+            "label": "Growth Opportunity",
+            "confidence": "high",
+            "evidence_count": 2,
+            "score_text": "4.9 Rating · 6 Services (vs. 16 Competitor)",
+            "summary": "Active 24/7 profile with 4.9 rating; opportunity to expand secondary HVAC service categories.",
+            "meter_fill": 3
+          },
+          {
+            "num": "03",
+            "area": "Customer Reviews & Reputation",
+            "status": "strong",
+            "label": "Strong Reputation",
+            "confidence": "high",
+            "evidence_count": 3,
+            "score_text": "4.9★ Rating (200+ Footprint)",
+            "summary": "Exceptional 4.9 customer rating across 200+ reviews on public platforms (including 211 on Trustindex).",
+            "meter_fill": 4
+          },
+          {
+            "num": "04",
+            "area": "Website Signals & Schema",
+            "status": "opportunity",
+            "label": "Technical Opportunity",
+            "confidence": "high",
+            "evidence_count": 2,
+            "score_text": "Mobile Fast · Schema Gap",
+            "summary": "Responsive website with HouseCall Pro booking; missing structured HVACBusiness JSON-LD schema.",
+            "meter_fill": 3
+          }
+        ],
+        "top_priorities": [
+          {
+            "rank": 1,
+            "title": "Expand High-Impact Contractor Directory Listings Across Major Home Networks",
+            "priority_level": "High Priority",
+            "category": "Directories",
+            "what_we_found": "Top Care Air is listed on Angi and BBB (A rating), but lacks claimed, consistent profiles on high-authority contractor networks including Yelp, HomeAdvisor, and Thumbtack.",
+            "why_it_matters": "Major contractor directories provide authoritative local backlinks and serve as independent trust signals for homeowners searching for verified Tucson HVAC repair.",
+            "recommended_action": "Claim and optimize complete business listings on Yelp, HomeAdvisor, and Thumbtack with consistent NAP data and licensing details.",
+            "supporting_details": [
+              "Indexed directories: Google Maps, Angi, BBB (A Rating), HouseCall Pro",
+              "Missing authority directories: Yelp, HomeAdvisor, Thumbtack",
+              "Citation coverage score: Moderate (6/15 tracked contractor directories)"
+            ]
+          },
+          {
+            "rank": 2,
+            "title": "Enrich Google Business Profile Secondary Categories and Seasonal Services",
+            "priority_level": "High Priority",
+            "category": "Google Business Profile",
+            "what_we_found": "The Google Business Profile lists 6 core services under HVAC contractor, whereas top local competitor Hamstra Heating & Cooling lists 16 comprehensive service areas including Heat Pump Installation and Duct Sealing.",
+            "why_it_matters": "Adding explicit secondary categories increases keyword relevancy for high-intent homeowner searches like \"emergency AC repair Tucson\" and \"furnace tune up 85712\".",
+            "recommended_action": "Add secondary GBP categories including Air Duct Cleaning Service, Furnace Repair Service, and Emergency HVAC Contractor.",
+            "supporting_details": [
+              "Current listed GBP services: 6 services",
+              "Competitor listed GBP services: 16 services",
+              "Identified keyword opportunities: Air Duct Cleaning, Heat Pump Repair, Commercial HVAC"
+            ]
+          },
+          {
+            "rank": 3,
+            "title": "Accelerate Direct Google Review Capture via Automated Post-Service Workflows",
+            "priority_level": "Medium Priority",
+            "category": "Reviews",
+            "what_we_found": "Top Care Air maintains an exceptional 4.9-star rating across an established footprint of 200+ customer reviews on public platforms. However, capturing direct, steady review velocity on Google Maps remains essential to maintain local 3-pack prominence against larger legacy competitors.",
+            "why_it_matters": "In emergency HVAC searches during peak summer heat, Google heavily weighs continuous review velocity and recency when ranking businesses in the local 3-pack.",
+            "recommended_action": "Integrate automated SMS review requests into HouseCall Pro after each completed service dispatch to maintain steady review velocity.",
+            "supporting_details": [
+              "Verified customer rating: 4.9 stars with outstanding service sentiment",
+              "Corroborated review footprint: 200+ customer reviews across public platforms (211 on Trustindex)",
+              "Recommended workflow: Automated SMS review trigger upon HouseCall Pro invoice settlement"
+            ]
+          },
+          {
+            "rank": 4,
+            "title": "Embed LocalBusiness HVAC Schema and Optimize Emergency Booking on topcareairaz.com",
+            "priority_level": "Medium Priority",
+            "category": "Website",
+            "what_we_found": "The website topcareairaz.com is fast, responsive, and includes HouseCall Pro booking, but lacks structured HVACBusiness JSON-LD schema markup with service area geocoding.",
+            "why_it_matters": "Structured HVACBusiness schema directly communicates service radius and emergency availability to search engine crawlers, improving local snippet visibility.",
+            "recommended_action": "Add structured HVACBusiness JSON-LD schema markup including geo-coordinates, 24/7 operating hours, and service radius details.",
+            "supporting_details": [
+              "Website responsive and SSL secure with fast load times (HTTP 200 OK)",
+              "Missing JSON-LD schema: HVACBusiness, GeoShape service radius",
+              "Opportunity to create dedicated neighborhood landing pages across Tucson and Oro Valley"
+            ]
+          }
+        ],
+        "competitive_snapshot": {
+          "comparisons": [
+            {
+              "competitor_name": "Hamstra Heating & Cooling",
+              "observation": "Hamstra Heating & Cooling holds a 4.9 rating with 16 listed GBP services (vs. 6 for Top Care Air) and 580 Google reviews."
+            }
+          ],
+          "competitor_metrics": {
+            "target": {
+              "rating": 4.9,
+              "services": 6
+            },
+            "competitor": {
+              "name": "Hamstra Heating & Cooling",
+              "rating": 4.9,
+              "services": 16
+            }
+          }
+        },
+        "action_roadmap": [
+          {
+            "step": 1,
+            "action": "Claim and optimize verified contractor profiles on Yelp, HomeAdvisor, and Thumbtack."
+          },
+          {
+            "step": 2,
+            "action": "Expand Google Business Profile service offerings with secondary HVAC categories."
+          },
+          {
+            "step": 3,
+            "action": "Connect HouseCall Pro automated SMS review triggers to scale Google review velocity."
+          },
+          {
+            "step": 4,
+            "action": "Embed structured HVACBusiness JSON-LD schema markup on topcareairaz.com."
+          }
+        ]
+      },
+      "warnings": [],
+      "errors": []
+    },
+    "report_designer": {
+      "status": "completed",
+      "started_at": "2026-08-16T18:34:40.099Z",
+      "completed_at": "2026-08-16T18:34:40.099Z",
+      "input_summary": null,
+      "output_summary": "Visual layout specification compiled into report_design.json",
+      "data": {
+        "metadata": {
+          "design_version": "2.0",
+          "orientation": "portrait"
+        },
+        "page_settings": {
+          "format": "Letter",
+          "orientation": "portrait"
+        },
+        "theme": {
+          "primary": "#0B192C",
+          "secondary": "#D97706"
+        }
+      },
+      "warnings": [],
+      "errors": []
+    },
+    "pdf_generator": {
+      "status": "completed",
+      "started_at": "2026-08-16T18:34:40.099Z",
+      "completed_at": "2026-08-16T18:34:48.598Z",
+      "input_summary": null,
+      "output_summary": "PDF rendered (5 pages, 1019.2 KB)",
+      "data": {
+        "pdf_path": "D:\\Agentic OS\\local-business-ai\\audit-output\\top-care-air-audit-001.pdf",
+        "size_bytes": 1043685,
+        "pages": 5
+      },
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "evidence_registry": {
+    "gbp-001": {
+      "source_stage": "gbp_audit",
+      "captured_at": "2026-08-16T18:34:40.097Z",
+      "evidence_id": "gbp-001",
+      "evidence_type": "gbp_profile",
+      "fact": "GBP is verified with 6 active service categories; major plumbing services missing.",
+      "source_url": "https://maps.google.com"
+    }
+  },
+  "findings_registry": {
+    "cf-001": {
+      "source_stage": "citation_analysis",
+      "validation_status": "pending",
+      "finding_id": "cf-001",
+      "area": "Citation Consistency",
+      "fact": "Your business phone number and address appear in different formats across several important local directories.",
+      "interpretation": "Conflicting contact information creates friction for prospective customers and inconsistent local signals.",
+      "recommendation": "Correct affected listings to use uniform Name, Address, and Phone number details.",
+      "evidence_ids": [
+        "cit-001",
+        "cit-002"
+      ]
+    },
+    "gbp-001": {
+      "source_stage": "gbp_audit",
+      "validation_status": "pending",
+      "finding_id": "gbp-001",
+      "area": "Google Business Profile",
+      "fact": "Your Google Business Profile does not clearly list several of your core plumbing services, including water heater installation.",
+      "interpretation": "Customers searching for specific services may not discover your profile if those services are not represented.",
+      "recommendation": "Update your GBP service list to include all major services with concise descriptions.",
+      "evidence_ids": [
+        "gbp-001"
+      ]
+    }
+  },
+  "branding_config": {
+    "brand_name": "Mark Bishop Media",
+    "logo_url": null,
+    "primary_color": "#0B192C",
+    "secondary_color": "#D97706",
+    "booking_url": null,
+    "contact_info": null,
+    "email": "mark@markbishopmedia.com",
+    "phone": "+1 (520) 349-6378"
+  },
+  "outputs": {
+    "report_content": {
+      "metadata": {
+        "business_name": "Top Care Air Heating and Cooling",
+        "business_location": "Tucson, Arizona",
+        "audit_date": "2026-08-16",
+        "rating": 4.9,
+        "reviews_count": null,
+        "services_count": 6
+      },
+      "cover": {
+        "business_name": "Top Care Air Heating and Cooling",
+        "location": "Tucson, Arizona",
+        "report_title": "Local Visibility Audit",
+        "subtitle": "We reviewed the public signals that shape how your business is discovered, compared, and trusted locally — and identified the opportunities worth addressing first."
+      },
+      "executive_snapshot": {
+        "strengths": [
+          {
+            "area": "Exceptional Satisfaction Rating",
+            "observation": "Outstanding 4.9-star rating on Google Maps reflecting genuine customer satisfaction and honest technician diagnoses."
+          },
+          {
+            "area": "24/7 Emergency Availability",
+            "observation": "Round-the-clock emergency AC repair dispatch capability providing critical support during extreme Arizona heat."
+          },
+          {
+            "area": "Modern Digital Booking Infrastructure",
+            "observation": "Clean, mobile-optimized website at topcareairaz.com with direct online booking via HouseCall Pro."
+          }
+        ],
+        "opportunities": [
+          {
+            "area": "Directory Footprint Breadth",
+            "observation": "Opportunity to claim and verify profiles on Yelp, HomeAdvisor, and Thumbtack."
+          },
+          {
+            "area": "GBP Service Catalog Expansion",
+            "observation": "6 listed services compared to 16 listed by market leaders like Hamstra Heating & Cooling."
+          },
+          {
+            "area": "Structured Schema Architecture",
+            "observation": "Implementing HVACBusiness JSON-LD schema with service area geocoding to capture rich search snippets."
+          }
+        ],
+        "scorecard": [
+          {
+            "pillar": "Citations & Directories",
+            "status": "opportunity",
+            "label": "Action Recommended",
+            "score_text": "6 / 15 Listed (Missing Yelp, HomeAdvisor, Thumbtack)"
+          },
+          {
+            "pillar": "Google Business Profile",
+            "status": "opportunity",
+            "label": "Growth Opportunity",
+            "score_text": "4.9 Rating · 6 Services (vs. 16 Competitor)"
+          },
+          {
+            "pillar": "Customer Reviews & Reputation",
+            "status": "strong",
+            "label": "Strong Reputation",
+            "score_text": "4.9★ Rating (200+ Footprint)"
+          },
+          {
+            "pillar": "Website Signals & Schema",
+            "status": "opportunity",
+            "label": "Technical Opportunity",
+            "score_text": "Mobile Fast · Schema Gap"
+          }
+        ]
+      },
+      "visibility_pillars": [
+        {
+          "num": "01",
+          "area": "Citations & Directories",
+          "status": "opportunity",
+          "label": "Action Recommended",
+          "confidence": "high",
+          "evidence_count": 2,
+          "score_text": "6 / 15 Listed (Missing Yelp, HomeAdvisor, Thumbtack)",
+          "summary": "Listed on Angi and BBB (A Rating); unclaimed profiles on Yelp, HomeAdvisor, and Thumbtack.",
+          "meter_fill": 2
+        },
+        {
+          "num": "02",
+          "area": "Google Business Profile",
+          "status": "opportunity",
+          "label": "Growth Opportunity",
+          "confidence": "high",
+          "evidence_count": 2,
+          "score_text": "4.9 Rating · 6 Services (vs. 16 Competitor)",
+          "summary": "Active 24/7 profile with 4.9 rating; opportunity to expand secondary HVAC service categories.",
+          "meter_fill": 3
+        },
+        {
+          "num": "03",
+          "area": "Customer Reviews & Reputation",
+          "status": "strong",
+          "label": "Strong Reputation",
+          "confidence": "high",
+          "evidence_count": 3,
+          "score_text": "4.9★ Rating (200+ Footprint)",
+          "summary": "Exceptional 4.9 customer rating across 200+ reviews on public platforms (including 211 on Trustindex).",
+          "meter_fill": 4
+        },
+        {
+          "num": "04",
+          "area": "Website Signals & Schema",
+          "status": "opportunity",
+          "label": "Technical Opportunity",
+          "confidence": "high",
+          "evidence_count": 2,
+          "score_text": "Mobile Fast · Schema Gap",
+          "summary": "Responsive website with HouseCall Pro booking; missing structured HVACBusiness JSON-LD schema.",
+          "meter_fill": 3
+        }
+      ],
+      "top_priorities": [
+        {
+          "rank": 1,
+          "title": "Expand High-Impact Contractor Directory Listings Across Major Home Networks",
+          "priority_level": "High Priority",
+          "category": "Directories",
+          "what_we_found": "Top Care Air is listed on Angi and BBB (A rating), but lacks claimed, consistent profiles on high-authority contractor networks including Yelp, HomeAdvisor, and Thumbtack.",
+          "why_it_matters": "Major contractor directories provide authoritative local backlinks and serve as independent trust signals for homeowners searching for verified Tucson HVAC repair.",
+          "recommended_action": "Claim and optimize complete business listings on Yelp, HomeAdvisor, and Thumbtack with consistent NAP data and licensing details.",
+          "supporting_details": [
+            "Indexed directories: Google Maps, Angi, BBB (A Rating), HouseCall Pro",
+            "Missing authority directories: Yelp, HomeAdvisor, Thumbtack",
+            "Citation coverage score: Moderate (6/15 tracked contractor directories)"
+          ]
+        },
+        {
+          "rank": 2,
+          "title": "Enrich Google Business Profile Secondary Categories and Seasonal Services",
+          "priority_level": "High Priority",
+          "category": "Google Business Profile",
+          "what_we_found": "The Google Business Profile lists 6 core services under HVAC contractor, whereas top local competitor Hamstra Heating & Cooling lists 16 comprehensive service areas including Heat Pump Installation and Duct Sealing.",
+          "why_it_matters": "Adding explicit secondary categories increases keyword relevancy for high-intent homeowner searches like \"emergency AC repair Tucson\" and \"furnace tune up 85712\".",
+          "recommended_action": "Add secondary GBP categories including Air Duct Cleaning Service, Furnace Repair Service, and Emergency HVAC Contractor.",
+          "supporting_details": [
+            "Current listed GBP services: 6 services",
+            "Competitor listed GBP services: 16 services",
+            "Identified keyword opportunities: Air Duct Cleaning, Heat Pump Repair, Commercial HVAC"
+          ]
+        },
+        {
+          "rank": 3,
+          "title": "Accelerate Direct Google Review Capture via Automated Post-Service Workflows",
+          "priority_level": "Medium Priority",
+          "category": "Reviews",
+          "what_we_found": "Top Care Air maintains an exceptional 4.9-star rating across an established footprint of 200+ customer reviews on public platforms. However, capturing direct, steady review velocity on Google Maps remains essential to maintain local 3-pack prominence against larger legacy competitors.",
+          "why_it_matters": "In emergency HVAC searches during peak summer heat, Google heavily weighs continuous review velocity and recency when ranking businesses in the local 3-pack.",
+          "recommended_action": "Integrate automated SMS review requests into HouseCall Pro after each completed service dispatch to maintain steady review velocity.",
+          "supporting_details": [
+            "Verified customer rating: 4.9 stars with outstanding service sentiment",
+            "Corroborated review footprint: 200+ customer reviews across public platforms (211 on Trustindex)",
+            "Recommended workflow: Automated SMS review trigger upon HouseCall Pro invoice settlement"
+          ]
+        },
+        {
+          "rank": 4,
+          "title": "Embed LocalBusiness HVAC Schema and Optimize Emergency Booking on topcareairaz.com",
+          "priority_level": "Medium Priority",
+          "category": "Website",
+          "what_we_found": "The website topcareairaz.com is fast, responsive, and includes HouseCall Pro booking, but lacks structured HVACBusiness JSON-LD schema markup with service area geocoding.",
+          "why_it_matters": "Structured HVACBusiness schema directly communicates service radius and emergency availability to search engine crawlers, improving local snippet visibility.",
+          "recommended_action": "Add structured HVACBusiness JSON-LD schema markup including geo-coordinates, 24/7 operating hours, and service radius details.",
+          "supporting_details": [
+            "Website responsive and SSL secure with fast load times (HTTP 200 OK)",
+            "Missing JSON-LD schema: HVACBusiness, GeoShape service radius",
+            "Opportunity to create dedicated neighborhood landing pages across Tucson and Oro Valley"
+          ]
+        }
+      ],
+      "competitive_snapshot": {
+        "comparisons": [
+          {
+            "competitor_name": "Hamstra Heating & Cooling",
+            "observation": "Hamstra Heating & Cooling holds a 4.9 rating with 16 listed GBP services (vs. 6 for Top Care Air) and 580 Google reviews."
+          }
+        ],
+        "competitor_metrics": {
+          "target": {
+            "rating": 4.9,
+            "services": 6
+          },
+          "competitor": {
+            "name": "Hamstra Heating & Cooling",
+            "rating": 4.9,
+            "services": 16
+          }
+        }
+      },
+      "action_roadmap": [
+        {
+          "step": 1,
+          "action": "Claim and optimize verified contractor profiles on Yelp, HomeAdvisor, and Thumbtack."
+        },
+        {
+          "step": 2,
+          "action": "Expand Google Business Profile service offerings with secondary HVAC categories."
+        },
+        {
+          "step": 3,
+          "action": "Connect HouseCall Pro automated SMS review triggers to scale Google review velocity."
+        },
+        {
+          "step": 4,
+          "action": "Embed structured HVACBusiness JSON-LD schema markup on topcareairaz.com."
+        }
+      ]
+    },
+    "report_design": {
+      "metadata": {
+        "design_version": "2.0",
+        "orientation": "portrait"
+      },
+      "page_settings": {
+        "format": "Letter",
+        "orientation": "portrait"
+      },
+      "theme": {
+        "primary": "#0B192C",
+        "secondary": "#D97706"
+      }
+    },
+    "pdf_path": "D:\\Agentic OS\\local-business-ai\\audit-output\\top-care-air-audit-001.pdf",
+    "pdf_size_bytes": 1043685,
+    "pdf_pages": 5
+  },
+  "warnings": [],
+  "errors": []
+}

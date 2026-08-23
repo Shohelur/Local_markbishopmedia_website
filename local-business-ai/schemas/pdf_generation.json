@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PDF Generation Output Metadata",
+  "description": "Structured metadata returned by the PDF Generator after rendering a report.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "validation_failed", "render_failed"]
+    },
+    "output_file": {
+      "type": ["string", "null"],
+      "description": "Absolute or relative path to the generated PDF file."
+    },
+    "page_count": { "type": ["integer", "null"], "minimum": 1 },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "content_valid": { "type": "boolean" },
+        "design_valid": { "type": "boolean" },
+        "priority_count": { "type": "integer" },
+        "sections_rendered": { "type": "array", "items": { "type": "string" } },
+        "sections_skipped": { "type": "array", "items": { "type": "string" } },
+        "issues": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Non-fatal warnings (e.g., missing logo, missing booking URL, font fallback used)."
+    },
+    "render_metadata": {
+      "type": "object",
+      "properties": {
+        "business_id": { "type": ["string", "null"] },
+        "audit_id": { "type": ["string", "null"] },
+        "business_name": { "type": "string" },
+        "audit_date": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "renderer": { "type": "string", "default": "puppeteer" },
+        "renderer_version": { "type": "string" },
+        "design_version": { "type": "string" }
+      }
+    },
+    "visual_qa": {
+      "type": "object",
+      "properties": {
+        "available": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["passed", "warnings", "failed", "unavailable"] },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "required": ["status"]
+}

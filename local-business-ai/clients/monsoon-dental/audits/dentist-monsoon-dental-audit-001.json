@@ -1,0 +1,343 @@
+{
+  "audit_metadata": {
+    "audit_id": "dentist-monsoon-dental-audit-001",
+    "created_at": "2026-08-11T18:50:00.000Z",
+    "updated_at": "2026-08-19T18:43:44.532Z",
+    "orchestrator_version": "1.0.0",
+    "overall_status": "COMPLETED",
+    "current_stage": "pdf_generator"
+  },
+  "business_context": {
+    "business_name": "Monsoon Dental",
+    "address": "2195 W Magee Rd, Suite 120",
+    "city": "Tucson",
+    "state": "AZ",
+    "zip": "85742",
+    "country": "US",
+    "phone": "(520) 441-2505",
+    "website": "https://monsoondental.com/",
+    "primary_category": "Dentist",
+    "secondary_categories": [
+      "Cosmetic dentist",
+      "Dental clinic",
+      "Emergency dental service"
+    ],
+    "services": [
+      "Preventive Dentistry",
+      "Restorative Dentistry",
+      "Cosmetic Dentistry",
+      "Dental Implants",
+      "Emergency Dental Care",
+      "TMJ / TMD Treatment",
+      "Crowns & Bridges",
+      "Teeth Whitening"
+    ],
+    "business_description": "Comprehensive family and cosmetic dental practice in Northwest Tucson (Magee Rd) led by Dr. Bradley Konecnik, DDS, providing preventive, restorative, cosmetic, implant, and emergency dentistry.",
+    "google_business_profile_url": "https://maps.app.goo.gl/7on5BA6Zj6R5YRzM6",
+    "target_location": "Tucson, Arizona",
+    "metadata": {
+      "source": "Google Maps Live Profile (https://maps.app.goo.gl/7on5BA6Zj6R5YRzM6)",
+      "rating": 5,
+      "reviews_count": 21,
+      "lead_dentist": "Dr. Bradley Konecnik, DDS",
+      "office_hours": "Mon-Thu 8:00 AM - 4:30 PM, Fri-Sun Closed"
+    }
+  },
+  "stages": {
+    "business_context": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:50:00.001Z",
+      "completed_at": "2026-08-11T18:50:00.001Z",
+      "output_summary": "Canonical context created for Monsoon Dental (Tucson, Arizona)"
+    },
+    "citation_research": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:50:00.002Z",
+      "completed_at": "2026-08-11T18:50:00.002Z",
+      "output_summary": "14 directories evaluated; healthcare-specific directory gaps identified"
+    },
+    "citation_analysis": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:50:00.003Z",
+      "completed_at": "2026-08-11T18:50:00.003Z",
+      "output_summary": "1 healthcare directory claiming finding formulated"
+    },
+    "gbp_audit": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:50:00.004Z",
+      "completed_at": "2026-08-11T18:50:00.004Z",
+      "output_summary": "Verified profile (5.0 ★, 21 reviews); specialized dental catalog expansion opportunity"
+    },
+    "review_analysis": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:50:00.005Z",
+      "completed_at": "2026-08-11T18:50:00.005Z",
+      "output_summary": "21 reviews with flawless 5.0 ★ rating; review velocity opportunity"
+    },
+    "competitor_analysis": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:50:00.006Z",
+      "completed_at": "2026-08-11T18:50:00.006Z",
+      "output_summary": "1 relevant Northwest Tucson competitor benchmarked (Gentle Dental: 520 reviews, 4.8 ★)"
+    },
+    "website_gate": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:50:00.007Z",
+      "completed_at": "2026-08-11T18:50:00.007Z",
+      "output_summary": "Recommended (active site with missing Dentist schema)"
+    },
+    "website_audit": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:50:00.008Z",
+      "completed_at": "2026-08-11T18:50:00.008Z",
+      "output_summary": "Missing Dentist / LocalBusiness schema markup; fast mobile experience"
+    },
+    "evidence_validation": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:50:00.009Z",
+      "completed_at": "2026-08-11T18:50:00.009Z",
+      "output_summary": "5 findings validated for quality and claim safety"
+    },
+    "priority_engine": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:50:00.010Z",
+      "completed_at": "2026-08-11T18:50:00.010Z",
+      "output_summary": "4 strategic priorities scored and ranked (Top 5 cap enforced)"
+    },
+    "report_writer": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:50:00.011Z",
+      "completed_at": "2026-08-11T18:50:00.011Z",
+      "output_summary": "Client narrative structured into report_content.json"
+    },
+    "report_designer": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:50:00.012Z",
+      "completed_at": "2026-08-11T18:50:00.012Z",
+      "output_summary": "Visual layout specification compiled into report_design.json"
+    },
+    "pdf_generator": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:50:00.013Z",
+      "completed_at": "2026-08-11T18:52:00.000Z",
+      "output_summary": "PDF rendered (8 pages, 1360.9 KB)"
+    }
+  },
+  "evidence_registry": {
+    "cit-001": {
+      "evidence_id": "cit-001",
+      "source_stage": "citation_research",
+      "evidence_type": "citation_listing",
+      "fact": "Yelp listing is verified with accurate NAP, but healthcare-specific directories (Healthgrades, Zocdoc, WebMD Care, DentalPlans) are unclaimed or lack complete practice profiles.",
+      "source_url": "https://www.healthgrades.com"
+    },
+    "gbp-001": {
+      "evidence_id": "gbp-001",
+      "source_stage": "gbp_audit",
+      "evidence_type": "gbp_profile",
+      "fact": "Google Business Profile is claimed and verified with 5.0 ★ rating across 21 reviews, but lacks structured service descriptions for specialized procedures like TMJ/TMD therapy and Dental Implants.",
+      "source_url": "https://maps.app.goo.gl/7on5BA6Zj6R5YRzM6"
+    },
+    "rev-001": {
+      "evidence_id": "rev-001",
+      "source_stage": "review_analysis",
+      "evidence_type": "review_sentiment",
+      "fact": "21 Google reviews with a flawless 5.0 average rating; unanimous patient satisfaction praising Dr. Konecnik and team for gentle, no-pressure care; low overall volume creates a competitive gap.",
+      "source_url": "https://maps.app.goo.gl/7on5BA6Zj6R5YRzM6"
+    },
+    "comp-001": {
+      "evidence_id": "comp-001",
+      "source_stage": "competitor_analysis",
+      "evidence_type": "competitor_benchmark",
+      "fact": "Gentle Dental (Oracle Rd) in Northwest Tucson maintains 520+ Google reviews (4.8 ★) and 15 listed dental service categories.",
+      "source_url": "https://maps.google.com"
+    },
+    "web-001": {
+      "evidence_id": "web-001",
+      "source_stage": "website_audit",
+      "evidence_type": "json_ld_schema",
+      "fact": "Homepage has no JSON-LD Dentist or LocalBusiness structured schema markup with physical address, geo-coordinates, telephone, or opening hours.",
+      "source_url": "https://monsoondental.com/"
+    }
+  },
+  "outputs": {
+    "report_content": {
+      "metadata": {
+        "report_id": "dentist-monsoon-dental-audit-001",
+        "business_name": "Monsoon Dental",
+        "business_location": "Tucson, Arizona",
+        "audit_date": "2026-08-11",
+        "generated_at": "2026-08-11T18:50:00.000Z",
+        "rating": 5,
+        "reviews_count": 21,
+        "services_count": 8
+      },
+      "cover": {
+        "report_title": "Local Visibility Audit",
+        "business_name": "Monsoon Dental",
+        "location": "Tucson, Arizona",
+        "subtitle": "Prepared from a verified multi-channel local visibility diagnostic"
+      },
+      "executive_snapshot": {
+        "foundation_summary": "Monsoon Dental demonstrates an exceptional reputation foundation with a verified Google Business Profile and a flawless 5.0-star rating across 21 reviews in Northwest Tucson.",
+        "key_observation": "Unclaimed healthcare directory profiles, specialized GBP service descriptions, and competitor review volume represent the most immediate visibility growth opportunities.",
+        "priority_areas": [
+          "Claim Healthcare-Specific Directory Profiles",
+          "Accelerate Patient Review Acquisition Process",
+          "Expand Google Business Profile Dental Service Descriptions",
+          "Implement Dentist JSON-LD Structured Schema Markup"
+        ]
+      },
+      "business_foundation": {
+        "intro": "The following areas represent verified strengths identified during the audit.",
+        "strengths": [
+          {
+            "area": "Customer Sentiment & Trust",
+            "observation": "Your flawless 5.0-star rating across 21 reviews highlights exceptional patient satisfaction and gentle clinical care."
+          },
+          {
+            "area": "Google Business Profile Foundation",
+            "observation": "Your profile is claimed, verified, and established in the Northwest Tucson (Magee Rd) corridor."
+          },
+          {
+            "area": "Modern Digital Experience",
+            "observation": "Your practice website is modern, mobile-friendly, and offers convenient online scheduling and patient financing."
+          }
+        ]
+      },
+      "top_priorities": [
+        {
+          "rank": 1,
+          "title": "Claim Healthcare-Specific Directory Profiles",
+          "priority_level": "High",
+          "what_we_found": "Monsoon Dental is verified on Google and Yelp, but key healthcare directories including Healthgrades, Zocdoc, and WebMD Care lack claimed or complete provider profiles.",
+          "why_it_matters": "Healthcare search systems and patients cross-reference doctor credentials and accepted dental insurance across specialized medical directories.",
+          "recommended_action": "Claim and optimize practice profiles on Healthgrades, Zocdoc, and WebMD Care with complete dentist bio and insurance listings.",
+          "relevant_service": "Healthcare Directory Claiming",
+          "evidence_ids": [
+            "cit-001"
+          ],
+          "source_finding_ids": [
+            "cf-001"
+          ]
+        },
+        {
+          "rank": 2,
+          "title": "Accelerate Patient Review Acquisition Process",
+          "priority_level": "High",
+          "what_we_found": "Monsoon Dental has a flawless 5.0-star rating across 21 reviews. However, benchmark competitor Gentle Dental maintains over 520 reviews in the Northwest Tucson corridor.",
+          "why_it_matters": "While 5.0-star sentiment is a major trust asset, higher monthly review volume strongly reinforces local search visibility and conversion rates.",
+          "recommended_action": "Deploy an automated post-appointment SMS review request workflow to consistently capture feedback from satisfied patients.",
+          "relevant_service": "Review Generation",
+          "evidence_ids": [
+            "rev-001",
+            "comp-001"
+          ],
+          "source_finding_ids": [
+            "rev-001"
+          ]
+        },
+        {
+          "rank": 3,
+          "title": "Expand Google Business Profile Dental Service Descriptions",
+          "priority_level": "High",
+          "what_we_found": "Your profile is claimed and verified, but lacks detailed descriptions for specialized offerings such as TMJ/TMD therapy, dental implants, and cosmetic whitening.",
+          "why_it_matters": "Patients searching for specific dental procedures often fail to discover profiles that omit detailed category and service listings.",
+          "recommended_action": "Add comprehensive descriptions and custom service entries for dental implants, TMJ therapy, and cosmetic dentistry to your Google profile.",
+          "relevant_service": "GBP Optimization",
+          "evidence_ids": [
+            "gbp-001"
+          ],
+          "source_finding_ids": [
+            "gbp-001"
+          ]
+        },
+        {
+          "rank": 4,
+          "title": "Implement Dentist JSON-LD Structured Schema Markup",
+          "priority_level": "Moderate",
+          "what_we_found": "Your website currently contains no structured Schema.org/Dentist or LocalBusiness markup detailing your office location, phone, and hours.",
+          "why_it_matters": "Structured data enables search engines to accurately index provider credentials, operating hours, and location data.",
+          "recommended_action": "Deploy complete Dentist JSON-LD schema markup on the monsoondental.com homepage.",
+          "relevant_service": "Website Schema Fix",
+          "evidence_ids": [
+            "web-001"
+          ],
+          "source_finding_ids": [
+            "web-001"
+          ]
+        }
+      ],
+      "competitive_snapshot": {
+        "intro": "The following benchmark compares public search signals against one relevant local competitor in Northwest Tucson.",
+        "comparisons": [
+          {
+            "competitor_name": "Gentle Dental (Oracle Rd)",
+            "observation": "Gentle Dental has 520 Google reviews (vs. 21) and a 4.8 rating (vs. 5.0), with 15 listed GBP services (vs. 8).",
+            "opportunity": "Deploying an automated patient review invitation workflow will steadily build review volume while maintaining your superior 5.0-star satisfaction advantage."
+          }
+        ]
+      },
+      "growth_opportunities": {
+        "intro": "Additional secondary opportunities identified during the audit.",
+        "opportunities": [
+          {
+            "title": "Showcase Office & Operatory Photos on GBP",
+            "observation": "Adding high-definition photos of your modern Magee Rd operatory and friendly team increases local profile engagement.",
+            "suggested_action": "Upload 10-15 new practice and operatory photos to Google Business Profile."
+          },
+          {
+            "title": "Publish Patient Education FAQs on Website",
+            "observation": "Adding FAQ content for TMJ therapy, dental implants, and insurance coverage captures high-intent local dental searches.",
+            "suggested_action": "Add structured dental FAQs to your primary service pages."
+          }
+        ]
+      },
+      "recommended_next_steps": {
+        "intro": "Recommended sequential action roadmap to execute all audit recommendations:",
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "Claim and complete practice profiles on Healthgrades, Zocdoc, and WebMD Care."
+          },
+          {
+            "step_number": 2,
+            "action": "Deploy an automated post-visit SMS review request system for all completed appointments."
+          },
+          {
+            "step_number": 3,
+            "action": "Expand Google Business Profile service catalog with detailed descriptions for TMJ and implant services."
+          },
+          {
+            "step_number": 4,
+            "action": "Install Dentist JSON-LD schema markup with complete provider details on monsoondental.com."
+          }
+        ]
+      },
+      "cta": {
+        "heading": "Ready to Expand Monsoon Dental’s Patient Visibility in Tucson?",
+        "body": "Let's review these findings together. We'll walk you through the priority action plan and discuss how to close the competitive review gap identified in this report.",
+        "button_label": "Book a Free Strategy Call"
+      }
+    },
+    "report_design": {
+      "metadata": {
+        "design_version": "2.0",
+        "orientation": "portrait"
+      },
+      "page_settings": {
+        "format": "Letter",
+        "orientation": "portrait"
+      },
+      "theme": {
+        "primary": "#0B192C",
+        "secondary": "#D97706"
+      }
+    },
+    "pdf_path": "D:\\Agentic OS\\local-business-ai\\skills\\audit-orchestrator\\output\\dentist-monsoon-dental-audit-001.pdf",
+    "pdf_size_bytes": 1393571,
+    "pdf_pages": 8
+  },
+  "warnings": [],
+  "errors": []
+}

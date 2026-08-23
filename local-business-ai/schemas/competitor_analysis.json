@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Competitor Analysis Output",
+  "description": "Structured competitive gap analysis between the business and 1-2 relevant local competitors.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "insufficient_data", "failed"],
+      "description": "Execution status of the competitor analysis."
+    },
+    "summary": { "type": "string" },
+    "competitor_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2,
+      "description": "Number of competitors analyzed (max 2)."
+    },
+    "competitors": {
+      "type": "array",
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "competitor_id": { "type": "string" },
+          "business_name": { "type": "string" },
+          "location": { "type": "string" },
+          "maps_url": { "type": "string" },
+          "selection_reason": { "type": "string", "description": "Why this competitor was selected." },
+          "selection_confidence": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "observed_signals": {
+            "type": "object",
+            "additionalProperties": { "type": "string" },
+            "description": "Key/value pairs of relevant observed signals (e.g., rating, category)."
+          },
+          "evidence_ids": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["competitor_id", "business_name", "selection_reason", "selection_confidence"]
+      }
+    },
+    "comparison_dimensions": {
+      "type": "object",
+      "properties": {
+        "reputation": { "type": "string" },
+        "gbp": { "type": "string" },
+        "citation": { "type": "string" },
+        "website": { "type": "string" }
+      }
+    },
+    "strengths": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Areas where the audited business outperforms the competitors."
+    },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/competitor_finding" }
+    },
+    "opportunities": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/competitor_finding" }
+    },
+    "evidence_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "evidence_id": { "type": "string" },
+          "source_type": { "type": "string" },
+          "source_url": { "type": "string" },
+          "source_title": { "type": "string" },
+          "observation": { "type": "string" },
+          "captured_at": { "type": "string", "format": "date-time" },
+          "verification_status": { "type": "string" }
+        },
+        "required": ["evidence_id", "observation"]
+      }
+    },
+    "service_recommendations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "analysis_notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": [
+    "status",
+    "summary",
+    "competitor_count",
+    "findings",
+    "evidence_references"
+  ],
+  "definitions": {
+    "competitor_finding": {
+      "type": "object",
+      "properties": {
+        "finding_id": { "type": "string" },
+        "finding_type": { 
+          "type": "string",
+          "enum": [
+            "review_gap", 
+            "rating_gap", 
+            "gbp_gap", 
+            "category_gap", 
+            "service_gap", 
+            "citation_gap", 
+            "visual_presence_gap", 
+            "website_gap", 
+            "local_visibility_gap", 
+            "competitor_strength", 
+            "competitive_opportunity"
+          ]
+        },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "fact": { "type": "string", "description": "What is actually observed." },
+        "interpretation": { "type": "string", "description": "Why the difference may matter." },
+        "opportunity": { "type": "string", "description": "What the audited business could improve." },
+        "impact_level": { 
+          "type": "string",
+          "enum": ["very_high", "high", "moderate", "low"]
+        },
+        "evidence_confidence": { 
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "actionability": { 
+          "type": "string",
+          "enum": ["high", "moderate", "low"]
+        },
+        "competitor_id": { "type": "string" },
+        "evidence_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "service_mapping": { "type": "string" }
+      },
+      "required": [
+        "finding_id",
+        "finding_type",
+        "title",
+        "fact",
+        "interpretation",
+        "opportunity",
+        "evidence_ids"
+      ]
+    }
+  }
+}

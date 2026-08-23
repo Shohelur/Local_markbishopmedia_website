@@ -1,0 +1,6 @@
+{
+  "name": "ai-software-agency",
+  "version": "1.2.0",
+  "description": "Reusable AI Software Agency plugin governing the complete software product development lifecycle (Discovery -> Requirements -> Blueprint -> Prototype -> Architecture -> Implementation Plan -> Production Development -> QA -> Release -> Maintenance).",
+  "author": "AI Software Agency Core Team"
+}

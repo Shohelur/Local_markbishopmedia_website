@@ -1,0 +1,57 @@
+{
+  "business_name": "Top Care Air Heating and Cooling",
+  "address": "4500 E Speedway Blvd Ste 105",
+  "city": "Tucson",
+  "state": "AZ",
+  "zip": "85712",
+  "country": "US",
+  "phone": "+1 (520) 734-7897",
+  "website": "https://topcareairaz.com/",
+  "primary_category": "HVAC Contractor",
+  "services": [
+    "AC Repair & Diagnostics",
+    "AC Installation & Replacement",
+    "Heating & Furnace Maintenance",
+    "HVAC Preventative Service",
+    "24/7 Emergency AC Service",
+    "Indoor Air Quality & Ductwork"
+  ],
+  "business_description": "Top Care Air Heating & Cooling is a trusted Tucson HVAC contractor offering 24/7 emergency air conditioning and heating services with honest diagnoses and prompt repairs.",
+  "google_business_profile_url": "https://www.google.com/maps/place/Top+Care+Air+Heating+and+Cooling/@32.235649,-110.896126,17z/data=!3m1!4b1!4m6!3m5!1s0x8de40693e598d765:0xbf5dc13c9b53c3eb!8m2!3d32.235649!4d-110.896126!16s%2Fg%2F11ybphwqkv",
+  "target_location": "Tucson, AZ",
+  "metadata": {
+    "rating": 4.9,
+    "reviews_count": null,
+    "corroborated_reviews_footprint": 230,
+    "services_count": 6,
+    "audit_date": "2026-08-16",
+    "target_location": "Tucson, AZ",
+    "competitor_name": "Hamstra Heating & Cooling",
+    "competitor_reviews": 580,
+    "competitor_rating": 4.9,
+    "competitor_services": 16,
+    "review_reconciliation": {
+      "status": "UNVERIFIED_DISCREPANCY",
+      "confidence": "LOW",
+      "is_verified": false,
+      "chart_safe": false,
+      "rating": 4.9,
+      "verified_reviews_count": null,
+      "candidate_unverified_count": 1,
+      "corroborated_footprint_count": 230,
+      "display_score_text": "4.9★ · Footprint Review Needed",
+      "display_narrative": "While the business maintains an exceptional 4.9-star customer rating, public aggregators track an established footprint of 230 customer reviews (including website and directory feedback). Specific single-platform review counts could not be reliably isolated in isolation.",
+      "discrepancy_details": {
+        "candidate_count": 1,
+        "corroborated_max": 230,
+        "website_claim": 100,
+        "notes": [
+          "Website claims 100+ 5-star reviews",
+          "website reports 100 reviews",
+          "Trustindex reports 230 reviews"
+        ],
+        "rejection_reason": "Candidate GBP extraction conflicts with established multi-source review footprint."
+      }
+    }
+  }
+}

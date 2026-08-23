@@ -1,0 +1,20 @@
+{
+  "parent_brand": "Mark Bishop Media",
+  "parent_website": "https://markbishopmedia.com",
+  "division_name": "Local Growth Division",
+  "division_website": "https://local.markbishopmedia.com",
+  "owner": "Mark Bishop",
+  "phone": "+1 (520) 349-6378",
+  "email": "mark@markbishopmedia.com",
+  "booking_url": null,
+  "primary_color": "#0B192C",
+  "secondary_color": "#D97706",
+  "logo_url": null,
+  "service_area": "Arizona, USA",
+  "report_footer": "Local Growth Division — A Mark Bishop Media Company",
+  "cta_defaults": {
+    "heading_template": "Ready to Grow {business_name}'s Local Visibility?",
+    "body": "Let's review these findings together. We'll walk you through the priority action plan and discuss how to close the gaps identified in this report.",
+    "subtext": "No obligation · 20-minute review · Actionable recommendations specific to your business"
+  }
+}

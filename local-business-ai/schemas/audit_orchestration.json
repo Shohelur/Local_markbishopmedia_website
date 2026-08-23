@@ -1,0 +1,172 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Audit Orchestration Master Object",
+  "description": "Schema for the central Master Audit Object managed by the Audit Orchestrator across the 12 pipeline stages.",
+  "type": "object",
+  "properties": {
+    "audit_metadata": {
+      "type": "object",
+      "properties": {
+        "audit_id": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" },
+        "orchestrator_version": { "type": "string" },
+        "overall_status": {
+          "type": "string",
+          "enum": ["INITIALIZED", "RUNNING", "COMPLETED", "PARTIAL", "FAILED", "INCOMPLETE"]
+        },
+        "current_stage": { "type": "string" }
+      },
+      "required": ["audit_id", "created_at", "overall_status"]
+    },
+    "business_context": {
+      "type": "object",
+      "properties": {
+        "business_name": { "type": "string" },
+        "address": { "type": ["string", "null"] },
+        "city": { "type": ["string", "null"] },
+        "state": { "type": ["string", "null"] },
+        "zip": { "type": ["string", "null"] },
+        "country": { "type": ["string", "null"], "default": "US" },
+        "phone": { "type": ["string", "null"] },
+        "website": { "type": ["string", "null"] },
+        "primary_category": { "type": ["string", "null"] },
+        "services": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "business_description": { "type": ["string", "null"] },
+        "google_business_profile_url": { "type": ["string", "null"] },
+        "target_location": { "type": ["string", "null"] },
+        "metadata": { "type": "object" }
+      },
+      "required": ["business_name"]
+    },
+    "stages": {
+      "type": "object",
+      "properties": {
+        "business_context": { "$ref": "#/definitions/stage_record" },
+        "citation_research": { "$ref": "#/definitions/stage_record" },
+        "citation_analysis": { "$ref": "#/definitions/stage_record" },
+        "gbp_audit": { "$ref": "#/definitions/stage_record" },
+        "review_analysis": { "$ref": "#/definitions/stage_record" },
+        "competitor_analysis": { "$ref": "#/definitions/stage_record" },
+        "website_gate": { "$ref": "#/definitions/stage_record" },
+        "website_audit": { "$ref": "#/definitions/stage_record" },
+        "evidence_validation": { "$ref": "#/definitions/stage_record" },
+        "priority_engine": { "$ref": "#/definitions/stage_record" },
+        "report_writer": { "$ref": "#/definitions/stage_record" },
+        "report_designer": { "$ref": "#/definitions/stage_record" },
+        "pdf_generator": { "$ref": "#/definitions/stage_record" }
+      }
+    },
+    "evidence_registry": {
+      "type": "object",
+      "description": "Central registry of all collected evidence items keyed by evidence_id.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "evidence_id": { "type": "string" },
+          "source_stage": { "type": "string" },
+          "evidence_type": { "type": "string" },
+          "fact": { "type": "string" },
+          "source_url": { "type": ["string", "null"] },
+          "captured_at": { "type": "string", "format": "date-time" }
+        },
+        "required": ["evidence_id", "source_stage", "fact"]
+      }
+    },
+    "findings_registry": {
+      "type": "object",
+      "description": "Central registry of all derived findings keyed by finding_id.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "finding_id": { "type": "string" },
+          "source_stage": { "type": "string" },
+          "area": { "type": "string" },
+          "fact": { "type": "string" },
+          "interpretation": { "type": "string" },
+          "recommendation": { "type": "string" },
+          "evidence_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "validation_status": {
+            "type": "string",
+            "enum": ["pending", "validated", "rejected", "needs_rewrite"]
+          }
+        },
+        "required": ["finding_id", "source_stage", "fact", "interpretation", "recommendation", "evidence_ids"]
+      }
+    },
+    "branding_config": {
+      "type": "object",
+      "properties": {
+        "brand_name": { "type": "string", "default": "LocalRank AI" },
+        "logo_url": { "type": ["string", "null"] },
+        "primary_color": { "type": "string", "default": "#0B192C" },
+        "secondary_color": { "type": "string", "default": "#D97706" },
+        "booking_url": { "type": ["string", "null"] },
+        "contact_info": { "type": ["string", "null"] }
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "properties": {
+        "report_content": { "type": "object" },
+        "report_design": { "type": "object" },
+        "pdf_path": { "type": ["string", "null"] },
+        "pdf_size_bytes": { "type": ["integer", "null"] },
+        "pdf_pages": { "type": ["integer", "null"] }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "stage": { "type": "string" },
+          "code": { "type": "string" },
+          "message": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        },
+        "required": ["stage", "message"]
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "stage": { "type": "string" },
+          "code": { "type": "string" },
+          "message": { "type": "string" },
+          "recoverable": { "type": "boolean" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        },
+        "required": ["stage", "code", "message", "recoverable"]
+      }
+    }
+  },
+  "required": ["audit_metadata", "business_context", "stages"],
+  "definitions": {
+    "stage_record": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["pending", "running", "completed", "skipped", "failed", "not_applicable"]
+        },
+        "started_at": { "type": ["string", "null"], "format": "date-time" },
+        "completed_at": { "type": ["string", "null"], "format": "date-time" },
+        "input_summary": { "type": "string" },
+        "output_summary": { "type": "string" },
+        "data": { "type": ["object", "null"] },
+        "warnings": { "type": "array", "items": { "type": "string" } },
+        "errors": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["status"]
+    }
+  }
+}

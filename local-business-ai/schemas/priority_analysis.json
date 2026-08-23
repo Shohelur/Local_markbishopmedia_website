@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Priority Engine Output",
+  "description": "Structured output defining the absolute top priorities for the audited business.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "insufficient_data", "failed"],
+      "description": "Execution status of the priority engine."
+    },
+    "overall_summary": { "type": "string" },
+    "top_priorities": {
+      "type": "array",
+      "maxItems": 5,
+      "items": { "$ref": "#/definitions/priority_object" },
+      "description": "The top 5 (or fewer) most critical priorities for the business."
+    },
+    "additional_opportunities": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/priority_object" },
+      "description": "Valid opportunities that did not make the Top 5."
+    },
+    "strengths": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "source_skill_ids": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "description": "Preserved genuine strengths of the business."
+    },
+    "scoring_summary": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "merged_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "master_priority_id": { "type": "string" },
+          "merged_finding_ids": { "type": "array", "items": { "type": "string" } },
+          "reason": { "type": "string" }
+        }
+      },
+      "description": "Traceability record of findings merged into a single priority."
+    },
+    "excluded_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "finding_id": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      },
+      "description": "Findings excluded from opportunities due to low impact/confidence/relevance."
+    },
+    "service_recommendations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "analysis_notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": [
+    "status",
+    "overall_summary",
+    "top_priorities"
+  ],
+  "definitions": {
+    "priority_object": {
+      "type": "object",
+      "properties": {
+        "priority_id": { "type": "string" },
+        "rank": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "title": { "type": "string" },
+        "priority_level": {
+          "type": "string",
+          "enum": ["Very High", "High", "Moderate", "Low"]
+        },
+        "final_priority_score": {
+          "type": "number",
+          "minimum": 1.00,
+          "maximum": 5.00
+        },
+        "business_impact": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "evidence_confidence": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "competitive_gap": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "urgency": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "fixability": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "business_relevance": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "why_it_matters": {
+          "type": "object",
+          "properties": {
+            "problem": { "type": "string" },
+            "impact": { "type": "string" },
+            "action": { "type": "string" }
+          },
+          "required": ["problem", "impact", "action"]
+        },
+        "recommended_action": { "type": "string" },
+        "evidence_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "source_skill_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "related_finding_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "service_mapping": { "type": "string" }
+      },
+      "required": [
+        "priority_id",
+        "title",
+        "priority_level",
+        "final_priority_score",
+        "business_impact",
+        "evidence_confidence",
+        "competitive_gap",
+        "urgency",
+        "fixability",
+        "business_relevance",
+        "why_it_matters",
+        "recommended_action"
+      ]
+    }
+  }
+}

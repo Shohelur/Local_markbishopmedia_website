@@ -1,0 +1,123 @@
+{
+  "_note": "DEMO DATA ONLY — This is a labeled sample for testing the PDF Generator. It does not represent a real client audit.",
+  "metadata": {
+    "report_id": "demo-001",
+    "business_name": "Mesa Valley Plumbing",
+    "business_location": "Mesa, Arizona",
+    "audit_date": "2026-08-11",
+    "generated_at": "2026-08-11T16:00:00Z"
+  },
+  "cover": {
+    "report_title": "Local Visibility Audit",
+    "business_name": "Mesa Valley Plumbing",
+    "location": "Mesa, Arizona",
+    "subtitle": "Prepared from an evidence-based local visibility review"
+  },
+  "executive_snapshot": {
+    "foundation_summary": "Mesa Valley Plumbing has a solid local presence with a verified Google Business Profile and a consistent 4.6-star rating across recent reviews. The business appears in searches for core plumbing services in the Mesa area.",
+    "key_observation": "Several local listing inconsistencies and a below-average review volume compared to a relevant local competitor represent the most actionable near-term opportunities.",
+    "priority_areas": [
+      "Fix inconsistent business information across local listings",
+      "Strengthen Google Business Profile service coverage",
+      "Build a consistent genuine review acquisition process",
+      "Improve website structured information"
+    ]
+  },
+  "business_foundation": {
+    "intro": "The following areas represent genuine strengths identified during the audit.",
+    "strengths": [
+      { "area": "Google Business Profile", "observation": "Your GBP is verified and contains core business information, photos, and service categories." },
+      { "area": "Customer Reviews", "observation": "Your 4.6-star rating is strong and reflects genuine customer satisfaction." },
+      { "area": "Core Citation Presence", "observation": "Your business is listed on the major platforms including Google, Yelp, and the Better Business Bureau." }
+    ]
+  },
+  "top_priorities": [
+    {
+      "rank": 1,
+      "title": "Fix Inconsistent Business Information",
+      "priority_level": "Very High",
+      "what_we_found": "Your business phone number and address appear in different formats across several important local directories.",
+      "why_it_matters": "When search systems and potential customers encounter conflicting information, it can reduce trust and affect how your business appears in local searches.",
+      "recommended_action": "Correct the affected listings to use the same accurate business name, address, and phone number consistently across all platforms.",
+      "relevant_service": "Citation Cleanup",
+      "evidence_ids": ["ev-001", "ev-002"],
+      "source_finding_ids": ["cf-001", "cf-002", "cf-003"]
+    },
+    {
+      "rank": 2,
+      "title": "Strengthen GBP Service Coverage",
+      "priority_level": "High",
+      "what_we_found": "Your Google Business Profile does not clearly list several of your core plumbing services, including water heater installation and emergency services.",
+      "why_it_matters": "Customers searching for specific services may not find your business if those services are not clearly represented on your profile.",
+      "recommended_action": "Update your GBP service list to clearly include all major services your business provides, with concise descriptions.",
+      "relevant_service": "GBP Optimization",
+      "evidence_ids": ["ev-003"],
+      "source_finding_ids": ["gbp-001"]
+    },
+    {
+      "rank": 3,
+      "title": "Build a Consistent Review Acquisition Process",
+      "priority_level": "High",
+      "what_we_found": "Mesa Valley Plumbing has 47 Google reviews. A relevant local competitor has 182 reviews, with more consistent recent activity.",
+      "why_it_matters": "A higher volume of recent, genuine reviews improves trust with potential customers and reflects active customer engagement.",
+      "recommended_action": "Create a simple, consistent process for asking satisfied customers to leave a genuine review after each service call.",
+      "relevant_service": "Review Generation",
+      "evidence_ids": ["ev-004", "ev-005"],
+      "source_finding_ids": ["rev-001"]
+    },
+    {
+      "rank": 4,
+      "title": "Improve Website Structured Information",
+      "priority_level": "Moderate",
+      "what_we_found": "Your website is missing structured data (schema markup) that helps search engines clearly understand your business type, location, and services.",
+      "why_it_matters": "Structured data helps search engines correctly categorize your business, which can improve how your business appears in local search results.",
+      "recommended_action": "Add basic local business schema markup to your website including business name, address, phone, and service categories.",
+      "relevant_service": "Website Schema Fix",
+      "evidence_ids": ["ev-006"],
+      "source_finding_ids": ["web-001"]
+    }
+  ],
+  "competitive_snapshot": {
+    "intro": "The following comparison is based on validated public data for one relevant local competitor.",
+    "comparisons": [
+      {
+        "competitor_name": "SunState Plumbing (Mesa, AZ)",
+        "observation": "SunState has 182 Google reviews (vs. 47) and a 4.8 rating (vs. 4.6). Their GBP includes 14 service categories vs. 6.",
+        "opportunity": "Closing the review volume gap and expanding GBP service coverage represents a meaningful reputation opportunity."
+      }
+    ]
+  },
+  "growth_opportunities": {
+    "intro": "Additional opportunities identified during the audit that did not reach the Top 5 threshold.",
+    "opportunities": [
+      {
+        "title": "Add Business Photos to GBP",
+        "observation": "Your GBP currently has 3 photos. Businesses with more photos tend to see higher engagement.",
+        "suggested_action": "Add 8-12 quality photos showcasing your team, vehicles, and completed work."
+      },
+      {
+        "title": "Claim Missing Minor Directory Listings",
+        "observation": "Your business was not found on 3 smaller local directories that are relevant for plumbing services.",
+        "suggested_action": "Claim and complete listings on Angi, HomeAdvisor, and Thumbtack to broaden local coverage."
+      }
+    ]
+  },
+  "recommended_next_steps": {
+    "intro": "Based on the audit findings, here is a recommended sequence of improvements:",
+    "steps": [
+      { "step_number": 1, "action": "Correct inconsistent business information across all affected local listings." },
+      { "step_number": 2, "action": "Update your Google Business Profile to include all core services with clear descriptions." },
+      { "step_number": 3, "action": "Build a simple process for requesting genuine reviews from satisfied customers after each service." },
+      { "step_number": 4, "action": "Add local business schema markup to your website." }
+    ]
+  },
+  "cta": {
+    "heading": "Ready to Improve Your Local Visibility?",
+    "body": "We can walk you through the findings and help identify which improvements will have the most impact for your business.",
+    "button_label": "Book a Free Call",
+    "url_placeholder": "[BOOKING_URL]"
+  },
+  "report_notes": [
+    "DEMO REPORT — All data is representative sample data for PDF Generator testing purposes only."
+  ]
+}

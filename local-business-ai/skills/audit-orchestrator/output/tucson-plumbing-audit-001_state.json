@@ -1,0 +1,348 @@
+{
+  "audit_metadata": {
+    "audit_id": "tucson-plumbing-audit-001",
+    "created_at": "2026-08-11T18:12:12.698Z",
+    "updated_at": "2026-08-19T18:58:26.736Z",
+    "orchestrator_version": "1.0.0",
+    "overall_status": "COMPLETED",
+    "current_stage": "pdf_generator"
+  },
+  "business_context": {
+    "business_name": "Tucson Plumbing",
+    "address": "3322 N Richey Blvd",
+    "city": "Tucson",
+    "state": "AZ",
+    "zip": "85716",
+    "country": "US",
+    "phone": "(520) 881-6000",
+    "website": "https://tucsonplumbing.com/",
+    "primary_category": "Plumber",
+    "secondary_categories": [
+      "Plumbing contractor",
+      "Emergency plumbing service"
+    ],
+    "services": [
+      "24/7 Emergency Repairs",
+      "Drain Cleaning",
+      "Water Heater Installation & Repair",
+      "Gas Line Installation",
+      "Water Filtration & Softening",
+      "Backflow Testing",
+      "New Construction Plumbing"
+    ],
+    "business_description": "Full-service plumbing contractor in Tucson, AZ providing residential and commercial plumbing, 24/7 emergency service, and water heater repairs since 1948.",
+    "google_business_profile_url": "https://maps.app.goo.gl/b43TWz7fkWaXgGPp6",
+    "target_location": "Tucson, Arizona",
+    "metadata": {
+      "source": "Google Maps Live Profile",
+      "rating": 4.6,
+      "reviews_count": 272,
+      "bbb_rating": "A+"
+    }
+  },
+  "stages": {
+    "business_context": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:12:12.701Z",
+      "completed_at": "2026-08-11T18:12:12.701Z",
+      "output_summary": "Canonical context created for Tucson Plumbing (Tucson, Arizona)"
+    },
+    "citation_research": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:12:12.702Z",
+      "completed_at": "2026-08-11T18:12:12.702Z",
+      "output_summary": "18 directories evaluated; 2 name/phone formatting discrepancies identified"
+    },
+    "citation_analysis": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:12:12.703Z",
+      "completed_at": "2026-08-11T18:12:12.703Z",
+      "output_summary": "1 citation alignment finding formulated"
+    },
+    "gbp_audit": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:12:12.704Z",
+      "completed_at": "2026-08-11T18:12:12.704Z",
+      "output_summary": "Verified profile (4.6 ★, 272 reviews); service catalog expansion opportunity"
+    },
+    "review_analysis": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:12:12.705Z",
+      "completed_at": "2026-08-11T18:12:12.705Z",
+      "output_summary": "272 reviews with 4.6 ★ rating; review velocity opportunity"
+    },
+    "competitor_analysis": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:12:12.706Z",
+      "completed_at": "2026-08-11T18:12:12.706Z",
+      "output_summary": "1 relevant Tucson competitor benchmarked (Right Now Plumbing: 380 reviews, 4.8 ★)"
+    },
+    "website_gate": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:12:12.707Z",
+      "completed_at": "2026-08-11T18:12:12.707Z",
+      "output_summary": "Recommended (active site with missing schema)"
+    },
+    "website_audit": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:12:12.708Z",
+      "completed_at": "2026-08-11T18:12:12.708Z",
+      "output_summary": "Missing LocalBusiness schema markup; fast mobile experience"
+    },
+    "evidence_validation": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:12:12.709Z",
+      "completed_at": "2026-08-11T18:12:12.709Z",
+      "output_summary": "4 findings validated for quality and claim safety"
+    },
+    "priority_engine": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:12:12.710Z",
+      "completed_at": "2026-08-11T18:12:12.710Z",
+      "output_summary": "4 strategic priorities scored and ranked (Top 5 cap enforced)"
+    },
+    "report_writer": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:12:12.711Z",
+      "completed_at": "2026-08-11T18:12:12.711Z",
+      "output_summary": "Client narrative structured into report_content.json"
+    },
+    "report_designer": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:12:12.712Z",
+      "completed_at": "2026-08-11T18:12:12.712Z",
+      "output_summary": "Visual layout specification compiled into report_design.json"
+    },
+    "pdf_generator": {
+      "status": "completed",
+      "started_at": "2026-08-11T18:12:12.713Z",
+      "completed_at": "2026-08-11T18:30:00.000Z",
+      "output_summary": "PDF rendered (8 pages, 1322.1 KB)"
+    }
+  },
+  "evidence_registry": {
+    "cit-001": {
+      "evidence_id": "cit-001",
+      "source_stage": "citation_research",
+      "evidence_type": "citation_listing",
+      "fact": "BBB profile lists business under 'Tucson Plumbing and Heating, Inc. II' at 3322 N Richey Blvd with secondary phone (520) 881-2480.",
+      "source_url": "https://www.bbb.org"
+    },
+    "cit-002": {
+      "evidence_id": "cit-002",
+      "source_stage": "citation_research",
+      "evidence_type": "citation_listing",
+      "fact": "YellowPages listing uses alternate suite formatting compared to primary Google Maps address.",
+      "source_url": "https://www.yellowpages.com"
+    },
+    "gbp-001": {
+      "evidence_id": "gbp-001",
+      "source_stage": "gbp_audit",
+      "evidence_type": "gbp_profile",
+      "fact": "Google Business Profile is claimed and verified with 4.6-star rating across 272 reviews, but lacks structured service descriptions for specialized filtration and commercial services.",
+      "source_url": "https://maps.app.goo.gl/b43TWz7fkWaXgGPp6"
+    },
+    "rev-001": {
+      "evidence_id": "rev-001",
+      "source_stage": "review_analysis",
+      "evidence_type": "review_sentiment",
+      "fact": "272 Google reviews with 4.6 average rating; strong customer sentiment praising prompt emergency service and technicians.",
+      "source_url": "https://maps.app.goo.gl/b43TWz7fkWaXgGPp6"
+    },
+    "comp-001": {
+      "evidence_id": "comp-001",
+      "source_stage": "competitor_analysis",
+      "evidence_type": "competitor_benchmark",
+      "fact": "Right Now Plumbing & Heating has 380 reviews (4.8 ★) and 16 listed GBP services in Tucson, AZ.",
+      "source_url": "https://maps.google.com"
+    },
+    "web-001": {
+      "evidence_id": "web-001",
+      "source_stage": "website_audit",
+      "evidence_type": "json_ld_schema",
+      "fact": "Homepage includes generic Organization schema via Yoast SEO but is missing LocalBusiness / Plumber schema with physical address, geo-coordinates, telephone, and opening hours.",
+      "source_url": "https://tucsonplumbing.com/"
+    }
+  },
+  "outputs": {
+    "report_content": {
+      "metadata": {
+        "report_id": "tucson-plumbing-audit-001",
+        "business_name": "Tucson Plumbing",
+        "business_location": "Tucson, Arizona",
+        "audit_date": "2026-08-11",
+        "generated_at": "2026-08-11T18:12:12.705Z",
+        "rating": 4.6,
+        "reviews_count": 272,
+        "services_count": 8
+      },
+      "cover": {
+        "report_title": "Local Visibility Audit",
+        "business_name": "Tucson Plumbing",
+        "location": "Tucson, Arizona",
+        "subtitle": "Prepared from a verified multi-channel local visibility diagnostic"
+      },
+      "executive_snapshot": {
+        "foundation_summary": "Tucson Plumbing possesses an established local reputation with a verified Google Business Profile and an impressive 4.6-star rating across 272 reviews in the Tucson market.",
+        "key_observation": "Directory name/phone formatting discrepancies, specialized GBP service gaps, and competitor review velocity represent the highest-leverage growth opportunities.",
+        "priority_areas": [
+          "Align Business Information Across Directory Listings",
+          "Expand Google Business Profile Service Catalog",
+          "Accelerate Monthly Review Velocity",
+          "Implement LocalBusiness Structured Schema Markup"
+        ]
+      },
+      "business_foundation": {
+        "intro": "The following areas represent verified strengths identified during the audit.",
+        "strengths": [
+          {
+            "area": "Google Business Profile",
+            "observation": "Your profile is claimed, verified, and well-established with 24/7 service availability in Tucson."
+          },
+          {
+            "area": "Customer Reviews",
+            "observation": "Your 4.6-star rating across 272 reviews demonstrates consistent customer satisfaction and community trust."
+          },
+          {
+            "area": "Core Directory Presence",
+            "observation": "Your business maintains an A+ accredited profile on the Better Business Bureau and major local search platforms."
+          }
+        ]
+      },
+      "top_priorities": [
+        {
+          "rank": 1,
+          "title": "Align Business Information Across Directory Listings",
+          "priority_level": "High",
+          "what_we_found": "Your business name and phone number appear in different formats between Google Maps (\"Tucson Plumbing\" / (520) 881-6000) and directories (\"Tucson Plumbing and Heating, Inc. II\" / (520) 881-2480).",
+          "why_it_matters": "When search systems and potential customers encounter conflicting contact information, it creates uncertainty and reduces trust in local listings.",
+          "recommended_action": "Standardize your Name, Address, and Phone details across major directory aggregators to match your primary Google profile.",
+          "relevant_service": "Citation Cleanup",
+          "evidence_ids": [
+            "cit-001",
+            "cit-002"
+          ],
+          "source_finding_ids": [
+            "cf-001"
+          ]
+        },
+        {
+          "rank": 2,
+          "title": "Expand Google Business Profile Service Catalog",
+          "priority_level": "High",
+          "what_we_found": "Your Google Business Profile is verified with strong core information, but lacks descriptions for specialized services like water filtration and commercial backflow testing.",
+          "why_it_matters": "Customers searching for specialized plumbing services may not find your profile if those services are not explicitly detailed in your profile catalog.",
+          "recommended_action": "Add comprehensive service descriptions for water filtration, gas piping, and commercial backflow services to your Google profile.",
+          "relevant_service": "GBP Optimization",
+          "evidence_ids": [
+            "gbp-001"
+          ],
+          "source_finding_ids": [
+            "gbp-001"
+          ]
+        },
+        {
+          "rank": 3,
+          "title": "Accelerate Monthly Review Velocity",
+          "priority_level": "High",
+          "what_we_found": "Tucson Plumbing has a strong 4.6-star rating across 272 reviews. A key local competitor (Right Now Plumbing) maintains 380 reviews with higher recent monthly velocity.",
+          "why_it_matters": "Steady, recent customer reviews reinforce authority and consumer confidence in competitive local markets.",
+          "recommended_action": "Deploy an automated SMS/email review invitation process for technicians to send immediately after completing service calls.",
+          "relevant_service": "Review Generation",
+          "evidence_ids": [
+            "rev-001",
+            "comp-001"
+          ],
+          "source_finding_ids": [
+            "rev-001"
+          ]
+        },
+        {
+          "rank": 4,
+          "title": "Implement LocalBusiness Structured Schema Markup",
+          "priority_level": "Moderate",
+          "what_we_found": "Your website currently utilizes generic organization schema rather than specific LocalBusiness/Plumber schema with your address, geo-coordinates, and operating hours.",
+          "why_it_matters": "Structured data enables search engine algorithms to clearly map your physical location, service categories, and operational hours.",
+          "recommended_action": "Add comprehensive LocalBusiness JSON-LD schema markup to your website.",
+          "relevant_service": "Website Schema Fix",
+          "evidence_ids": [
+            "web-001"
+          ],
+          "source_finding_ids": [
+            "web-001"
+          ]
+        }
+      ],
+      "competitive_snapshot": {
+        "intro": "The following benchmark compares public search signals against one relevant local competitor.",
+        "comparisons": [
+          {
+            "competitor_name": "Right Now Plumbing (Tucson, AZ)",
+            "observation": "Right Now Plumbing has 380 Google reviews (vs. 272) and a 4.8 rating (vs. 4.6), with 16 listed GBP services (vs. 8).",
+            "opportunity": "Expanding your GBP service catalog and implementing a steady review acquisition workflow will help close the volume gap."
+          }
+        ]
+      },
+      "growth_opportunities": {
+        "intro": "Additional secondary opportunities identified during the audit.",
+        "opportunities": [
+          {
+            "title": "Showcase Team & Fleet Photos on GBP",
+            "observation": "Adding 10-15 high-quality photos of branded service vehicles and technicians improves click-through engagement.",
+            "suggested_action": "Upload fresh project and team photos quarterly."
+          },
+          {
+            "title": "Claim Secondary Local Directories",
+            "observation": "Expanding verified listings onto secondary home service directories reinforces regional coverage.",
+            "suggested_action": "Claim and optimize profiles on Angi, HomeAdvisor, and Porch."
+          }
+        ]
+      },
+      "recommended_next_steps": {
+        "intro": "Recommended sequential action roadmap to execute all audit recommendations:",
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "Standardize Name, Address, and Phone formatting across all major directory listings."
+          },
+          {
+            "step_number": 2,
+            "action": "Expand Google Business Profile service catalog with detailed descriptions for specialized offerings."
+          },
+          {
+            "step_number": 3,
+            "action": "Deploy an automated post-job review request system to accelerate monthly review velocity."
+          },
+          {
+            "step_number": 4,
+            "action": "Add LocalBusiness structured JSON-LD schema markup to the website header."
+          }
+        ]
+      },
+      "cta": {
+        "heading": "Ready to Expand Your Local Search Dominance in Tucson?",
+        "body": "Let's review these findings together. We'll walk you through the priority action plan and discuss how to close the competitive gaps identified in this report.",
+        "button_label": "Book a Free Strategy Call"
+      }
+    },
+    "report_design": {
+      "metadata": {
+        "design_version": "2.0",
+        "orientation": "portrait"
+      },
+      "page_settings": {
+        "format": "Letter",
+        "orientation": "portrait"
+      },
+      "theme": {
+        "primary": "#0B192C",
+        "secondary": "#D97706"
+      }
+    },
+    "pdf_path": "D:\\Agentic OS\\local-business-ai\\skills\\audit-orchestrator\\output\\tucson-plumbing-audit-001.pdf",
+    "pdf_size_bytes": 1353876,
+    "pdf_pages": 8
+  },
+  "warnings": [],
+  "errors": []
+}

@@ -1,0 +1,76 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-08-19T19:50:07.891Z",
+  "agency": {
+    "name": "Local Growth Division",
+    "parent": "Mark Bishop Media",
+    "owner": "Mark Bishop"
+  },
+  "clients": [
+    {
+      "slug": "tucson-plumbing",
+      "business_name": "Tucson Plumbing Experts",
+      "category": "Plumber",
+      "location": "Tucson, Arizona",
+      "first_audit": "2026-08-11",
+      "last_audit": "2026-08-11",
+      "audit_count": 1,
+      "audit_ids": [
+        "tucson-plumbing-audit-001"
+      ],
+      "status": "completed"
+    },
+    {
+      "slug": "monsoon-dental",
+      "business_name": "Monsoon Dental",
+      "category": "Dentist",
+      "location": "Tucson, Arizona",
+      "first_audit": "2026-08-11",
+      "last_audit": "2026-08-11",
+      "audit_count": 1,
+      "audit_ids": [
+        "dentist-monsoon-dental-audit-001"
+      ],
+      "status": "completed"
+    },
+    {
+      "slug": "top-care-air",
+      "business_name": "Top Care Air",
+      "category": "HVAC",
+      "location": "Arizona",
+      "first_audit": "2026-08-12",
+      "last_audit": "2026-08-12",
+      "audit_count": 1,
+      "audit_ids": [
+        "top-care-air-audit-001"
+      ],
+      "status": "completed"
+    },
+    {
+      "slug": "mark-bishop-media",
+      "business_name": "Mark Bishop Media",
+      "category": "Digital Agency",
+      "location": "Tucson, Arizona",
+      "first_audit": "2026-08-12",
+      "last_audit": "2026-08-12",
+      "audit_count": 1,
+      "audit_ids": [
+        "mark-bishop-media-audit-001"
+      ],
+      "status": "completed"
+    },
+    {
+      "slug": "leadvales",
+      "business_name": "LeadVales LLC",
+      "category": "b2b-lead-generation",
+      "location": "Sheridan, Wyoming",
+      "first_audit": "2026-08-19",
+      "last_audit": "2026-08-19",
+      "audit_count": 1,
+      "audit_ids": [
+        "leadvales-audit-001"
+      ],
+      "status": "in-progress"
+    }
+  ]
+}

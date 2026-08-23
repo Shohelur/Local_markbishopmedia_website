@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Citation Research Output",
+  "description": "Structured output for the citation research skill, feeding into the Master Audit Object.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "insufficient_data", "failed"],
+      "description": "Overall status of the citation research process."
+    },
+    "business_context": {
+      "type": "object",
+      "properties": {
+        "business_name": { "type": "string" },
+        "location": { "type": "string" },
+        "industry": { "type": "string" },
+        "business_type": { "type": "string" }
+      },
+      "required": ["business_name"]
+    },
+    "discovered_platforms": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of all platform names identified as relevant to this business."
+    },
+    "existing_listings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/citation_item" },
+      "description": "Listings found and verified as present_healthy."
+    },
+    "missing_opportunities": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/citation_item" },
+      "description": "Highly relevant platforms where no verified listing was found."
+    },
+    "incomplete_listings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/citation_item" },
+      "description": "Listings found but lacking critical business information."
+    },
+    "inconsistent_listings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/citation_item" },
+      "description": "Listings found but presenting conflicting/incorrect NAP or other business data."
+    },
+    "uncertain_listings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/citation_item" },
+      "description": "Listings discovered but identity_match is uncertain or insufficient data."
+    },
+    "competitor_discovered_opportunities": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/citation_item" },
+      "description": "Citation opportunities discovered by checking competitor footprints."
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "evidence_id": { "type": "string" },
+          "source_type": { "type": "string" },
+          "source_url": { "type": "string" },
+          "source_title": { "type": "string" },
+          "query_used": { "type": "string" },
+          "observation": { "type": "string" },
+          "captured_at": { "type": "string", "format": "date-time" },
+          "verification_status": { "type": "string" }
+        },
+        "required": ["evidence_id", "source_url", "observation"]
+      },
+      "description": "Verifiable factual observations backing up the findings."
+    },
+    "research_notes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Researcher's interpretations or context about the discovered evidence. Strictly separated from FACT evidence."
+    }
+  },
+  "required": [
+    "status",
+    "business_context",
+    "evidence"
+  ],
+  "definitions": {
+    "citation_item": {
+      "type": "object",
+      "properties": {
+        "platform": { "type": "string" },
+        "platform_category": { 
+          "type": "string",
+          "enum": ["Core", "Major Directory", "Industry-Specific", "Local/Regional", "Competitor-Discovered", "Other"]
+        },
+        "listing_url": { "type": ["string", "null"] },
+        "status": {
+          "type": "string",
+          "enum": ["present_healthy", "present_incomplete", "present_inconsistent", "missing", "uncertain"]
+        },
+        "identity_match": {
+          "type": "string",
+          "enum": ["verified", "likely_match", "uncertain", "not_a_match"]
+        },
+        "business_name_observed": { "type": ["string", "null"] },
+        "phone_observed": { "type": ["string", "null"] },
+        "address_observed": { "type": ["string", "null"] },
+        "website_observed": { "type": ["string", "null"] },
+        "consistency_notes": { "type": "string" },
+        "relevance_reason": { 
+          "type": "string",
+          "description": "Explanation of why this platform is relevant (e.g., 'core business directory', 'local source'). Cannot just be 'Important for SEO'."
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["platform", "status", "relevance_reason"]
+    }
+  }
+}

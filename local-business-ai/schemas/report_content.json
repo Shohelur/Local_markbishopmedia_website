@@ -1,0 +1,241 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Report Content Output",
+  "description": "Structured content blocks produced by the Report Writer, ready for the web report renderer and PDF generator.",
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "report_id": { "type": "string" },
+        "business_name": { "type": "string" },
+        "business_location": { "type": "string" },
+        "audit_date": { "type": "string", "format": "date" },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "priority_engine_version": { "type": "string" },
+        "rating": { "type": ["number", "null"], "description": "Verified average review rating from audit data." },
+        "reviews_count": { "type": ["integer", "null"], "description": "Verified total review count from audit data." },
+        "services_count": { "type": ["integer", "null"], "description": "Number of services listed on GBP from audit data." }
+      },
+      "required": ["business_name", "audit_date"]
+    },
+    "cover": {
+      "type": "object",
+      "properties": {
+        "report_title": { "type": "string", "default": "Local Business Visibility Report" },
+        "business_name": { "type": "string" },
+        "location": { "type": "string" },
+        "subtitle": { "type": "string" }
+      },
+      "required": ["report_title", "business_name"]
+    },
+    "executive_snapshot": {
+      "type": "object",
+      "properties": {
+        "foundation_summary": { "type": "string", "description": "One short paragraph on what the business already has going for it." },
+        "key_observation": { "type": "string", "description": "One short paragraph on the single most important opportunity." },
+        "priority_areas": {
+          "type": "array",
+          "maxItems": 5,
+          "items": { "type": "string" },
+          "description": "Concise list of the top priority areas (business-owner language)."
+        }
+      },
+      "required": ["foundation_summary", "key_observation"]
+    },
+    "business_foundation": {
+      "type": "object",
+      "description": "Genuine validated strengths. Omit if no meaningful strengths exist.",
+      "properties": {
+        "intro": { "type": "string" },
+        "strengths": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "area": { "type": "string" },
+              "observation": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "top_priorities": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "properties": {
+          "rank": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "title": { "type": "string" },
+          "priority_level": {
+            "type": "string",
+            "enum": ["Very High", "High", "Moderate", "Low"]
+          },
+          "what_we_found": { "type": "string", "description": "Business-owner-friendly factual observation." },
+          "why_it_matters": { "type": "string", "description": "Plain English explanation of business impact." },
+          "recommended_action": { "type": "string", "description": "Specific, actionable recommendation without guarantees." },
+          "relevant_service": { "type": ["string", "null"], "description": "The single most relevant service offering, if applicable." },
+          "visual": {
+            "type": "object",
+            "description": "Structured visual data for rendering a chart or qualitative indicator. NEVER invent values — must come from validated audit data. Use type 'none' if no meaningful visual is possible.",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["bar_comparison", "qualitative_bars", "metric_comparison", "coverage_table", "none"],
+                "description": "bar_comparison: side-by-side numeric bars (e.g. review counts). qualitative_bars: status indicators without fake percentages (e.g. directory coverage). metric_comparison: large metric callout blocks. coverage_table: rows of items with status. none: use editorial layout only."
+              },
+              "data": {
+                "type": "array",
+                "description": "Chart data rows. Values must come from validated audit data.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": { "type": "string" },
+                    "value": { "type": ["string", "number", "null"] },
+                    "context": { "type": "string", "description": "Optional additional context shown below the value." },
+                    "status": { "type": "string", "enum": ["strong", "opportunity", "attention", "neutral"], "description": "For qualitative_bars only." },
+                    "items": {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "description": "For qualitative_bars: list of specific items in this status group."
+                    },
+                    "color_role": { "type": "string", "enum": ["primary", "secondary", "muted", "strong", "attention"], "description": "Semantic color role for the renderer." }
+                  }
+                }
+              },
+              "unit": { "type": "string", "description": "Unit label shown on bar charts (e.g. 'Google Reviews', 'Services Listed')." },
+              "caption": { "type": "string", "description": "Short chart caption explaining what is being compared." }
+            },
+            "required": ["type"]
+          },
+          "see_more_details": {
+            "type": "array",
+            "description": "Additional evidence or technical detail exposed via 'See More Details' in the web report. Not shown in initial view.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": { "type": "string" },
+                "content": { "type": "string" },
+                "is_technical": { "type": "boolean", "default": false, "description": "If true, label as 'Technical detail' in the report." }
+              }
+            }
+          },
+          "evidence_ids": { "type": "array", "items": { "type": "string" } },
+          "source_finding_ids": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["rank", "title", "priority_level", "what_we_found", "why_it_matters", "recommended_action"]
+      }
+    },
+    "competitive_snapshot": {
+      "type": "object",
+      "description": "Optional. Only include if validated competitor data exists.",
+      "properties": {
+        "intro": { "type": "string" },
+        "competitor_metrics": {
+          "type": "object",
+          "description": "Structured numeric competitor data sourced directly from validated audit output. Use this for charts instead of parsing prose. Only populate fields where actual validated data exists.",
+          "properties": {
+            "target": {
+              "type": "object",
+              "properties": {
+                "reviews": { "type": ["integer", "null"] },
+                "rating": { "type": ["number", "null"] },
+                "services": { "type": ["integer", "null"] }
+              }
+            },
+            "competitor": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "reviews": { "type": ["integer", "null"] },
+                "rating": { "type": ["number", "null"] },
+                "services": { "type": ["integer", "null"] }
+              }
+            }
+          }
+        },
+        "comparisons": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_name": { "type": "string" },
+              "observation": { "type": "string" },
+              "opportunity": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "growth_opportunities": {
+      "type": "object",
+      "description": "Optional. Valid opportunities that did not make Top 5. Omit if empty.",
+      "properties": {
+        "intro": { "type": "string" },
+        "opportunities": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "observation": { "type": "string" },
+              "suggested_action": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "recommended_next_steps": {
+      "type": "object",
+      "properties": {
+        "intro": { "type": "string" },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "step_number": { "type": "integer" },
+              "action": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "cta": {
+      "type": "object",
+      "description": "Primary call to action. Always at the end of the report. Never repeated elsewhere.",
+      "properties": {
+        "heading": { "type": "string" },
+        "body": { "type": "string" },
+        "button_label": { "type": "string", "default": "Schedule a Free Review" },
+        "url_placeholder": { "type": "string", "description": "Placeholder for the URL to be injected by the designer layer." }
+      }
+    },
+    "cta_extended": {
+      "type": "object",
+      "description": "Mark Bishop Media brand context for the CTA. Injected at render time. Values come from branding_config.",
+      "properties": {
+        "brand_name": { "type": "string", "default": "Mark Bishop Media" },
+        "tagline": { "type": "string" },
+        "body_copy": { "type": "string", "description": "The full CTA body paragraph crafted by the report writer for this specific business." },
+        "phone": { "type": ["string", "null"] },
+        "email": { "type": ["string", "null"] },
+        "booking_url": { "type": ["string", "null"] }
+      }
+    },
+    "report_notes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Internal notes for the designer / team. Not shown to the client."
+    }
+  },
+  "required": [
+    "metadata",
+    "cover",
+    "executive_snapshot",
+    "top_priorities"
+  ]
+}

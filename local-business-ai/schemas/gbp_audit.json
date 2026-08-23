@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GBP Audit Output",
+  "description": "Structured findings and analysis from the Google Business Profile audit.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "insufficient_data", "failed"],
+      "description": "Execution status of the GBP audit."
+    },
+    "profile_summary": {
+      "type": "string",
+      "description": "High-level overview of the GBP's current health and visibility."
+    },
+    "strengths": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Genuine strengths regarding the business's GBP (e.g., strong visual presence, accurate NAP)."
+    },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/gbp_finding" },
+      "description": "Actionable, evidence-backed GBP findings."
+    },
+    "opportunities": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/gbp_finding" },
+      "description": "Specific optimization opportunities (e.g., missing relevant attributes or secondary categories)."
+    },
+    "information_assessment": { "type": "string" },
+    "category_assessment": { "type": "string" },
+    "service_assessment": { "type": "string" },
+    "description_assessment": { "type": "string" },
+    "visual_assessment": { "type": "string" },
+    "completeness_assessment": { "type": "string" },
+    "evidence_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "evidence_id": { "type": "string" },
+          "source_type": { "type": "string" },
+          "source_url": { "type": "string" },
+          "source_title": { "type": "string" },
+          "observation": { "type": "string" },
+          "captured_at": { "type": "string", "format": "date-time" },
+          "verification_status": { "type": "string" }
+        },
+        "required": ["evidence_id", "source_url", "observation"]
+      },
+      "description": "Verifiable factual observations backing up the findings."
+    },
+    "service_recommendations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Services mapped to findings (e.g., 'GBP Optimization', 'Citation Cleanup')."
+    },
+    "analysis_notes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "General research context or edge-case reasoning."
+    }
+  },
+  "required": [
+    "status",
+    "profile_summary",
+    "findings",
+    "evidence_references"
+  ],
+  "definitions": {
+    "gbp_finding": {
+      "type": "object",
+      "properties": {
+        "finding_id": { "type": "string" },
+        "finding_type": { 
+          "type": "string",
+          "enum": [
+            "identity_issue", 
+            "category_issue", 
+            "service_coverage_gap", 
+            "business_information_issue", 
+            "hours_issue", 
+            "description_issue", 
+            "profile_completeness_gap", 
+            "visual_presence_opportunity", 
+            "attribute_opportunity", 
+            "gbp_strength", 
+            "gbp_optimization_opportunity"
+          ]
+        },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "fact": { "type": "string", "description": "What was observed (objective data)." },
+        "interpretation": { "type": "string", "description": "What that evidence reasonably means." },
+        "recommendation": { "type": "string", "description": "What the business could do about it." },
+        "impact_level": { 
+          "type": "string",
+          "enum": ["very_high", "high", "moderate", "low"]
+        },
+        "evidence_confidence": { 
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "actionability": { 
+          "type": "string",
+          "enum": ["high", "moderate", "low"]
+        },
+        "relevance_reason": { "type": "string" },
+        "evidence_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "service_mapping": { "type": "string" }
+      },
+      "required": [
+        "finding_id",
+        "finding_type",
+        "title",
+        "fact",
+        "interpretation",
+        "recommendation",
+        "evidence_ids"
+      ]
+    }
+  }
+}

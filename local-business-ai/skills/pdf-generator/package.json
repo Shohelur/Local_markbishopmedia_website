@@ -1,0 +1,18 @@
+{
+  "name": "localrank-pdf-generator",
+  "version": "1.0.0",
+  "description": "PDF rendering engine for the LocalRank AI local business audit report pipeline.",
+  "main": "generate.js",
+  "scripts": {
+    "generate": "node generate.js",
+    "sample": "node sample/generate_sample.js",
+    "test": "node sample/generate_sample.js && echo 'Sample PDF generated successfully.'"
+  },
+  "dependencies": {
+    "puppeteer": "^22.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "UNLICENSED"
+}

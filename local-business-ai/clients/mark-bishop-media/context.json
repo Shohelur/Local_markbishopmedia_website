@@ -1,0 +1,32 @@
+{
+  "business_name": "Mark Bishop Media",
+  "address": "6245 E Broadway Blvd #400",
+  "city": "Tucson",
+  "state": "AZ",
+  "zip": "85711",
+  "country": "US",
+  "phone": "+1 (520) 349-6378",
+  "website": "https://markbishopmedia.com/",
+  "primary_category": "Marketing Consultant",
+  "services": [
+    "Podcast Production & Distribution",
+    "Digital Marketing & Lead Generation",
+    "Book Publishing & Author Marketing",
+    "Strategic Communications Consulting",
+    "Brand Development & Advertising Strategy"
+  ],
+  "business_description": "Media and digital marketing agency specializing in tra-digital marketing, podcast production (including Tucson Means Business), and author branding.",
+  "google_business_profile_url": "https://maps.app.goo.gl/djiVs1bgYaLUr45R9",
+  "target_location": "Tucson, AZ",
+  "metadata": {
+    "rating": 5,
+    "reviews_count": 1,
+    "services_count": 5,
+    "audit_date": "2026-08-16",
+    "target_location": "Tucson, AZ",
+    "competitor_name": "Anchor Wave Digital Marketing Agency",
+    "competitor_reviews": 254,
+    "competitor_rating": 4.9,
+    "competitor_services": 18
+  }
+}

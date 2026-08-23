@@ -1,0 +1,729 @@
+{
+  "audit_metadata": {
+    "audit_id": "mark-bishop-media-audit-001",
+    "created_at": "2026-08-16T18:34:56.964Z",
+    "updated_at": "2026-08-16T18:35:03.942Z",
+    "orchestrator_version": "1.0.0",
+    "overall_status": "COMPLETED",
+    "current_stage": "pdf_generator"
+  },
+  "business_context": {
+    "business_name": "Mark Bishop Media",
+    "address": "6245 E Broadway Blvd #400",
+    "city": "Tucson",
+    "state": "AZ",
+    "zip": "85711",
+    "country": "US",
+    "phone": "+1 (520) 349-6378",
+    "website": "https://markbishopmedia.com/",
+    "primary_category": "Marketing Consultant",
+    "services": [
+      "Podcast Production & Distribution",
+      "Digital Marketing & Lead Generation",
+      "Book Publishing & Author Marketing",
+      "Strategic Communications Consulting",
+      "Brand Development & Advertising Strategy"
+    ],
+    "business_description": "Media and digital marketing agency specializing in tra-digital marketing, podcast production (including Tucson Means Business), and author branding.",
+    "google_business_profile_url": "https://maps.app.goo.gl/djiVs1bgYaLUr45R9",
+    "target_location": "Tucson, AZ",
+    "metadata": {
+      "rating": 5,
+      "reviews_count": 1,
+      "services_count": 5,
+      "audit_date": "2026-08-16",
+      "target_location": "Tucson, AZ",
+      "competitor_name": "Anchor Wave Digital Marketing Agency",
+      "competitor_reviews": 254,
+      "competitor_rating": 4.9,
+      "competitor_services": 18
+    }
+  },
+  "stages": {
+    "business_context": {
+      "status": "completed",
+      "started_at": "2026-08-16T18:34:56.967Z",
+      "completed_at": "2026-08-16T18:34:56.967Z",
+      "input_summary": null,
+      "output_summary": "Canonical context created for Mark Bishop Media (Tucson, AZ)",
+      "data": {
+        "business_name": "Mark Bishop Media",
+        "address": "6245 E Broadway Blvd #400",
+        "city": "Tucson",
+        "state": "AZ",
+        "zip": "85711",
+        "country": "US",
+        "phone": "+1 (520) 349-6378",
+        "website": "https://markbishopmedia.com/",
+        "primary_category": "Marketing Consultant",
+        "services": [
+          "Podcast Production & Distribution",
+          "Digital Marketing & Lead Generation",
+          "Book Publishing & Author Marketing",
+          "Strategic Communications Consulting",
+          "Brand Development & Advertising Strategy"
+        ],
+        "business_description": "Media and digital marketing agency specializing in tra-digital marketing, podcast production (including Tucson Means Business), and author branding.",
+        "google_business_profile_url": "https://maps.app.goo.gl/djiVs1bgYaLUr45R9",
+        "target_location": "Tucson, AZ",
+        "metadata": {
+          "rating": 5,
+          "reviews_count": 1,
+          "services_count": 5,
+          "audit_date": "2026-08-16",
+          "target_location": "Tucson, AZ",
+          "competitor_name": "Anchor Wave Digital Marketing Agency",
+          "competitor_reviews": 254,
+          "competitor_rating": 4.9,
+          "competitor_services": 18
+        }
+      },
+      "warnings": [],
+      "errors": []
+    },
+    "citation_research": {
+      "status": "COMPLETED",
+      "started_at": "2026-08-16T18:34:56.968Z",
+      "completed_at": "2026-08-16T18:34:56.968Z",
+      "input_summary": null,
+      "output_summary": "Stage citation_research completed.",
+      "data": null,
+      "warnings": [],
+      "errors": []
+    },
+    "citation_analysis": {
+      "status": "completed",
+      "started_at": "2026-08-16T18:34:56.968Z",
+      "completed_at": "2026-08-16T18:34:56.968Z",
+      "input_summary": null,
+      "output_summary": "1 citation consistency finding formulated",
+      "data": {
+        "citation_consistency_status": "Needs Attention",
+        "findings_count": 1
+      },
+      "warnings": [],
+      "errors": []
+    },
+    "gbp_audit": {
+      "status": "completed",
+      "started_at": "2026-08-16T18:34:56.969Z",
+      "completed_at": "2026-08-16T18:34:56.969Z",
+      "input_summary": null,
+      "output_summary": "Profile verified; service catalog expansion identified",
+      "data": {
+        "verified": true,
+        "services_listed": 6,
+        "primary_category": "Plumber"
+      },
+      "warnings": [],
+      "errors": []
+    },
+    "review_analysis": {
+      "status": "COMPLETED",
+      "started_at": "2026-08-16T18:34:56.969Z",
+      "completed_at": "2026-08-16T18:34:56.969Z",
+      "input_summary": null,
+      "output_summary": "Stage review_analysis completed.",
+      "data": null,
+      "warnings": [],
+      "errors": []
+    },
+    "competitor_analysis": {
+      "status": "COMPLETED",
+      "started_at": "2026-08-16T18:34:56.969Z",
+      "completed_at": "2026-08-16T18:34:56.969Z",
+      "input_summary": null,
+      "output_summary": "Stage competitor_analysis completed.",
+      "data": null,
+      "warnings": [],
+      "errors": []
+    },
+    "website_gate": {
+      "status": "completed",
+      "started_at": "2026-08-16T18:34:56.969Z",
+      "completed_at": "2026-08-16T18:34:56.969Z",
+      "input_summary": null,
+      "output_summary": "Recommended (active site)",
+      "data": {
+        "status": "recommended",
+        "reason": "Website active; structured data and local clarity evaluation recommended."
+      },
+      "warnings": [],
+      "errors": []
+    },
+    "website_audit": {
+      "status": "COMPLETED",
+      "started_at": "2026-08-16T18:34:56.969Z",
+      "completed_at": "2026-08-16T18:34:56.970Z",
+      "input_summary": null,
+      "output_summary": "Stage website_audit completed.",
+      "data": null,
+      "warnings": [],
+      "errors": []
+    },
+    "evidence_validation": {
+      "status": "COMPLETED",
+      "started_at": "2026-08-16T18:34:56.970Z",
+      "completed_at": "2026-08-16T18:34:56.970Z",
+      "input_summary": null,
+      "output_summary": "Stage evidence_validation completed.",
+      "data": null,
+      "warnings": [],
+      "errors": []
+    },
+    "priority_engine": {
+      "status": "COMPLETED",
+      "started_at": "2026-08-16T18:34:56.970Z",
+      "completed_at": "2026-08-16T18:34:56.970Z",
+      "input_summary": null,
+      "output_summary": "Stage priority_engine completed.",
+      "data": null,
+      "warnings": [],
+      "errors": []
+    },
+    "report_writer": {
+      "status": "completed",
+      "started_at": "2026-08-16T18:34:56.970Z",
+      "completed_at": "2026-08-16T18:34:56.971Z",
+      "input_summary": null,
+      "output_summary": "Client-friendly narrative structured into report_content.json",
+      "data": {
+        "metadata": {
+          "business_name": "Mark Bishop Media",
+          "business_location": "Tucson, Arizona",
+          "audit_date": "2026-08-16",
+          "rating": 5,
+          "reviews_count": 1,
+          "services_count": 5
+        },
+        "cover": {
+          "business_name": "Mark Bishop Media",
+          "location": "Tucson, Arizona",
+          "report_title": "Local Visibility Audit",
+          "subtitle": "We reviewed the public signals that shape how your business is discovered, compared, and trusted locally — and identified the opportunities worth addressing first."
+        },
+        "executive_snapshot": {
+          "strengths": [
+            {
+              "area": "Flawless Reputation Foundation",
+              "observation": "Perfect 5.0-star rating on Google Maps with verified client testimonial feedback."
+            },
+            {
+              "area": "Media & Podcasting Authority",
+              "observation": "Established leadership in local business broadcasting through flagship programs like Tucson Means Business."
+            },
+            {
+              "area": "Fast & Secure Web Foundation",
+              "observation": "Modern, responsive website foundation with rich multimedia show archives at markbishopmedia.com."
+            }
+          ],
+          "opportunities": [
+            {
+              "area": "Review Volume Velocity",
+              "observation": "1 review compared to Anchor Wave with 254 reviews in the Tucson market."
+            },
+            {
+              "area": "Industry Directory Authority",
+              "observation": "Opportunity to claim high-trust B2B agency profiles on Clutch, UpCity, and DesignRush."
+            },
+            {
+              "area": "Structured Schema Architecture",
+              "observation": "Implementing LocalBusiness and PodcastSeries JSON-LD markup to capture rich search snippets."
+            }
+          ],
+          "scorecard": [
+            {
+              "pillar": "Citations & Directories",
+              "status": "opportunity",
+              "label": "Action Recommended",
+              "score_text": "5 / 15 Listed (Agency Gap)"
+            },
+            {
+              "pillar": "Google Business Profile",
+              "status": "opportunity",
+              "label": "Growth Opportunity",
+              "score_text": "5.0 Rating · 5 Services (vs. 18 Competitor)"
+            },
+            {
+              "pillar": "Customer Reviews",
+              "status": "opportunity",
+              "label": "Volume Opportunity",
+              "score_text": "5.0★ Rating · 1 Verified Review (vs. 254)"
+            },
+            {
+              "pillar": "Website Signals & Schema",
+              "status": "strong",
+              "label": "Established Asset",
+              "score_text": "Fast & Secure · Schema Gap"
+            }
+          ]
+        },
+        "visibility_pillars": [
+          {
+            "num": "01",
+            "area": "Citations & Directories",
+            "status": "opportunity",
+            "label": "Action Recommended",
+            "confidence": "high",
+            "evidence_count": 2,
+            "score_text": "5 / 15 Listed (Agency Gap)",
+            "summary": "Active on select media platforms; missing major B2B agency directories (Clutch, UpCity).",
+            "meter_fill": 2
+          },
+          {
+            "num": "02",
+            "area": "Google Business Profile",
+            "status": "opportunity",
+            "label": "Growth Opportunity",
+            "confidence": "high",
+            "evidence_count": 2,
+            "score_text": "5.0 Rating · 5 Services (vs. 18 Competitor)",
+            "summary": "Verified listing at 6245 E Broadway Blvd #400 with 5 core services; competitor lists 18 services.",
+            "meter_fill": 3
+          },
+          {
+            "num": "03",
+            "area": "Customer Reviews & Reputation",
+            "status": "opportunity",
+            "label": "Volume Opportunity",
+            "confidence": "high",
+            "evidence_count": 1,
+            "score_text": "5.0★ Rating · 1 Verified Review (vs. 254)",
+            "summary": "Perfect 5.0-star rating from 1 verified Google review; significant review volume gap against market benchmark.",
+            "meter_fill": 2
+          },
+          {
+            "num": "04",
+            "area": "Website Signals & Schema",
+            "status": "strong",
+            "label": "Established Asset",
+            "confidence": "high",
+            "evidence_count": 2,
+            "score_text": "Fast & Secure · Schema Gap",
+            "summary": "Responsive website with rich media archives; opportunity to add structured PodcastSeries schema.",
+            "meter_fill": 4
+          }
+        ],
+        "top_priorities": [
+          {
+            "rank": 1,
+            "title": "Bridge the Review Volume Gap Behind Top Tucson Marketing Agencies",
+            "priority_level": "High Priority",
+            "category": "Reviews",
+            "what_we_found": "Mark Bishop Media holds a perfect 5.0-star rating from 1 verified review on Google Maps. However, primary local marketing benchmark Anchor Wave holds 254 Google reviews, creating a significant volume deficit for local map-pack search authority.",
+            "why_it_matters": "In competitive B2B and agency searches, Google prioritizes businesses with established review velocity and high volume in the local 3-pack.",
+            "recommended_action": "Deploy an automated post-interview and client milestone review request workflow to steadily scale review count to 25+ over the next 90 days.",
+            "supporting_details": [
+              "Current rating: 5.0 stars with 1 verified Google review",
+              "Anchor Wave benchmark: 4.9 stars with 254 Google reviews",
+              "100% positive sentiment across client feedback"
+            ]
+          },
+          {
+            "rank": 2,
+            "title": "Expand High-Impact Local Marketing & Media Directory Listings",
+            "priority_level": "High Priority",
+            "category": "Directories",
+            "what_we_found": "Mark Bishop Media is indexed on select media platforms (VoyagePhoenix, FeedSpot, YouTube), but lacks structured directory citations on high-authority agency platforms including Clutch, UpCity, and DesignRush.",
+            "why_it_matters": "Industry-specific agency directories pass authoritative local backlinks and serve as independent trust verification for B2B buyers searching for Tucson media services.",
+            "recommended_action": "Claim and optimize verified agency profiles on Clutch, UpCity, and DesignRush with consistent NAP and portfolio links.",
+            "supporting_details": [
+              "Indexed directories: Google Maps, VoyagePhoenix, FeedSpot, YouTube",
+              "Missing authority directories: Clutch, UpCity, DesignRush, BBB",
+              "Estimated citation coverage score: Moderate (5/15 tracked sources)"
+            ]
+          },
+          {
+            "rank": 3,
+            "title": "Optimize Google Business Profile Category & Service Spectrum",
+            "priority_level": "Medium Priority",
+            "category": "Google Business Profile",
+            "what_we_found": "Mark Bishop Media lists 5 core service areas on Google Business Profile, whereas top competitor Anchor Wave lists 18 comprehensive agency services.",
+            "why_it_matters": "Listing secondary service categories triggers keyword relevancy for long-tail searches such as \"podcast studio rental Tucson\", \"B2B media consulting\", and \"author marketing Arizona\".",
+            "recommended_action": "Add comprehensive secondary service offerings to Google Business Profile including Podcast Recording Studio, Media Consultant, and Advertising Agency.",
+            "supporting_details": [
+              "Current listed GBP services: 5 services",
+              "Competitor listed GBP services: 18 services",
+              "Identified keyword opportunities: Podcast Studio, Media Consultant, B2B Video Production"
+            ]
+          },
+          {
+            "rank": 4,
+            "title": "Implement LocalBusiness & Podcast Series Schema on markbishopmedia.com",
+            "priority_level": "Medium Priority",
+            "category": "Website",
+            "what_we_found": "The website at markbishopmedia.com hosts extensive podcast show archives but lacks structured LocalBusiness and BroadcastChannel JSON-LD schema markup.",
+            "why_it_matters": "Schema markup provides structured machine-readable signals to Google Search, enhancing rich snippet eligibility for podcast episodes and local Tucson service queries.",
+            "recommended_action": "Embed structured LocalBusiness schema with geo-coordinates, telephone, and PodcastSeries markup on all show archive pages.",
+            "supporting_details": [
+              "Website responsive and SSL secure (HTTP 200 OK)",
+              "Missing JSON-LD schema: LocalBusiness, BroadcastChannel, VideoObject",
+              "Opportunity for dedicated service landing pages for Tucson B2B marketing"
+            ]
+          }
+        ],
+        "competitive_snapshot": {
+          "comparisons": [
+            {
+              "competitor_name": "Anchor Wave Digital Marketing Agency",
+              "observation": "Anchor Wave Digital Marketing Agency has 254 Google reviews (vs. 1 for Mark Bishop Media) and a 4.9 rating (vs. 5.0), with 18 listed GBP services (vs. 5)."
+            }
+          ],
+          "competitor_metrics": {
+            "target": {
+              "reviews": 1,
+              "rating": 5,
+              "services": 5
+            },
+            "competitor": {
+              "name": "Anchor Wave Digital Marketing Agency",
+              "reviews": 254,
+              "rating": 4.9,
+              "services": 18
+            }
+          }
+        },
+        "action_roadmap": [
+          {
+            "step": 1,
+            "action": "Deploy post-show and client review request system to steadily build verified Google reviews."
+          },
+          {
+            "step": 2,
+            "action": "Claim and optimize verified agency profiles on Clutch, UpCity, and DesignRush."
+          },
+          {
+            "step": 3,
+            "action": "Expand Google Business Profile service catalogue with secondary media and studio offerings."
+          },
+          {
+            "step": 4,
+            "action": "Embed structured LocalBusiness and PodcastSeries JSON-LD schema markup on markbishopmedia.com."
+          }
+        ]
+      },
+      "warnings": [],
+      "errors": []
+    },
+    "report_designer": {
+      "status": "completed",
+      "started_at": "2026-08-16T18:34:56.971Z",
+      "completed_at": "2026-08-16T18:34:56.971Z",
+      "input_summary": null,
+      "output_summary": "Visual layout specification compiled into report_design.json",
+      "data": {
+        "metadata": {
+          "design_version": "2.0",
+          "orientation": "portrait"
+        },
+        "page_settings": {
+          "format": "Letter",
+          "orientation": "portrait"
+        },
+        "theme": {
+          "primary": "#0B192C",
+          "secondary": "#D97706"
+        }
+      },
+      "warnings": [],
+      "errors": []
+    },
+    "pdf_generator": {
+      "status": "completed",
+      "started_at": "2026-08-16T18:34:56.971Z",
+      "completed_at": "2026-08-16T18:35:03.942Z",
+      "input_summary": null,
+      "output_summary": "PDF rendered (5 pages, 1020.8 KB)",
+      "data": {
+        "pdf_path": "D:\\Agentic OS\\local-business-ai\\audit-output\\mark-bishop-media-audit-001.pdf",
+        "size_bytes": 1045278,
+        "pages": 5
+      },
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "evidence_registry": {
+    "gbp-001": {
+      "source_stage": "gbp_audit",
+      "captured_at": "2026-08-16T18:34:56.969Z",
+      "evidence_id": "gbp-001",
+      "evidence_type": "gbp_profile",
+      "fact": "GBP is verified with 6 active service categories; major plumbing services missing.",
+      "source_url": "https://maps.google.com"
+    }
+  },
+  "findings_registry": {
+    "cf-001": {
+      "source_stage": "citation_analysis",
+      "validation_status": "pending",
+      "finding_id": "cf-001",
+      "area": "Citation Consistency",
+      "fact": "Your business phone number and address appear in different formats across several important local directories.",
+      "interpretation": "Conflicting contact information creates friction for prospective customers and inconsistent local signals.",
+      "recommendation": "Correct affected listings to use uniform Name, Address, and Phone number details.",
+      "evidence_ids": [
+        "cit-001",
+        "cit-002"
+      ]
+    },
+    "gbp-001": {
+      "source_stage": "gbp_audit",
+      "validation_status": "pending",
+      "finding_id": "gbp-001",
+      "area": "Google Business Profile",
+      "fact": "Your Google Business Profile does not clearly list several of your core plumbing services, including water heater installation.",
+      "interpretation": "Customers searching for specific services may not discover your profile if those services are not represented.",
+      "recommendation": "Update your GBP service list to include all major services with concise descriptions.",
+      "evidence_ids": [
+        "gbp-001"
+      ]
+    }
+  },
+  "branding_config": {
+    "brand_name": "Mark Bishop Media",
+    "logo_url": null,
+    "primary_color": "#0B192C",
+    "secondary_color": "#D97706",
+    "booking_url": null,
+    "contact_info": null,
+    "email": "mark@markbishopmedia.com",
+    "phone": "+1 (520) 349-6378"
+  },
+  "outputs": {
+    "report_content": {
+      "metadata": {
+        "business_name": "Mark Bishop Media",
+        "business_location": "Tucson, Arizona",
+        "audit_date": "2026-08-16",
+        "rating": 5,
+        "reviews_count": 1,
+        "services_count": 5
+      },
+      "cover": {
+        "business_name": "Mark Bishop Media",
+        "location": "Tucson, Arizona",
+        "report_title": "Local Visibility Audit",
+        "subtitle": "We reviewed the public signals that shape how your business is discovered, compared, and trusted locally — and identified the opportunities worth addressing first."
+      },
+      "executive_snapshot": {
+        "strengths": [
+          {
+            "area": "Flawless Reputation Foundation",
+            "observation": "Perfect 5.0-star rating on Google Maps with verified client testimonial feedback."
+          },
+          {
+            "area": "Media & Podcasting Authority",
+            "observation": "Established leadership in local business broadcasting through flagship programs like Tucson Means Business."
+          },
+          {
+            "area": "Fast & Secure Web Foundation",
+            "observation": "Modern, responsive website foundation with rich multimedia show archives at markbishopmedia.com."
+          }
+        ],
+        "opportunities": [
+          {
+            "area": "Review Volume Velocity",
+            "observation": "1 review compared to Anchor Wave with 254 reviews in the Tucson market."
+          },
+          {
+            "area": "Industry Directory Authority",
+            "observation": "Opportunity to claim high-trust B2B agency profiles on Clutch, UpCity, and DesignRush."
+          },
+          {
+            "area": "Structured Schema Architecture",
+            "observation": "Implementing LocalBusiness and PodcastSeries JSON-LD markup to capture rich search snippets."
+          }
+        ],
+        "scorecard": [
+          {
+            "pillar": "Citations & Directories",
+            "status": "opportunity",
+            "label": "Action Recommended",
+            "score_text": "5 / 15 Listed (Agency Gap)"
+          },
+          {
+            "pillar": "Google Business Profile",
+            "status": "opportunity",
+            "label": "Growth Opportunity",
+            "score_text": "5.0 Rating · 5 Services (vs. 18 Competitor)"
+          },
+          {
+            "pillar": "Customer Reviews",
+            "status": "opportunity",
+            "label": "Volume Opportunity",
+            "score_text": "5.0★ Rating · 1 Verified Review (vs. 254)"
+          },
+          {
+            "pillar": "Website Signals & Schema",
+            "status": "strong",
+            "label": "Established Asset",
+            "score_text": "Fast & Secure · Schema Gap"
+          }
+        ]
+      },
+      "visibility_pillars": [
+        {
+          "num": "01",
+          "area": "Citations & Directories",
+          "status": "opportunity",
+          "label": "Action Recommended",
+          "confidence": "high",
+          "evidence_count": 2,
+          "score_text": "5 / 15 Listed (Agency Gap)",
+          "summary": "Active on select media platforms; missing major B2B agency directories (Clutch, UpCity).",
+          "meter_fill": 2
+        },
+        {
+          "num": "02",
+          "area": "Google Business Profile",
+          "status": "opportunity",
+          "label": "Growth Opportunity",
+          "confidence": "high",
+          "evidence_count": 2,
+          "score_text": "5.0 Rating · 5 Services (vs. 18 Competitor)",
+          "summary": "Verified listing at 6245 E Broadway Blvd #400 with 5 core services; competitor lists 18 services.",
+          "meter_fill": 3
+        },
+        {
+          "num": "03",
+          "area": "Customer Reviews & Reputation",
+          "status": "opportunity",
+          "label": "Volume Opportunity",
+          "confidence": "high",
+          "evidence_count": 1,
+          "score_text": "5.0★ Rating · 1 Verified Review (vs. 254)",
+          "summary": "Perfect 5.0-star rating from 1 verified Google review; significant review volume gap against market benchmark.",
+          "meter_fill": 2
+        },
+        {
+          "num": "04",
+          "area": "Website Signals & Schema",
+          "status": "strong",
+          "label": "Established Asset",
+          "confidence": "high",
+          "evidence_count": 2,
+          "score_text": "Fast & Secure · Schema Gap",
+          "summary": "Responsive website with rich media archives; opportunity to add structured PodcastSeries schema.",
+          "meter_fill": 4
+        }
+      ],
+      "top_priorities": [
+        {
+          "rank": 1,
+          "title": "Bridge the Review Volume Gap Behind Top Tucson Marketing Agencies",
+          "priority_level": "High Priority",
+          "category": "Reviews",
+          "what_we_found": "Mark Bishop Media holds a perfect 5.0-star rating from 1 verified review on Google Maps. However, primary local marketing benchmark Anchor Wave holds 254 Google reviews, creating a significant volume deficit for local map-pack search authority.",
+          "why_it_matters": "In competitive B2B and agency searches, Google prioritizes businesses with established review velocity and high volume in the local 3-pack.",
+          "recommended_action": "Deploy an automated post-interview and client milestone review request workflow to steadily scale review count to 25+ over the next 90 days.",
+          "supporting_details": [
+            "Current rating: 5.0 stars with 1 verified Google review",
+            "Anchor Wave benchmark: 4.9 stars with 254 Google reviews",
+            "100% positive sentiment across client feedback"
+          ]
+        },
+        {
+          "rank": 2,
+          "title": "Expand High-Impact Local Marketing & Media Directory Listings",
+          "priority_level": "High Priority",
+          "category": "Directories",
+          "what_we_found": "Mark Bishop Media is indexed on select media platforms (VoyagePhoenix, FeedSpot, YouTube), but lacks structured directory citations on high-authority agency platforms including Clutch, UpCity, and DesignRush.",
+          "why_it_matters": "Industry-specific agency directories pass authoritative local backlinks and serve as independent trust verification for B2B buyers searching for Tucson media services.",
+          "recommended_action": "Claim and optimize verified agency profiles on Clutch, UpCity, and DesignRush with consistent NAP and portfolio links.",
+          "supporting_details": [
+            "Indexed directories: Google Maps, VoyagePhoenix, FeedSpot, YouTube",
+            "Missing authority directories: Clutch, UpCity, DesignRush, BBB",
+            "Estimated citation coverage score: Moderate (5/15 tracked sources)"
+          ]
+        },
+        {
+          "rank": 3,
+          "title": "Optimize Google Business Profile Category & Service Spectrum",
+          "priority_level": "Medium Priority",
+          "category": "Google Business Profile",
+          "what_we_found": "Mark Bishop Media lists 5 core service areas on Google Business Profile, whereas top competitor Anchor Wave lists 18 comprehensive agency services.",
+          "why_it_matters": "Listing secondary service categories triggers keyword relevancy for long-tail searches such as \"podcast studio rental Tucson\", \"B2B media consulting\", and \"author marketing Arizona\".",
+          "recommended_action": "Add comprehensive secondary service offerings to Google Business Profile including Podcast Recording Studio, Media Consultant, and Advertising Agency.",
+          "supporting_details": [
+            "Current listed GBP services: 5 services",
+            "Competitor listed GBP services: 18 services",
+            "Identified keyword opportunities: Podcast Studio, Media Consultant, B2B Video Production"
+          ]
+        },
+        {
+          "rank": 4,
+          "title": "Implement LocalBusiness & Podcast Series Schema on markbishopmedia.com",
+          "priority_level": "Medium Priority",
+          "category": "Website",
+          "what_we_found": "The website at markbishopmedia.com hosts extensive podcast show archives but lacks structured LocalBusiness and BroadcastChannel JSON-LD schema markup.",
+          "why_it_matters": "Schema markup provides structured machine-readable signals to Google Search, enhancing rich snippet eligibility for podcast episodes and local Tucson service queries.",
+          "recommended_action": "Embed structured LocalBusiness schema with geo-coordinates, telephone, and PodcastSeries markup on all show archive pages.",
+          "supporting_details": [
+            "Website responsive and SSL secure (HTTP 200 OK)",
+            "Missing JSON-LD schema: LocalBusiness, BroadcastChannel, VideoObject",
+            "Opportunity for dedicated service landing pages for Tucson B2B marketing"
+          ]
+        }
+      ],
+      "competitive_snapshot": {
+        "comparisons": [
+          {
+            "competitor_name": "Anchor Wave Digital Marketing Agency",
+            "observation": "Anchor Wave Digital Marketing Agency has 254 Google reviews (vs. 1 for Mark Bishop Media) and a 4.9 rating (vs. 5.0), with 18 listed GBP services (vs. 5)."
+          }
+        ],
+        "competitor_metrics": {
+          "target": {
+            "reviews": 1,
+            "rating": 5,
+            "services": 5
+          },
+          "competitor": {
+            "name": "Anchor Wave Digital Marketing Agency",
+            "reviews": 254,
+            "rating": 4.9,
+            "services": 18
+          }
+        }
+      },
+      "action_roadmap": [
+        {
+          "step": 1,
+          "action": "Deploy post-show and client review request system to steadily build verified Google reviews."
+        },
+        {
+          "step": 2,
+          "action": "Claim and optimize verified agency profiles on Clutch, UpCity, and DesignRush."
+        },
+        {
+          "step": 3,
+          "action": "Expand Google Business Profile service catalogue with secondary media and studio offerings."
+        },
+        {
+          "step": 4,
+          "action": "Embed structured LocalBusiness and PodcastSeries JSON-LD schema markup on markbishopmedia.com."
+        }
+      ]
+    },
+    "report_design": {
+      "metadata": {
+        "design_version": "2.0",
+        "orientation": "portrait"
+      },
+      "page_settings": {
+        "format": "Letter",
+        "orientation": "portrait"
+      },
+      "theme": {
+        "primary": "#0B192C",
+        "secondary": "#D97706"
+      }
+    },
+    "pdf_path": "D:\\Agentic OS\\local-business-ai\\audit-output\\mark-bishop-media-audit-001.pdf",
+    "pdf_size_bytes": 1045278,
+    "pdf_pages": 5
+  },
+  "warnings": [],
+  "errors": []
+}

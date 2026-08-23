@@ -1,0 +1,174 @@
+{
+  "audit_metadata": {
+    "audit_id": "leadvales-audit-001",
+    "overall_status": "GROWTH_OPPORTUNITY",
+    "completed_at": "2026-08-20T01:49:00Z",
+    "duration_seconds": 45
+  },
+  "business_context": {
+    "business_name": "LeadVales LLC",
+    "primary_category": "b2b-lead-generation",
+    "target_location": "Sheridan, Wyoming",
+    "website_url": "https://leadvales.com"
+  },
+  "report_content": {
+    "schema_version": "1.0",
+    "metadata": {
+      "business_name": "LeadVales LLC",
+      "business_location": "Sheridan, Wyoming",
+      "audit_date": "2026-08-20",
+      "auditor": "Mark Bishop Media",
+      "rating": 5,
+      "reviews_count": 8,
+      "services_count": 6
+    },
+    "cover": {
+      "title": "Local Business Visibility Report",
+      "business_name": "LeadVales LLC",
+      "location": "Sheridan, Wyoming",
+      "audit_date": "August 20, 2026",
+      "subtitle": "A multi-channel search authority, Google profile, and B2B directory visibility assessment."
+    },
+    "executive_snapshot": {
+      "overall_status": "growth_opportunity",
+      "key_observation": "LeadVales maintains an exceptional 5.0-star reputation across B2B platforms like GoodFirms and The Manifest, but its Google Business Profile service catalog and core B2B citation footprint have significant room for expansion to capture high-intent local and regional searchers.",
+      "foundation_summary": "Established B2B agency with verified service infrastructure, active client reviews, and modern website experience.",
+      "biggest_opportunity": "Complete Google Business Profile Service Catalog & Regional Map Pack Optimization",
+      "strongest_asset": "Flawless 5.0★ Client Review Sentiment"
+    },
+    "business_foundation": {
+      "strengths": [
+        {
+          "area": "Client Sentiment & Rating Authority",
+          "observation": "Your flawless 5.0-star rating across verified B2B client reviews demonstrates high customer satisfaction and reliable data delivery."
+        },
+        {
+          "area": "Specialized Infrastructure Solutions",
+          "observation": "Distinct cold email infrastructure, Google Workspace / MS365 reseller services, and data enrichment establish a strong competitive niche."
+        },
+        {
+          "area": "Modern Digital Experience",
+          "observation": "Clean, mobile-optimized website with online scheduling, clear solution breakdowns, and fast page performance."
+        }
+      ],
+      "stats": [
+        {
+          "label": "Client Rating",
+          "value": "5.0★",
+          "context": "Across verified reviews"
+        },
+        {
+          "label": "Google Reviews",
+          "value": "8",
+          "context": "Verified client reviews"
+        },
+        {
+          "label": "Services Listed",
+          "value": "6",
+          "context": "On Google Business Profile"
+        }
+      ]
+    },
+    "top_priorities": [
+      {
+        "rank": 1,
+        "title": "Complete Google Business Profile Service Catalog & Categories",
+        "priority_level": "High",
+        "relevant_service": "Google Business Profile Optimization",
+        "what_we_found": "LeadVales has an active profile registered in Sheridan, WY, but only 6 general services are listed on Google. Specialized high-intent offerings—such as Cold Email Infrastructure Setup, Database Enrichment, and B2B Lead Prospecting—lack explicit service descriptions and secondary category tags.",
+        "why_it_matters": "When businesses search on Google for specific B2B services, Google matches query keywords against explicit service descriptions. Profiles lacking detailed service breakdowns miss high-intent regional search volume.",
+        "recommended_action": "Add complete service descriptions for all 10 core offerings and configure targeted secondary categories (Marketing Agency, Business Management Consultant).",
+        "source_finding_ids": [
+          "gbp-001"
+        ]
+      },
+      {
+        "rank": 2,
+        "title": "Expand B2B Directory & High-Authority Citation Profiles",
+        "priority_level": "High",
+        "relevant_service": "B2B Citation & Directory Alignment",
+        "what_we_found": "LeadVales is verified on GoodFirms and The Manifest, but lacks claimed company profiles on major business directories including Crunchbase, Better Business Bureau (BBB), and Trustpilot, while NAP formatting varies slightly across secondary listings.",
+        "why_it_matters": "Cross-channel directory consistency reinforces Google's domain authority confidence and ensures corporate buyers verifying agency legitimacy find consistent data.",
+        "recommended_action": "Claim, verify, and standardize company profile records across Crunchbase, Trustpilot, BBB, and top B2B agency directories with uniform address and contact data.",
+        "source_finding_ids": [
+          "cit-001"
+        ]
+      },
+      {
+        "rank": 3,
+        "title": "Accelerate Google Map Pack Review Velocity",
+        "priority_level": "Medium",
+        "relevant_service": "Review Generation & Reputation Management",
+        "what_we_found": "LeadVales holds a flawless 5.0-star rating across 8 reviews. However, benchmark competitor Belkins maintains over 340 reviews, dominating regional and national search discovery.",
+        "why_it_matters": "While 5.0-star sentiment is a major trust asset, higher monthly review volume strongly reinforces local search visibility and conversion rates.",
+        "recommended_action": "Deploy an automated post-project review invite workflow to systematically capture client testimonials on Google Maps.",
+        "source_finding_ids": [
+          "rev-001"
+        ]
+      },
+      {
+        "rank": 4,
+        "title": "Implement ProfessionalService & LocalBusiness Structured Schema",
+        "priority_level": "Medium",
+        "relevant_service": "Technical SEO & Schema Implementation",
+        "what_we_found": "The website has basic Corporation schema, but lacks detailed ProfessionalService / LocalBusiness JSON-LD markup detailing office coordinates, accepted payment, service catalog items, and founder profiles.",
+        "why_it_matters": "Structured JSON-LD schema feeds search engine crawlers with machine-readable verification of business identity, service capabilities, and operating location.",
+        "recommended_action": "Deploy comprehensive ProfessionalService Schema.org JSON-LD markup on the homepage and solution landing pages.",
+        "source_finding_ids": [
+          "web-001"
+        ]
+      }
+    ],
+    "competitive_snapshot": {
+      "comparisons": [
+        {
+          "competitor_name": "Belkins",
+          "competitor_location": "B2B Benchmark",
+          "metrics": {
+            "rating": 4.9,
+            "reviews_count": 340,
+            "services_count": 16
+          },
+          "observation": "Belkins maintains higher review volume and catalog coverage, capturing high-intent search demand.",
+          "opportunity": "Expanding LeadVales's Google service descriptions and steadily building client review velocity directly captures prospective B2B clients searching for specialized cold email and data enrichment services."
+        }
+      ]
+    },
+    "growth_opportunities": {
+      "intro": "Additional strategic areas where targeted improvements can further strengthen LeadVales's B2B search authority and inbound lead generation.",
+      "opportunities": [
+        {
+          "title": "Google Business Profile Weekly Updates & Case Studies",
+          "observation": "Posting regular case study snippets, infrastructure tips, and client win highlights on Google Business Profile actively signals operational momentum to Google's ranking algorithms.",
+          "suggested_action": "Publish 1–2 structured weekly updates highlighting successful lead generation campaigns and client outcomes."
+        },
+        {
+          "title": "Industry-Specific Landing Pages for Target Verticals",
+          "observation": "Creating dedicated solution pages for key target markets (SaaS, Healthcare Tech, Agency Partners) enhances organic search discovery for high-value contract searches.",
+          "suggested_action": "Deploy dedicated vertical pages optimized for niche search terms like 'B2B Lead Generation for SaaS Companies'."
+        }
+      ]
+    },
+    "recommended_next_steps": {
+      "intro": "A sequenced, phased implementation plan designed to systematically eliminate visibility bottlenecks and build search dominance for LeadVales.",
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "Immediate Wins (Days 1–14): Claim missing B2B company directory listings on Crunchbase, Trustpilot, and BBB; complete full 10-service catalog with detailed descriptions on Google Business Profile."
+        },
+        {
+          "step_number": 2,
+          "action": "High Impact (Days 15–30): Deploy comprehensive ProfessionalService Schema.org JSON-LD structured data on leadvales.com and activate automated post-project review invitation workflow."
+        },
+        {
+          "step_number": 3,
+          "action": "Authority Building (Days 31–60): Maintain bi-weekly Google Business updates featuring client case study snippets and monitor citation synchronization across all primary B2B platforms."
+        }
+      ]
+    },
+    "cta": {
+      "heading": "Ready to Turn These Opportunities Into Consistent Inbound Growth for LeadVales?",
+      "body": "These are practical, achievable improvements that will meaningfully strengthen your search visibility and agency authority. Let's review the findings together, discuss the opportunities that matter most, and put together a clear path forward."
+    }
+  }
+}

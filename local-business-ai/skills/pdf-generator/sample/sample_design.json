@@ -1,0 +1,85 @@
+{
+  "_note": "DEMO DESIGN SPEC V2 — Paired with sample_content.json for PDF Generator V2 testing.",
+  "metadata": {
+    "design_version": "2.0",
+    "business_name": "Mesa Valley Plumbing",
+    "report_id": "demo-001"
+  },
+  "branding_config": {
+    "brand_name": "LocalRank AI",
+    "logo_url": null,
+    "primary_color": "#0B192C",
+    "secondary_color": "#D97706",
+    "booking_url": null,
+    "contact_info": null
+  },
+  "page_settings": {
+    "format": "Letter",
+    "orientation": "portrait",
+    "margins": {
+      "top": "16mm",
+      "bottom": "16mm",
+      "left": "16mm",
+      "right": "16mm"
+    }
+  },
+  "design_tokens": {
+    "colors": {
+      "primary": "#0B192C",
+      "secondary": "#D97706",
+      "surface": "#FFFFFF",
+      "surface_alt": "#F8FAFC",
+      "text_primary": "#0F172A",
+      "text_secondary": "#334155",
+      "text_muted": "#64748B",
+      "border": "#E2E8F0",
+      "divider": "#CBD5E1",
+      "priority_very_high": "#991B1B",
+      "priority_very_high_bg": "#FEF2F2",
+      "priority_high": "#B45309",
+      "priority_high_bg": "#FFFBEB",
+      "priority_moderate": "#1D4ED8",
+      "priority_moderate_bg": "#EFF6FF",
+      "priority_low": "#475569",
+      "priority_low_bg": "#F8FAFC",
+      "strength": "#047857",
+      "strength_bg": "#ECFDF5",
+      "opportunity": "#0369A1",
+      "opportunity_bg": "#F0F9FF"
+    },
+    "typography": {
+      "font_primary": "Inter",
+      "font_display": "Plus Jakarta Sans",
+      "scale": {
+        "display": "36px",
+        "h1": "24px",
+        "h2": "18px",
+        "h3": "14px",
+        "body": "11px",
+        "small": "9px",
+        "evidence": "8px"
+      },
+      "line_height": {
+        "heading": 1.2,
+        "body": 1.6
+      }
+    },
+    "spacing": {
+      "section_gap": "24px",
+      "card_padding": "16px",
+      "paragraph_gap": "8px",
+      "heading_gap": "12px"
+    },
+    "radius": "8px",
+    "shadow": "0 4px 6px -1px rgba(0, 0, 0, 0.05)"
+  },
+  "footer": {
+    "show_page_numbers": true,
+    "brand_name": "LocalRank AI",
+    "disclaimer": "This report is based on publicly available information gathered during the audit period."
+  },
+  "evidence_display": {
+    "show_evidence_refs": false,
+    "evidence_style": "none"
+  }
+}
