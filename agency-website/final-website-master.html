@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mark Bishop Media · Local Visibility Division</title>
+<title>Mark Bishop Media · Local Visibility Division (Master Responsive Prototype)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,8 +14,7 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
+html,body{
   width:100%;
   min-height:100%;
   background:#020205;
@@ -25,7 +24,125 @@ body{
 }
 
 /* ═══════════════════════════════════════════════════════════
-   STAGE 1: 3D PRELOADER SPLASH LAYER (0.0s - 2.4s)
+   DEVICE VIEWPORT SWITCHER CONTROLLER (TOP CENTER)
+   ═══════════════════════════════════════════════════════════ */
+.viewport-controller-bar{
+  position:fixed;
+  top:14px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:999999;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(6, 16, 32, 0.92);
+  border:1px solid rgba(0, 212, 255, 0.4);
+  box-shadow:0 10px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 212, 255, 0.25);
+  backdrop-filter:blur(16px);
+  padding:6px 12px;
+  border-radius:100px;
+}
+
+.view-toggle-btn{
+  background:transparent;
+  border:1px solid transparent;
+  color:rgba(255,255,255,0.7);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:0.04em;
+  padding:7px 18px;
+  border-radius:100px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  transition:all 0.3s ease;
+}
+.view-toggle-btn:hover{color:#fff;border-color:rgba(0, 212, 255, 0.35)}
+.view-toggle-btn.active{
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  color:#020205;
+  font-weight:800;
+  box-shadow:0 0 20px rgba(0, 212, 255, 0.6);
+}
+
+.controller-divider{
+  width:1px;
+  height:18px;
+  background:rgba(255,255,255,0.15);
+  margin:0 4px;
+}
+
+.btn-ctrl-replay{
+  background:rgba(0,212,255,0.08);
+  border:1px solid rgba(0,212,255,0.3);
+  color:#00d4ff;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.06em;
+  padding:6px 14px;
+  border-radius:100px;
+  cursor:pointer;
+  transition:all 0.2s ease;
+}
+.btn-ctrl-replay:hover{background:rgba(0,212,255,0.2);color:#fff}
+
+/* ═══════════════════════════════════════════════════════════
+   APP WRAPPER & MOBILE SIMULATOR FRAME
+   ═══════════════════════════════════════════════════════════ */
+#app-viewport-root{
+  width:100%;
+  min-height:100vh;
+  position:relative;
+  transition:all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Mobile Simulator Active Mode */
+body.mobile-frame-mode{
+  background:#010103;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:80px 0 40px;
+}
+
+body.mobile-frame-mode #app-viewport-root{
+  width:393px;
+  height:852px;
+  min-height:852px;
+  max-height:852px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  border:12px solid #1b2438;
+  border-radius:54px;
+  box-shadow:0 25px 80px rgba(0,0,0,0.9), 0 0 50px rgba(0, 212, 255, 0.35);
+  background:#020205;
+  position:relative;
+  scroll-behavior:smooth;
+}
+
+/* Dynamic Island Notch in Mobile Simulator */
+.mobile-dynamic-island{
+  display:none;
+  position:fixed;
+  top:92px;
+  left:50%;
+  transform:translateX(-50%);
+  width:116px;
+  height:30px;
+  background:#000;
+  border-radius:20px;
+  z-index:99999;
+  box-shadow:0 0 10px rgba(0,0,0,0.8);
+  pointer-events:none;
+}
+body.mobile-frame-mode .mobile-dynamic-island{display:block}
+
+/* ═══════════════════════════════════════════════════════════
+   STAGE 1: 3D PRELOADER SPLASH LAYER
    ═══════════════════════════════════════════════════════════ */
 #preloader-layer{
   position:fixed;
@@ -50,7 +167,7 @@ body{
 }
 
 .splash-brand-title{
-  font-size:clamp(28px, 5.5vw, 52px);
+  font-size:clamp(24px, 5.5vw, 52px);
   font-weight:800;
   letter-spacing:0.12em;
   line-height:1;
@@ -69,15 +186,15 @@ body{
 
 .splash-subline{
   font-family:'JetBrains Mono',monospace;
-  font-size:clamp(12px, 1.8vw, 15px);
+  font-size:clamp(11px, 1.8vw, 15px);
   font-weight:700;
-  letter-spacing:0.45em;
+  letter-spacing:0.35em;
   color:#00d4ff;
   text-transform:uppercase;
   margin-top:14px;
   background:rgba(0,212,255,0.08);
   border:1px solid rgba(0,212,255,0.35);
-  padding:6px 22px;
+  padding:6px 20px;
   border-radius:100px;
   box-shadow:0 0 25px rgba(0,212,255,0.25);
   opacity:0;
@@ -85,8 +202,8 @@ body{
 }
 
 .splash-progress-container{
-  margin-top:28px;
-  width:160px;
+  margin-top:26px;
+  width:150px;
   height:2px;
   background:rgba(255,255,255,0.06);
   border-radius:2px;
@@ -110,9 +227,7 @@ body{
   height:100%;
   z-index:1;
   pointer-events:all;
-  cursor:default;
 }
-
 .scene-vignette{
   position:fixed;
   inset:0;
@@ -139,18 +254,16 @@ body{
   opacity:0;
   transform:translateY(-20px);
 }
-.brand-logo{font-size:17px;font-weight:800;letter-spacing:0.1em;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand-logo{font-size:16px;font-weight:800;letter-spacing:0.1em;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}
 .brand-logo span{background:linear-gradient(135deg, #00d4ff, #b8ff57);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .brand-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;color:#00d4ff;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);padding:3px 8px;border-radius:6px}
 
-.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
-.nav-link{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,0.65);text-decoration:none;transition:color 0.2s}
-.nav-link:hover{color:#00d4ff}
-.nav-btn{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.4);color:#00d4ff;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;padding:8px 22px;border-radius:100px;cursor:pointer;backdrop-filter:blur(8px);transition:all 0.3s}
-.nav-btn:hover{background:#00d4ff;color:#020205;box-shadow:0 0 20px rgba(0,212,255,0.6)}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-link{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,0.65);text-decoration:none}
+.nav-btn{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.4);color:#00d4ff;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;padding:8px 20px;border-radius:100px;cursor:pointer;backdrop-filter:blur(8px)}
 
 /* ═══════════════════════════════════════════════════════════
-   STAGE 4: HERO VIEWPORT (PHASE 2 MASTER APPROVED)
+   STAGE 4: HERO VIEWPORT
    ═══════════════════════════════════════════════════════════ */
 .hero-wrapper{
   position:relative;
@@ -183,7 +296,7 @@ body{
   box-shadow:0 0 20px rgba(0, 212, 255, 0.2);
   padding:6px 18px;
   border-radius:100px;
-  margin-bottom:24px;
+  margin-bottom:22px;
   font-family:'JetBrains Mono',monospace;
   font-size:11px;
   font-weight:700;
@@ -194,11 +307,11 @@ body{
 
 /* Frosted Neon Glass Capsule Headline */
 .hero-headline{
-  font-size:clamp(32px, 4.0vw, 54px);
+  font-size:clamp(30px, 4.0vw, 54px);
   font-weight:800;
   line-height:1.22;
   letter-spacing:-0.03em;
-  margin-bottom:22px;
+  margin-bottom:20px;
   text-transform:uppercase;
 }
 .hero-headline .glass-capsule{
@@ -222,7 +335,7 @@ body{
   font-family:'JetBrains Mono',monospace;
   font-size:clamp(12px, 1.3vw, 14px);
   font-weight:700;
-  margin-bottom:38px;
+  margin-bottom:34px;
   display:flex;
   align-items:center;
   gap:10px;
@@ -235,7 +348,7 @@ body{
 .hero-cta-row{
   display:flex;
   align-items:center;
-  gap:18px;
+  gap:16px;
   flex-wrap:wrap;
 }
 
@@ -246,7 +359,7 @@ body{
   font-size:14px;
   font-weight:800;
   letter-spacing:0.06em;
-  padding:16px 38px;
+  padding:15px 34px;
   border-radius:100px;
   border:none;
   cursor:pointer;
@@ -259,22 +372,6 @@ body{
 }
 .btn-primary-glow:hover{transform:scale(1.05) translateY(-2px);box-shadow:0 0 50px rgba(184,255,87,0.75)}
 
-.btn-replay{
-  background:rgba(8, 24, 48, 0.7);
-  border:1px solid rgba(0, 212, 255, 0.4);
-  color:#fff;
-  font-family:'JetBrains Mono',monospace;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:0.08em;
-  padding:15px 24px;
-  border-radius:100px;
-  cursor:pointer;
-  backdrop-filter:blur(10px);
-  transition:all 0.3s ease;
-}
-.btn-replay:hover{background:rgba(0, 212, 255, 0.15);border-color:#00d4ff}
-
 /* ═══════════════════════════════════════════════════════════
    STAGE 5: CUBERTO-STYLE EDITORIAL MANIFESTO SECTION (WHAT WE DO)
    ═══════════════════════════════════════════════════════════ */
@@ -282,11 +379,10 @@ body{
   position:relative;
   z-index:20;
   width:100%;
-  padding:140px 6% 160px;
+  padding:120px 6% 140px;
   background:linear-gradient(180deg, rgba(2,2,5,0) 0%, rgba(3,10,22,0.95) 20%, rgba(3,10,22,0.98) 80%, rgba(2,2,5,1) 100%);
   border-top:1px solid rgba(0, 212, 255, 0.15);
   border-bottom:1px solid rgba(0, 212, 255, 0.15);
-  box-shadow:0 0 60px rgba(0, 0, 0, 0.8);
 }
 
 .manifesto-grid{
@@ -300,7 +396,7 @@ body{
 
 .manifesto-label-col{
   position:sticky;
-  top:120px;
+  top:100px;
 }
 
 .manifesto-tag{
@@ -322,14 +418,14 @@ body{
 .manifesto-content-col{
   display:flex;
   flex-direction:column;
-  gap:36px;
+  gap:34px;
 }
 
 .manifesto-big-text{
   font-family:'Inter',sans-serif;
-  font-size:clamp(24px, 3.2vw, 42px);
+  font-size:clamp(22px, 3.0vw, 40px);
   font-weight:500;
-  line-height:1.35;
+  line-height:1.38;
   letter-spacing:-0.02em;
   color:rgba(255,255,255,0.92);
 }
@@ -340,8 +436,8 @@ body{
 .manifesto-sub-row{
   display:grid;
   grid-template-columns:repeat(3, 1fr);
-  gap:30px;
-  padding-top:40px;
+  gap:26px;
+  padding-top:36px;
   border-top:1px solid rgba(255,255,255,0.08);
 }
 
@@ -354,150 +450,200 @@ body{
 }
 .manifesto-stat-card:nth-child(2){border-color:rgba(184, 255, 87, 0.25)}
 
-.m-stat-num{
-  font-size:28px;
-  font-weight:800;
-  letter-spacing:-0.02em;
-  margin-bottom:6px;
-}
+.m-stat-num{font-size:26px;font-weight:800;letter-spacing:-0.02em;margin-bottom:6px}
 .m-stat-num span.cyan{color:#00d4ff}
 .m-stat-num span.lime{color:#b8ff57}
+.m-stat-title{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#fff;letter-spacing:0.1em;margin-bottom:6px;text-transform:uppercase}
+.m-stat-desc{font-family:'Inter',sans-serif;font-size:12px;line-height:1.5;color:rgba(255,255,255,0.6)}
 
-.m-stat-title{
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;
-  font-weight:700;
-  color:#fff;
-  letter-spacing:0.1em;
-  margin-bottom:6px;
-  text-transform:uppercase;
-}
-
-.m-stat-desc{
-  font-family:'Inter',sans-serif;
-  font-size:12px;
-  line-height:1.5;
-  color:rgba(255,255,255,0.6);
-}
-
-@media(max-width:900px){
-  .manifesto-grid{grid-template-columns:1fr;gap:30px}
-  .manifesto-sub-row{grid-template-columns:1fr;gap:18px}
-  .hero-wrapper{padding-top:110px}
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE CSS RULES (FOR REAL MOBILE & SIMULATOR MODE)
+   ═══════════════════════════════════════════════════════════ */
+@media(max-width:900px), body.mobile-frame-mode {
+  .manifesto-grid{grid-template-columns:1fr;gap:26px}
+  .manifesto-sub-row{grid-template-columns:1fr;gap:16px}
+  .nav-links{display:none} /* Mobile Clean Header */
+  .brand-badge{display:none}
+  .site-nav{padding:18px 20px}
+  .hero-wrapper{padding:100px 20px 40px;text-align:center;align-items:center}
+  .hero-left-content{max-width:100%}
+  .hero-headline{font-size:26px;line-height:1.24}
+  .hero-ticker-line{justify-content:center;font-size:12px}
+  .hero-cta-row{justify-content:center}
+  .btn-primary-glow{width:100%;justify-content:center}
+  .editorial-manifesto-section{padding:80px 20px 100px}
+  .manifesto-label-col{position:static}
+  .manifesto-big-text{font-size:21px;line-height:1.45}
 }
 </style>
 </head>
 <body>
 
 <!-- ═══════════════════════════════════════════════════════════
-     STAGE 1: 3D PRELOADER SPLASH LAYER (0.0s - 2.4s)
+     VIEWPORT CONTROLLER BAR (DESKTOP / MOBILE SWITCHER)
      ═══════════════════════════════════════════════════════════ -->
-<div id="preloader-layer">
-  <div class="preloader-content">
-    <h1 class="splash-brand-title" id="splash-title">MARK BISHOP <span>MEDIA</span></h1>
-    <div class="splash-subline" id="splash-subline">LOCAL VISIBILITY DIVISION</div>
-    <div class="splash-progress-container" id="splash-progress">
-      <div class="splash-progress-line" id="splash-progress-line"></div>
-    </div>
-  </div>
+<div class="viewport-controller-bar">
+  <button class="view-toggle-btn active" id="btn-desktop-view" onclick="setDeviceView('desktop')">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+    <span>DESKTOP VIEW</span>
+  </button>
+
+  <button class="view-toggle-btn" id="btn-mobile-view" onclick="setDeviceView('mobile')">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
+    <span>MOBILE PREVIEW (iPhone)</span>
+  </button>
+
+  <div class="controller-divider"></div>
+
+  <button class="btn-ctrl-replay" onclick="triggerSeamlessIntro()">
+    <span>↻ REPLAY INTRO</span>
+  </button>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     STAGE 2: MASTER 3D CANVAS
-     ═══════════════════════════════════════════════════════════ -->
-<canvas id="master-3d-canvas"></canvas>
-<div class="scene-vignette"></div>
+<div class="mobile-dynamic-island"></div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     STAGE 3: LUXURY NAVIGATION
+     MAIN APP ROOT CONTAINER
      ═══════════════════════════════════════════════════════════ -->
-<nav class="site-nav" id="hero-nav">
-  <a href="#" class="brand-logo">MARK BISHOP <span>MEDIA</span> <span class="brand-badge">LOCAL VISIBILITY</span></a>
-  <ul class="nav-links">
-    <li><a href="#what-we-do" class="nav-link">What We Do</a></li>
-    <li><a href="#system" class="nav-link">3D System</a></li>
-    <li><a href="#proof" class="nav-link">Results</a></li>
-  </ul>
-  <button class="nav-btn">⚡ FREE AUDIT</button>
-</nav>
+<div id="app-viewport-root">
 
-<!-- ═══════════════════════════════════════════════════════════
-     STAGE 4: HERO VIEWPORT (ORIGINAL COMFORTABLE POSITION)
-     ═══════════════════════════════════════════════════════════ -->
-<main class="hero-wrapper">
-  <div class="hero-left-content" id="hero-left">
-    <div class="hero-pill-badge">
-      <span class="pulse-dot"></span>
-      <span>LOCAL VISIBILITY OPERATING SYSTEM</span>
-    </div>
-
-    <h1 class="hero-headline">
-      YOUR LOCAL CLIENTS<br>
-      <span class="glass-capsule">ARE SEARCHING</span><br>
-      WE MAKE SURE THEY<br>
-      FIND <span class="lime-accent">YOU FIRST.</span>
-    </h1>
-
-    <div class="hero-ticker-line">
-      <span class="ticker-label" id="ticker-label">DOMINANCE ENGINE:</span>
-      <div class="ticker-val-container">
-        <span class="ticker-val" id="ticker-val">9-Mile Local Geo-Grid Coverage</span>
-      </div>
-    </div>
-
-    <div class="hero-cta-row">
-      <a href="#what-we-do" class="btn-primary-glow">
-        <span>⚡ EXPLORE WHAT WE DO</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <button class="btn-replay" onclick="triggerSeamlessIntro()">
-        <span>↻ REPLAY INTRO FLOW</span>
-      </button>
-    </div>
-  </div>
-</main>
-
-<!-- ═══════════════════════════════════════════════════════════
-     STAGE 5: CUBERTO-STYLE EDITORIAL MANIFESTO SECTION (WHAT WE DO)
-     ═══════════════════════════════════════════════════════════ -->
-<section class="editorial-manifesto-section" id="what-we-do">
-  <div class="manifesto-grid">
-    <div class="manifesto-label-col">
-      <div class="manifesto-tag">WHAT WE DO</div>
-    </div>
-
-    <div class="manifesto-content-col">
-      <p class="manifesto-big-text">
-        We turn <span class="highlight-white">local search algorithms</span> into predictable <span class="highlight-lime">client acquisition engines</span>. Through synchronized citation networks, Google Maps authority protocols, and geo-grid reputation mechanics, we engineer <span class="highlight-cyan">market dominance</span> for ambitious local businesses.
-      </p>
-
-      <div class="manifesto-sub-row">
-        <div class="manifesto-stat-card">
-          <div class="m-stat-num"><span class="cyan">#1</span> RANK</div>
-          <div class="m-stat-title">GEO-GRID RADIUS</div>
-          <div class="m-stat-desc">Complete map domination across neighboring target zip codes.</div>
-        </div>
-
-        <div class="manifesto-stat-card">
-          <div class="m-stat-num"><span class="lime">150+</span> SECURED</div>
-          <div class="m-stat-title">CITATION DIRECTORIES</div>
-          <div class="m-stat-desc">Synchronized NAP consistency across all Tier-1 networks.</div>
-        </div>
-
-        <div class="manifesto-stat-card">
-          <div class="m-stat-num"><span class="cyan">+318%</span> GROWTH</div>
-          <div class="m-stat-title">INBOUND CALL VOLUME</div>
-          <div class="m-stat-desc">Predictable flow of high-intent buyers calling directly.</div>
-        </div>
+  <!-- 1. 3D PRELOADER SPLASH LAYER -->
+  <div id="preloader-layer">
+    <div class="preloader-content">
+      <h1 class="splash-brand-title" id="splash-title">MARK BISHOP <span>MEDIA</span></h1>
+      <div class="splash-subline" id="splash-subline">LOCAL VISIBILITY DIVISION</div>
+      <div class="splash-progress-container" id="splash-progress">
+        <div class="splash-progress-line" id="splash-progress-line"></div>
       </div>
     </div>
   </div>
-</section>
+
+  <!-- 2. MASTER 3D CANVAS -->
+  <canvas id="master-3d-canvas"></canvas>
+  <div class="scene-vignette"></div>
+
+  <!-- 3. NAVIGATION -->
+  <nav class="site-nav" id="hero-nav">
+    <a href="#" class="brand-logo">MARK BISHOP <span>MEDIA</span> <span class="brand-badge">LOCAL VISIBILITY</span></a>
+    <ul class="nav-links">
+      <li><a href="#what-we-do" class="nav-link">What We Do</a></li>
+      <li><a href="#system" class="nav-link">3D System</a></li>
+      <li><a href="#proof" class="nav-link">Results</a></li>
+    </ul>
+    <button class="nav-btn">⚡ FREE AUDIT</button>
+  </nav>
+
+  <!-- 4. HERO VIEWPORT -->
+  <main class="hero-wrapper">
+    <div class="hero-left-content" id="hero-left">
+      <div class="hero-pill-badge">
+        <span class="pulse-dot"></span>
+        <span>LOCAL VISIBILITY OPERATING SYSTEM</span>
+      </div>
+
+      <h1 class="hero-headline">
+        YOUR LOCAL CLIENTS<br>
+        <span class="glass-capsule">ARE SEARCHING</span><br>
+        WE MAKE SURE THEY<br>
+        FIND <span class="lime-accent">YOU FIRST.</span>
+      </h1>
+
+      <div class="hero-ticker-line">
+        <span class="ticker-label" id="ticker-label">DOMINANCE ENGINE:</span>
+        <div class="ticker-val-container">
+          <span class="ticker-val" id="ticker-val">9-Mile Local Geo-Grid Coverage</span>
+        </div>
+      </div>
+
+      <div class="hero-cta-row">
+        <a href="#what-we-do" class="btn-primary-glow">
+          <span>⚡ EXPLORE WHAT WE DO</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- 5. WHAT WE DO EDITORIAL MANIFESTO -->
+  <section class="editorial-manifesto-section" id="what-we-do">
+    <div class="manifesto-grid">
+      <div class="manifesto-label-col">
+        <div class="manifesto-tag">WHAT WE DO</div>
+      </div>
+
+      <div class="manifesto-content-col">
+        <p class="manifesto-big-text">
+          We turn <span class="highlight-white">local search algorithms</span> into predictable <span class="highlight-lime">client acquisition engines</span>. Through synchronized citation networks, Google Maps authority protocols, and geo-grid reputation mechanics, we engineer <span class="highlight-cyan">market dominance</span> for ambitious local businesses.
+        </p>
+
+        <div class="manifesto-sub-row">
+          <div class="manifesto-stat-card">
+            <div class="m-stat-num"><span class="cyan">#1</span> RANK</div>
+            <div class="m-stat-title">GEO-GRID RADIUS</div>
+            <div class="m-stat-desc">Complete map domination across neighboring target zip codes.</div>
+          </div>
+
+          <div class="manifesto-stat-card">
+            <div class="m-stat-num"><span class="lime">150+</span> SECURED</div>
+            <div class="m-stat-title">CITATION DIRECTORIES</div>
+            <div class="m-stat-desc">Synchronized NAP consistency across all Tier-1 networks.</div>
+          </div>
+
+          <div class="manifesto-stat-card">
+            <div class="m-stat-num"><span class="cyan">+318%</span> GROWTH</div>
+            <div class="m-stat-title">INBOUND CALL VOLUME</div>
+            <div class="m-stat-desc">Predictable flow of high-intent buyers calling directly.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
 
 <script>
-/* ═══════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════
+   DEVICE VIEWPORT SWITCHER LOGIC (DESKTOP / MOBILE SIMULATOR)
+   ═══════════════════════════════════════════════════════════════════ */
+let isMobileMode = false;
+
+function setDeviceView(mode) {
+  const root = document.getElementById('app-viewport-root');
+  const btnDesktop = document.getElementById('btn-desktop-view');
+  const btnMobile = document.getElementById('btn-mobile-view');
+
+  if (mode === 'mobile') {
+    isMobileMode = true;
+    document.body.classList.add('mobile-frame-mode');
+    btnMobile.classList.add('active');
+    btnDesktop.classList.remove('active');
+
+    // Adapt 3D Scene for Mobile iPhone Frame
+    onResizeViewport();
+    if (isInHeroMode) {
+      gsap.to(pinGroup.position, { x: 0, y: -0.6, z: -2.0, duration: 1.0, ease: "power3.out" });
+      gsap.to(pinGroup.scale, { x: 0.72, y: 0.72, z: 0.72, duration: 1.0, ease: "power3.out" });
+      gsap.to(lookAtTarget, { x: 0, y: 0.0, z: 0, duration: 1.0, ease: "power3.out" });
+    }
+  } else {
+    isMobileMode = false;
+    document.body.classList.remove('mobile-frame-mode');
+    btnDesktop.classList.add('active');
+    btnMobile.classList.remove('active');
+
+    // Adapt 3D Scene for Full Desktop
+    onResizeViewport();
+    if (isInHeroMode) {
+      gsap.to(pinGroup.position, { x: 8.8, y: 0.6, z: 0, duration: 1.0, ease: "power3.out" });
+      gsap.to(pinGroup.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 1.0, ease: "power3.out" });
+      gsap.to(lookAtTarget, { x: 2.2, y: 0.8, z: 0, duration: 1.0, ease: "power3.out" });
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
    DYNAMIC TICKER ENGINE
-   ═══════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════ */
 const tickerItems = [
   { label: "DOMINANCE ENGINE:", val: "9-Mile Local Geo-Grid Coverage" },
   { label: "DOMINANCE TARGET:", val: "#1 Google Maps 3-Pack Positioning" },
@@ -537,13 +683,12 @@ function cycleTicker() {
 
 setInterval(cycleTicker, 3200);
 
-/* ═══════════════════════════════════════════════════════════
-   THREE.JS & GSAP: MASTER UNIVERSE
-   ═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════
+   THREE.JS & GSAP: RESPONSIVE CONTINUOUS UNIVERSE
+   ═══════════════════════════════════════════════════════════════════ */
 
 const canvas = document.getElementById('master-3d-canvas');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 const scene = new THREE.Scene();
@@ -552,11 +697,17 @@ camera.position.set(0, 1.2, 22);
 
 const lookAtTarget = { x: 0, y: 1.2, z: 0 };
 
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
+function onResizeViewport() {
+  const root = document.getElementById('app-viewport-root');
+  const w = isMobileMode ? 393 : window.innerWidth;
+  const h = isMobileMode ? 852 : window.innerHeight;
+  camera.aspect = w / h;
   camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
+  renderer.setSize(w, h);
+}
+
+window.addEventListener('resize', onResizeViewport);
+onResizeViewport();
 
 // Lighting
 const ambLight = new THREE.AmbientLight(0x0a182e, 2.8);
@@ -609,18 +760,7 @@ function createUltraPurchaseBadge(icon, mainText, subText, colorHex, bgHex) {
   return tex;
 }
 
-function createCompetitorTexture() {
-  const c = document.createElement('canvas'); c.width = 96; c.height = 96;
-  const ctx = c.getContext('2d');
-  ctx.fillStyle = 'rgba(15, 30, 52, 0.7)'; ctx.strokeStyle = 'rgba(0, 212, 255, 0.6)'; ctx.lineWidth = 2.0; ctx.shadowColor = 'rgba(0, 212, 255, 0.4)'; ctx.shadowBlur = 8;
-  ctx.strokeRect(20, 32, 56, 54); ctx.fillRect(20, 32, 56, 54);
-  ctx.beginPath(); ctx.moveTo(14, 32); ctx.lineTo(48, 10); ctx.lineTo(82, 32); ctx.closePath(); ctx.fillStyle = 'rgba(20, 42, 75, 0.8)'; ctx.fill(); ctx.stroke();
-  ctx.fillStyle = 'rgba(0, 212, 255, 0.45)'; ctx.fillRect(30, 44, 12, 12); ctx.fillRect(54, 44, 12, 12);
-  return new THREE.CanvasTexture(c);
-}
-
 const customerTex = createCustomerTexture();
-const competitorTex = createCompetitorTexture();
 const hoverBannerTex = createFloatingHoverBannerTexture();
 
 const purchaseTextures = [
@@ -630,22 +770,7 @@ const purchaseTextures = [
   createUltraPurchaseBadge('⚡', '+$680 RETAINER', 'REPEAT APPOINTMENT', '#b8ff57', 'rgba(6, 26, 16, 0.96)')
 ];
 
-/* ─── 1. DISTANT BACKGROUND COMPETITOR SHOPS ─── */
-const competitorGroup = new THREE.Group();
-scene.add(competitorGroup);
-const compMat = new THREE.SpriteMaterial({ map: competitorTex, transparent: true, opacity: 0.45 });
-const shopPositions = [
-  { x: -36, y: 16, z: -10 }, { x: 38, y: 16, z: -10 },
-  { x: -34, y: -14, z: -10 }, { x: 36, y: -14, z: -10 }
-];
-shopPositions.forEach(pos => {
-  const sprite = new THREE.Sprite(compMat);
-  sprite.position.set(pos.x, pos.y, pos.z);
-  sprite.scale.set(2.2, 2.2, 1);
-  competitorGroup.add(sprite);
-});
-
-/* ─── 2. 850 STARDUST PARTICLES ─── */
+/* ─── 850 STARDUST PARTICLES ─── */
 const dustCount = 850;
 const dustGeo = new THREE.BufferGeometry();
 const dustPos = new Float32Array(dustCount * 3);
@@ -665,10 +790,9 @@ for (let i = 0; i < dustCount * 3; i += 3) {
 dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
 dustGeo.setAttribute('color', new THREE.BufferAttribute(dustCols, 3));
 const dustMat = new THREE.PointsMaterial({ size: 0.18, vertexColors: true, transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending });
-const ambientDust = new THREE.Points(dustGeo, dustMat);
-scene.add(ambientDust);
+scene.add(new THREE.Points(dustGeo, dustMat));
 
-/* ─── 3. DELICATE MICRO CUSTOMER AVATARS ─── */
+/* ─── DELICATE MICRO CUSTOMER AVATARS ─── */
 const customerGroup = new THREE.Group();
 scene.add(customerGroup);
 const customerMat = new THREE.SpriteMaterial({ map: customerTex, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending });
@@ -793,19 +917,13 @@ function spawnPurchaseBadge() {
   purchaseTexIdx++;
 
   const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0, depthTest: false }));
-  
   const initialX = (Math.random() - 0.5) * 1.6;
   sprite.position.set(initialX, 1.2, 1.9);
   sprite.scale.set(4.3, 1.36, 1);
   floatingBadgeGroup.add(sprite);
 
   activePurchaseBadges.push({
-    sprite: sprite,
-    progress: 0,
-    speed: 0.0035,
-    baseY: 1.2,
-    baseX: initialX,
-    driftAngle: Math.random() * Math.PI * 2
+    sprite: sprite, progress: 0, speed: 0.0035, baseY: 1.2, baseX: initialX, driftAngle: Math.random() * Math.PI * 2
   });
 }
 
@@ -876,8 +994,9 @@ function triggerSeamlessIntro() {
 
   masterTL = gsap.timeline();
 
-  // 1. Splash Sequence (0.0s - 2.4s)
-  masterTL.to(pinGroup.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 1.1, ease: "elastic.out(1.2, 0.6)" }, 0.1);
+  // Splash Sequence (0.0s - 2.4s)
+  const pinTargetScale = isMobileMode ? 0.72 : 1.0;
+  masterTL.to(pinGroup.scale, { x: pinTargetScale, y: pinTargetScale, z: pinTargetScale, duration: 1.1, ease: "elastic.out(1.2, 0.6)" }, 0.1);
   starMeshes.forEach((s, idx) => {
     masterTL.to(s.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.6, ease: "back.out(2)" }, 0.3 + idx * 0.1);
   });
@@ -886,21 +1005,26 @@ function triggerSeamlessIntro() {
   masterTL.to('#splash-progress', { opacity: 1, duration: 0.3 }, 0.6);
   masterTL.to('#splash-progress-line', { width: '100%', duration: 1.5, ease: "power2.inOut" }, 0.7);
 
-  // ══════ THE 100% UNBROKEN SEAMLESS TRANSITION (2.4s) ══════
+  // UNBROKEN SEAMLESS TRANSITION
   masterTL.to('#preloader-layer', { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 2.4);
 
-  // NATURAL BALANCED DOCK POSITION
+  const heroDockX = isMobileMode ? 0 : 8.8;
+  const heroDockY = isMobileMode ? -0.6 : 0.6;
+  const heroDockZ = isMobileMode ? -2.0 : 0;
+  const heroLookAtX = isMobileMode ? 0 : 2.2;
+  const heroLookAtY = isMobileMode ? 0 : 0.8;
+
   masterTL.to(pinGroup.position, {
-    x: 8.8,
-    y: 0.6,
-    z: 0,
+    x: heroDockX,
+    y: heroDockY,
+    z: heroDockZ,
     duration: 1.5,
     ease: "power3.inOut"
   }, 2.4);
 
   masterTL.to(lookAtTarget, {
-    x: 2.2,
-    y: 0.8,
+    x: heroLookAtX,
+    y: heroLookAtY,
     z: 0,
     duration: 1.5,
     ease: "power3.inOut",
@@ -910,7 +1034,6 @@ function triggerSeamlessIntro() {
     }
   }, 2.4);
 
-  // Hero Nav & Content Deblurs
   masterTL.to('#hero-nav', { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 2.6);
   masterTL.to('#hero-left', { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.8, ease: "power3.out" }, 2.7);
 }
@@ -940,28 +1063,23 @@ function animate() {
     gsap.to(hoverBannerSprite.position, { y: 2.5, duration: 0.45, ease: "back.out(2)" });
     gsap.to(hoverBannerSprite.scale, { x: 4.8, y: 1.2, duration: 0.45, ease: "back.out(2)" });
     gsap.to(hoverBannerSprite.material, { opacity: 1.0, duration: 0.3 });
-    gsap.to(headMat, { opacity: 0.55, duration: 0.3 });
   } else if (intersects.length === 0 && isHoveringCircle) {
     isHoveringCircle = false;
     gsap.to(hoverBannerSprite.scale, { x: 0.001, y: 0.001, duration: 0.35, ease: "power2.in" });
     gsap.to(hoverBannerSprite.material, { opacity: 0.0, duration: 0.3 });
-    gsap.to(headMat, { opacity: 0.35, duration: 0.4 });
   }
 
-  // Camera Parallax
-  const targetCamX = isInHeroMode ? mouseVec.x * 1.5 : mouseVec.x * 3.0;
-  const targetCamY = isInHeroMode ? mouseVec.y * 1.0 + 0.8 : mouseVec.y * 2.0 + 1.2;
+  // Parallax
+  const targetCamX = isInHeroMode ? (isMobileMode ? 0 : mouseVec.x * 1.5) : mouseVec.x * 3.0;
+  const targetCamY = isInHeroMode ? (isMobileMode ? 0.8 : mouseVec.y * 1.0 + 0.8) : mouseVec.y * 2.0 + 1.2;
   camera.position.x += (targetCamX - camera.position.x) * 0.04;
   camera.position.y += (targetCamY - camera.position.y) * 0.04;
   
   camera.lookAt(lookAtTarget.x, lookAtTarget.y, lookAtTarget.z);
 
-  // Stable upright rotation
-  pinGroup.rotation.x = 0;
-  pinGroup.rotation.z = 0;
   pinGroup.rotation.y = time * 0.35;
 
-  // Expanding Service Purchase Wave
+  // Expanding Wave
   if (isHeroPurchasesEnabled) {
     rippleProgress += 0.012;
     if (rippleProgress >= 1.0) rippleProgress = 0;
@@ -972,52 +1090,34 @@ function animate() {
     purchaseRipple.material.opacity = 0;
   }
 
-  // High-Altitude Long-Float Purchase Badges
+  // Float Badges
   for (let i = activePurchaseBadges.length - 1; i >= 0; i--) {
     const b = activePurchaseBadges[i];
     b.progress += b.speed;
-    
     b.sprite.position.y = b.baseY + b.progress * 8.5;
     b.sprite.position.x = b.baseX + Math.sin(time * 1.5 + b.driftAngle) * 0.35;
-    
-    let alpha = 1.0;
-    if (b.progress < 0.1) {
-      alpha = b.progress / 0.1;
-    } else if (b.progress > 0.85) {
-      alpha = (1.0 - b.progress) / 0.15;
-    } else {
-      alpha = 1.0;
-    }
-
+    let alpha = b.progress < 0.1 ? (b.progress / 0.1) : (b.progress > 0.85 ? (1.0 - b.progress) / 0.15 : 1.0);
     b.sprite.material.opacity = Math.max(0, alpha);
-    b.sprite.scale.set(4.3 * (1 + b.progress * 0.1), 1.36 * (1 + b.progress * 0.1), 1);
-
     if (b.progress >= 1.0) {
       floatingBadgeGroup.remove(b.sprite);
       activePurchaseBadges.splice(i, 1);
     }
   }
 
-  // Continuous Customer Flocking
-  const pinCurrentX = pinGroup.position.x;
-  const targetY = pinGroup.position.y + 1.2;
-
+  // Customer Flocking
   customerAvatars.forEach(c => {
     c.progress += c.speed;
     if (c.progress >= 1.0) c.progress = 0;
-    
     const curDist = (1.0 - c.progress) * 18.0 + 1.2;
     const curAngle = c.angle + c.progress * 1.2;
-    
-    c.sprite.position.x = pinCurrentX + Math.cos(curAngle) * curDist;
-    c.sprite.position.y = (1.0 - c.progress) * c.startY + c.progress * targetY + Math.sin(time * 1.2 + c.floatOffset) * 0.25;
+    c.sprite.position.x = pinGroup.position.x + Math.cos(curAngle) * curDist;
+    c.sprite.position.y = (1.0 - c.progress) * c.startY + c.progress * (pinGroup.position.y + 1.2) + Math.sin(time * 1.2 + c.floatOffset) * 0.25;
     c.sprite.position.z = Math.sin(curAngle) * curDist * 0.35 - 2.0;
-    
     const alpha = c.progress < 0.15 ? (c.progress / 0.15) : (c.progress > 0.85 ? (1.0 - c.progress) / 0.15 : 1.0);
     c.sprite.material.opacity = alpha * 0.85;
   });
 
-  // 5 Stars Orbiting + Comet Trails
+  // 5 Stars
   const orbitR = 5.4;
   starMeshes.forEach((star, idx) => {
     const angle = time * 1.0 + (idx * (Math.PI * 2 / 5));
@@ -1030,7 +1130,6 @@ function animate() {
     const trail = starTrails[idx];
     trail.history.unshift({ x: sx, y: sy, z: sz });
     if (trail.history.length > TRAIL_LENGTH) trail.history.pop();
-
     const posArray = trail.points.geometry.attributes.position.array;
     for (let j = 0; j < TRAIL_LENGTH; j++) {
       if (j < trail.history.length) {
@@ -1044,7 +1143,6 @@ function animate() {
 
   halo1.rotation.z = time * 0.15;
   halo2.rotation.y = -time * 0.2;
-  ambientDust.rotation.y = time * 0.025;
 
   renderer.render(scene, camera);
 }

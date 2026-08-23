@@ -1,3 +1,8 @@
-﻿node_modules/
-.DS_Store
+﻿# Exclude all experiment archives and temporary drafts
+agency-website/experiments-archive/
+**/experiments-archive/
+**/scratch/
 *.tmp
+*.log
+node_modules/
+.DS_Store
