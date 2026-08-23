@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Mark Bishop Media · Ultra Visual Mockup Studio (Figma + Excalidraw Hybrid)</title>
+<title>Mark Bishop Media · Ultra Visual Mockup Studio (Canva Lock + Zen Fullscreen)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@ body{
 }
 
 /* ═══════════════════════════════════════════════════════════
-   1. TOP STUDIO HEADER
+   1. TOP STUDIO HEADER (HIDEABLE IN ZEN MODE)
    ═══════════════════════════════════════════════════════════ */
 .studio-header{
   min-height:58px;
@@ -39,6 +39,13 @@ body{
   z-index:10000;
   box-shadow:0 4px 20px rgba(0,0,0,0.8);
   gap:12px;
+  transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+body.zen-mode .studio-header{
+  transform:translateY(-100%);
+  margin-top:-58px;
+  opacity:0;
+  pointer-events:none;
 }
 
 .brand-badge-box{
@@ -106,6 +113,22 @@ body{
   align-items:center;
   gap:8px;
 }
+.btn-fullscreen-zen{
+  background:#182236;
+  border:1px solid rgba(0, 212, 255, 0.4);
+  color:#00d4ff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:700;
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.btn-fullscreen-zen:hover{background:rgba(0,212,255,0.25)}
+
 .btn-png-download{
   background:linear-gradient(135deg, #ff9500, #ff2d55);
   color:#fff;
@@ -158,7 +181,7 @@ body{
 .btn-toggle-sidebar:hover{background:rgba(0, 212, 255, 0.2)}
 
 /* ═══════════════════════════════════════════════════════════
-   2. PRESET QUICK BAR
+   2. PRESET QUICK BAR (HIDEABLE IN ZEN MODE)
    ═══════════════════════════════════════════════════════════ */
 .preset-bar{
   background:#080c14;
@@ -169,6 +192,13 @@ body{
   gap:8px;
   font-size:11px;
   overflow-x:auto;
+  transition:all 0.3s ease;
+}
+body.zen-mode .preset-bar{
+  transform:translateY(-100%);
+  margin-top:-35px;
+  opacity:0;
+  pointer-events:none;
 }
 .preset-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em;white-space:nowrap}
 .btn-preset{
@@ -185,6 +215,27 @@ body{
   transition:all 0.2s;
 }
 .btn-preset:hover{background:rgba(0, 212, 255, 0.15);border-color:#00d4ff;color:#00d4ff}
+
+/* FLOATING ZEN EXIT PILL */
+.zen-exit-banner{
+  display:none;
+  position:fixed;
+  top:12px;
+  right:16px;
+  z-index:99999;
+  background:rgba(12, 17, 28, 0.92);
+  border:1px solid #00d4ff;
+  color:#00d4ff;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  font-weight:800;
+  padding:6px 14px;
+  border-radius:100px;
+  box-shadow:0 0 20px rgba(0, 212, 255, 0.4);
+  cursor:pointer;
+  backdrop-filter:blur(10px);
+}
+body.zen-mode .zen-exit-banner{display:flex;align-items:center;gap:6px}
 
 /* ═══════════════════════════════════════════════════════════
    3. DRAGGABLE FLOATING EXCALIDRAW TOOLBAR
@@ -218,6 +269,7 @@ body{
   align-items:center;
   user-select:none;
   border-radius:6px;
+  touch-action:none;
   transition:background 0.2s, color 0.2s;
 }
 .toolbar-drag-grip:hover{background:rgba(0, 212, 255, 0.15);color:#00d4ff}
@@ -279,7 +331,27 @@ body{
 }
 .btn-history:hover{background:rgba(0, 212, 255, 0.2);color:#00d4ff;border-color:#00d4ff}
 .btn-history:active{transform:scale(0.92)}
-.btn-history:disabled{opacity:0.3;cursor:not-allowed}
+
+/* CANVA LOCK TOGGLE ON TOOLBAR */
+.btn-lock-toggle{
+  width:34px;
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.8);
+  border-radius:8px;
+  cursor:pointer;
+  transition:all 0.15s;
+}
+.btn-lock-toggle.is-locked{
+  background:rgba(255, 59, 48, 0.2);
+  border-color:#ff3b30;
+  color:#ff3b30;
+  box-shadow:0 0 12px rgba(255, 59, 48, 0.4);
+}
 
 /* COLOR PALETTE */
 .floating-palette{
@@ -375,6 +447,29 @@ body{
   border-color:#b8ff57 !important;
   background:rgba(184, 255, 87, 0.1) !important;
   box-shadow:0 0 25px rgba(184, 255, 87, 0.35);
+}
+
+/* CANVA LOCK STATE */
+.studio-element.element-locked{
+  cursor:not-allowed !important;
+  border-color:rgba(255, 59, 48, 0.35) !important;
+}
+.studio-element.element-locked .element-tag{
+  background:#ff3b30 !important;
+  color:#fff !important;
+}
+.studio-element.element-locked::after{
+  content:'🔒 LOCKED';
+  position:absolute;
+  bottom:-18px;
+  right:0;
+  background:rgba(255,59,48,0.9);
+  color:#fff;
+  font-family:'JetBrains Mono',monospace;
+  font-size:8.5px;
+  font-weight:800;
+  padding:2px 6px;
+  border-radius:4px;
 }
 
 .element-tag{
@@ -538,30 +633,41 @@ body{
 }
 
 /* ═══════════════════════════════════════════════════════════
-   FIGMA STICKY ANNOTATION NOTES
+   FIGMA TOUCH-ENABLED STICKY ANNOTATION NOTES
    ═══════════════════════════════════════════════════════════ */
 .sticky-note{
   position:absolute;
-  width:160px;
-  min-height:90px;
+  width:170px;
+  min-height:95px;
   background:#ffe066;
   color:#1a1500;
-  border-radius:8px;
-  padding:10px;
+  border-radius:10px;
+  padding:12px;
   font-family:'Inter',sans-serif;
   font-size:12px;
   font-weight:600;
   line-height:1.4;
-  box-shadow:0 10px 25px rgba(0,0,0,0.5);
+  box-shadow:0 12px 30px rgba(0,0,0,0.6);
   z-index:600;
   cursor:move;
-  transform:rotate(-2deg);
+  touch-action:none;
   border:1px solid #ffd43b;
 }
+.sticky-note-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:6px;
+  cursor:grab;
+  touch-action:none;
+}
+.sticky-note-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;
+  color:rgba(0,0,0,0.5);
+  font-weight:800;
+}
 .sticky-note .note-delete-btn{
-  position:absolute;
-  top:-8px;
-  right:-8px;
   width:20px;
   height:20px;
   background:#ff3b30;
@@ -581,6 +687,10 @@ body{
 .sidebar-wrapper{
   position:relative;
   display:flex;
+  transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+body.zen-mode .sidebar-wrapper{
+  display:none;
 }
 
 .studio-sidebar{
@@ -751,8 +861,13 @@ body{
 </head>
 <body>
 
+<!-- FLOATING ZEN EXIT BUTTON -->
+<div class="zen-exit-banner" onclick="toggleZenFullscreen()">
+  <span>⛶ ESC TO EXIT FULLSCREEN</span>
+</div>
+
 <!-- 1. TOP STUDIO HEADER -->
-<header class="studio-header">
+<header class="studio-header" id="studio-top-nav">
   <div class="brand-badge-box">
     <div class="brand-title">MARK BISHOP <span>MEDIA</span></div>
     <div class="status-pill">FIGMA + EXCALIDRAW STUDIO</div>
@@ -773,6 +888,9 @@ body{
 
   <!-- EXPORT & SIDEBAR TOGGLE -->
   <div class="header-action-group">
+    <button class="btn-fullscreen-zen" title="Press Esc for Fullscreen Space" onclick="toggleZenFullscreen()">
+      <span>⛶ FULLSCREEN (Esc)</span>
+    </button>
     <button class="btn-png-download" onclick="captureAndDownloadScreenshot()">
       <span>📸 DOWNLOAD PNG</span>
     </button>
@@ -786,7 +904,7 @@ body{
 </header>
 
 <!-- 2. PRESETS BAR -->
-<div class="preset-bar">
+<div class="preset-bar" id="studio-preset-bar">
   <span class="preset-label">⚡ 1-Click Layout Presets:</span>
   <button class="btn-preset" onclick="applyLayoutPreset('golden')">1. Golden Ratio (Classic)</button>
   <button class="btn-preset" onclick="applyLayoutPreset('spotlight')">2. 3D Spotlight (Center Top)</button>
@@ -822,52 +940,51 @@ body{
       <span class="shortcut-num">1</span>
     </button>
 
-    <!-- 2. Rectangle Box -->
+    <!-- 2. Canva-Style Lock/Unlock Toggle -->
+    <button class="btn-lock-toggle" id="btn-lock-selected" title="Lock Selected Element (Prevent accidental move)" onclick="toggleLockSelectedElement()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </button>
+
+    <!-- 3. Rectangle Box -->
     <button class="tool-item" id="tool-rect" title="Rectangle Box (Key: 2)" onclick="setActiveWhiteboardTool('rect')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
       <span class="shortcut-num">2</span>
     </button>
 
-    <!-- 3. Circle / Ellipse -->
+    <!-- 4. Circle / Ellipse -->
     <button class="tool-item" id="tool-circle" title="Circle Highlight (Key: 3)" onclick="setActiveWhiteboardTool('circle')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/></svg>
       <span class="shortcut-num">3</span>
     </button>
 
-    <!-- 4. Arrow Tool -->
+    <!-- 5. Arrow Tool -->
     <button class="tool-item" id="tool-arrow" title="Draw Arrow ➔ (Key: 4)" onclick="setActiveWhiteboardTool('arrow')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       <span class="shortcut-num">4</span>
     </button>
 
-    <!-- 5. Straight Line -->
+    <!-- 6. Straight Line -->
     <button class="tool-item" id="tool-line" title="Draw Line (Key: 5)" onclick="setActiveWhiteboardTool('line')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="4" y1="20" x2="20" y2="4"/></svg>
       <span class="shortcut-num">5</span>
     </button>
 
-    <!-- 6. Freehand Pen -->
+    <!-- 7. Freehand Pen -->
     <button class="tool-item" id="tool-pen" title="Freehand Pen (Key: 6)" onclick="setActiveWhiteboardTool('pen')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
       <span class="shortcut-num">6</span>
     </button>
 
-    <!-- 7. Text Note -->
-    <button class="tool-item" id="tool-text" title="Direct Text Edit (Key: 7)" onclick="setActiveWhiteboardTool('text')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+    <!-- 8. Figma Sticky Note -->
+    <button class="tool-item" id="tool-sticky" title="Add Sticky Note (Key: 7)" onclick="spawnStickyNote()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       <span class="shortcut-num">7</span>
     </button>
 
-    <!-- 8. Figma Sticky Note -->
-    <button class="tool-item" id="tool-sticky" title="Add Sticky Note (Key: 8)" onclick="spawnStickyNote()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      <span class="shortcut-num">8</span>
-    </button>
-
     <!-- 9. Eraser Tool -->
-    <button class="tool-item" id="tool-eraser" title="Eraser (Key: 9)" onclick="setActiveWhiteboardTool('eraser')">
+    <button class="tool-item" id="tool-eraser" title="Eraser (Key: 8)" onclick="setActiveWhiteboardTool('eraser')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 20H7L3 16C2 15 2 13 3 12L13 2C14 1 16 1 17 2L22 7C23 8 23 10 22 11L14 19"/></svg>
-      <span class="shortcut-num">9</span>
+      <span class="shortcut-num">8</span>
     </button>
 
     <div class="toolbar-separator"></div>
@@ -894,28 +1011,28 @@ body{
       <div class="studio-element" id="elem-nav" data-name="Navbar Header">
         <span class="element-tag">NAVBAR</span>
         <div class="brand-txt">
-          <div contenteditable="false">MARK BISHOP <span>MEDIA</span></div>
-          <div class="brand-sub-badge" contenteditable="false">LOCAL VISIBILITY</div>
+          <div contenteditable="false" ondblclick="makeDirectEditable(this)">MARK BISHOP <span>MEDIA</span></div>
+          <div class="brand-sub-badge" contenteditable="false" ondblclick="makeDirectEditable(this)">LOCAL VISIBILITY</div>
         </div>
         <ul class="nav-menu-list" id="nav-menu-container">
           <li class="nav-menu-item">What We Do</li>
           <li class="nav-menu-item">3D System</li>
           <li class="nav-menu-item">Results</li>
         </ul>
-        <button class="nav-btn-audit" contenteditable="false">⚡ FREE AUDIT</button>
+        <button class="nav-btn-audit" contenteditable="false" ondblclick="makeDirectEditable(this)">⚡ FREE AUDIT</button>
       </div>
 
       <!-- 2. PILL BADGE -->
       <div class="studio-element" id="elem-badge" data-name="Pill Badge">
         <span class="element-tag">PILL BADGE</span>
         <span class="pulse-dot"></span>
-        <span class="editable-content" contenteditable="false">LOCAL VISIBILITY OPERATING SYSTEM</span>
+        <span class="editable-content" contenteditable="false" ondblclick="makeDirectEditable(this)">LOCAL VISIBILITY OPERATING SYSTEM</span>
       </div>
 
       <!-- 3. MAIN HEADLINE -->
       <div class="studio-element" id="elem-headline" data-name="Main Headline">
         <span class="element-tag">MAIN HEADLINE</span>
-        <div class="editable-content" contenteditable="false">
+        <div class="editable-content" contenteditable="false" ondblclick="makeDirectEditable(this)">
           YOUR LOCAL CLIENTS<br>
           <span class="capsule-box">ARE SEARCHING</span><br>
           WE MAKE SURE THEY<br>
@@ -927,13 +1044,13 @@ body{
       <div class="studio-element" id="elem-ticker" data-name="Dynamic Ticker">
         <span class="element-tag">DYNAMIC TICKER</span>
         <span class="ticker-lbl" contenteditable="false">DOMINANCE TARGET:</span>
-        <span class="ticker-val-glow" contenteditable="false">#1 Google Maps 3-Pack Positioning</span>
+        <span class="ticker-val-glow" contenteditable="false" ondblclick="makeDirectEditable(this)">#1 Google Maps 3-Pack Positioning</span>
       </div>
 
       <!-- 5. CTA BUTTON -->
       <div class="studio-element" id="elem-cta" data-name="CTA Button">
         <span class="element-tag">CTA BUTTON</span>
-        <div class="cta-button-visual" contenteditable="false">
+        <div class="cta-button-visual" contenteditable="false" ondblclick="makeDirectEditable(this)">
           <span>⚡ EXPLORE WHAT WE DO</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </div>
@@ -965,6 +1082,11 @@ body{
         <div class="control-label"><span>LEFT:</span> <span class="control-val" id="disp-pos-left">--</span></div>
       </div>
 
+      <!-- CANVA LOCK STATUS -->
+      <button class="btn-preset" id="sidebar-lock-btn" style="width:100%;padding:8px;justify-content:center" onclick="toggleLockSelectedElement()">
+        <span>🔒 Lock This Element</span>
+      </button>
+
       <div class="panel-header-title">FIGMA AUTO-ALIGN</div>
       <div class="figma-align-grid">
         <button class="btn-align" onclick="alignSelectedElement('left')">⬅️ Left</button>
@@ -990,12 +1112,12 @@ body{
         <span>🧹 ERASE ALL DRAWINGS</span>
       </button>
 
-      <div class="panel-header-title">FIGMA & EXCALIDRAW TIPS</div>
+      <div class="panel-header-title">SHORTCUT TIPS</div>
       <p style="font-size:11.5px;line-height:1.6;color:rgba(255,255,255,0.6)">
-        <b>⋮⋮ Grip:</b> টুলবার ধরে যেকোনো জায়গায় নিয়ে যান।<br>
-        <b>Ctrl+Z / Ctrl+Y:</b> Undo এবং Redo করুন।<br>
-        <b>Key 8:</b> Figma-এর মতো স্টিকি নোট যুক্ত করুন।<br>
-        <b>Key 4:</b> সরাসরি তীর ➔ এঁকে নোট দিন।
+        <b>Esc:</b> Fullscreen Zen Mode (বিশাল স্ক্রিন স্পেস)<br>
+        <b>Double Click:</b> যেকোনো লেখার ওপর ডাবল ক্লিক করে লিখুন<br>
+        <b>Ctrl+Z / Ctrl+Y:</b> Undo ও Redo<br>
+        <b>🔒 Lock:</b> বক্স লক করে দিন যেন হাত লাগলে না নড়ে
       </p>
     </aside>
   </div>
@@ -1017,7 +1139,29 @@ body{
 
 <script>
 /* ═══════════════════════════════════════════════════════════════════
-   1. DEVICE ARTBOARD SWITCHER
+   1. ZEN FULLSCREEN MODE ENGINE (ESC KEY)
+   ═══════════════════════════════════════════════════════════════════ */
+let isZenFullscreen = false;
+
+function toggleZenFullscreen() {
+  isZenFullscreen = !isZenFullscreen;
+  if (isZenFullscreen) {
+    document.body.classList.add('zen-mode');
+  } else {
+    document.body.classList.remove('zen-mode');
+  }
+  setTimeout(resizeDrawingCanvas, 320);
+}
+
+// ESC Key Toggle
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    toggleZenFullscreen();
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════════════
+   2. DEVICE ARTBOARD SWITCHER
    ═══════════════════════════════════════════════════════════════════ */
 let currentDeviceType = 'desktop';
 const artboardBox = document.getElementById('artboard-canvas-wrapper');
@@ -1061,7 +1205,7 @@ function setElementCoordinates(id, top, left, width, height) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   2. DRAGGABLE FLOATING TOOLBAR ENGINE
+   3. DRAGGABLE FLOATING TOOLBAR ENGINE
    ═══════════════════════════════════════════════════════════════════ */
 const dragToolbar = document.getElementById('draggable-toolbar');
 const gripHandle = document.getElementById('toolbar-grip');
@@ -1076,7 +1220,7 @@ gripHandle.addEventListener('pointerdown', (e) => {
   tbInitialLeft = dragToolbar.offsetLeft;
   tbInitialTop = dragToolbar.offsetTop;
   
-  dragToolbar.style.transform = 'none'; // remove center translate
+  dragToolbar.style.transform = 'none';
   dragToolbar.style.left = `${tbInitialLeft}px`;
   dragToolbar.style.top = `${tbInitialTop}px`;
 
@@ -1104,7 +1248,55 @@ window.addEventListener('pointerup', (e) => {
 });
 
 /* ═══════════════════════════════════════════════════════════════════
-   3. UNDO / REDO HISTORY ENGINE (FOR SHAPES & ELEMENTS)
+   4. CANVA-STYLE ELEMENT LOCKING SYSTEM
+   ═══════════════════════════════════════════════════════════════════ */
+const lockedElementsSet = new Set();
+
+function toggleLockSelectedElement() {
+  if (!activeSelectedElem) return;
+  const id = activeSelectedElem.id;
+  const lockBtn = document.getElementById('btn-lock-selected');
+  const sidebarLockBtn = document.getElementById('sidebar-lock-btn');
+
+  if (lockedElementsSet.has(id)) {
+    lockedElementsSet.delete(id);
+    activeSelectedElem.classList.remove('element-locked');
+    lockBtn.classList.remove('is-locked');
+    sidebarLockBtn.innerHTML = '<span>🔒 Lock This Element</span>';
+  } else {
+    lockedElementsSet.add(id);
+    activeSelectedElem.classList.add('element-locked');
+    lockBtn.classList.add('is-locked');
+    sidebarLockBtn.innerHTML = '<span>🔓 Unlock Element</span>';
+  }
+}
+
+function syncLockStatusForElement(el) {
+  const lockBtn = document.getElementById('btn-lock-selected');
+  const sidebarLockBtn = document.getElementById('sidebar-lock-btn');
+  if (lockedElementsSet.has(el.id)) {
+    lockBtn.classList.add('is-locked');
+    sidebarLockBtn.innerHTML = '<span>🔓 Unlock Element</span>';
+  } else {
+    lockBtn.classList.remove('is-locked');
+    sidebarLockBtn.innerHTML = '<span>🔒 Lock This Element</span>';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   5. DIRECT TEXT EDITING (ON DOUBLE CLICK / TAP)
+   ═══════════════════════════════════════════════════════════════════ */
+function makeDirectEditable(el) {
+  el.setAttribute('contenteditable', 'true');
+  el.focus();
+  el.addEventListener('blur', () => {
+    el.setAttribute('contenteditable', 'false');
+    saveLayoutToLocalStorage();
+  }, { once: true });
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   6. UNDO / REDO HISTORY ENGINE
    ═══════════════════════════════════════════════════════════════════ */
 let undoHistory = [];
 let redoHistory = [];
@@ -1115,8 +1307,8 @@ function recordHistoryState() {
     elements: captureAllElementPositions()
   };
   undoHistory.push(snapshot);
-  if (undoHistory.length > 30) undoHistory.shift(); // keep last 30
-  redoHistory = []; // clear redo on new action
+  if (undoHistory.length > 30) undoHistory.shift();
+  redoHistory = [];
 }
 
 function captureAllElementPositions() {
@@ -1176,7 +1368,7 @@ function restoreElementPositions(elemState) {
   }
 }
 
-// KEYBOARD SHORTCUTS: Ctrl+Z (Undo) and Ctrl+Y (Redo)
+// KEYBOARD SHORTCUTS: Ctrl+Z & Ctrl+Y
 window.addEventListener('keydown', (e) => {
   if (e.target.isContentEditable) return;
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
@@ -1190,7 +1382,7 @@ window.addEventListener('keydown', (e) => {
 });
 
 /* ═══════════════════════════════════════════════════════════════════
-   4. COLLAPSIBLE SIDEBAR ENGINE
+   7. COLLAPSIBLE SIDEBAR
    ═══════════════════════════════════════════════════════════════════ */
 let isSidebarOpen = true;
 const sidebarPanel = document.getElementById('studio-sidebar-panel');
@@ -1212,7 +1404,7 @@ function toggleSidebar() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   5. EXCALIDRAW DRAWING ENGINE
+   8. EXCALIDRAW DRAWING ENGINE
    ═══════════════════════════════════════════════════════════════════ */
 let activeTool = 'select';
 let activeColor = '#00d4ff';
@@ -1237,17 +1429,10 @@ function setActiveWhiteboardTool(tool) {
   const btn = document.getElementById(`tool-${tool}`);
   if (btn) btn.classList.add('active');
 
-  const editables = document.querySelectorAll('[contenteditable]');
-
   if (tool === 'select') {
     drawingCanvas.classList.remove('interactive');
-    editables.forEach(e => e.setAttribute('contenteditable', 'false'));
-  } else if (tool === 'text') {
-    drawingCanvas.classList.remove('interactive');
-    editables.forEach(e => e.setAttribute('contenteditable', 'true'));
   } else {
     drawingCanvas.classList.add('interactive');
-    editables.forEach(e => e.setAttribute('contenteditable', 'false'));
   }
 }
 
@@ -1255,17 +1440,17 @@ function pickPaletteColor(col, element) {
   activeColor = col;
   document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
   element.classList.add('active');
-  if (activeTool === 'select' || activeTool === 'text') {
+  if (activeTool === 'select') {
     setActiveWhiteboardTool('pen');
   }
 }
 
-// Tool shortcuts 1 to 9
+// Tool shortcuts 1 to 8
 window.addEventListener('keydown', (e) => {
   if (e.target.isContentEditable) return;
   const keyMap = {
     '1': 'select', '2': 'rect', '3': 'circle', '4': 'arrow',
-    '5': 'line', '6': 'pen', '7': 'text', '8': 'sticky', '9': 'eraser'
+    '5': 'line', '6': 'pen', '7': 'sticky', '8': 'eraser'
   };
   if (keyMap[e.key]) {
     if (keyMap[e.key] === 'sticky') spawnStickyNote();
@@ -1273,11 +1458,11 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
-/* DRAWING SURFACE EVENTS */
+/* DRAWING SURFACE POINTER EVENTS */
 let currentPathPoints = [];
 
 drawingCanvas.addEventListener('pointerdown', (e) => {
-  if (activeTool === 'select' || activeTool === 'text') return;
+  if (activeTool === 'select') return;
   
   isDrawingAction = true;
   const rect = drawingCanvas.getBoundingClientRect();
@@ -1436,7 +1621,7 @@ function clearAllDrawingCanvas() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   6. FIGMA STICKY NOTES ENGINE
+   9. 100% TOUCH-ENABLED STICKY NOTES ENGINE
    ═══════════════════════════════════════════════════════════ */
 function spawnStickyNote() {
   const note = document.createElement('div');
@@ -1444,42 +1629,49 @@ function spawnStickyNote() {
   note.style.top = '220px';
   note.style.left = '320px';
   note.innerHTML = `
-    <button class="note-delete-btn" onclick="this.parentElement.remove()">✕</button>
-    <div contenteditable="true">💡 Click to write note...</div>
+    <div class="sticky-note-header">
+      <span class="sticky-note-tag">💡 STICKY NOTE</span>
+      <button class="note-delete-btn" onclick="this.closest('.sticky-note').remove()">✕</button>
+    </div>
+    <div contenteditable="true" style="outline:none;cursor:text">Double-tap or click to type instructions...</div>
   `;
   artboardBox.appendChild(note);
 
-  // Make Sticky Note Draggable
+  // 100% Universal Pointer Drag Support for Sticky Notes (Finger Touch & Mouse)
   let isNoteDragging = false;
   let nStartX = 0, nStartY = 0, nLeft = 0, nTop = 0;
 
-  note.addEventListener('pointerdown', (e) => {
-    if (e.target.classList.contains('note-delete-btn') || e.target.isContentEditable) return;
+  const header = note.querySelector('.sticky-note-header');
+
+  header.addEventListener('pointerdown', (e) => {
+    if (e.target.classList.contains('note-delete-btn')) return;
     isNoteDragging = true;
     nStartX = e.clientX;
     nStartY = e.clientY;
     nLeft = note.offsetLeft;
     nTop = note.offsetTop;
-    note.setPointerCapture(e.pointerId);
+    header.setPointerCapture(e.pointerId);
     e.preventDefault();
   });
 
-  note.addEventListener('pointermove', (e) => {
+  header.addEventListener('pointermove', (e) => {
     if (!isNoteDragging) return;
     note.style.left = `${nLeft + (e.clientX - nStartX)}px`;
     note.style.top = `${nTop + (e.clientY - nStartY)}px`;
   });
 
-  note.addEventListener('pointerup', (e) => {
-    isNoteDragging = false;
-    try { note.releasePointerCapture(e.pointerId); } catch(err){}
+  header.addEventListener('pointerup', (e) => {
+    if (isNoteDragging) {
+      isNoteDragging = false;
+      try { header.releasePointerCapture(e.pointerId); } catch(err){}
+    }
   });
 
   setActiveWhiteboardTool('select');
 }
 
 /* ═══════════════════════════════════════════════════════════
-   7. FIGMA AUTO-ALIGNMENT ACTIONS
+   10. FIGMA AUTO-ALIGNMENT ACTIONS
    ═══════════════════════════════════════════════════════════ */
 function alignSelectedElement(direction) {
   if (!activeSelectedElem) return;
@@ -1500,7 +1692,7 @@ function alignSelectedElement(direction) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   8. ELEMENT DRAG & TOUCH ENGINE
+   11. ELEMENT DRAG & TOUCH ENGINE (WITH CANVA LOCK CHECK)
    ═══════════════════════════════════════════════════════════ */
 let activeSelectedElem = null;
 let isPointerDragging = false;
@@ -1511,6 +1703,9 @@ document.querySelectorAll('.studio-element').forEach(el => {
   el.addEventListener('pointerdown', (e) => {
     if (activeTool !== 'select') return;
     selectTargetElement(el);
+
+    // If Element is LOCKED -> Don't drag!
+    if (lockedElementsSet.has(el.id)) return;
 
     recordHistoryState();
 
@@ -1526,6 +1721,7 @@ document.querySelectorAll('.studio-element').forEach(el => {
 
   el.addEventListener('pointermove', (e) => {
     if (!isPointerDragging || activeSelectedElem !== el || activeTool !== 'select') return;
+    if (lockedElementsSet.has(el.id)) return;
 
     const dx = e.clientX - startPointerX;
     const dy = e.clientY - startPointerY;
@@ -1555,6 +1751,7 @@ function selectTargetElement(el) {
   activeSelectedElem = el;
   activeSelectedElem.classList.add('selected-box');
   syncInspector(el);
+  syncLockStatusForElement(el);
 }
 
 function syncInspector(el) {
@@ -1566,7 +1763,7 @@ function syncInspector(el) {
 }
 
 function changeSelectedWidth(w) {
-  if (!activeSelectedElem) return;
+  if (!activeSelectedElem || lockedElementsSet.has(activeSelectedElem.id)) return;
   recordHistoryState();
   activeSelectedElem.style.width = `${w}px`;
   document.getElementById('disp-elem-width').innerText = `${w}px`;
@@ -1574,7 +1771,7 @@ function changeSelectedWidth(w) {
 }
 
 function changeSelectedFontSize(sz) {
-  if (!activeSelectedElem) return;
+  if (!activeSelectedElem || lockedElementsSet.has(activeSelectedElem.id)) return;
   recordHistoryState();
   activeSelectedElem.style.fontSize = `${sz}px`;
   document.getElementById('disp-font-size').innerText = `${sz}px`;
@@ -1582,7 +1779,7 @@ function changeSelectedFontSize(sz) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   9. PRESETS & EXPORT
+   12. PRESETS & EXPORT
    ═══════════════════════════════════════════════════════════ */
 function applyLayoutPreset(type) {
   recordHistoryState();
@@ -1628,6 +1825,7 @@ function applyLayoutPreset(type) {
 
 function resetStudioLayout() {
   localStorage.removeItem('mbm_custom_studio_layout');
+  lockedElementsSet.clear();
   clearAllDrawingCanvas();
   switchStudioDevice('desktop');
 }
