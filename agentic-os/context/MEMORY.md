@@ -1,26 +1,20 @@
-<!-- Cap: 2,500 chars. Curated working scratchpad. Maintained by meta-memory-write skill. Mid-session writes take effect on the next session (frozen snapshot pattern). -->
+<!-- Cap: 2,500 chars. Curated working scratchpad. Maintained for session continuity. -->
 # Working Memory
 
-## Active Threads
-- Local Business AI: 5 audits complete (tucson-plumbing, monsoon-dental, top-care-air, mark-bishop-media, leadvales)
-- Agency brand: Local Growth Division (Mark Bishop Media)
-- HARD RULE: 8-part visual report architecture + Interactive HTML with Print/Save PDF
-- HARD RULE: ZERO GUESSWORK — 100% real research data only, never fabricate
-- NEXT GOAL: Build agency-website at d:\Agentic OS\agency-website (Website first → then Supabase)
-- AI Software Agency Plugin v1.2.0: MBM Local Website\ai-software-agency\ — 21-phase gated lifecycle for web dev
-- Cloud report delivery planned: reports.yourdomain.com/[client-slug] with live analytics tracking
+## Active Tasks & Website Architecture
+- **Active Task 1:** Hero Section Navigation Menu Design & Layout (`What We Do`, `3D System`, `Results`, `⚡ FREE AUDIT`).
+- **Active Task 2:** 3D Motion Tweaks on Three.js Map Pin, orbiting rating stars, and verified storefront badge (`🏪 SMALL BUSINESS ● VERIFIED LOCAL STOREFRONT`).
+- **Visual Mockup Studio:** `agency-website/mockup-studio/01-hero-studio.html` (Touch-enabled, Canva 4-corner resize, YouTube Fullscreen, Draggable toolbar, Undo/Redo).
+- **Upcoming Phase 3:** Interactive 3D Geo-Grid Radar Instant Scan section.
 
-## Environment Notes
-- Local Business AI engine: d:\Agentic OS\local-business-ai
-- Master Reports: d:\Agentic OS\local-business-ai\reports\
-- Agency Website (planned): d:\Agentic OS\agency-website
-- Agency config: local-business-ai/config/agency-config.json
-- Client registry: local-business-ai/clients/registry.json
-- Client workspaces: local-business-ai/clients/{slug}/
-- Web report renderer: local-business-ai/skills/web-report/renderer/
+## Strict Rules
+- **Rule 1 (Approval Gate):** NEVER edit `agency-website/approved/` directly. All work happens in `mockup-studio/` and `prototypes/` first, and is copied to `approved/` ONLY after explicit user approval.
+- **Rule 2 (Client 3D):** Keep 3D animations live on client view (no auto-pausing).
+- **Rule 3 (Proactive Suggestions):** Proactively provide recommendations and architectural best practices.
+- **Rule 4 (Language):** Bengali (বাংলা) for discussions; English for code/deliverables.
 
-## Pending Decisions
-- Booking URL not yet configured (CTA shows phone + email only)
-- Logo file not yet added to brand_context
-- Agency website tech stack selection (Next.js + Supabase planned)
-- Hosting platform choice (Vercel vs Cloudflare vs Netlify)
+## Environment & Repositories
+- **Agency Website Directory:** `d:\Agentic OS\agency-website`
+- **Prototypes:** `02-hero-desktop.html`, `02-hero-tablet.html`, `02-hero-mobile.html`
+- **Master Website:** `agency-website/final-website-master.html`
+- **Git Repo:** `https://github.com/Shohelur/Local_markbishopmedia_website.git`
