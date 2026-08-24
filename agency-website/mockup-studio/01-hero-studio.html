@@ -589,6 +589,31 @@ body.zen-mode .zen-exit-banner{display:flex;align-items:center;gap:6px}
   box-shadow:0 0 25px rgba(184, 255, 87, 0.35);
 }
 
+/* CANVA CORNER RESIZE HANDLES */
+.resize-handle{
+  position:absolute;
+  width:12px;
+  height:12px;
+  background:#ffffff;
+  border:2.5px solid #00d4ff;
+  border-radius:3px;
+  z-index:300;
+  box-shadow:0 0 8px rgba(0, 212, 255, 0.9);
+  display:none;
+  touch-action:none;
+}
+.studio-element.selected-box .resize-handle{
+  display:block;
+}
+.studio-element.element-locked .resize-handle{
+  display:none !important;
+}
+.handle-nw{top:-6px;left:-6px;cursor:nwse-resize}
+.handle-ne{top:-6px;right:-6px;cursor:nesw-resize}
+.handle-se{bottom:-6px;right:-6px;cursor:nwse-resize}
+.handle-sw{bottom:-6px;left:-6px;cursor:nesw-resize}
+.handle-e{top:calc(50% - 6px);right:-6px;cursor:ew-resize}
+
 /* CANVA LOCK STATE */
 .studio-element.element-locked{
   cursor:not-allowed !important;
@@ -1361,11 +1386,14 @@ document.addEventListener('fullscreenchange', () => {
   setTimeout(resizeDrawingCanvas, 320);
 });
 
-// ESC or 'F' Key Toggle
+// ESC or 'F' Key Toggle: Instant 1-Key Fullscreen Toggle!
 window.addEventListener('keydown', (e) => {
   if (e.target.isContentEditable) return;
-  if (e.key.toLowerCase() === 'f') {
+  if (e.key === 'Escape' || e.key.toLowerCase() === 'f') {
     toggleYouTubeFullscreen();
+    if (e.key === 'Escape' && !document.fullscreenElement) {
+      e.preventDefault();
+    }
   }
 });
 
@@ -1931,16 +1959,140 @@ function alignSelectedElement(direction) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   11. ELEMENT DRAG & TOUCH ENGINE (WITH CANVA LOCK CHECK)
+   11. ELEMENT DRAG & TOUCH ENGINE (WITH CANVA CORNER RESIZE)
    ═══════════════════════════════════════════════════════════ */
 let activeSelectedElem = null;
 let isPointerDragging = false;
 let startPointerX = 0, startPointerY = 0;
 let startElemLeft = 0, startElemTop = 0;
 
+// Corner Resize Engine State
+let isResizingElement = false;
+let resizeTarget = null;
+let resizeDir = '';
+let resStartX = 0, resStartY = 0;
+let resStartW = 0, resStartH = 0;
+let resStartL = 0, resStartT = 0;
+let resStartFontSize = 44;
+
+function attachResizeHandlesToElements() {
+  document.querySelectorAll('.studio-element').forEach(el => {
+    if (el.querySelector('.resize-handle')) return;
+    const handles = ['nw', 'ne', 'se', 'sw', 'e'];
+    handles.forEach(dir => {
+      const h = document.createElement('div');
+      h.className = `resize-handle handle-${dir}`;
+      h.dataset.handle = dir;
+      el.appendChild(h);
+
+      h.addEventListener('pointerdown', (e) => {
+        if (lockedElementsSet.has(el.id)) return;
+        e.stopPropagation();
+        startElementResize(e, el, dir);
+      });
+    });
+  });
+}
+setTimeout(attachResizeHandlesToElements, 100);
+
+function startElementResize(e, el, dir) {
+  isResizingElement = true;
+  resizeTarget = el;
+  resizeDir = dir;
+  resStartX = e.clientX;
+  resStartY = e.clientY;
+  resStartW = el.offsetWidth;
+  resStartH = el.offsetHeight;
+  resStartL = el.offsetLeft;
+  resStartT = el.offsetTop;
+  resStartFontSize = parseFloat(window.getComputedStyle(el).fontSize) || 20;
+
+  recordHistoryState();
+  e.target.setPointerCapture(e.pointerId);
+  e.preventDefault();
+}
+
+window.addEventListener('pointermove', (e) => {
+  if (isResizingElement && resizeTarget) {
+    const dx = e.clientX - resStartX;
+    const dy = e.clientY - resStartY;
+
+    let newW = resStartW;
+    let newH = resStartH;
+    let newL = resStartL;
+    let newT = resStartT;
+
+    if (resizeDir === 'se') {
+      newW = Math.max(120, resStartW + dx);
+      newH = Math.max(40, resStartH + dy);
+      // Proportionally scale font size when corner is dragged!
+      const scaleFactor = newW / resStartW;
+      const newFs = Math.max(12, Math.min(80, Math.round(resStartFontSize * scaleFactor)));
+      resizeTarget.style.fontSize = `${newFs}px`;
+      document.getElementById('slider-font-size').value = newFs;
+      document.getElementById('disp-font-size').innerText = `${newFs}px`;
+    } else if (resizeDir === 'e') {
+      newW = Math.max(120, resStartW + dx);
+    } else if (resizeDir === 'sw') {
+      newW = Math.max(120, resStartW - dx);
+      newL = resStartL + (resStartW - newW);
+    } else if (resizeDir === 'ne') {
+      newW = Math.max(120, resStartW + dx);
+      newT = resStartT + dy;
+    } else if (resizeDir === 'nw') {
+      newW = Math.max(120, resStartW - dx);
+      newL = resStartL + (resStartW - newW);
+      newT = resStartT + dy;
+    }
+
+    resizeTarget.style.width = `${newW}px`;
+    if (resizeTarget.id === 'elem-3d-pin') {
+      resizeTarget.style.height = `${newH}px`;
+    }
+    if (newL !== resStartL) resizeTarget.style.left = `${newL}px`;
+    if (newT !== resStartT) resizeTarget.style.top = `${newT}px`;
+
+    syncInspector(resizeTarget);
+    return;
+  }
+
+  if (!isPointerDragging || !activeSelectedElem || activeTool !== 'select') return;
+  if (lockedElementsSet.has(activeSelectedElem.id)) return;
+
+  const dx = e.clientX - startPointerX;
+  const dy = e.clientY - startPointerY;
+
+  let nextLeft = Math.max(0, Math.min(artboardBox.clientWidth - activeSelectedElem.offsetWidth, startElemLeft + dx));
+  let nextTop = Math.max(0, Math.min(artboardBox.clientHeight - activeSelectedElem.offsetHeight, startElemTop + dy));
+
+  // Magnetic Snap 10px
+  nextLeft = Math.round(nextLeft / 10) * 10;
+  nextTop = Math.round(nextTop / 10) * 10;
+
+  activeSelectedElem.style.left = `${nextLeft}px`;
+  activeSelectedElem.style.top = `${nextTop}px`;
+
+  syncInspector(activeSelectedElem);
+});
+
+window.addEventListener('pointerup', (e) => {
+  if (isResizingElement) {
+    isResizingElement = false;
+    resizeTarget = null;
+    saveLayoutToLocalStorage();
+  }
+  if (isPointerDragging) {
+    isPointerDragging = false;
+    if (activeSelectedElem) {
+      try { activeSelectedElem.releasePointerCapture(e.pointerId); } catch(err){}
+    }
+    saveLayoutToLocalStorage();
+  }
+});
+
 document.querySelectorAll('.studio-element').forEach(el => {
   el.addEventListener('pointerdown', (e) => {
-    if (activeTool !== 'select') return;
+    if (activeTool !== 'select' || e.target.classList.contains('resize-handle')) return;
     selectTargetElement(el);
 
     // If Element is LOCKED -> Don't drag!
@@ -1956,32 +2108,6 @@ document.querySelectorAll('.studio-element').forEach(el => {
 
     el.setPointerCapture(e.pointerId);
     e.preventDefault();
-  });
-
-  el.addEventListener('pointermove', (e) => {
-    if (!isPointerDragging || activeSelectedElem !== el || activeTool !== 'select') return;
-    if (lockedElementsSet.has(el.id)) return;
-
-    const dx = e.clientX - startPointerX;
-    const dy = e.clientY - startPointerY;
-
-    let nextLeft = Math.max(0, Math.min(artboardBox.clientWidth - el.offsetWidth, startElemLeft + dx));
-    let nextTop = Math.max(0, Math.min(artboardBox.clientHeight - el.offsetHeight, startElemTop + dy));
-
-    // Magnetic Snap 10px
-    nextLeft = Math.round(nextLeft / 10) * 10;
-    nextTop = Math.round(nextTop / 10) * 10;
-
-    el.style.left = `${nextLeft}px`;
-    el.style.top = `${nextTop}px`;
-
-    syncInspector(el);
-  });
-
-  el.addEventListener('pointerup', (e) => {
-    isPointerDragging = false;
-    try { el.releasePointerCapture(e.pointerId); } catch(err){}
-    saveLayoutToLocalStorage();
   });
 });
 
@@ -1999,6 +2125,11 @@ function syncInspector(el) {
   document.getElementById('disp-pos-left').innerText = `${el.offsetLeft}px`;
   document.getElementById('slider-elem-width').value = el.offsetWidth;
   document.getElementById('disp-elem-width').innerText = `${el.offsetWidth}px`;
+  const fs = parseFloat(window.getComputedStyle(el).fontSize);
+  if (fs) {
+    document.getElementById('disp-font-size').innerText = `${Math.round(fs)}px`;
+    document.getElementById('slider-font-size').value = Math.round(fs);
+  }
 }
 
 function changeSelectedWidth(w) {
