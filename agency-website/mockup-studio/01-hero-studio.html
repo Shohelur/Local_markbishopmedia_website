@@ -42,10 +42,27 @@ body{
   transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 body.zen-mode .studio-header{
-  transform:translateY(-100%);
-  margin-top:-58px;
-  opacity:0;
-  pointer-events:none;
+  display:none !important;
+}
+body.zen-mode .preset-bar{
+  display:none !important;
+}
+body.zen-mode .sidebar-wrapper{
+  display:none !important;
+}
+body.zen-mode .stage-viewport{
+  padding:0 !important;
+  overflow:hidden !important;
+  background:#020205 !important;
+}
+body.zen-mode #artboard-canvas-wrapper{
+  width:100vw !important;
+  height:100vh !important;
+  max-width:100vw !important;
+  max-height:100vh !important;
+  border:none !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
 }
 
 .brand-badge-box{
@@ -237,9 +254,6 @@ body.zen-mode .preset-bar{
 }
 body.zen-mode .zen-exit-banner{display:flex;align-items:center;gap:6px}
 
-/* ═══════════════════════════════════════════════════════════
-   3. DRAGGABLE FLOATING EXCALIDRAW TOOLBAR
-   ═══════════════════════════════════════════════════════════ */
 #draggable-toolbar{
   position:absolute;
   top:76px;
@@ -257,6 +271,47 @@ body.zen-mode .zen-exit-banner{display:flex;align-items:center;gap:6px}
   backdrop-filter:blur(18px);
   touch-action:none;
   cursor:default;
+  transition:width 0.25s ease, padding 0.25s ease, opacity 0.2s ease;
+}
+
+#draggable-toolbar.minimized-mode{
+  padding:4px 10px;
+  border-color:rgba(0,212,255,0.7);
+  box-shadow:0 0 20px rgba(0,212,255,0.4);
+}
+#draggable-toolbar.minimized-mode .toolbar-hideable-content{
+  display:none !important;
+}
+
+.btn-hide-toolbar{
+  width:26px;
+  height:26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.7);
+  border-radius:6px;
+  cursor:pointer;
+  font-size:12px;
+  transition:all 0.15s;
+}
+.btn-hide-toolbar:hover{background:rgba(255,59,48,0.25);border-color:#ff3b30;color:#fff}
+
+.minimized-pill-label{
+  display:none;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11px;
+  font-weight:800;
+  color:#00d4ff;
+  letter-spacing:0.06em;
+  cursor:pointer;
+  align-items:center;
+  gap:6px;
+}
+#draggable-toolbar.minimized-mode .minimized-pill-label{
+  display:flex;
 }
 
 .toolbar-drag-grip{
@@ -924,78 +979,92 @@ body.zen-mode .sidebar-wrapper{
       ⋮⋮
     </div>
 
-    <!-- UNDO & REDO BUTTONS -->
-    <button class="btn-history" id="btn-undo" title="Undo (Ctrl+Z)" onclick="performUndoAction()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
-    </button>
-    <button class="btn-history" id="btn-redo" title="Redo (Ctrl+Y)" onclick="performRedoAction()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/></svg>
-    </button>
+    <!-- MINIMIZED RESTORE PILL -->
+    <div class="minimized-pill-label" onclick="toggleFloatingToolbar()" title="Click to expand full toolbar">
+      <span>🎨 TOOLS (CLICK TO EXPAND)</span>
+    </div>
 
-    <div class="toolbar-separator"></div>
+    <div class="toolbar-hideable-content" style="display:flex;align-items:center;gap:4px">
+      <!-- UNDO & REDO BUTTONS -->
+      <button class="btn-history" id="btn-undo" title="Undo (Ctrl+Z)" onclick="performUndoAction()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+      </button>
+      <button class="btn-history" id="btn-redo" title="Redo (Ctrl+Y)" onclick="performRedoAction()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/></svg>
+      </button>
 
-    <!-- 1. Selection Tool -->
-    <button class="tool-item active" id="tool-select" title="Selection & Move (Key: 1)" onclick="setActiveWhiteboardTool('select')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>
-      <span class="shortcut-num">1</span>
-    </button>
+      <div class="toolbar-separator"></div>
 
-    <!-- 2. Canva-Style Lock/Unlock Toggle -->
-    <button class="btn-lock-toggle" id="btn-lock-selected" title="Lock Selected Element (Prevent accidental move)" onclick="toggleLockSelectedElement()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-    </button>
+      <!-- 1. Selection Tool -->
+      <button class="tool-item active" id="tool-select" title="Selection & Move (Key: 1)" onclick="setActiveWhiteboardTool('select')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>
+        <span class="shortcut-num">1</span>
+      </button>
 
-    <!-- 3. Rectangle Box -->
-    <button class="tool-item" id="tool-rect" title="Rectangle Box (Key: 2)" onclick="setActiveWhiteboardTool('rect')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
-      <span class="shortcut-num">2</span>
-    </button>
+      <!-- 2. Canva-Style Lock/Unlock Toggle -->
+      <button class="btn-lock-toggle" id="btn-lock-selected" title="Lock Selected Element (Prevent accidental move)" onclick="toggleLockSelectedElement()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </button>
 
-    <!-- 4. Circle / Ellipse -->
-    <button class="tool-item" id="tool-circle" title="Circle Highlight (Key: 3)" onclick="setActiveWhiteboardTool('circle')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/></svg>
-      <span class="shortcut-num">3</span>
-    </button>
+      <!-- 3. Rectangle Box -->
+      <button class="tool-item" id="tool-rect" title="Rectangle Box (Key: 2 - Click again to untick)" onclick="setActiveWhiteboardTool('rect')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+        <span class="shortcut-num">2</span>
+      </button>
 
-    <!-- 5. Arrow Tool -->
-    <button class="tool-item" id="tool-arrow" title="Draw Arrow ➔ (Key: 4)" onclick="setActiveWhiteboardTool('arrow')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      <span class="shortcut-num">4</span>
-    </button>
+      <!-- 4. Circle / Ellipse -->
+      <button class="tool-item" id="tool-circle" title="Circle Highlight (Key: 3 - Click again to untick)" onclick="setActiveWhiteboardTool('circle')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/></svg>
+        <span class="shortcut-num">3</span>
+      </button>
 
-    <!-- 6. Straight Line -->
-    <button class="tool-item" id="tool-line" title="Draw Line (Key: 5)" onclick="setActiveWhiteboardTool('line')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="4" y1="20" x2="20" y2="4"/></svg>
-      <span class="shortcut-num">5</span>
-    </button>
+      <!-- 5. Arrow Tool -->
+      <button class="tool-item" id="tool-arrow" title="Draw Arrow ➔ (Key: 4 - Click again to untick)" onclick="setActiveWhiteboardTool('arrow')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span class="shortcut-num">4</span>
+      </button>
 
-    <!-- 7. Freehand Pen -->
-    <button class="tool-item" id="tool-pen" title="Freehand Pen (Key: 6)" onclick="setActiveWhiteboardTool('pen')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
-      <span class="shortcut-num">6</span>
-    </button>
+      <!-- 6. Straight Line -->
+      <button class="tool-item" id="tool-line" title="Draw Line (Key: 5 - Click again to untick)" onclick="setActiveWhiteboardTool('line')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="4" y1="20" x2="20" y2="4"/></svg>
+        <span class="shortcut-num">5</span>
+      </button>
 
-    <!-- 8. Figma Sticky Note -->
-    <button class="tool-item" id="tool-sticky" title="Add Sticky Note (Key: 7)" onclick="spawnStickyNote()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      <span class="shortcut-num">7</span>
-    </button>
+      <!-- 7. Freehand Pen -->
+      <button class="tool-item" id="tool-pen" title="Freehand Pen (Key: 6 - Click again to untick)" onclick="setActiveWhiteboardTool('pen')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+        <span class="shortcut-num">6</span>
+      </button>
 
-    <!-- 9. Eraser Tool -->
-    <button class="tool-item" id="tool-eraser" title="Eraser (Key: 8)" onclick="setActiveWhiteboardTool('eraser')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 20H7L3 16C2 15 2 13 3 12L13 2C14 1 16 1 17 2L22 7C23 8 23 10 22 11L14 19"/></svg>
-      <span class="shortcut-num">8</span>
-    </button>
+      <!-- 8. Figma Sticky Note -->
+      <button class="tool-item" id="tool-sticky" title="Add Sticky Note (Key: 7)" onclick="spawnStickyNote()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <span class="shortcut-num">7</span>
+      </button>
 
-    <div class="toolbar-separator"></div>
+      <!-- 9. Eraser Tool -->
+      <button class="tool-item" id="tool-eraser" title="Eraser (Key: 8 - Click again to untick)" onclick="setActiveWhiteboardTool('eraser')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 20H7L3 16C2 15 2 13 3 12L13 2C14 1 16 1 17 2L22 7C23 8 23 10 22 11L14 19"/></svg>
+        <span class="shortcut-num">8</span>
+      </button>
 
-    <!-- COLOR PALETTE -->
-    <div class="floating-palette">
-      <div class="color-dot active" style="background:#00d4ff" onclick="pickPaletteColor('#00d4ff', this)"></div>
-      <div class="color-dot" style="background:#b8ff57" onclick="pickPaletteColor('#b8ff57', this)"></div>
-      <div class="color-dot" style="background:#ff3366" onclick="pickPaletteColor('#ff3366', this)"></div>
-      <div class="color-dot" style="background:#ffcc00" onclick="pickPaletteColor('#ffcc00', this)"></div>
-      <div class="color-dot" style="background:#ffffff" onclick="pickPaletteColor('#ffffff', this)"></div>
+      <div class="toolbar-separator"></div>
+
+      <!-- COLOR PALETTE -->
+      <div class="floating-palette">
+        <div class="color-dot active" style="background:#00d4ff" onclick="pickPaletteColor('#00d4ff', this)"></div>
+        <div class="color-dot" style="background:#b8ff57" onclick="pickPaletteColor('#b8ff57', this)"></div>
+        <div class="color-dot" style="background:#ff3366" onclick="pickPaletteColor('#ff3366', this)"></div>
+        <div class="color-dot" style="background:#ffcc00" onclick="pickPaletteColor('#ffcc00', this)"></div>
+        <div class="color-dot" style="background:#ffffff" onclick="pickPaletteColor('#ffffff', this)"></div>
+      </div>
+
+      <div class="toolbar-separator"></div>
+
+      <!-- MINIMIZE BUTTON -->
+      <button class="btn-hide-toolbar" title="Minimize Toolbar" onclick="toggleFloatingToolbar()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
     </div>
 
   </div>
@@ -1424,12 +1493,17 @@ window.addEventListener('resize', resizeDrawingCanvas);
 setTimeout(resizeDrawingCanvas, 150);
 
 function setActiveWhiteboardTool(tool) {
-  activeTool = tool;
+  if (activeTool === tool && tool !== 'select') {
+    activeTool = 'select'; // Untick/deactivate on second click!
+  } else {
+    activeTool = tool;
+  }
+
   document.querySelectorAll('.tool-item').forEach(b => b.classList.remove('active'));
-  const btn = document.getElementById(`tool-${tool}`);
+  const btn = document.getElementById(`tool-${activeTool}`);
   if (btn) btn.classList.add('active');
 
-  if (tool === 'select') {
+  if (activeTool === 'select') {
     drawingCanvas.classList.remove('interactive');
   } else {
     drawingCanvas.classList.add('interactive');
