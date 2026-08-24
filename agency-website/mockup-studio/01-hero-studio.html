@@ -1296,27 +1296,87 @@ body.zen-mode .sidebar-wrapper{
 </div>
 
 <script>
-/* ═══════════════════════════════════════════════════════════════════
-   1. ZEN FULLSCREEN MODE ENGINE (ESC KEY)
-   ═══════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   1. YOUTUBE-STYLE TRUE DISPLAY FULLSCREEN (NATIVE + ZEN)
+   ═══════════════════════════════════════════════════════════ */
 let isZenFullscreen = false;
 
-function toggleZenFullscreen() {
-  isZenFullscreen = !isZenFullscreen;
-  if (isZenFullscreen) {
-    document.body.classList.add('zen-mode');
+function toggleYouTubeFullscreen() {
+  if (!document.fullscreenElement) {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.log('Native fullscreen failed, using CSS zen fallback:', err);
+      });
+    }
+    applyFullscreenUI(true);
   } else {
-    document.body.classList.remove('zen-mode');
+    if (document.exitFullscreen) {
+      document.exitFullscreen().catch(err => console.log(err));
+    }
+    applyFullscreenUI(false);
   }
   setTimeout(resizeDrawingCanvas, 320);
 }
 
-// ESC Key Toggle
+function toggleZenFullscreen() {
+  toggleYouTubeFullscreen();
+}
+
+function applyFullscreenUI(isFullscreen) {
+  isZenFullscreen = isFullscreen;
+  if (isFullscreen) {
+    document.body.classList.add('zen-mode');
+    document.querySelectorAll('.icon-expand').forEach(i => i.style.display = 'none');
+    document.querySelectorAll('.icon-compress').forEach(i => i.style.display = 'block');
+    const txt = document.getElementById('txt-yt-fullscreen');
+    if (txt) txt.innerText = 'EXIT FULLSCREEN';
+  } else {
+    document.body.classList.remove('zen-mode');
+    document.querySelectorAll('.icon-expand').forEach(i => i.style.display = 'block');
+    document.querySelectorAll('.icon-compress').forEach(i => i.style.display = 'none');
+    const txt = document.getElementById('txt-yt-fullscreen');
+    if (txt) txt.innerText = 'FULLSCREEN';
+  }
+}
+
+// Browser native fullscreen change event listener
+document.addEventListener('fullscreenchange', () => {
+  applyFullscreenUI(!!document.fullscreenElement);
+  setTimeout(resizeDrawingCanvas, 320);
+});
+
+// ESC or 'F' Key Toggle
 window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    toggleZenFullscreen();
+  if (e.target.isContentEditable) return;
+  if (e.key.toLowerCase() === 'f') {
+    toggleYouTubeFullscreen();
   }
 });
+
+/* ═══════════════════════════════════════════════════════════
+   2. COLLAPSIBLE DRAWING TRAY (SHOW / HIDE EXTRA DRAWING TOOLS)
+   ═══════════════════════════════════════════════════════════ */
+let isDrawingTrayOpen = false;
+
+function toggleDrawingToolsTray() {
+  isDrawingTrayOpen = !isDrawingTrayOpen;
+  const tray = document.getElementById('drawing-tools-tray');
+  const btn = document.getElementById('btn-toggle-draw');
+  const arrow = document.getElementById('tray-arrow-icon');
+
+  if (isDrawingTrayOpen) {
+    tray.classList.remove('collapsed');
+    btn.classList.add('active');
+    if (arrow) arrow.innerText = '❮';
+  } else {
+    tray.classList.add('collapsed');
+    btn.classList.remove('active');
+    if (arrow) arrow.innerText = '❯';
+    if (activeTool !== 'select') {
+      setActiveWhiteboardTool('select');
+    }
+  }
+}
 
 /* ═══════════════════════════════════════════════════════════════════
    2. DEVICE ARTBOARD SWITCHER
