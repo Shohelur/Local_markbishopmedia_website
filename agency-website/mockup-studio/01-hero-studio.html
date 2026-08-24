@@ -254,6 +254,9 @@ body.zen-mode .preset-bar{
 }
 body.zen-mode .zen-exit-banner{display:flex;align-items:center;gap:6px}
 
+/* ═══════════════════════════════════════════════════════════
+   3. DRAGGABLE FLOATING TOOLBAR WITH COLLAPSIBLE DRAWING TRAY
+   ═══════════════════════════════════════════════════════════ */
 #draggable-toolbar{
   position:absolute;
   top:76px;
@@ -271,47 +274,113 @@ body.zen-mode .zen-exit-banner{display:flex;align-items:center;gap:6px}
   backdrop-filter:blur(18px);
   touch-action:none;
   cursor:default;
-  transition:width 0.25s ease, padding 0.25s ease, opacity 0.2s ease;
 }
 
-#draggable-toolbar.minimized-mode{
-  padding:4px 10px;
-  border-color:rgba(0,212,255,0.7);
-  box-shadow:0 0 20px rgba(0,212,255,0.4);
+.core-tools-group{
+  display:flex;
+  align-items:center;
+  gap:4px;
 }
-#draggable-toolbar.minimized-mode .toolbar-hideable-content{
+
+/* TOGGLE DRAWING TOOLS BUTTON */
+.btn-toggle-draw-tray{
+  background:rgba(0, 212, 255, 0.12);
+  border:1px solid rgba(0, 212, 255, 0.35);
+  color:#00d4ff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  padding:6px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  transition:all 0.2s;
+  white-space:nowrap;
+}
+.btn-toggle-draw-tray:hover{
+  background:rgba(0, 212, 255, 0.25);
+  border-color:#00d4ff;
+}
+.btn-toggle-draw-tray.active{
+  background:rgba(184, 255, 87, 0.2);
+  border-color:#b8ff57;
+  color:#b8ff57;
+}
+
+/* COLLAPSIBLE SECONDARY DRAWING TRAY */
+#drawing-tools-tray{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  transition:all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow:hidden;
+}
+#drawing-tools-tray.collapsed{
   display:none !important;
 }
 
-.btn-hide-toolbar{
-  width:26px;
-  height:26px;
+/* YOUTUBE-STYLE FULLSCREEN BUTTON */
+.btn-youtube-fullscreen{
+  background:#182236;
+  border:1.5px solid rgba(0, 212, 255, 0.4);
+  color:#00d4ff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:800;
+  padding:7px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  transition:all 0.2s;
+}
+.btn-youtube-fullscreen:hover{
+  background:rgba(0, 212, 255, 0.25);
+  border-color:#00d4ff;
+  box-shadow:0 0 15px rgba(0, 212, 255, 0.4);
+}
+.btn-youtube-fullscreen svg{
+  fill:currentColor;
+  transition:transform 0.15s;
+}
+.btn-youtube-fullscreen:hover svg{
+  transform:scale(1.15);
+}
+
+/* FLOATING YOUTUBE CONTROL PILL AT BOTTOM RIGHT */
+.yt-floating-bottom-bar{
+  position:fixed;
+  bottom:20px;
+  right:24px;
+  z-index:99999;
+  background:rgba(12, 17, 28, 0.92);
+  border:1px solid rgba(0, 212, 255, 0.5);
+  border-radius:12px;
+  padding:6px 12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0, 212, 255, 0.3);
+  backdrop-filter:blur(14px);
+}
+.yt-player-btn{
+  background:transparent;
+  border:none;
+  color:#fff;
+  cursor:pointer;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.15);
-  color:rgba(255,255,255,0.7);
+  padding:4px;
   border-radius:6px;
-  cursor:pointer;
-  font-size:12px;
-  transition:all 0.15s;
+  transition:background 0.15s, color 0.15s;
 }
-.btn-hide-toolbar:hover{background:rgba(255,59,48,0.25);border-color:#ff3b30;color:#fff}
-
-.minimized-pill-label{
-  display:none;
-  font-family:'Space Grotesk',sans-serif;
-  font-size:11px;
-  font-weight:800;
+.yt-player-btn:hover{
+  background:rgba(0, 212, 255, 0.2);
   color:#00d4ff;
-  letter-spacing:0.06em;
-  cursor:pointer;
-  align-items:center;
-  gap:6px;
-}
-#draggable-toolbar.minimized-mode .minimized-pill-label{
-  display:flex;
 }
 
 .toolbar-drag-grip{
@@ -943,9 +1012,17 @@ body.zen-mode .sidebar-wrapper{
 
   <!-- EXPORT & SIDEBAR TOGGLE -->
   <div class="header-action-group">
-    <button class="btn-fullscreen-zen" title="Press Esc for Fullscreen Space" onclick="toggleZenFullscreen()">
-      <span>⛶ FULLSCREEN (Esc)</span>
+    <!-- EXACT YOUTUBE FULLSCREEN BUTTON -->
+    <button class="btn-youtube-fullscreen" id="header-btn-yt-fullscreen" title="Full screen (f)" onclick="toggleYouTubeFullscreen()">
+      <svg class="icon-expand" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+      </svg>
+      <svg class="icon-compress" style="display:none" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+        <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+      </svg>
+      <span id="txt-yt-fullscreen">FULLSCREEN</span>
     </button>
+    
     <button class="btn-png-download" onclick="captureAndDownloadScreenshot()">
       <span>📸 DOWNLOAD PNG</span>
     </button>
@@ -971,20 +1048,16 @@ body.zen-mode .sidebar-wrapper{
 <!-- 3. STUDIO MAIN WORKSPACE -->
 <div class="studio-main">
 
-  <!-- DRAGGABLE FLOATING EXCALIDRAW TOOLBAR -->
+  <!-- DRAGGABLE FLOATING TOOLBAR WITH 2-STAGE DRAWING TRAY -->
   <div id="draggable-toolbar">
     
-    <!-- DRAG GRIP HANDLE -->
-    <div class="toolbar-drag-grip" id="toolbar-grip" title="Drag to reposition toolbar anywhere!">
-      ⋮⋮
-    </div>
+    <!-- 1. PERMANENT CORE CONTROLS (ALWAYS VISIBLE) -->
+    <div class="core-tools-group">
+      <!-- DRAG GRIP HANDLE -->
+      <div class="toolbar-drag-grip" id="toolbar-grip" title="Drag to reposition toolbar anywhere!">
+        ⋮⋮
+      </div>
 
-    <!-- MINIMIZED RESTORE PILL -->
-    <div class="minimized-pill-label" onclick="toggleFloatingToolbar()" title="Click to expand full toolbar">
-      <span>🎨 TOOLS (CLICK TO EXPAND)</span>
-    </div>
-
-    <div class="toolbar-hideable-content" style="display:flex;align-items:center;gap:4px">
       <!-- UNDO & REDO BUTTONS -->
       <button class="btn-history" id="btn-undo" title="Undo (Ctrl+Z)" onclick="performUndoAction()">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
@@ -995,16 +1068,27 @@ body.zen-mode .sidebar-wrapper{
 
       <div class="toolbar-separator"></div>
 
-      <!-- 1. Selection Tool -->
+      <!-- SELECTION POINTER TOOL -->
       <button class="tool-item active" id="tool-select" title="Selection & Move (Key: 1)" onclick="setActiveWhiteboardTool('select')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>
         <span class="shortcut-num">1</span>
       </button>
 
-      <!-- 2. Canva-Style Lock/Unlock Toggle -->
+      <!-- CANVA LOCK / UNLOCK TOGGLE -->
       <button class="btn-lock-toggle" id="btn-lock-selected" title="Lock Selected Element (Prevent accidental move)" onclick="toggleLockSelectedElement()">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       </button>
+
+      <!-- TOGGLE DRAWING TOOLS TRAY BUTTON -->
+      <button class="btn-toggle-draw-tray" id="btn-toggle-draw" title="Click to show/hide extra drawing tools" onclick="toggleDrawingToolsTray()">
+        <span>✏️ TOOLS</span>
+        <span id="tray-arrow-icon">❯</span>
+      </button>
+    </div>
+
+    <!-- 2. COLLAPSIBLE DRAWING TOOLS TRAY -->
+    <div id="drawing-tools-tray" class="collapsed">
+      <div class="toolbar-separator"></div>
 
       <!-- 3. Rectangle Box -->
       <button class="tool-item" id="tool-rect" title="Rectangle Box (Key: 2 - Click again to untick)" onclick="setActiveWhiteboardTool('rect')">
@@ -1058,15 +1142,20 @@ body.zen-mode .sidebar-wrapper{
         <div class="color-dot" style="background:#ffcc00" onclick="pickPaletteColor('#ffcc00', this)"></div>
         <div class="color-dot" style="background:#ffffff" onclick="pickPaletteColor('#ffffff', this)"></div>
       </div>
-
-      <div class="toolbar-separator"></div>
-
-      <!-- MINIMIZE BUTTON -->
-      <button class="btn-hide-toolbar" title="Minimize Toolbar" onclick="toggleFloatingToolbar()">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      </button>
     </div>
 
+  </div>
+
+  <!-- FLOATING YOUTUBE FULLSCREEN CONTROL AT BOTTOM RIGHT -->
+  <div class="yt-floating-bottom-bar" id="yt-corner-bar" title="YouTube Fullscreen Mode (f)">
+    <button class="yt-player-btn" id="corner-btn-yt-fullscreen" onclick="toggleYouTubeFullscreen()" title="Full screen (f)">
+      <svg class="icon-expand" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+      </svg>
+      <svg class="icon-compress" style="display:none" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+      </svg>
+    </button>
   </div>
 
   <!-- SCROLLABLE ARTBOARD VIEWPORT -->
@@ -1183,7 +1272,7 @@ body.zen-mode .sidebar-wrapper{
 
       <div class="panel-header-title">SHORTCUT TIPS</div>
       <p style="font-size:11.5px;line-height:1.6;color:rgba(255,255,255,0.6)">
-        <b>Esc:</b> Fullscreen Zen Mode (বিশাল স্ক্রিন স্পেস)<br>
+        <b>F / Esc:</b> YouTube Fullscreen (পুরু মনিটর ডিসপ্লে)<br>
         <b>Double Click:</b> যেকোনো লেখার ওপর ডাবল ক্লিক করে লিখুন<br>
         <b>Ctrl+Z / Ctrl+Y:</b> Undo ও Redo<br>
         <b>🔒 Lock:</b> বক্স লক করে দিন যেন হাত লাগলে না নড়ে
