@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 85" fill="none" width="100%" height="100%">
+  <defs>
+    <!-- Cyber Cyan to Lime Neon Gradient -->
+    <linearGradient id="mbmNeonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff" />
+      <stop offset="60%" stop-color="#38ef7d" />
+      <stop offset="100%" stop-color="#b8ff57" />
+    </linearGradient>
+
+    <!-- Neon Glow Filter for SVG -->
+    <filter id="mbmGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 1. ICON MARK: GEOMETRIC 'M' + LOCATION PIN + UPWARD GROWTH CHEVRON -->
+  <g transform="translate(6, 6)" filter="url(#mbmGlow)">
+    
+    <!-- Outer 'M' Outer Wings -->
+    <path d="M 12 62 L 12 20 L 26 38" 
+          stroke="url(#mbmNeonGrad)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    
+    <path d="M 60 38 L 74 20 L 74 62" 
+          stroke="url(#mbmNeonGrad)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+    <!-- Map Pin Loop Body (Tapering to sharp bottom point) -->
+    <path d="M 43 72 
+             C 32 56 22 45 22 32 
+             A 21 21 0 1 1 64 32 
+             C 64 45 54 56 43 72 Z" 
+          stroke="url(#mbmNeonGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+    <!-- Upward Growth Arrow inside Pin -->
+    <path d="M 31 46 L 39 37 L 46 44 L 56 26" 
+          stroke="url(#mbmNeonGrad)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    
+    <!-- Arrowhead Peak -->
+    <path d="M 47 25 L 57 25 L 57 35" 
+          stroke="url(#mbmNeonGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+
+  <!-- 2. TYPOGRAPHY: CLEAN & HORIZONTAL FOR NAVBAR (TRANSPARENT BACKGROUND) -->
+  <g transform="translate(100, 0)">
+    <!-- Primary Brand Line -->
+    <text x="0" y="44" 
+          fill="#ffffff" 
+          font-family="'Space Grotesk', 'Inter', -apple-system, sans-serif" 
+          font-size="23" 
+          font-weight="800" 
+          letter-spacing="0.10em">MARK BISHOP <tspan fill="url(#mbmNeonGrad)">MEDIA</tspan></text>
+    
+    <!-- Sub-Brand Division Badge Line -->
+    <text x="2" y="66" 
+          fill="#00d4ff" 
+          font-family="'JetBrains Mono', 'Space Grotesk', monospace" 
+          font-size="10.5" 
+          font-weight="700" 
+          letter-spacing="0.26em" 
+          opacity="0.95">LOCAL VISIBILITY OS</text>
+  </g>
+</svg>
