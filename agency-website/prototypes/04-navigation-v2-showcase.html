@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mark Bishop Media — 3D Navigation Motion V2 (5 Next-Gen Variants)</title>
+<title>Mark Bishop Media — 3D Navigation V2 Master (Sonar Radar + Metric Ribbons)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
 /* ═══════════════════════════════════════════════════════════
@@ -67,7 +67,7 @@ body::before {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CORE MASTER NAVIGATION CONTAINER (SLIM & FEATHERLIGHT)
+   CORE MASTER NAVIGATION CONTAINER (PAGE BLEND ➔ SCROLL FLOAT)
    ═══════════════════════════════════════════════════════════ */
 .master-nav-wrapper {
   position: absolute;
@@ -81,7 +81,7 @@ body::before {
   pointer-events: none;
 }
 
-/* 1. INITIAL TOP STATE: SLIM, SEAMLESSLY BLENDED */
+/* 1. INITIAL TOP STATE: SLIM, SEAMLESSLY BLENDED WITH PAGE */
 .nav-capsule {
   pointer-events: auto;
   position: relative;
@@ -90,6 +90,8 @@ body::before {
   align-items: center;
   justify-content: space-between;
   background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: none;
   border-radius: 100px;
@@ -97,7 +99,7 @@ body::before {
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* 2. SCROLLED STATE: ULTRA-SLIM FLOATING GLASS CAPSULE */
+/* 2. SCROLLED STATE: ULTRA-SLIM & AIRY FLOATING GLASS CAPSULE */
 body.is-scrolled .master-nav-wrapper {
   position: fixed;
   top: 10px;
@@ -106,11 +108,30 @@ body.is-scrolled .master-nav-wrapper {
 
 @keyframes floatInNav {
   0% {
-    transform: translateY(-16px) scale(0.98/* ═══════════════════════════════════════════════════════════
-   COMBINED MASTER 3D ARCHITECTURE (FEATURE 1 + FEATURE 5)
-   ═══════════════════════════════════════════════════════════ */
+    transform: translateY(-16px) scale(0.98);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
 
-/* 1. 3D SONAR RADAR PULSE ON LOGO (ALWAYS ACTIVE ON HOVER) */
+body.is-scrolled .nav-capsule {
+  width: min(1040px, 92%);
+  padding: 3.5px 8px 3.5px 16px;
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(6px) saturate(140%);
+  -webkit-backdrop-filter: blur(6px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.18);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FEATURE 1: 3D SONAR RADAR PULSE ON LOGO (ACTIVE ON HOVER)
+   ═══════════════════════════════════════════════════════════ */
 .brand-link {
   display: flex;
   align-items: center;
@@ -178,7 +199,9 @@ body.is-scrolled .brand-logo-svg {
   }
 }
 
-/* 2. CENTER MENU LIST */
+/* ═══════════════════════════════════════════════════════════
+   CENTER NAVIGATION MENU LIST
+   ═══════════════════════════════════════════════════════════ */
 .nav-menu-list {
   display: flex;
   align-items: center;
@@ -215,7 +238,9 @@ body.is-scrolled .brand-logo-svg {
   transform: rotate(180deg);
 }
 
-/* 3. BOXLESS FLOATING VERTICAL STACK (SINGLE-LINE CARD ARCHITECTURE) */
+/* ═══════════════════════════════════════════════════════════
+   BOXLESS FLOATING VERTICAL STACK (SINGLE-LINE 3D CARDS)
+   ═══════════════════════════════════════════════════════════ */
 .dropdown-panel {
   position: absolute;
   top: calc(100% + 6px);
@@ -224,7 +249,7 @@ body.is-scrolled .brand-logo-svg {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  width: 410px; /* Spacious single-line width */
+  width: 420px; /* Spacious width so text and ribbon fit on a single line */
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -240,7 +265,7 @@ body.is-scrolled .brand-logo-svg {
   perspective: 700px;
 }
 
-/* CASCADE FLOW DELAY */
+/* STAGGERED CASCADE ENTRY DELAY */
 .nav-item:hover .dropdown-card:nth-child(1) { transition-delay: 0.02s; }
 .nav-item:hover .dropdown-card:nth-child(2) { transition-delay: 0.05s; }
 .nav-item:hover .dropdown-card:nth-child(3) { transition-delay: 0.08s; }
@@ -327,53 +352,6 @@ body.is-scrolled .brand-logo-svg {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
 }
 
-/* 4. 3D METRIC PROOF RIBBON (REVEALS IN 3D ON HOVER) */
-.metric-proof-ribbon {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9.5px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  color: #020205;
-  background: linear-gradient(135deg, var(--lime-glow), var(--cyan-glow));
-  padding: 3.5px 9px;
-  border-radius: 100px;
-  white-space: nowrap;
-  box-shadow: 0 0 12px rgba(184, 255, 87, 0.4);
-  transform: rotateX(90deg) translateZ(10px);
-  opacity: 0;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  z-index: 4;
-}
-
-.dropdown-card:hover .metric-proof-ribbon {
-  transform: rotateX(0deg) translateZ(16px);
-  opacity: 1;
-}
-
-/* SUBTLE SPECULAR BACKLIGHT */
-.specular-glint-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  z-index: 1;
-  mix-blend-mode: screen;
-  transition: opacity 0.2s ease;
-  border-radius: inherit;
-}
-.dropdown-card:hover .specular-glint-layer {
-  opacity: 1;
-}  color: rgba(255, 255, 255, 0.7);
-  margin-top: 2.5px;
-  line-height: 1.35;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
-  transition: color 0.2s ease;
-}
-.dropdown-card:hover .dropdown-card-desc {
-  color: rgba(255, 255, 255, 0.95);
-}
-
 /* ═══════════════════════════════════════════════════════════
    FEATURE 5: 3D MICRO-METRIC PROOF RIBBON REVEAL
    ═══════════════════════════════════════════════════════════ */
@@ -401,7 +379,7 @@ body.is-scrolled .brand-logo-svg {
   opacity: 1;
 }
 
-/* SUBTLE SPECULAR BACKLIGHT */
+/* SUBTLE SPECULAR BACKLIGHT (BEHIND TEXT) */
 .specular-glint-layer {
   position: absolute;
   inset: 0;
@@ -417,7 +395,7 @@ body.is-scrolled .brand-logo-svg {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   FEATURE 4: KINETIC ORBITAL ENERGY ON CTA BUTTON
+   RIGHT ACTION GROUP & SLIM GLOWING CTA
    ═══════════════════════════════════════════════════════════ */
 .nav-actions {
   display: flex;
@@ -455,33 +433,10 @@ body.is-scrolled .brand-logo-svg {
   box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
   border: none;
-  overflow: visible;
 }
 .btn-cta-glow:hover {
   transform: scale(1.04);
   box-shadow: 0 0 35px rgba(184, 255, 87, 0.75);
-}
-
-/* ORBITAL ENERGY SPARKLE BEACONS */
-.orbital-energy-beacon {
-  position: absolute;
-  inset: -3px;
-  border-radius: 100px;
-  background: conic-gradient(from 0deg, transparent 60%, #b8ff57 85%, #00d4ff 100%);
-  opacity: 0;
-  pointer-events: none;
-  z-index: -1;
-  filter: blur(4px);
-  transition: opacity 0.3s ease;
-}
-
-body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
-  opacity: 1;
-  animation: rotateOrbital 1.2s infinite linear;
-}
-@keyframes rotateOrbital {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }
 
 .arrow-circle-badge {
@@ -505,64 +460,6 @@ body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
 }
 .btn-cta-glow:hover .arrow-circle-badge span {
   transform: translate(1px, -1px);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   FLOATING 1-CLICK VARIANT SWITCHER BAR (BOTTOM FIXED)
-   ═══════════════════════════════════════════════════════════ */
-.variant-switcher-bar {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(10, 16, 28, 0.90);
-  backdrop-filter: blur(30px) saturate(200%);
-  -webkit-backdrop-filter: blur(30px) saturate(200%);
-  border: 1.5px solid rgba(0, 212, 255, 0.35);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(0, 212, 255, 0.25);
-  border-radius: 100px;
-  padding: 6px 10px;
-  z-index: 99999;
-}
-
-.switcher-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10.5px;
-  font-weight: 700;
-  color: var(--cyan-glow);
-  padding: 0 8px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.btn-switch-variant {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.8);
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 11.5px;
-  font-weight: 700;
-  padding: 7px 14px;
-  border-radius: 100px;
-  cursor: pointer;
-  transition: all 0.22s ease;
-  white-space: nowrap;
-}
-
-.btn-switch-variant:hover {
-  color: #fff;
-  background: rgba(0, 212, 255, 0.15);
-  border-color: var(--cyan-glow);
-}
-
-.btn-switch-variant.active {
-  background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(184, 255, 87, 0.35));
-  border-color: var(--cyan-glow);
-  color: #ffffff;
-  box-shadow: 0 0 16px rgba(0, 212, 255, 0.45);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -656,13 +553,13 @@ body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
 }
 </style>
 </head>
-<body class="variant-1">
+<body>
 
 <!-- TOP AMBIENT LIGHT -->
 <div class="ambient-glow-top"></div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     THE MASTER 3D NAVIGATION CAPSULE (V2)
+     THE MASTER 3D NAVIGATION CAPSULE (V2 COMBINED)
      ═══════════════════════════════════════════════════════════ -->
 <div class="master-nav-wrapper" id="master-nav-wrapper">
   <nav class="nav-capsule" id="nav-capsule">
@@ -676,11 +573,8 @@ body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
       <img src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg" />
     </a>
 
-    <!-- 2. CENTER NAVIGATION LIST + LIQUID SLIDING TRAIL (FEATURE 2) -->
+    <!-- 2. CENTER NAVIGATION LIST WITH 3D GLASS DROPDOWNS -->
     <ul class="nav-menu-list" id="nav-menu-list">
-      
-      <!-- THE LIQUID SLIDING GLOW PILL -->
-      <div class="liquid-nav-indicator" id="liquid-indicator"></div>
 
       <!-- SOLUTIONS DROPDOWN (SINGLE-LINE 3D CARDS + METRIC RIBBONS) -->
       <li class="nav-item has-dropdown" id="nav-item-solutions">
