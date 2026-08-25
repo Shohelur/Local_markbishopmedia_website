@@ -106,30 +106,11 @@ body.is-scrolled .master-nav-wrapper {
 
 @keyframes floatInNav {
   0% {
-    transform: translateY(-16px) scale(0.98);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-}
-
-body.is-scrolled .nav-capsule {
-  width: min(1040px, 92%);
-  padding: 3.5px 8px 3.5px 16px;
-  background: rgba(255, 255, 255, 0.035);
-  backdrop-filter: blur(6px) saturate(140%);
-  -webkit-backdrop-filter: blur(6px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.25),
-    inset 0 1px 1px rgba(255, 255, 255, 0.18);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   FEATURE 1: 3D SONAR RADAR PULSE ON LOGO
+    transform: translateY(-16px) scale(0.98/* ═══════════════════════════════════════════════════════════
+   COMBINED MASTER 3D ARCHITECTURE (FEATURE 1 + FEATURE 5)
    ═══════════════════════════════════════════════════════════ */
+
+/* 1. 3D SONAR RADAR PULSE ON LOGO (ALWAYS ACTIVE ON HOVER) */
 .brand-link {
   display: flex;
   align-items: center;
@@ -150,7 +131,6 @@ body.is-scrolled .brand-logo-svg {
   height: 27px;
 }
 
-/* SONAR RADAR SCAN RINGS */
 .sonar-ring-container {
   position: absolute;
   left: 16px;
@@ -171,14 +151,13 @@ body.is-scrolled .brand-logo-svg {
   transform: scale(0.4);
 }
 
-/* VARIANT 1 ACTIVE: LOGO RADAR PULSES ON HOVER */
-body.variant-1 .brand-link:hover .brand-logo-svg {
-  transform: rotateY(14deg) scale(1.04);
+.brand-link:hover .brand-logo-svg {
+  transform: rotateY(12deg) scale(1.04);
 }
-body.variant-1 .brand-link:hover .sonar-radar-wave:nth-child(1) {
+.brand-link:hover .sonar-radar-wave:nth-child(1) {
   animation: sonarWave 1.4s infinite cubic-bezier(0.1, 0.8, 0.3, 1);
 }
-body.variant-1 .brand-link:hover .sonar-radar-wave:nth-child(2) {
+.brand-link:hover .sonar-radar-wave:nth-child(2) {
   animation: sonarWave 1.4s 0.4s infinite cubic-bezier(0.1, 0.8, 0.3, 1);
   border-color: var(--lime-glow);
 }
@@ -199,35 +178,12 @@ body.variant-1 .brand-link:hover .sonar-radar-wave:nth-child(2) {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   FEATURE 2: LIQUID MAGNETIC SLIDING GLOW TRAIL
-   ═══════════════════════════════════════════════════════════ */
+/* 2. CENTER MENU LIST */
 .nav-menu-list {
   display: flex;
   align-items: center;
   gap: 18px;
   list-style: none;
-  position: relative;
-}
-
-/* THE LIQUID GLIDING PILL INDICATOR */
-.liquid-nav-indicator {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 28px;
-  background: linear-gradient(135deg, rgba(0, 212, 255, 0.12), rgba(184, 255, 87, 0.08));
-  border: 1px solid rgba(0, 212, 255, 0.3);
-  border-radius: 100px;
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
-  pointer-events: none;
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 1;
-}
-
-body.variant-2 .liquid-nav-indicator {
-  display: block;
 }
 
 .nav-item {
@@ -240,11 +196,10 @@ body.variant-2 .liquid-nav-indicator {
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 6px 10px;
+  padding: 6px 8px;
   border-radius: 100px;
   transition: color 0.2s ease;
   user-select: none;
-  z-index: 2;
 }
 .nav-item:hover {
   color: var(--cyan-glow);
@@ -260,9 +215,7 @@ body.variant-2 .liquid-nav-indicator {
   transform: rotate(180deg);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   BOXLESS FLOATING 3D GLASS DROPDOWN ARCHITECTURE
-   ═══════════════════════════════════════════════════════════ */
+/* 3. BOXLESS FLOATING VERTICAL STACK (SINGLE-LINE CARD ARCHITECTURE) */
 .dropdown-panel {
   position: absolute;
   top: calc(100% + 6px);
@@ -270,8 +223,8 @@ body.variant-2 .liquid-nav-indicator {
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  width: 330px;
+  gap: 6px;
+  width: 410px; /* Spacious single-line width */
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -287,7 +240,7 @@ body.variant-2 .liquid-nav-indicator {
   perspective: 700px;
 }
 
-/* STAGGERED CASCADE ENTRY DELAY */
+/* CASCADE FLOW DELAY */
 .nav-item:hover .dropdown-card:nth-child(1) { transition-delay: 0.02s; }
 .nav-item:hover .dropdown-card:nth-child(2) { transition-delay: 0.05s; }
 .nav-item:hover .dropdown-card:nth-child(3) { transition-delay: 0.08s; }
@@ -311,13 +264,13 @@ body.variant-2 .liquid-nav-indicator {
   pointer-events: auto;
 }
 
-/* ─── INDEPENDENT FLOATING 3D GLASS CARDS ─── */
+/* ─── SINGLE-LINE INDEPENDENT FLOATING 3D GLASS CARDS ─── */
 .dropdown-card {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 11px 15px;
+  justify-content: space-between;
+  padding: 10px 16px;
   border-radius: 14px;
   text-decoration: none;
   background: rgba(9, 15, 28, 0.92);
@@ -344,39 +297,25 @@ body.variant-2 .liquid-nav-indicator {
   transform: translateY(-2px) scale(1.02);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   FEATURE 3: 3D PARALLAX ICON DEPTH ELEVATION
-   ═══════════════════════════════════════════════════════════ */
+.card-left-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 2;
+}
+
 .card-icon-box {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
   background: rgba(0, 212, 255, 0.08);
   border: 1px solid rgba(0, 212, 255, 0.2);
-  font-size: 16px;
+  font-size: 14px;
   flex-shrink: 0;
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
-  position: relative;
-  z-index: 3;
-}
-
-/* VARIANT 3 ACTIVE: 3D FLOATING ICON ELEVATION */
-body.variant-3 .dropdown-card:hover .card-icon-box {
-  transform: translateZ(28px) scale(1.2) rotateY(-8deg);
-  background: rgba(0, 212, 255, 0.2);
-  border-color: var(--cyan-glow);
-  box-shadow: 0 10px 20px rgba(0, 212, 255, 0.4);
-}
-
-.card-text-group {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  position: relative;
-  z-index: 2;
 }
 
 .dropdown-card-title {
@@ -384,13 +323,48 @@ body.variant-3 .dropdown-card:hover .card-icon-box {
   font-size: 13px;
   font-weight: 700;
   color: #ffffff;
+  white-space: nowrap;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
 }
 
-.dropdown-card-desc {
-  font-family: 'Inter', sans-serif;
-  font-size: 10.5px;
-  color: rgba(255, 255, 255, 0.7);
+/* 4. 3D METRIC PROOF RIBBON (REVEALS IN 3D ON HOVER) */
+.metric-proof-ribbon {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #020205;
+  background: linear-gradient(135deg, var(--lime-glow), var(--cyan-glow));
+  padding: 3.5px 9px;
+  border-radius: 100px;
+  white-space: nowrap;
+  box-shadow: 0 0 12px rgba(184, 255, 87, 0.4);
+  transform: rotateX(90deg) translateZ(10px);
+  opacity: 0;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 4;
+}
+
+.dropdown-card:hover .metric-proof-ribbon {
+  transform: rotateX(0deg) translateZ(16px);
+  opacity: 1;
+}
+
+/* SUBTLE SPECULAR BACKLIGHT */
+.specular-glint-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+  mix-blend-mode: screen;
+  transition: opacity 0.2s ease;
+  border-radius: inherit;
+}
+.dropdown-card:hover .specular-glint-layer {
+  opacity: 1;
+}  color: rgba(255, 255, 255, 0.7);
   margin-top: 2.5px;
   line-height: 1.35;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
@@ -404,16 +378,17 @@ body.variant-3 .dropdown-card:hover .card-icon-box {
    FEATURE 5: 3D MICRO-METRIC PROOF RIBBON REVEAL
    ═══════════════════════════════════════════════════════════ */
 .metric-proof-ribbon {
-  display: none;
+  display: inline-block;
   font-family: 'JetBrains Mono', monospace;
   font-size: 9.5px;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.04em;
   color: #020205;
   background: linear-gradient(135deg, var(--lime-glow), var(--cyan-glow));
-  padding: 3px 8px;
+  padding: 3.5px 9px;
   border-radius: 100px;
   white-space: nowrap;
-  box-shadow: 0 0 12px rgba(184, 255, 87, 0.5);
+  box-shadow: 0 0 12px rgba(184, 255, 87, 0.4);
   transform: rotateX(90deg) translateZ(10px);
   opacity: 0;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -421,11 +396,7 @@ body.variant-3 .dropdown-card:hover .card-icon-box {
   z-index: 4;
 }
 
-/* VARIANT 5 ACTIVE: REVEAL PROOF RIBBON ON HOVER */
-body.variant-5 .metric-proof-ribbon {
-  display: inline-block;
-}
-body.variant-5 .dropdown-card:hover .metric-proof-ribbon {
+.dropdown-card:hover .metric-proof-ribbon {
   transform: rotateX(0deg) translateZ(16px);
   opacity: 1;
 }
@@ -711,7 +682,7 @@ body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
       <!-- THE LIQUID SLIDING GLOW PILL -->
       <div class="liquid-nav-indicator" id="liquid-indicator"></div>
 
-      <!-- SOLUTIONS DROPDOWN -->
+      <!-- SOLUTIONS DROPDOWN (SINGLE-LINE 3D CARDS + METRIC RIBBONS) -->
       <li class="nav-item has-dropdown" id="nav-item-solutions">
         <span>Solutions</span>
         <span class="nav-chevron">▼</span>
@@ -721,10 +692,9 @@ body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
           <li>
             <a href="#three-pack" class="dropdown-card">
               <div class="specular-glint-layer"></div>
-              <div class="card-icon-box">📍</div>
-              <div class="card-text-group">
+              <div class="card-left-group">
+                <div class="card-icon-box">📍</div>
                 <span class="dropdown-card-title">Rank in Google Maps Top 3</span>
-                <span class="dropdown-card-desc">Stop losing local calls to competitors & show up first</span>
               </div>
               <span class="metric-proof-ribbon">+320% CALLS</span>
             </a>
@@ -732,10 +702,9 @@ body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
           <li>
             <a href="#reviews" class="dropdown-card">
               <div class="specular-glint-layer"></div>
-              <div class="card-icon-box">⭐</div>
-              <div class="card-text-group">
+              <div class="card-left-group">
+                <div class="card-icon-box">⭐</div>
                 <span class="dropdown-card-title">Automated 5-Star Reviews</span>
-                <span class="dropdown-card-desc">Turn happy customers into real reviews on autopilot</span>
               </div>
               <span class="metric-proof-ribbon">★ 4.9 RATING</span>
             </a>
@@ -743,10 +712,9 @@ body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
           <li>
             <a href="#citations" class="dropdown-card">
               <div class="specular-glint-layer"></div>
-              <div class="card-icon-box">🌐</div>
-              <div class="card-text-group">
+              <div class="card-left-group">
+                <div class="card-icon-box">🌐</div>
                 <span class="dropdown-card-title">100+ Directory Sync & Citations</span>
-                <span class="dropdown-card-desc">Lock your business info on Apple, Yelp & Google</span>
               </div>
               <span class="metric-proof-ribbon">100+ DIRS</span>
             </a>
@@ -754,10 +722,9 @@ body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
           <li>
             <a href="#website" class="dropdown-card">
               <div class="specular-glint-layer"></div>
-              <div class="card-icon-box">🚀</div>
-              <div class="card-text-group">
+              <div class="card-left-group">
+                <div class="card-icon-box">🚀</div>
                 <span class="dropdown-card-title">High-Converting 3D Website</span>
-                <span class="dropdown-card-desc">Modern, fast & built with schema to turn clicks to calls</span>
               </div>
               <span class="metric-proof-ribbon">3.4x BOOKINGS</span>
             </a>
@@ -783,10 +750,9 @@ body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
           <li>
             <a href="#audit" class="dropdown-card">
               <div class="specular-glint-layer"></div>
-              <div class="card-icon-box">⚡</div>
-              <div class="card-text-group">
+              <div class="card-left-group">
+                <div class="card-icon-box">⚡</div>
                 <span class="dropdown-card-title">Free 9-Mile Visibility Audit</span>
-                <span class="dropdown-card-desc">Run an instant live ranking scan for your business</span>
               </div>
               <span class="metric-proof-ribbon">FREE SCAN</span>
             </a>
@@ -794,23 +760,21 @@ body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
           <li>
             <a href="#blog" class="dropdown-card">
               <div class="specular-glint-layer"></div>
-              <div class="card-icon-box">📑</div>
-              <div class="card-text-group">
-                <span class="dropdown-card-title">Local Growth Blog</span>
-                <span class="dropdown-card-desc">Proven tips to scale local customers & revenue</span>
+              <div class="card-left-group">
+                <div class="card-icon-box">📑</div>
+                <span class="dropdown-card-title">Local Growth Case Studies</span>
               </div>
-              <span class="metric-proof-ribbon">NEW POSTS</span>
+              <span class="metric-proof-ribbon">INSIGHTS</span>
             </a>
           </li>
           <li>
             <a href="#faq" class="dropdown-card">
               <div class="specular-glint-layer"></div>
-              <div class="card-icon-box">❓</div>
-              <div class="card-text-group">
-                <span class="dropdown-card-title">Client FAQs</span>
-                <span class="dropdown-card-desc">Everything you need to know about our system</span>
+              <div class="card-left-group">
+                <div class="card-icon-box">❓</div>
+                <span class="dropdown-card-title">Frequently Asked Questions</span>
               </div>
-              <span class="metric-proof-ribbon">ANSWERS</span>
+              <span class="metric-proof-ribbon">FAQS</span>
             </a>
           </li>
         </ul>
@@ -818,11 +782,10 @@ body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
 
     </ul>
 
-    <!-- 3. RIGHT ACTION GROUP + ORBITAL ENERGY CTA (FEATURE 4) -->
+    <!-- 3. RIGHT ACTION GROUP -->
     <div class="nav-actions">
       <a href="#contact" class="nav-contact-link">Talk to Mark</a>
       <a href="#audit" class="btn-cta-glow" id="mag-cta-btn">
-        <div class="orbital-energy-beacon"></div>
         <span>⚡ FREE AUDIT</span>
         <span class="arrow-circle-badge"><span>↗</span></span>
       </a>
@@ -838,10 +801,10 @@ body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
 
   <!-- SECTION 1: HERO VIEW -->
   <section class="demo-section" id="hero-sec">
-    <div class="sec-badge">● STAGE 01 — 3D MOTION V2 SHOWCASE</div>
-    <h1 class="sec-title">Interactive 3D Motion Architecture V2</h1>
+    <div class="sec-badge">● 3D NAVIGATION V2 — COMBINED MASTER ENGINE</div>
+    <h1 class="sec-title">Logo 3D Sonar Radar + Single-Line 3D Metric Ribbons</h1>
     <p class="sec-desc">
-      Explore the 5 distinct 3D motion dynamics below. Notice the slim featherlight frosted glass on scroll, the boxless vertical cascade cards, and switch variants using the bottom bar!
+      Hover over the top-left <strong>"Mark Bishop Media"</strong> logo to see the 3D Sonar Radar pulse, and hover over <strong>"Solutions ⌵"</strong> to see the clean single-line cards with 3D holographic metric ribbons flipping into view!
     </p>
 
     <!-- TEST STREAM PASSING UNDER THE GLASS -->
@@ -852,10 +815,11 @@ body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
     </div>
 
     <div class="active-variant-indicator-card">
-      <div class="card-header-lbl" id="active-variant-label">CURRENT ACTIVE 3D MOTION:</div>
-      <div class="card-header-val" id="active-variant-name">📡 Variant 1: 3D Sonar Radar Pulse on Logo</div>
-      <div class="card-desc-val" id="active-variant-details">
-        Hover over the "Mark Bishop Media" logo on the top-left to trigger the 3D expanding sonar radar scan rings and elastic pin perspective rotation.
+      <div class="card-header-lbl">ACTIVE MASTER 3D COMBINATION:</div>
+      <div class="card-header-val">📡 3D Logo Sonar Radar + 🏷️ Single-Line 3D Metric Proof Ribbons</div>
+      <div class="card-desc-val">
+        1. <strong>3D Sonar Radar:</strong> Logo emits expanding cyan/lime radar waves on hover with 3D pin depth.<br>
+        2. <strong>Single-Line Clean Layout:</strong> Dropdown cards now display titles on a crisp single horizontal line with 3D metric badges (+320% CALLS, ★ 4.9 RATING, 100+ DIRS, 3.4x BOOKINGS) flipping out in 3D perspective!
       </div>
     </div>
   </section>
@@ -885,18 +849,6 @@ body.variant-4 .btn-cta-glow:hover .orbital-energy-beacon {
 </main>
 
 <!-- ═══════════════════════════════════════════════════════════
-     1-CLICK 5-VARIANT SWITCHER TRAY (BOTTOM FLOATING)
-     ═══════════════════════════════════════════════════════════ -->
-<div class="variant-switcher-bar">
-  <span class="switcher-label">🎮 3D Motion Mode:</span>
-  <button class="btn-switch-variant active" onclick="switchNavMotion(1)">📡 1. Sonar Radar</button>
-  <button class="btn-switch-variant" onclick="switchNavMotion(2)">🧲 2. Liquid Trail</button>
-  <button class="btn-switch-variant" onclick="switchNavMotion(3)">🪐 3. 3D Icon Parallax</button>
-  <button class="btn-switch-variant" onclick="switchNavMotion(4)">⚡ 4. Orbital Energy</button>
-  <button class="btn-switch-variant" onclick="switchNavMotion(5)">🏷️ 5. Metric Ribbon</button>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════
      3D MOTION & PHYSICS ENGINE SCRIPT
      ═══════════════════════════════════════════════════════════ -->
 <script>
@@ -909,26 +861,7 @@ window.addEventListener('scroll', () => {
   }
 });
 
-/* ─── 2. LIQUID SLIDING GLOW TRAIL INDICATOR (FEATURE 2) ─── */
-const navItems = document.querySelectorAll('.nav-menu-list .nav-item');
-const indicator = document.getElementById('liquid-indicator');
-
-navItems.forEach(item => {
-  item.addEventListener('mouseenter', () => {
-    const rect = item.getBoundingClientRect();
-    const parentRect = item.parentElement.getBoundingClientRect();
-    
-    indicator.style.width = `${rect.width}px`;
-    indicator.style.left = `${rect.left - parentRect.left}px`;
-    indicator.style.opacity = '1';
-  });
-});
-
-document.getElementById('nav-menu-list').addEventListener('mouseleave', () => {
-  indicator.style.opacity = '0';
-});
-
-/* ─── 3. 3D PERSPECTIVE TILT & SPECULAR LIGHT ON DROPDOWN CARDS ─── */
+/* ─── 2. 3D PERSPECTIVE TILT & SPECULAR LIGHT ON DROPDOWN CARDS ─── */
 document.querySelectorAll('.dropdown-card').forEach(card => {
   card.addEventListener('mousemove', (e) => {
     const rect = card.getBoundingClientRect();
@@ -955,42 +888,6 @@ document.querySelectorAll('.dropdown-card').forEach(card => {
     if (glint) glint.style.background = '';
   });
 });
-
-/* ─── 4. 1-CLICK 5-VARIANT SWITCHER ENGINE ─── */
-const motionData = {
-  1: {
-    name: "📡 Variant 1: 3D Sonar Radar Pulse on Logo",
-    details: "Hover over the 'Mark Bishop Media' logo on the top-left to trigger expanding 3D sonar radar scan rings and elastic perspective depth rotation."
-  },
-  2: {
-    name: "🧲 Variant 2: Liquid Magnetic Sliding Glow Trail",
-    details: "Move your mouse across 'Solutions', 'Case Studies', 'Testimonials', 'Resources' to watch the liquid neon frosted glass capsule glide dynamically beneath the text."
-  },
-  3: {
-    name: "🪐 Variant 3: Multi-Layer 3D Parallax Icon Elevation",
-    details: "Hover over 'Solutions' and move your cursor across the cards. Notice how the glowing 3D emoji icons physically lift off the card in Z-space (translateZ: 28px)!"
-  },
-  4: {
-    name: "⚡ Variant 4: Kinetic Orbital Energy Sparkles on CTA",
-    details: "Hover over the '⚡ FREE AUDIT ↗' button on the top-right to activate the high-speed orbital energy laser ring spinning along the pill perimeter."
-  },
-  5: {
-    name: "🏷️ Variant 5: 3D Micro-Metric Proof Ribbon Reveal",
-    details: "Hover over 'Solutions' to see high-converting proof ribbons (+320% CALLS, ★ 4.9 RATING, 100+ DIRS) flip out in 3D perspective on card hover!"
-  }
-};
-
-function switchNavMotion(num) {
-  document.body.className = `variant-${num}`;
-  if (window.scrollY > 40) document.body.classList.add('is-scrolled');
-
-  document.querySelectorAll('.btn-switch-variant').forEach((b, idx) => {
-    b.classList.toggle('active', idx + 1 === num);
-  });
-
-  document.getElementById('active-variant-name').innerText = motionData[num].name;
-  document.getElementById('active-variant-details').innerText = motionData[num].details;
-}
 </script>
 
 </body>
