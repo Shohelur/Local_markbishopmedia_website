@@ -27,10 +27,10 @@
 
 ## Visual Identity
 
-- **Primary Color:** #0B192C (deep navy)
-- **Secondary Color:** #D97706 (warm amber/gold)
-- **Logo:** *(to be added)*
-- **Typography:** Inter / system sans-serif
+- **Primary Color:** #020205 (obsidian black) / #00d4ff (cyber cyan)
+- **Secondary Color:** #b8ff57 (electric lime) / #e11d48 (crimson red pixel accent)
+- **Official Sub-Brand Logo:** `agency-website/assets/logos/mbm-subbrand-concept2.jpg` (Approved Horizontal Lockup: `MarkBishopMedia [LOCAL]`)
+- **Typography:** Space Grotesk / Inter / JetBrains Mono
 
 ## Service Area
 

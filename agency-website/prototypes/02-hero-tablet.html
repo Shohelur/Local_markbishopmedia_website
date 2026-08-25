@@ -141,9 +141,13 @@ body{
   opacity:0;
   transform:translateY(-20px);
 }
-.brand-logo{font-size:14px;font-weight:800;letter-spacing:0.1em;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px}
-.brand-logo span{background:linear-gradient(135deg, #00d4ff, #b8ff57);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.brand-badge{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.18em;color:#00d4ff;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);padding:3px 7px;border-radius:6px}
+.brand-logo{display:flex;align-items:center;text-decoration:none}
+.header-logo-img{
+  height:32px;
+  width:auto;
+  border-radius:5px;
+  filter:drop-shadow(0 0 12px rgba(0, 212, 255, 0.45));
+}
 
 .nav-links{display:flex;align-items:center;gap:18px;list-style:none}
 .nav-link{font-family:'Inter',sans-serif;font-size:12.5px;font-weight:500;color:rgba(255,255,255,0.65);text-decoration:none}
@@ -263,11 +267,13 @@ body{
 
   <!-- 3. NAVIGATION -->
   <nav class="site-nav" id="hero-nav">
-    <a href="#" class="brand-logo">MARK BISHOP <span>MEDIA</span> <span class="brand-badge">LOCAL VISIBILITY</span></a>
+    <a href="#" class="brand-logo">
+      <img src="../assets/logos/mbm-subbrand-concept2.jpg" alt="Local Mark Bishop Media" class="header-logo-img" />
+    </a>
     <ul class="nav-links">
       <li><a href="#what-we-do" class="nav-link">What We Do</a></li>
-      <li><a href="#system" class="nav-link">3D System</a></li>
-      <li><a href="#proof" class="nav-link">Results</a></li>
+      <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+      <li><a href="#audit-results" class="nav-link">Audit Results</a></li>
     </ul>
     <button class="nav-btn">⚡ FREE AUDIT</button>
   </nav>
