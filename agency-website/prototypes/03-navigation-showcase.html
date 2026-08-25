@@ -583,7 +583,7 @@ body.variant-4 .btn-cta-glow:hover .arrow-circle-badge span {
   line-height: 1.5;
 }
 </style>
-<body class="variant-2">
+<body class="variant-1">
 
 <!-- TOP AMBIENT LIGHT -->
 <div class="ambient-glow-top"></div>
@@ -599,13 +599,7 @@ body.variant-4 .btn-cta-glow:hover .arrow-circle-badge span {
       <img src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg" />
     </a>
 
-    <!-- 2. LIVE OS TELEMETRY BADGE (VARIANT 3 & 4) -->
-    <div class="os-live-telemetry">
-      <span class="telemetry-dot"></span>
-      <span>99.8% GEO-RADAR LIVE</span>
-    </div>
-
-    <!-- 3. CENTER NAVIGATION LIST WITH 3D GLASS DROPDOWNS -->
+    <!-- 2. CENTER NAVIGATION LIST WITH 3D GLASS DROPDOWNS -->
     <ul class="nav-menu-list">
       
       <!-- SOLUTIONS DROPDOWN -->
@@ -719,9 +713,9 @@ body.variant-4 .btn-cta-glow:hover .arrow-circle-badge span {
 
     <div class="active-variant-indicator-card">
       <div class="card-header-lbl" id="active-variant-label">CURRENT ACTIVE VARIANT:</div>
-      <div class="card-header-val" id="active-variant-name">💎 Variant 2: Holographic 3D Parallax Tilt & Specular Sweep</div>
+      <div class="card-header-val" id="active-variant-name">🌟 Style A: Vertical Floating Stack (Cascade Delay)</div>
       <div class="card-desc-val" id="active-variant-details">
-        Features true translucent liquid frosted glass refraction on scroll + 3D perspective card tilt inside dropdowns with dynamic specular light sweep.
+        Outer container box completely removed! 4 independent frosted glass tiles float in a clean vertical column with staggered entry delay (Card 1 ➔ 2 ➔ 3 ➔ 4).
       </div>
     </div>
   </section>
@@ -768,8 +762,8 @@ body.variant-4 .btn-cta-glow:hover .arrow-circle-badge span {
      ═══════════════════════════════════════════════════════════ -->
 <div class="variant-switcher-bar">
   <span class="switcher-label">🎮 Boxless 3D Card Style:</span>
-  <button class="btn-switch-variant" onclick="switchNavVariant(1)">🌟 Style A: Vertical Stack</button>
-  <button class="btn-switch-variant active" onclick="switchNavVariant(2)">🔥 Style B: 2x2 Bento Grid</button>
+  <button class="btn-switch-variant active" onclick="switchNavVariant(1)">🌟 Style A: Vertical Stack (Active)</button>
+  <button class="btn-switch-variant" onclick="switchNavVariant(2)">🔥 Style B: 2x2 Bento Grid</button>
   <button class="btn-switch-variant" onclick="switchNavVariant(3)">✨ Style C: Minimal Pills</button>
 </div>
 
@@ -787,7 +781,7 @@ window.addEventListener('scroll', () => {
 });
 
 /* ─── 2. 3D MAGNETIC SPRING PHYSICS ON BUTTONS & LINKS ─── */
-let activeVariant = 2;
+let activeVariant = 1;
 const magneticElements = [
   document.getElementById('mag-cta-btn'),
   document.getElementById('mag-logo'),
