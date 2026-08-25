@@ -28,8 +28,8 @@
 ## Visual Identity
 
 - **Primary Color:** #020205 (obsidian black) / #00d4ff (cyber cyan)
-- **Secondary Color:** #b8ff57 (electric lime) / #e11d48 (crimson red pixel accent)
-- **Official Sub-Brand Logo:** `agency-website/assets/logos/mbm-subbrand-concept1.jpg` (Approved Stacked Hero Emblem: `MarkBishop / Media / LOCAL VISIBILITY OPERATING SYSTEM` + Glowing 3D Map Pin Beacon)
+- **Secondary Color:** #b8ff57 (electric lime)
+- **Official Sub-Brand Logo:** `agency-website/assets/logos/mbm-official-logo.jpg` (Approved Geometric 'M' + Location Pin + Upward Growth Chevron Arrow: `MARK BISHOP MEDIA - LOCAL VISIBILITY OS`)
 - **Typography:** Space Grotesk / Inter / JetBrains Mono
 
 ## Service Area
