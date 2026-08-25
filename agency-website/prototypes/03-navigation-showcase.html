@@ -349,53 +349,53 @@ body.is-scrolled .brand-logo-svg {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   THE 3 BOXLESS FLOATING CARD VARIANTS
+   FINAL SELECTED ARCHITECTURE: STYLE A BOXLESS VERTICAL 3D STACK
    ═══════════════════════════════════════════════════════════ */
-
-/* ─── VARIANT 1: STYLE A — VERTICAL FLOATING STACK (CASCADE FLOW) ─── */
-body.variant-1 .dropdown-panel {
+.dropdown-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   gap: 7px;
   width: 330px;
-}
-body.variant-1 .nav-item:hover .dropdown-card:nth-child(1) { transition-delay: 0.02s; }
-body.variant-1 .nav-item:hover .dropdown-card:nth-child(2) { transition-delay: 0.05s; }
-body.variant-1 .nav-item:hover .dropdown-card:nth-child(3) { transition-delay: 0.08s; }
-body.variant-1 .nav-item:hover .dropdown-card:nth-child(4) { transition-delay: 0.11s; }
-
-/* ─── VARIANT 2: STYLE B — 2X2 FLOATING BENTO GRID ─── */
-body.variant-2 .dropdown-panel {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 9px;
-  width: 560px;
-}
-body.variant-2 .dropdown-card {
-  padding: 12px 15px;
-  min-height: 76px;
-  justify-content: center;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 20000;
 }
 
-/* ─── VARIANT 3: STYLE C — MINIMAL FLOATING PILLS ─── */
-body.variant-3 .dropdown-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  width: 310px;
+/* STAGGERED CASCADE ENTRY DELAY */
+.nav-item:hover .dropdown-card:nth-child(1) { transition-delay: 0.02s; }
+.nav-item:hover .dropdown-card:nth-child(2) { transition-delay: 0.05s; }
+.nav-item:hover .dropdown-card:nth-child(3) { transition-delay: 0.08s; }
+.nav-item:hover .dropdown-card:nth-child(4) { transition-delay: 0.11s; }
+
+/* INVISIBLE HOVER HITBOX BRIDGE */
+.dropdown-panel::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: -20px;
+  right: -20px;
+  height: 20px;
+  background: transparent;
 }
-body.variant-3 .dropdown-card {
-  border-radius: 100px;
-  padding: 8px 18px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-body.variant-3 .dropdown-card-desc {
-  display: none;
-}
-body.variant-3 .dropdown-card-title {
-  font-size: 12px;
+
+.nav-item:hover .dropdown-panel,
+.nav-item.active .dropdown-panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 /* SUBTLE SPECULAR BACKLIGHT (BEHIND TEXT) */
@@ -579,7 +579,7 @@ body.variant-3 .dropdown-card-title {
   line-height: 1.5;
 }
 </style>
-<body class="variant-1">
+<body>
 
 <!-- TOP AMBIENT LIGHT -->
 <div class="ambient-glow-top"></div>
@@ -753,15 +753,7 @@ body.variant-3 .dropdown-card-title {
 
 </main>
 
-<!-- ═══════════════════════════════════════════════════════════
-     1-CLICK VARIANT SWITCHER TRAY (BOTTOM FLOATING)
-     ═══════════════════════════════════════════════════════════ -->
-<div class="variant-switcher-bar">
-  <span class="switcher-label">🎮 Boxless 3D Card Style:</span>
-  <button class="btn-switch-variant active" onclick="switchNavVariant(1)">🌟 Style A: Vertical Stack (Active)</button>
-  <button class="btn-switch-variant" onclick="switchNavVariant(2)">🔥 Style B: 2x2 Bento Grid</button>
-  <button class="btn-switch-variant" onclick="switchNavVariant(3)">✨ Style C: Minimal Pills</button>
-</div>
+</main>
 
 <!-- ═══════════════════════════════════════════════════════════
      3D MOTION & PHYSICS ENGINE SCRIPT
@@ -777,7 +769,6 @@ window.addEventListener('scroll', () => {
 });
 
 /* ─── 2. 3D MAGNETIC SPRING PHYSICS ON BUTTONS & LINKS ─── */
-let activeVariant = 1;
 const magneticElements = [
   document.getElementById('mag-cta-btn'),
   document.getElementById('mag-logo'),
@@ -838,38 +829,6 @@ document.querySelectorAll('.dropdown-card').forEach(card => {
     if (glint) glint.style.background = '';
   });
 });
-
-/* ─── 4. 1-CLICK VARIANT SWITCHER ENGINE ─── */
-const variantData = {
-  1: {
-    name: "🌟 Style A: Vertical Floating Stack (Cascade Delay)",
-    details: "Outer container box completely removed! 4 independent frosted glass tiles float in a clean vertical column with staggered entry delay (Card 1 ➔ 2 ➔ 3 ➔ 4)."
-  },
-  2: {
-    name: "🔥 Style B: 2x2 Floating Bento Grid (Ultra Modern 3D Tilt)",
-    details: "Outer box removed! 4 high-tech frosted glass bento cards float in a 2x2 grid with independent 3D perspective tilt and holographic specular light."
-  },
-  3: {
-    name: "✨ Style C: Minimal Holographic Floating Pills",
-    details: "Outer box removed! 4 sleek single-line glass capsule pills floating with glowing icons and crisp titles for maximum speed and simplicity."
-  }
-};
-
-function switchNavVariant(num) {
-  activeVariant = num;
-  document.body.className = `variant-${num}`;
-  if (window.scrollY > 40) document.body.classList.add('is-scrolled');
-
-  document.querySelectorAll('.btn-switch-variant').forEach((b, idx) => {
-    b.classList.toggle('active', idx + 1 === num);
-  });
-
-  document.getElementById('active-variant-name').innerText = variantData[num].name;
-  document.getElementById('active-variant-details').innerText = variantData[num].details;
-
-  // Reset any leftover magnetic transforms
-  magneticElements.forEach(el => { if (el) el.style.transform = ''; });
-}
 </script>
 
 </body>
