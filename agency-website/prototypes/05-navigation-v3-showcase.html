@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mark Bishop Media — Billion Dollar 3D Navigation V3 (Living Service Micro-Engines)</title>
+<title>Mark Bishop Media — Anti-Gravity 3D Spatial Navigation V3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
 /* ═══════════════════════════════════════════════════════════
-   GLOBAL RESET & OBSIDIAN ATMOSPHERE
+   GLOBAL RESET & DEEP OBSIDIAN SPATIAL VOID
    ═══════════════════════════════════════════════════════════ */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -39,37 +39,39 @@ body {
   min-height: 320vh;
   overflow-x: hidden;
   position: relative;
+  perspective: 1200px; /* High-depth 3D spatial stage */
 }
 
-/* SUBTLE CYBER GRID BACKGROUND */
+/* 3D PARTICLE STARFIELD / CYBER GRID */
 body::before {
   content: '';
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
   background-image: 
-    linear-gradient(to right, rgba(0, 212, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 212, 255, 0.035) 1px, transparent 1px);
-  background-size: 60px 60px;
+    radial-gradient(circle at 50% 10%, rgba(0, 212, 255, 0.12) 0%, transparent 60%),
+    linear-gradient(to right, rgba(0, 212, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 212, 255, 0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 50px 50px, 50px 50px;
   pointer-events: none;
   z-index: 1;
 }
 
-/* TOP AMBIENT NEON MIST */
+/* TOP AMBIENT NEON FLARE */
 .ambient-glow-top {
   position: fixed;
-  top: -160px;
+  top: -180px;
   left: 50%;
   transform: translateX(-50%);
-  width: 950px;
-  height: 420px;
-  background: radial-gradient(circle, rgba(0, 212, 255, 0.20) 0%, rgba(184, 255, 87, 0.09) 45%, transparent 75%);
-  filter: blur(90px);
+  width: 1000px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.22) 0%, rgba(184, 255, 87, 0.10) 45%, transparent 75%);
+  filter: blur(100px);
   pointer-events: none;
   z-index: 2;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CORE MASTER NAVIGATION CONTAINER (PAGE BLEND ➔ SCROLL FLOAT)
+   CORE MASTER NAVIGATION CONTAINER (SPATIAL 3D GYROSCOPE)
    ═══════════════════════════════════════════════════════════ */
 .master-nav-wrapper {
   position: absolute;
@@ -81,24 +83,24 @@ body::before {
   z-index: 10000;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
+  perspective: 1000px;
 }
 
 /* 1. INITIAL TOP STATE: SLIM, SEAMLESSLY BLENDED WITH PAGE */
 .nav-capsule {
   pointer-events: auto;
   position: relative;
-  width: min(1200px, 92%);
+  width: min(1220px, 92%);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: none;
   border-radius: 100px;
   padding: 6px 12px 6px 20px;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
 }
 
 /* 2. SCROLLED STATE: ULTRA-SLIM & AIRY FLOATING GLASS CAPSULE */
@@ -109,24 +111,25 @@ body.is-scrolled .master-nav-wrapper {
 }
 
 @keyframes floatInNav {
-  0% { transform: translateY(-16px) scale(0.98); opacity: 0; }
+  0% { transform: translateY(-20px) scale(0.96); opacity: 0; }
   100% { transform: translateY(0) scale(1); opacity: 1; }
 }
 
 body.is-scrolled .nav-capsule {
-  width: min(1060px, 92%);
-  padding: 4px 10px 4px 18px;
-  background: rgba(255, 255, 255, 0.035);
-  backdrop-filter: blur(6px) saturate(140%);
-  -webkit-backdrop-filter: blur(6px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  width: min(1080px, 92%);
+  padding: 4.5px 10px 4.5px 18px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px) saturate(160%);
+  -webkit-backdrop-filter: blur(8px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.3),
-    inset 0 1px 1px rgba(255, 255, 255, 0.18);
+    0 12px 35px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(0, 212, 255, 0.12),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.22);
 }
 
 /* ═══════════════════════════════════════════════════════════
-   FEATURE 1: 3D SONAR RADAR PULSE ON LOGO
+   3D SONAR RADAR PULSE ON LOGO (EXPLODING PULSES)
    ═══════════════════════════════════════════════════════════ */
 .brand-link {
   display: flex;
@@ -140,7 +143,7 @@ body.is-scrolled .nav-capsule {
   width: auto;
   max-width: 270px;
   object-fit: contain;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s ease;
   position: relative;
   z-index: 2;
 }
@@ -160,16 +163,16 @@ body.is-scrolled .brand-logo-svg {
 }
 .sonar-radar-wave {
   position: absolute;
-  inset: -10px;
+  inset: -12px;
   border-radius: 50%;
   border: 1.5px solid var(--cyan-glow);
   opacity: 0;
   pointer-events: none;
-  transform: scale(0.4);
+  transform: scale(0.3);
 }
 
 .brand-link:hover .brand-logo-svg {
-  transform: rotateY(12deg) scale(1.04);
+  transform: rotateY(16deg) translateZ(8px) scale(1.05);
 }
 .brand-link:hover .sonar-radar-wave:nth-child(1) {
   animation: sonarWave 1.4s infinite cubic-bezier(0.1, 0.8, 0.3, 1);
@@ -180,13 +183,13 @@ body.is-scrolled .brand-logo-svg {
 }
 
 @keyframes sonarWave {
-  0% { transform: scale(0.5); opacity: 0.9; box-shadow: 0 0 10px rgba(0, 212, 255, 0.6); }
-  70% { opacity: 0.4; box-shadow: 0 0 25px rgba(0, 212, 255, 0.2); }
-  100% { transform: scale(2.8); opacity: 0; }
+  0% { transform: scale(0.4) translateZ(0); opacity: 0.95; box-shadow: 0 0 12px rgba(0, 212, 255, 0.7); }
+  70% { opacity: 0.4; box-shadow: 0 0 30px rgba(0, 212, 255, 0.3); }
+  100% { transform: scale(3) translateZ(30px); opacity: 0; }
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CENTER NAVIGATION MENU LIST
+   CENTER NAVIGATION MENU LIST & 3D CAPSULE BUTTONS
    ═══════════════════════════════════════════════════════════ */
 .nav-menu-list {
   display: flex;
@@ -208,43 +211,44 @@ body.is-scrolled .brand-logo-svg {
   padding: 6px 12px;
   border-radius: 100px;
   border: 1px solid transparent;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
+  transform-style: preserve-3d;
 }
 
 .nav-item:hover,
 .nav-item.active {
   color: #ffffff;
   background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(0, 212, 255, 0.35);
+  border-color: rgba(0, 212, 255, 0.4);
   box-shadow: 
-    0 0 16px rgba(0, 212, 255, 0.18),
-    inset 0 1px 1px rgba(255, 255, 255, 0.2);
-  transform: translateY(-1px);
+    0 0 20px rgba(0, 212, 255, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px) translateZ(6px);
 }
 
 .nav-chevron {
   font-size: 8px;
   color: rgba(255, 255, 255, 0.45);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
 }
 .nav-item:hover .nav-chevron,
 .nav-item.active .nav-chevron {
   color: var(--cyan-glow);
-  transform: rotate(180deg);
+  transform: rotate(180deg) translateZ(4px);
 }
 
 /* ═══════════════════════════════════════════════════════════
-   BOXLESS FLOATING 3D DROPDOWN PANEL ARCHITECTURE
+   ANTI-GRAVITY ZERO-G 3D FLYING DROPDOWN PANELS
    ═══════════════════════════════════════════════════════════ */
 .dropdown-panel {
   position: absolute;
-  top: calc(100% + 8px);
-  left: 0; /* Aligns flush under its respective button column */
+  top: calc(100% + 12px);
+  left: 0;
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  width: 425px; /* Ample width to prevent any overlap */
+  gap: 8px;
+  width: 420px;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -255,9 +259,10 @@ body.is-scrolled .brand-logo-svg {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 20000;
-  perspective: 800px;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 }
 
 #nav-item-resources .dropdown-panel {
@@ -265,20 +270,14 @@ body.is-scrolled .brand-logo-svg {
   right: auto;
 }
 
-/* STAGGERED CASCADE ENTRY DELAY */
-.nav-item:hover .dropdown-card:nth-child(1) { transition-delay: 0.02s; }
-.nav-item:hover .dropdown-card:nth-child(2) { transition-delay: 0.05s; }
-.nav-item:hover .dropdown-card:nth-child(3) { transition-delay: 0.08s; }
-.nav-item:hover .dropdown-card:nth-child(4) { transition-delay: 0.11s; }
-
 /* INVISIBLE HOVER HITBOX BRIDGE */
 .dropdown-panel::before {
   content: '';
   position: absolute;
-  top: -18px;
+  top: -24px;
   left: -20px;
   right: -20px;
-  height: 24px;
+  height: 30px;
   background: transparent;
 }
 
@@ -290,40 +289,100 @@ body.is-scrolled .brand-logo-svg {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   BILLION-DOLLAR THEMATIC 3D SERVICE CARDS
+   THE 3D FLYING MODULES (ZERO-G SCATTER & FLIGHT PHYSICS)
    ═══════════════════════════════════════════════════════════ */
 .dropdown-card {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 11px 15px;
-  border-radius: 15px;
+  padding: 10.5px 15px;
+  border-radius: 16px;
   text-decoration: none;
-  background: rgba(9, 15, 28, 0.94);
-  backdrop-filter: blur(24px) saturate(190%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
-  border: 1px solid rgba(0, 212, 255, 0.22);
+  background: rgba(9, 15, 30, 0.94);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(0, 212, 255, 0.25);
   box-shadow: 
-    0 14px 35px rgba(0, 0, 0, 0.85),
-    0 0 16px rgba(0, 212, 255, 0.08),
-    inset 0 1px 1px rgba(255, 255, 255, 0.15);
-  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
+    0 16px 40px rgba(0, 0, 0, 0.9),
+    0 0 20px rgba(0, 212, 255, 0.1),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
   cursor: pointer;
   transform-style: preserve-3d;
+  
+  /* INITIAL HIDDEN STATE: DISPERSED & SCATTERED IN 3D SPACE */
+  transform: perspective(800px) translate3d(0, 30px, -80px) rotateX(-20deg) scale(0.9);
+  opacity: 0;
+  transition: 
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.35s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
+/* FLY-IN EXPLOSIVE ANTI-GRAVITY ACTIVATION ON HOVER */
+.nav-item:hover .dropdown-card {
+  opacity: 1;
+  transform: perspective(800px) translate3d(0, 0, 0) rotateX(0deg) scale(1);
+}
+
+/* STAGGERED FLIGHT TRAJECTORIES WITH INDEPENDENT ZERO-G BOBBING */
+.nav-item:hover .dropdown-card:nth-child(1) {
+  transition-delay: 0.03s;
+  animation: antiGravityFloat1 4s ease-in-out infinite alternate;
+  animation-delay: 0.35s;
+}
+.nav-item:hover .dropdown-card:nth-child(2) {
+  transition-delay: 0.07s;
+  animation: antiGravityFloat2 4.5s ease-in-out infinite alternate;
+  animation-delay: 0.4s;
+}
+.nav-item:hover .dropdown-card:nth-child(3) {
+  transition-delay: 0.11s;
+  animation: antiGravityFloat1 5s ease-in-out infinite alternate;
+  animation-delay: 0.45s;
+}
+.nav-item:hover .dropdown-card:nth-child(4) {
+  transition-delay: 0.15s;
+  animation: antiGravityFloat2 4.2s ease-in-out infinite alternate;
+  animation-delay: 0.5s;
+}
+
+@keyframes antiGravityFloat1 {
+  0% { transform: perspective(800px) translate3d(0, 0, 0) rotateZ(0deg); }
+  50% { transform: perspective(800px) translate3d(1px, -4px, 12px) rotateZ(0.4deg); }
+  100% { transform: perspective(800px) translate3d(-1px, 3px, 6px) rotateZ(-0.4deg); }
+}
+
+@keyframes antiGravityFloat2 {
+  0% { transform: perspective(800px) translate3d(0, 0, 0) rotateZ(0deg); }
+  50% { transform: perspective(800px) translate3d(-2px, -3px, 10px) rotateZ(-0.5deg); }
+  100% { transform: perspective(800px) translate3d(2px, 4px, 8px) rotateZ(0.5deg); }
+}
+
+/* ACTIVE CARD ELEVATION: FLIES FORWARD INTO USER'S FACE (`translateZ(45px)`) */
 .dropdown-card:hover {
-  background: rgba(12, 22, 42, 0.98);
-  border-color: rgba(0, 212, 255, 0.65);
+  animation: none !important; /* Stop gentle float to snap to cursor tracking */
+  background: rgba(12, 24, 48, 0.98);
+  border-color: var(--cyan-glow);
   box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.95),
-    0 0 30px rgba(0, 212, 255, 0.3),
-    inset 0 1px 2px rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px) scale(1.02);
+    0 25px 60px rgba(0, 0, 0, 0.95),
+    0 0 35px rgba(0, 212, 255, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.35);
+  transform: perspective(800px) translate3d(0, -3px, 45px) scale(1.04) !important;
+  z-index: 50;
 }
 
+/* SIBLING CARDS SCATTER BACKWARD IN 3D SPACE */
+.dropdown-panel:hover .dropdown-card:not(:hover) {
+  transform: perspective(800px) translate3d(0, 0, -25px) scale(0.97);
+  opacity: 0.7;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   3D LIVING SERVICE ENGINES (EXPLODING KINETIC GLYPHS)
+   ═══════════════════════════════════════════════════════════ */
 .card-left-group {
   display: flex;
   align-items: center;
@@ -333,20 +392,17 @@ body.is-scrolled .brand-logo-svg {
   flex: 1;
   min-width: 0;
   padding-right: 6px;
+  transform-style: preserve-3d;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   THE 4 BESPOKE 3D LIVING SERVICE MICRO-ENGINES
-   ═══════════════════════════════════════════════════════════ */
-
-/* 1. 3D MAP RADAR PIN ENGINE (Google Maps Top 3) */
+/* 1. 3D MAP RADAR PIN ENGINE */
 .icon-box-maps {
   position: relative;
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: rgba(0, 212, 255, 0.1);
-  border: 1px solid rgba(0, 212, 255, 0.3);
+  background: rgba(0, 212, 255, 0.12);
+  border: 1px solid rgba(0, 212, 255, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -355,43 +411,46 @@ body.is-scrolled .brand-logo-svg {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .pin-3d-glyph {
-  font-size: 16px;
+  font-size: 17px;
   position: relative;
   z-index: 3;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .radar-scan-beam {
   position: absolute;
-  inset: -6px;
+  inset: -8px;
   border-radius: 50%;
-  border: 1px dashed rgba(0, 212, 255, 0.4);
+  border: 1.5px dashed var(--cyan-glow);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
 }
 .dropdown-card:hover .icon-box-maps {
-  transform: translateZ(24px) scale(1.15) rotateY(-8deg);
-  background: rgba(0, 212, 255, 0.22);
-  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.45);
+  transform: translateZ(30px) scale(1.2) rotateY(-12deg);
+  background: rgba(0, 212, 255, 0.25);
+  box-shadow: 0 10px 25px rgba(0, 212, 255, 0.5);
+}
+.dropdown-card:hover .pin-3d-glyph {
+  transform: translateZ(12px) scale(1.1);
 }
 .dropdown-card:hover .radar-scan-beam {
   opacity: 1;
-  animation: spinRadar 2.5s infinite linear;
+  animation: spinRadar 2s infinite linear;
 }
 @keyframes spinRadar {
-  0% { transform: rotate(0deg) scale(0.8); }
-  50% { transform: rotate(180deg) scale(1.1); }
-  100% { transform: rotate(360deg) scale(0.8); }
+  0% { transform: rotate(0deg) scale(0.85); }
+  50% { transform: rotate(180deg) scale(1.15); }
+  100% { transform: rotate(360deg) scale(0.85); }
 }
 
-/* 2. 3D ORBITAL STAR CONSTELLATION ENGINE (Automated 5-Star Reviews) */
+/* 2. 3D ORBITAL STAR CONSTELLATION ENGINE */
 .icon-box-reviews {
   position: relative;
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: rgba(255, 215, 0, 0.1);
-  border: 1px solid rgba(255, 215, 0, 0.3);
+  background: rgba(255, 215, 0, 0.12);
+  border: 1px solid rgba(255, 215, 0, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -400,42 +459,46 @@ body.is-scrolled .brand-logo-svg {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .star-3d-glyph {
-  font-size: 16px;
+  font-size: 17px;
   position: relative;
   z-index: 3;
   color: var(--gold-glow);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .star-orbital-particles {
   position: absolute;
-  inset: -4px;
+  inset: -6px;
   border-radius: 50%;
-  border: 1px dotted rgba(255, 215, 0, 0.5);
+  border: 1.5px dotted var(--gold-glow);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
 .dropdown-card:hover .icon-box-reviews {
-  transform: translateZ(24px) scale(1.15) rotateY(12deg);
-  background: rgba(255, 215, 0, 0.25);
-  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.45);
+  transform: translateZ(30px) scale(1.2) rotateY(14deg);
+  background: rgba(255, 215, 0, 0.3);
+  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.5);
+}
+.dropdown-card:hover .star-3d-glyph {
+  transform: translateZ(12px) scale(1.1) rotate(20deg);
 }
 .dropdown-card:hover .star-orbital-particles {
   opacity: 1;
-  animation: orbitStars 2s infinite linear;
+  animation: orbitStars 1.5s infinite linear;
 }
 @keyframes orbitStars {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-/* 3. 3D SYNAPSE NETWORK MESH ENGINE (100+ Directory Citations) */
+/* 3. 3D SYNAPSE NETWORK MESH ENGINE */
 .icon-box-citations {
   position: relative;
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: rgba(0, 212, 255, 0.1);
-  border: 1px solid rgba(0, 212, 255, 0.3);
+  background: rgba(0, 212, 255, 0.12);
+  border: 1px solid rgba(0, 212, 255, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -444,39 +507,43 @@ body.is-scrolled .brand-logo-svg {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .globe-3d-glyph {
-  font-size: 16px;
+  font-size: 17px;
   position: relative;
   z-index: 3;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .synapse-pulse-ring {
   position: absolute;
-  inset: -5px;
+  inset: -6px;
   border-radius: 50%;
   border: 1.5px solid var(--cyan-glow);
   opacity: 0;
   pointer-events: none;
 }
 .dropdown-card:hover .icon-box-citations {
-  transform: translateZ(24px) scale(1.15) rotateX(10deg);
-  background: rgba(0, 212, 255, 0.22);
-  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.45);
+  transform: translateZ(30px) scale(1.2) rotateX(12deg);
+  background: rgba(0, 212, 255, 0.25);
+  box-shadow: 0 10px 25px rgba(0, 212, 255, 0.5);
+}
+.dropdown-card:hover .globe-3d-glyph {
+  transform: translateZ(12px) scale(1.1);
 }
 .dropdown-card:hover .synapse-pulse-ring {
-  animation: synapseFlash 1.2s infinite ease-out;
+  animation: synapseFlash 1s infinite ease-out;
 }
 @keyframes synapseFlash {
-  0% { transform: scale(0.6); opacity: 0.8; }
-  100% { transform: scale(1.6); opacity: 0; }
+  0% { transform: scale(0.5); opacity: 0.9; }
+  100% { transform: scale(1.8); opacity: 0; }
 }
 
-/* 4. 3D KINETIC ISOMETRIC VIEWPORT ENGINE (High-Converting 3D Website) */
+/* 4. 3D KINETIC ISOMETRIC VIEWPORT ENGINE */
 .icon-box-website {
   position: relative;
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: rgba(184, 255, 87, 0.1);
-  border: 1px solid rgba(184, 255, 87, 0.3);
+  background: rgba(184, 255, 87, 0.12);
+  border: 1px solid rgba(184, 255, 87, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -485,15 +552,16 @@ body.is-scrolled .brand-logo-svg {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .rocket-3d-glyph {
-  font-size: 16px;
+  font-size: 17px;
   position: relative;
   z-index: 3;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .viewport-laser-trail {
   position: absolute;
-  bottom: -4px;
-  width: 14px;
-  height: 3px;
+  bottom: -5px;
+  width: 16px;
+  height: 3.5px;
   background: var(--lime-glow);
   border-radius: 100px;
   filter: blur(1px);
@@ -501,21 +569,24 @@ body.is-scrolled .brand-logo-svg {
   transition: opacity 0.3s ease;
 }
 .dropdown-card:hover .icon-box-website {
-  transform: translateZ(24px) scale(1.15) rotateY(-12deg);
-  background: rgba(184, 255, 87, 0.25);
-  box-shadow: 0 8px 20px rgba(184, 255, 87, 0.45);
+  transform: translateZ(30px) scale(1.2) rotateY(-14deg);
+  background: rgba(184, 255, 87, 0.3);
+  box-shadow: 0 10px 25px rgba(184, 255, 87, 0.5);
+}
+.dropdown-card:hover .rocket-3d-glyph {
+  transform: translateZ(12px) scale(1.1) rotate(-10deg);
 }
 .dropdown-card:hover .viewport-laser-trail {
   opacity: 1;
-  animation: rocketFlame 0.4s infinite alternate ease-in-out;
+  animation: rocketFlame 0.35s infinite alternate ease-in-out;
 }
 @keyframes rocketFlame {
-  0% { transform: scaleX(0.8); opacity: 0.6; }
-  100% { transform: scaleX(1.4); opacity: 1; }
+  0% { transform: scaleX(0.7); opacity: 0.6; }
+  100% { transform: scaleX(1.6); opacity: 1; }
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CARD TYPOGRAPHY (ZERO OVERLAP WITH 3D METRIC RIBBONS)
+   CARD TYPOGRAPHY (CRISP & CLEAN WITH NO OVERLAP)
    ═══════════════════════════════════════════════════════════ */
 .card-text-group {
   display: flex;
@@ -523,6 +594,7 @@ body.is-scrolled .brand-logo-svg {
   gap: 1.5px;
   min-width: 0;
   overflow: hidden;
+  transform-style: preserve-3d;
 }
 
 .dropdown-card-title {
@@ -533,6 +605,11 @@ body.is-scrolled .brand-logo-svg {
   white-space: nowrap;
   line-height: 1.2;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.dropdown-card:hover .dropdown-card-title {
+  transform: translateZ(10px);
+  color: #ffffff;
 }
 
 .dropdown-card-desc {
@@ -544,14 +621,15 @@ body.is-scrolled .brand-logo-svg {
   overflow: hidden;
   text-overflow: ellipsis;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 .dropdown-card:hover .dropdown-card-desc {
   color: rgba(255, 255, 255, 0.95);
+  transform: translateZ(6px);
 }
 
 /* ═══════════════════════════════════════════════════════════
-   FEATURE 5: 3D MICRO-METRIC PROOF RIBBON REVEAL
+   3D KINETIC METRIC PROOF RIBBON (FLIES FORWARD ON HOVER)
    ═══════════════════════════════════════════════════════════ */
 .metric-proof-ribbon {
   display: inline-block;
@@ -567,7 +645,7 @@ body.is-scrolled .brand-logo-svg {
   box-shadow: 0 0 12px rgba(184, 255, 87, 0.4);
   transform: rotateX(90deg) translateZ(8px);
   opacity: 0;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   z-index: 4;
   flex-shrink: 0;
@@ -575,11 +653,12 @@ body.is-scrolled .brand-logo-svg {
 }
 
 .dropdown-card:hover .metric-proof-ribbon {
-  transform: rotateX(0deg) translateZ(16px);
+  transform: rotateX(0deg) translateZ(24px) scale(1.08);
   opacity: 1;
+  box-shadow: 0 0 20px rgba(184, 255, 87, 0.75);
 }
 
-/* SUBTLE SPECULAR BACKLIGHT (BEHIND TEXT) */
+/* SUBTLE SPECULAR BACKLIGHT */
 .specular-glint-layer {
   position: absolute;
   inset: 0;
@@ -642,8 +721,8 @@ body.is-scrolled .brand-logo-svg {
   border: none;
 }
 .btn-cta-glow:hover {
-  transform: scale(1.04);
-  box-shadow: 0 0 35px rgba(184, 255, 87, 0.75);
+  transform: scale(1.06) translateZ(8px);
+  box-shadow: 0 0 40px rgba(184, 255, 87, 0.85);
 }
 
 .arrow-circle-badge {
@@ -666,7 +745,7 @@ body.is-scrolled .brand-logo-svg {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .btn-cta-glow:hover .arrow-circle-badge span {
-  transform: translate(1px, -1px);
+  transform: translate(2px, -2px);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -766,7 +845,7 @@ body.is-scrolled .brand-logo-svg {
 <div class="ambient-glow-top"></div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     THE MASTER 3D NAVIGATION CAPSULE (VERSION 3)
+     THE MASTER 3D NAVIGATION CAPSULE (VERSION 3 ANTI-GRAVITY)
      ═══════════════════════════════════════════════════════════ -->
 <div class="master-nav-wrapper" id="master-nav-wrapper">
   <nav class="nav-capsule" id="nav-capsule">
@@ -780,18 +859,18 @@ body.is-scrolled .brand-logo-svg {
       <img src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg" />
     </a>
 
-    <!-- 2. CENTER NAVIGATION LIST WITH LIVING 3D SERVICE ENGINES -->
+    <!-- 2. CENTER NAVIGATION LIST WITH ANTI-GRAVITY 3D FLYING MODULES -->
     <ul class="nav-menu-list" id="nav-menu-list">
 
-      <!-- SOLUTIONS DROPDOWN (LIVING 3D SERVICE MICRO-ENGINES) -->
+      <!-- SOLUTIONS DROPDOWN -->
       <li class="nav-item has-dropdown" id="nav-item-solutions">
         <span>Solutions</span>
         <span class="nav-chevron">▼</span>
         
-        <!-- BOXLESS FLOATING VERTICAL STACK -->
+        <!-- ANTI-GRAVITY 3D FLYING STACK -->
         <ul class="dropdown-panel">
           
-          <!-- SERVICE 1: 3D MAP RADAR PIN ENGINE -->
+          <!-- SERVICE 1: 3D MAP RADAR PIN -->
           <li>
             <a href="#three-pack" class="dropdown-card" id="card-maps-top3">
               <div class="specular-glint-layer"></div>
@@ -809,7 +888,7 @@ body.is-scrolled .brand-logo-svg {
             </a>
           </li>
 
-          <!-- SERVICE 2: 3D ORBITAL STAR CONSTELLATION ENGINE -->
+          <!-- SERVICE 2: 3D ORBITAL STAR CONSTELLATION -->
           <li>
             <a href="#reviews" class="dropdown-card" id="card-reviews-auto">
               <div class="specular-glint-layer"></div>
@@ -827,7 +906,7 @@ body.is-scrolled .brand-logo-svg {
             </a>
           </li>
 
-          <!-- SERVICE 3: 3D SYNAPSE NETWORK MESH ENGINE -->
+          <!-- SERVICE 3: 3D SYNAPSE NETWORK MESH -->
           <li>
             <a href="#citations" class="dropdown-card" id="card-citations-sync">
               <div class="specular-glint-layer"></div>
@@ -845,7 +924,7 @@ body.is-scrolled .brand-logo-svg {
             </a>
           </li>
 
-          <!-- SERVICE 4: 3D KINETIC ISOMETRIC VIEWPORT ENGINE -->
+          <!-- SERVICE 4: 3D KINETIC ISOMETRIC VIEWPORT -->
           <li>
             <a href="#website" class="dropdown-card" id="card-website-conv">
               <div class="specular-glint-layer"></div>
@@ -953,10 +1032,10 @@ body.is-scrolled .brand-logo-svg {
 
   <!-- SECTION 1: HERO VIEW -->
   <section class="demo-section" id="hero-sec">
-    <div class="sec-badge">● BILLION-DOLLAR 3D NAVIGATION V3</div>
-    <h1 class="sec-title">Bespoke 3D Micro-Motion Engine Navigation</h1>
+    <div class="sec-badge">● BILLION-DOLLAR ANTI-GRAVITY 3D NAVIGATION V3</div>
+    <h1 class="sec-title">Zero-G Anti-Gravity 3D Flying Modules</h1>
     <p class="sec-desc">
-      Hover over <strong>"Solutions ⌵"</strong> and watch each individual card trigger its own dedicated live 3D micro-engine: the <strong>📍 3D Radar Beacon</strong>, <strong>⭐ 3D Star Constellation Orbit</strong>, <strong>🌐 3D Synapse Mesh Pulse</strong>, and <strong>🚀 3D Kinetic Propulsion</strong>!
+      Hover over <strong>"Solutions ⌵"</strong> and watch the buttons <strong>fly into mid-air with anti-gravity momentum</strong>, bob in zero-gravity space, and violently shoot forward in 3D perspective (`translateZ: 45px`) when hovered!
     </p>
 
     <!-- TEST STREAM PASSING UNDER THE GLASS -->
@@ -967,13 +1046,12 @@ body.is-scrolled .brand-logo-svg {
     </div>
 
     <div class="active-variant-indicator-card">
-      <div class="card-header-lbl">ACTIVE V3 3D MOTION ARCHITECTURE:</div>
-      <div class="card-header-val">💎 Living Service Micro-Engines + 3D Holographic Perspective Tilt</div>
+      <div class="card-header-lbl">ACTIVE 3D ZERO-G DYNAMICS:</div>
+      <div class="card-header-val">🚀 Anti-Gravity Flying Modules + Dynamic 3D Spatial Ejection</div>
       <div class="card-desc-val">
-        1. <strong>📍 Google Maps Top 3:</strong> 3D Radar beam rotates 360° with isometric pin elevation.<br>
-        2. <strong>⭐ 5-Star Reviews:</strong> 3D Golden-Lime star constellation spins in dynamic orbit.<br>
-        3. <strong>🌐 100+ Directory Citations:</strong> Synapse network node pulses transmission rings.<br>
-        4. <strong>🚀 3D Website:</strong> Kinetic laser propulsion flame activates with Z-depth tilt.
+        1. <strong>Explosive Fly-In:</strong> Cards scatter and fly into the 3D viewport with momentum on hover.<br>
+        2. <strong>Zero-G Levitation:</strong> Each card gently bobs in continuous zero-gravity space.<br>
+        3. <strong>Spatial Elevation:</strong> Hovering directly over any card shoots it forward (`translateZ: 45px`) while pushing siblings backward!
       </div>
     </div>
   </section>
@@ -989,21 +1067,10 @@ body.is-scrolled .brand-logo-svg {
     </p>
   </section>
 
-  <!-- SECTION 3: HOW IT WORKS -->
-  <section class="demo-section" id="how-sec">
-    <div class="sec-badge">● STAGE 03 — CONVERSION ARCHITECTURE</div>
-    <h2 class="sec-title" style="color:#b8ff57;text-shadow:0 0 30px rgba(184,255,87,0.4);">
-      TURNING SEARCHES INTO HIGH-TICKET BOOKINGS
-    </h2>
-    <p class="sec-desc">
-      Feel the organic 3D tilt tracking as you sweep your mouse across the menu!
-    </p>
-  </section>
-
 </main>
 
 <!-- ═══════════════════════════════════════════════════════════
-     3D MOTION & PHYSICS ENGINE SCRIPT
+     3D SPATIAL GYROSCOPE & MAGNETIC CURSOR PHYSICS ENGINE
      ═══════════════════════════════════════════════════════════ -->
 <script>
 /* ─── 1. SMART SCROLL FREEZE & FLOAT ─── */
@@ -1015,7 +1082,7 @@ window.addEventListener('scroll', () => {
   }
 });
 
-/* ─── 2. HOLOGRAPHIC 3D PERSPECTIVE TILT & SPECULAR LIGHT ─── */
+/* ─── 2. GYROSCOPIC SPATIAL 3D TILT ON HOVERED CARD ─── */
 document.querySelectorAll('.dropdown-card').forEach(card => {
   card.addEventListener('mousemove', (e) => {
     const rect = card.getBoundingClientRect();
@@ -1025,14 +1092,14 @@ document.querySelectorAll('.dropdown-card').forEach(card => {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     
-    const rotateX = ((y - centerY) / centerY) * -6;
-    const rotateY = ((x - centerX) / centerX) * 6;
+    const rotateX = ((y - centerY) / centerY) * -10;
+    const rotateY = ((x - centerX) / centerX) * 10;
     
-    card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.025, 1.025, 1.025) translateY(-2px)`;
+    card.style.transform = `perspective(800px) translate3d(0, -4px, 50px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
     
     const glint = card.querySelector('.specular-glint-layer');
     if (glint) {
-      glint.style.background = `radial-gradient(circle 90px at ${x}px ${y}px, rgba(0, 212, 255, 0.12), transparent 75%)`;
+      glint.style.background = `radial-gradient(circle 100px at ${x}px ${y}px, rgba(0, 212, 255, 0.18), transparent 75%)`;
     }
   });
 
