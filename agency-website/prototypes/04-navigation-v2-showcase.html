@@ -140,25 +140,25 @@ body.is-scrolled .nav-capsule {
   perspective: 600px;
 }
 .brand-logo-svg {
-  height: 32px;
+  height: 40px; /* Big & clear brand typography */
   width: auto;
-  max-width: 230px;
+  max-width: 270px;
   object-fit: contain;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s ease;
   position: relative;
   z-index: 2;
 }
 body.is-scrolled .brand-logo-svg {
-  height: 27px;
+  height: 33px;
 }
 
 .sonar-ring-container {
   position: absolute;
-  left: 16px;
+  left: 20px;
   top: 50%;
   transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   pointer-events: none;
   z-index: 1;
 }
@@ -249,17 +249,15 @@ body.is-scrolled .brand-logo-svg {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   BOXLESS FLOATING VERTICAL STACK (TITLE + SUBTITLE + RIBBON)
+   BOXLESS FLOATING DROPDOWN ARCHITECTURE (COLUMN ALIGNED)
    ═══════════════════════════════════════════════════════════ */
 .dropdown-panel {
   position: absolute;
   top: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  width: 480px; /* Spacious luxury width for title + subtitle + ribbon */
+  gap: 6px;
+  width: 375px; /* Snug, compact width without big empty gaps */
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -273,6 +271,19 @@ body.is-scrolled .brand-logo-svg {
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 20000;
   perspective: 700px;
+}
+
+/* ALIGN SOLUTIONS DROPDOWN DIRECTLY UNDER SOLUTIONS BUTTON */
+#nav-item-solutions .dropdown-panel {
+  left: 0;
+  transform: none;
+}
+
+/* ALIGN RESOURCES DROPDOWN DIRECTLY UNDER RESOURCES BUTTON */
+#nav-item-resources .dropdown-panel {
+  right: 0;
+  left: auto;
+  transform: none;
 }
 
 /* STAGGERED CASCADE ENTRY DELAY */
@@ -305,10 +316,10 @@ body.is-scrolled .brand-logo-svg {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 11px 16px;
-  border-radius: 14px;
+  padding: 9px 13px;
+  border-radius: 13px;
   text-decoration: none;
-  background: rgba(9, 15, 28, 0.92);
+  background: rgba(9, 15, 28, 0.94);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(0, 212, 255, 0.22);
@@ -335,7 +346,7 @@ body.is-scrolled .brand-logo-svg {
 .card-left-group {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   position: relative;
   z-index: 2;
   flex: 1;
@@ -346,36 +357,37 @@ body.is-scrolled .brand-logo-svg {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
   background: rgba(0, 212, 255, 0.08);
   border: 1px solid rgba(0, 212, 255, 0.2);
-  font-size: 15px;
+  font-size: 14px;
   flex-shrink: 0;
 }
 
 .card-text-group {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1.5px;
   min-width: 0;
 }
 
 .dropdown-card-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
   color: #ffffff;
   white-space: nowrap;
+  line-height: 1.2;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
 }
 
 .dropdown-card-desc {
   font-family: 'Inter', sans-serif;
-  font-size: 10.5px;
-  color: rgba(255, 255, 255, 0.65);
-  line-height: 1.3;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.25;
   white-space: nowrap;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
   transition: color 0.2s ease;
@@ -390,26 +402,26 @@ body.is-scrolled .brand-logo-svg {
 .metric-proof-ribbon {
   display: inline-block;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9.5px;
+  font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.04em;
   color: #020205;
   background: linear-gradient(135deg, var(--lime-glow), var(--cyan-glow));
-  padding: 3.5px 9px;
+  padding: 3px 8px;
   border-radius: 100px;
   white-space: nowrap;
-  box-shadow: 0 0 12px rgba(184, 255, 87, 0.4);
-  transform: rotateX(90deg) translateZ(10px);
+  box-shadow: 0 0 10px rgba(184, 255, 87, 0.4);
+  transform: rotateX(90deg) translateZ(8px);
   opacity: 0;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   z-index: 4;
   flex-shrink: 0;
-  margin-left: 12px;
+  margin-left: 8px; /* Brought closer to the text */
 }
 
 .dropdown-card:hover .metric-proof-ribbon {
-  transform: rotateX(0deg) translateZ(16px);
+  transform: rotateX(0deg) translateZ(14px);
   opacity: 1;
 }
 
