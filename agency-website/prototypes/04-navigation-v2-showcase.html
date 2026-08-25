@@ -239,7 +239,7 @@ body.is-scrolled .brand-logo-svg {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   BOXLESS FLOATING VERTICAL STACK (SINGLE-LINE 3D CARDS)
+   BOXLESS FLOATING VERTICAL STACK (TITLE + SUBTITLE + RIBBON)
    ═══════════════════════════════════════════════════════════ */
 .dropdown-panel {
   position: absolute;
@@ -248,8 +248,8 @@ body.is-scrolled .brand-logo-svg {
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  width: 420px; /* Spacious width so text and ribbon fit on a single line */
+  gap: 7px;
+  width: 480px; /* Spacious luxury width for title + subtitle + ribbon */
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -289,13 +289,13 @@ body.is-scrolled .brand-logo-svg {
   pointer-events: auto;
 }
 
-/* ─── SINGLE-LINE INDEPENDENT FLOATING 3D GLASS CARDS ─── */
+/* ─── INDEPENDENT FLOATING 3D GLASS CARDS ─── */
 .dropdown-card {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
+  padding: 11px 16px;
   border-radius: 14px;
   text-decoration: none;
   background: rgba(9, 15, 28, 0.92);
@@ -325,22 +325,31 @@ body.is-scrolled .brand-logo-svg {
 .card-left-group {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   position: relative;
   z-index: 2;
+  flex: 1;
+  min-width: 0;
 }
 
 .card-icon-box {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
   background: rgba(0, 212, 255, 0.08);
   border: 1px solid rgba(0, 212, 255, 0.2);
-  font-size: 14px;
+  font-size: 15px;
   flex-shrink: 0;
+}
+
+.card-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
 }
 
 .dropdown-card-title {
@@ -350,6 +359,19 @@ body.is-scrolled .brand-logo-svg {
   color: #ffffff;
   white-space: nowrap;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.dropdown-card-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.3;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  transition: color 0.2s ease;
+}
+.dropdown-card:hover .dropdown-card-desc {
+  color: rgba(255, 255, 255, 0.92);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -372,6 +394,8 @@ body.is-scrolled .brand-logo-svg {
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   z-index: 4;
+  flex-shrink: 0;
+  margin-left: 12px;
 }
 
 .dropdown-card:hover .metric-proof-ribbon {
@@ -576,7 +600,7 @@ body.is-scrolled .brand-logo-svg {
     <!-- 2. CENTER NAVIGATION LIST WITH 3D GLASS DROPDOWNS -->
     <ul class="nav-menu-list" id="nav-menu-list">
 
-      <!-- SOLUTIONS DROPDOWN (SINGLE-LINE 3D CARDS + METRIC RIBBONS) -->
+      <!-- SOLUTIONS DROPDOWN (TITLE + SUBTITLE + 3D METRIC RIBBONS) -->
       <li class="nav-item has-dropdown" id="nav-item-solutions">
         <span>Solutions</span>
         <span class="nav-chevron">▼</span>
@@ -588,7 +612,10 @@ body.is-scrolled .brand-logo-svg {
               <div class="specular-glint-layer"></div>
               <div class="card-left-group">
                 <div class="card-icon-box">📍</div>
-                <span class="dropdown-card-title">Rank in Google Maps Top 3</span>
+                <div class="card-text-group">
+                  <span class="dropdown-card-title">Rank in Google Maps Top 3</span>
+                  <span class="dropdown-card-desc">Stop losing local calls to competitors & show up first</span>
+                </div>
               </div>
               <span class="metric-proof-ribbon">+320% CALLS</span>
             </a>
@@ -598,7 +625,10 @@ body.is-scrolled .brand-logo-svg {
               <div class="specular-glint-layer"></div>
               <div class="card-left-group">
                 <div class="card-icon-box">⭐</div>
-                <span class="dropdown-card-title">Automated 5-Star Reviews</span>
+                <div class="card-text-group">
+                  <span class="dropdown-card-title">Automated 5-Star Reviews</span>
+                  <span class="dropdown-card-desc">Turn happy customers into real reviews on autopilot</span>
+                </div>
               </div>
               <span class="metric-proof-ribbon">★ 4.9 RATING</span>
             </a>
@@ -608,7 +638,10 @@ body.is-scrolled .brand-logo-svg {
               <div class="specular-glint-layer"></div>
               <div class="card-left-group">
                 <div class="card-icon-box">🌐</div>
-                <span class="dropdown-card-title">100+ Directory Sync & Citations</span>
+                <div class="card-text-group">
+                  <span class="dropdown-card-title">100+ Directory Sync & Citations</span>
+                  <span class="dropdown-card-desc">Lock your business info on Apple, Yelp & Google</span>
+                </div>
               </div>
               <span class="metric-proof-ribbon">100+ DIRS</span>
             </a>
@@ -618,7 +651,10 @@ body.is-scrolled .brand-logo-svg {
               <div class="specular-glint-layer"></div>
               <div class="card-left-group">
                 <div class="card-icon-box">🚀</div>
-                <span class="dropdown-card-title">High-Converting 3D Website</span>
+                <div class="card-text-group">
+                  <span class="dropdown-card-title">High-Converting 3D Website</span>
+                  <span class="dropdown-card-desc">Modern, fast & built with schema to turn clicks to calls</span>
+                </div>
               </div>
               <span class="metric-proof-ribbon">3.4x BOOKINGS</span>
             </a>
@@ -646,7 +682,10 @@ body.is-scrolled .brand-logo-svg {
               <div class="specular-glint-layer"></div>
               <div class="card-left-group">
                 <div class="card-icon-box">⚡</div>
-                <span class="dropdown-card-title">Free 9-Mile Visibility Audit</span>
+                <div class="card-text-group">
+                  <span class="dropdown-card-title">Free 9-Mile Visibility Audit</span>
+                  <span class="dropdown-card-desc">Run an instant live ranking scan for your business</span>
+                </div>
               </div>
               <span class="metric-proof-ribbon">FREE SCAN</span>
             </a>
@@ -656,7 +695,10 @@ body.is-scrolled .brand-logo-svg {
               <div class="specular-glint-layer"></div>
               <div class="card-left-group">
                 <div class="card-icon-box">📑</div>
-                <span class="dropdown-card-title">Local Growth Case Studies</span>
+                <div class="card-text-group">
+                  <span class="dropdown-card-title">Local Growth Case Studies</span>
+                  <span class="dropdown-card-desc">Proven tips to scale local customers & revenue</span>
+                </div>
               </div>
               <span class="metric-proof-ribbon">INSIGHTS</span>
             </a>
@@ -666,7 +708,10 @@ body.is-scrolled .brand-logo-svg {
               <div class="specular-glint-layer"></div>
               <div class="card-left-group">
                 <div class="card-icon-box">❓</div>
-                <span class="dropdown-card-title">Frequently Asked Questions</span>
+                <div class="card-text-group">
+                  <span class="dropdown-card-title">Frequently Asked Questions</span>
+                  <span class="dropdown-card-desc">Everything you need to know about our system</span>
+                </div>
               </div>
               <span class="metric-proof-ribbon">FAQS</span>
             </a>
