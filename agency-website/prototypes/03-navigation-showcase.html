@@ -21,8 +21,8 @@
   --bg-core: #020205;
   --cyan-glow: #00d4ff;
   --lime-glow: #b8ff57;
-  --glass-border: rgba(0, 212, 255, 0.24);
-  --glass-bg: rgba(9, 14, 26, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-bg: rgba(10, 16, 32, 0.38); /* Ultra-clean high-transparency frosted glass */
   --text-main: #ffffff;
   --text-dim: rgba(255, 255, 255, 0.7);
 }
@@ -46,8 +46,8 @@ body::before {
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
   background-image: 
-    linear-gradient(to right, rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 212, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 212, 255, 0.04) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
   z-index: 1;
@@ -61,7 +61,7 @@ body::before {
   transform: translateX(-50%);
   width: 900px;
   height: 400px;
-  background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(184, 255, 87, 0.06) 45%, transparent 75%);
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.18) 0%, rgba(184, 255, 87, 0.08) 45%, transparent 75%);
   filter: blur(80px);
   pointer-events: none;
   z-index: 2;
@@ -78,7 +78,7 @@ body::before {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(10, 16, 28, 0.92);
+  background: rgba(10, 16, 28, 0.88);
   backdrop-filter: blur(30px) saturate(200%);
   -webkit-backdrop-filter: blur(30px) saturate(200%);
   border: 1.5px solid rgba(0, 212, 255, 0.4);
@@ -140,7 +140,7 @@ body::before {
   pointer-events: none; /* children enable pointer events */
 }
 
-/* THE FLOATING CAPSULE BAR */
+/* THE TRUE LIQUID FROSTED GLASS CAPSULE BAR */
 .nav-capsule {
   pointer-events: auto;
   position: relative;
@@ -149,33 +149,35 @@ body::before {
   align-items: center;
   justify-content: space-between;
   background: var(--glass-bg);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(220%) contrast(108%);
+  -webkit-backdrop-filter: blur(28px) saturate(220%) contrast(108%);
   border: 1px solid var(--glass-border);
   box-shadow: 
-    0 16px 45px rgba(0, 0, 0, 0.8),
-    0 0 25px rgba(0, 212, 255, 0.12),
-    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    0 16px 45px rgba(0, 0, 0, 0.5),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 1px rgba(0, 212, 255, 0.2),
+    0 0 25px rgba(0, 212, 255, 0.12);
   border-radius: 100px;
   padding: 8px 12px 8px 24px;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ─── SCROLLED STICKY STATE (AUTO SHRINKS ON SCROLL) ─── */
+/* ─── SCROLLED STICKY STATE (AUTO SHRINKS & DEEPENS GLASS REFRACTION) ─── */
 body.is-scrolled .master-nav-wrapper {
   top: 14px;
 }
 body.is-scrolled .nav-capsule {
   width: min(1060px, 94%);
   padding: 5px 8px 5px 20px;
-  background: rgba(6, 10, 20, 0.90);
-  backdrop-filter: blur(36px) saturate(220%);
-  -webkit-backdrop-filter: blur(36px) saturate(220%);
-  border-color: rgba(0, 212, 255, 0.45);
+  background: rgba(7, 12, 26, 0.48); /* Translucent glass letting text behind blur through */
+  backdrop-filter: blur(36px) saturate(250%) contrast(112%);
+  -webkit-backdrop-filter: blur(36px) saturate(250%) contrast(112%);
+  border-color: rgba(255, 255, 255, 0.28);
   box-shadow: 
-    0 24px 60px rgba(0, 0, 0, 0.95),
-    0 0 35px rgba(0, 212, 255, 0.25),
-    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    0 24px 60px rgba(0, 0, 0, 0.75),
+    inset 0 2px 2.5px rgba(255, 255, 255, 0.5),
+    inset 0 -1px 1.5px rgba(0, 212, 255, 0.3),
+    0 0 35px rgba(0, 212, 255, 0.2);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -555,8 +557,7 @@ body.variant-4 .btn-cta-glow:hover .arrow-circle-badge span {
   line-height: 1.5;
 }
 </style>
-</head>
-<body class="variant-4">
+<body class="variant-2">
 
 <!-- TOP AMBIENT LIGHT -->
 <div class="ambient-glow-top"></div>
@@ -677,17 +678,24 @@ body.variant-4 .btn-cta-glow:hover .arrow-circle-badge span {
 
   <!-- SECTION 1: HERO VIEW -->
   <section class="demo-section" id="hero-sec">
-    <div class="sec-badge">● STAGE 01 — HERO TESTING VIEWPORT</div>
-    <h1 class="sec-title">Scroll Down to See the 3D Sticky Freeze in Action</h1>
+    <div class="sec-badge">● STAGE 01 — LIQUID FROSTED GLASS TEST</div>
+    <h1 class="sec-title">Scroll Down to Watch Text Flow Under the Glass Bar</h1>
     <p class="sec-desc">
-      Try scrolling down this page. Notice how the navigation smoothly freezes at the top, subtly shrinks in height, deepens its frosted glass blur, and reflects ambient chromatic light!
+      As you scroll down, look closely at the glowing colored text below. Notice how each word passes directly beneath the glass capsule, blurring and refracting in real-time just like authentic frosted glass!
     </p>
+
+    <!-- HIGH-CONTRAST VIBRANT TEST STREAM PASSING UNDER THE GLASS -->
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin:28px 0;">
+      <span style="background:linear-gradient(135deg,#00d4ff,#b8ff57);color:#020205;font-weight:800;padding:8px 18px;border-radius:100px;font-size:13px;box-shadow:0 0 20px rgba(0,212,255,0.4)">🔥 $1,450,000 REVENUE CLIENT ENGINE</span>
+      <span style="background:rgba(0,212,255,0.15);border:1px solid #00d4ff;color:#00d4ff;font-weight:700;padding:8px 18px;border-radius:100px;font-size:13px;">📍 #1 GOOGLE 3-PACK RANKING</span>
+      <span style="background:rgba(184,255,87,0.15);border:1px solid #b8ff57;color:#b8ff57;font-weight:700;padding:8px 18px;border-radius:100px;font-size:13px;">⭐ 250+ 5-STAR AUTOMATED REVIEWS</span>
+    </div>
 
     <div class="active-variant-indicator-card">
       <div class="card-header-lbl" id="active-variant-label">CURRENT ACTIVE VARIANT:</div>
-      <div class="card-header-val" id="active-variant-name">👑 Variant 4: Master Ultra-Hybrid (All 3D Dynamics Combined)</div>
+      <div class="card-header-val" id="active-variant-name">💎 Variant 2: Holographic 3D Parallax Tilt & Specular Sweep</div>
       <div class="card-desc-val" id="active-variant-details">
-        Combines Smart Scroll Shrink Freeze + 3D Magnetic Cursor Pull + Holographic 3D Dropdown Card Tilt + Kinetic Arrow Loop + Live OS Telemetry Beacon.
+        Features true translucent liquid frosted glass refraction on scroll + 3D perspective card tilt inside dropdowns with dynamic specular light sweep.
       </div>
     </div>
   </section>
@@ -695,27 +703,35 @@ body.variant-4 .btn-cta-glow:hover .arrow-circle-badge span {
   <!-- SECTION 2: PROOF DEMO -->
   <section class="demo-section" id="proof-sec">
     <div class="sec-badge">● STAGE 02 — LOCAL DOMINANCE ENGINE</div>
-    <h2 class="sec-title">9-Mile High-Resolution Geo-Grid Coverage</h2>
+    <h2 class="sec-title" style="color:#00d4ff;text-shadow:0 0 30px rgba(0,212,255,0.4);">
+      9-MILE HIGH-RESOLUTION GEO-GRID RADAR COVERAGE
+    </h2>
     <p class="sec-desc">
-      Notice how even as you scroll through this section, the floating glass capsule remains razor-sharp, accessible, and completely unobtrusive to the background reading flow.
+      Notice how the bright cyan text of this headline diffuses through the frosted glass as it passes behind the navigation capsule.
     </p>
+    <div style="margin-top:20px;padding:20px;background:linear-gradient(90deg,rgba(0,212,255,0.1),rgba(184,255,87,0.1));border:1px solid rgba(0,212,255,0.3);border-radius:16px;">
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;color:#b8ff57;">⚡ LIVE CLIENT EVIDENCE STREAM</h3>
+      <p style="color:#fff;margin-top:6px;font-size:14px;">+450% Inbound Phone Calls Acquired • Ranked #1 Across 84 Local Grid Coordinates</p>
+    </div>
   </section>
 
   <!-- SECTION 3: HOW IT WORKS -->
   <section class="demo-section" id="how-sec">
     <div class="sec-badge">● STAGE 03 — 3-STEP CONVERSION PROCESS</div>
-    <h2 class="sec-title">Turning Searches into High-Ticket Bookings</h2>
+    <h2 class="sec-title" style="color:#b8ff57;text-shadow:0 0 30px rgba(184,255,87,0.4);">
+      TURNING SEARCHES INTO HIGH-TICKET BOOKINGS
+    </h2>
     <p class="sec-desc">
-      Hover your mouse over the <strong>"Solutions"</strong> or <strong>"Resources"</strong> dropdown at any scroll position. Test the 3D card tilt and specular light glint!
+      Hover over <strong>"Solutions"</strong> or <strong>"Resources"</strong> dropdown right now. Feel the 3D perspective tilt and watch the holographic light sweep across the cards!
     </p>
   </section>
 
   <!-- SECTION 4: CONVERSION ZONE -->
   <section class="demo-section" id="audit-sec">
     <div class="sec-badge">● STAGE 04 — INSTANT AUDIT ACTIVATION</div>
-    <h2 class="sec-title">Ready to Claim Your Local #1 Spot?</h2>
+    <h2 class="sec-title">READY TO CLAIM YOUR LOCAL #1 SPOT?</h2>
     <p class="sec-desc">
-      Try moving your cursor near the <strong>"⚡ FREE AUDIT ↗"</strong> button to feel the magnetic spring pull!
+      Move your cursor near the <strong>"⚡ FREE AUDIT ↗"</strong> button and test the smooth hover transition!
     </p>
   </section>
 
@@ -727,9 +743,9 @@ body.variant-4 .btn-cta-glow:hover .arrow-circle-badge span {
 <div class="variant-switcher-bar">
   <span class="switcher-label">🎮 3D Navigation Mode:</span>
   <button class="btn-switch-variant" onclick="switchNavVariant(1)">1. VisionOS Magnetic</button>
-  <button class="btn-switch-variant" onclick="switchNavVariant(2)">2. Holographic 3D Tilt</button>
+  <button class="btn-switch-variant active" onclick="switchNavVariant(2)">💎 2. Holographic 3D Tilt (Active)</button>
   <button class="btn-switch-variant" onclick="switchNavVariant(3)">3. Cyber OS Kinetic</button>
-  <button class="btn-switch-variant active" onclick="switchNavVariant(4)">👑 4. Master Ultra-Hybrid</button>
+  <button class="btn-switch-variant" onclick="switchNavVariant(4)">👑 4. Master Ultra-Hybrid</button>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
@@ -746,7 +762,7 @@ window.addEventListener('scroll', () => {
 });
 
 /* ─── 2. 3D MAGNETIC SPRING PHYSICS ON BUTTONS & LINKS ─── */
-let activeVariant = 4;
+let activeVariant = 2;
 const magneticElements = [
   document.getElementById('mag-cta-btn'),
   document.getElementById('mag-logo'),
