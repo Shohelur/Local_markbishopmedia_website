@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mark Bishop Media — Anti-Gravity 3D Spatial Navigation V3</title>
+<title>Mark Bishop Media — 3D Storytelling & Live Hologram Command Navigation V3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
 /* ═══════════════════════════════════════════════════════════
-   GLOBAL RESET & DEEP OBSIDIAN SPATIAL VOID
+   GLOBAL RESET & OBSIDIAN SPATIAL VOID
    ═══════════════════════════════════════════════════════════ */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -39,18 +39,18 @@ body {
   min-height: 320vh;
   overflow-x: hidden;
   position: relative;
-  perspective: 1200px; /* High-depth 3D spatial stage */
+  perspective: 1400px;
 }
 
-/* 3D PARTICLE STARFIELD / CYBER GRID */
+/* CYBER MATRIX GRID BACKGROUND */
 body::before {
   content: '';
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
   background-image: 
-    radial-gradient(circle at 50% 10%, rgba(0, 212, 255, 0.12) 0%, transparent 60%),
-    linear-gradient(to right, rgba(0, 212, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 212, 255, 0.04) 1px, transparent 1px);
+    radial-gradient(circle at 50% 15%, rgba(0, 212, 255, 0.14) 0%, transparent 65%),
+    linear-gradient(to right, rgba(0, 212, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 212, 255, 0.035) 1px, transparent 1px);
   background-size: 100% 100%, 50px 50px, 50px 50px;
   pointer-events: none;
   z-index: 1;
@@ -62,9 +62,9 @@ body::before {
   top: -180px;
   left: 50%;
   transform: translateX(-50%);
-  width: 1000px;
-  height: 450px;
-  background: radial-gradient(circle, rgba(0, 212, 255, 0.22) 0%, rgba(184, 255, 87, 0.10) 45%, transparent 75%);
+  width: 1050px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.22) 0%, rgba(184, 255, 87, 0.12) 45%, transparent 75%);
   filter: blur(100px);
   pointer-events: none;
   z-index: 2;
@@ -83,20 +83,19 @@ body::before {
   z-index: 10000;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
-  perspective: 1000px;
+  perspective: 1200px;
 }
 
 /* 1. INITIAL TOP STATE: SLIM, SEAMLESSLY BLENDED WITH PAGE */
 .nav-capsule {
   pointer-events: auto;
   position: relative;
-  width: min(1220px, 92%);
+  width: min(1240px, 92%);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.015);
+  background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: none;
   border-radius: 100px;
   padding: 6px 12px 6px 20px;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -116,20 +115,20 @@ body.is-scrolled .master-nav-wrapper {
 }
 
 body.is-scrolled .nav-capsule {
-  width: min(1080px, 92%);
+  width: min(1100px, 92%);
   padding: 4.5px 10px 4.5px 18px;
   background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(8px) saturate(160%);
-  -webkit-backdrop-filter: blur(8px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow: 
-    0 12px 35px rgba(0, 0, 0, 0.4),
-    0 0 20px rgba(0, 212, 255, 0.12),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.22);
+    0 14px 40px rgba(0, 0, 0, 0.45),
+    0 0 25px rgba(0, 212, 255, 0.15),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.25);
 }
 
 /* ═══════════════════════════════════════════════════════════
-   3D SONAR RADAR PULSE ON LOGO (EXPLODING PULSES)
+   3D LOGO & STORYTELLING RADAR PULSE
    ═══════════════════════════════════════════════════════════ */
 .brand-link {
   display: flex;
@@ -189,7 +188,7 @@ body.is-scrolled .brand-logo-svg {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CENTER NAVIGATION MENU LIST & 3D CAPSULE BUTTONS
+   NAV ITEMS WITH 3D STORYTELLING VOICE TOOLTIPS
    ═══════════════════════════════════════════════════════════ */
 .nav-menu-list {
   display: flex;
@@ -238,17 +237,53 @@ body.is-scrolled .brand-logo-svg {
   transform: rotate(180deg) translateZ(4px);
 }
 
+/* 3D HOLOGRAPHIC VOICE TOOLTIP ON TOP-LEVEL BUTTONS */
+.nav-item-voice-bubble {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px) scale(0.85);
+  background: rgba(6, 11, 24, 0.95);
+  border: 1px solid var(--cyan-glow);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 212, 255, 0.3);
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 30000;
+}
+.nav-item-voice-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--cyan-glow) transparent transparent transparent;
+}
+.nav-item:hover .nav-item-voice-bubble {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
 /* ═══════════════════════════════════════════════════════════
-   ANTI-GRAVITY ZERO-G 3D FLYING DROPDOWN PANELS
+   THE DUAL-DECK 3D SPATIAL COMMAND ARCHITECTURE
+   (LEFT: 3D SERVICE CARDS | RIGHT: 3D LIVING STORYTELLING DECK)
    ═══════════════════════════════════════════════════════════ */
-.dropdown-panel {
+.dropdown-panel-spatial {
   position: absolute;
   top: calc(100% + 12px);
-  left: 0;
+  left: -40px;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 420px;
+  gap: 16px;
+  width: 760px; /* Grand Dual-Deck Command Center */
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -261,17 +296,16 @@ body.is-scrolled .brand-logo-svg {
   pointer-events: none;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 20000;
-  perspective: 1000px;
+  perspective: 1200px;
   transform-style: preserve-3d;
 }
 
-#nav-item-resources .dropdown-panel {
-  left: 0;
-  right: auto;
+#nav-item-resources .dropdown-panel-spatial {
+  left: -240px;
 }
 
 /* INVISIBLE HOVER HITBOX BRIDGE */
-.dropdown-panel::before {
+.dropdown-panel-spatial::before {
   content: '';
   position: absolute;
   top: -24px;
@@ -281,112 +315,218 @@ body.is-scrolled .brand-logo-svg {
   background: transparent;
 }
 
-.nav-item:hover .dropdown-panel,
-.nav-item.active .dropdown-panel {
+.nav-item:hover .dropdown-panel-spatial,
+.nav-item.active .dropdown-panel-spatial {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
 }
 
+/* LEFT COLUMN: 3D SERVICE CARDS STACK */
+.spatial-cards-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 390px;
+  flex-shrink: 0;
+}
+
+/* RIGHT COLUMN: 3D LIVING STORYTELLING HOLOGRAM DECK */
+.spatial-story-deck {
+  flex: 1;
+  background: rgba(9, 16, 32, 0.96);
+  backdrop-filter: blur(30px) saturate(200%);
+  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  border: 1.5px solid rgba(0, 212, 255, 0.35);
+  border-radius: 18px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.95),
+    0 0 30px rgba(0, 212, 255, 0.2),
+    inset 0 1px 2px rgba(255, 255, 255, 0.25);
+  transform: perspective(1000px) rotateY(-8deg) translateZ(10px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* AMBIENT HOLO SCANLINE IN STORY DECK */
+.spatial-story-deck::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 212, 255, 0.04) 51%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* STORY DECK HEADER */
+.story-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--cyan-glow);
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+
+/* STORY TITLE (DYNAMIC VOICE) */
+.story-voice-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+/* STORY NARRATIVE ("HOW WE GROW YOUR BUSINESS") */
+.story-voice-narrative {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+/* STORY 3D SIMULATION VISUAL BOX */
+.story-simulation-box {
+  background: rgba(3, 7, 18, 0.85);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sim-icon-halo {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(0, 212, 255, 0.15);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+.sim-text-main {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+.sim-text-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--lime-glow);
+}
+
+/* STORY ACTION PROOF FOOTER */
+.story-footer-proof {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.proof-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.proof-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--lime-glow);
+  background: rgba(184, 255, 87, 0.12);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(184, 255, 87, 0.3);
+}
+
 /* ═══════════════════════════════════════════════════════════
-   THE 3D FLYING MODULES (ZERO-G SCATTER & FLIGHT PHYSICS)
+   THE 3D FLYING CARDS (ZERO-G HOVER PHYSICS)
    ═══════════════════════════════════════════════════════════ */
 .dropdown-card {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10.5px 15px;
-  border-radius: 16px;
+  padding: 10.5px 14px;
+  border-radius: 15px;
   text-decoration: none;
   background: rgba(9, 15, 30, 0.94);
   backdrop-filter: blur(28px) saturate(200%);
   -webkit-backdrop-filter: blur(28px) saturate(200%);
-  border: 1px solid rgba(0, 212, 255, 0.25);
+  border: 1px solid rgba(0, 212, 255, 0.22);
   box-shadow: 
     0 16px 40px rgba(0, 0, 0, 0.9),
-    0 0 20px rgba(0, 212, 255, 0.1),
+    0 0 20px rgba(0, 212, 255, 0.08),
     inset 0 1px 1px rgba(255, 255, 255, 0.2);
   cursor: pointer;
   transform-style: preserve-3d;
-  
-  /* INITIAL HIDDEN STATE: DISPERSED & SCATTERED IN 3D SPACE */
-  transform: perspective(800px) translate3d(0, 30px, -80px) rotateX(-20deg) scale(0.9);
+  transform: perspective(800px) translate3d(0, 25px, -60px) rotateX(-15deg) scale(0.92);
   opacity: 0;
   transition: 
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.35s ease,
-    background 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-/* FLY-IN EXPLOSIVE ANTI-GRAVITY ACTIVATION ON HOVER */
 .nav-item:hover .dropdown-card {
   opacity: 1;
   transform: perspective(800px) translate3d(0, 0, 0) rotateX(0deg) scale(1);
 }
 
-/* STAGGERED FLIGHT TRAJECTORIES WITH INDEPENDENT ZERO-G BOBBING */
-.nav-item:hover .dropdown-card:nth-child(1) {
-  transition-delay: 0.03s;
-  animation: antiGravityFloat1 4s ease-in-out infinite alternate;
-  animation-delay: 0.35s;
-}
-.nav-item:hover .dropdown-card:nth-child(2) {
-  transition-delay: 0.07s;
-  animation: antiGravityFloat2 4.5s ease-in-out infinite alternate;
-  animation-delay: 0.4s;
-}
-.nav-item:hover .dropdown-card:nth-child(3) {
-  transition-delay: 0.11s;
-  animation: antiGravityFloat1 5s ease-in-out infinite alternate;
-  animation-delay: 0.45s;
-}
-.nav-item:hover .dropdown-card:nth-child(4) {
-  transition-delay: 0.15s;
-  animation: antiGravityFloat2 4.2s ease-in-out infinite alternate;
-  animation-delay: 0.5s;
-}
+.nav-item:hover .dropdown-card:nth-child(1) { transition-delay: 0.03s; }
+.nav-item:hover .dropdown-card:nth-child(2) { transition-delay: 0.06s; }
+.nav-item:hover .dropdown-card:nth-child(3) { transition-delay: 0.09s; }
+.nav-item:hover .dropdown-card:nth-child(4) { transition-delay: 0.12s; }
 
-@keyframes antiGravityFloat1 {
-  0% { transform: perspective(800px) translate3d(0, 0, 0) rotateZ(0deg); }
-  50% { transform: perspective(800px) translate3d(1px, -4px, 12px) rotateZ(0.4deg); }
-  100% { transform: perspective(800px) translate3d(-1px, 3px, 6px) rotateZ(-0.4deg); }
-}
-
-@keyframes antiGravityFloat2 {
-  0% { transform: perspective(800px) translate3d(0, 0, 0) rotateZ(0deg); }
-  50% { transform: perspective(800px) translate3d(-2px, -3px, 10px) rotateZ(-0.5deg); }
-  100% { transform: perspective(800px) translate3d(2px, 4px, 8px) rotateZ(0.5deg); }
-}
-
-/* ACTIVE CARD ELEVATION: FLIES FORWARD INTO USER'S FACE (`translateZ(45px)`) */
-.dropdown-card:hover {
-  animation: none !important; /* Stop gentle float to snap to cursor tracking */
+/* HOVERED CARD LIGHTS UP AND ELEVATES */
+.dropdown-card:hover,
+.dropdown-card.active-story {
   background: rgba(12, 24, 48, 0.98);
   border-color: var(--cyan-glow);
   box-shadow: 
-    0 25px 60px rgba(0, 0, 0, 0.95),
-    0 0 35px rgba(0, 212, 255, 0.4),
-    inset 0 1px 2px rgba(255, 255, 255, 0.35);
-  transform: perspective(800px) translate3d(0, -3px, 45px) scale(1.04) !important;
+    0 20px 50px rgba(0, 0, 0, 0.95),
+    0 0 30px rgba(0, 212, 255, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  transform: perspective(800px) translate3d(6px, 0, 30px) scale(1.03);
   z-index: 50;
 }
 
-/* SIBLING CARDS SCATTER BACKWARD IN 3D SPACE */
-.dropdown-panel:hover .dropdown-card:not(:hover) {
-  transform: perspective(800px) translate3d(0, 0, -25px) scale(0.97);
-  opacity: 0.7;
-}
-
 /* ═══════════════════════════════════════════════════════════
-   3D LIVING SERVICE ENGINES (EXPLODING KINETIC GLYPHS)
+   3D LIVING SERVICE GLYPHS
    ═══════════════════════════════════════════════════════════ */
 .card-left-group {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 11px;
   position: relative;
   z-index: 2;
   flex: 1;
@@ -395,12 +535,12 @@ body.is-scrolled .brand-logo-svg {
   transform-style: preserve-3d;
 }
 
-/* 1. 3D MAP RADAR PIN ENGINE */
+/* 1. 3D MAP RADAR PIN */
 .icon-box-maps {
   position: relative;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
   background: rgba(0, 212, 255, 0.12);
   border: 1px solid rgba(0, 212, 255, 0.35);
   display: flex;
@@ -410,15 +550,10 @@ body.is-scrolled .brand-logo-svg {
   transform-style: preserve-3d;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.pin-3d-glyph {
-  font-size: 17px;
-  position: relative;
-  z-index: 3;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
+.pin-3d-glyph { font-size: 16px; position: relative; z-index: 3; }
 .radar-scan-beam {
   position: absolute;
-  inset: -8px;
+  inset: -6px;
   border-radius: 50%;
   border: 1.5px dashed var(--cyan-glow);
   opacity: 0;
@@ -426,12 +561,9 @@ body.is-scrolled .brand-logo-svg {
   pointer-events: none;
 }
 .dropdown-card:hover .icon-box-maps {
-  transform: translateZ(30px) scale(1.2) rotateY(-12deg);
+  transform: translateZ(24px) scale(1.15) rotateY(-10deg);
   background: rgba(0, 212, 255, 0.25);
-  box-shadow: 0 10px 25px rgba(0, 212, 255, 0.5);
-}
-.dropdown-card:hover .pin-3d-glyph {
-  transform: translateZ(12px) scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.5);
 }
 .dropdown-card:hover .radar-scan-beam {
   opacity: 1;
@@ -443,12 +575,12 @@ body.is-scrolled .brand-logo-svg {
   100% { transform: rotate(360deg) scale(0.85); }
 }
 
-/* 2. 3D ORBITAL STAR CONSTELLATION ENGINE */
+/* 2. 3D ORBITAL STAR CONSTELLATION */
 .icon-box-reviews {
   position: relative;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
   background: rgba(255, 215, 0, 0.12);
   border: 1px solid rgba(255, 215, 0, 0.35);
   display: flex;
@@ -458,16 +590,10 @@ body.is-scrolled .brand-logo-svg {
   transform-style: preserve-3d;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.star-3d-glyph {
-  font-size: 17px;
-  position: relative;
-  z-index: 3;
-  color: var(--gold-glow);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
+.star-3d-glyph { font-size: 16px; position: relative; z-index: 3; color: var(--gold-glow); }
 .star-orbital-particles {
   position: absolute;
-  inset: -6px;
+  inset: -5px;
   border-radius: 50%;
   border: 1.5px dotted var(--gold-glow);
   opacity: 0;
@@ -475,12 +601,9 @@ body.is-scrolled .brand-logo-svg {
   transition: opacity 0.3s ease;
 }
 .dropdown-card:hover .icon-box-reviews {
-  transform: translateZ(30px) scale(1.2) rotateY(14deg);
+  transform: translateZ(24px) scale(1.15) rotateY(12deg);
   background: rgba(255, 215, 0, 0.3);
-  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.5);
-}
-.dropdown-card:hover .star-3d-glyph {
-  transform: translateZ(12px) scale(1.1) rotate(20deg);
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.5);
 }
 .dropdown-card:hover .star-orbital-particles {
   opacity: 1;
@@ -491,12 +614,12 @@ body.is-scrolled .brand-logo-svg {
   100% { transform: rotate(360deg); }
 }
 
-/* 3. 3D SYNAPSE NETWORK MESH ENGINE */
+/* 3. 3D SYNAPSE NETWORK MESH */
 .icon-box-citations {
   position: relative;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
   background: rgba(0, 212, 255, 0.12);
   border: 1px solid rgba(0, 212, 255, 0.35);
   display: flex;
@@ -506,27 +629,19 @@ body.is-scrolled .brand-logo-svg {
   transform-style: preserve-3d;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.globe-3d-glyph {
-  font-size: 17px;
-  position: relative;
-  z-index: 3;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
+.globe-3d-glyph { font-size: 16px; position: relative; z-index: 3; }
 .synapse-pulse-ring {
   position: absolute;
-  inset: -6px;
+  inset: -5px;
   border-radius: 50%;
   border: 1.5px solid var(--cyan-glow);
   opacity: 0;
   pointer-events: none;
 }
 .dropdown-card:hover .icon-box-citations {
-  transform: translateZ(30px) scale(1.2) rotateX(12deg);
+  transform: translateZ(24px) scale(1.15) rotateX(10deg);
   background: rgba(0, 212, 255, 0.25);
-  box-shadow: 0 10px 25px rgba(0, 212, 255, 0.5);
-}
-.dropdown-card:hover .globe-3d-glyph {
-  transform: translateZ(12px) scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.5);
 }
 .dropdown-card:hover .synapse-pulse-ring {
   animation: synapseFlash 1s infinite ease-out;
@@ -536,12 +651,12 @@ body.is-scrolled .brand-logo-svg {
   100% { transform: scale(1.8); opacity: 0; }
 }
 
-/* 4. 3D KINETIC ISOMETRIC VIEWPORT ENGINE */
+/* 4. 3D KINETIC ISOMETRIC VIEWPORT */
 .icon-box-website {
   position: relative;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
   background: rgba(184, 255, 87, 0.12);
   border: 1px solid rgba(184, 255, 87, 0.35);
   display: flex;
@@ -551,17 +666,12 @@ body.is-scrolled .brand-logo-svg {
   transform-style: preserve-3d;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.rocket-3d-glyph {
-  font-size: 17px;
-  position: relative;
-  z-index: 3;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
+.rocket-3d-glyph { font-size: 16px; position: relative; z-index: 3; }
 .viewport-laser-trail {
   position: absolute;
-  bottom: -5px;
-  width: 16px;
-  height: 3.5px;
+  bottom: -4px;
+  width: 14px;
+  height: 3px;
   background: var(--lime-glow);
   border-radius: 100px;
   filter: blur(1px);
@@ -569,12 +679,9 @@ body.is-scrolled .brand-logo-svg {
   transition: opacity 0.3s ease;
 }
 .dropdown-card:hover .icon-box-website {
-  transform: translateZ(30px) scale(1.2) rotateY(-14deg);
+  transform: translateZ(24px) scale(1.15) rotateY(-12deg);
   background: rgba(184, 255, 87, 0.3);
-  box-shadow: 0 10px 25px rgba(184, 255, 87, 0.5);
-}
-.dropdown-card:hover .rocket-3d-glyph {
-  transform: translateZ(12px) scale(1.1) rotate(-10deg);
+  box-shadow: 0 8px 20px rgba(184, 255, 87, 0.5);
 }
 .dropdown-card:hover .viewport-laser-trail {
   opacity: 1;
@@ -586,12 +693,12 @@ body.is-scrolled .brand-logo-svg {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CARD TYPOGRAPHY (CRISP & CLEAN WITH NO OVERLAP)
+   CARD TYPOGRAPHY
    ═══════════════════════════════════════════════════════════ */
 .card-text-group {
   display: flex;
   flex-direction: column;
-  gap: 1.5px;
+  gap: 1px;
   min-width: 0;
   overflow: hidden;
   transform-style: preserve-3d;
@@ -605,11 +712,6 @@ body.is-scrolled .brand-logo-svg {
   white-space: nowrap;
   line-height: 1.2;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-.dropdown-card:hover .dropdown-card-title {
-  transform: translateZ(10px);
-  color: #ffffff;
 }
 
 .dropdown-card-desc {
@@ -621,16 +723,13 @@ body.is-scrolled .brand-logo-svg {
   overflow: hidden;
   text-overflow: ellipsis;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease;
 }
 .dropdown-card:hover .dropdown-card-desc {
   color: rgba(255, 255, 255, 0.95);
-  transform: translateZ(6px);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   3D KINETIC METRIC PROOF RIBBON (FLIES FORWARD ON HOVER)
-   ═══════════════════════════════════════════════════════════ */
+/* 3D METRIC PROOF RIBBON */
 .metric-proof-ribbon {
   display: inline-block;
   font-family: 'JetBrains Mono', monospace;
@@ -639,37 +738,20 @@ body.is-scrolled .brand-logo-svg {
   letter-spacing: 0.04em;
   color: #020205;
   background: linear-gradient(135deg, var(--lime-glow), var(--cyan-glow));
-  padding: 3.5px 8.5px;
+  padding: 3px 8px;
   border-radius: 100px;
   white-space: nowrap;
-  box-shadow: 0 0 12px rgba(184, 255, 87, 0.4);
-  transform: rotateX(90deg) translateZ(8px);
+  box-shadow: 0 0 10px rgba(184, 255, 87, 0.4);
+  transform: rotateX(90deg) translateZ(6px);
   opacity: 0;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   z-index: 4;
   flex-shrink: 0;
-  margin-left: 8px;
+  margin-left: 6px;
 }
-
 .dropdown-card:hover .metric-proof-ribbon {
-  transform: rotateX(0deg) translateZ(24px) scale(1.08);
-  opacity: 1;
-  box-shadow: 0 0 20px rgba(184, 255, 87, 0.75);
-}
-
-/* SUBTLE SPECULAR BACKLIGHT */
-.specular-glint-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  z-index: 1;
-  mix-blend-mode: screen;
-  transition: opacity 0.2s ease;
-  border-radius: inherit;
-}
-.dropdown-card:hover .specular-glint-layer {
+  transform: rotateX(0deg) translateZ(18px);
   opacity: 1;
 }
 
@@ -816,7 +898,7 @@ body.is-scrolled .brand-logo-svg {
   border-radius: 18px;
   padding: 22px;
   margin-top: 28px;
-  max-width: 680px;
+  max-width: 720px;
 }
 .card-header-lbl {
   font-family: 'JetBrains Mono', monospace;
@@ -845,12 +927,12 @@ body.is-scrolled .brand-logo-svg {
 <div class="ambient-glow-top"></div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     THE MASTER 3D NAVIGATION CAPSULE (VERSION 3 ANTI-GRAVITY)
+     THE MASTER 3D STORYTELLING COMMAND NAVIGATION (V3)
      ═══════════════════════════════════════════════════════════ -->
 <div class="master-nav-wrapper" id="master-nav-wrapper">
   <nav class="nav-capsule" id="nav-capsule">
     
-    <!-- 1. BRAND LOGO + 3D SONAR RADAR WAVES -->
+    <!-- 1. BRAND LOGO -->
     <a href="#" class="brand-link" id="mag-logo" aria-label="Mark Bishop Media Home">
       <div class="sonar-ring-container">
         <div class="sonar-radar-wave"></div>
@@ -859,156 +941,209 @@ body.is-scrolled .brand-logo-svg {
       <img src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg" />
     </a>
 
-    <!-- 2. CENTER NAVIGATION LIST WITH ANTI-GRAVITY 3D FLYING MODULES -->
+    <!-- 2. CENTER NAVIGATION LIST WITH 3D VOICE TOOLTIPS & DUAL-DECK STORY COMMAND -->
     <ul class="nav-menu-list" id="nav-menu-list">
 
-      <!-- SOLUTIONS DROPDOWN -->
+      <!-- SOLUTIONS (DUAL-DECK STORYTELLING COMMAND CENTER) -->
       <li class="nav-item has-dropdown" id="nav-item-solutions">
         <span>Solutions</span>
         <span class="nav-chevron">▼</span>
+        <div class="nav-item-voice-bubble">“I scale your local business into the #1 market leader.”</div>
         
-        <!-- ANTI-GRAVITY 3D FLYING STACK -->
-        <ul class="dropdown-panel">
+        <!-- THE DUAL-DECK 3D SPATIAL COMMAND ARCHITECTURE -->
+        <div class="dropdown-panel-spatial" id="solutions-spatial-panel">
           
-          <!-- SERVICE 1: 3D MAP RADAR PIN -->
-          <li>
-            <a href="#three-pack" class="dropdown-card" id="card-maps-top3">
-              <div class="specular-glint-layer"></div>
-              <div class="card-left-group">
-                <div class="icon-box-maps">
-                  <div class="radar-scan-beam"></div>
-                  <span class="pin-3d-glyph">📍</span>
+          <!-- LEFT DECK: 3D FLYING SERVICE MODULES -->
+          <ul class="spatial-cards-column">
+            
+            <!-- SERVICE 1: GOOGLE MAPS -->
+            <li>
+              <a href="#three-pack" class="dropdown-card active-story" data-story="maps">
+                <div class="card-left-group">
+                  <div class="icon-box-maps">
+                    <div class="radar-scan-beam"></div>
+                    <span class="pin-3d-glyph">📍</span>
+                  </div>
+                  <div class="card-text-group">
+                    <span class="dropdown-card-title">Rank in Google Maps Top 3</span>
+                    <span class="dropdown-card-desc">Show up #1 & win high-intent local calls</span>
+                  </div>
                 </div>
-                <div class="card-text-group">
-                  <span class="dropdown-card-title">Rank in Google Maps Top 3</span>
-                  <span class="dropdown-card-desc">Show up #1 & win high-intent local calls</span>
-                </div>
-              </div>
-              <span class="metric-proof-ribbon">+320% CALLS</span>
-            </a>
-          </li>
+                <span class="metric-proof-ribbon">+320% CALLS</span>
+              </a>
+            </li>
 
-          <!-- SERVICE 2: 3D ORBITAL STAR CONSTELLATION -->
-          <li>
-            <a href="#reviews" class="dropdown-card" id="card-reviews-auto">
-              <div class="specular-glint-layer"></div>
-              <div class="card-left-group">
-                <div class="icon-box-reviews">
-                  <div class="star-orbital-particles"></div>
-                  <span class="star-3d-glyph">⭐</span>
+            <!-- SERVICE 2: REVIEWS -->
+            <li>
+              <a href="#reviews" class="dropdown-card" data-story="reviews">
+                <div class="card-left-group">
+                  <div class="icon-box-reviews">
+                    <div class="star-orbital-particles"></div>
+                    <span class="star-3d-glyph">⭐</span>
+                  </div>
+                  <div class="card-text-group">
+                    <span class="dropdown-card-title">Automated 5-Star Reviews</span>
+                    <span class="dropdown-card-desc">Turn happy customers into real 5-star reviews</span>
+                  </div>
                 </div>
-                <div class="card-text-group">
-                  <span class="dropdown-card-title">Automated 5-Star Reviews</span>
-                  <span class="dropdown-card-desc">Turn happy customers into real 5-star reviews</span>
-                </div>
-              </div>
-              <span class="metric-proof-ribbon">★ 4.9 RATING</span>
-            </a>
-          </li>
+                <span class="metric-proof-ribbon">★ 4.9 RATING</span>
+              </a>
+            </li>
 
-          <!-- SERVICE 3: 3D SYNAPSE NETWORK MESH -->
-          <li>
-            <a href="#citations" class="dropdown-card" id="card-citations-sync">
-              <div class="specular-glint-layer"></div>
-              <div class="card-left-group">
-                <div class="icon-box-citations">
-                  <div class="synapse-pulse-ring"></div>
-                  <span class="globe-3d-glyph">🌐</span>
+            <!-- SERVICE 3: CITATIONS -->
+            <li>
+              <a href="#citations" class="dropdown-card" data-story="citations">
+                <div class="card-left-group">
+                  <div class="icon-box-citations">
+                    <div class="synapse-pulse-ring"></div>
+                    <span class="globe-3d-glyph">🌐</span>
+                  </div>
+                  <div class="card-text-group">
+                    <span class="dropdown-card-title">100+ Directory Citations</span>
+                    <span class="dropdown-card-desc">Sync your NAP info on Apple, Yelp & Google</span>
+                  </div>
                 </div>
-                <div class="card-text-group">
-                  <span class="dropdown-card-title">100+ Directory Sync & Citations</span>
-                  <span class="dropdown-card-desc">Sync your NAP info on Apple, Yelp & Google</span>
-                </div>
-              </div>
-              <span class="metric-proof-ribbon">100+ DIRS</span>
-            </a>
-          </li>
+                <span class="metric-proof-ribbon">100+ DIRS</span>
+              </a>
+            </li>
 
-          <!-- SERVICE 4: 3D KINETIC ISOMETRIC VIEWPORT -->
-          <li>
-            <a href="#website" class="dropdown-card" id="card-website-conv">
-              <div class="specular-glint-layer"></div>
-              <div class="card-left-group">
-                <div class="icon-box-website">
-                  <div class="viewport-laser-trail"></div>
-                  <span class="rocket-3d-glyph">🚀</span>
+            <!-- SERVICE 4: 3D WEBSITE -->
+            <li>
+              <a href="#website" class="dropdown-card" data-story="website">
+                <div class="card-left-group">
+                  <div class="icon-box-website">
+                    <div class="viewport-laser-trail"></div>
+                    <span class="rocket-3d-glyph">🚀</span>
+                  </div>
+                  <div class="card-text-group">
+                    <span class="dropdown-card-title">High-Converting 3D Website</span>
+                    <span class="dropdown-card-desc">Turn clicks into booked calls & customers</span>
+                  </div>
                 </div>
-                <div class="card-text-group">
-                  <span class="dropdown-card-title">High-Converting 3D Website</span>
-                  <span class="dropdown-card-desc">Turn clicks into booked calls & customers</span>
-                </div>
-              </div>
-              <span class="metric-proof-ribbon">3.4x BOOKINGS</span>
-            </a>
-          </li>
+                <span class="metric-proof-ribbon">3.4x BOOKINGS</span>
+              </a>
+            </li>
 
-        </ul>
+          </ul>
+
+          <!-- RIGHT DECK: LIVING 3D STORYTELLING HOLOGRAM SCREEN -->
+          <div class="spatial-story-deck" id="story-deck-display">
+            <div>
+              <div class="story-header-badge" id="story-badge">● LIVE CLIENT OUTCOME SIMULATION</div>
+              <div class="story-voice-title" id="story-title">“I put your business pin at #1 on Google Maps in 21 days.”</div>
+              <div class="story-voice-narrative" id="story-desc">
+                When nearby homeowners search for your services, they will see your verified business profile at the very top of Google Maps before any competitor, generating a nonstop stream of high-ticket inbound calls.
+              </div>
+            </div>
+
+            <div class="story-simulation-box" id="story-sim-box">
+              <div class="sim-icon-halo" id="story-sim-icon">📍</div>
+              <div>
+                <div class="sim-text-main" id="story-sim-main">#1 Local Google 3-Pack Locked</div>
+                <div class="sim-text-sub" id="story-sim-sub">+320% Inbound Phone Calls Recorded</div>
+              </div>
+            </div>
+
+            <div class="story-footer-proof">
+              <span class="proof-tag">CLIENT ROI IMPACT:</span>
+              <span class="proof-val" id="story-proof-val">+$48,000 / MO VALUE</span>
+            </div>
+          </div>
+
+        </div>
       </li>
 
-      <!-- CASE STUDIES (DIRECT) -->
+      <!-- CASE STUDIES -->
       <li class="nav-item" id="nav-item-cases">
         <span>Case Studies</span>
+        <div class="nav-item-voice-bubble">“I prove how we generated $1,450,000 for local contractors.”</div>
       </li>
 
-      <!-- TESTIMONIALS (DIRECT) -->
+      <!-- TESTIMONIALS -->
       <li class="nav-item" id="nav-item-testimonials">
         <span>Testimonials</span>
+        <div class="nav-item-voice-bubble">“I let real business owners tell you how their lives changed.”</div>
       </li>
 
-      <!-- RESOURCES DROPDOWN -->
+      <!-- RESOURCES -->
       <li class="nav-item has-dropdown" id="nav-item-resources">
         <span>Resources</span>
         <span class="nav-chevron">▼</span>
-        <ul class="dropdown-panel">
-          <li>
-            <a href="#audit" class="dropdown-card">
-              <div class="specular-glint-layer"></div>
-              <div class="card-left-group">
-                <div class="icon-box-maps">
-                  <div class="radar-scan-beam"></div>
-                  <span class="pin-3d-glyph">⚡</span>
+        <div class="nav-item-voice-bubble">“I give you instant diagnostic intelligence & playbooks.”</div>
+        
+        <div class="dropdown-panel-spatial" id="resources-spatial-panel">
+          <ul class="spatial-cards-column">
+            <li>
+              <a href="#audit" class="dropdown-card active-story" data-story="audit">
+                <div class="card-left-group">
+                  <div class="icon-box-maps">
+                    <div class="radar-scan-beam"></div>
+                    <span class="pin-3d-glyph">⚡</span>
+                  </div>
+                  <div class="card-text-group">
+                    <span class="dropdown-card-title">Free 9-Mile Visibility Audit</span>
+                    <span class="dropdown-card-desc">Run an instant live ranking scan for your business</span>
+                  </div>
                 </div>
-                <div class="card-text-group">
-                  <span class="dropdown-card-title">Free 9-Mile Visibility Audit</span>
-                  <span class="dropdown-card-desc">Run an instant live ranking scan for your business</span>
+                <span class="metric-proof-ribbon">FREE SCAN</span>
+              </a>
+            </li>
+            <li>
+              <a href="#blog" class="dropdown-card" data-story="blog">
+                <div class="card-left-group">
+                  <div class="icon-box-website">
+                    <div class="viewport-laser-trail"></div>
+                    <span class="rocket-3d-glyph">📑</span>
+                  </div>
+                  <div class="card-text-group">
+                    <span class="dropdown-card-title">Local Growth Case Studies</span>
+                    <span class="dropdown-card-desc">Proven tips to scale local customers & revenue</span>
+                  </div>
                 </div>
+                <span class="metric-proof-ribbon">INSIGHTS</span>
+              </a>
+            </li>
+            <li>
+              <a href="#faq" class="dropdown-card" data-story="faq">
+                <div class="card-left-group">
+                  <div class="icon-box-citations">
+                    <div class="synapse-pulse-ring"></div>
+                    <span class="globe-3d-glyph">❓</span>
+                  </div>
+                  <div class="card-text-group">
+                    <span class="dropdown-card-title">Frequently Asked Questions</span>
+                    <span class="dropdown-card-desc">Everything you need to know about our system</span>
+                  </div>
+                </div>
+                <span class="metric-proof-ribbon">FAQS</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="spatial-story-deck" id="resource-story-deck">
+            <div>
+              <div class="story-header-badge">● INSTANT RADAR DIAGNOSTIC</div>
+              <div class="story-voice-title">“I scan your exact 9-mile radius in 5 seconds.”</div>
+              <div class="story-voice-narrative">
+                Our street-level radar scan checks 81 GPS grid coordinates around your zip code to show exactly which competitors are stealing your calls and how to overtake them.
               </div>
-              <span class="metric-proof-ribbon">FREE SCAN</span>
-            </a>
-          </li>
-          <li>
-            <a href="#blog" class="dropdown-card">
-              <div class="specular-glint-layer"></div>
-              <div class="card-left-group">
-                <div class="icon-box-website">
-                  <div class="viewport-laser-trail"></div>
-                  <span class="rocket-3d-glyph">📑</span>
-                </div>
-                <div class="card-text-group">
-                  <span class="dropdown-card-title">Local Growth Case Studies</span>
-                  <span class="dropdown-card-desc">Proven tips to scale local customers & revenue</span>
-                </div>
+            </div>
+
+            <div class="story-simulation-box">
+              <div class="sim-icon-halo">⚡</div>
+              <div>
+                <div class="sim-text-main">81-Point Geo-Grid Analysis</div>
+                <div class="sim-text-sub">100% Free Live Audit Report Generated</div>
               </div>
-              <span class="metric-proof-ribbon">INSIGHTS</span>
-            </a>
-          </li>
-          <li>
-            <a href="#faq" class="dropdown-card">
-              <div class="specular-glint-layer"></div>
-              <div class="card-left-group">
-                <div class="icon-box-citations">
-                  <div class="synapse-pulse-ring"></div>
-                  <span class="globe-3d-glyph">❓</span>
-                </div>
-                <div class="card-text-group">
-                  <span class="dropdown-card-title">Frequently Asked Questions</span>
-                  <span class="dropdown-card-desc">Everything you need to know about our system</span>
-                </div>
-              </div>
-              <span class="metric-proof-ribbon">FAQS</span>
-            </a>
-          </li>
-        </ul>
+            </div>
+
+            <div class="story-footer-proof">
+              <span class="proof-tag">INSTANT ACCESS:</span>
+              <span class="proof-val">0 COST / 60 SECONDS</span>
+            </div>
+          </div>
+
+        </div>
       </li>
 
     </ul>
@@ -1032,10 +1167,10 @@ body.is-scrolled .brand-logo-svg {
 
   <!-- SECTION 1: HERO VIEW -->
   <section class="demo-section" id="hero-sec">
-    <div class="sec-badge">● BILLION-DOLLAR ANTI-GRAVITY 3D NAVIGATION V3</div>
-    <h1 class="sec-title">Zero-G Anti-Gravity 3D Flying Modules</h1>
+    <div class="sec-badge">● BILLION-DOLLAR 3D STORYTELLING COMMAND NAVIGATION</div>
+    <h1 class="sec-title">Living 3D Storytelling & Live Client Outcome Simulation</h1>
     <p class="sec-desc">
-      Hover over <strong>"Solutions ⌵"</strong> and watch the buttons <strong>fly into mid-air with anti-gravity momentum</strong>, bob in zero-gravity space, and violently shoot forward in 3D perspective (`translateZ: 45px`) when hovered!
+      Hover over any button or dropdown card to hear its **3D Storytelling Voice** ("I put your business at #1", "I generate 5-star reviews on autopilot", etc.) and watch the live outcome simulation deck update in real time!
     </p>
 
     <!-- TEST STREAM PASSING UNDER THE GLASS -->
@@ -1046,12 +1181,12 @@ body.is-scrolled .brand-logo-svg {
     </div>
 
     <div class="active-variant-indicator-card">
-      <div class="card-header-lbl">ACTIVE 3D ZERO-G DYNAMICS:</div>
-      <div class="card-header-val">🚀 Anti-Gravity Flying Modules + Dynamic 3D Spatial Ejection</div>
+      <div class="card-header-lbl">STORYTELLING ARCHITECTURE HIGHLIGHTS:</div>
+      <div class="card-header-val">💎 Living 3D Voice Tooltips + Dual-Deck Real-Time Outcome Simulator</div>
       <div class="card-desc-val">
-        1. <strong>Explosive Fly-In:</strong> Cards scatter and fly into the 3D viewport with momentum on hover.<br>
-        2. <strong>Zero-G Levitation:</strong> Each card gently bobs in continuous zero-gravity space.<br>
-        3. <strong>Spatial Elevation:</strong> Hovering directly over any card shoots it forward (`translateZ: 45px`) while pushing siblings backward!
+        1. <strong>Top Buttons Voice HUD:</strong> Every single button talks directly to the client with high-impact value statements.<br>
+        2. <strong>Dual-Deck Command Center:</strong> Left side holds the 3D flying cards; Right side holds the Live 3D Hologram Story Deck.<br>
+        3. <strong>Client Outcome Narrative:</strong> Hovering each service immediately shows what we do for their revenue, ranking & calls.
       </div>
     </div>
   </section>
@@ -1070,7 +1205,7 @@ body.is-scrolled .brand-logo-svg {
 </main>
 
 <!-- ═══════════════════════════════════════════════════════════
-     3D SPATIAL GYROSCOPE & MAGNETIC CURSOR PHYSICS ENGINE
+     3D STORYTELLING DYNAMIC SIMULATOR SCRIPT
      ═══════════════════════════════════════════════════════════ -->
 <script>
 /* ─── 1. SMART SCROLL FREEZE & FLOAT ─── */
@@ -1082,31 +1217,77 @@ window.addEventListener('scroll', () => {
   }
 });
 
-/* ─── 2. GYROSCOPIC SPATIAL 3D TILT ON HOVERED CARD ─── */
-document.querySelectorAll('.dropdown-card').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const rotateX = ((y - centerY) / centerY) * -10;
-    const rotateY = ((x - centerX) / centerX) * 10;
-    
-    card.style.transform = `perspective(800px) translate3d(0, -4px, 50px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-    
-    const glint = card.querySelector('.specular-glint-layer');
-    if (glint) {
-      glint.style.background = `radial-gradient(circle 100px at ${x}px ${y}px, rgba(0, 212, 255, 0.18), transparent 75%)`;
-    }
-  });
+/* ─── 2. DYNAMIC 3D STORYTELLING DICTIONARY ─── */
+const storyDatabase = {
+  maps: {
+    title: '“I put your business pin at #1 on Google Maps in 21 days.”',
+    desc: 'When nearby homeowners search for your services, they will see your verified business profile at the very top of Google Maps before any competitor, generating a nonstop stream of high-ticket inbound calls.',
+    icon: '📍',
+    main: '#1 Local Google 3-Pack Locked',
+    sub: '+320% Inbound Phone Calls Recorded',
+    proof: '+$48,000 / MO VALUE'
+  },
+  reviews: {
+    title: '“I automatically turn your happy customers into 5-star reviews on autopilot.”',
+    desc: 'My automated smart SMS & WhatsApp workflows send gentle review requests immediately after you finish a job, stacking up dozens of real 5-star ratings on Google while silently intercepting bad feedback.',
+    icon: '⭐',
+    main: 'Automated 5-Star Review Engine',
+    sub: '4.9 Star Rating with 250+ Real Reviews',
+    proof: '94% TRUST RATE'
+  },
+  citations: {
+    title: '“I lock and synchronize your business NAP across 100+ directories.”',
+    desc: 'I syndicate your Name, Address & Phone number across Apple Maps, Yelp, Bing, Yahoo & 100+ directories so Google search algorithms view your business as 100% legitimate and boost your local rank.',
+    icon: '🌐',
+    main: '100+ Directory Sync Active',
+    sub: 'Zero NAP Inconsistencies Across Web',
+    proof: '100% AUTHORITY'
+  },
+  website: {
+    title: '“I build a lightning-fast 3D website engineered to convert clicks into booked calls.”',
+    desc: 'Visitors do not just browse; they get instantly captivated by interactive 3D visual proof, smart local schema, and friction-free click-to-call triggers that convert 3.4x more traffic into paid contracts.',
+    icon: '🚀',
+    main: 'High-Converting 3D Website Active',
+    sub: '3.4x Higher Visitor-to-Call Conversion Rate',
+    proof: '3.4x BOOKINGS'
+  }
+};
 
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-    const glint = card.querySelector('.specular-glint-layer');
-    if (glint) glint.style.background = '';
+/* ─── 3. STORYTELLING INTERACTION CONTROLLER ─── */
+const cards = document.querySelectorAll('#solutions-spatial-panel .dropdown-card');
+const storyTitle = document.getElementById('story-title');
+const storyDesc = document.getElementById('story-desc');
+const storySimIcon = document.getElementById('story-sim-icon');
+const storySimMain = document.getElementById('story-sim-main');
+const storySimSub = document.getElementById('story-sim-sub');
+const storyProofVal = document.getElementById('story-proof-val');
+const storyDeck = document.getElementById('story-deck-display');
+
+cards.forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    cards.forEach(c => c.classList.remove('active-story'));
+    card.classList.add('active-story');
+    
+    const key = card.getAttribute('data-story');
+    const data = storyDatabase[key];
+    
+    if (data) {
+      // 3D Morph Transition in Story Deck
+      storyDeck.style.transform = 'perspective(1000px) rotateY(-4deg) translateZ(25px) scale(1.02)';
+      storyDeck.style.borderColor = 'var(--lime-glow)';
+      
+      storyTitle.innerHTML = data.title;
+      storyDesc.innerHTML = data.desc;
+      storySimIcon.innerHTML = data.icon;
+      storySimMain.innerHTML = data.main;
+      storySimSub.innerHTML = data.sub;
+      storyProofVal.innerHTML = data.proof;
+      
+      setTimeout(() => {
+        storyDeck.style.transform = 'perspective(1000px) rotateY(-8deg) translateZ(10px) scale(1)';
+        storyDeck.style.borderColor = 'rgba(0, 212, 255, 0.35)';
+      }, 250);
+    }
   });
 });
 </script>
