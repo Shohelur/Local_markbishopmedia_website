@@ -745,25 +745,36 @@ body.zen-mode .zen-exit-banner{display:flex;align-items:center;gap:6px}
 /* FROSTED GLASS DROPDOWN POPOVER */
 .nav-dropdown-menu{
   position:absolute;
-  top:calc(100% + 12px);
+  top:calc(100% + 8px);
   left:50%;
-  transform:translateX(-50%) translateY(8px);
-  width:260px;
-  background:rgba(8, 13, 24, 0.94);
-  backdrop-filter:blur(28px) saturate(200%);
-  -webkit-backdrop-filter:blur(28px) saturate(200%);
-  border:1px solid rgba(0, 212, 255, 0.3);
-  box-shadow:0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 212, 255, 0.18);
+  transform:translateX(-50%) translateY(6px);
+  width:320px;
+  background:rgba(8, 13, 26, 0.96);
+  backdrop-filter:blur(30px) saturate(200%);
+  -webkit-backdrop-filter:blur(30px) saturate(200%);
+  border:1px solid rgba(0, 212, 255, 0.35);
+  box-shadow:0 24px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(0, 212, 255, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.15);
   border-radius:18px;
   padding:10px;
   list-style:none;
   opacity:0;
   visibility:hidden;
   pointer-events:none;
-  transition:all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index:200;
+  transition:all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index:99999;
 }
-.nav-menu-item:hover .nav-dropdown-menu{
+/* INVISIBLE HOVER BRIDGE: PREVENTS DROPDOWN FROM HIDING ON MOUSE MOVE */
+.nav-dropdown-menu::before{
+  content:'';
+  position:absolute;
+  top:-16px;
+  left:0;
+  right:0;
+  height:18px;
+  background:transparent;
+}
+.nav-menu-item:hover .nav-dropdown-menu,
+.nav-menu-item.active .nav-dropdown-menu{
   opacity:1;
   visibility:visible;
   pointer-events:auto;
@@ -1399,27 +1410,33 @@ body.zen-mode .sidebar-wrapper{
 
         <!-- CENTER: INTERACTIVE GLASS NAVIGATION WITH DROPDOWNS -->
         <ul class="nav-menu-list" id="nav-menu-container">
-          <!-- 1. SOLUTIONS DROPDOWN -->
-          <li class="nav-menu-item">
+          <!-- 1. SOLUTIONS DROPDOWN (4 CLIENT-MINDSET PACKAGES) -->
+          <li class="nav-menu-item" onclick="toggleNavDropdown(this, event)">
             <span>Solutions</span>
             <span class="nav-chevron">▼</span>
-            <ul class="nav-dropdown-menu">
+            <ul class="nav-dropdown-menu" onpointerdown="event.stopPropagation()">
               <li>
-                <a href="#three-pack" class="dropdown-item">
-                  <span class="dropdown-title">📍 Google Maps 3-Pack</span>
-                  <span class="dropdown-desc">Dominate the top 3 spots in local search radius</span>
+                <a href="#three-pack" class="dropdown-item" onpointerdown="event.stopPropagation()">
+                  <span class="dropdown-title">📍 Rank in Google Maps Top 3</span>
+                  <span class="dropdown-desc">Stop losing calls to competitors & show up first</span>
                 </a>
               </li>
               <li>
-                <a href="#geogrid" class="dropdown-item">
-                  <span class="dropdown-title">🌐 9-Mile Geo-Grid Radar</span>
-                  <span class="dropdown-desc">High-resolution street-level ranking visibility</span>
+                <a href="#reviews" class="dropdown-item" onpointerdown="event.stopPropagation()">
+                  <span class="dropdown-title">⭐ Automated 5-Star Reviews</span>
+                  <span class="dropdown-desc">Turn happy customers into real reviews on autopilot</span>
                 </a>
               </li>
               <li>
-                <a href="#reviews" class="dropdown-item">
-                  <span class="dropdown-title">🛡️ AI Review & Trust Shield</span>
-                  <span class="dropdown-desc">Automate 5-star customer feedback & calls</span>
+                <a href="#citations" class="dropdown-item" onpointerdown="event.stopPropagation()">
+                  <span class="dropdown-title">🌐 100+ Directory Sync & Citations</span>
+                  <span class="dropdown-desc">Lock your business info on Apple, Yelp & Google</span>
+                </a>
+              </li>
+              <li>
+                <a href="#website" class="dropdown-item" onpointerdown="event.stopPropagation()">
+                  <span class="dropdown-title">🚀 High-Converting 3D Website</span>
+                  <span class="dropdown-desc">Modern, fast & built with schema to turn clicks to calls</span>
                 </a>
               </li>
             </ul>
@@ -1436,26 +1453,26 @@ body.zen-mode .sidebar-wrapper{
           </li>
 
           <!-- 4. RESOURCES DROPDOWN -->
-          <li class="nav-menu-item">
+          <li class="nav-menu-item" onclick="toggleNavDropdown(this, event)">
             <span>Resources</span>
             <span class="nav-chevron">▼</span>
-            <ul class="nav-dropdown-menu">
+            <ul class="nav-dropdown-menu" onpointerdown="event.stopPropagation()">
               <li>
-                <a href="#blog" class="dropdown-item">
-                  <span class="dropdown-title">📑 Agency Blog & Insights</span>
-                  <span class="dropdown-desc">Algorithm breakdowns & local SEO strategies</span>
+                <a href="#audit" class="dropdown-item" onpointerdown="event.stopPropagation()">
+                  <span class="dropdown-title">⚡ Free 9-Mile Visibility Audit</span>
+                  <span class="dropdown-desc">Run an instant live ranking scan for your business</span>
                 </a>
               </li>
               <li>
-                <a href="#playbook" class="dropdown-item">
-                  <span class="dropdown-title">📊 Local Growth Playbook</span>
-                  <span class="dropdown-desc">Proven playbooks to scale high-ticket inquiries</span>
+                <a href="#blog" class="dropdown-item" onpointerdown="event.stopPropagation()">
+                  <span class="dropdown-title">📑 Local Growth Blog</span>
+                  <span class="dropdown-desc">Proven tips to scale local customers & revenue</span>
                 </a>
               </li>
               <li>
-                <a href="#scanner" class="dropdown-item">
-                  <span class="dropdown-title">⚡ Instant Geo-Scan Tool</span>
-                  <span class="dropdown-desc">Free live business audit report generation</span>
+                <a href="#faq" class="dropdown-item" onpointerdown="event.stopPropagation()">
+                  <span class="dropdown-title">❓ Client FAQs</span>
+                  <span class="dropdown-desc">Everything you need to know about our system</span>
                 </a>
               </li>
             </ul>
@@ -1710,6 +1727,25 @@ function toggleDrawingToolsTray() {
    ═══════════════════════════════════════════════════════════════════ */
 let currentDeviceType = 'desktop';
 const artboardBox = document.getElementById('artboard-canvas-wrapper');
+
+/* ═══════════════════════════════════════════════════════════
+   1.2 INTERACTIVE NAV DROPDOWN TOGGLE (CLICK & TOUCH SUPPORT)
+   ═══════════════════════════════════════════════════════════ */
+function toggleNavDropdown(el, evt) {
+  if (evt) evt.stopPropagation();
+  const wasActive = el.classList.contains('active');
+  document.querySelectorAll('.nav-menu-item').forEach(item => item.classList.remove('active'));
+  if (!wasActive) {
+    el.classList.add('active');
+  }
+}
+
+// Close dropdown on outside click
+document.addEventListener('pointerdown', (e) => {
+  if (!e.target.closest('.nav-menu-item')) {
+    document.querySelectorAll('.nav-menu-item').forEach(item => item.classList.remove('active'));
+  }
+});
 
 function switchStudioDevice(dev) {
   currentDeviceType = dev;
