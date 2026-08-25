@@ -254,10 +254,12 @@ body.is-scrolled .brand-logo-svg {
 .dropdown-panel {
   position: absolute;
   top: calc(100% + 6px);
+  left: 0; /* Aligns directly flush under the parent tab column */
+  transform: none;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  width: 415px; /* Ample width to guarantee zero overlap between subtitle and ribbon */
+  width: 415px;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -273,16 +275,10 @@ body.is-scrolled .brand-logo-svg {
   perspective: 700px;
 }
 
-/* ALIGN SOLUTIONS DROPDOWN DIRECTLY UNDER SOLUTIONS BUTTON */
-#nav-item-solutions .dropdown-panel {
-  left: 0;
-  transform: none;
-}
-
-/* ALIGN RESOURCES DROPDOWN DIRECTLY UNDER RESOURCES BUTTON */
+#nav-item-solutions .dropdown-panel,
 #nav-item-resources .dropdown-panel {
-  right: 0;
-  left: auto;
+  left: 0;
+  right: auto;
   transform: none;
 }
 
