@@ -668,55 +668,195 @@ body.zen-mode .zen-exit-banner{display:flex;align-items:center;gap:6px}
   box-shadow:0 0 14px rgba(0, 212, 255, 0.5);
 }
 
-/* NAVBAR */
+/* ═══════════════════════════════════════════════════════════
+   MODEL 1: ECHOSYST FLOATING FROSTED GLASS CAPSULE NAVBAR
+   ═══════════════════════════════════════════════════════════ */
 #elem-nav{
-  top:22px;
+  top:20px;
   left:35px;
   right:35px;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  background:rgba(10, 16, 30, 0.75);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid rgba(0, 212, 255, 0.22);
+  box-shadow:0 16px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(0, 212, 255, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  border-radius:100px;
+  padding:6px 8px 6px 20px;
+  transition:all 0.3s ease;
+  z-index:100;
+}
+#elem-nav:hover{
+  border-color:rgba(0, 212, 255, 0.4);
+  box-shadow:0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(0, 212, 255, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.25);
 }
 .nav-brand-box{
   display:flex;
   align-items:center;
-  gap:12px;
+  text-decoration:none;
 }
 .nav-logo-img{
-  height:40px;
+  height:36px;
   width:auto;
-  max-width:280px;
+  max-width:240px;
   object-fit:contain;
-  border-radius:8px;
-  filter:drop-shadow(0 0 14px rgba(0, 212, 255, 0.45));
-  transition:all 0.25s ease;
-  cursor:pointer;
+  filter:drop-shadow(0 0 12px rgba(0, 212, 255, 0.45));
+  transition:transform 0.25s ease;
 }
 .nav-logo-img:hover{
   transform:scale(1.03);
-  filter:drop-shadow(0 0 20px rgba(0, 212, 255, 0.7));
 }
-.nav-logo-img.stacked{
-  height:48px;
-  max-width:220px;
+.nav-menu-list{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  list-style:none;
+  margin:0;
+  padding:0;
 }
-.nav-logo-img.horizontal{
-  height:36px;
-  max-width:300px;
+.nav-menu-item{
+  position:relative;
+  font-family:'Inter', sans-serif;
+  font-size:13px;
+  font-weight:500;
+  color:rgba(255, 255, 255, 0.75);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  padding:8px 6px;
+  transition:color 0.2s ease;
 }
-.btn-logo-opt.active{
-  background:rgba(0, 212, 255, 0.25) !important;
-  color:#00d4ff !important;
-  border-color:#00d4ff !important;
-  box-shadow:0 0 12px rgba(0, 212, 255, 0.4);
+.nav-menu-item:hover{
+  color:#00d4ff;
 }
-.brand-txt{font-size:15px;font-weight:800;letter-spacing:0.1em;color:#fff;display:flex;align-items:center;gap:8px}
-.brand-txt span{background:linear-gradient(135deg, #00d4ff, #b8ff57);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.brand-sub-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;color:#00d4ff;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);padding:3px 8px;border-radius:6px}
-.nav-menu-list{display:flex;gap:24px;list-style:none}
-.nav-menu-item{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.7);cursor:pointer;transition:color 0.2s}
-.nav-menu-item:hover{color:#00d4ff}
-.nav-btn-audit{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.4);color:#00d4ff;font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:0.1em;padding:6px 16px;border-radius:100px;cursor:pointer}
+.nav-chevron{
+  font-size:9px;
+  color:rgba(255, 255, 255, 0.5);
+  transition:transform 0.25s ease, color 0.25s ease;
+}
+.nav-menu-item:hover .nav-chevron{
+  color:#00d4ff;
+  transform:rotate(180deg);
+}
+
+/* FROSTED GLASS DROPDOWN POPOVER */
+.nav-dropdown-menu{
+  position:absolute;
+  top:calc(100% + 12px);
+  left:50%;
+  transform:translateX(-50%) translateY(8px);
+  width:260px;
+  background:rgba(8, 13, 24, 0.94);
+  backdrop-filter:blur(28px) saturate(200%);
+  -webkit-backdrop-filter:blur(28px) saturate(200%);
+  border:1px solid rgba(0, 212, 255, 0.3);
+  box-shadow:0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 212, 255, 0.18);
+  border-radius:18px;
+  padding:10px;
+  list-style:none;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index:200;
+}
+.nav-menu-item:hover .nav-dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translateX(-50%) translateY(0);
+}
+.dropdown-item{
+  display:flex;
+  flex-direction:column;
+  padding:9px 12px;
+  border-radius:12px;
+  text-decoration:none;
+  transition:background 0.2s ease, transform 0.2s ease;
+}
+.dropdown-item:hover{
+  background:rgba(0, 212, 255, 0.12);
+  transform:translateX(3px);
+}
+.dropdown-title{
+  font-family:'Space Grotesk', sans-serif;
+  font-size:12.5px;
+  font-weight:700;
+  color:#ffffff;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.dropdown-desc{
+  font-family:'Inter', sans-serif;
+  font-size:10px;
+  color:rgba(255, 255, 255, 0.55);
+  margin-top:2px;
+}
+
+/* RIGHT ACTION GROUP */
+.nav-action-group{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.nav-link-subtle{
+  font-family:'Inter', sans-serif;
+  font-size:12.5px;
+  font-weight:500;
+  color:rgba(255, 255, 255, 0.7);
+  text-decoration:none;
+  cursor:pointer;
+  transition:color 0.2s;
+}
+.nav-link-subtle:hover{
+  color:#ffffff;
+}
+
+/* ECHOSYST SIGNATURE GLOWING BUTTON */
+.nav-btn-echosyst{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  color:#020205;
+  font-family:'Space Grotesk', sans-serif;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:0.06em;
+  padding:7px 14px 7px 18px;
+  border-radius:100px;
+  text-decoration:none;
+  cursor:pointer;
+  box-shadow:0 0 22px rgba(0, 212, 255, 0.45);
+  transition:all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border:none;
+}
+.nav-btn-echosyst:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 35px rgba(184, 255, 87, 0.75);
+}
+.btn-arrow-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:22px;
+  height:22px;
+  background:#020205;
+  color:#b8ff57;
+  border-radius:50%;
+  font-size:12px;
+  font-weight:900;
+  transition:transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+.nav-btn-echosyst:hover .btn-arrow-badge{
+  transform:translate(2px, -2px) rotate(45deg);
+  background:#ffffff;
+  color:#020205;
+}
 
 /* PILL BADGE */
 #elem-badge{
@@ -1248,24 +1388,88 @@ body.zen-mode .sidebar-wrapper{
       <!-- FULL CANVAS FOR DRAWING OVERLAY -->
       <canvas id="drawing-surface"></canvas>
 
-      <!-- 1. NAVBAR COMPONENT -->
+      <!-- 1. NAVBAR COMPONENT: MODEL 1 FLOATING FROSTED GLASS CAPSULE -->
       <div class="studio-element" id="elem-nav" data-name="Navbar Header">
         <span class="element-tag">NAVBAR</span>
         
+        <!-- LEFT: BRAND LOGO -->
         <div id="nav-brand-container" class="nav-brand-box">
-          <img id="nav-logo-img" src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media - Local Visibility OS" class="nav-logo-img" style="height:46px;background:transparent;border:none;filter:none;" />
-          <div id="nav-brand-fallback" class="brand-txt" style="display:none;">
-            <div contenteditable="false" ondblclick="makeDirectEditable(this)">MarkBishop<span>Media</span></div>
-            <div class="brand-sub-badge" contenteditable="false" ondblclick="makeDirectEditable(this)">[LOCAL]</div>
-          </div>
+          <img id="nav-logo-img" src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media - Local Visibility OS" class="nav-logo-img" />
         </div>
 
+        <!-- CENTER: INTERACTIVE GLASS NAVIGATION WITH DROPDOWNS -->
         <ul class="nav-menu-list" id="nav-menu-container">
-          <li class="nav-menu-item">What We Do</li>
-          <li class="nav-menu-item">How It Works</li>
-          <li class="nav-menu-item">Audit Results</li>
+          <!-- 1. SOLUTIONS DROPDOWN -->
+          <li class="nav-menu-item">
+            <span>Solutions</span>
+            <span class="nav-chevron">▼</span>
+            <ul class="nav-dropdown-menu">
+              <li>
+                <a href="#three-pack" class="dropdown-item">
+                  <span class="dropdown-title">📍 Google Maps 3-Pack</span>
+                  <span class="dropdown-desc">Dominate the top 3 spots in local search radius</span>
+                </a>
+              </li>
+              <li>
+                <a href="#geogrid" class="dropdown-item">
+                  <span class="dropdown-title">🌐 9-Mile Geo-Grid Radar</span>
+                  <span class="dropdown-desc">High-resolution street-level ranking visibility</span>
+                </a>
+              </li>
+              <li>
+                <a href="#reviews" class="dropdown-item">
+                  <span class="dropdown-title">🛡️ AI Review & Trust Shield</span>
+                  <span class="dropdown-desc">Automate 5-star customer feedback & calls</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- 2. CASE STUDIES (DIRECT) -->
+          <li class="nav-menu-item">
+            <span>Case Studies</span>
+          </li>
+
+          <!-- 3. TESTIMONIALS (DIRECT) -->
+          <li class="nav-menu-item">
+            <span>Testimonials</span>
+          </li>
+
+          <!-- 4. RESOURCES DROPDOWN -->
+          <li class="nav-menu-item">
+            <span>Resources</span>
+            <span class="nav-chevron">▼</span>
+            <ul class="nav-dropdown-menu">
+              <li>
+                <a href="#blog" class="dropdown-item">
+                  <span class="dropdown-title">📑 Agency Blog & Insights</span>
+                  <span class="dropdown-desc">Algorithm breakdowns & local SEO strategies</span>
+                </a>
+              </li>
+              <li>
+                <a href="#playbook" class="dropdown-item">
+                  <span class="dropdown-title">📊 Local Growth Playbook</span>
+                  <span class="dropdown-desc">Proven playbooks to scale high-ticket inquiries</span>
+                </a>
+              </li>
+              <li>
+                <a href="#scanner" class="dropdown-item">
+                  <span class="dropdown-title">⚡ Instant Geo-Scan Tool</span>
+                  <span class="dropdown-desc">Free live business audit report generation</span>
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
-        <button class="nav-btn-audit" contenteditable="false" ondblclick="makeDirectEditable(this)">⚡ FREE AUDIT</button>
+
+        <!-- RIGHT: ECHOSYST SIGNATURE ACTION GROUP -->
+        <div class="nav-action-group" id="nav-action-group">
+          <a href="#contact" class="nav-link-subtle" contenteditable="false" ondblclick="makeDirectEditable(this)">Talk to Mark</a>
+          <a href="#audit" class="nav-btn-echosyst" contenteditable="false" ondblclick="makeDirectEditable(this)">
+            <span>⚡ FREE AUDIT</span>
+            <span class="btn-arrow-badge">↗</span>
+          </a>
+        </div>
       </div>
 
       <!-- 2. PILL BADGE -->
@@ -1515,9 +1719,11 @@ function switchStudioDevice(dev) {
   artboardBox.className = dev;
 
   const logoImg = document.getElementById('nav-logo-img');
+  const subtleLink = document.querySelector('.nav-link-subtle');
 
   if (dev === 'mobile') {
     document.getElementById('nav-menu-container').style.display = 'none';
+    if (subtleLink) subtleLink.style.display = 'none';
     if (logoImg) {
       logoImg.src = '../assets/logos/mbm-icon.svg';
       logoImg.style.height = '32px';
@@ -1526,9 +1732,10 @@ function switchStudioDevice(dev) {
     applyLayoutPreset('appstack');
   } else if (dev === 'tablet') {
     document.getElementById('nav-menu-container').style.display = 'flex';
+    if (subtleLink) subtleLink.style.display = 'none';
     if (logoImg) {
       logoImg.src = '../assets/logos/mbm-logo.svg';
-      logoImg.style.height = '38px';
+      logoImg.style.height = '36px';
       logoImg.style.width = 'auto';
     }
     setElementCoordinates('elem-nav', 16, 20);
@@ -1541,9 +1748,10 @@ function switchStudioDevice(dev) {
     setElementCoordinates('elem-3d-pin', 120, 420, 380, 460);
   } else {
     document.getElementById('nav-menu-container').style.display = 'flex';
+    if (subtleLink) subtleLink.style.display = 'inline-block';
     if (logoImg) {
       logoImg.src = '../assets/logos/mbm-logo.svg';
-      logoImg.style.height = '44px';
+      logoImg.style.height = '36px';
       logoImg.style.width = 'auto';
     }
     applyLayoutPreset('golden');
