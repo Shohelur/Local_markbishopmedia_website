@@ -677,12 +677,46 @@ body.zen-mode .zen-exit-banner{display:flex;align-items:center;gap:6px}
   align-items:center;
   justify-content:space-between;
 }
+.nav-brand-box{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.nav-logo-img{
+  height:40px;
+  width:auto;
+  max-width:280px;
+  object-fit:contain;
+  border-radius:8px;
+  filter:drop-shadow(0 0 14px rgba(0, 212, 255, 0.45));
+  transition:all 0.25s ease;
+  cursor:pointer;
+}
+.nav-logo-img:hover{
+  transform:scale(1.03);
+  filter:drop-shadow(0 0 20px rgba(0, 212, 255, 0.7));
+}
+.nav-logo-img.stacked{
+  height:48px;
+  max-width:220px;
+}
+.nav-logo-img.horizontal{
+  height:36px;
+  max-width:300px;
+}
+.btn-logo-opt.active{
+  background:rgba(0, 212, 255, 0.25) !important;
+  color:#00d4ff !important;
+  border-color:#00d4ff !important;
+  box-shadow:0 0 12px rgba(0, 212, 255, 0.4);
+}
 .brand-txt{font-size:15px;font-weight:800;letter-spacing:0.1em;color:#fff;display:flex;align-items:center;gap:8px}
 .brand-txt span{background:linear-gradient(135deg, #00d4ff, #b8ff57);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .brand-sub-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;color:#00d4ff;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);padding:3px 8px;border-radius:6px}
 .nav-menu-list{display:flex;gap:24px;list-style:none}
-.nav-menu-item{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.7)}
-.nav-btn-audit{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.4);color:#00d4ff;font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:0.1em;padding:6px 16px;border-radius:100px}
+.nav-menu-item{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.7);cursor:pointer;transition:color 0.2s}
+.nav-menu-item:hover{color:#00d4ff}
+.nav-btn-audit{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.4);color:#00d4ff;font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:0.1em;padding:6px 16px;border-radius:100px;cursor:pointer}
 
 /* PILL BADGE */
 #elem-badge{
@@ -1079,12 +1113,19 @@ body.zen-mode .sidebar-wrapper{
 
 <!-- 2. PRESETS BAR -->
 <div class="preset-bar" id="studio-preset-bar">
-  <span class="preset-label">⚡ 1-Click Layout Presets:</span>
-  <button class="btn-preset" onclick="applyLayoutPreset('golden')">1. Golden Ratio (Classic)</button>
-  <button class="btn-preset" onclick="applyLayoutPreset('spotlight')">2. 3D Spotlight (Center Top)</button>
-  <button class="btn-preset" onclick="applyLayoutPreset('split')">3. High-Ticket Split (Left 3D)</button>
+  <span class="preset-label">⚡ Layout Presets:</span>
+  <button class="btn-preset" onclick="applyLayoutPreset('golden')">1. Golden Ratio</button>
+  <button class="btn-preset" onclick="applyLayoutPreset('spotlight')">2. 3D Spotlight</button>
+  <button class="btn-preset" onclick="applyLayoutPreset('split')">3. High-Ticket Split</button>
   <button class="btn-preset" onclick="applyLayoutPreset('appstack')">4. Mobile App Stack</button>
-  <button class="btn-preset" style="color:#ff3b30;border-color:rgba(255,59,48,0.3)" onclick="resetStudioLayout()">🔄 Reset Default</button>
+  <button class="btn-preset" style="color:#ff3b30;border-color:rgba(255,59,48,0.3)" onclick="resetStudioLayout()">🔄 Reset</button>
+
+  <div style="width:1px;height:16px;background:rgba(255,255,255,0.15);margin:0 6px;"></div>
+
+  <span class="preset-label" style="color:#00d4ff">🏷️ Sub-Brand Logo:</span>
+  <button class="btn-preset btn-logo-opt active" id="btn-logo-opt-2" onclick="switchLogoOption('concept2')">🚀 Horizontal Lockup</button>
+  <button class="btn-preset btn-logo-opt" id="btn-logo-opt-1" onclick="switchLogoOption('concept1')">🌟 Stacked Emblem</button>
+  <button class="btn-preset btn-logo-opt" id="btn-logo-opt-text" onclick="switchLogoOption('text')">✨ Pure Text</button>
 </div>
 
 <!-- 3. STUDIO MAIN WORKSPACE -->
@@ -1210,14 +1251,19 @@ body.zen-mode .sidebar-wrapper{
       <!-- 1. NAVBAR COMPONENT -->
       <div class="studio-element" id="elem-nav" data-name="Navbar Header">
         <span class="element-tag">NAVBAR</span>
-        <div class="brand-txt">
-          <div contenteditable="false" ondblclick="makeDirectEditable(this)">MARK BISHOP <span>MEDIA</span></div>
-          <div class="brand-sub-badge" contenteditable="false" ondblclick="makeDirectEditable(this)">LOCAL VISIBILITY</div>
+        
+        <div id="nav-brand-container" class="nav-brand-box">
+          <img id="nav-logo-img" src="../assets/logos/mbm-subbrand-concept2.jpg" alt="Local Mark Bishop Media" class="nav-logo-img horizontal" />
+          <div id="nav-brand-fallback" class="brand-txt" style="display:none;">
+            <div contenteditable="false" ondblclick="makeDirectEditable(this)">MarkBishop<span>Media</span></div>
+            <div class="brand-sub-badge" contenteditable="false" ondblclick="makeDirectEditable(this)">[LOCAL]</div>
+          </div>
         </div>
+
         <ul class="nav-menu-list" id="nav-menu-container">
           <li class="nav-menu-item">What We Do</li>
-          <li class="nav-menu-item">3D System</li>
-          <li class="nav-menu-item">Results</li>
+          <li class="nav-menu-item">How It Works</li>
+          <li class="nav-menu-item">Audit Results</li>
         </ul>
         <button class="nav-btn-audit" contenteditable="false" ondblclick="makeDirectEditable(this)">⚡ FREE AUDIT</button>
       </div>
@@ -1397,6 +1443,38 @@ window.addEventListener('keydown', (e) => {
     }
   }
 });
+
+/* ═══════════════════════════════════════════════════════════
+   1.1 SUB-BRAND LOGO COMPARISON SWITCHER
+   ═══════════════════════════════════════════════════════════ */
+let currentLogoOption = 'concept2';
+
+function switchLogoOption(opt) {
+  currentLogoOption = opt;
+  document.querySelectorAll('.btn-logo-opt').forEach(b => b.classList.remove('active'));
+  const btnId = opt === 'concept1' ? 'btn-logo-opt-1' : opt === 'concept2' ? 'btn-logo-opt-2' : 'btn-logo-opt-text';
+  const activeBtn = document.getElementById(btnId);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  const img = document.getElementById('nav-logo-img');
+  const fallback = document.getElementById('nav-brand-fallback');
+
+  if (opt === 'concept1') {
+    img.style.display = 'block';
+    img.src = '../assets/logos/mbm-subbrand-concept1.jpg';
+    img.className = 'nav-logo-img stacked';
+    fallback.style.display = 'none';
+  } else if (opt === 'concept2') {
+    img.style.display = 'block';
+    img.src = '../assets/logos/mbm-subbrand-concept2.jpg';
+    img.className = 'nav-logo-img horizontal';
+    fallback.style.display = 'none';
+  } else {
+    img.style.display = 'none';
+    fallback.style.display = 'flex';
+  }
+  setTimeout(resizeDrawingCanvas, 100);
+}
 
 /* ═══════════════════════════════════════════════════════════
    2. COLLAPSIBLE DRAWING TRAY (SHOW / HIDE EXTRA DRAWING TOOLS)
