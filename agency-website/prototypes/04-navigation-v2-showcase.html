@@ -257,7 +257,7 @@ body.is-scrolled .brand-logo-svg {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  width: 375px; /* Snug, compact width without big empty gaps */
+  width: 415px; /* Ample width to guarantee zero overlap between subtitle and ribbon */
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -316,7 +316,7 @@ body.is-scrolled .brand-logo-svg {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 9px 13px;
+  padding: 9.5px 14px;
   border-radius: 13px;
   text-decoration: none;
   background: rgba(9, 15, 28, 0.94);
@@ -346,19 +346,20 @@ body.is-scrolled .brand-logo-svg {
 .card-left-group {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   position: relative;
   z-index: 2;
   flex: 1;
   min-width: 0;
+  padding-right: 6px;
 }
 
 .card-icon-box {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 8px;
   background: rgba(0, 212, 255, 0.08);
   border: 1px solid rgba(0, 212, 255, 0.2);
@@ -371,6 +372,7 @@ body.is-scrolled .brand-logo-svg {
   flex-direction: column;
   gap: 1.5px;
   min-width: 0;
+  overflow: hidden;
 }
 
 .dropdown-card-title {
@@ -389,6 +391,8 @@ body.is-scrolled .brand-logo-svg {
   color: rgba(255, 255, 255, 0.6);
   line-height: 1.25;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
   transition: color 0.2s ease;
 }
@@ -417,7 +421,7 @@ body.is-scrolled .brand-logo-svg {
   position: relative;
   z-index: 4;
   flex-shrink: 0;
-  margin-left: 8px; /* Brought closer to the text */
+  margin-left: 8px;
 }
 
 .dropdown-card:hover .metric-proof-ribbon {
@@ -643,7 +647,7 @@ body.is-scrolled .brand-logo-svg {
                 <div class="card-icon-box">📍</div>
                 <div class="card-text-group">
                   <span class="dropdown-card-title">Rank in Google Maps Top 3</span>
-                  <span class="dropdown-card-desc">Stop losing local calls to competitors & show up first</span>
+                  <span class="dropdown-card-desc">Show up #1 & win high-intent local calls</span>
                 </div>
               </div>
               <span class="metric-proof-ribbon">+320% CALLS</span>
@@ -656,7 +660,7 @@ body.is-scrolled .brand-logo-svg {
                 <div class="card-icon-box">⭐</div>
                 <div class="card-text-group">
                   <span class="dropdown-card-title">Automated 5-Star Reviews</span>
-                  <span class="dropdown-card-desc">Turn happy customers into real reviews on autopilot</span>
+                  <span class="dropdown-card-desc">Turn happy customers into real 5-star reviews</span>
                 </div>
               </div>
               <span class="metric-proof-ribbon">★ 4.9 RATING</span>
@@ -669,7 +673,7 @@ body.is-scrolled .brand-logo-svg {
                 <div class="card-icon-box">🌐</div>
                 <div class="card-text-group">
                   <span class="dropdown-card-title">100+ Directory Sync & Citations</span>
-                  <span class="dropdown-card-desc">Lock your business info on Apple, Yelp & Google</span>
+                  <span class="dropdown-card-desc">Sync your NAP info on Apple, Yelp & Google</span>
                 </div>
               </div>
               <span class="metric-proof-ribbon">100+ DIRS</span>
@@ -682,7 +686,7 @@ body.is-scrolled .brand-logo-svg {
                 <div class="card-icon-box">🚀</div>
                 <div class="card-text-group">
                   <span class="dropdown-card-title">High-Converting 3D Website</span>
-                  <span class="dropdown-card-desc">Modern, fast & built with schema to turn clicks to calls</span>
+                  <span class="dropdown-card-desc">Turn clicks into booked calls & customers</span>
                 </div>
               </div>
               <span class="metric-proof-ribbon">3.4x BOOKINGS</span>
