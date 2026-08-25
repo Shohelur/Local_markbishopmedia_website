@@ -1514,11 +1514,23 @@ function switchStudioDevice(dev) {
 
   artboardBox.className = dev;
 
+  const logoImg = document.getElementById('nav-logo-img');
+
   if (dev === 'mobile') {
     document.getElementById('nav-menu-container').style.display = 'none';
+    if (logoImg) {
+      logoImg.src = '../assets/logos/mbm-icon.svg';
+      logoImg.style.height = '32px';
+      logoImg.style.width = '32px';
+    }
     applyLayoutPreset('appstack');
   } else if (dev === 'tablet') {
     document.getElementById('nav-menu-container').style.display = 'flex';
+    if (logoImg) {
+      logoImg.src = '../assets/logos/mbm-logo.svg';
+      logoImg.style.height = '38px';
+      logoImg.style.width = 'auto';
+    }
     setElementCoordinates('elem-nav', 16, 20);
     setElementCoordinates('elem-badge', 120, 24);
     setElementCoordinates('elem-headline', 170, 24, 380);
@@ -1529,6 +1541,11 @@ function switchStudioDevice(dev) {
     setElementCoordinates('elem-3d-pin', 120, 420, 380, 460);
   } else {
     document.getElementById('nav-menu-container').style.display = 'flex';
+    if (logoImg) {
+      logoImg.src = '../assets/logos/mbm-logo.svg';
+      logoImg.style.height = '44px';
+      logoImg.style.width = 'auto';
+    }
     applyLayoutPreset('golden');
   }
 
