@@ -734,9 +734,58 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
   opacity: 1;
 }
 
+.card-right-group {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.card-arrow-cue {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(0, 212, 255, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(0);
+}
+.dropdown-card-master:hover .card-arrow-cue,
+.dropdown-card-master.active-story .card-arrow-cue {
+  color: var(--lime-glow);
+  transform: translateX(3px);
+  text-shadow: 0 0 10px rgba(184, 255, 87, 0.9);
+}
+
+/* CARDS COLUMN TOP AFFORDANCE CUE */
+.cards-column-header-cue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px 4px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 2px;
+}
+.col-cue-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.45);
+}
+.col-cue-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  font-weight: 800;
+  color: var(--cyan-glow);
+  letter-spacing: 0.05em;
+  animation: pulseHint 2s infinite ease-in-out;
+}
+@keyframes pulseHint {
+  0%, 100% { opacity: 0.55; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(2px); color: var(--lime-glow); }
+}
+
 /* ═══════════════════════════════════════════════════════════
    RIGHT COLUMN: THE 3D MASTER [BEFORE VS AFTER] SPLIT BANNER
-   (HIDDEN UNTIL HOVERED ON DROPDOWN CARDS)
    ═══════════════════════════════════════════════════════════ */
 .spatial-story-deck {
   flex: 1;
@@ -753,23 +802,10 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
     0 20px 50px rgba(0, 0, 0, 0.95),
     0 0 30px rgba(0, 212, 255, 0.25),
     inset 0 1px 2px rgba(255, 255, 255, 0.25);
-  transform: perspective(1000px) rotateY(-12deg) translateZ(-20px) scale(0.92);
-  opacity: 0;
-  visibility: hidden;
+  transform: perspective(1000px) rotateY(-6deg) translateZ(15px);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
-}
-
-/* REVEALS ONLY WHEN MOUSE ENTERS THE CARDS COLUMN OR A SPECIFIC CARD */
-.spatial-cards-column:hover + .spatial-story-deck,
-.spatial-cards-column:hover ~ .spatial-story-deck,
-.dropdown-panel-spatial:has(.spatial-cards-column:hover) .spatial-story-deck,
-.dropdown-panel-spatial.has-banner-active .spatial-story-deck,
-.spatial-story-deck:hover {
-  opacity: 1;
-  visibility: visible;
-  transform: perspective(1000px) rotateY(-6deg) translateZ(15px) scale(1);
 }
 
 /* SCANLINE TEXTURE */
@@ -1096,12 +1132,18 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
         <!-- THE DUAL-DECK 3D SPATIAL COMMAND ARCHITECTURE -->
         <div class="dropdown-panel-spatial" id="solutions-spatial-panel">
           
-          <!-- LEFT DECK: CLEAN SINGLE-LINE 3D CARDS (NO SUBTITLES) -->
+          <!-- LEFT DECK: CLEAN SINGLE-LINE 3D CARDS (WITH AFFORDANCE CUES) -->
           <ul class="spatial-cards-column">
             
+            <!-- COLUMN AFFORDANCE HINT -->
+            <div class="cards-column-header-cue">
+              <span class="col-cue-label">CORE SYSTEMS</span>
+              <span class="col-cue-hint">HOVER TO INSPECT 3D PROOF ↗</span>
+            </div>
+
             <!-- SERVICE 1: AUTHENTIC GOOGLE MAPS PIN -->
             <li>
-              <a href="#three-pack" class="dropdown-card-master" data-story="maps">
+              <a href="#three-pack" class="dropdown-card-master active-story" data-story="maps">
                 <div class="card-inner-left">
                   <div class="icon-box-maps">
                     <div class="maps-sonar-ring-1"></div>
@@ -1122,7 +1164,10 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                   </div>
                   <span class="master-card-title">Rank in Google Maps Top 3</span>
                 </div>
-                <span class="master-metric-badge">+320% CALLS</span>
+                <div class="card-right-group">
+                  <span class="master-metric-badge">+320% CALLS</span>
+                  <span class="card-arrow-cue">→</span>
+                </div>
               </a>
             </li>
 
@@ -1137,7 +1182,10 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                   </div>
                   <span class="master-card-title">Automated 5-Star Reviews</span>
                 </div>
-                <span class="master-metric-badge">★ 4.9 RATING</span>
+                <div class="card-right-group">
+                  <span class="master-metric-badge">★ 4.9 RATING</span>
+                  <span class="card-arrow-cue">→</span>
+                </div>
               </a>
             </li>
 
@@ -1152,7 +1200,10 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                   </div>
                   <span class="master-card-title">100+ Directory Citations & Sync</span>
                 </div>
-                <span class="master-metric-badge">100+ DIRS</span>
+                <div class="card-right-group">
+                  <span class="master-metric-badge">100+ DIRS</span>
+                  <span class="card-arrow-cue">→</span>
+                </div>
               </a>
             </li>
 
@@ -1167,7 +1218,10 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                   </div>
                   <span class="master-card-title">High-Converting 3D Website</span>
                 </div>
-                <span class="master-metric-badge">3.4x BOOKINGS</span>
+                <div class="card-right-group">
+                  <span class="master-metric-badge">3.4x BOOKINGS</span>
+                  <span class="card-arrow-cue">→</span>
+                </div>
               </a>
             </li>
 
@@ -1224,8 +1278,15 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
         
         <div class="dropdown-panel-spatial" id="resources-spatial-panel">
           <ul class="spatial-cards-column">
+            
+            <!-- COLUMN AFFORDANCE HINT -->
+            <div class="cards-column-header-cue">
+              <span class="col-cue-label">KNOWLEDGE BASE</span>
+              <span class="col-cue-hint">HOVER TO INSPECT 3D PROOF ↗</span>
+            </div>
+
             <li>
-              <a href="#audit" class="dropdown-card-master" data-story="audit">
+              <a href="#audit" class="dropdown-card-master active-story" data-story="audit">
                 <div class="card-inner-left">
                   <div class="icon-box-maps">
                     <div class="maps-sonar-ring-1"></div>
@@ -1233,7 +1294,10 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                   </div>
                   <span class="master-card-title">Free 9-Mile Visibility Audit</span>
                 </div>
-                <span class="master-metric-badge">FREE SCAN</span>
+                <div class="card-right-group">
+                  <span class="master-metric-badge">FREE SCAN</span>
+                  <span class="card-arrow-cue">→</span>
+                </div>
               </a>
             </li>
             <li>
@@ -1245,7 +1309,10 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                   </div>
                   <span class="master-card-title">Local Growth Case Studies</span>
                 </div>
-                <span class="master-metric-badge">INSIGHTS</span>
+                <div class="card-right-group">
+                  <span class="master-metric-badge">INSIGHTS</span>
+                  <span class="card-arrow-cue">→</span>
+                </div>
               </a>
             </li>
             <li>
@@ -1257,7 +1324,10 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                   </div>
                   <span class="master-card-title">Frequently Asked Questions</span>
                 </div>
-                <span class="master-metric-badge">FAQS</span>
+                <div class="card-right-group">
+                  <span class="master-metric-badge">FAQS</span>
+                  <span class="card-arrow-cue">→</span>
+                </div>
               </a>
             </li>
           </ul>
