@@ -275,12 +275,12 @@ shopGroup.position.y = 1.2;
 pinGroup.add(shopGroup);
 
 const shopMats = {
-  wall: new THREE.MeshStandardMaterial({ color: 0x082038, roughness: 0.3, metalness: 0.2 }),
-  roofLime: new THREE.MeshStandardMaterial({ color: 0xb8ff57, roughness: 0.2, metalness: 0.1 }),
-  roofDark: new THREE.MeshStandardMaterial({ color: 0x031020, roughness: 0.3, metalness: 0.1 }),
-  glassCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, emissive: 0x00d4ff, emissiveIntensity: 0.6, roughness: 0.1, metalness: 0.9, transparent: true, opacity: 0.85 }),
-  doorLime: new THREE.MeshStandardMaterial({ color: 0xb8ff57, emissive: 0xb8ff57, emissiveIntensity: 0.4, roughness: 0.2 }),
-  foundation: new THREE.MeshStandardMaterial({ color: 0x04101e, roughness: 0.4, metalness: 0.6 })
+  wall: new THREE.MeshStandardMaterial({ color: 0x0055aa, roughness: 0.2, metalness: 0.3, emissive: 0x001133, side: THREE.DoubleSide }),
+  roofCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, roughness: 0.2, metalness: 0.1, emissive: 0x00d4ff, emissiveIntensity: 0.45, side: THREE.DoubleSide }),
+  roofWhite: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.2, metalness: 0.1, emissive: 0xffffff, emissiveIntensity: 0.35, side: THREE.DoubleSide }),
+  glassCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, emissive: 0x00d4ff, emissiveIntensity: 0.95, roughness: 0.1, metalness: 0.9, transparent: true, opacity: 0.95, side: THREE.DoubleSide }),
+  doorWhite: new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x00d4ff, emissiveIntensity: 0.85, roughness: 0.2, side: THREE.DoubleSide }),
+  foundation: new THREE.MeshStandardMaterial({ color: 0x04101e, roughness: 0.4, metalness: 0.6, side: THREE.DoubleSide })
 };
 
 const shopBase = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.2, 32), shopMats.foundation);
@@ -295,7 +295,7 @@ const awningGroup = new THREE.Group();
 awningGroup.position.set(0, 0.7, 0.88);
 awningGroup.rotation.x = Math.PI / 4.5;
 for (let i = -3; i <= 3; i++) {
-  const stripe = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.06, 0.7), i % 2 === 0 ? shopMats.roofLime : shopMats.roofDark);
+  const stripe = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.06, 0.7), i % 2 === 0 ? shopMats.roofCyan : shopMats.roofWhite);
   stripe.position.x = i * 0.27;
   awningGroup.add(stripe);
 }
@@ -305,7 +305,7 @@ const winGlass = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.6, 0.08), shopMats.
 winGlass.position.set(-0.42, 0.15, 0.79);
 shopGroup.add(winGlass);
 
-const shopDoor = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.9, 0.08), shopMats.doorLime);
+const shopDoor = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.9, 0.08), shopMats.doorWhite);
 shopDoor.position.set(0.45, 0.0, 0.79);
 shopGroup.add(shopDoor);
 
