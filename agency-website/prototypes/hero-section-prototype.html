@@ -22,82 +22,6 @@ html,body{
   overflow-x:hidden;
 }
 
-/* PRELOADER SPLASH LAYER (TRANSPARENT OVER 3D SCENE) */
-#preloader-layer{
-  position:fixed;
-  inset:0;
-  z-index:500;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  pointer-events:none;
-  background:transparent;
-}
-
-.preloader-content{
-  position:relative;
-  z-index:10;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  pointer-events:none;
-  margin-top:140px;
-}
-
-.splash-brand-title{
-  font-size:44px;
-  font-weight:800;
-  letter-spacing:0.12em;
-  line-height:1;
-  text-transform:uppercase;
-  color:#ffffff;
-  text-shadow:0 0 40px rgba(0,212,255,0.6), 0 2px 20px rgba(0,0,0,0.9);
-  opacity:0;
-  transform:translateY(16px);
-  filter:blur(6px);
-}
-.splash-brand-title span{
-  background:linear-gradient(135deg, #00d4ff 0%, #b8ff57 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.splash-subline{
-  font-family:'JetBrains Mono',monospace;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:0.3em;
-  color:#00d4ff;
-  text-transform:uppercase;
-  margin-top:12px;
-  background:rgba(0,212,255,0.08);
-  border:1px solid rgba(0,212,255,0.35);
-  padding:5px 16px;
-  border-radius:100px;
-  box-shadow:0 0 25px rgba(0,212,255,0.25);
-  opacity:0;
-  transform:translateY(10px);
-}
-
-.splash-progress-container{
-  margin-top:20px;
-  width:140px;
-  height:2px;
-  background:rgba(255,255,255,0.06);
-  border-radius:2px;
-  overflow:hidden;
-  opacity:0;
-}
-.splash-progress-line{
-  width:0%;
-  height:100%;
-  background:linear-gradient(90deg, #00d4ff, #b8ff57);
-  box-shadow:0 0 12px #00d4ff;
-}
-
 /* 3D CANVAS & VIGNETTE */
 #master-3d-canvas{
   position:fixed;
@@ -136,15 +60,15 @@ html,body{
   align-items:center;
   justify-content:space-between;
 }
-.hero-left-content{
-  position:relative;
-  z-index:30;
-  max-width:580px;
-  width:100%;
-  opacity:0;
-  transform:translateX(-30px);
-  filter:blur(10px);
-  pointer-events:all;
+.hero-left-content {
+  position: relative;
+  z-index: 30;
+  max-width: 580px;
+  width: 100%;
+  opacity: 1;
+  transform: none;
+  filter: none;
+  pointer-events: all;
 }
 
 .hero-pill-badge{
@@ -222,22 +146,12 @@ html,body{
   text-decoration:none;
 }
 .btn-primary-glow:hover{transform:scale(1.05) translateY(-2px);box-shadow:0 0 50px rgba(184,255,87,0.75)}
+#hero-left { opacity: 1 !important; transform: none !important; filter: none !important; visibility: visible !important; }
 </style>
 </head>
 <body>
 
-<!-- 1. PRELOADER LAYER -->
-<div id="preloader-layer">
-  <div class="preloader-content">
-    <h1 class="splash-brand-title" id="splash-title">MARK BISHOP <span>MEDIA</span></h1>
-    <div class="splash-subline" id="splash-subline">LOCAL VISIBILITY DIVISION</div>
-    <div class="splash-progress-container" id="splash-progress">
-      <div class="splash-progress-line" id="splash-progress-line"></div>
-    </div>
-  </div>
-</div>
-
-<!-- 2. MASTER 3D CANVAS -->
+<!-- 1. MASTER 3D CANVAS -->
 <canvas id="master-3d-canvas"></canvas>
 <div class="scene-vignette"></div>
 
@@ -708,7 +622,7 @@ function animate() {
 
 animate();
 window.addEventListener('load', () => {
-  setTimeout(triggerSeamlessIntro, 100);
+  initDirectHeroStage();
 });
 </script>
 </body>
