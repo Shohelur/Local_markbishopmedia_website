@@ -311,6 +311,16 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
   left: -240px;
 }
 
+#resources-spatial-panel {
+  width: 750px;
+}
+#resources-spatial-panel .spatial-cards-column {
+  width: 330px;
+}
+#resources-spatial-panel .dropdown-card-master {
+  padding: 10px 13px;
+}
+
 /* INVISIBLE HOVER HITBOX BRIDGE */
 .dropdown-panel-spatial::before {
   content: '';
@@ -1244,9 +1254,9 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                     <div class="viewport-laser-trail"></div>
                     <span class="rocket-3d-glyph">📑</span>
                   </div>
-                  <span class="master-card-title">Local Growth Case Studies</span>
+                  <span class="master-card-title">Local Growth Blog & Insights</span>
                 </div>
-                <span class="master-metric-badge">INSIGHTS</span>
+                <span class="master-metric-badge">READ BLOG</span>
               </a>
             </li>
             <li>
@@ -1265,9 +1275,8 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
 
           <div class="spatial-story-deck" id="resource-story-deck">
             <div>
-              <div class="story-header-badge">● INSTANT RADAR DIAGNOSTIC</div>
-              <div class="story-voice-title">“We scan your exact <span class="highlight">9-mile radius in 5 seconds</span>.”</div>
-              <div class="story-voice-narrative">
+              <div class="story-voice-title" id="res-story-title">“We scan your exact <span class="highlight">9-mile radius in 5 seconds</span>.”</div>
+              <div class="story-voice-narrative" id="res-story-desc">
                 Our street-level radar scan checks 81 GPS grid coordinates around your zip code to show exactly which competitors are stealing your calls and how our system overtakes them.
               </div>
             </div>
@@ -1275,19 +1284,19 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
             <div class="split-screen-container">
               <div class="split-card before">
                 <div class="split-header-tag">🔴 UNKNOWN RANK</div>
-                <div class="split-main-status">Blind to Local Visibility Gaps</div>
-                <div class="split-val-metric">LOST REVENUE</div>
+                <div class="split-main-status" id="res-split-before-status">Blind to Visibility Gaps</div>
+                <div class="split-val-metric" id="res-split-before-val">LOST REVENUE</div>
               </div>
               <div class="split-card after">
                 <div class="split-header-tag">🟢 81-POINT AUDIT</div>
-                <div class="split-main-status">Full Geo-Grid Diagnostic</div>
-                <div class="split-val-metric">100% FREE SCAN</div>
+                <div class="split-main-status" id="res-split-after-status">Full Geo-Grid Diagnostic</div>
+                <div class="split-val-metric" id="res-split-after-val">100% FREE SCAN</div>
               </div>
             </div>
 
             <div class="story-footer-proof">
               <span class="proof-tag">INSTANT ACCESS:</span>
-              <span class="proof-val">0 COST / 60 SECONDS</span>
+              <span class="proof-val" id="res-story-proof-val">0 COST / 60 SECONDS</span>
             </div>
           </div>
 
@@ -1404,6 +1413,33 @@ const lockedDatabase = {
     afterStatus: 'Interactive 3D Website (3.4x Conv)',
     afterVal: '+$75,000 / MO',
     proof: '3.4x BOOKINGS'
+  },
+  audit: {
+    title: '“We scan your exact <span class="highlight">9-mile radius in 5 seconds</span>.”',
+    desc: 'Our street-level radar scan checks 81 GPS grid coordinates around your zip code to show exactly which competitors are stealing your calls and how our system overtakes them.',
+    beforeStatus: 'Blind to Visibility Gaps',
+    beforeVal: 'LOST REVENUE',
+    afterStatus: 'Full 81-Point Radar Scan',
+    afterVal: '100% FREE SCAN',
+    proof: '0 COST / 60 SECONDS'
+  },
+  blog: {
+    title: '“We publish battle-tested <span class="highlight">Local SEO & Growth Guides</span>.”',
+    desc: 'Deep-dive tactical teardowns, algorithm update breakdowns, and step-by-step visibility playbooks designed specifically for local business owners scaling past 7-figures.',
+    beforeStatus: 'Outdated SEO Tactics',
+    beforeVal: 'RANK DROPS',
+    afterStatus: 'Battle-Tested Playbooks',
+    afterVal: 'TOP 3 STRATEGIES',
+    proof: 'WEEKLY ARTICLES'
+  },
+  faq: {
+    title: '“Everything you need to know about the <span class="highlight">Visibility Operating System</span>.”',
+    desc: 'Transparent answers on timelines, ROI guarantees, directory sync integrations, 3D conversion engines, and how quickly your phone starts ringing with qualified local calls.',
+    beforeStatus: 'Unanswered Questions',
+    beforeVal: 'UNCERTAINTY',
+    afterStatus: '100% Transparent Answers',
+    afterVal: 'CLEAR ROADMAP',
+    proof: 'DIRECT ACCESS'
   }
 };
 
@@ -1419,6 +1455,19 @@ const splitAfterStatus = document.getElementById('split-after-status');
 const splitAfterVal = document.getElementById('split-after-val');
 const storyProofVal = document.getElementById('story-proof-val');
 const storyBanner = document.getElementById('story-banner-display');
+
+// Resources DOM Elements
+const resourcesPanel = document.getElementById('resources-spatial-panel');
+const navItemResources = document.getElementById('nav-item-resources');
+const resourceCards = document.querySelectorAll('#resources-spatial-panel .dropdown-card-master');
+const resStoryTitle = document.getElementById('res-story-title');
+const resStoryDesc = document.getElementById('res-story-desc');
+const resSplitBeforeStatus = document.getElementById('res-split-before-status');
+const resSplitBeforeVal = document.getElementById('res-split-before-val');
+const resSplitAfterStatus = document.getElementById('res-split-after-status');
+const resSplitAfterVal = document.getElementById('res-split-after-val');
+const resStoryProofVal = document.getElementById('res-story-proof-val');
+const resourceStoryDeck = document.getElementById('resource-story-deck');
 
 let solutionsTimer = null;
 let resourcesTimer = null;
@@ -1444,11 +1493,31 @@ function renderStoryCard(key) {
   }
 }
 
+function renderResourceCard(key) {
+  const data = lockedDatabase[key];
+  if (data && resourceStoryDeck) {
+    resourceStoryDeck.style.transform = 'perspective(1000px) rotateY(-3deg) translateZ(25px) scale(1.02)';
+    resourceStoryDeck.style.borderColor = 'var(--lime-glow)';
+    
+    if (resStoryTitle) resStoryTitle.innerHTML = data.title;
+    if (resStoryDesc) resStoryDesc.innerHTML = data.desc;
+    if (resSplitBeforeStatus) resSplitBeforeStatus.innerHTML = data.beforeStatus;
+    if (resSplitBeforeVal) resSplitBeforeVal.innerHTML = data.beforeVal;
+    if (resSplitAfterStatus) resSplitAfterStatus.innerHTML = data.afterStatus;
+    if (resSplitAfterVal) resSplitAfterVal.innerHTML = data.afterVal;
+    if (resStoryProofVal) resStoryProofVal.innerHTML = data.proof;
+    
+    setTimeout(() => {
+      resourceStoryDeck.style.transform = 'perspective(1000px) rotateY(-6deg) translateZ(15px) scale(1)';
+      resourceStoryDeck.style.borderColor = 'rgba(0, 212, 255, 0.35)';
+    }, 250);
+  }
+}
+
 // 1. WHAT WE DO LOGIC:
 if (navItemSolutions) {
   navItemSolutions.addEventListener('mouseenter', () => {
     clearTimeout(solutionsTimer);
-    // Generous relaxed human reading time (6.5s) to comfortably read every card heading before auto-revealing right banner
     solutionsTimer = setTimeout(() => {
       if (solutionsPanel && !solutionsPanel.classList.contains('has-banner-active')) {
         solutionsPanel.classList.add('has-banner-active');
@@ -1465,7 +1534,6 @@ if (navItemSolutions) {
   });
 }
 
-// Immediate Card Hover Override:
 cards.forEach(card => {
   card.addEventListener('mouseenter', () => {
     clearTimeout(solutionsTimer);
@@ -1479,18 +1547,14 @@ cards.forEach(card => {
 });
 
 // 2. RESOURCES LOGIC:
-const resourcesPanel = document.getElementById('resources-spatial-panel');
-const navItemResources = document.getElementById('nav-item-resources');
-const resourceCards = document.querySelectorAll('#resources-spatial-panel .dropdown-card-master');
-
 if (navItemResources) {
   navItemResources.addEventListener('mouseenter', () => {
     clearTimeout(resourcesTimer);
-    // Generous relaxed human reading time (6.5s)
     resourcesTimer = setTimeout(() => {
       if (resourcesPanel && !resourcesPanel.classList.contains('has-banner-active')) {
         resourcesPanel.classList.add('has-banner-active');
         resourceCards[0].classList.add('active-story');
+        renderResourceCard('audit');
       }
     }, 6500);
   });
@@ -1502,13 +1566,15 @@ if (navItemResources) {
   });
 }
 
-// Immediate Resource Card Hover Override:
 resourceCards.forEach(card => {
   card.addEventListener('mouseenter', () => {
     clearTimeout(resourcesTimer);
     if (resourcesPanel) resourcesPanel.classList.add('has-banner-active');
     resourceCards.forEach(c => c.classList.remove('active-story'));
     card.classList.add('active-story');
+    
+    const key = card.getAttribute('data-story');
+    renderResourceCard(key);
   });
 });
 </script>
