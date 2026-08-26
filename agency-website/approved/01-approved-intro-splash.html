@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBM · 3D Intro Splash Preloader (APPROVED MODULAR SECTION)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   SCOPED CSS: 3D INTRO SPLASH PRELOADER (#preloader-layer)
+   ═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   STAGE 1: 3D PRELOADER SPLASH LAYER (#preloader-layer)
+   ═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   STAGE 1: 3D PRELOADER SPLASH LAYER (#preloader-layer)
+   ═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   STAGE 1: 3D PRELOADER SPLASH LAYER (#preloader-layer)
+   ═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   STAGE 1: 3D PRELOADER SPLASH LAYER (#preloader-layer)
+   ═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   STAGE 1: 3D PRELOADER SPLASH LAYER (#preloader-layer)
+   ═══════════════════════════════════════════════════════════ */
+#preloader-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: transparent !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: clamp(55px, 10vh, 95px);
+  pointer-events: none;
+  overflow: hidden;
+  user-select: none;
+}
+
+.preloader-content {
+  position: relative;
+  z-index: 510;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto !important;
+  width: 100%;
+  max-width: 900px;
+  padding: 0 20px;
+}
+
+.mobile-wrap-br { display: none; }
+
+.splash-brand-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(34px, 4.8vw, 50px);
+  font-weight: 800;
+  letter-spacing: 0.10em;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 0 40px rgba(0,212,255,0.6), 0 2px 20px rgba(0,0,0,0.9);
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(6px);
+}
+
+.splash-brand-title .gradient-word {
+  background: linear-gradient(135deg, #00d4ff 0%, #b8ff57 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.splash-subline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10.5px, 1.4vw, 12.5px);
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  color: #00d4ff;
+  text-transform: uppercase;
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.35);
+  padding: 6px 20px;
+  border-radius: 100px;
+  box-shadow: 0 0 25px rgba(0,212,255,0.25);
+  margin-top: 12px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.splash-progress-container {
+  margin-top: 16px;
+  width: clamp(140px, 18vw, 200px);
+  height: 3.5px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.splash-progress-line {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #00d4ff, #b8ff57);
+  box-shadow: 0 0 14px #00d4ff;
+  border-radius: 4px;
+}
+
+/* MOBILE ADAPTIVE RESPONSIVE OVERRIDES */
+@media (max-width: 860px) {
+  #preloader-layer {
+    padding-bottom: clamp(50px, 9vh, 85px) !important;
+  }
+  .mobile-wrap-br { display: inline !important; }
+  .splash-brand-title {
+    font-size: 35px !important;
+    line-height: 1.15 !important;
+    letter-spacing: 0.08em !important;
+  }
+  .splash-subline {
+    font-size: 10.5px !important;
+    letter-spacing: 0.24em !important;
+    padding: 5px 16px !important;
+    margin-top: 10px !important;
+  }
+  .splash-progress-container {
+    width: 140px !important;
+    height: 3px !important;
+    margin-top: 14px !important;
+  }
+}
+</style>
+</head>
+<body style="background:#020205;overflow:hidden;">
+
+<div id="preloader-layer">
+  <div class="preloader-content">
+    <h1 class="splash-brand-title" id="splash-title">MARK BISHOP <span class="gradient-word">MEDIA</span></h1>
+    <div class="splash-subline" id="splash-subline">LOCAL VISIBILITY DIVISION</div>
+    <div class="splash-progress-container" id="splash-progress">
+      <div class="splash-progress-line" id="splash-progress-line"></div>
+    </div>
+  </div>
+</div>
+
+<canvas id="standalone-3d-canvas" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;"></canvas>
+
+<script>
+// Standalone Live Preview of 3D Storefront Intro
+const canvas = document.getElementById('standalone-3d-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(0, 1.2, 22);
+
+const ambLight = new THREE.AmbientLight(0x0a182e, 3.2); scene.add(ambLight);
+const dirLight = new THREE.DirectionalLight(0xffffff, 3.5); dirLight.position.set(8, 14, 10); scene.add(dirLight);
+const pointLight = new THREE.PointLight(0x00d4ff, 4.2, 35); pointLight.position.set(-6, 6, 8); scene.add(pointLight);
+
+// 850 Stardust Particles
+const dustGeo = new THREE.BufferGeometry();
+const dustPos = new Float32Array(850 * 3);
+const dustCols = new Float32Array(850 * 3);
+const cCyan = new THREE.Color(0x00d4ff), cLime = new THREE.Color(0xb8ff57), cWhite = new THREE.Color(0xffffff);
+
+for (let i = 0; i < 850 * 3; i += 3) {
+  dustPos[i] = (Math.random() - 0.5) * 65;
+  dustPos[i + 1] = (Math.random() - 0.5) * 45;
+  dustPos[i + 2] = (Math.random() - 0.5) * 40;
+  const rand = Math.random();
+  const c = rand > 0.55 ? cCyan : (rand > 0.25 ? cLime : cWhite);
+  dustCols[i] = c.r; dustCols[i + 1] = c.g; dustCols[i + 2] = c.b;
+}
+dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+dustGeo.setAttribute('color', new THREE.BufferAttribute(dustCols, 3));
+const dustMat = new THREE.PointsMaterial({ size: 0.18, vertexColors: true, transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending });
+const dust = new THREE.Points(dustGeo, dustMat);
+scene.add(dust);
+
+// 3D Glass Pin Group
+const pinGroup = new THREE.Group();
+pinGroup.position.set(0, 3.2, 0);
+scene.add(pinGroup);
+
+const headGeo = new THREE.SphereGeometry(2.4, 32, 32);
+const headMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.45 });
+pinGroup.add(new THREE.Mesh(headGeo, headMat));
+
+// 3D Storefront Building
+const shopGroup = new THREE.Group();
+pinGroup.add(shopGroup);
+
+const shopMats = {
+  wall: new THREE.MeshStandardMaterial({ color: 0x0055aa, roughness: 0.2, metalness: 0.3, emissive: 0x001133 }),
+  roofCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, roughness: 0.2, metalness: 0.1, emissive: 0x00d4ff, emissiveIntensity: 0.35 }),
+  roofWhite: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.2, metalness: 0.1, emissive: 0xffffff, emissiveIntensity: 0.2 }),
+  glassCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, emissive: 0x00d4ff, emissiveIntensity: 0.85, roughness: 0.1, metalness: 0.9, transparent: true, opacity: 0.95 }),
+  doorWhite: new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x00d4ff, emissiveIntensity: 0.75, roughness: 0.2 }),
+  foundation: new THREE.MeshStandardMaterial({ color: 0x04101e, roughness: 0.4, metalness: 0.6 })
+};
+
+const shopBase = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.2, 32), shopMats.foundation);
+shopBase.position.y = -0.6;
+shopGroup.add(shopBase);
+
+const shopWalls = new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.45, 1.55), shopMats.wall);
+shopWalls.position.y = 0.2;
+shopGroup.add(shopWalls);
+
+const awningGroup = new THREE.Group();
+awningGroup.position.set(0, 0.7, 0.88);
+awningGroup.rotation.x = Math.PI / 4.5;
+for (let i = -3; i <= 3; i++) {
+  const stripe = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.06, 0.7), i % 2 === 0 ? shopMats.roofCyan : shopMats.roofWhite);
+  stripe.position.x = i * 0.27;
+  awningGroup.add(stripe);
+}
+shopGroup.add(awningGroup);
+
+const winGlass = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.6, 0.08), shopMats.glassCyan);
+winGlass.position.set(-0.42, 0.15, 0.79);
+shopGroup.add(winGlass);
+
+const shopDoor = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.9, 0.08), shopMats.doorWhite);
+shopDoor.position.set(0.45, 0.0, 0.79);
+shopGroup.add(shopDoor);
+
+const tipGeo = new THREE.ConeGeometry(2.38, 3.8, 32);
+const tipMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.45 });
+const tipMesh = new THREE.Mesh(tipGeo, tipMat);
+tipMesh.rotation.x = Math.PI;
+tipMesh.position.y = -0.7;
+pinGroup.add(tipMesh);
+
+// 5 3D Stars
+const starGroup = new THREE.Group();
+pinGroup.add(starGroup);
+const starShape = new THREE.Shape();
+for (let i = 0; i < 10; i++) {
+  const r = i % 2 === 0 ? 0.65 : 0.3;
+  const angle = (i * Math.PI) / 5 - Math.PI / 2;
+  const x = Math.cos(angle) * r, y = Math.sin(angle) * r;
+  if (i === 0) starShape.moveTo(x, y); else starShape.lineTo(x, y);
+}
+starShape.closePath();
+const starGeo = new THREE.ExtrudeGeometry(starShape, { depth: 0.2, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.06, bevelThickness: 0.06 });
+const starMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57 });
+const starMeshes = [];
+
+for (let i = 0; i < 5; i++) {
+  const mesh = new THREE.Mesh(starGeo, starMat);
+  starGroup.add(mesh);
+  starMeshes.push(mesh);
+}
+
+const clock = new THREE.Clock();
+function animate() {
+  requestAnimationFrame(animate);
+  const time = clock.getElapsedTime();
+  pinGroup.rotation.y = time * 0.25;
+  dust.rotation.y = time * 0.025;
+  starMeshes.forEach((star, idx) => {
+    const angle = time * 1.2 + (idx * (Math.PI * 2 / 5));
+    star.position.set(Math.cos(angle) * 5.4, Math.sin(time * 1.8 + idx) * 0.6, Math.sin(angle) * 5.4);
+    star.rotation.y = time * 1.4;
+  });
+  renderer.render(scene, camera);
+}
+animate();
+
+// GSAP Splash Sequence
+function playSplash() {
+  const tl = gsap.timeline();
+  gsap.set(pinGroup.scale, { x: 0.001, y: 0.001, z: 0.001 });
+  starMeshes.forEach(s => gsap.set(s.scale, { x: 0.001, y: 0.001, z: 0.001 }));
+  gsap.set('#splash-title', { opacity: 0, y: 16, filter: 'blur(6px)' });
+  gsap.set('#splash-subline', { opacity: 0, y: 10 });
+  gsap.set('#splash-progress', { opacity: 0 });
+  gsap.set('#splash-progress-line', { width: '0%' });
+
+  tl.to(pinGroup.scale, { x: 1.15, y: 1.15, z: 1.15, duration: 1.1, ease: "elastic.out(1.2, 0.6)" }, 0.1);
+  starMeshes.forEach((s, idx) => {
+    tl.to(s.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.6, ease: "back.out(2)" }, 0.3 + idx * 0.1);
+  });
+  tl.to('#splash-title', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: "power3.out" }, 0.5);
+  tl.to('#splash-subline', { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.7);
+  tl.to('#splash-progress', { opacity: 1, duration: 0.3 }, 0.6);
+  tl.to('#splash-progress-line', { width: '100%', duration: 1.5, ease: "power2.inOut" }, 0.7);
+  tl.to(shopGroup.scale, { x: 1.15, y: 1.15, z: 1.15, duration: 0.2, yoyo: true, repeat: 1 }, 1.8);
+}
+playSplash();
+</script>
+</body>
+</html>

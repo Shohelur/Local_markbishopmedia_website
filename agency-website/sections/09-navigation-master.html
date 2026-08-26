@@ -3,166 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mark Bishop Media · Local Visibility Operating System</title>
+<title>Mark Bishop Media — Master 3D Navigation (Locked Dual-Deck Split Engine)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
-
-<!-- Three.js & GSAP CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* ═══════════════════════════════════════════════════════════
-   GLOBAL MASTER DESIGN SYSTEM & OBSIDIAN SPATIAL STAGE
-   ═══════════════════════════════════════════════════════════ */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-:root {
-  --bg-core: #020205;
-  --cyan-glow: #00d4ff;
-  --lime-glow: #b8ff57;
-  --gold-glow: #ffd700;
-  --purple-glow: #bd00ff;
-  --red-glow: #ff4757;
-  --glass-border: rgba(255, 255, 255, 0.12);
-  --text-main: #ffffff;
-  --text-dim: rgba(255, 255, 255, 0.7);
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--bg-core);
-  color: var(--text-main);
-  font-family: 'Space Grotesk', sans-serif;
-  overflow-x: hidden;
-  position: relative;
-  min-height: 100vh;
-}
-
-/* CYBER MATRIX GRID BACKGROUND */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background-image: 
-    radial-gradient(circle at 50% 15%, rgba(0, 212, 255, 0.12) 0%, transparent 65%),
-    linear-gradient(to right, rgba(0, 212, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 212, 255, 0.035) 1px, transparent 1px);
-  background-size: 100% 100%, 50px 50px, 50px 50px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   STAGE 1: 3D PRELOADER SPLASH LAYER (TRANSPARENT SO 3D CANVAS IS 100% VISIBLE)
-   ═══════════════════════════════════════════════════════════ */
-#preloader-layer {
-  position: fixed;
-  inset: 0;
-  z-index: 500;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  background: transparent !important;
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.preloader-content {
-  position: relative;
-  z-index: 510;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  pointer-events: none;
-  margin-top: 150px;
-}
-
-.mobile-wrap-br { display: none; }
-.splash-brand-title {
-  font-size: clamp(24px, 4.5vw, 46px);
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  line-height: 1;
-  text-transform: uppercase;
-  color: #ffffff;
-  text-shadow: 0 0 40px rgba(0,212,255,0.6), 0 2px 20px rgba(0,0,0,0.9);
-  opacity: 0;
-  transform: translateY(16px);
-  filter: blur(6px);
-}
-.splash-brand-title span {
-  background: linear-gradient(135deg, #00d4ff 0%, #b8ff57 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.splash-subline {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(10px, 1.4vw, 13px);
-  font-weight: 700;
-  letter-spacing: 0.35em;
-  color: #00d4ff;
-  text-transform: uppercase;
-  margin-top: 14px;
-  background: rgba(0,212,255,0.08);
-  border: 1px solid rgba(0,212,255,0.35);
-  padding: 5px 18px;
-  border-radius: 100px;
-  box-shadow: 0 0 25px rgba(0,212,255,0.25);
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-.splash-progress-container {
-  margin-top: 24px;
-  width: 140px;
-  height: 2px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 2px;
-  overflow: hidden;
-  opacity: 0;
-}
-.splash-progress-line {
-  width: 0%;
-  height: 100%;
-  background: linear-gradient(90deg, #00d4ff, #b8ff57);
-  box-shadow: 0 0 12px #00d4ff;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   STAGE 2: MASTER 3D CANVAS & CINEMATIC VIGNETTE
-   ═══════════════════════════════════════════════════════════ */
-#master-3d-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.scene-vignette {
-  position: fixed;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  background: radial-gradient(circle at center, transparent 35%, rgba(2,2,5,0.45) 75%, #020205 100%);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   STAGE 3: APPROVED MASTER NAVIGATION STYLES
-   ═══════════════════════════════════════════════════════════ */
 /* ═══════════════════════════════════════════════════════════
    GLOBAL RESET & OBSIDIAN SPATIAL STAGE
    ═══════════════════════════════════════════════════════════ */
@@ -338,7 +184,8 @@ body.is-scrolled .nav-capsule::after {
   position: relative;
   perspective: 600px;
 }
-.brand-logo-svg.brand-logo-full { display: block;
+.brand-logo-svg.brand-logo-full {
+  display: block !important;
   height: 44px;
   width: auto;
   max-width: 290px;
@@ -347,7 +194,9 @@ body.is-scrolled .nav-capsule::after {
   position: relative;
   z-index: 2;
 }
-.brand-logo-mobile-icon, .brand-logo-svg.brand-logo-mobile-icon { display: none; }
+.brand-logo-mobile-icon {
+  display: none !important;
+}
 body.is-scrolled .brand-logo-svg.brand-logo-full { height: 38px; }
 
 .sonar-ring-container {
@@ -1570,7 +1419,9 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     height: clamp(32px, 3.8vw, 38px);
     max-width: 220px;
   }
-  .brand-logo-mobile-icon, .brand-logo-svg.brand-logo-mobile-icon { display: none; }
+  .brand-logo-mobile-icon {
+    display: none !important;
+  }
   .nav-menu-list {
     gap: clamp(4px, 1vw, 10px);
   }
@@ -1678,308 +1529,104 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   }
 }
 
-/* STRICT OVERRIDES: MOBILE & TABLET LOGO & MENU ISOLATION */
-@media (max-width: 860px) {
-  .mobile-wrap-br { display: inline !important; }
-  .brand-logo-svg.brand-logo-full,
-  .brand-logo-full {
-    display: none !important;
-  }
-  .brand-logo-svg.brand-logo-mobile-icon,
-  .brand-logo-mobile-icon {
-    display: block !important;
-    height: 38px !important;
-    width: auto !important;
-    filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.6)) !important;
-  }
-  .nav-menu-list {
-    display: none !important;
-  }
-  .nav-contact-link {
-    display: none !important;
-  }
-  .mobile-menu-trigger {
-    display: flex !important;
-  }
-  .btn-cta-glow {
-    font-size: 11px !important;
-    padding: 6px 12px !important;
-  }
-}
-
 /* ═══════════════════════════════════════════════════════════
-   STAGE 4: HERO VIEWPORT
+   DEMO WEBPAGE SECTIONS
    ═══════════════════════════════════════════════════════════ */
-.hero-wrapper {
+.demo-page-content {
   position: relative;
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 140px 5% 60px;
   z-index: 10;
-  pointer-events: none;
-}
-
-.hero-inner-container {
-  max-width: 1320px;
-  width: 100%;
+  padding-top: 150px;
+  max-width: 1140px;
   margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.demo-section {
+  min-height: 75vh;
+  margin-bottom: 50px;
+  border-radius: 24px;
+  background: rgba(10, 16, 30, 0.4);
+  border: 1px solid rgba(0, 212, 255, 0.12);
+  padding: 50px 40px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.hero-left-content { opacity: 0; visibility: hidden;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
-  z-index: 30;
-  max-width: 580px;
-  width: 100%;
-  opacity: 0;
-  transform: translateX(-30px);
-  filter: blur(10px);
-  pointer-events: all;
+  overflow: hidden;
 }
 
-.hero-pill-badge {
+.sec-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(0, 212, 255, 0.08);
-  border: 1px solid rgba(0, 212, 255, 0.35);
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
-  padding: 5px 16px;
-  border-radius: 100px;
-  margin-bottom: 20px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 10.5px;
   font-weight: 700;
-  letter-spacing: 0.22em;
-  color: #00d4ff;
-}
-.hero-pill-badge span.pulse-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #b8ff57;
-  box-shadow: 0 0 10px #b8ff57;
-}
-
-.hero-headline {
-  font-size: clamp(30px, 3.8vw, 48px);
-  font-weight: 800;
-  line-height: 1.20;
-  letter-spacing: -0.03em;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-}
-.hero-headline .glass-capsule {
-  display: inline-block;
-  background: rgba(0, 212, 255, 0.12);
-  border: 1.5px solid rgba(0, 212, 255, 0.6);
-  box-shadow: 0 0 25px rgba(0, 212, 255, 0.35), inset 0 0 15px rgba(0, 212, 255, 0.2);
-  padding: 2px 14px;
-  border-radius: 12px;
-  color: #00d4ff;
-  text-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
-  margin: 4px 0;
-}
-.hero-headline .lime-accent {
-  color: #b8ff57;
-  text-shadow: 0 0 20px rgba(184, 255, 87, 0.7);
-}
-
-.hero-ticker-line {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 30px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 24px;
-}
-.ticker-label {
-  color: rgba(255,255,255,0.6);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.ticker-val-container {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-}
-.ticker-val {
-  color: #b8ff57;
-  display: inline-block;
-  white-space: nowrap;
-  text-shadow: 0 0 15px rgba(184, 255, 87, 0.4);
-}
-
-.btn-primary-glow {
-  background: linear-gradient(135deg, #00d4ff, #b8ff57);
-  color: #020205;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 13.5px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  padding: 14px 34px;
-  border-radius: 100px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 0 35px rgba(0,212,255,0.5);
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-}
-.btn-primary-glow:hover {
-  transform: scale(1.04) translateY(-2px);
-  box-shadow: 0 0 45px rgba(184,255,87,0.7);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   STAGE 5: CUBERTO-STYLE EDITORIAL MANIFESTO SECTION (WHAT WE DO)
-   ═══════════════════════════════════════════════════════════ */
-.editorial-manifesto-section {
-  position: relative;
-  z-index: 20;
-  width: 100%;
-  padding: 120px 5% 140px;
-  background: linear-gradient(180deg, rgba(2,2,5,0) 0%, rgba(3,10,22,0.96) 25%, rgba(3,10,22,0.98) 75%, rgba(2,2,5,1) 100%);
-  border-top: 1px solid rgba(0, 212, 255, 0.15);
-  border-bottom: 1px solid rgba(0, 212, 255, 0.15);
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
-}
-
-.manifesto-grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 50px;
-  align-items: start;
-}
-
-.manifesto-label-col {
-  position: sticky;
-  top: 110px;
-}
-
-.manifesto-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  color: #00d4ff;
-  text-transform: uppercase;
+  color: var(--cyan-glow);
   background: rgba(0, 212, 255, 0.08);
   border: 1px solid rgba(0, 212, 255, 0.3);
-  padding: 6px 16px;
+  padding: 4px 12px;
   border-radius: 100px;
+  margin-bottom: 16px;
+  width: fit-content;
 }
 
-.manifesto-content-col {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.manifesto-big-text {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(20px, 2.6vw, 36px);
-  font-weight: 500;
-  line-height: 1.38;
-  letter-spacing: -0.02em;
-  color: rgba(255,255,255,0.92);
-}
-.manifesto-big-text span.highlight-white { color: #ffffff; font-weight: 700; }
-.manifesto-big-text span.highlight-lime { color: #b8ff57; font-weight: 700; }
-.manifesto-big-text span.highlight-cyan { color: #00d4ff; font-weight: 700; }
-
-.manifesto-sub-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  padding-top: 32px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-.manifesto-stat-card {
-  background: rgba(8, 20, 40, 0.55);
-  border: 1px solid rgba(0, 212, 255, 0.25);
-  padding: 18px 20px;
-  border-radius: 16px;
-  backdrop-filter: blur(12px);
-}
-.manifesto-stat-card:nth-child(2) { border-color: rgba(184, 255, 87, 0.25); }
-
-.m-stat-num {
-  font-size: 24px;
+.sec-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 38px;
   font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-bottom: 5px;
+  line-height: 1.15;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, #ffffff 60%, rgba(0,212,255,0.8));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.m-stat-num span.cyan { color: #00d4ff; }
-.m-stat-num span.lime { color: #b8ff57; }
 
-.m-stat-title {
+.sec-desc {
+  font-size: 15px;
+  color: var(--text-dim);
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+.active-variant-indicator-card {
+  background: rgba(0, 212, 255, 0.06);
+  border: 1.5px solid rgba(0, 212, 255, 0.35);
+  border-radius: 18px;
+  padding: 22px;
+  margin-top: 28px;
+  max-width: 760px;
+}
+.card-header-lbl {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-size: 10.5px;
+  color: var(--lime-glow);
+  letter-spacing: 0.16em;
+  margin-bottom: 6px;
+}
+.card-header-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 19px;
   font-weight: 700;
   color: #fff;
-  letter-spacing: 0.1em;
-  margin-bottom: 5px;
-  text-transform: uppercase;
+  margin-bottom: 6px;
 }
-
-.m-stat-desc {
-  font-family: 'Inter', sans-serif;
-  font-size: 11.5px;
+.card-desc-val {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
   line-height: 1.5;
-  color: rgba(255,255,255,0.6);
-}
-
-@media(max-width: 900px) {
-  .manifesto-grid { grid-template-columns: 1fr; gap: 24px; }
-  .manifesto-sub-row { grid-template-columns: 1fr; gap: 14px; }
-  .hero-wrapper { padding-top: 120px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════════
-     STAGE 1: 3D PRELOADER SPLASH LAYER (0.0s - 2.4s)
-     ═══════════════════════════════════════════════════════════ -->
-<div id="preloader-layer">
-  <div class="preloader-content">
-    <h1 class="splash-brand-title" id="splash-title">
-      MARK BISHOP<br class="mobile-wrap-br"> <span class="gradient-word">MEDIA</span>
-    </h1>
-    <div class="splash-subline" id="splash-subline">LOCAL VISIBILITY DIVISION</div>
-    <div class="splash-progress-container" id="splash-progress">
-      <div class="splash-progress-line" id="splash-progress-line"></div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<!-- TOP AMBIENT LIGHT -->
+<div class="ambient-glow-top"></div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     STAGE 2: MASTER 3D CANVAS & VIGNETTE
-     ═══════════════════════════════════════════════════════════ -->
-<canvas id="master-3d-canvas"></canvas>
-<div class="scene-vignette"></div>
-
-<!-- ═══════════════════════════════════════════════════════════
-     STAGE 3: APPROVED MASTER NAVIGATION
+     THE MASTER 3D NAVIGATION CAPSULE
      ═══════════════════════════════════════════════════════════ -->
 <div class="master-nav-wrapper" id="master-nav-wrapper">
   <nav class="nav-capsule" id="nav-capsule">
@@ -1990,8 +1637,8 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         <div class="sonar-radar-wave"></div>
         <div class="sonar-radar-wave"></div>
       </div>
-      <img src="./assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg brand-logo-full" />
-      <img src="./assets/logos/mbm-icon.svg" alt="Mark Bishop Media Icon" class="brand-logo-mobile-icon" />
+      <img src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg brand-logo-full" />
+      <img src="../assets/logos/mbm-icon.svg" alt="Mark Bishop Media Icon" class="brand-logo-mobile-icon" />
     </a>
 
     <!-- 2. CENTER NAVIGATION LIST -->
@@ -2228,7 +1875,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   <!-- DRAWER HEADER (PURE ICON + BRAND MARK) -->
   <div class="mob-drawer-header">
     <div style="display: flex; align-items: center; gap: 10px;">
-      <img src="./assets/logos/mbm-icon.svg" alt="Mark Bishop Media" style="height: 36px; width: auto;" />
+      <img src="../assets/logos/mbm-icon.svg" alt="Mark Bishop Media" style="height: 36px; width: auto;" />
       <span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 800; color: #fff; letter-spacing: 0.05em;">MBM <span style="color: var(--cyan-glow);">OS</span></span>
     </div>
     <button class="mob-drawer-close-btn" id="mob-drawer-close-btn" aria-label="Close Menu">✕</button>
@@ -2410,498 +2057,53 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 <!-- ═══════════════════════════════════════════════════════════
      DEMO WEBPAGE SECTIONS
      ═══════════════════════════════════════════════════════════ -->
+<main class="demo-page-content">
 
-<!-- ═══════════════════════════════════════════════════════════
-     STAGE 4: HERO VIEWPORT
-     ═══════════════════════════════════════════════════════════ -->
-<main class="hero-wrapper">
-  <div class="hero-inner-container">
-    <div class="hero-left-content" id="hero-left">
-      <div class="hero-pill-badge">
-        <span class="pulse-dot"></span>
-        <span>LOCAL VISIBILITY OPERATING SYSTEM</span>
-      </div>
+  <!-- SECTION 1: HERO VIEW -->
+  <section class="demo-section" id="hero-sec">
+    <div class="sec-badge">● MASTER PROTOTYPE: GOOGLE TOP 3 + DUAL-ACTION REVIEWS + SPLIT BANNER</div>
+    <h1 class="sec-title">Refined 3D Navigation Architecture</h1>
+    <p class="sec-desc">
+      Hover over <strong>"Solutions ⌵"</strong> to experience the updated navigation: Authentic Google Maps Vector Pin, "Top 3" realistic promise, Team-oriented voice ("We"), and the [Before vs After] 3D Split Screen Banner!
+    </p>
 
-      <h1 class="hero-headline">
-        YOUR LOCAL CLIENTS<br>
-        <span class="glass-capsule">ARE SEARCHING</span><br>
-        WE MAKE SURE THEY<br>
-        FIND <span class="lime-accent">YOU FIRST.</span>
-      </h1>
+    <!-- TEST STREAM PASSING UNDER THE GLASS -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin:24px 0;">
+      <span style="background:linear-gradient(135deg,#00d4ff,#b8ff57);color:#020205;font-weight:800;padding:7px 16px;border-radius:100px;font-size:12px;box-shadow:0 0 20px rgba(0,212,255,0.4)">🔥 $1,450,000 REVENUE CLIENT ENGINE</span>
+      <span style="background:rgba(0,212,255,0.15);border:1px solid #00d4ff;color:#00d4ff;font-weight:700;padding:7px 16px;border-radius:100px;font-size:12px;">📍 GOOGLE MAPS TOP 3 LOCKED</span>
+      <span style="background:rgba(184,255,87,0.15);border:1px solid #b8ff57;color:#b8ff57;font-weight:700;padding:7px 16px;border-radius:100px;font-size:12px;">⭐ 250+ 5-STAR REVIEWS & GENERATION</span>
+    </div>
 
-      <div class="hero-ticker-line">
-        <span class="ticker-label" id="ticker-label">DOMINANCE ENGINE:</span>
-        <div class="ticker-val-container">
-          <span class="ticker-val" id="ticker-val">9-Mile Local Geo-Grid Coverage</span>
-        </div>
-      </div>
-
-      <div>
-        <a href="#what-we-do" class="btn-primary-glow">
-          <span>⚡ EXPLORE WHAT WE DO</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+    <div class="active-variant-indicator-card">
+      <div class="card-header-lbl">LOCKED MASTER HIGHLIGHTS:</div>
+      <div class="card-header-val">💎 Google Maps Vector Pin + Google Top 3 + Team Voice ("We") + [Before vs After] Split Banner</div>
+      <div class="card-desc-val">
+        1. <strong>Authentic Google Maps Pin:</strong> Replaced the emoji with a sleek, vibrant Google Maps vector pin with GPS concentric sonar waves.<br>
+        2. <strong>Realistic "Top 3":</strong> Positioned around dominating Google Maps Top 3 (Local 3-Pack).<br>
+        3. <strong>Dual Review Service:</strong> Showcases both automatic review capture from happy customers & smart review generation.<br>
+        4. <strong>Team Voice:</strong> Shifted copy from "I" to professional agency team voice ("We" / "Our System").<br>
+        5. <strong>Clean Cards:</strong> Subtitles removed from left cards for zero redundancy with the right banner!
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- SECTION 2: PROOF DEMO -->
+  <section class="demo-section" id="proof-sec">
+    <div class="sec-badge">● STAGE 02 — LOCAL RADAR VISIBILITY</div>
+    <h2 class="sec-title" style="color:#00d4ff;text-shadow:0 0 30px rgba(0,212,255,0.4);">
+      9-MILE STREET-LEVEL GEO-GRID SCAN ENGINE
+    </h2>
+    <p class="sec-desc">
+      Scroll up and down to observe how the razor-thin frosted glass capsule softly refracts the bright typography.
+    </p>
+  </section>
+
 </main>
 
 <!-- ═══════════════════════════════════════════════════════════
-     STAGE 5: CUBERTO-STYLE EDITORIAL MANIFESTO (WHAT WE DO)
-     ═══════════════════════════════════════════════════════════ -->
-<section class="editorial-manifesto-section" id="what-we-do">
-  <div class="manifesto-grid">
-    <div class="manifesto-label-col">
-      <div class="manifesto-tag">WHAT WE DO</div>
-    </div>
-
-    <div class="manifesto-content-col">
-      <p class="manifesto-big-text">
-        We turn <span class="highlight-white">local search algorithms</span> into predictable <span class="highlight-lime">client acquisition engines</span>. Through synchronized citation networks, Google Maps authority protocols, and geo-grid reputation mechanics, we engineer <span class="highlight-cyan">market dominance</span> for ambitious local businesses.
-      </p>
-
-      <div class="manifesto-sub-row">
-        <div class="manifesto-stat-card">
-          <div class="m-stat-num"><span class="cyan">#1</span> RANK</div>
-          <div class="m-stat-title">GEO-GRID RADIUS</div>
-          <div class="m-stat-desc">Complete map domination across neighboring target zip codes.</div>
-        </div>
-
-        <div class="manifesto-stat-card">
-          <div class="m-stat-num"><span class="lime">150+</span> SECURED</div>
-          <div class="m-stat-title">CITATION DIRECTORIES</div>
-          <div class="m-stat-desc">Synchronized NAP consistency across all Tier-1 networks.</div>
-        </div>
-
-        <div class="manifesto-stat-card">
-          <div class="m-stat-num"><span class="cyan">+318%</span> GROWTH</div>
-          <div class="m-stat-title">INBOUND CALL VOLUME</div>
-          <div class="m-stat-desc">Predictable flow of high-intent buyers calling directly.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     MASTER JAVASCRIPT CONTROLLER
+     DYNAMIC HOVER CONTROLLER SCRIPT
      ═══════════════════════════════════════════════════════════ -->
 <script>
-/* ─── 1. THREE.JS MASTER UNIVERSE INITIALIZATION ─── */
-const canvas = document.getElementById('master-3d-canvas');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 1.2, 22);
-
-const lookAtTarget = { x: 0, y: 1.2, z: 0 };
-let isInHeroMode = false;
-let isHeroPurchasesEnabled = false;
-
-const ambLight = new THREE.AmbientLight(0x0a182e, 2.8); scene.add(ambLight);
-const dirLight = new THREE.DirectionalLight(0xffffff, 3.2); dirLight.position.set(8, 14, 10); scene.add(dirLight);
-const pointCyan = new THREE.PointLight(0x00d4ff, 3.8, 30); pointCyan.position.set(-6, 6, 8); scene.add(pointCyan);
-
-/* ─── PROCEDURAL TEXTURES (APPROVED PHASE 1 & 2) ─── */
-function createCustomerTexture() {
-  const c = document.createElement('canvas'); c.width = 64; c.height = 64;
-  const ctx = c.getContext('2d');
-  ctx.beginPath(); ctx.arc(32, 18, 9, 0, Math.PI * 2); ctx.fillStyle = '#00f0ff'; ctx.shadowColor = '#00f0ff'; ctx.shadowBlur = 10; ctx.fill();
-  ctx.beginPath(); ctx.arc(32, 48, 15, Math.PI, 0, false); ctx.fillStyle = '#00f0ff'; ctx.fill();
-  return new THREE.CanvasTexture(c);
-}
-
-function createCompetitorTexture() {
-  const c = document.createElement('canvas'); c.width = 96; c.height = 96;
-  const ctx = c.getContext('2d');
-  ctx.fillStyle = 'rgba(15, 30, 52, 0.7)';
-  ctx.strokeStyle = 'rgba(0, 212, 255, 0.6)';
-  ctx.lineWidth = 2.0;
-  ctx.shadowColor = 'rgba(0, 212, 255, 0.4)';
-  ctx.shadowBlur = 8;
-  ctx.strokeRect(20, 32, 56, 54);
-  ctx.fillRect(20, 32, 56, 54);
-  ctx.beginPath(); ctx.moveTo(14, 32); ctx.lineTo(48, 10); ctx.lineTo(82, 32); ctx.closePath();
-  ctx.fillStyle = 'rgba(20, 42, 75, 0.8)'; ctx.fill(); ctx.stroke();
-  ctx.fillStyle = 'rgba(0, 212, 255, 0.45)'; ctx.fillRect(30, 44, 12, 12); ctx.fillRect(54, 44, 12, 12);
-  ctx.fillStyle = 'rgba(0, 212, 255, 0.25)'; ctx.fillRect(38, 64, 20, 22); ctx.strokeRect(38, 64, 20, 22);
-  return new THREE.CanvasTexture(c);
-}
-
-function createClientBusinessTexture() {
-  const c = document.createElement('canvas'); c.width = 128; c.height = 128;
-  const ctx = c.getContext('2d');
-  ctx.fillStyle = 'rgba(8, 26, 46, 0.95)';
-  ctx.strokeStyle = '#b8ff57';
-  ctx.lineWidth = 4;
-  ctx.shadowColor = '#b8ff57';
-  ctx.shadowBlur = 22;
-  ctx.beginPath(); ctx.moveTo(64, 12); ctx.lineTo(112, 36); ctx.lineTo(112, 92); ctx.lineTo(64, 116); ctx.lineTo(16, 92); ctx.lineTo(16, 36); ctx.closePath();
-  ctx.fill(); ctx.stroke();
-  ctx.fillStyle = '#b8ff57'; ctx.font = 'bold 46px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText('★', 64, 64);
-  return new THREE.CanvasTexture(c);
-}
-
-function createUltraPurchaseBadge(icon, mainText, subText, colorHex, bgHex) {
-  const c = document.createElement('canvas'); c.width = 360; c.height = 114;
-  const ctx = c.getContext('2d');
-  ctx.fillStyle = bgHex; ctx.strokeStyle = colorHex; ctx.lineWidth = 3.5; ctx.shadowColor = colorHex; ctx.shadowBlur = 24;
-  ctx.beginPath(); ctx.roundRect(10, 10, 340, 94, 20); ctx.fill(); ctx.stroke();
-  ctx.font = 'bold 36px sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillStyle = colorHex; ctx.fillText(icon, 28, 57);
-  ctx.font = 'bold 26px "Space Grotesk", sans-serif'; ctx.fillStyle = '#ffffff'; ctx.fillText(mainText, 84, 44);
-  ctx.font = 'bold 15px "JetBrains Mono", monospace'; ctx.fillStyle = colorHex; ctx.fillText(subText, 84, 74);
-  const tex = new THREE.CanvasTexture(c);
-  tex.needsUpdate = true;
-  return tex;
-}
-
-const customerTex = createCustomerTexture();
-const competitorTex = createCompetitorTexture();
-const clientBusinessTex = createClientBusinessTexture();
-
-const purchaseTextures = [
-  createUltraPurchaseBadge('💰', '+$450 BOOKING', 'LOCAL CLIENT ACQUIRED', '#b8ff57', 'rgba(6, 26, 16, 0.96)'),
-  createUltraPurchaseBadge('📞', 'NEW INBOUND CALL', 'HIGH-INTENT BUYER', '#00d4ff', 'rgba(4, 20, 38, 0.96)'),
-  createUltraPurchaseBadge('★', '5-STAR SERVICE SALE', 'AUTOMATED 3-PACK WIN', '#b8ff57', 'rgba(6, 26, 16, 0.96)'),
-  createUltraPurchaseBadge('⚡', '+$680 RETAINER', 'REPEAT APPOINTMENT', '#b8ff57', 'rgba(6, 26, 16, 0.96)')
-];
-
-// 1. SUBTLE DISTANT CORNER SHOPS (APPROVED PHASE 1)
-const competitorGroup = new THREE.Group();
-scene.add(competitorGroup);
-const compMat = new THREE.SpriteMaterial({ map: competitorTex, transparent: true, opacity: 0.45 });
-const shopPositions = [
-  { x: -32, y: 16, z: -10 }, { x: -38, y: 10, z: -12 }, { x: 32, y: 16, z: -10 }, { x: 38, y: 10, z: -12 },
-  { x: -30, y: -14, z: -10 }, { x: -36, y: -6, z: -12 }, { x: 30, y: -14, z: -10 }, { x: 36, y: -6, z: -12 },
-  { x: -40, y: 2, z: -14 }, { x: 40, y: 2, z: -14 }, { x: -18, y: 22, z: -12 }, { x: 18, y: 22, z: -12 }
-];
-shopPositions.forEach(pos => {
-  const sprite = new THREE.Sprite(compMat);
-  sprite.position.set(pos.x, pos.y, pos.z);
-  sprite.scale.set(2.2, 2.2, 1);
-  competitorGroup.add(sprite);
-});
-
-// 2. 850 GLOWING DUST PARTICLES
-const dustCount = 850;
-const dustGeo = new THREE.BufferGeometry();
-const dustPos = new Float32Array(dustCount * 3);
-const dustCols = new Float32Array(dustCount * 3);
-const colCyan = new THREE.Color(0x00d4ff);
-const colLime = new THREE.Color(0xb8ff57);
-const colWhite = new THREE.Color(0xffffff);
-
-for (let i = 0; i < dustCount * 3; i += 3) {
-  dustPos[i] = (Math.random() - 0.5) * 65;
-  dustPos[i + 1] = (Math.random() - 0.5) * 45;
-  dustPos[i + 2] = (Math.random() - 0.5) * 40;
-  const rand = Math.random();
-  const c = rand > 0.55 ? colCyan : (rand > 0.25 ? colLime : colWhite);
-  dustCols[i] = c.r; dustCols[i + 1] = c.g; dustCols[i + 2] = c.b;
-}
-dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
-dustGeo.setAttribute('color', new THREE.BufferAttribute(dustCols, 3));
-const dustMat = new THREE.PointsMaterial({ size: 0.18, vertexColors: true, transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending });
-const ambientDust = new THREE.Points(dustGeo, dustMat);
-scene.add(ambientDust);
-
-// 3. REFINED MICRO CUSTOMER AVATARS (20 DELICATE AVATARS)
-const customerGroup = new THREE.Group();
-scene.add(customerGroup);
-const customerMat = new THREE.SpriteMaterial({ map: customerTex, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending });
-const customerAvatars = [];
-for (let i = 0; i < 20; i++) {
-  const sprite = new THREE.Sprite(customerMat);
-  const angle = (i / 20) * Math.PI * 2 + Math.random() * 0.4;
-  const dist = 18.0 + Math.random() * 8.0;
-  const startX = Math.cos(angle) * dist;
-  const startY = (Math.random() - 0.5) * 14.0 + 2.0;
-  const startZ = Math.sin(angle) * dist * 0.35 - 2.0;
-  sprite.position.set(startX, startY, startZ);
-  sprite.scale.set(0.48, 0.48, 1);
-  customerGroup.add(sprite);
-  customerAvatars.push({
-    sprite: sprite, startX: startX, startY: startY, startZ: startZ, angle: angle,
-    speed: 0.0018 + Math.random() * 0.002, progress: (i / 20), floatOffset: Math.random() * Math.PI * 2
-  });
-}
-
-// 4. CENTRAL 3D GLASS PIN + VERIFIED BADGE + STOREFRONT
-const pinGroup = new THREE.Group();
-pinGroup.position.set(0, 3.2, 0);
-scene.add(pinGroup);
-
-const headGeo = new THREE.SphereGeometry(2.4, 32, 32);
-const headMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.45 });
-const headMesh = new THREE.Mesh(headGeo, headMat);
-headMesh.position.y = 1.2;
-pinGroup.add(headMesh);
-
-const clientBadgeMat = new THREE.SpriteMaterial({ map: clientBusinessTex, transparent: true, opacity: 0.95 });
-const clientBadge = new THREE.Sprite(clientBadgeMat);
-clientBadge.position.y = 1.2;
-clientBadge.scale.set(2.6, 2.6, 1);
-pinGroup.add(clientBadge);
-
-const shopGroup = new THREE.Group();
-shopGroup.position.y = 1.2;
-pinGroup.add(shopGroup);
-
-const shopMats = {
-  wall: new THREE.MeshStandardMaterial({ color: 0x0055aa, roughness: 0.2, metalness: 0.3, emissive: 0x001133 }),
-  roofCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, roughness: 0.2, metalness: 0.1, emissive: 0x00d4ff, emissiveIntensity: 0.35 }),
-  roofWhite: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.2, metalness: 0.1, emissive: 0xffffff, emissiveIntensity: 0.2 }),
-  glassCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, emissive: 0x00d4ff, emissiveIntensity: 0.85, roughness: 0.1, metalness: 0.9, transparent: true, opacity: 0.95 }),
-  doorWhite: new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x00d4ff, emissiveIntensity: 0.75, roughness: 0.2 }),
-  foundation: new THREE.MeshStandardMaterial({ color: 0x04101e, roughness: 0.4, metalness: 0.6 })
-};
-
-const shopBase = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.2, 32), shopMats.foundation);
-shopBase.position.y = -0.6;
-shopGroup.add(shopBase);
-
-const shopWalls = new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.45, 1.55), shopMats.wall);
-shopWalls.position.y = 0.2;
-shopGroup.add(shopWalls);
-
-const awningGroup = new THREE.Group();
-awningGroup.position.set(0, 0.7, 0.88);
-awningGroup.rotation.x = Math.PI / 4.5;
-for (let i = -3; i <= 3; i++) {
-  const stripe = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.06, 0.7), i % 2 === 0 ? shopMats.roofCyan : shopMats.roofWhite);
-  stripe.position.x = i * 0.27;
-  awningGroup.add(stripe);
-}
-shopGroup.add(awningGroup);
-
-const winGlass = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.6, 0.08), shopMats.glassCyan);
-winGlass.position.set(-0.42, 0.15, 0.79);
-shopGroup.add(winGlass);
-
-const shopDoor = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.9, 0.08), shopMats.doorWhite);
-shopDoor.position.set(0.45, 0.0, 0.79);
-shopGroup.add(shopDoor);
-
-const tipGeo = new THREE.ConeGeometry(2.38, 3.8, 32);
-const tipMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.45 });
-const tipMesh = new THREE.Mesh(tipGeo, tipMat);
-tipMesh.rotation.x = Math.PI;
-tipMesh.position.y = -0.7;
-pinGroup.add(tipMesh);
-
-const ringGeo = new THREE.TorusGeometry(5.4, 0.035, 16, 120);
-const ringMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.35 });
-const halo1 = new THREE.Mesh(ringGeo, ringMat);
-const halo2 = new THREE.Mesh(ringGeo, ringMat);
-halo2.rotation.x = Math.PI / 2.8;
-pinGroup.add(halo1);
-pinGroup.add(halo2);
-
-const purchaseRippleGeo = new THREE.RingGeometry(0.1, 0.5, 64);
-const purchaseRippleMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57, transparent: true, opacity: 0, side: THREE.DoubleSide });
-const purchaseRipple = new THREE.Mesh(purchaseRippleGeo, purchaseRippleMat);
-purchaseRipple.rotation.x = -Math.PI / 2;
-purchaseRipple.position.set(0, -0.6, 0);
-pinGroup.add(purchaseRipple);
-
-// FLOATING PURCHASE BADGES
-const floatingBadgeGroup = new THREE.Group();
-scene.add(floatingBadgeGroup);
-let activePurchaseBadges = [];
-
-function spawnRandomPurchaseBadge() {
-  if (!isHeroPurchasesEnabled) return;
-  const tex = purchaseTextures[Math.floor(Math.random() * purchaseTextures.length)];
-  const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0 });
-  const sprite = new THREE.Sprite(mat);
-  const baseX = pinGroup.position.x + (Math.random() - 0.5) * 2.8;
-  const baseY = pinGroup.position.y + 0.8;
-  sprite.position.set(baseX, baseY, 1.2);
-  sprite.scale.set(4.3, 1.36, 1);
-  floatingBadgeGroup.add(sprite);
-  activePurchaseBadges.push({
-    sprite: sprite, progress: 0, speed: 0.007 + Math.random() * 0.003,
-    baseX: baseX, baseY: baseY, driftAngle: Math.random() * Math.PI * 2
-  });
-}
-setInterval(spawnRandomPurchaseBadge, 1700);
-
-// 5. FIVE 3D GOLDEN STARS + COMET LIGHT TRAILS (ORBITING AROUND PIN)
-const starGroup = new THREE.Group();
-pinGroup.add(starGroup);
-
-const starShape = new THREE.Shape();
-const pts = 5;
-const rOut = 0.65;
-const rIn = 0.3;
-for (let i = 0; i < pts * 2; i++) {
-  const r = i % 2 === 0 ? rOut : rIn;
-  const angle = (i * Math.PI) / pts - Math.PI / 2;
-  const x = Math.cos(angle) * r;
-  const y = Math.sin(angle) * r;
-  if (i === 0) starShape.moveTo(x, y);
-  else starShape.lineTo(x, y);
-}
-starShape.closePath();
-
-const starGeo = new THREE.ExtrudeGeometry(starShape, { depth: 0.2, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.06, bevelThickness: 0.06 });
-const starMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57 });
-
-const starMeshes = [];
-const starTrails = [];
-const TRAIL_LENGTH = 16;
-
-for (let i = 0; i < 5; i++) {
-  const mesh = new THREE.Mesh(starGeo, starMat);
-  mesh.scale.set(0.001, 0.001, 0.001);
-  starGroup.add(mesh);
-  starMeshes.push(mesh);
-
-  const trailGeo = new THREE.BufferGeometry();
-  const trailPositions = new Float32Array(TRAIL_LENGTH * 3);
-  trailGeo.setAttribute('position', new THREE.BufferAttribute(trailPositions, 3));
-  
-  const trailMat = new THREE.PointsMaterial({
-    color: i % 2 === 0 ? 0xb8ff57 : 0x00d4ff,
-    size: 0.18,
-    transparent: true,
-    opacity: 0.6,
-    blending: THREE.AdditiveBlending
-  });
-  const trailPoints = new THREE.Points(trailGeo, trailMat);
-  starGroup.add(trailPoints);
-  starTrails.push({ points: trailPoints, history: [] });
-}
-
-function update3DTargetForCurrentScreen() {
-  if (!isInHeroMode) return;
-  const w = window.innerWidth;
-  if (w < 768) {
-    gsap.to(pinGroup.position, { x: 0.0, y: 4.1, z: -1.2, duration: 0.6, ease: "power2.out" });
-    gsap.to(pinGroup.scale, { x: 0.34, y: 0.34, z: 0.34, duration: 0.6, ease: "power2.out" });
-    gsap.to(lookAtTarget, { x: 0.0, y: 1.8, z: 0, duration: 0.6, ease: "power2.out" });
-  } else if (w < 1024) {
-    gsap.to(pinGroup.position, { x: 3.4, y: 0.2, z: 0.0, duration: 0.6, ease: "power2.out" });
-    gsap.to(pinGroup.scale, { x: 0.65, y: 0.65, z: 0.65, duration: 0.6, ease: "power2.out" });
-    gsap.to(lookAtTarget, { x: 0.8, y: 0.4, z: 0, duration: 0.6, ease: "power2.out" });
-  } else {
-    gsap.to(pinGroup.position, { x: 5.2, y: 0.5, z: 0.0, duration: 0.6, ease: "power2.out" });
-    gsap.to(pinGroup.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.6, ease: "power2.out" });
-    gsap.to(lookAtTarget, { x: 1.0, y: 0.6, z: 0, duration: 0.6, ease: "power2.out" });
-  }
-}
-
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  update3DTargetForCurrentScreen();
-}
-window.addEventListener('resize', onWindowResize);
-
-/* ─── 2. DYNAMIC TICKER ENGINE ─── */
-const tickerItems = [
-  { label: "DOMINANCE ENGINE:", val: "9-Mile Local Geo-Grid Coverage" },
-  { label: "DOMINANCE TARGET:", val: "#1 Google Maps 3-Pack Positioning" },
-  { label: "CITATION NETWORK:", val: "150+ Synchronized Authority Directories" },
-  { label: "REPUTATION PROTOCOL:", val: "Automated 5-Star Review Velocity" },
-  { label: "REVENUE PIPELINE:", val: "Predictable High-Ticket Inbound Calls" }
-];
-
-let currentTickerIdx = 0;
-const tickerLabelEl = document.getElementById('ticker-label');
-const tickerValEl = document.getElementById('ticker-val');
-
-function cycleTicker() {
-  currentTickerIdx = (currentTickerIdx + 1) % tickerItems.length;
-  const nextItem = tickerItems[currentTickerIdx];
-
-  gsap.to(tickerValEl, {
-    y: -14, opacity: 0, filter: 'blur(4px)', duration: 0.35, ease: "power2.in",
-    onComplete: () => {
-      tickerLabelEl.innerText = nextItem.label;
-      tickerValEl.innerText = nextItem.val;
-      gsap.set(tickerValEl, { y: 14, opacity: 0, filter: 'blur(4px)' });
-      gsap.to(tickerValEl, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.5, ease: "power2.out" });
-    }
-  });
-}
-setInterval(cycleTicker, 3200);
-
-/* ─── 3. SEAMLESS INTRO GSAP TIMELINE (APPROVED MASTER PRELOADER FLOW) ─── */
-function triggerSeamlessIntro() {
-  isInHeroMode = false;
-  isHeroPurchasesEnabled = false;
-
-  const w = window.innerWidth;
-  const isMobile = w <= 860;
-
-  // Pin tip directly points and sits snugly right above MARK BISHOP
-  const initPinScale = isMobile ? 1.12 : 1.18;
-  const initPinY = isMobile ? 3.45 : 3.65;
-
-  gsap.set(pinGroup.position, { x: 0, y: initPinY, z: 0 });
-  gsap.set(pinGroup.scale, { x: 0.001, y: 0.001, z: 0.001 });
-  gsap.set(lookAtTarget, { x: 0, y: isMobile ? 1.4 : 1.2, z: 0 });
-  starMeshes.forEach(s => gsap.set(s.scale, { x: 0.001, y: 0.001, z: 0.001 }));
-
-  gsap.set('#preloader-layer', { opacity: 1, display: 'flex' });
-  gsap.set('#splash-title', { opacity: 0, y: 16, filter: 'blur(6px)' });
-  gsap.set('#splash-subline', { opacity: 0, y: 10 });
-  gsap.set('#splash-progress', { opacity: 0 });
-  gsap.set('#splash-progress-line', { width: '0%' });
-
-  gsap.set('#master-nav-wrapper', { opacity: 0, y: -20 });
-  gsap.set('#hero-left', { opacity: 0, visibility: 'hidden', x: -30, filter: 'blur(10px)' });
-
-  const tl = gsap.timeline();
-
-  // Intro Splash Entrance
-  tl.to(pinGroup.scale, { x: initPinScale, y: initPinScale, z: initPinScale, duration: 1.1, ease: "elastic.out(1.2, 0.6)" }, 0.1);
-  starMeshes.forEach((s, idx) => {
-    tl.to(s.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.6, ease: "back.out(2)" }, 0.3 + idx * 0.1);
-  });
-  tl.to('#splash-title', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: "power3.out" }, 0.5);
-  tl.to('#splash-subline', { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.7);
-  tl.to('#splash-progress', { opacity: 1, duration: 0.3 }, 0.6);
-  tl.to('#splash-progress-line', { width: '100%', duration: 1.5, ease: "power2.inOut" }, 0.7);
-
-  tl.to(shopGroup.scale, { x: 1.15, y: 1.15, z: 1.15, duration: 0.2, yoyo: true, repeat: 1, ease: "power2.out" }, 2.0);
-  tl.to(pinGroup.scale, { x: initPinScale * 1.06, y: initPinScale * 1.06, z: initPinScale * 1.06, duration: 0.2, yoyo: true, repeat: 1 }, 2.1);
-
-  // Preloader Curtain Exit at 2.4s
-  tl.to('#preloader-layer', { opacity: 0, duration: 0.4, ease: "power2.inOut", onComplete: () => {
-    const pLayer = document.getElementById('preloader-layer');
-    if (pLayer) pLayer.style.display = 'none';
-  }}, 2.4);
-
-  // Transition 3D Pin smoothly to Hero destination stage
-  let targetX = 5.2, targetY = 0.5, targetZ = 0, targetScale = 1.0, lookX = 1.0, lookY = 0.6;
-  if (isMobile) {
-    targetX = 0.0; targetY = 4.1; targetZ = -1.2; targetScale = 0.36; lookX = 0.0; lookY = 1.8;
-  } else if (w < 1024) {
-    targetX = 3.4; targetY = 0.2; targetZ = 0.0; targetScale = 0.65; lookX = 0.8; lookY = 0.4;
-  }
-
-  tl.to(pinGroup.position, { x: targetX, y: targetY, z: targetZ, duration: 1.0, ease: "power3.inOut" }, 2.4);
-  tl.to(pinGroup.scale, { x: targetScale, y: targetScale, z: targetScale, duration: 1.0, ease: "power3.inOut" }, 2.4);
-  tl.to(lookAtTarget, {
-    x: lookX, y: lookY, z: 0, duration: 1.0, ease: "power3.inOut",
-    onComplete: () => {
-      isInHeroMode = true;
-      isHeroPurchasesEnabled = true;
-    }
-  }, 2.4);
-
-  tl.to('#master-nav-wrapper', { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 2.5);
-  tl.to('#hero-left', { opacity: 1, visibility: 'visible', x: 0, y: 0, filter: 'blur(0px)', duration: 0.6, ease: "power3.out" }, 2.6);
-}
-
-/* ─── 4. APPROVED MASTER 3D NAVIGATION INTERACTION CONTROLLER ─── */
 /* ─── 1. SMART SCROLL FREEZE & FLOAT ─── */
 window.addEventListener('scroll', () => {
   if (window.scrollY > 5) {
@@ -3181,110 +2383,7 @@ document.addEventListener('pointerdown', (e) => {
     }
   }
 });
-
-/* ─── 5. MOUSE TRACKING & RENDER ANIMATE LOOP ─── */
-const mouseVec = new THREE.Vector2();
-window.addEventListener('mousemove', (e) => {
-  mouseVec.x = (e.clientX / window.innerWidth) * 2 - 1;
-  mouseVec.y = -(e.clientY / window.innerHeight) * 2 + 1;
-});
-
-const clock = new THREE.Clock();
-let rippleProgress = 0;
-
-function animate() {
-  requestAnimationFrame(animate);
-  const time = clock.getElapsedTime();
-
-  const isMob = window.innerWidth < 768;
-  const targetCamX = isInHeroMode ? (isMob ? 0 : mouseVec.x * 1.2) : mouseVec.x * 2.5;
-  const targetCamY = isInHeroMode ? (isMob ? 0.8 : mouseVec.y * 0.8 + 0.8) : mouseVec.y * 1.8 + 1.2;
-  camera.position.x += (targetCamX - camera.position.x) * 0.04;
-  camera.position.y += (targetCamY - camera.position.y) * 0.04;
-  camera.lookAt(lookAtTarget.x, lookAtTarget.y, lookAtTarget.z);
-
-  pinGroup.rotation.y = time * 0.25;
-
-  if (isHeroPurchasesEnabled) {
-    rippleProgress += 0.012;
-    if (rippleProgress >= 1.0) rippleProgress = 0;
-    const curR = rippleProgress * 5.4;
-    purchaseRipple.scale.set(curR, curR, 1);
-    purchaseRipple.material.opacity = (1.0 - rippleProgress) * 0.95;
-  } else {
-    purchaseRipple.material.opacity = 0;
-  }
-
-  for (let i = activePurchaseBadges.length - 1; i >= 0; i--) {
-    const b = activePurchaseBadges[i];
-    b.progress += b.speed;
-    b.sprite.position.y = b.baseY + b.progress * 8.5;
-    b.sprite.position.x = b.baseX + Math.sin(time * 1.5 + b.driftAngle) * 0.35;
-    let alpha = b.progress < 0.1 ? (b.progress / 0.1) : (b.progress > 0.85 ? (1.0 - b.progress) / 0.15 : 1.0);
-    b.sprite.material.opacity = Math.max(0, alpha);
-    if (b.progress >= 1.0) {
-      floatingBadgeGroup.remove(b.sprite);
-      activePurchaseBadges.splice(i, 1);
-    }
-  }
-
-  // Corner Competitor Shops Subtle Drift
-  competitorGroup.rotation.y = time * 0.002;
-
-  // Stardust Ambient Rotation
-  ambientDust.rotation.y = time * 0.025;
-  ambientDust.rotation.x = Math.sin(time * 0.08) * 0.035;
-
-  // Customer Avatars Flocking In
-  const targetY = isInHeroMode ? (pinGroup.position.y + 1.2) : 4.4;
-  customerAvatars.forEach(c => {
-    c.progress += c.speed;
-    if (c.progress >= 1.0) c.progress = 0;
-    const curDist = (1.0 - c.progress) * 18.0 + 1.2;
-    const curAngle = c.angle + c.progress * 1.2;
-    c.sprite.position.x = pinGroup.position.x + Math.cos(curAngle) * curDist;
-    c.sprite.position.y = (1.0 - c.progress) * c.startY + c.progress * targetY + Math.sin(time * 1.2 + c.floatOffset) * 0.25;
-    c.sprite.position.z = Math.sin(curAngle) * curDist * 0.35 - 2.0;
-    const alpha = c.progress < 0.15 ? (c.progress / 0.15) : (c.progress > 0.85 ? (1.0 - c.progress) / 0.15 : 1.0);
-    c.sprite.material.opacity = alpha * 0.85;
-  });
-
-  // 5 Extruded Golden Stars Orbiting Pin + Comet Light Trails
-  const orbitR = 5.4;
-  starMeshes.forEach((star, idx) => {
-    const angle = time * 1.0 + (idx * (Math.PI * 2 / 5));
-    const sx = Math.cos(angle) * orbitR;
-    const sz = Math.sin(angle) * orbitR;
-    const sy = Math.sin(time * 1.8 + idx) * 0.6;
-
-    star.position.set(sx, sy, sz);
-    star.rotation.y = time * 1.4;
-    star.rotation.z = Math.sin(time + idx) * 0.4;
-
-    const trail = starTrails[idx];
-    trail.history.unshift({ x: sx, y: sy, z: sz });
-    if (trail.history.length > TRAIL_LENGTH) trail.history.pop();
-
-    const posArray = trail.points.geometry.attributes.position.array;
-    for (let j = 0; j < TRAIL_LENGTH; j++) {
-      if (j < trail.history.length) {
-        posArray[j * 3] = trail.history[j].x;
-        posArray[j * 3 + 1] = trail.history[j].y;
-        posArray[j * 3 + 2] = trail.history[j].z;
-      }
-    }
-    trail.points.geometry.attributes.position.needsUpdate = true;
-  });
-
-  halo1.rotation.z = time * 0.15;
-  halo2.rotation.y = -time * 0.2;
-
-  renderer.render(scene, camera);
-}
-
-// Start immediately
-animate();
-triggerSeamlessIntro();
 </script>
+
 </body>
 </html>

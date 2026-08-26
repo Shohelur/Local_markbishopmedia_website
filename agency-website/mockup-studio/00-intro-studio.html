@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>MBM · 3D Intro Splash Mockup Studio (3D Storefront Pin & Live Responsive Engine)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- html2canvas for 1-Click HD PNG Export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- Three.js & GSAP CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg-dark:#06080e;
+  --bg-panel:#0b101d;
+  --cyan-glow:#00d4ff;
+  --lime-glow:#b8ff57;
+  --gold-glow:#ffd700;
+  --red-alert:#ff3b30;
+  --panel-border:rgba(0, 212, 255, 0.25);
+  --text-main:#ffffff;
+  --text-dim:rgba(255, 255, 255, 0.7);
+}
+
+body{
+  background:var(--bg-dark);
+  color:#fff;
+  font-family:'Space Grotesk',sans-serif;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  user-select:none;
+  touch-action:none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   1. TOP STUDIO HEADER
+   ═══════════════════════════════════════════════════════════ */
+.studio-header{
+  min-height:56px;
+  background:#0b0f19;
+  border-bottom:1px solid rgba(0, 212, 255, 0.25);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  z-index:10000;
+  box-shadow:0 4px 20px rgba(0,0,0,0.8);
+  gap:12px;
+}
+
+.brand-badge-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.brand-title{
+  font-size:14.5px;
+  font-weight:800;
+  letter-spacing:0.08em;
+  white-space:nowrap;
+}
+.brand-title span{
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* DEVICE SWITCHER & PROFILE BADGE */
+.device-btn-group{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(0,0,0,0.5);
+  padding:4px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+.btn-device{
+  background:transparent;
+  border:1px solid transparent;
+  color:rgba(255,255,255,0.7);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:700;
+  padding:6px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  transition:all 0.2s;
+  touch-action:manipulation;
+}
+.btn-device:hover{color:#fff;background:rgba(255,255,255,0.06)}
+.btn-device.active{
+  background:rgba(0, 212, 255, 0.18);
+  border-color:rgba(0, 212, 255, 0.55);
+  color:#00d4ff;
+  box-shadow:0 0 12px rgba(0, 212, 255, 0.3);
+}
+
+.header-action-group{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.btn-replay-splash{
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  color:#020205;
+  border:none;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:800;
+  padding:8px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(0, 212, 255, 0.4);
+  display:flex;
+  align-items:center;
+  gap:6px;
+  transition:transform 0.15s;
+  touch-action:manipulation;
+}
+.btn-replay-splash:active{transform:scale(0.96)}
+
+.btn-fullscreen-zen{
+  background:#182236;
+  border:1px solid rgba(0, 212, 255, 0.4);
+  color:#00d4ff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:700;
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  touch-action:manipulation;
+}
+.btn-fullscreen-zen:hover{background:rgba(0,212,255,0.25)}
+
+.btn-png-download{
+  background:linear-gradient(135deg, #ff9500, #ff2d55);
+  color:#fff;
+  border:none;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:800;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  box-shadow:0 0 16px rgba(255, 45, 85, 0.35);
+  display:flex;
+  align-items:center;
+  gap:6px;
+  touch-action:manipulation;
+}
+.btn-png-download:active{transform:scale(0.96)}
+
+/* ═══════════════════════════════════════════════════════════
+   2. PRESET QUICK BAR
+   ═══════════════════════════════════════════════════════════ */
+.preset-bar{
+  background:#080c14;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:6px 18px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:11px;
+  overflow-x:auto;
+  touch-action:pan-x;
+}
+.preset-label{font-family:monospace;font-size:9.5px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em;white-space:nowrap}
+.btn-preset{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  color:#fff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:10.5px;
+  font-weight:700;
+  padding:5px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:all 0.2s;
+  touch-action:manipulation;
+}
+.btn-preset:hover{background:rgba(0, 212, 255, 0.15);border-color:#00d4ff;color:#00d4ff}
+
+/* ═══════════════════════════════════════════════════════════
+   3. DRAGGABLE FLOATING TOOLBAR
+   ═══════════════════════════════════════════════════════════ */
+#draggable-toolbar{
+  position:absolute;
+  top:76px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:9500;
+  background:rgba(12, 17, 28, 0.94);
+  border:1.5px solid rgba(0, 212, 255, 0.45);
+  box-shadow:0 12px 45px rgba(0,0,0,0.9), 0 0 25px rgba(0, 212, 255, 0.25);
+  border-radius:16px;
+  padding:5px 8px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  backdrop-filter:blur(18px);
+  touch-action:none;
+}
+
+.core-tools-group{
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
+.btn-toggle-draw-tray{
+  background:rgba(0, 212, 255, 0.12);
+  border:1px solid rgba(0, 212, 255, 0.35);
+  color:#00d4ff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  padding:6px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  transition:all 0.2s;
+  white-space:nowrap;
+  touch-action:manipulation;
+}
+.btn-toggle-draw-tray:hover{background:rgba(0, 212, 255, 0.25);border-color:#00d4ff}
+.btn-toggle-draw-tray.active{background:rgba(184, 255, 87, 0.2);border-color:#b8ff57;color:#b8ff57}
+
+#drawing-tools-tray{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  transition:all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow:hidden;
+}
+#drawing-tools-tray.collapsed{display:none !important}
+
+.toolbar-drag-grip{
+  cursor:grab;
+  padding:6px 8px;
+  color:rgba(0, 212, 255, 0.8);
+  font-size:16px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  user-select:none;
+  border-radius:6px;
+  touch-action:none;
+}
+.toolbar-drag-grip:hover{background:rgba(0, 212, 255, 0.15);color:#00d4ff}
+.toolbar-drag-grip:active{cursor:grabbing}
+
+.tool-item{
+  width:38px;
+  height:38px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  border:1px solid transparent;
+  color:rgba(255,255,255,0.8);
+  border-radius:8px;
+  cursor:pointer;
+  position:relative;
+  transition:all 0.15s ease;
+  touch-action:manipulation;
+}
+.tool-item svg{width:18px;height:18px;stroke-width:2}
+.tool-item .shortcut-num{position:absolute;bottom:1px;right:3px;font-size:8px;font-family:monospace;color:rgba(255,255,255,0.4)}
+.tool-item:hover{background:rgba(255,255,255,0.08);color:#fff}
+.tool-item.active{background:rgba(0, 212, 255, 0.25);border-color:#00d4ff;color:#00d4ff;box-shadow:0 0 12px rgba(0, 212, 255, 0.4)}
+
+.btn-history{
+  width:34px;
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.8);
+  border-radius:6px;
+  cursor:pointer;
+  transition:all 0.15s;
+  touch-action:manipulation;
+}
+.btn-history:hover{background:rgba(0, 212, 255, 0.2);color:#00d4ff;border-color:#00d4ff}
+
+.btn-lock-toggle{
+  width:36px;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.8);
+  border-radius:8px;
+  cursor:pointer;
+  transition:all 0.15s;
+  touch-action:manipulation;
+}
+.btn-lock-toggle.is-locked{background:rgba(255, 59, 48, 0.2);border-color:#ff3b30;color:#ff3b30;box-shadow:0 0 12px rgba(255, 59, 48, 0.4)}
+
+.toolbar-separator{width:1px;height:24px;background:rgba(255,255,255,0.12);margin:0 4px}
+
+.floating-palette{display:flex;align-items:center;gap:6px;padding-left:2px}
+.color-dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,0.5);cursor:pointer;transition:transform 0.15s, border-color 0.15s;touch-action:manipulation}
+.color-dot:hover, .color-dot.active{transform:scale(1.25);border-color:#fff;box-shadow:0 0 10px currentColor}
+
+/* FLOATING YOUTUBE CONTROL PILL */
+.yt-floating-bottom-bar{
+  position:fixed;
+  bottom:20px;
+  right:24px;
+  z-index:99999;
+  background:rgba(12, 17, 28, 0.92);
+  border:1px solid rgba(0, 212, 255, 0.5);
+  border-radius:12px;
+  padding:8px 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0, 212, 255, 0.3);
+  backdrop-filter:blur(14px);
+  touch-action:manipulation;
+}
+.yt-player-btn{background:transparent;border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:4px;border-radius:6px;transition:background 0.15s, color 0.15s;touch-action:manipulation}
+.yt-player-btn:hover{background:rgba(0, 212, 255, 0.2);color:#00d4ff}
+
+/* ═══════════════════════════════════════════════════════════
+   4. STUDIO MAIN STAGE & HARDWARE ARTBOARD
+   ═══════════════════════════════════════════════════════════ */
+.studio-main{flex:1;display:flex;position:relative;overflow:hidden}
+.stage-viewport{
+  flex:1;
+  background:#030408;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  position:relative;
+  overflow-y:auto;
+  overflow-x:auto;
+  padding:30px 20px 80px 20px;
+  background-image:radial-gradient(rgba(0, 212, 255, 0.08) 1.2px, transparent 1.2px);
+  background-size:24px 24px;
+  touch-action:pan-x pan-y;
+}
+
+#artboard-canvas-wrapper{
+  background:#020205;
+  position:relative;
+  box-shadow:0 30px 100px rgba(0,0,0,0.98), 0 0 45px rgba(0, 212, 255, 0.2);
+  border:1px solid rgba(0, 212, 255, 0.35);
+  overflow:hidden;
+  flex-shrink:0;
+  margin:0 auto;
+}
+#artboard-canvas-wrapper.desktop{width:1280px;height:740px;border-radius:14px}
+#artboard-canvas-wrapper.tablet{width:820px;height:880px;border-radius:32px;border-width:12px;border-color:#182133}
+#artboard-canvas-wrapper.mobile{width:393px;height:840px;border-radius:48px;border-width:12px;border-color:#161f30}
+
+.sim-dynamic-island{
+  display:none;
+  position:absolute;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+  width:110px;
+  height:28px;
+  background:#000;
+  border-radius:20px;
+  z-index:9000;
+  pointer-events:none;
+}
+#artboard-canvas-wrapper.mobile .sim-dynamic-island{display:block}
+
+#drawing-surface{position:absolute;inset:0;z-index:500;pointer-events:none;touch-action:none}
+#drawing-surface.interactive{pointer-events:all !important;cursor:crosshair}
+#intro-3d-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.cinema-vignette{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle at center, transparent 35%, rgba(2,2,5,0.45) 75%, #020205 100%)}
+
+/* ═══════════════════════════════════════════════════════════
+   5. CANVA-GRADE DRAGGABLE ELEMENTS
+   ═══════════════════════════════════════════════════════════ */
+.studio-element{
+  position:absolute;
+  cursor:move;
+  border:2px dashed transparent;
+  padding:12px 16px;
+  border-radius:14px;
+  touch-action:none;
+  user-select:none;
+  z-index:200;
+  transition:border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+.studio-element:hover{border-color:rgba(0, 212, 255, 0.6);background:rgba(0, 212, 255, 0.05)}
+.studio-element.selected-box{
+  border-color:#b8ff57 !important;
+  background:rgba(184, 255, 87, 0.12) !important;
+  box-shadow:0 0 30px rgba(184, 255, 87, 0.4);
+  z-index:1000 !important;
+}
+
+.canva-move-handle{
+  display:none;
+  position:absolute;
+  bottom:-50px;
+  left:50%;
+  transform:translateX(-50%);
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  color:#020205;
+  border:2.5px solid #ffffff;
+  box-shadow:0 8px 30px rgba(0, 212, 255, 0.9), 0 0 20px rgba(184, 255, 87, 0.8);
+  border-radius:100px;
+  padding:8px 18px;
+  font-family:'Space Grotesk', sans-serif;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:0.08em;
+  align-items:center;
+  gap:8px;
+  cursor:grab;
+  z-index:9999 !important;
+  touch-action:none;
+  user-select:none;
+  white-space:nowrap;
+  pointer-events:auto !important;
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+}
+.canva-move-handle:hover, .canva-move-handle:active{transform:translateX(-50%) scale(1.15);cursor:grabbing}
+.studio-element.selected-box .canva-move-handle{display:flex !important}
+.studio-element.element-locked .canva-move-handle{display:none !important}
+
+.resize-handle{
+  position:absolute;
+  width:18px;
+  height:18px;
+  background:#ffffff;
+  border:3px solid #00d4ff;
+  border-radius:4px;
+  z-index:300;
+  box-shadow:0 0 10px rgba(0, 212, 255, 0.95);
+  display:none;
+  touch-action:none;
+}
+.studio-element.selected-box .resize-handle{display:block}
+.studio-element.element-locked .resize-handle{display:none !important}
+.handle-nw{top:-9px;left:-9px;cursor:nwse-resize}
+.handle-ne{top:-9px;right:-9px;cursor:nesw-resize}
+.handle-se{bottom:-9px;right:-9px;cursor:nwse-resize}
+.handle-sw{bottom:-9px;left:-9px;cursor:nesw-resize}
+.handle-e{top:calc(50% - 9px);right:-9px;cursor:ew-resize}
+
+.element-tag{
+  display:none;
+  position:absolute;
+  top:-22px;
+  left:0;
+  background:#00d4ff;
+  color:#020205;
+  font-family:monospace;
+  font-size:10px;
+  font-weight:800;
+  padding:3px 10px;
+  border-radius:5px;
+  pointer-events:none;
+  box-shadow:0 2px 8px rgba(0,0,0,0.5);
+  white-space:nowrap;
+}
+.studio-element:hover .element-tag, .studio-element.selected-box .element-tag{display:block}
+
+.editable-text-field{outline:none;cursor:text;user-select:text;touch-action:auto}
+.editable-text-field:focus{background:rgba(0, 212, 255, 0.25);border-radius:8px;box-shadow:0 0 18px rgba(0, 212, 255, 0.6)}
+
+/* ═══════════════════════════════════════════════════════════
+   6. COLLAPSIBLE RIGHT PROPERTIES SIDEBAR
+   ═══════════════════════════════════════════════════════════ */
+.sidebar-wrapper{position:relative;display:flex;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);z-index:9000}
+.studio-sidebar{
+  width:320px;
+  background:#0c111c;
+  border-left:1px solid rgba(0, 212, 255, 0.25);
+  display:flex;
+  flex-direction:column;
+  padding:18px;
+  gap:16px;
+  overflow-y:auto;
+  touch-action:pan-y;
+}
+.studio-sidebar.collapsed{transform:translateX(100%);width:0;padding:0;border-left:none;overflow:hidden}
+
+.sidebar-collapse-handle{
+  position:absolute;
+  top:50%;
+  left:-28px;
+  transform:translateY(-50%);
+  width:28px;
+  height:60px;
+  background:#0c111c;
+  border:1.5px solid rgba(0, 212, 255, 0.4);
+  border-right:none;
+  border-radius:12px 0 0 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:#00d4ff;
+  font-size:14px;
+  font-weight:800;
+  z-index:9000;
+  touch-action:manipulation;
+}
+.sidebar-collapse-handle:hover{background:rgba(0, 212, 255, 0.2);color:#b8ff57}
+
+.panel-header-title{
+  font-family:monospace;
+  font-size:10.5px;
+  font-weight:700;
+  letter-spacing:0.2em;
+  color:#00d4ff;
+  text-transform:uppercase;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  padding-bottom:5px;
+}
+
+.control-field{display:flex;flex-direction:column;gap:6px}
+.control-label{font-family:monospace;font-size:10.5px;color:rgba(255,255,255,0.65);display:flex;justify-content:space-between}
+.control-val{color:#b8ff57;font-weight:700}
+
+.range-slider{
+  -webkit-appearance:none;
+  width:100%;
+  height:8px;
+  background:rgba(255, 255, 255, 0.12);
+  border-radius:8px;
+  outline:none;
+  cursor:pointer;
+  touch-action:none;
+}
+.range-slider::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  box-shadow:0 0 12px #00d4ff;
+  cursor:pointer;
+}
+
+.sidebar-text-input{
+  width:100%;
+  background:rgba(0,0,0,0.5);
+  border:1px solid rgba(0, 212, 255, 0.4);
+  border-radius:8px;
+  color:#fff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:13px;
+  font-weight:700;
+  padding:8px 12px;
+  outline:none;
+}
+
+.figma-align-grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:6px}
+.btn-align{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.12);
+  color:#fff;
+  padding:8px 6px;
+  border-radius:6px;
+  font-size:10.5px;
+  font-weight:700;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+}
+.btn-align:hover{background:rgba(0, 212, 255, 0.2);border-color:#00d4ff;color:#00d4ff}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     1. TOP STUDIO HEADER
+     ═══════════════════════════════════════════════════════════ -->
+<header class="studio-header">
+  <div class="brand-badge-box">
+    <div class="brand-title">MBM · <span>3D INTRO STUDIO</span></div>
+  </div>
+
+  <!-- DEVICE FRAME SWITCHER & PROFILE BADGE -->
+  <div class="device-btn-group">
+    <button class="btn-device active" id="btn-dev-mobile" onclick="switchStudioDevice('mobile')">📱 Mobile (393px)</button>
+    <button class="btn-device" id="btn-dev-tablet" onclick="switchStudioDevice('tablet')">📟 Tablet (820px)</button>
+    <button class="btn-device" id="btn-dev-desktop" onclick="switchStudioDevice('desktop')">🖥️ Desktop (1280px)</button>
+  </div>
+  <div id="active-profile-indicator" style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:800;background:rgba(0,212,255,0.15);border:1.5px solid #00d4ff;color:#00d4ff;padding:4px 12px;border-radius:100px;display:flex;align-items:center;gap:6px;">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#00d4ff;box-shadow:0 0 8px #00d4ff;"></span>
+    <span>EDITING: 📱 MOBILE</span>
+  </div>
+
+  <!-- HEADER ACTIONS -->
+  <div class="header-action-group">
+    <button class="btn-replay-splash" onclick="triggerSeamlessIntroReplay()">
+      <span>↻ REPLAY 3D INTRO</span>
+    </button>
+    <button class="btn-fullscreen-zen" id="btn-fullscreen-toggle" onclick="toggleYouTubeFullscreen()">
+      <span id="txt-fullscreen-btn">⛶ FULLSCREEN (F)</span>
+    </button>
+    <button class="btn-png-download" onclick="exportArtboardPNG()">
+      <span>📸 EXPORT HD PNG</span>
+    </button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════
+     2. PRESET QUICK BAR
+     ═══════════════════════════════════════════════════════════ -->
+<div class="preset-bar">
+  <span class="preset-label">⚡ 1-CLICK PRESETS:</span>
+  <button class="btn-preset" onclick="applyPreset('bold_mobile')">📱 Bold Mobile Focus</button>
+  <button class="btn-preset" onclick="applyPreset('ultra_luxury')">✨ Ultra Luxury Wide</button>
+  <button class="btn-preset" onclick="applyPreset('fast_comet')">⚡ Fast Comet Orbits</button>
+  <button class="btn-preset" onclick="applyPreset('gold_vip')">👑 Golden VIP 5-Stars</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     3. DRAGGABLE FLOATING TOOLBAR
+     ═══════════════════════════════════════════════════════════ -->
+<div id="draggable-toolbar">
+  <div class="toolbar-drag-grip" id="toolbar-grip" title="Drag Toolbar on Touchscreen">⠿</div>
+  
+  <div class="core-tools-group">
+    <button class="btn-history" onclick="triggerUndo()" title="Undo (Ctrl+Z)">↶</button>
+    <button class="btn-history" onclick="triggerRedo()" title="Redo (Ctrl+Y)">↷</button>
+
+    <div class="toolbar-separator"></div>
+
+    <button class="tool-item active" id="tool-select" onclick="setActiveWhiteboardTool('select')" title="Touch Select & Move (1)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>
+      <span class="shortcut-num">1</span>
+    </button>
+
+    <button class="btn-lock-toggle" id="btn-lock-active" onclick="toggleLockSelectedElement()" title="Lock Selected Element">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </button>
+
+    <button class="btn-toggle-draw-tray" id="btn-toggle-draw" onclick="toggleDrawingToolsTray()" title="Toggle Extra Drawing Tools">
+      <span>✏️ TOOLS</span>
+      <span id="tray-arrow-icon">❯</span>
+    </button>
+  </div>
+
+  <!-- COLLAPSIBLE DRAWING TRAY -->
+  <div id="drawing-tools-tray" class="collapsed">
+    <div class="toolbar-separator"></div>
+
+    <button class="tool-item" id="tool-rect" onclick="setActiveWhiteboardTool('rect')" title="Rectangle Frame (2)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+      <span class="shortcut-num">2</span>
+    </button>
+    <button class="tool-item" id="tool-circle" onclick="setActiveWhiteboardTool('circle')" title="Circle / Radar (3)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/></svg>
+      <span class="shortcut-num">3</span>
+    </button>
+    <button class="tool-item" id="tool-arrow" onclick="setActiveWhiteboardTool('arrow')" title="Arrow Pointer (4)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      <span class="shortcut-num">4</span>
+    </button>
+    <button class="tool-item" id="tool-line" onclick="setActiveWhiteboardTool('line')" title="Split Line (5)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="4" y1="20" x2="20" y2="4"/></svg>
+      <span class="shortcut-num">5</span>
+    </button>
+    <button class="tool-item" id="tool-pen" onclick="setActiveWhiteboardTool('pen')" title="Freehand Pen (6)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
+      <span class="shortcut-num">6</span>
+    </button>
+    <button class="tool-item" id="tool-eraser" onclick="setActiveWhiteboardTool('eraser')" title="Eraser Tool (8)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 20H7L3 16C2 15 2 13 3 12L13 2L22 11L20 20Z"/></svg>
+      <span class="shortcut-num">8</span>
+    </button>
+
+    <div class="toolbar-separator"></div>
+
+    <div class="floating-palette">
+      <div class="color-dot active" style="background:#00d4ff;color:#00d4ff" onclick="selectPaletteColor('#00d4ff', this)"></div>
+      <div class="color-dot" style="background:#b8ff57;color:#b8ff57" onclick="selectPaletteColor('#b8ff57', this)"></div>
+      <div class="color-dot" style="background:#ff3b30;color:#ff3b30" onclick="selectPaletteColor('#ff3b30', this)"></div>
+      <div class="color-dot" style="background:#ffe066;color:#ffe066" onclick="selectPaletteColor('#ffe066', this)"></div>
+      <div class="color-dot" style="background:#ffffff;color:#ffffff" onclick="selectPaletteColor('#ffffff', this)"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     4. STUDIO MAIN STAGE
+     ═══════════════════════════════════════════════════════════ -->
+<div class="studio-main">
+
+  <div class="stage-viewport" id="stage-viewport">
+    
+    <!-- HARDWARE ARTBOARD SIMULATOR -->
+    <div id="artboard-canvas-wrapper" class="mobile">
+      <div class="sim-dynamic-island"></div>
+
+      <!-- CANVA / FIGMA SMART MAGNETIC ALIGNMENT GUIDES LAYER -->
+      <svg id="smart-guide-layer" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:850;"></svg>
+
+      <!-- DRAWING CANVAS OVERLAY -->
+      <canvas id="drawing-surface"></canvas>
+
+      <!-- LIVE THREE.JS 3D CANVAS (AUTHENTIC 3D STOREFRONT PIN) -->
+      <canvas id="intro-3d-canvas"></canvas>
+      <div class="cinema-vignette"></div>
+
+      <!-- ─── 1. 3D STOREFRONT PIN ANCHOR BOX ─── -->
+      <div class="studio-element" id="elem-3d-pin" data-name="3D Storefront Pin" style="top:70px;left:56px;width:280px;height:260px;">
+        <span class="element-tag">📍 3D STOREFRONT PIN</span>
+        <div class="canva-move-handle" title="Touch & Drag to Move Smoothly">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>
+          </svg>
+          <span>✥ MOVE</span>
+        </div>
+        <div class="resize-handle handle-nw" data-handle="nw"></div>
+        <div class="resize-handle handle-ne" data-handle="ne"></div>
+        <div class="resize-handle handle-se" data-handle="se"></div>
+        <div class="resize-handle handle-sw" data-handle="sw"></div>
+        <div class="resize-handle handle-e" data-handle="e"></div>
+      </div>
+
+      <!-- ─── 2. BRAND TITLE ─── -->
+      <div class="studio-element" id="elem-intro-title" data-name="Brand Title" style="top:360px;left:20px;width:353px;text-align:center;">
+        <span class="element-tag">🔤 BRAND TITLE</span>
+        <div class="canva-move-handle" title="Touch & Drag to Move Smoothly">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>
+          </svg>
+          <span>✥ MOVE</span>
+        </div>
+        <h1 class="editable-text-field" id="title-text" contenteditable="true" style="font-size:38px;font-weight:800;letter-spacing:0.10em;line-height:1;text-transform:uppercase;color:#ffffff;text-shadow:0 0 40px rgba(0,212,255,0.6), 0 2px 20px rgba(0,0,0,0.9);">
+          MARK BISHOP <span style="background:linear-gradient(135deg, #00d4ff 0%, #b8ff57 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">MEDIA</span>
+        </h1>
+        <div class="resize-handle handle-nw" data-handle="nw"></div>
+        <div class="resize-handle handle-ne" data-handle="ne"></div>
+        <div class="resize-handle handle-se" data-handle="se"></div>
+        <div class="resize-handle handle-sw" data-handle="sw"></div>
+        <div class="resize-handle handle-e" data-handle="e"></div>
+      </div>
+
+      <!-- ─── 3. SUBLINE BADGE ─── -->
+      <div class="studio-element" id="elem-intro-subline" data-name="Subline Pill" style="top:430px;left:46px;width:300px;text-align:center;">
+        <span class="element-tag">🏷️ SUBLINE PILL</span>
+        <div class="canva-move-handle" title="Touch & Drag to Move Smoothly">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>
+          </svg>
+          <span>✥ MOVE</span>
+        </div>
+        <div class="editable-text-field" id="subline-text" contenteditable="true" style="font-family:monospace;font-size:11.5px;font-weight:700;letter-spacing:0.32em;color:#00d4ff;text-transform:uppercase;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.35);padding:6px 18px;border-radius:100px;box-shadow:0 0 25px rgba(0,212,255,0.25);display:inline-block;">
+          LOCAL VISIBILITY DIVISION
+        </div>
+        <div class="resize-handle handle-nw" data-handle="nw"></div>
+        <div class="resize-handle handle-ne" data-handle="ne"></div>
+        <div class="resize-handle handle-se" data-handle="se"></div>
+        <div class="resize-handle handle-sw" data-handle="sw"></div>
+        <div class="resize-handle handle-e" data-handle="e"></div>
+      </div>
+
+      <!-- ─── 4. PROGRESS LINE ─── -->
+      <div class="studio-element" id="elem-intro-progress" data-name="Progress Line" style="top:490px;left:116px;width:160px;padding:4px;">
+        <span class="element-tag">⚡ PROGRESS LINE</span>
+        <div class="canva-move-handle" title="Touch & Drag to Move Smoothly">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>
+          </svg>
+          <span>✥ MOVE</span>
+        </div>
+        <div style="width:100%;height:3px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;">
+          <div id="intro-prog-bar" style="width:100%;height:100%;background:linear-gradient(90deg, #00d4ff, #b8ff57);box-shadow:0 0 12px #00d4ff;"></div>
+        </div>
+        <div class="resize-handle handle-nw" data-handle="nw"></div>
+        <div class="resize-handle handle-ne" data-handle="ne"></div>
+        <div class="resize-handle handle-se" data-handle="se"></div>
+        <div class="resize-handle handle-sw" data-handle="sw"></div>
+        <div class="resize-handle handle-e" data-handle="e"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       5. COLLAPSIBLE RIGHT PROPERTIES SIDEBAR
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="sidebar-wrapper">
+    <div class="sidebar-collapse-handle" onclick="toggleSidebar()" title="Toggle Sidebar">
+      <span id="handle-arrow">❯</span>
+    </div>
+
+    <aside class="studio-sidebar" id="studio-sidebar-panel">
+      
+      <!-- PROFILE MANAGER -->
+      <div class="panel-header-title">💾 PROFILE STATE MANAGER</div>
+      <div style="background:rgba(0,0,0,0.4);border:1px solid rgba(0,212,255,0.25);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:8px;">
+        <div style="font-size:11px;color:rgba(255,255,255,0.7);display:flex;justify-content:space-between;align-items:center;">
+          <span>ACTIVE PROFILE:</span>
+          <span id="sidebar-active-device-name" style="color:#00d4ff;font-weight:800;">📱 MOBILE</span>
+        </div>
+        <button class="btn-preset" id="btn-manual-save-profile" style="width:100%;padding:8px;justify-content:center;background:rgba(0,212,255,0.2);border-color:#00d4ff;color:#00d4ff;font-weight:800;" onclick="manualSaveCurrentProfile()">
+          <span>💾 SAVE CURRENT PROFILE</span>
+        </button>
+        <button class="btn-preset" style="width:100%;padding:6px;justify-content:center;font-size:10px;color:rgba(255,255,255,0.6);" onclick="resetCurrentProfileToDefaults()">
+          <span>🔄 Reset Current Profile</span>
+        </button>
+      </div>
+
+      <div class="panel-header-title">SELECTED COMPONENT</div>
+      
+      <div class="control-field">
+        <div class="control-label"><span>ELEMENT:</span> <span class="control-val" id="disp-elem-name">Tap Any Item</span></div>
+        <div class="control-label"><span>TOP:</span> <span class="control-val" id="disp-pos-top">--</span></div>
+        <div class="control-label"><span>LEFT:</span> <span class="control-val" id="disp-pos-left">--</span></div>
+      </div>
+
+      <button class="btn-preset" id="sidebar-lock-btn" style="width:100%;padding:8px;justify-content:center" onclick="toggleLockSelectedElement()">
+        <span>🔒 Lock This Element</span>
+      </button>
+
+      <!-- TOUCH TEXT EDITOR INPUT -->
+      <div class="panel-header-title">✏️ LIVE TEXT TYPER</div>
+      <div class="control-field">
+        <div class="control-label"><span>EDIT SELECTED TEXT:</span></div>
+        <input type="text" class="sidebar-text-input" id="sidebar-edit-text" placeholder="Select text element to edit" oninput="syncSidebarTextToElement(this.value)">
+      </div>
+
+      <div class="panel-header-title">FIGMA AUTO-ALIGN</div>
+      <div class="figma-align-grid">
+        <button class="btn-align" onclick="alignSelectedElement('left')">⬅️ Left</button>
+        <button class="btn-align" onclick="alignSelectedElement('center')">🎯 Center</button>
+        <button class="btn-align" onclick="alignSelectedElement('right')">➡️ Right</button>
+      </div>
+
+      <div class="panel-header-title">3D PIN & STAR SLIDERS</div>
+
+      <div class="control-field">
+        <div class="control-label"><span>3D PIN SCALE:</span> <span class="control-val" id="disp-pin-scale">1.10x</span></div>
+        <input type="range" min="0.4" max="2.0" step="0.05" value="1.10" class="range-slider" id="slider-pin-scale" oninput="change3DPinScale(this.value)">
+      </div>
+
+      <div class="control-field">
+        <div class="control-label"><span>PIN Y-HEIGHT:</span> <span class="control-val" id="disp-pin-y">3.2</span></div>
+        <input type="range" min="1.0" max="5.5" step="0.1" value="3.2" class="range-slider" id="slider-pin-y" oninput="change3DPinY(this.value)">
+      </div>
+
+      <div class="control-field">
+        <div class="control-label"><span>5-STAR ORBIT RADIUS:</span> <span class="control-val" id="disp-orbit-r">5.4</span></div>
+        <input type="range" min="3.0" max="8.0" step="0.2" value="5.4" class="range-slider" id="slider-orbit-r" oninput="change3DOrbitRadius(this.value)">
+      </div>
+
+      <div class="panel-header-title">TYPOGRAPHY SIZE</div>
+
+      <div class="control-field">
+        <div class="control-label"><span>FONT SIZE:</span> <span class="control-val" id="disp-font-size">38px</span></div>
+        <input type="range" min="16" max="72" value="38" class="range-slider" id="slider-font-size" oninput="changeSelectedFontSize(this.value)">
+      </div>
+
+      <div class="panel-header-title">WHITEBOARD ACTIONS</div>
+      
+      <button class="btn-preset" style="width:100%;padding:10px;justify-content:center;color:#ff3b30;border-color:rgba(255,59,48,0.4)" onclick="clearAllDrawingCanvas()">
+        <span>🧹 ERASE ALL DRAWINGS</span>
+      </button>
+
+      <div class="panel-header-title">SHORTCUT TIPS</div>
+      <p style="font-size:11.5px;line-height:1.6;color:rgba(255,255,255,0.6)">
+        <b>F:</b> Fullscreen View<br>
+        <b>Smart Guides:</b> নাড়াচাড়া করার সময় স্বয়ংক্রিয় গাইডলাইন আসবে<br>
+        <b>[ ✥ MOVE ]:</b> হ্যান্ডেল ধরে ড্র্যাগ করুন<br>
+        <b>Ctrl+Z / Ctrl+Y:</b> 100% Functional Undo & Redo
+      </p>
+    </aside>
+  </div>
+
+</div>
+
+<!-- FLOATING YOUTUBE CONTROL PILL AT BOTTOM RIGHT -->
+<div class="yt-floating-bottom-bar" id="yt-bottom-bar">
+  <button class="yt-player-btn" onclick="toggleYouTubeFullscreen()" title="YouTube Fullscreen (Press F)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+  </button>
+  <button class="btn-preset" style="padding:3px 8px;font-size:10px;" onclick="triggerSeamlessIntroReplay()">↻ Replay</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     THREE.JS LIVE 3D ENGINE & STOREFRONT PIN
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+/* ─── 1. THREE.JS MASTER 3D INTRO UNIVERSE ─── */
+const artboardBox = document.getElementById('artboard-canvas-wrapper');
+const introCanvas = document.getElementById('intro-3d-canvas');
+const introRenderer = new THREE.WebGLRenderer({ canvas: introCanvas, antialias: true, alpha: true });
+introRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const introScene = new THREE.Scene();
+const introCamera = new THREE.PerspectiveCamera(45, artboardBox.clientWidth / artboardBox.clientHeight, 0.1, 1000);
+introCamera.position.set(0, 1.2, 22);
+
+function resizeIntro3D() {
+  const w = artboardBox.clientWidth || (currentActiveDevice === 'mobile' ? 393 : (currentActiveDevice === 'tablet' ? 820 : 1280));
+  const h = artboardBox.clientHeight || (currentActiveDevice === 'mobile' ? 840 : (currentActiveDevice === 'tablet' ? 880 : 740));
+
+  introCanvas.style.width = '100%';
+  introCanvas.style.height = '100%';
+  introRenderer.setSize(w, h, true);
+  introCamera.aspect = w / h;
+  introCamera.updateProjectionMatrix();
+  introRenderer.render(introScene, introCamera);
+}
+
+// Lighting Setup for 3D Storefront
+const introAmb = new THREE.AmbientLight(0x0a182e, 3.2); introScene.add(introAmb);
+const introDir = new THREE.DirectionalLight(0xffffff, 3.5); introDir.position.set(8, 14, 10); introScene.add(introDir);
+const introPoint = new THREE.PointLight(0x00d4ff, 4.2, 35); introPoint.position.set(-6, 6, 8); introScene.add(introPoint);
+
+// 850 Glowing Stardust Particles
+const introDustCount = 850;
+const introDustGeo = new THREE.BufferGeometry();
+const introDustPos = new Float32Array(introDustCount * 3);
+const introDustCols = new Float32Array(introDustCount * 3);
+const cCyan = new THREE.Color(0x00d4ff);
+const cLime = new THREE.Color(0xb8ff57);
+const cWhite = new THREE.Color(0xffffff);
+
+for (let i = 0; i < introDustCount * 3; i += 3) {
+  introDustPos[i] = (Math.random() - 0.5) * 65;
+  introDustPos[i + 1] = (Math.random() - 0.5) * 45;
+  introDustPos[i + 2] = (Math.random() - 0.5) * 40;
+  const rand = Math.random();
+  const c = rand > 0.55 ? cCyan : (rand > 0.25 ? cLime : cWhite);
+  introDustCols[i] = c.r; introDustCols[i + 1] = c.g; introDustCols[i + 2] = c.b;
+}
+introDustGeo.setAttribute('position', new THREE.BufferAttribute(introDustPos, 3));
+introDustGeo.setAttribute('color', new THREE.BufferAttribute(introDustCols, 3));
+const introDustMat = new THREE.PointsMaterial({ size: 0.18, vertexColors: true, transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending });
+const introDust = new THREE.Points(introDustGeo, introDustMat);
+introScene.add(introDust);
+
+// 3D Glass Pin Head Mesh (Cyan Wireframe Sphere)
+const introPinGroup = new THREE.Group();
+introPinGroup.position.set(0, 3.2, 0);
+introScene.add(introPinGroup);
+
+const headGeo = new THREE.SphereGeometry(2.4, 32, 32);
+const headMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.45 });
+const headMesh = new THREE.Mesh(headGeo, headMat);
+headMesh.position.y = 1.2;
+introPinGroup.add(headMesh);
+
+// ─── AUTHENTIC 3D SMALL BUSINESS STOREFRONT BUILDING ───
+const shopGroup = new THREE.Group();
+shopGroup.position.y = 1.2;
+introPinGroup.add(shopGroup);
+
+const shopMats = {
+  wall: new THREE.MeshStandardMaterial({ color: 0x0055aa, roughness: 0.2, metalness: 0.3, emissive: 0x001133 }),
+  roofCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, roughness: 0.2, metalness: 0.1, emissive: 0x00d4ff, emissiveIntensity: 0.35 }),
+  roofWhite: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.2, metalness: 0.1, emissive: 0xffffff, emissiveIntensity: 0.2 }),
+  glassCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, emissive: 0x00d4ff, emissiveIntensity: 0.85, roughness: 0.1, metalness: 0.9, transparent: true, opacity: 0.95 }),
+  doorWhite: new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x00d4ff, emissiveIntensity: 0.75, roughness: 0.2 }),
+  foundation: new THREE.MeshStandardMaterial({ color: 0x04101e, roughness: 0.4, metalness: 0.6 })
+};
+
+const shopBase = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.2, 32), shopMats.foundation);
+shopBase.position.y = -0.6;
+shopGroup.add(shopBase);
+
+const shopWalls = new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.45, 1.55), shopMats.wall);
+shopWalls.position.y = 0.2;
+shopGroup.add(shopWalls);
+
+// 3D Striped Awning
+const awningGroup = new THREE.Group();
+awningGroup.position.set(0, 0.7, 0.88);
+awningGroup.rotation.x = Math.PI / 4.5;
+for (let i = -3; i <= 3; i++) {
+  const stripe = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.06, 0.7), i % 2 === 0 ? shopMats.roofCyan : shopMats.roofWhite);
+  stripe.position.x = i * 0.27;
+  awningGroup.add(stripe);
+}
+shopGroup.add(awningGroup);
+
+// Illuminated Glass Window
+const winGlass = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.6, 0.08), shopMats.glassCyan);
+winGlass.position.set(-0.42, 0.15, 0.79);
+shopGroup.add(winGlass);
+
+// Illuminated Door
+const shopDoor = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.9, 0.08), shopMats.doorWhite);
+shopDoor.position.set(0.45, 0.0, 0.79);
+shopGroup.add(shopDoor);
+
+// Pin Tip
+const tipGeo = new THREE.ConeGeometry(2.38, 3.8, 32);
+const tipMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.45 });
+const tipMesh = new THREE.Mesh(tipGeo, tipMat);
+tipMesh.rotation.x = Math.PI;
+tipMesh.position.y = -0.7;
+introPinGroup.add(tipMesh);
+
+// 3D Orbiting Halos
+const ringGeo = new THREE.TorusGeometry(5.4, 0.035, 16, 120);
+const ringMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.35 });
+const halo1 = new THREE.Mesh(ringGeo, ringMat);
+const halo2 = new THREE.Mesh(ringGeo, ringMat);
+halo2.rotation.x = Math.PI / 2.8;
+introPinGroup.add(halo1);
+introPinGroup.add(halo2);
+
+// 5 Orbiting 3D Golden Stars with Comet Trails
+const starGroup = new THREE.Group();
+introPinGroup.add(starGroup);
+
+const starShape = new THREE.Shape();
+const pts = 5;
+const rOut = 0.65;
+const rIn = 0.3;
+for (let i = 0; i < pts * 2; i++) {
+  const r = i % 2 === 0 ? rOut : rIn;
+  const angle = (i * Math.PI) / pts - Math.PI / 2;
+  const x = Math.cos(angle) * r;
+  const y = Math.sin(angle) * r;
+  if (i === 0) starShape.moveTo(x, y);
+  else starShape.lineTo(x, y);
+}
+starShape.closePath();
+
+const starGeo = new THREE.ExtrudeGeometry(starShape, { depth: 0.2, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.06, bevelThickness: 0.06 });
+const starMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57 });
+
+const starMeshes = [];
+const starTrails = [];
+const MAX_TRAIL_LENGTH = 32;
+
+for (let i = 0; i < 5; i++) {
+  const mesh = new THREE.Mesh(starGeo, starMat);
+  starGroup.add(mesh);
+  starMeshes.push(mesh);
+
+  const trailGeo = new THREE.BufferGeometry();
+  const trailPositions = new Float32Array(MAX_TRAIL_LENGTH * 3);
+  trailGeo.setAttribute('position', new THREE.BufferAttribute(trailPositions, 3));
+  
+  const trailMat = new THREE.PointsMaterial({
+    color: i % 2 === 0 ? 0xb8ff57 : 0x00d4ff,
+    size: 0.18,
+    transparent: true,
+    opacity: 0.65,
+    blending: THREE.AdditiveBlending
+  });
+  const trailPoints = new THREE.Points(trailGeo, trailMat);
+  starGroup.add(trailPoints);
+  starTrails.push({ points: trailPoints, history: [] });
+}
+
+let curOrbitRadius = 5.4;
+const introClock = new THREE.Clock();
+
+function animateIntro3D() {
+  requestAnimationFrame(animateIntro3D);
+  const time = introClock.getElapsedTime();
+
+  introPinGroup.rotation.y = time * 0.25;
+  introDust.rotation.y = time * 0.025;
+  introDust.rotation.x = Math.sin(time * 0.08) * 0.035;
+
+  starMeshes.forEach((star, idx) => {
+    const angle = time * 1.2 + (idx * (Math.PI * 2 / 5));
+    const sx = Math.cos(angle) * curOrbitRadius;
+    const sz = Math.sin(angle) * curOrbitRadius;
+    const sy = Math.sin(time * 1.8 + idx) * 0.6;
+
+    star.position.set(sx, sy, sz);
+    star.rotation.y = time * 1.4;
+    star.rotation.z = Math.sin(time + idx) * 0.4;
+
+    const trail = starTrails[idx];
+    trail.history.unshift({ x: sx, y: sy, z: sz });
+    if (trail.history.length > 16) trail.history.pop();
+
+    const posArray = trail.points.geometry.attributes.position.array;
+    for (let j = 0; j < MAX_TRAIL_LENGTH; j++) {
+      if (j < trail.history.length) {
+        posArray[j * 3] = trail.history[j].x;
+        posArray[j * 3 + 1] = trail.history[j].y;
+        posArray[j * 3 + 2] = trail.history[j].z;
+      } else {
+        posArray[j * 3] = sx;
+        posArray[j * 3 + 1] = sy;
+        posArray[j * 3 + 2] = sz;
+      }
+    }
+    trail.points.geometry.attributes.position.needsUpdate = true;
+  });
+
+  halo1.rotation.z = time * 0.15;
+  halo2.rotation.y = -time * 0.2;
+
+  introRenderer.render(introScene, introCamera);
+}
+
+/* ─── 2. GSAP SEAMLESS INTRO REPLAY ─── */
+let studioTL;
+
+function triggerSeamlessIntroReplay() {
+  if (studioTL) studioTL.kill();
+
+  const curScale = parseFloat(document.getElementById('slider-pin-scale').value) || 1.10;
+
+  gsap.set(introPinGroup.scale, { x: 0.001, y: 0.001, z: 0.001 });
+  starMeshes.forEach(s => gsap.set(s.scale, { x: 0.001, y: 0.001, z: 0.001 }));
+  gsap.set('#elem-intro-title', { opacity: 0, y: 16, filter: 'blur(6px)' });
+  gsap.set('#elem-intro-subline', { opacity: 0, y: 10 });
+  gsap.set('#elem-intro-progress', { opacity: 0 });
+  gsap.set('#intro-prog-bar', { width: '0%' });
+
+  studioTL = gsap.timeline();
+
+  studioTL.to(introPinGroup.scale, { x: curScale, y: curScale, z: curScale, duration: 1.1, ease: "elastic.out(1.2, 0.6)" }, 0.1);
+  starMeshes.forEach((s, idx) => {
+    studioTL.to(s.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.6, ease: "back.out(2)" }, 0.3 + idx * 0.1);
+  });
+
+  studioTL.to('#elem-intro-title', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: "power3.out" }, 0.5);
+  studioTL.to('#elem-intro-subline', { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.7);
+  studioTL.to('#elem-intro-progress', { opacity: 1, duration: 0.3 }, 0.6);
+  studioTL.to('#intro-prog-bar', { width: '100%', duration: 1.5, ease: "power2.inOut" }, 0.7);
+
+  studioTL.to(shopGroup.scale, { x: 1.15, y: 1.15, z: 1.15, duration: 0.2, yoyo: true, repeat: 1, ease: "power2.out" }, 1.8);
+  studioTL.to(introPinGroup.scale, { x: curScale * 1.08, y: curScale * 1.08, z: curScale * 1.08, duration: 0.2, yoyo: true, repeat: 1 }, 2.1);
+}
+
+/* ─── 3. CANVA / FIGMA SMART MAGNETIC ALIGNMENT GUIDES ENGINE ─── */
+const guideLayer = document.getElementById('smart-guide-layer');
+const SNAP_THRESHOLD = 8;
+
+function clearSmartGuides() {
+  if (guideLayer) guideLayer.innerHTML = '';
+}
+
+function renderSmartGuideLines(guides) {
+  if (!guideLayer) return;
+  let svgHTML = '';
+
+  guides.forEach(g => {
+    if (g.type === 'v') {
+      svgHTML += '<line x1="' + g.pos + '" y1="0" x2="' + g.pos + '" y2="100%" stroke="' + (g.color || '#b8ff57') + '" stroke-width="1.5" stroke-dasharray="4,4" style="filter:drop-shadow(0 0 6px ' + (g.color || '#b8ff57') + ');" />' +
+        '<g transform="translate(' + Math.max(48, Math.min(artboardBox.clientWidth - 48, g.pos)) + ', 24)">' +
+        '<rect x="-44" y="-11" width="88" height="20" rx="6" fill="#0b101d" stroke="' + (g.color || '#b8ff57') + '" stroke-width="1.2" style="filter:drop-shadow(0 2px 8px rgba(0,0,0,0.8));"/>' +
+        '<text x="0" y="3" fill="' + (g.color || '#b8ff57') + '" font-family="monospace" font-size="9.5" font-weight="800" text-anchor="middle">' + g.label + '</text>' +
+        '</g>';
+    } else if (g.type === 'h') {
+      svgHTML += '<line x1="0" y1="' + g.pos + '" x2="100%" y2="' + g.pos + '" stroke="' + (g.color || '#00d4ff') + '" stroke-width="1.5" stroke-dasharray="4,4" style="filter:drop-shadow(0 0 6px ' + (g.color || '#00d4ff') + ');" />' +
+        '<g transform="translate(58, ' + g.pos + ')">' +
+        '<rect x="-46" y="-11" width="92" height="20" rx="6" fill="#0b101d" stroke="' + (g.color || '#00d4ff') + '" stroke-width="1.2" style="filter:drop-shadow(0 2px 8px rgba(0,0,0,0.8));"/>' +
+        '<text x="0" y="3" fill="' + (g.color || '#00d4ff') + '" font-family="monospace" font-size="9.5" font-weight="800" text-anchor="middle">' + g.label + '</text>' +
+        '</g>';
+    }
+  });
+
+  guideLayer.innerHTML = svgHTML;
+}
+
+function calculateSmartSnapping(targetEl, rawLeft, rawTop) {
+  const artW = artboardBox.clientWidth;
+  const artH = artboardBox.clientHeight;
+  const elemW = targetEl.offsetWidth;
+  const elemH = targetEl.offsetHeight;
+
+  let snappedLeft = rawLeft;
+  let snappedTop = rawTop;
+  const activeGuides = [];
+
+  const elemCenterX = rawLeft + (elemW / 2);
+  const elemCenterY = rawTop + (elemH / 2);
+
+  const screenCenterX = artW / 2;
+  if (Math.abs(elemCenterX - screenCenterX) <= SNAP_THRESHOLD) {
+    snappedLeft = screenCenterX - (elemW / 2);
+    activeGuides.push({ type: 'v', pos: screenCenterX, label: '🎯 CENTER 50%', color: '#b8ff57' });
+  }
+
+  const screenCenterY = artH / 2;
+  if (Math.abs(elemCenterY - screenCenterY) <= SNAP_THRESHOLD) {
+    snappedTop = screenCenterY - (elemH / 2);
+    activeGuides.push({ type: 'h', pos: screenCenterY, label: '🎯 MIDDLE 50%', color: '#00d4ff' });
+  }
+
+  if (Math.abs(rawLeft - 24) <= SNAP_THRESHOLD) {
+    snappedLeft = 24;
+    activeGuides.push({ type: 'v', pos: 24, label: '⬅️ MARGIN 24px', color: '#ffd700' });
+  }
+
+  document.querySelectorAll('.studio-element').forEach(sib => {
+    if (sib === targetEl) return;
+
+    const sibL = sib.offsetLeft;
+    const sibT = sib.offsetTop;
+    const sibW = sib.offsetWidth;
+    const sibH = sib.offsetHeight;
+    const sibCenterX = sibL + (sibW / 2);
+    const sibCenterY = sibT + (sibH / 2);
+    const sibName = sib.getAttribute('data-name') || 'ELEMENT';
+
+    if (Math.abs(elemCenterX - sibCenterX) <= SNAP_THRESHOLD && !activeGuides.some(g => g.type === 'v')) {
+      snappedLeft = sibCenterX - (elemW / 2);
+      activeGuides.push({ type: 'v', pos: sibCenterX, label: '↕ ' + sibName, color: '#b8ff57' });
+    }
+
+    if (Math.abs(elemCenterY - sibCenterY) <= SNAP_THRESHOLD && !activeGuides.some(g => g.type === 'h')) {
+      snappedTop = sibCenterY - (elemH / 2);
+      activeGuides.push({ type: 'h', pos: sibCenterY, label: '↔ ' + sibName, color: '#00d4ff' });
+    }
+  });
+
+  renderSmartGuideLines(activeGuides);
+  return { left: snappedLeft, top: snappedTop };
+}
+
+/* ─── 4. CANVA-GRADE ZERO-OFFSET DRAG & DESELECT ENGINE ─── */
+let activeSelectedElem = null;
+let isDraggingElement = false;
+let isResizingElement = false;
+let resizeHandleDir = null;
+let grabOffsetX = 0, grabOffsetY = 0;
+let resStartX = 0, resStartY = 0, resStartW = 0, resStartH = 0;
+
+function getEventPoint(e) {
+  if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  return { x: e.clientX, y: e.clientY };
+}
+
+function attachMoveHandleListeners() {
+  document.querySelectorAll('.canva-move-handle').forEach(handle => {
+    const startMove = (e) => {
+      const el = handle.closest('.studio-element');
+      if (!el || el.classList.contains('element-locked')) return;
+
+      selectElement(el);
+      isDraggingElement = true;
+      recordHistoryState();
+
+      const pt = getEventPoint(e);
+      const elRect = el.getBoundingClientRect();
+      const artRect = artboardBox.getBoundingClientRect();
+
+      grabOffsetX = pt.x - elRect.left;
+      grabOffsetY = pt.y - elRect.top;
+
+      el.style.transform = 'none';
+      el.style.left = (elRect.left - artRect.left) + 'px';
+      el.style.top = (elRect.top - artRect.top) + 'px';
+
+      try { handle.setPointerCapture(e.pointerId); } catch(err){}
+      e.stopPropagation();
+      e.preventDefault();
+    };
+
+    handle.addEventListener('pointerdown', startMove);
+    handle.addEventListener('touchstart', startMove, { passive: false });
+  });
+}
+
+function handleElementTouchStart(e, el) {
+  if (e.target.closest('.canva-move-handle')) return;
+
+  if (e.target.classList.contains('resize-handle')) {
+    isResizingElement = true;
+    resizeHandleDir = e.target.getAttribute('data-handle');
+    const pt = getEventPoint(e);
+    resStartX = pt.x;
+    resStartY = pt.y;
+    resStartW = el.offsetWidth;
+    resStartH = el.offsetHeight;
+    selectElement(el);
+    recordHistoryState();
+    e.stopPropagation();
+    return;
+  }
+
+  selectElement(el);
+
+  if (e.target.isContentEditable) {
+    e.stopPropagation();
+    return;
+  }
+
+  if (!el.classList.contains('element-locked')) {
+    const pt = getEventPoint(e);
+    const elRect = el.getBoundingClientRect();
+    const artRect = artboardBox.getBoundingClientRect();
+
+    grabOffsetX = pt.x - elRect.left;
+    grabOffsetY = pt.y - elRect.top;
+
+    el.style.transform = 'none';
+    el.style.left = (elRect.left - artRect.left) + 'px';
+    el.style.top = (elRect.top - artRect.top) + 'px';
+
+    isDraggingElement = true;
+    recordHistoryState();
+  }
+
+  e.stopPropagation();
+}
+
+function handleElementTouchMove(e) {
+  const pt = getEventPoint(e);
+  if (!pt.x || !pt.y) return;
+
+  if (isDraggingElement && activeSelectedElem && !activeSelectedElem.classList.contains('element-locked')) {
+    const artRect = artboardBox.getBoundingClientRect();
+
+    const rawLeft = (pt.x - artRect.left) - grabOffsetX;
+    const rawTop = (pt.y - artRect.top) - grabOffsetY;
+
+    const snapped = calculateSmartSnapping(activeSelectedElem, rawLeft, rawTop);
+
+    activeSelectedElem.style.left = Math.round(snapped.left) + 'px';
+    activeSelectedElem.style.top = Math.round(snapped.top) + 'px';
+    activeSelectedElem.style.transform = 'none';
+
+    document.getElementById('disp-pos-top').innerText = Math.round(snapped.top) + 'px';
+    document.getElementById('disp-pos-left').innerText = Math.round(snapped.left) + 'px';
+
+    if (activeSelectedElem.id === 'elem-3d-pin') {
+      const artH = artboardBox.clientHeight;
+      const normY = 1.0 + (1.0 - (snapped.top / (artH * 0.6))) * 3.5;
+      introPinGroup.position.y = Math.max(0.5, Math.min(5.5, normY));
+      document.getElementById('slider-pin-y').value = introPinGroup.position.y.toFixed(1);
+      document.getElementById('disp-pin-y').innerText = introPinGroup.position.y.toFixed(1);
+    }
+  } else if (isResizingElement && activeSelectedElem) {
+    const dx = pt.x - resStartX;
+    const dy = pt.y - resStartY;
+
+    if (resizeHandleDir === 'se') {
+      activeSelectedElem.style.width = Math.max(80, resStartW + dx) + 'px';
+      activeSelectedElem.style.height = Math.max(30, resStartH + dy) + 'px';
+    } else if (resizeHandleDir === 'e') {
+      activeSelectedElem.style.width = Math.max(80, resStartW + dx) + 'px';
+    }
+
+    if (activeSelectedElem.id === 'elem-3d-pin') {
+      const newScale = (Math.max(80, resStartW + dx) / 280) * 1.10;
+      introPinGroup.scale.set(newScale, newScale, newScale);
+      document.getElementById('slider-pin-scale').value = newScale.toFixed(2);
+      document.getElementById('disp-pin-scale').innerText = newScale.toFixed(2) + 'x';
+    }
+  }
+}
+
+function handleElementTouchEnd() {
+  isDraggingElement = false;
+  isResizingElement = false;
+  resizeHandleDir = null;
+  clearSmartGuides();
+  saveCurrentDeviceProfile();
+}
+
+function selectElement(el) {
+  document.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
+  activeSelectedElem = el;
+  el.classList.add('selected-box');
+
+  document.getElementById('disp-elem-name').innerText = el.getAttribute('data-name');
+  document.getElementById('disp-pos-top').innerText = el.offsetTop + 'px';
+  document.getElementById('disp-pos-left').innerText = el.offsetLeft + 'px';
+
+  const isLocked = el.classList.contains('element-locked');
+  document.getElementById('btn-lock-active').classList.toggle('is-locked', isLocked);
+  document.getElementById('sidebar-lock-btn').innerText = isLocked ? '🔓 Unlock This Element' : '🔒 Lock This Element';
+
+  const editTarget = el.querySelector('.editable-text-field');
+  if (editTarget) {
+    document.getElementById('sidebar-edit-text').value = editTarget.innerText;
+  } else {
+    document.getElementById('sidebar-edit-text').value = '';
+  }
+}
+
+function deselectAllElements() {
+  document.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
+  activeSelectedElem = null;
+  document.getElementById('disp-elem-name').innerText = 'Tap Any Item';
+  document.getElementById('disp-pos-top').innerText = '--';
+  document.getElementById('disp-pos-left').innerText = '--';
+  document.getElementById('sidebar-edit-text').value = '';
+  document.getElementById('btn-lock-active').classList.remove('is-locked');
+  document.getElementById('sidebar-lock-btn').innerText = '🔒 Lock Selected Element';
+  clearSmartGuides();
+}
+
+artboardBox.addEventListener('pointerdown', (e) => {
+  if (!e.target.closest('.studio-element') && !e.target.closest('#draggable-toolbar')) {
+    deselectAllElements();
+  }
+});
+
+document.getElementById('stage-viewport').addEventListener('pointerdown', (e) => {
+  if (!e.target.closest('.studio-element') && !e.target.closest('#draggable-toolbar') && !e.target.closest('.sidebar-wrapper') && !e.target.closest('.studio-header')) {
+    deselectAllElements();
+  }
+});
+
+document.querySelectorAll('.studio-element').forEach(el => {
+  el.addEventListener('pointerdown', (e) => handleElementTouchStart(e, el));
+  el.addEventListener('touchstart', (e) => handleElementTouchStart(e, el), { passive: false });
+});
+
+attachMoveHandleListeners();
+
+window.addEventListener('pointermove', handleElementTouchMove);
+window.addEventListener('touchmove', handleElementTouchMove, { passive: false });
+window.addEventListener('pointerup', handleElementTouchEnd);
+window.addEventListener('touchend', handleElementTouchEnd);
+
+function syncSidebarTextToElement(val) {
+  if (!activeSelectedElem) return;
+  const editTarget = activeSelectedElem.querySelector('.editable-text-field');
+  if (editTarget) {
+    editTarget.innerText = val;
+  }
+}
+
+/* ─── 5. TOUCH-DRAGGABLE TOOLBAR ─── */
+const toolbar = document.getElementById('draggable-toolbar');
+const toolbarGrip = document.getElementById('toolbar-grip');
+let isDraggingToolbar = false;
+let tbStartX = 0, tbStartY = 0, tbStartL = 0, tbStartT = 0;
+
+function startToolbarDrag(e) {
+  isDraggingToolbar = true;
+  const pt = getEventPoint(e);
+  tbStartX = pt.x;
+  tbStartY = pt.y;
+  tbStartL = toolbar.offsetLeft;
+  tbStartT = toolbar.offsetTop;
+  toolbar.style.transform = 'none';
+  e.stopPropagation();
+}
+
+function moveToolbarDrag(e) {
+  if (!isDraggingToolbar) return;
+  const pt = getEventPoint(e);
+  toolbar.style.left = (tbStartL + (pt.x - tbStartX)) + 'px';
+  toolbar.style.top = (tbStartT + (pt.y - tbStartY)) + 'px';
+}
+
+function endToolbarDrag() {
+  isDraggingToolbar = false;
+}
+
+toolbarGrip.addEventListener('pointerdown', startToolbarDrag);
+toolbarGrip.addEventListener('touchstart', startToolbarDrag, { passive: false });
+window.addEventListener('pointermove', moveToolbarDrag);
+window.addEventListener('touchmove', moveToolbarDrag, { passive: false });
+window.addEventListener('pointerup', endToolbarDrag);
+window.addEventListener('touchend', endToolbarDrag);
+
+/* ─── 6. FULLSCREEN MODE ─── */
+function toggleYouTubeFullscreen() {
+  if (!document.fullscreenElement) {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(err => console.log(err));
+    }
+    const txt = document.getElementById('txt-fullscreen-btn');
+    if (txt) txt.innerText = '✕ EXIT FULLSCREEN (F)';
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen().catch(err => console.log(err));
+    }
+    const txt = document.getElementById('txt-fullscreen-btn');
+    if (txt) txt.innerText = '⛶ FULLSCREEN (F)';
+  }
+  setTimeout(resizeIntro3D, 350);
+}
+
+document.addEventListener('fullscreenchange', () => {
+  const isFull = !!document.fullscreenElement;
+  const txt = document.getElementById('txt-fullscreen-btn');
+  if (txt) txt.innerText = isFull ? '✕ EXIT FULLSCREEN (F)' : '⛶ FULLSCREEN (F)';
+  setTimeout(resizeIntro3D, 350);
+});
+
+window.addEventListener('keydown', (e) => {
+  if (e.target.isContentEditable || e.target.tagName === 'INPUT') return;
+  if (e.key.toLowerCase() === 'f') {
+    toggleYouTubeFullscreen();
+  }
+});
+
+/* ─── 7. FULL FUNCTIONAL UNDO / REDO ENGINE ─── */
+let undoHistory = [];
+let redoHistory = [];
+const MAX_HISTORY = 40;
+
+function captureStudioState() {
+  const elemIds = ['elem-3d-pin', 'elem-intro-title', 'elem-intro-subline', 'elem-intro-progress'];
+  const elementsState = {};
+  
+  elemIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const titleEl = el.querySelector('#title-text');
+      const sublineEl = el.querySelector('#subline-text');
+      elementsState[id] = {
+        top: el.style.top,
+        left: el.style.left,
+        width: el.style.width,
+        height: el.style.height,
+        transform: el.style.transform,
+        fontSize: el.style.fontSize,
+        titleHTML: titleEl ? titleEl.innerHTML : null,
+        sublineHTML: sublineEl ? sublineEl.innerHTML : null
+      };
+    }
+  });
+
+  return {
+    elements: elementsState,
+    pinScale: parseFloat(document.getElementById('slider-pin-scale').value) || 1.10,
+    pinY: parseFloat(document.getElementById('slider-pin-y').value) || 3.2,
+    orbitRadius: parseFloat(document.getElementById('slider-orbit-r').value) || 5.4,
+    fontSize: parseInt(document.getElementById('slider-font-size').value) || 38
+  };
+}
+
+function recordHistoryState() {
+  const currentState = captureStudioState();
+  undoHistory.push(currentState);
+  if (undoHistory.length > MAX_HISTORY) undoHistory.shift();
+  redoHistory = [];
+  updateUndoRedoButtonsUI();
+}
+
+function restoreStudioState(state) {
+  if (!state) return;
+
+  for (let id in state.elements) {
+    const el = document.getElementById(id);
+    const data = state.elements[id];
+    if (el && data) {
+      if (data.top) el.style.top = data.top;
+      if (data.left) el.style.left = data.left;
+      if (data.width) el.style.width = data.width;
+      if (data.height) el.style.height = data.height;
+      if (data.transform !== undefined) el.style.transform = data.transform;
+      if (data.fontSize) el.style.fontSize = data.fontSize;
+
+      if (data.titleHTML) {
+        const titleEl = el.querySelector('#title-text');
+        if (titleEl) titleEl.innerHTML = data.titleHTML;
+      }
+      if (data.sublineHTML) {
+        const sublineEl = el.querySelector('#subline-text');
+        if (sublineEl) sublineEl.innerHTML = data.sublineHTML;
+      }
+    }
+  }
+
+  if (state.pinScale !== undefined) {
+    change3DPinScale(state.pinScale);
+    document.getElementById('slider-pin-scale').value = state.pinScale;
+  }
+  if (state.pinY !== undefined) {
+    change3DPinY(state.pinY);
+    document.getElementById('slider-pin-y').value = state.pinY;
+  }
+  if (state.orbitRadius !== undefined) {
+    change3DOrbitRadius(state.orbitRadius);
+    document.getElementById('slider-orbit-r').value = state.orbitRadius;
+  }
+  if (state.fontSize !== undefined) {
+    changeSelectedFontSize(state.fontSize);
+    document.getElementById('slider-font-size').value = state.fontSize;
+  }
+
+  if (activeSelectedElem) selectElement(activeSelectedElem);
+}
+
+function triggerUndo() {
+  if (undoHistory.length === 0) {
+    showToastFeedback('⚠️ Nothing to Undo');
+    return;
+  }
+  const currentState = captureStudioState();
+  redoHistory.push(currentState);
+  const prevState = undoHistory.pop();
+  restoreStudioState(prevState);
+  showToastFeedback('↶ Undone');
+  updateUndoRedoButtonsUI();
+}
+
+function triggerRedo() {
+  if (redoHistory.length === 0) {
+    showToastFeedback('⚠️ Nothing to Redo');
+    return;
+  }
+  const currentState = captureStudioState();
+  undoHistory.push(currentState);
+  const nextState = redoHistory.pop();
+  restoreStudioState(nextState);
+  showToastFeedback('↷ Redone');
+  updateUndoRedoButtonsUI();
+}
+
+function updateUndoRedoButtonsUI() {
+  const undoBtn = document.querySelector('.btn-history[onclick*="Undo"]');
+  const redoBtn = document.querySelector('.btn-history[onclick*="Redo"]');
+  if (undoBtn) undoBtn.style.opacity = undoHistory.length > 0 ? '1' : '0.4';
+  if (redoBtn) redoBtn.style.opacity = redoHistory.length > 0 ? '1' : '0.4';
+}
+
+window.addEventListener('keydown', (e) => {
+  if (e.target.isContentEditable || e.target.tagName === 'INPUT') return;
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+    if (e.shiftKey) triggerRedo();
+    else triggerUndo();
+    e.preventDefault();
+  } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+    triggerRedo();
+    e.preventDefault();
+  }
+});
+
+function showToastFeedback(msg) {
+  let toast = document.getElementById('studio-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'studio-toast';
+    toast.style.cssText = 'position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:rgba(12,17,28,0.95);border:1px solid #00d4ff;color:#00d4ff;font-family:"Space Grotesk",sans-serif;font-size:12px;font-weight:800;padding:6px 16px;border-radius:100px;box-shadow:0 0 20px rgba(0,212,255,0.4);z-index:99999;pointer-events:none;transition:opacity 0.2s, transform 0.2s;';
+    document.body.appendChild(toast);
+  }
+  toast.innerText = msg;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(-50%) translateY(10px)';
+  }, 1200);
+}
+
+/* ─── 8. INDEPENDENT DEVICE BREAKPOINT PROFILES MEMORY ─── */
+let currentActiveDevice = 'mobile';
+
+const DEFAULT_DEVICE_PROFILES = {
+  mobile: {
+    elements: {
+      'elem-3d-pin': { top: '70px', left: '56px', width: '280px', height: '260px' },
+      'elem-intro-title': { top: '360px', left: '20px', width: '353px', fontSize: '38px' },
+      'elem-intro-subline': { top: '430px', left: '46px', width: '300px', fontSize: '11.5px' },
+      'elem-intro-progress': { top: '490px', left: '116px', width: '160px' }
+    },
+    pinScale: 1.10,
+    pinY: 3.2,
+    orbitRadius: 5.4,
+    fontSize: 38
+  },
+  tablet: {
+    elements: {
+      'elem-3d-pin': { top: '90px', left: '270px', width: '280px', height: '260px' },
+      'elem-intro-title': { top: '420px', left: '160px', width: '500px', fontSize: '46px' },
+      'elem-intro-subline': { top: '500px', left: '260px', width: '300px', fontSize: '12.5px' },
+      'elem-intro-progress': { top: '555px', left: '310px', width: '200px' }
+    },
+    pinScale: 1.15,
+    pinY: 3.2,
+    orbitRadius: 5.8,
+    fontSize: 46
+  },
+  desktop: {
+    elements: {
+      'elem-3d-pin': { top: '60px', left: '500px', width: '280px', height: '260px' },
+      'elem-intro-title': { top: '370px', left: '290px', width: '700px', fontSize: '54px' },
+      'elem-intro-subline': { top: '460px', left: '440px', width: '400px', fontSize: '13px' },
+      'elem-intro-progress': { top: '515px', left: '520px', width: '240px' }
+    },
+    pinScale: 1.25,
+    pinY: 3.4,
+    orbitRadius: 6.2,
+    fontSize: 54
+  }
+};
+
+let deviceLayoutProfiles = JSON.parse(JSON.stringify(DEFAULT_DEVICE_PROFILES));
+
+function saveCurrentDeviceProfile() {
+  const elemIds = ['elem-3d-pin', 'elem-intro-title', 'elem-intro-subline', 'elem-intro-progress'];
+  const profile = { elements: {} };
+
+  elemIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const titleEl = el.querySelector('#title-text');
+      const sublineEl = el.querySelector('#subline-text');
+      const fs = titleEl ? titleEl.style.fontSize : (sublineEl ? sublineEl.style.fontSize : el.style.fontSize);
+
+      profile.elements[id] = {
+        top: el.style.top,
+        left: el.style.left,
+        width: el.style.width,
+        height: el.style.height,
+        fontSize: fs,
+        titleHTML: titleEl ? titleEl.innerHTML : null,
+        sublineHTML: sublineEl ? sublineEl.innerHTML : null
+      };
+    }
+  });
+
+  profile.pinScale = parseFloat(document.getElementById('slider-pin-scale').value) || 1.10;
+  profile.pinY = parseFloat(document.getElementById('slider-pin-y').value) || 3.2;
+  profile.orbitRadius = parseFloat(document.getElementById('slider-orbit-r').value) || 5.4;
+  profile.fontSize = parseInt(document.getElementById('slider-font-size').value) || 38;
+
+  deviceLayoutProfiles[currentActiveDevice] = profile;
+
+  try {
+    localStorage.setItem('mbm_intro_profiles_v4', JSON.stringify(deviceLayoutProfiles));
+    localStorage.setItem('mbm_intro_active_dev_v4', currentActiveDevice);
+  } catch(e) {}
+}
+
+function loadDeviceProfile(dev) {
+  const profile = deviceLayoutProfiles[dev] || DEFAULT_DEVICE_PROFILES[dev];
+  if (!profile) return;
+
+  for (let id in profile.elements) {
+    const el = document.getElementById(id);
+    const data = profile.elements[id];
+    if (el && data) {
+      if (data.top) el.style.top = data.top;
+      if (data.left) el.style.left = data.left;
+      if (data.width) el.style.width = data.width;
+      if (data.height) el.style.height = data.height;
+      el.style.transform = 'none';
+
+      if (data.fontSize) el.style.fontSize = data.fontSize;
+      if (data.titleHTML) {
+        const titleEl = el.querySelector('#title-text');
+        if (titleEl) {
+          titleEl.innerHTML = data.titleHTML;
+          if (data.fontSize) titleEl.style.fontSize = data.fontSize;
+        }
+      }
+      if (data.sublineHTML) {
+        const sublineEl = el.querySelector('#subline-text');
+        if (sublineEl) {
+          sublineEl.innerHTML = data.sublineHTML;
+          if (data.fontSize) sublineEl.style.fontSize = data.fontSize;
+        }
+      }
+    }
+  }
+
+  if (profile.pinScale !== undefined) {
+    change3DPinScale(profile.pinScale);
+    document.getElementById('slider-pin-scale').value = profile.pinScale;
+  }
+  if (profile.pinY !== undefined) {
+    change3DPinY(profile.pinY);
+    document.getElementById('slider-pin-y').value = profile.pinY;
+  }
+  if (profile.orbitRadius !== undefined) {
+    change3DOrbitRadius(profile.orbitRadius);
+    document.getElementById('slider-orbit-r').value = profile.orbitRadius;
+  }
+  if (profile.fontSize !== undefined) {
+    document.getElementById('slider-font-size').value = profile.fontSize;
+    document.getElementById('disp-font-size').innerText = profile.fontSize + 'px';
+  }
+}
+
+function switchStudioDevice(dev) {
+  if (dev === currentActiveDevice) return;
+
+  saveCurrentDeviceProfile();
+  deselectAllElements();
+
+  const prevDev = currentActiveDevice;
+  currentActiveDevice = dev;
+
+  document.querySelectorAll('.btn-device').forEach(b => b.classList.remove('active'));
+  const activeBtn = document.getElementById('btn-dev-' + dev);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  const devNames = { mobile: '📱 MOBILE', tablet: '📟 TABLET', desktop: '🖥️ DESKTOP' };
+  const devColors = { mobile: '#00d4ff', tablet: '#ffd700', desktop: '#b8ff57' };
+
+  const badge = document.getElementById('active-profile-indicator');
+  if (badge) {
+    badge.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + devColors[dev] + ';box-shadow:0 0 8px ' + devColors[dev] + ';"></span><span>EDITING: ' + devNames[dev] + '</span>';
+    badge.style.borderColor = devColors[dev];
+    badge.style.color = devColors[dev];
+  }
+
+  const sidebarName = document.getElementById('sidebar-active-device-name');
+  if (sidebarName) {
+    sidebarName.innerText = devNames[dev];
+    sidebarName.style.color = devColors[dev];
+  }
+
+  artboardBox.className = dev;
+  loadDeviceProfile(dev);
+  resizeIntro3D();
+
+  const curScale = parseFloat(document.getElementById('slider-pin-scale').value) || 1.10;
+  const curY = parseFloat(document.getElementById('slider-pin-y').value) || 3.2;
+  introPinGroup.position.set(0, curY, 0);
+  introPinGroup.scale.set(curScale, curScale, curScale);
+  starMeshes.forEach(s => s.scale.set(1, 1, 1));
+
+  triggerSeamlessIntroReplay();
+  showToastFeedback(devNames[prevDev] + ' Saved ➔ ' + devNames[dev] + ' Loaded');
+}
+
+function manualSaveCurrentProfile() {
+  saveCurrentDeviceProfile();
+  const devNames = { mobile: '📱 Mobile', tablet: '📟 Tablet', desktop: '🖥️ Desktop' };
+  showToastFeedback('✅ ' + devNames[currentActiveDevice] + ' Profile Saved Permanently!');
+}
+
+function resetCurrentProfileToDefaults() {
+  recordHistoryState();
+  deviceLayoutProfiles[currentActiveDevice] = JSON.parse(JSON.stringify(DEFAULT_DEVICE_PROFILES[currentActiveDevice]));
+  loadDeviceProfile(currentActiveDevice);
+  saveCurrentDeviceProfile();
+  resizeIntro3D();
+  triggerSeamlessIntroReplay();
+  showToastFeedback('🔄 Profile Reset to Clean Defaults');
+}
+
+function toggleLockSelectedElement() {
+  if (!activeSelectedElem) return;
+  activeSelectedElem.classList.toggle('element-locked');
+  const isLocked = activeSelectedElem.classList.contains('element-locked');
+  document.getElementById('btn-lock-active').classList.toggle('is-locked', isLocked);
+  document.getElementById('sidebar-lock-btn').innerText = isLocked ? '🔓 Unlock This Element' : '🔒 Lock This Element';
+}
+
+function alignSelectedElement(pos) {
+  if (!activeSelectedElem) return;
+  recordHistoryState();
+  if (pos === 'left') activeSelectedElem.style.left = '24px';
+  else if (pos === 'center') {
+    activeSelectedElem.style.left = Math.round((artboardBox.clientWidth - activeSelectedElem.offsetWidth) / 2) + 'px';
+  } else if (pos === 'right') {
+    activeSelectedElem.style.left = (artboardBox.clientWidth - activeSelectedElem.offsetWidth - 24) + 'px';
+  }
+  activeSelectedElem.style.transform = 'none';
+  document.getElementById('disp-pos-left').innerText = activeSelectedElem.offsetLeft + 'px';
+  saveCurrentDeviceProfile();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('studio-sidebar-panel');
+  const arrow = document.getElementById('handle-arrow');
+  sb.classList.toggle('collapsed');
+  arrow.innerText = sb.classList.contains('collapsed') ? '❮' : '❯';
+  setTimeout(resizeIntro3D, 320);
+}
+
+function change3DPinScale(val) {
+  document.getElementById('disp-pin-scale').innerText = parseFloat(val).toFixed(2) + 'x';
+  introPinGroup.scale.set(val, val, val);
+}
+
+function change3DPinY(val) {
+  document.getElementById('disp-pin-y').innerText = parseFloat(val).toFixed(1);
+  introPinGroup.position.y = parseFloat(val);
+}
+
+function change3DOrbitRadius(val) {
+  document.getElementById('disp-orbit-r').innerText = parseFloat(val).toFixed(1);
+  curOrbitRadius = parseFloat(val);
+}
+
+function changeSelectedFontSize(val) {
+  document.getElementById('disp-font-size').innerText = val + 'px';
+  if (activeSelectedElem) {
+    const edit = activeSelectedElem.querySelector('.editable-text-field');
+    if (edit) edit.style.fontSize = val + 'px';
+  }
+}
+
+function applyPreset(name) {
+  recordHistoryState();
+  if (name === 'bold_mobile') {
+    change3DPinScale(1.35);
+    change3DPinY(3.6);
+    change3DOrbitRadius(5.2);
+    document.getElementById('slider-pin-scale').value = 1.35;
+    document.getElementById('slider-pin-y').value = 3.6;
+    document.getElementById('slider-orbit-r').value = 5.2;
+  } else if (name === 'ultra_luxury') {
+    change3DPinScale(1.15);
+    change3DPinY(3.2);
+    change3DOrbitRadius(5.8);
+    document.getElementById('slider-pin-scale').value = 1.15;
+    document.getElementById('slider-pin-y').value = 3.2;
+    document.getElementById('slider-orbit-r').value = 5.8;
+  } else if (name === 'fast_comet') {
+    change3DOrbitRadius(6.2);
+    document.getElementById('slider-orbit-r').value = 6.2;
+  } else if (name === 'gold_vip') {
+    starMat.color.setHex(0xffd700);
+  }
+  saveCurrentDeviceProfile();
+  triggerSeamlessIntroReplay();
+}
+
+function exportArtboardPNG() {
+  document.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
+  clearSmartGuides();
+  html2canvas(artboardBox, { backgroundColor: '#020205', scale: 2 }).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'MBM-3D-Intro-Splash.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+}
+
+function setActiveWhiteboardTool(tool) {
+  document.querySelectorAll('.tool-item').forEach(btn => btn.classList.remove('active'));
+  const btn = document.getElementById('tool-' + tool);
+  if (btn) btn.classList.add('active');
+}
+
+function toggleDrawingToolsTray() {
+  const tray = document.getElementById('drawing-tools-tray');
+  const btn = document.getElementById('btn-toggle-draw');
+  const arrow = document.getElementById('tray-arrow-icon');
+  tray.classList.toggle('collapsed');
+  btn.classList.toggle('active');
+  arrow.innerText = tray.classList.contains('collapsed') ? '❯' : '❮';
+}
+
+function selectPaletteColor(hex, dot) {
+  document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+  dot.classList.add('active');
+}
+
+function clearAllDrawingCanvas() {
+  const dCanvas = document.getElementById('drawing-surface');
+  const ctx = dCanvas.getContext('2d');
+  ctx.clearRect(0, 0, dCanvas.width, dCanvas.height);
+}
+
+// ─── INITIAL BOOT SEQUENCE ───
+try {
+  const savedProfiles = localStorage.getItem('mbm_intro_profiles_v4');
+  if (savedProfiles) {
+    const parsed = JSON.parse(savedProfiles);
+    if (parsed.mobile && parsed.desktop) {
+      deviceLayoutProfiles = parsed;
+    }
+  }
+  const savedDev = localStorage.getItem('mbm_intro_active_dev_v4');
+  if (savedDev && (savedDev === 'mobile' || savedDev === 'desktop' || savedDev === 'tablet')) {
+    currentActiveDevice = savedDev;
+  }
+} catch(e) {}
+
+artboardBox.className = currentActiveDevice;
+document.querySelectorAll('.btn-device').forEach(b => b.classList.remove('active'));
+const initialDevBtn = document.getElementById('btn-dev-' + currentActiveDevice);
+if (initialDevBtn) initialDevBtn.classList.add('active');
+
+const initialDevNames = { mobile: '📱 MOBILE', tablet: '📟 TABLET', desktop: '🖥️ DESKTOP' };
+const initialDevColors = { mobile: '#00d4ff', tablet: '#ffd700', desktop: '#b8ff57' };
+const initBadge = document.getElementById('active-profile-indicator');
+if (initBadge) {
+  initBadge.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + initialDevColors[currentActiveDevice] + ';box-shadow:0 0 8px ' + initialDevColors[currentActiveDevice] + ';"></span><span>EDITING: ' + initialDevNames[currentActiveDevice] + '</span>';
+  initBadge.style.borderColor = initialDevColors[currentActiveDevice];
+  initBadge.style.color = initialDevColors[currentActiveDevice];
+}
+const initSidebarName = document.getElementById('sidebar-active-device-name');
+if (initSidebarName) {
+  initSidebarName.innerText = initialDevNames[currentActiveDevice];
+  initSidebarName.style.color = initialDevColors[currentActiveDevice];
+}
+
+loadDeviceProfile(currentActiveDevice);
+
+window.addEventListener('resize', resizeIntro3D);
+resizeIntro3D();
+animateIntro3D();
+triggerSeamlessIntroReplay();
+updateUndoRedoButtonsUI();
+</script>
+</body>
+</html>
