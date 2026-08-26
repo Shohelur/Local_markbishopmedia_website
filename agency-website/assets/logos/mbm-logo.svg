@@ -1,4 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 70" fill="none" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 82" fill="none" width="100%" height="100%">
+  <style>
+    .logo-sub {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      fill: #00d4ff;
+      opacity: 0.75;
+    }
+    svg:hover .logo-sub {
+      fill: #b8ff57;
+      opacity: 1;
+      filter: drop-shadow(0 0 8px rgba(184, 255, 87, 0.9));
+    }
+  </style>
+
   <defs>
     <!-- Cyber Cyan to Lime Neon Gradient -->
     <linearGradient id="mbmNeonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -9,7 +22,7 @@
 
     <!-- Neon Glow Filter for SVG -->
     <filter id="mbmGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
       <feMerge>
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
@@ -18,47 +31,45 @@
   </defs>
 
   <!-- 1. ICON MARK: GEOMETRIC 'M' + LOCATION PIN + UPWARD GROWTH CHEVRON -->
-  <g transform="translate(4, 2)" filter="url(#mbmGlow)">
+  <g transform="translate(6, 6)" filter="url(#mbmGlow)">
     <!-- Outer 'M' Outer Wings -->
-    <path d="M 12 56 L 12 18 L 25 35" 
+    <path d="M 12 60 L 12 18 L 26 37" 
           stroke="url(#mbmNeonGrad)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
     
-    <path d="M 57 35 L 70 18 L 70 56" 
+    <path d="M 60 37 L 74 18 L 74 60" 
           stroke="url(#mbmNeonGrad)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
 
     <!-- Map Pin Loop Body -->
-    <path d="M 41 64 
-             C 31 50 21 40 21 28 
-             A 20 20 0 1 1 61 28 
-             C 61 40 51 50 41 64 Z" 
+    <path d="M 43 70 
+             C 32 54 22 43 22 30 
+             A 21 21 0 1 1 64 30 
+             C 64 43 54 54 43 70 Z" 
           stroke="url(#mbmNeonGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" />
 
     <!-- Upward Growth Arrow inside Pin -->
-    <path d="M 29 40 L 37 32 L 44 38 L 53 22" 
+    <path d="M 31 44 L 39 35 L 46 42 L 56 25" 
           stroke="url(#mbmNeonGrad)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
     
     <!-- Arrowhead Peak -->
-    <path d="M 45 22 L 54 22 L 54 31" 
-          stroke="url(#mbmNeonGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    <path d="M 47 24 L 57 24 L 57 34" 
+          stroke="url(#mbmNeonGrad)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
   </g>
 
-  <!-- 2. TYPOGRAPHY: CRISP & BOLD HORIZONTAL FOR NAVBAR -->
-  <g transform="translate(94, 0)">
-    <!-- Primary Brand Line -->
-    <text x="0" y="38" 
+  <!-- 2. TYPOGRAPHY: CLEAN, FULL & HORIZONTAL FOR NAVBAR -->
+  <g transform="translate(102, 0)">
+    <!-- Primary Brand Line (Full & Uncut) -->
+    <text x="0" y="42" 
           fill="#ffffff" 
           font-family="'Space Grotesk', 'Inter', -apple-system, sans-serif" 
           font-size="24" 
           font-weight="800" 
           letter-spacing="0.08em">MARK BISHOP <tspan fill="url(#mbmNeonGrad)">MEDIA</tspan></text>
     
-    <!-- Sub-Brand Badge Box for Extreme Legibility & Visibility -->
-    <rect x="0" y="46" width="224" height="20" rx="4" fill="rgba(0, 212, 255, 0.16)" stroke="rgba(0, 212, 255, 0.45)" stroke-width="1" />
-    <text x="8" y="60.5" 
-          fill="#b8ff57" 
+    <!-- Subtitle: Clean & Pops with Neon Lime Glow on Hover -->
+    <text class="logo-sub" x="2" y="65" 
           font-family="'JetBrains Mono', 'Space Grotesk', monospace" 
-          font-size="12" 
-          font-weight="800" 
-          letter-spacing="0.18em">● LOCAL VISIBILITY OS</text>
+          font-size="11" 
+          font-weight="700" 
+          letter-spacing="0.25em">LOCAL VISIBILITY OS</text>
   </g>
 </svg>
