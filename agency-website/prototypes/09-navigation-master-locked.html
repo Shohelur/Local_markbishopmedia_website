@@ -72,22 +72,22 @@ body::before {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CORE MASTER NAVIGATION CONTAINER
+   CORE MASTER NAVIGATION CONTAINER (ALWAYS FIXED & PERMANENT)
    ═══════════════════════════════════════════════════════════ */
 .master-nav-wrapper {
-  position: absolute;
-  top: 20px;
+  position: fixed;
+  top: 18px;
   left: 0;
   width: 100%;
   display: flex;
   justify-content: center;
   z-index: 10000;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: top 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
   perspective: 1200px;
 }
 
-/* 1. INITIAL TOP STATE: SLIM, SEAMLESS */
+/* 1. INITIAL TOP STATE: SEAMLESSLY BLENDED WITH WEBPAGE */
 .nav-capsule {
   pointer-events: auto;
   position: relative;
@@ -95,36 +95,32 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 100px;
   padding: 6px 12px 6px 20px;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
-/* 2. SCROLLED STATE */
+/* 2. SCROLLED STICKY STATE: FLOATING FROSTED GLASS WITH CRISP GLOWING BORDER */
 body.is-scrolled .master-nav-wrapper {
-  position: fixed;
   top: 10px;
-  animation: floatInNav 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes floatInNav {
-  0% { transform: translateY(-20px) scale(0.96); opacity: 0; }
-  100% { transform: translateY(0) scale(1); opacity: 1; }
 }
 
 body.is-scrolled .nav-capsule {
   width: min(1080px, 92%);
   padding: 4.5px 10px 4.5px 18px;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(10px) saturate(160%);
-  -webkit-backdrop-filter: blur(10px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(9, 15, 30, 0.85);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(0, 212, 255, 0.35);
   box-shadow: 
-    0 14px 40px rgba(0, 0, 0, 0.45),
-    0 0 25px rgba(0, 212, 255, 0.15),
+    0 16px 45px rgba(0, 0, 0, 0.85),
+    0 0 25px rgba(0, 212, 255, 0.18),
     inset 0 1px 1.5px rgba(255, 255, 255, 0.25);
 }
 
