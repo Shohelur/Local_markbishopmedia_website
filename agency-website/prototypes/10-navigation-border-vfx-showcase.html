@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mark Bishop Media — 3D Kinetic Local Business Growth Navigation Showcase</title>
+<title>Mark Bishop Media — Pure 3D Kinetic Icon & Mechanical Growth Showcase</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
@@ -71,7 +71,7 @@ body::before {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   TOP 6 LOCAL BUSINESS GROWTH KINETIC SWITCHER BAR
+   TOP 6 PURE 3D KINETIC ICON SWITCHER BAR
    ═══════════════════════════════════════════════════════════ */
 .top-variant-control-bar {
   position: fixed;
@@ -158,7 +158,7 @@ body::before {
   pointer-events: none;
 }
 
-/* BASE CAPSULE CONTAINER */
+/* BASE CAPSULE CONTAINER (GENEROUS PADDING - ZERO TEXT OVERLAP) */
 .nav-capsule {
   pointer-events: auto;
   position: relative;
@@ -167,14 +167,14 @@ body::before {
   align-items: center;
   justify-content: space-between;
   border-radius: 100px;
-  padding: 6px 12px 6px 20px;
+  padding: 7px 18px 7px 24px;
   background: rgba(8, 14, 28, 0.95);
   backdrop-filter: blur(32px) saturate(220%);
   -webkit-backdrop-filter: blur(32px) saturate(220%);
   border: 1.5px solid rgba(0, 212, 255, 0.4);
   box-shadow: 
     0 22px 55px rgba(0, 0, 0, 0.95),
-    0 0 35px rgba(0, 212, 255, 0.3),
+    0 0 35px rgba(0, 212, 255, 0.28),
     inset 0 1px 2px rgba(255, 255, 255, 0.35);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
@@ -185,264 +185,241 @@ body.is-scrolled .master-nav-wrapper {
 }
 body.is-scrolled .nav-capsule {
   width: min(1080px, 92%);
-  padding: 4.5px 10px 4.5px 18px;
+  padding: 5px 14px 5px 20px;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   6 3D KINETIC LOCAL BUSINESS GROWTH ENGINES
+   6 PURE 3D KINETIC ICON ENGINES (ZERO TEXT OVERLAP)
    ═══════════════════════════════════════════════════════════ */
 
-/* ─── 1. 📈 3D KINETIC REVENUE MULTIPLIER DYNAMO (CALLS & REVENUE GEARS) ─── */
-body[data-growth="1"] .nav-capsule {
-  border: 1.5px solid rgba(255, 215, 0, 0.45);
+/* ─── 1. ⚙️ DUAL SWISS TOURBILLON MICRO-GEARS (PURE MECHANICAL PRECISION) ─── */
+body[data-icon="1"] .nav-capsule {
+  border-color: rgba(255, 215, 0, 0.45);
   box-shadow: 0 22px 55px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 215, 0, 0.25);
 }
-/* Left: Gold Growth Wheel (+320% Calls) */
-body[data-growth="1"] .nav-capsule::before {
-  content: '⚙️ +320% CALLS';
+/* Left: 3D Gold Precision Micro-Gear */
+body[data-icon="1"] .nav-capsule::before {
+  content: '⚙️';
   position: absolute;
-  left: -22px;
+  left: -14px;
   top: 50%;
-  transform: translateY(-50%);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  color: #020205;
-  background: linear-gradient(135deg, var(--gold-glow), #ffb800);
-  padding: 3px 8px;
-  border-radius: 100px;
-  box-shadow: 0 0 14px rgba(255, 215, 0, 0.7);
-  animation: gearFloatPulse 2s ease-in-out infinite alternate;
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9));
+  animation: spinGearLeft 3.5s linear infinite;
+  pointer-events: none;
 }
-/* Right: Emerald Revenue Tourbillon (+$60K/MO) */
-body[data-growth="1"] .nav-capsule::after {
-  content: '📈 +$60K / MO';
+/* Right: 3D Lime Tourbillon Micro-Gear */
+body[data-icon="1"] .nav-capsule::after {
+  content: '⚙️';
   position: absolute;
-  right: -22px;
+  right: -14px;
   top: 50%;
-  transform: translateY(-50%);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  color: #020205;
-  background: linear-gradient(135deg, var(--lime-glow), var(--cyan-glow));
-  padding: 3px 8px;
-  border-radius: 100px;
-  box-shadow: 0 0 14px rgba(184, 255, 87, 0.7);
-  animation: gearFloatPulse 2s 0.5s ease-in-out infinite alternate;
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 0 10px rgba(184, 255, 87, 0.9));
+  animation: spinGearRight 3.5s linear infinite reverse;
+  pointer-events: none;
+}
+@keyframes spinGearLeft {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
+}
+@keyframes spinGearRight {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
 }
 
-@keyframes gearFloatPulse {
-  0% { transform: translateY(-50%) scale(0.96) translateZ(5px); }
-  100% { transform: translateY(-50%) scale(1.08) translateZ(18px); }
-}
-
-/* ─── 2. 📍 GOOGLE MAPS TOP 3 GPS PIN TURBINES ─── */
-body[data-growth="2"] .nav-capsule {
+/* ─── 2. 📍 3D GOOGLE MAPS PIN & CALL RADAR TURBINE ─── */
+body[data-icon="2"] .nav-capsule {
   border-color: rgba(0, 212, 255, 0.5);
   box-shadow: 0 22px 55px rgba(0, 0, 0, 0.95), 0 0 35px rgba(0, 212, 255, 0.35);
 }
-/* Left: Spinning Top 3 Pin Beacon */
-body[data-growth="2"] .nav-capsule::before {
-  content: '📍 TOP 3 LOCKED';
+/* Left: 3D Rotating GPS Pin Beacon */
+body[data-icon="2"] .nav-capsule::before {
+  content: '📍';
   position: absolute;
-  left: -20px;
+  left: -14px;
   top: 50%;
-  transform: translateY(-50%);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  font-weight: 900;
-  color: #020205;
-  background: var(--cyan-glow);
-  padding: 3px 9px;
-  border-radius: 100px;
-  box-shadow: 0 0 16px var(--cyan-glow);
-  animation: beaconPulse 1.8s infinite alternate ease-in-out;
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 0 12px var(--cyan-glow));
+  animation: spinPinY 2.8s linear infinite;
+  pointer-events: none;
 }
-/* Right: Inbound Calls Active Engine */
-body[data-growth="2"] .nav-capsule::after {
-  content: '📞 CALLS: ACTIVE';
+/* Right: 3D Calling Telemetry Turbine */
+body[data-icon="2"] .nav-capsule::after {
+  content: '📞';
   position: absolute;
-  right: -20px;
+  right: -14px;
   top: 50%;
-  transform: translateY(-50%);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  font-weight: 900;
-  color: #020205;
-  background: var(--lime-glow);
-  padding: 3px 9px;
-  border-radius: 100px;
-  box-shadow: 0 0 16px var(--lime-glow);
-  animation: beaconPulse 1.8s 0.4s infinite alternate ease-in-out;
+  font-size: 19px;
+  line-height: 1;
+  filter: drop-shadow(0 0 12px var(--lime-glow));
+  animation: bounceCallPulse 1.2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes spinPinY {
+  0% { transform: translateY(-50%) rotateY(0deg) scale(1); }
+  50% { transform: translateY(-50%) rotateY(180deg) scale(1.15); }
+  100% { transform: translateY(-50%) rotateY(360deg) scale(1); }
+}
+@keyframes bounceCallPulse {
+  0% { transform: translateY(-50%) scale(0.95) rotate(-10deg); }
+  100% { transform: translateY(-50%) scale(1.18) rotate(15deg); }
 }
 
-@keyframes beaconPulse {
-  0% { transform: translateY(-50%) scale(0.95); box-shadow: 0 0 10px rgba(0,212,255,0.4); }
-  100% { transform: translateY(-50%) scale(1.08); box-shadow: 0 0 22px rgba(184,255,87,0.85); }
-}
-
-/* ─── 3. ⚡ 3-PACK ASCENDANCY ESCALATOR GEARS (RANK #12 ➔ TOP 3) ─── */
-body[data-growth="3"] .nav-capsule {
-  border: 1.5px solid var(--lime-glow);
+/* ─── 3. 📈 3D GROWTH COMPASS & ASCENDING ROCKET DYNAMO ─── */
+body[data-icon="3"] .nav-capsule {
+  border-color: var(--lime-glow);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.98), 0 0 35px rgba(184, 255, 87, 0.35);
 }
-body[data-growth="3"] .nav-capsule::before {
-  content: '▲ RANK #12 ➔ #1 TOP 3';
+/* Left: 3D Rotating Growth Compass */
+body[data-icon="3"] .nav-capsule::before {
+  content: '🧭';
   position: absolute;
-  top: -11px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  color: #020205;
-  background: linear-gradient(135deg, var(--lime-glow), var(--cyan-glow));
-  padding: 2px 10px;
-  border-radius: 100px;
-  box-shadow: 0 0 15px var(--lime-glow);
+  left: -14px;
+  top: 50%;
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 0 12px var(--cyan-glow));
+  animation: spinCompass 3s ease-in-out infinite alternate;
+  pointer-events: none;
 }
-body[data-growth="3"] .nav-capsule::after {
-  content: '💰 REVENUE MULTIPLIER: 3.4x CONVERSIONS';
+/* Right: 3D Ascending Revenue Rocket */
+body[data-icon="3"] .nav-capsule::after {
+  content: '🚀';
   position: absolute;
-  bottom: -11px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8px;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  color: #ffffff;
-  background: rgba(9, 18, 38, 0.95);
-  border: 1px solid var(--cyan-glow);
-  padding: 2px 10px;
-  border-radius: 100px;
+  right: -14px;
+  top: 50%;
+  font-size: 19px;
+  line-height: 1;
+  filter: drop-shadow(0 0 12px var(--lime-glow));
+  animation: rocketAscend 1.5s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes spinCompass {
+  0% { transform: translateY(-50%) rotate(-45deg) scale(0.95); }
+  100% { transform: translateY(-50%) rotate(45deg) scale(1.15); }
+}
+@keyframes rocketAscend {
+  0% { transform: translateY(-50%) translate(0, 2px) scale(0.95); }
+  100% { transform: translateY(-50%) translate(2px, -3px) scale(1.15); }
 }
 
-/* ─── 4. ⭐ 5-STAR REVIEW TURBINE CHRONOGRAPH (250+ 5-STAR VERIFIED) ─── */
-body[data-growth="4"] .nav-capsule {
-  border: 1.5px solid rgba(255, 215, 0, 0.5);
+/* ─── 4. ⭐ 3D ORBITING 5-STAR HALO & TRUST SHIELD ─── */
+body[data-icon="4"] .nav-capsule {
+  border-color: rgba(255, 215, 0, 0.5);
   box-shadow: 0 22px 55px rgba(0, 0, 0, 0.95), 0 0 35px rgba(255, 215, 0, 0.3);
 }
-/* Left: 5-Star Rating Chronograph */
-body[data-growth="4"] .nav-capsule::before {
-  content: '⭐ 4.9★ (250+ REVIEWS)';
+/* Left: 3D Spinning Golden Star Satellite */
+body[data-icon="4"] .nav-capsule::before {
+  content: '⭐';
   position: absolute;
-  left: -20px;
+  left: -14px;
   top: 50%;
-  transform: translateY(-50%);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  font-weight: 900;
-  color: #020205;
-  background: var(--gold-glow);
-  padding: 3px 9px;
-  border-radius: 100px;
-  box-shadow: 0 0 16px rgba(255, 215, 0, 0.8);
-  animation: gearFloatPulse 2.2s ease-in-out infinite alternate;
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.9));
+  animation: starRotateZ 3s linear infinite;
+  pointer-events: none;
 }
-/* Right: 100% Trust Rate Badge */
-body[data-growth="4"] .nav-capsule::after {
-  content: '🛡️ 100% LOCAL AUTHORITY';
+/* Right: 3D Verified Authority Shield */
+body[data-icon="4"] .nav-capsule::after {
+  content: '🛡️';
   position: absolute;
-  right: -20px;
+  right: -14px;
   top: 50%;
-  transform: translateY(-50%);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  font-weight: 900;
-  color: #020205;
-  background: var(--cyan-glow);
-  padding: 3px 9px;
-  border-radius: 100px;
-  box-shadow: 0 0 16px rgba(0, 212, 255, 0.8);
-  animation: gearFloatPulse 2.2s 0.4s ease-in-out infinite alternate;
+  font-size: 19px;
+  line-height: 1;
+  filter: drop-shadow(0 0 12px var(--cyan-glow));
+  animation: shieldGlowPulse 1.8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes starRotateZ {
+  0% { transform: translateY(-50%) rotate(0deg) scale(1); }
+  50% { transform: translateY(-50%) rotate(180deg) scale(1.15); }
+  100% { transform: translateY(-50%) rotate(360deg) scale(1); }
+}
+@keyframes shieldGlowPulse {
+  0% { transform: translateY(-50%) scale(0.95) rotateY(-15deg); }
+  100% { transform: translateY(-50%) scale(1.15) rotateY(15deg); }
 }
 
-/* ─── 5. 🌐 9-MILE GEO-GRID RADAR TELEMETRY WHEEL (81-POINT AUDIT) ─── */
-body[data-growth="5"] .nav-capsule {
-  border: 1.5px solid var(--cyan-glow);
+/* ─── 5. 🛰️ 3D SPATIAL RADAR DISH & GPS SATELLITE ─── */
+body[data-icon="5"] .nav-capsule {
+  border-color: var(--cyan-glow);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.98), 0 0 40px rgba(0, 212, 255, 0.4);
 }
-body[data-growth="5"] .nav-capsule::before {
-  content: '🌐 9-MILE GEO-GRID RADAR: 81 NODES';
+/* Left: 3D Rotating Satellite Radar Dish */
+body[data-icon="5"] .nav-capsule::before {
+  content: '🛰️';
   position: absolute;
-  top: -11px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  color: #020205;
-  background: var(--cyan-glow);
-  padding: 2px 10px;
-  border-radius: 100px;
-  box-shadow: 0 0 15px var(--cyan-glow);
+  left: -14px;
+  top: 50%;
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 0 12px var(--cyan-glow));
+  animation: satelliteOrbit 3s ease-in-out infinite alternate;
+  pointer-events: none;
 }
-body[data-growth="5"] .nav-capsule::after {
-  content: '🎯 0% CALL LEAKAGE (DOMINANT 3-PACK)';
+/* Right: 3D Telemetry Radar Globe */
+body[data-icon="5"] .nav-capsule::after {
+  content: '🌐';
   position: absolute;
-  bottom: -11px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8px;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  color: var(--lime-glow);
-  background: rgba(9, 18, 38, 0.95);
-  border: 1px solid var(--lime-glow);
-  padding: 2px 10px;
-  border-radius: 100px;
-  box-shadow: 0 0 12px rgba(184, 255, 87, 0.4);
+  right: -14px;
+  top: 50%;
+  font-size: 19px;
+  line-height: 1;
+  filter: drop-shadow(0 0 12px var(--lime-glow));
+  animation: globeSpin3D 4s linear infinite;
+  pointer-events: none;
+}
+@keyframes satelliteOrbit {
+  0% { transform: translateY(-50%) rotate(-15deg) scale(0.95); }
+  100% { transform: translateY(-50%) rotate(25deg) scale(1.15); }
+}
+@keyframes globeSpin3D {
+  0% { transform: translateY(-50%) rotateY(0deg); }
+  100% { transform: translateY(-50%) rotateY(360deg); }
 }
 
-/* ─── 6. 💎 LOCAL MONOPOLY WEALTH DYNAMO ($1.45M REVENUE PIPELINE) ─── */
-body[data-growth="6"] .nav-capsule {
-  background: linear-gradient(135deg, rgba(14, 24, 48, 0.96) 0%, rgba(6, 12, 24, 0.98) 100%);
+/* ─── 6. 💎 3D DIAMOND WEALTH PRISM & CROWN GEAR ─── */
+body[data-icon="6"] .nav-capsule {
   border: 1.5px solid var(--lime-glow);
-  box-shadow: 
-    0 25px 65px rgba(0, 0, 0, 0.98),
-    0 0 45px rgba(184, 255, 87, 0.4),
-    inset 0 1.5px 2px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.98), 0 0 45px rgba(184, 255, 87, 0.4);
 }
-/* Left: MBM Operating System */
-body[data-growth="6"] .nav-capsule::before {
-  content: '⚡ MBM VISIBILITY OS';
+/* Left: 3D Diamond Wealth Prism */
+body[data-icon="6"] .nav-capsule::before {
+  content: '💎';
   position: absolute;
-  left: -22px;
+  left: -14px;
   top: 50%;
-  transform: translateY(-50%);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  font-weight: 900;
-  color: #020205;
-  background: linear-gradient(135deg, var(--cyan-glow), var(--lime-glow));
-  padding: 3px 9px;
-  border-radius: 100px;
-  box-shadow: 0 0 16px rgba(184, 255, 87, 0.8);
-  animation: gearFloatPulse 2s ease-in-out infinite alternate;
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 0 14px var(--cyan-glow));
+  animation: diamondShimmer 2.5s ease-in-out infinite alternate;
+  pointer-events: none;
 }
-/* Right: $1.45M Client Revenue Generated */
-body[data-growth="6"] .nav-capsule::after {
-  content: '💰 +$1,450,000 CLIENT REVENUE';
+/* Right: 3D Gold Crown Wealth Gear */
+body[data-icon="6"] .nav-capsule::after {
+  content: '👑';
   position: absolute;
-  right: -22px;
+  right: -14px;
   top: 50%;
-  transform: translateY(-50%);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  font-weight: 900;
-  color: #020205;
-  background: linear-gradient(135deg, var(--lime-glow), var(--gold-glow));
-  padding: 3px 9px;
-  border-radius: 100px;
-  box-shadow: 0 0 16px rgba(255, 215, 0, 0.8);
-  animation: gearFloatPulse 2s 0.4s ease-in-out infinite alternate;
+  font-size: 19px;
+  line-height: 1;
+  filter: drop-shadow(0 0 14px var(--gold-glow));
+  animation: crownFloat 2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes diamondShimmer {
+  0% { transform: translateY(-50%) rotateY(-20deg) scale(0.95); }
+  100% { transform: translateY(-50%) rotateY(20deg) scale(1.15); }
+}
+@keyframes crownFloat {
+  0% { transform: translateY(-50%) scale(0.95) rotate(-8deg); }
+  100% { transform: translateY(-50%) scale(1.15) rotate(8deg); }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -716,26 +693,26 @@ body.is-scrolled .brand-logo-svg { height: 33px; }
 }
 </style>
 </head>
-<body data-growth="1">
+<body data-icon="1">
 
 <!-- TOP AMBIENT LIGHT -->
 <div class="ambient-glow-top"></div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     PERSISTENT 6 LOCAL BUSINESS GROWTH SWITCHER BAR
+     PERSISTENT 6 PURE 3D KINETIC ICON SWITCHER BAR
      ═══════════════════════════════════════════════════════════ -->
 <header class="top-variant-control-bar">
   <div class="variant-brand-label">
-    <span class="variant-brand-badge">3D KINETIC GROWTH LAB</span>
-    <span>Select Local Business Growth Engine:</span>
+    <span class="variant-brand-badge">PURE 3D KINETIC ICONS</span>
+    <span>Select 3D Mechanical Icon Engine (Zero Text Overlap):</span>
   </div>
   <div class="variant-buttons-group">
-    <button class="btn-var-select active" id="btn-m1" onclick="switchGrowth(1)">1. 📈 Revenue Multiplier (+320% Calls)</button>
-    <button class="btn-var-select" id="btn-m2" onclick="switchGrowth(2)">2. 📍 Google Top 3 Turbines</button>
-    <button class="btn-var-select" id="btn-m3" onclick="switchGrowth(3)">3. ⚡ 3-Pack Ascendancy (#12➔#1)</button>
-    <button class="btn-var-select" id="btn-m4" onclick="switchGrowth(4)">4. ⭐ 5-Star Review Chronograph</button>
-    <button class="btn-var-select" id="btn-m5" onclick="switchGrowth(5)">5. 🌐 9-Mile Geo-Grid Radar</button>
-    <button class="btn-var-select" id="btn-m6" onclick="switchGrowth(6)">6. 💎 Local Monopoly Vault ($1.45M)</button>
+    <button class="btn-var-select active" id="btn-i1" onclick="switchIcon(1)">1. ⚙️ Dual Tourbillon Gears</button>
+    <button class="btn-var-select" id="btn-i2" onclick="switchIcon(2)">2. 📍 Maps Pin & Call Turbine</button>
+    <button class="btn-var-select" id="btn-i3" onclick="switchIcon(3)">3. 📈 Compass & Rocket</button>
+    <button class="btn-var-select" id="btn-i4" onclick="switchIcon(4)">4. ⭐ Star Orbit & Shield</button>
+    <button class="btn-var-select" id="btn-i5" onclick="switchIcon(5)">5. 🛰️ Radar Satellite & Globe</button>
+    <button class="btn-var-select" id="btn-i6" onclick="switchIcon(6)">6. 💎 Diamond Prism & Crown</button>
   </div>
 </header>
 
@@ -781,10 +758,10 @@ body.is-scrolled .brand-logo-svg { height: 33px; }
 
   <!-- SECTION 1: HERO VIEW -->
   <section class="demo-section" id="hero-sec">
-    <div class="sec-badge" id="active-growth-badge">● ACTIVE GROWTH ENGINE 1: 📈 REVENUE MULTIPLIER DYNAMO</div>
-    <h1 class="sec-title" id="active-growth-heading">3D Kinetic Revenue & Call Multiplier Dynamo</h1>
-    <p class="sec-desc" id="active-growth-desc">
-      Look at the left (`⚙️ +320% CALLS`) and right (`📈 +$60K / MO`) flanks of the floating navigation capsule. Notice how the kinetic growth dials physically symbolize Mark Bishop Media’s client revenue impact!
+    <div class="sec-badge" id="active-icon-badge">● ACTIVE 3D ICON ENGINE 1: ⚙️ DUAL SWISS TOURBILLON GEARS</div>
+    <h1 class="sec-title" id="active-icon-heading">Pure 3D Kinetic Tourbillon Micro-Gears</h1>
+    <p class="sec-desc" id="active-icon-desc">
+      Notice how the precision 3D gold gear (left) and lime gear (right) rotate smoothly on the outer flanks with zero text clutter or overlap, keeping the navigation bar 100% clean and legible!
     </p>
 
     <!-- TEST STREAM PASSING UNDER THE GLASS -->
@@ -795,10 +772,10 @@ body.is-scrolled .brand-logo-svg { height: 33px; }
     </div>
 
     <div class="active-variant-indicator-card">
-      <div class="card-header-lbl" id="card-lbl">LOCAL BUSINESS GROWTH HIGHLIGHTS:</div>
-      <div class="card-header-val" id="card-val">📈 Dual Kinetic Inbound Call & Monthly Revenue Dials</div>
+      <div class="card-header-lbl" id="card-lbl">3D KINETIC ICON HIGHLIGHTS:</div>
+      <div class="card-header-val" id="card-val">⚙️ Dual 3D Mechanical Micro-Gears (Zero Text Overlap)</div>
       <div class="card-desc-val" id="card-desc">
-        Directly embeds the agency’s core metric: +320% Inbound Phone Calls and +$60,000/Month client revenue gain into physical 3D floating kinetic beacons.
+        Pure 3D rotating gold and lime mechanical gearwork stationed on the outer endpoints of the frosted capsule. Zero text overlay, pristine navigation clarity.
       </div>
     </div>
   </section>
@@ -810,7 +787,7 @@ body.is-scrolled .brand-logo-svg { height: 33px; }
       9-MILE STREET-LEVEL GEO-GRID SCAN ENGINE
     </h2>
     <p class="sec-desc">
-      Scroll up and down to observe how the floating frosted glass capsule softly refracts the bright typography while keeping the 3D growth badges live!
+      Scroll up and down to observe how the floating frosted glass capsule softly refracts the bright typography while keeping the 3D rotating kinetic icons live!
     </p>
   </section>
 
@@ -829,54 +806,54 @@ window.addEventListener('scroll', () => {
   }
 });
 
-/* ─── 2. 6 LOCAL GROWTH ENGINES METADATA ─── */
-const growthMetadata = {
+/* ─── 2. 6 PURE ICON METADATA ─── */
+const iconMetadata = {
   1: {
-    badge: '● ACTIVE GROWTH ENGINE 1: 📈 REVENUE MULTIPLIER DYNAMO',
-    heading: '3D Kinetic Revenue & Call Multiplier Dynamo',
-    desc: 'Look at the left (`⚙️ +320% CALLS`) and right (`📈 +$60K / MO`) flanks of the floating navigation capsule. Notice how the kinetic growth dials physically symbolize Mark Bishop Media’s client revenue impact!',
-    val: '📈 Dual Kinetic Inbound Call & Monthly Revenue Dials',
-    info: 'Directly embeds the agency’s core metric: +320% Inbound Phone Calls and +$60,000/Month client revenue gain into physical 3D floating kinetic beacons.'
+    badge: '● ACTIVE 3D ICON ENGINE 1: ⚙️ DUAL SWISS TOURBILLON GEARS',
+    heading: 'Pure 3D Kinetic Tourbillon Micro-Gears',
+    desc: 'Notice how the precision 3D gold gear (left) and lime gear (right) rotate smoothly on the outer flanks with zero text clutter or overlap, keeping the navigation bar 100% clean and legible!',
+    val: '⚙️ Dual 3D Mechanical Micro-Gears (Zero Text Overlap)',
+    info: 'Pure 3D rotating gold and lime mechanical gearwork stationed on the outer endpoints of the frosted capsule. Zero text overlay, pristine navigation clarity.'
   },
   2: {
-    badge: '● ACTIVE GROWTH ENGINE 2: 📍 GOOGLE MAPS TOP 3 TURBINES',
-    heading: 'Google Maps Top 3 GPS Navigational Turbines',
-    desc: 'Notice the left (`📍 TOP 3 LOCKED`) and right (`📞 CALLS: ACTIVE`) neon turbines pulsating with concentric GPS radar rings!',
-    val: '📍 Google Maps Top 3 Locked & Active Call Engine',
-    info: 'Visualizes the #1 business priority of any local contractor: locking Top 3 rank on Google Maps and flooding their phone lines with paid calls.'
+    badge: '● ACTIVE 3D ICON ENGINE 2: 📍 MAPS PIN & CALL TURBINE',
+    heading: '3D Google Maps Vector Pin & Call Gyro',
+    desc: 'Left flank features a 3D Google Maps location pin rotating in Y-axis space, while the right flank holds an active 3D calling turbine with neon pulse glow!',
+    val: '📍 3D Google Maps Pin & Inbound Call Turbine',
+    info: 'Visualizes the core mission: Google Maps local dominance and inbound client calls using pure 3D rotating iconography.'
   },
   3: {
-    badge: '● ACTIVE GROWTH ENGINE 3: ⚡ 3-PACK ASCENDANCY ESCALATOR',
-    heading: 'Rank #12 ➔ Top 3 Ascendancy & 3.4x Multiplier',
-    desc: 'Top header badge displays `▲ RANK #12 ➔ #1 TOP 3` while bottom bezel shows `💰 REVENUE MULTIPLIER: 3.4x CONVERSIONS`!',
-    val: '⚡ Direct Rank Transformation & Conversion Multiplier',
-    info: 'Shows homeowners and local business owners the exact before-and-after leap engineered by Mark Bishop Media.'
+    badge: '● ACTIVE 3D ICON ENGINE 3: 📈 COMPASS & ROCKET',
+    heading: '3D Growth Compass & Ascending Rocket',
+    desc: 'Left flank holds a 3D growth compass oscillating in spatial depth, and right flank features an ascending rocket with micro-laser thrust!',
+    val: '🧭 3D Growth Compass & Revenue Multiplier Rocket',
+    info: 'Represents local market direction and explosive business scale with zero textual intrusion.'
   },
   4: {
-    badge: '● ACTIVE GROWTH ENGINE 4: ⭐ 5-STAR REVIEW CHRONOGRAPH',
-    heading: '250+ Verified 5-Star Reviews & 100% Authority',
-    desc: 'Left dial shows `⭐ 4.9★ (250+ REVIEWS)` in gold while right dial shows `🛡️ 100% LOCAL AUTHORITY` in electric cyan!',
-    val: '⭐ Social Proof Dominance & Maximum Local Trust',
-    info: 'Highlights automatic 5-star review collection and multi-directory synchronization so clients instantly trust the business.'
+    badge: '● ACTIVE 3D ICON ENGINE 4: ⭐ STAR ORBIT & SHIELD',
+    heading: '3D Spinning 5-Star Social Proof & Authority Shield',
+    desc: 'Left flank displays a 3D spinning golden star with laser reflection, balanced by an authority trust shield on the right flank!',
+    val: '⭐ 3D Golden Star & Verified Trust Shield',
+    info: 'Pure symbolic representation of 5-star Google review domination and local authority sync.'
   },
   5: {
-    badge: '● ACTIVE GROWTH ENGINE 5: 🌐 9-MILE GEO-GRID RADAR',
-    heading: '81-Point Street Radar & Zero Call Leakage',
-    desc: 'Top tag shows `🌐 9-MILE GEO-GRID RADAR: 81 NODES` and bottom tag shows `🎯 0% CALL LEAKAGE (DOMINANT 3-PACK)`!',
-    val: '🌐 Complete 9-Mile Street Domination Radar',
-    info: 'Communicates the proprietary 81-coordinate street-level geo-grid scan engine that eliminates competitor lead hijacking.'
+    badge: '● ACTIVE 3D ICON ENGINE 5: 🛰️ RADAR SATELLITE & GLOBE',
+    heading: '3D Spatial Satellite Dish & Telemetry Globe',
+    desc: 'Left flank features a 3D rotating satellite radar dish, and right flank holds a spinning 3D wireframe telemetry globe!',
+    val: '🛰️ 3D Street Radar Satellite & Rotating Globe',
+    info: 'Directly mirrors Mark Bishop Media’s 9-mile local geo-grid radar scan engine.'
   },
   6: {
-    badge: '● ACTIVE GROWTH ENGINE 6: 💎 LOCAL MONOPOLY WEALTH DYNAMO',
-    heading: '+$1,450,000 Client Revenue Generated Vault',
-    desc: 'Left flank shows `⚡ MBM VISIBILITY OS` and right flank shines with `💰 +$1,450,000 CLIENT REVENUE` in 24K gold & lime!',
-    val: '💎 Enterprise Wealth Multiplier & Local Market Monopoly',
-    info: 'Unmistakable proof that this is an elite, high-ticket Local Visibility Operating System built for serious business scale.'
+    badge: '● ACTIVE 3D ICON ENGINE 6: 💎 DIAMOND PRISM & CROWN',
+    heading: '3D Diamond Wealth Prism & Crown Wealth Gear',
+    desc: 'Left flank showcases a 3D diamond prism reflecting cyan flares, and right flank holds a 3D golden crown gear floating in zero gravity!',
+    val: '💎 3D Diamond Wealth Prism & Golden Crown Gear',
+    info: 'Symbolizes premium high-ticket client value and uncontested market monopoly.'
   }
 };
 
-function switchGrowth(num) {
-  document.body.setAttribute('data-growth', num);
+function switchIcon(num) {
+  document.body.setAttribute('data-icon', num);
   
   document.querySelectorAll('.btn-var-select').forEach((btn, idx) => {
     if (idx + 1 === num) {
@@ -886,11 +863,11 @@ function switchGrowth(num) {
     }
   });
 
-  const meta = growthMetadata[num];
+  const meta = iconMetadata[num];
   if (meta) {
-    const badgeEl = document.getElementById('active-growth-badge');
-    const headingEl = document.getElementById('active-growth-heading');
-    const descEl = document.getElementById('active-growth-desc');
+    const badgeEl = document.getElementById('active-icon-badge');
+    const headingEl = document.getElementById('active-icon-heading');
+    const descEl = document.getElementById('active-icon-desc');
     const valEl = document.getElementById('card-val');
     const infoEl = document.getElementById('card-desc');
     
@@ -903,9 +880,10 @@ function switchGrowth(num) {
 }
 
 // Fallback compatibility
-window.switchGyro = switchGrowth;
-window.switchConcept = switchGrowth;
-window.switchVfx = switchGrowth;
+window.switchGrowth = switchIcon;
+window.switchGyro = switchIcon;
+window.switchConcept = switchIcon;
+window.switchVfx = switchIcon;
 </script>
 
 </body>
