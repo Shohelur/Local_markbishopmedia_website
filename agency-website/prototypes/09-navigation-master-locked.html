@@ -699,34 +699,39 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
    ═══════════════════════════════════════════════════════════ */
 .master-card-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
   color: #ffffff;
   white-space: nowrap;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
 .master-metric-badge {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9.5px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  color: #020205;
-  background: linear-gradient(135deg, var(--lime-glow), var(--cyan-glow));
-  padding: 3.5px 8.5px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: rgba(0, 212, 255, 0.85);
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.22);
+  padding: 2.5px 7.5px;
   border-radius: 100px;
   white-space: nowrap;
-  box-shadow: 0 0 10px rgba(184, 255, 87, 0.4);
-  transform: rotateX(0deg) translateZ(8px);
-  opacity: 1;
+  box-shadow: none;
+  transform: translateZ(4px);
+  opacity: 0.8;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   z-index: 4;
 }
 .dropdown-card-master:hover .master-metric-badge,
 .dropdown-card-master.active-story .master-metric-badge {
-  transform: scale(1.08) translateZ(16px);
-  box-shadow: 0 0 16px rgba(184, 255, 87, 0.8);
+  color: #020205;
+  background: linear-gradient(135deg, var(--lime-glow), var(--cyan-glow));
+  border-color: transparent;
+  box-shadow: 0 0 14px rgba(184, 255, 87, 0.7);
+  transform: scale(1.06) translateZ(14px);
+  opacity: 1;
 }
 
 /* ═══════════════════════════════════════════════════════════
