@@ -731,6 +731,7 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
 
 /* ═══════════════════════════════════════════════════════════
    RIGHT COLUMN: THE 3D MASTER [BEFORE VS AFTER] SPLIT BANNER
+   (HIDDEN UNTIL HOVERED ON DROPDOWN CARDS)
    ═══════════════════════════════════════════════════════════ */
 .spatial-story-deck {
   flex: 1;
@@ -747,10 +748,23 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
     0 20px 50px rgba(0, 0, 0, 0.95),
     0 0 30px rgba(0, 212, 255, 0.25),
     inset 0 1px 2px rgba(255, 255, 255, 0.25);
-  transform: perspective(1000px) rotateY(-6deg) translateZ(15px);
+  transform: perspective(1000px) rotateY(-12deg) translateZ(-20px) scale(0.92);
+  opacity: 0;
+  visibility: hidden;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
+}
+
+/* REVEALS ONLY WHEN MOUSE ENTERS THE CARDS COLUMN OR A SPECIFIC CARD */
+.spatial-cards-column:hover + .spatial-story-deck,
+.spatial-cards-column:hover ~ .spatial-story-deck,
+.dropdown-panel-spatial:has(.spatial-cards-column:hover) .spatial-story-deck,
+.dropdown-panel-spatial.has-banner-active .spatial-story-deck,
+.spatial-story-deck:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: perspective(1000px) rotateY(-6deg) translateZ(15px) scale(1);
 }
 
 /* SCANLINE TEXTURE */
@@ -1069,9 +1083,9 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
     <!-- 2. CENTER NAVIGATION LIST -->
     <ul class="nav-menu-list" id="nav-menu-list">
 
-      <!-- SOLUTIONS (CLEAN CARDS ON LEFT + [BEFORE VS AFTER] SPLIT BANNER ON RIGHT) -->
+      <!-- WHAT WE DO (CLEAN CARDS ON LEFT + [BEFORE VS AFTER] SPLIT BANNER REVEALS ON CARD HOVER) -->
       <li class="nav-item has-dropdown" id="nav-item-solutions">
-        <span>Solutions</span>
+        <span>What We Do</span>
         <span class="nav-chevron">▼</span>
         
         <!-- THE DUAL-DECK 3D SPATIAL COMMAND ARCHITECTURE -->
@@ -1082,7 +1096,7 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
             
             <!-- SERVICE 1: AUTHENTIC GOOGLE MAPS PIN -->
             <li>
-              <a href="#three-pack" class="dropdown-card-master active-story" data-story="maps">
+              <a href="#three-pack" class="dropdown-card-master" data-story="maps">
                 <div class="card-inner-left">
                   <div class="icon-box-maps">
                     <div class="maps-sonar-ring-1"></div>
@@ -1387,7 +1401,8 @@ const lockedDatabase = {
   }
 };
 
-/* ─── 3. INTERACTION CONTROLLER ─── */
+/* ─── 3. INTERACTION CONTROLLER (HOVER-TRIGGERED 3D BANNER) ─── */
+const solutionsPanel = document.getElementById('solutions-spatial-panel');
 const cards = document.querySelectorAll('#solutions-spatial-panel .dropdown-card-master');
 const storyTitle = document.getElementById('story-title');
 const storyDesc = document.getElementById('story-desc');
@@ -1400,6 +1415,7 @@ const storyBanner = document.getElementById('story-banner-display');
 
 cards.forEach(card => {
   card.addEventListener('mouseenter', () => {
+    if (solutionsPanel) solutionsPanel.classList.add('has-banner-active');
     cards.forEach(c => c.classList.remove('active-story'));
     card.classList.add('active-story');
     
@@ -1426,6 +1442,15 @@ cards.forEach(card => {
     }
   });
 });
+
+// Reset banner when mouse completely leaves the dropdown
+const navItemSolutions = document.getElementById('nav-item-solutions');
+if (navItemSolutions) {
+  navItemSolutions.addEventListener('mouseleave', () => {
+    if (solutionsPanel) solutionsPanel.classList.remove('has-banner-active');
+    cards.forEach(c => c.classList.remove('active-story'));
+  });
+}
 </script>
 
 </body>
