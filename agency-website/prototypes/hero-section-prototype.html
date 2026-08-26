@@ -337,7 +337,7 @@ for (let i = 0; i < 24; i++) {
 
 /* ─── 3D PIN & STOREFRONT ─── */
 const pinGroup = new THREE.Group();
-pinGroup.position.set(0, 2.5, 0);
+pinGroup.position.set(7.6, -0.6, 0.0);
 scene.add(pinGroup);
 
 const headGeo = new THREE.SphereGeometry(2.4, 32, 32);
@@ -551,11 +551,11 @@ function animate() {
     gsap.to(hoverBannerSprite.material, { opacity: 0.0, duration: 0.3 });
   }
 
-  const targetCamX = isInHeroMode ? mouseVec.x * 1.2 : mouseVec.x * 2.5;
-  const targetCamY = isInHeroMode ? mouseVec.y * 0.8 + 0.8 : mouseVec.y * 1.8 + 1.2;
+  const targetCamX = mouseVec.x * 0.8;
+  const targetCamY = mouseVec.y * 0.5 + 1.2;
   camera.position.x += (targetCamX - camera.position.x) * 0.04;
   camera.position.y += (targetCamY - camera.position.y) * 0.04;
-  camera.lookAt(lookAtTarget.x, lookAtTarget.y, lookAtTarget.z);
+  camera.lookAt(0.0, 0.0, 0.0);
 
   pinGroup.rotation.y = time * 0.35;
 
