@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mark Bishop Media — 3D Navigation Banner Mastery Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL RESET & OBSIDIAN STAGE
+   ═══════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --bg-core: #020205;
+  --cyan-glow: #00d4ff;
+  --lime-glow: #b8ff57;
+  --gold-glow: #ffd700;
+  --purple-glow: #bd00ff;
+  --red-glow: #ff4757;
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --text-main: #ffffff;
+  --text-dim: rgba(255, 255, 255, 0.7);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-core);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  min-height: 340vh;
+  overflow-x: hidden;
+  position: relative;
+  perspective: 1400px;
+}
+
+/* CYBER MATRIX BACKGROUND */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-image: 
+    radial-gradient(circle at 50% 15%, rgba(0, 212, 255, 0.14) 0%, transparent 65%),
+    linear-gradient(to right, rgba(0, 212, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 212, 255, 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 50px 50px, 50px 50px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* TOP AMBIENT NEON FLARE */
+.ambient-glow-top {
+  position: fixed;
+  top: -180px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1050px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.22) 0%, rgba(184, 255, 87, 0.12) 45%, transparent 75%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TOP 5-BANNER VARIANT SWITCHER BAR
+   ═══════════════════════════════════════════════════════════ */
+.top-variant-control-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(6, 11, 24, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 99999;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.variant-brand-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--cyan-glow);
+}
+.variant-brand-badge {
+  background: rgba(0, 212, 255, 0.15);
+  border: 1px solid var(--cyan-glow);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+}
+
+.variant-buttons-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  overflow-x: auto;
+  padding: 2px 4px;
+}
+
+.btn-var-select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.75);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 100px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-var-select:hover {
+  background: rgba(0, 212, 255, 0.15);
+  border-color: var(--cyan-glow);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.btn-var-select.active {
+  background: linear-gradient(135deg, var(--cyan-glow), var(--lime-glow));
+  color: #020205;
+  border-color: transparent;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CORE MASTER NAVIGATION CONTAINER
+   ═══════════════════════════════════════════════════════════ */
+.master-nav-wrapper {
+  position: absolute;
+  top: 72px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 10000;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  perspective: 1200px;
+}
+
+/* 1. INITIAL TOP STATE */
+.nav-capsule {
+  pointer-events: auto;
+  position: relative;
+  width: min(1220px, 92%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  padding: 6px 12px 6px 20px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+/* 2. SCROLLED STATE */
+body.is-scrolled .master-nav-wrapper {
+  position: fixed;
+  top: 60px;
+  animation: floatInNav 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes floatInNav {
+  0% { transform: translateY(-20px) scale(0.96); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+body.is-scrolled .nav-capsule {
+  width: min(1080px, 92%);
+  padding: 4.5px 10px 4.5px 18px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 
+    0 14px 40px rgba(0, 0, 0, 0.45),
+    0 0 25px rgba(0, 212, 255, 0.15),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   3D SONAR RADAR PULSE ON LOGO
+   ═══════════════════════════════════════════════════════════ */
+.brand-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+  perspective: 600px;
+}
+.brand-logo-svg {
+  height: 40px;
+  width: auto;
+  max-width: 270px;
+  object-fit: contain;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+body.is-scrolled .brand-logo-svg { height: 33px; }
+
+.sonar-ring-container {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  pointer-events: none;
+  z-index: 1;
+}
+.sonar-radar-wave {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1.5px solid var(--cyan-glow);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.3);
+}
+
+.brand-link:hover .brand-logo-svg {
+  transform: rotateY(16deg) translateZ(8px) scale(1.05);
+}
+.brand-link:hover .sonar-radar-wave:nth-child(1) {
+  animation: sonarWave 1.4s infinite cubic-bezier(0.1, 0.8, 0.3, 1);
+}
+.brand-link:hover .sonar-radar-wave:nth-child(2) {
+  animation: sonarWave 1.4s 0.4s infinite cubic-bezier(0.1, 0.8, 0.3, 1);
+  border-color: var(--lime-glow);
+}
+
+@keyframes sonarWave {
+  0% { transform: scale(0.4) translateZ(0); opacity: 0.95; box-shadow: 0 0 12px rgba(0, 212, 255, 0.7); }
+  70% { opacity: 0.4; box-shadow: 0 0 30px rgba(0, 212, 255, 0.3); }
+  100% { transform: scale(3) translateZ(30px); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CENTER NAVIGATION MENU LIST
+   ═══════════════════════════════════════════════════════════ */
+.nav-menu-list {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  list-style: none;
+}
+
+.nav-item {
+  position: relative;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 212, 255, 0.35);
+  box-shadow: 
+    0 0 16px rgba(0, 212, 255, 0.18),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.nav-chevron {
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.45);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+}
+.nav-item:hover .nav-chevron,
+.nav-item.active .nav-chevron {
+  color: var(--cyan-glow);
+  transform: rotate(180deg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DUAL-DECK 3D SPATIAL ARCHITECTURE (LEFT CARDS + RIGHT BANNER)
+   ═══════════════════════════════════════════════════════════ */
+.dropdown-panel-spatial {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: -20px;
+  display: flex;
+  gap: 16px;
+  width: 780px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 20000;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+#nav-item-resources .dropdown-panel-spatial {
+  left: -240px;
+}
+
+.dropdown-panel-spatial::before {
+  content: '';
+  position: absolute;
+  top: -24px;
+  left: -20px;
+  right: -20px;
+  height: 30px;
+  background: transparent;
+}
+
+.nav-item:hover .dropdown-panel-spatial,
+.nav-item.active .dropdown-panel-spatial {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LEFT COLUMN: CLEAN 3D SERVICE CARDS (NO SUBTITLE)
+   ═══════════════════════════════════════════════════════════ */
+.spatial-cards-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 360px;
+  flex-shrink: 0;
+  list-style: none;
+}
+
+.dropdown-card-clean {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: 14px;
+  text-decoration: none;
+  background: rgba(9, 15, 30, 0.94);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(0, 212, 255, 0.22);
+  box-shadow: 
+    0 14px 35px rgba(0, 0, 0, 0.9),
+    0 0 16px rgba(0, 212, 255, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform: perspective(800px) translate3d(0, 20px, -40px) rotateX(-10deg) scale(0.95);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.nav-item:hover .dropdown-card-clean {
+  opacity: 1;
+  transform: perspective(800px) translate3d(0, 0, 0) rotateX(0deg) scale(1);
+}
+
+.nav-item:hover .spatial-cards-column li:nth-child(1) .dropdown-card-clean { transition-delay: 0.02s; }
+.nav-item:hover .spatial-cards-column li:nth-child(2) .dropdown-card-clean { transition-delay: 0.05s; }
+.nav-item:hover .spatial-cards-column li:nth-child(3) .dropdown-card-clean { transition-delay: 0.08s; }
+.nav-item:hover .spatial-cards-column li:nth-child(4) .dropdown-card-clean { transition-delay: 0.11s; }
+
+/* HOVERED CARD HIGHLIGHT */
+.dropdown-card-clean:hover,
+.dropdown-card-clean.active-hovered {
+  background: rgba(12, 24, 48, 0.98);
+  border-color: var(--cyan-glow);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.95),
+    0 0 30px rgba(0, 212, 255, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  transform: perspective(800px) translate3d(6px, 0, 26px) scale(1.025);
+}
+
+.clean-card-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.clean-icon-box {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: rgba(0, 212, 255, 0.12);
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dropdown-card-clean:hover .clean-icon-box {
+  transform: translateZ(16px) scale(1.15);
+  background: rgba(0, 212, 255, 0.25);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+}
+
+.clean-card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.clean-metric-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #020205;
+  background: linear-gradient(135deg, var(--lime-glow), var(--cyan-glow));
+  padding: 3.5px 8.5px;
+  border-radius: 100px;
+  white-space: nowrap;
+  box-shadow: 0 0 10px rgba(184, 255, 87, 0.4);
+  transform: rotateX(90deg) translateZ(6px);
+  opacity: 0;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 4;
+}
+.dropdown-card-clean:hover .clean-metric-badge,
+.dropdown-card-clean.active-hovered .clean-metric-badge {
+  transform: rotateX(0deg) translateZ(16px);
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RIGHT COLUMN: THE 3D MASTER STORYTELLING BANNER / DECK
+   ═══════════════════════════════════════════════════════════ */
+.master-story-banner {
+  flex: 1;
+  background: rgba(8, 14, 28, 0.96);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border: 1.5px solid rgba(0, 212, 255, 0.35);
+  border-radius: 18px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.95),
+    0 0 30px rgba(0, 212, 255, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.25);
+  transform: perspective(1000px) rotateY(-6deg) translateZ(15px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* SCANLINE TEXTURE */
+.master-story-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 212, 255, 0.035) 51%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* BANNER HEADER BADGE */
+.banner-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.banner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--cyan-glow);
+  background: rgba(0, 212, 255, 0.12);
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.banner-variant-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--lime-glow);
+  font-weight: 700;
+}
+
+.banner-voice-quote {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.banner-voice-quote span.highlight {
+  color: var(--lime-glow);
+  text-shadow: 0 0 10px rgba(184, 255, 87, 0.4);
+}
+
+.banner-narrative-text {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   5 DYNAMIC BANNER 3D VISUAL ENGINES (RENDERED INSIDE BANNER)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── BANNER STYLE 1: 3D SIMULATION SANDBOX BOX ─── */
+.banner-visual-sandbox {
+  background: rgba(3, 7, 18, 0.88);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 212, 255, 0.08);
+}
+.sandbox-halo-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(0, 212, 255, 0.15);
+  border: 1.5px solid var(--cyan-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+  animation: floatHalo 3s ease-in-out infinite alternate;
+}
+@keyframes floatHalo {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-4px) rotate(4deg); }
+}
+.sandbox-text-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 3px;
+}
+.sandbox-text-detail {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--lime-glow);
+}
+
+/* ─── BANNER STYLE 2: 3-STEP ANIMATED PIPELINE ROADMAP ─── */
+.banner-visual-pipeline {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(3, 7, 18, 0.88);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 14px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.pipe-step-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+}
+.pipe-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  font-weight: 800;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(0, 212, 255, 0.2);
+  border: 1px solid var(--cyan-glow);
+  color: var(--cyan-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.pipe-text { color: rgba(255, 255, 255, 0.85); font-weight: 500; }
+.pipe-step-row.active .pipe-num {
+  background: var(--lime-glow);
+  color: #020205;
+  border-color: var(--lime-glow);
+  box-shadow: 0 0 10px rgba(184, 255, 87, 0.6);
+}
+
+/* ─── BANNER STYLE 3: BEFORE VS AFTER REVENUE SPLIT SCREEN ─── */
+.banner-visual-splitscreen {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.split-box {
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.split-box.before {
+  background: rgba(255, 71, 87, 0.08);
+  border: 1px solid rgba(255, 71, 87, 0.35);
+}
+.split-box.after {
+  background: rgba(184, 255, 87, 0.1);
+  border: 1.5px solid var(--lime-glow);
+  box-shadow: 0 0 15px rgba(184, 255, 87, 0.25);
+}
+.split-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+.split-box.before .split-tag { color: var(--red-glow); }
+.split-box.after .split-tag { color: var(--lime-glow); }
+.split-main { font-size: 11px; font-weight: 700; color: #fff; line-height: 1.3; }
+.split-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  margin-top: 6px;
+}
+.split-box.before .split-val { color: var(--red-glow); }
+.split-box.after .split-val { color: var(--lime-glow); }
+
+/* ─── BANNER STYLE 4: SPATIAL 3D FLOATING GLASS CHIPS ─── */
+.banner-visual-spatialchips {
+  display: none;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.spatial-chip {
+  flex: 1;
+  background: rgba(12, 22, 44, 0.95);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  transform: perspective(600px) translateZ(18px);
+  transition: transform 0.3s ease;
+}
+.spatial-chip:hover {
+  transform: perspective(600px) translateZ(30px) scale(1.05);
+  border-color: var(--lime-glow);
+}
+.chip-icon { font-size: 18px; margin-bottom: 3px; }
+.chip-lbl { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; color: rgba(255, 255, 255, 0.6); }
+.chip-val { font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700; color: var(--lime-glow); }
+
+/* ─── BANNER STYLE 5: CYBER TELEMETRY RADAR HUD ─── */
+.banner-visual-cyberradar {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(2, 8, 20, 0.9);
+  border: 1px dashed rgba(0, 212, 255, 0.4);
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+.cyber-top-coords {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--cyan-glow);
+}
+.radar-pulse-stream {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--lime-glow);
+}
+.radar-mini-blip {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--lime-glow);
+  box-shadow: 0 0 10px var(--lime-glow);
+  animation: radarBlink 1s infinite alternate;
+}
+@keyframes radarBlink { 0% { opacity: 0.3; } 100% { opacity: 1; } }
+
+/* BANNER FOOTER ROI PROOF */
+.banner-footer-proof {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.proof-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.proof-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--lime-glow);
+  background: rgba(184, 255, 87, 0.12);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(184, 255, 87, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RIGHT ACTION GROUP & GLOWING CTA
+   ═══════════════════════════════════════════════════════════ */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-contact-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-contact-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 212, 255, 0.35);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.btn-cta-glow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: linear-gradient(135deg, #00d4ff, #b8ff57);
+  color: #020205;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 6px 12px 6px 16px;
+  border-radius: 100px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  border: none;
+}
+.btn-cta-glow:hover {
+  transform: scale(1.06) translateZ(8px);
+  box-shadow: 0 0 40px rgba(184, 255, 87, 0.85);
+}
+
+.arrow-circle-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
+  background: #020205;
+  color: #b8ff57;
+  border-radius: 50%;
+  font-size: 10.5px;
+  font-weight: 900;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.25s ease;
+}
+.arrow-circle-badge span {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-cta-glow:hover .arrow-circle-badge span { transform: translate(2px, -2px); }
+
+/* ═══════════════════════════════════════════════════════════
+   DEMO WEBPAGE SECTIONS
+   ═══════════════════════════════════════════════════════════ */
+.demo-page-content {
+  position: relative;
+  z-index: 10;
+  padding-top: 180px;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.demo-section {
+  min-height: 75vh;
+  margin-bottom: 50px;
+  border-radius: 24px;
+  background: rgba(10, 16, 30, 0.4);
+  border: 1px solid rgba(0, 212, 255, 0.12);
+  padding: 50px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.sec-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--cyan-glow);
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+
+.sec-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, #ffffff 60%, rgba(0,212,255,0.8));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sec-desc {
+  font-size: 15px;
+  color: var(--text-dim);
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+.active-variant-indicator-card {
+  background: rgba(0, 212, 255, 0.06);
+  border: 1.5px solid rgba(0, 212, 255, 0.35);
+  border-radius: 18px;
+  padding: 22px;
+  margin-top: 28px;
+  max-width: 760px;
+}
+.card-header-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--lime-glow);
+  letter-spacing: 0.16em;
+  margin-bottom: 6px;
+}
+.card-header-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.card-desc-val {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+}
+</style>
+</head>
+<body data-active-banner="1">
+
+<!-- TOP AMBIENT LIGHT -->
+<div class="ambient-glow-top"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PERSISTENT 5-BANNER VARIANT LIVE SWITCHER CONTROL BAR
+     ═══════════════════════════════════════════════════════════ -->
+<header class="top-variant-control-bar">
+  <div class="variant-brand-label">
+    <span class="variant-brand-badge">5 BANNER VARIANTS</span>
+    <span>Select 3D Banner Engine:</span>
+  </div>
+  <div class="variant-buttons-group">
+    <button class="btn-var-select active" onclick="switchBanner(1)">1. 🌐 3D Simulation Sandbox</button>
+    <button class="btn-var-select" onclick="switchBanner(2)">2. ⚡ 3-Step Pipeline Roadmap</button>
+    <button class="btn-var-select" onclick="switchBanner(3)">3. 📊 [Before vs After] Split</button>
+    <button class="btn-var-select" onclick="switchBanner(4)">4. 💎 Apple VisionOS Spatial Chips</button>
+    <button class="btn-var-select" onclick="switchBanner(5)">5. 🛰️ Cyber Telemetry Radar</button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════
+     THE MASTER 3D NAVIGATION CAPSULE
+     ═══════════════════════════════════════════════════════════ -->
+<div class="master-nav-wrapper" id="master-nav-wrapper">
+  <nav class="nav-capsule" id="nav-capsule">
+    
+    <!-- 1. BRAND LOGO -->
+    <a href="#" class="brand-link" id="mag-logo" aria-label="Mark Bishop Media Home">
+      <div class="sonar-ring-container">
+        <div class="sonar-radar-wave"></div>
+        <div class="sonar-radar-wave"></div>
+      </div>
+      <img src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg" />
+    </a>
+
+    <!-- 2. CENTER NAVIGATION LIST -->
+    <ul class="nav-menu-list" id="nav-menu-list">
+
+      <!-- SOLUTIONS (CLEAN CARDS ON LEFT + 3D MASTER BANNER ON RIGHT) -->
+      <li class="nav-item has-dropdown" id="nav-item-solutions">
+        <span>Solutions</span>
+        <span class="nav-chevron">▼</span>
+        
+        <!-- THE DUAL-DECK 3D SPATIAL COMMAND ARCHITECTURE -->
+        <div class="dropdown-panel-spatial" id="solutions-spatial-panel">
+          
+          <!-- LEFT DECK: CLEAN SINGLE-LINE 3D CARDS (NO SUBTITLES) -->
+          <ul class="spatial-cards-column">
+            
+            <!-- SERVICE 1 -->
+            <li>
+              <a href="#three-pack" class="dropdown-card-clean active-hovered" data-story="maps">
+                <div class="clean-card-left">
+                  <div class="clean-icon-box">📍</div>
+                  <span class="clean-card-title">Rank in Google Maps Top 3</span>
+                </div>
+                <span class="clean-metric-badge">+320% CALLS</span>
+              </a>
+            </li>
+
+            <!-- SERVICE 2 -->
+            <li>
+              <a href="#reviews" class="dropdown-card-clean" data-story="reviews">
+                <div class="clean-card-left">
+                  <div class="clean-icon-box">⭐</div>
+                  <span class="clean-card-title">Automated 5-Star Reviews</span>
+                </div>
+                <span class="clean-metric-badge">★ 4.9 RATING</span>
+              </a>
+            </li>
+
+            <!-- SERVICE 3 -->
+            <li>
+              <a href="#citations" class="dropdown-card-clean" data-story="citations">
+                <div class="clean-card-left">
+                  <div class="clean-icon-box">🌐</div>
+                  <span class="clean-card-title">100+ Directory Citations</span>
+                </div>
+                <span class="clean-metric-badge">100+ DIRS</span>
+              </a>
+            </li>
+
+            <!-- SERVICE 4 -->
+            <li>
+              <a href="#website" class="dropdown-card-clean" data-story="website">
+                <div class="clean-card-left">
+                  <div class="clean-icon-box">🚀</div>
+                  <span class="clean-card-title">High-Converting 3D Website</span>
+                </div>
+                <span class="clean-metric-badge">3.4x BOOKINGS</span>
+              </a>
+            </li>
+
+          </ul>
+
+          <!-- RIGHT DECK: THE 3D MASTER STORYTELLING BANNER -->
+          <div class="master-story-banner" id="story-banner-display">
+            <div>
+              <div class="banner-badge-row">
+                <div class="banner-badge" id="banner-badge">● LIVE CLIENT OUTCOME SIMULATION</div>
+                <div class="banner-variant-tag" id="banner-style-tag">STYLE 1: 3D SANDBOX</div>
+              </div>
+
+              <div class="banner-voice-quote" id="banner-title">“I put your business pin at <span class="highlight">#1 on Google Maps</span> in 21 days.”</div>
+              <div class="banner-narrative-text" id="banner-desc">
+                When nearby homeowners search for your services, they will see your verified business profile at the very top of Google Maps before any competitor, generating a nonstop stream of high-ticket inbound calls.
+              </div>
+            </div>
+
+            <!-- 5 DYNAMIC 3D VISUAL ENGINES (SWITCHED VIA JS) -->
+
+            <!-- ENGINE 1: 3D SIMULATION SANDBOX -->
+            <div class="banner-visual-sandbox" id="engine-sandbox">
+              <div class="sandbox-halo-icon" id="sim-icon">📍</div>
+              <div>
+                <div class="sandbox-text-title" id="sim-main">#1 Local Google 3-Pack Locked</div>
+                <div class="sandbox-text-detail" id="sim-sub">+320% Inbound Phone Calls Recorded</div>
+              </div>
+            </div>
+
+            <!-- ENGINE 2: 3-STEP ANIMATED PIPELINE -->
+            <div class="banner-visual-pipeline" id="engine-pipeline">
+              <div class="pipe-step-row active">
+                <span class="pipe-num">01</span>
+                <span class="pipe-text"><strong>Scan:</strong> 81-Point Street Radar Diagnostic</span>
+              </div>
+              <div class="pipe-step-row active">
+                <span class="pipe-num">02</span>
+                <span class="pipe-text"><strong>Deploy:</strong> Geo-Grid Relevance & Citations Lock</span>
+              </div>
+              <div class="pipe-step-row active">
+                <span class="pipe-num">03</span>
+                <span class="pipe-text"><strong>Outcome:</strong> <span style="color:var(--lime-glow)">+320% Calls & Inbound Revenue</span></span>
+              </div>
+            </div>
+
+            <!-- ENGINE 3: BEFORE VS AFTER REVENUE SPLIT SCREEN -->
+            <div class="banner-visual-splitscreen" id="engine-splitscreen">
+              <div class="split-box before">
+                <div class="split-tag">🔴 WITHOUT MBM</div>
+                <div class="split-main">Rank #14 On Google Maps</div>
+                <div class="split-val">$12,000 / MO</div>
+              </div>
+              <div class="split-box after">
+                <div class="split-tag">🟢 WITH MBM OS</div>
+                <div class="split-main" id="split-after-title">#1 Rank + 40 Calls/Mo</div>
+                <div class="split-val" id="split-after-val">+$60,000 / MO</div>
+              </div>
+            </div>
+
+            <!-- ENGINE 4: SPATIAL 3D FLOATING GLASS CHIPS -->
+            <div class="banner-visual-spatialchips" id="engine-spatialchips">
+              <div class="spatial-chip">
+                <div class="chip-icon" id="chip-1-icon">📍</div>
+                <div class="chip-lbl">GOOGLE RANK</div>
+                <div class="chip-val" id="chip-1-val">TOP #1</div>
+              </div>
+              <div class="spatial-chip">
+                <div class="chip-icon">📞</div>
+                <div class="chip-lbl">CALL SURGE</div>
+                <div class="chip-val" id="chip-2-val">+320%</div>
+              </div>
+              <div class="spatial-chip">
+                <div class="chip-icon">💰</div>
+                <div class="chip-lbl">MONTHLY VALUE</div>
+                <div class="chip-val" id="chip-3-val">+$48K</div>
+              </div>
+            </div>
+
+            <!-- ENGINE 5: CYBER TELEMETRY RADAR HUD -->
+            <div class="banner-visual-cyberradar" id="engine-cyberradar">
+              <div class="cyber-top-coords">
+                <span>📡 LAT 34.052° N, LON 118.243° W</span>
+                <span>STATUS: 100% ONLINE</span>
+              </div>
+              <div class="radar-pulse-stream">
+                <div class="radar-mini-blip"></div>
+                <span id="cyber-status-text">RADAR LOCK: #1 LOCAL GOOGLE 3-PACK ACTIVE</span>
+              </div>
+            </div>
+
+            <!-- BANNER FOOTER -->
+            <div class="banner-footer-proof">
+              <span class="proof-tag">GUARANTEED CLIENT IMPACT:</span>
+              <span class="proof-val" id="banner-proof-val">+$48,000 / MO VALUE</span>
+            </div>
+          </div>
+
+        </div>
+      </li>
+
+      <!-- CASE STUDIES (DIRECT) -->
+      <li class="nav-item" id="nav-item-cases">
+        <span>Case Studies</span>
+      </li>
+
+      <!-- TESTIMONIALS (DIRECT) -->
+      <li class="nav-item" id="nav-item-testimonials">
+        <span>Testimonials</span>
+      </li>
+
+      <!-- RESOURCES DROPDOWN -->
+      <li class="nav-item has-dropdown" id="nav-item-resources">
+        <span>Resources</span>
+        <span class="nav-chevron">▼</span>
+        
+        <div class="dropdown-panel-spatial" id="resources-spatial-panel">
+          <ul class="spatial-cards-column">
+            <li>
+              <a href="#audit" class="dropdown-card-clean active-hovered" data-story="audit">
+                <div class="clean-card-left">
+                  <div class="clean-icon-box">⚡</div>
+                  <span class="clean-card-title">Free 9-Mile Visibility Audit</span>
+                </div>
+                <span class="clean-metric-badge">FREE SCAN</span>
+              </a>
+            </li>
+            <li>
+              <a href="#blog" class="dropdown-card-clean" data-story="blog">
+                <div class="clean-card-left">
+                  <div class="clean-icon-box">📑</div>
+                  <span class="clean-card-title">Local Growth Case Studies</span>
+                </div>
+                <span class="clean-metric-badge">INSIGHTS</span>
+              </a>
+            </li>
+            <li>
+              <a href="#faq" class="dropdown-card-clean" data-story="faq">
+                <div class="clean-card-left">
+                  <div class="clean-icon-box">❓</div>
+                  <span class="clean-card-title">Frequently Asked Questions</span>
+                </div>
+                <span class="clean-metric-badge">FAQS</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="master-story-banner" id="resource-story-banner">
+            <div>
+              <div class="banner-badge-row">
+                <div class="banner-badge">● INSTANT RADAR DIAGNOSTIC</div>
+                <div class="banner-variant-tag">60 SECONDS LIVE</div>
+              </div>
+
+              <div class="banner-voice-quote">“I scan your exact <span class="highlight">9-mile radius in 5 seconds</span>.”</div>
+              <div class="banner-narrative-text">
+                Our street-level radar scan checks 81 GPS grid coordinates around your zip code to show exactly which competitors are stealing your calls and how to overtake them.
+              </div>
+            </div>
+
+            <div class="banner-visual-sandbox">
+              <div class="sandbox-halo-icon">⚡</div>
+              <div>
+                <div class="sandbox-text-title">81-Point Geo-Grid Analysis</div>
+                <div class="sandbox-text-detail">100% Free Live Audit Report Generated</div>
+              </div>
+            </div>
+
+            <div class="banner-footer-proof">
+              <span class="proof-tag">INSTANT ACCESS:</span>
+              <span class="proof-val">0 COST / 60 SECONDS</span>
+            </div>
+          </div>
+
+        </div>
+      </li>
+
+    </ul>
+
+    <!-- 3. RIGHT ACTION GROUP -->
+    <div class="nav-actions">
+      <a href="#contact" class="nav-contact-link">Talk to Mark</a>
+      <a href="#audit" class="btn-cta-glow" id="mag-cta-btn">
+        <span>⚡ FREE AUDIT</span>
+        <span class="arrow-circle-badge"><span>↗</span></span>
+      </a>
+    </div>
+
+  </nav>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DEMO WEBPAGE SECTIONS
+     ═══════════════════════════════════════════════════════════ -->
+<main class="demo-page-content">
+
+  <!-- SECTION 1: HERO VIEW -->
+  <section class="demo-section" id="hero-sec">
+    <div class="sec-badge" id="active-banner-badge">● ACTIVE BANNER VARIANT 1: 🌐 3D SIMULATION SANDBOX</div>
+    <h1 class="sec-title" id="active-banner-heading">Clean Left Cards + 3D Outcome Story Banner</h1>
+    <p class="sec-desc" id="active-banner-desc">
+      Notice how the left cards are now 100% clean with subtitles removed, letting the <strong>Right-Side 3D Storytelling Banner</strong> take center stage to explain each business transformation!
+    </p>
+
+    <!-- TEST STREAM PASSING UNDER THE GLASS -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin:24px 0;">
+      <span style="background:linear-gradient(135deg,#00d4ff,#b8ff57);color:#020205;font-weight:800;padding:7px 16px;border-radius:100px;font-size:12px;box-shadow:0 0 20px rgba(0,212,255,0.4)">🔥 $1,450,000 REVENUE CLIENT ENGINE</span>
+      <span style="background:rgba(0,212,255,0.15);border:1px solid #00d4ff;color:#00d4ff;font-weight:700;padding:7px 16px;border-radius:100px;font-size:12px;">📍 #1 GOOGLE 3-PACK RANKING</span>
+      <span style="background:rgba(184,255,87,0.15);border:1px solid #b8ff57;color:#b8ff57;font-weight:700;padding:7px 16px;border-radius:100px;font-size:12px;">⭐ 250+ 5-STAR REVIEWS</span>
+    </div>
+
+    <div class="active-variant-indicator-card">
+      <div class="card-header-lbl" id="card-lbl">3D BANNER ARCHITECTURE HIGHLIGHTS:</div>
+      <div class="card-header-val" id="card-val">💎 Clean Left Cards + Dynamic 3D Outcome Visual Deck</div>
+      <div class="card-desc-val" id="card-desc">
+        1. <strong>Left Cards:</strong> Simplified to Icon + Title + 3D Metric Badge (Subtitles eliminated for zero redundancy).<br>
+        2. <strong>Right Banner:</strong> Dedicated 3D Outcome Deck with 5 distinct switchable visual engines (Sandbox, Pipeline, Split Screen, Spatial Chips, Cyber Radar)!
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: PROOF DEMO -->
+  <section class="demo-section" id="proof-sec">
+    <div class="sec-badge">● STAGE 02 — LOCAL RADAR VISIBILITY</div>
+    <h2 class="sec-title" style="color:#00d4ff;text-shadow:0 0 30px rgba(0,212,255,0.4);">
+      9-MILE STREET-LEVEL GEO-GRID SCAN ENGINE
+    </h2>
+    <p class="sec-desc">
+      Scroll up and down to observe how the razor-thin frosted glass capsule softly refracts the bright typography.
+    </p>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════
+     5-BANNER DYNAMIC CONTROLLER SCRIPT
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+/* ─── 1. SMART SCROLL FREEZE & FLOAT ─── */
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 40) {
+    document.body.classList.add('is-scrolled');
+  } else {
+    document.body.classList.remove('is-scrolled');
+  }
+});
+
+/* ─── 2. DYNAMIC 3D STORYTELLING DICTIONARY ─── */
+const bannerDatabase = {
+  maps: {
+    title: '“I put your business pin at <span class="highlight">#1 on Google Maps</span> in 21 days.”',
+    desc: 'When nearby homeowners search for your services, they will see your verified business profile at the very top of Google Maps before any competitor, generating a nonstop stream of high-ticket inbound calls.',
+    icon: '📍',
+    main: '#1 Local Google 3-Pack Locked',
+    sub: '+320% Inbound Phone Calls Recorded',
+    splitTitle: '#1 Rank + 40 Calls/Mo',
+    splitVal: '+$60,000 / MO',
+    chip1Icon: '📍', chip1Val: 'TOP #1',
+    chip2Val: '+320%',
+    chip3Val: '+$48K',
+    cyberStatus: 'RADAR LOCK: #1 LOCAL GOOGLE 3-PACK ACTIVE',
+    proof: '+$48,000 / MO VALUE'
+  },
+  reviews: {
+    title: '“I automatically turn your happy customers into <span class="highlight">5-star reviews</span> on autopilot.”',
+    desc: 'My automated smart SMS & WhatsApp workflows send gentle review requests immediately after you finish a job, stacking up dozens of real 5-star ratings on Google while silently intercepting bad feedback.',
+    icon: '⭐',
+    main: 'Automated 5-Star Review Engine',
+    sub: '4.9 Star Rating with 250+ Real Reviews',
+    splitTitle: '250+ 5-Star Reviews Locked',
+    splitVal: '4.9★ RATING',
+    chip1Icon: '⭐', chip1Val: '4.9 STARS',
+    chip2Val: '250+ REVS',
+    chip3Val: '94% TRUST',
+    cyberStatus: 'REVIEW SENTINEL: 5-STAR WORKFLOW ACTIVE',
+    proof: '94% TRUST RATE'
+  },
+  citations: {
+    title: '“I lock and synchronize your business NAP across <span class="highlight">100+ directories</span>.”',
+    desc: 'I syndicate your Name, Address & Phone number across Apple Maps, Yelp, Bing, Yahoo & 100+ directories so Google search algorithms view your business as 100% legitimate and boost your local rank.',
+    icon: '🌐',
+    main: '100+ Directory Sync Active',
+    sub: 'Zero NAP Inconsistencies Across Web',
+    splitTitle: '100+ Synced Directories',
+    splitVal: '100% TRUST',
+    chip1Icon: '🌐', chip1Val: '100+ DIRS',
+    chip2Val: '100% NAP',
+    chip3Val: 'AUTHORITY',
+    cyberStatus: 'DIRECTORY SYNC: 100+ NODES VERIFIED',
+    proof: '100% AUTHORITY'
+  },
+  website: {
+    title: '“I build a lightning-fast 3D website engineered to <span class="highlight">convert clicks into booked calls</span>.”',
+    desc: 'Visitors do not just browse; they get instantly captivated by interactive 3D visual proof, smart local schema, and friction-free click-to-call triggers that convert 3.4x more traffic into paid contracts.',
+    icon: '🚀',
+    main: 'High-Converting 3D Website Active',
+    sub: '3.4x Higher Visitor-to-Call Conversion Rate',
+    splitTitle: '3.4x Booked Conversion Surge',
+    splitVal: '+$75,000 / MO',
+    chip1Icon: '🚀', chip1Val: '3.4x SPEED',
+    chip2Val: '24/7 CALLS',
+    chip3Val: '+$75K/MO',
+    cyberStatus: 'CONVERSION CORE: 3.4x BOOKING ACCELERATION',
+    proof: '3.4x BOOKINGS'
+  }
+};
+
+/* ─── 3. CARD HOVER CONTROLLER ─── */
+const cleanCards = document.querySelectorAll('#solutions-spatial-panel .dropdown-card-clean');
+const bannerTitle = document.getElementById('banner-title');
+const bannerDesc = document.getElementById('banner-desc');
+const bannerProofVal = document.getElementById('banner-proof-val');
+const storyBanner = document.getElementById('story-banner-display');
+
+// Engine elements
+const simIcon = document.getElementById('sim-icon');
+const simMain = document.getElementById('sim-main');
+const simSub = document.getElementById('sim-sub');
+const splitAfterTitle = document.getElementById('split-after-title');
+const splitAfterVal = document.getElementById('split-after-val');
+const chip1Icon = document.getElementById('chip-1-icon');
+const chip1Val = document.getElementById('chip-1-val');
+const chip2Val = document.getElementById('chip-2-val');
+const chip3Val = document.getElementById('chip-3-val');
+const cyberStatusText = document.getElementById('cyber-status-text');
+
+cleanCards.forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    cleanCards.forEach(c => c.classList.remove('active-hovered'));
+    card.classList.add('active-hovered');
+    
+    const key = card.getAttribute('data-story');
+    const data = bannerDatabase[key];
+    
+    if (data) {
+      // 3D Morph Animation in Banner
+      storyBanner.style.transform = 'perspective(1000px) rotateY(-3deg) translateZ(25px) scale(1.02)';
+      storyBanner.style.borderColor = 'var(--lime-glow)';
+      
+      bannerTitle.innerHTML = data.title;
+      bannerDesc.innerHTML = data.desc;
+      bannerProofVal.innerHTML = data.proof;
+      
+      // Update all visual engines
+      if (simIcon) simIcon.innerHTML = data.icon;
+      if (simMain) simMain.innerHTML = data.main;
+      if (simSub) simSub.innerHTML = data.sub;
+      if (splitAfterTitle) splitAfterTitle.innerHTML = data.splitTitle;
+      if (splitAfterVal) splitAfterVal.innerHTML = data.splitVal;
+      if (chip1Icon) chip1Icon.innerHTML = data.chip1Icon;
+      if (chip1Val) chip1Val.innerHTML = data.chip1Val;
+      if (chip2Val) chip2Val.innerHTML = data.chip2Val;
+      if (chip3Val) chip3Val.innerHTML = data.chip3Val;
+      if (cyberStatusText) cyberStatusText.innerHTML = data.cyberStatus;
+      
+      setTimeout(() => {
+        storyBanner.style.transform = 'perspective(1000px) rotateY(-6deg) translateZ(15px) scale(1)';
+        storyBanner.style.borderColor = 'rgba(0, 212, 255, 0.35)';
+      }, 250);
+    }
+  });
+});
+
+/* ─── 4. 5-BANNER VARIANT SWITCHER ─── */
+const bannerMetadata = {
+  1: {
+    badge: '● ACTIVE BANNER VARIANT 1: 🌐 3D SIMULATION SANDBOX',
+    heading: '3D Simulation Sandbox Banner',
+    desc: 'Hover over "Solutions ⌵" to see live 3D floating halo icons, live status badges, and animated client impact metrics.',
+    tag: 'STYLE 1: 3D SANDBOX',
+    engineId: 'engine-sandbox'
+  },
+  2: {
+    badge: '● ACTIVE BANNER VARIANT 2: ⚡ 3-STEP PIPELINE ROADMAP',
+    heading: '3-Step Animated Transformation Pipeline Banner',
+    desc: 'Hover over "Solutions ⌵" to see the concrete 3-step timeline (Scan ➔ Deploy ➔ Outcome) clearly detailing what MBM does.',
+    tag: 'STYLE 2: 3-STEP PIPELINE',
+    engineId: 'engine-pipeline'
+  },
+  3: {
+    badge: '● ACTIVE BANNER VARIANT 3: 📊 [BEFORE VS AFTER] SPLIT SCREEN',
+    heading: '[Before vs After MBM] Direct Comparison Banner',
+    desc: 'Hover over "Solutions ⌵" to view the stark side-by-side comparison between without MBM (Rank #14, $12K) and with MBM OS (Rank #1, $60K)!',
+    tag: 'STYLE 3: BEFORE/AFTER SPLIT',
+    engineId: 'engine-splitscreen'
+  },
+  4: {
+    badge: '● ACTIVE BANNER VARIANT 4: 💎 VISIONOS SPATIAL CHIPS',
+    heading: 'Apple VisionOS Spatial Floating Glass Chips Banner',
+    desc: 'Hover over "Solutions ⌵" to see multi-layered floating 3D glass chips elevated on the Z-axis with live outcome data.',
+    tag: 'STYLE 4: SPATIAL CHIPS',
+    engineId: 'engine-spatialchips'
+  },
+  5: {
+    badge: '● ACTIVE BANNER VARIANT 5: 🛰️ CYBER TELEMETRY RADAR',
+    heading: 'Cybernetic Telemetry Radar & Live Stream Banner',
+    desc: 'Hover over "Solutions ⌵" to see live GPS telemetry coordinates, active radar blips, and AI rank verification streams.',
+    tag: 'STYLE 5: CYBER RADAR',
+    engineId: 'engine-cyberradar'
+  }
+};
+
+function switchBanner(varNum) {
+  document.body.setAttribute('data-active-banner', varNum);
+  
+  // Switch buttons
+  document.querySelectorAll('.btn-var-select').forEach((btn, idx) => {
+    if (idx + 1 === varNum) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  const meta = bannerMetadata[varNum];
+  document.getElementById('active-banner-badge').innerText = meta.badge;
+  document.getElementById('active-banner-heading').innerText = meta.heading;
+  document.getElementById('active-banner-desc').innerHTML = meta.desc;
+  document.getElementById('banner-style-tag').innerText = meta.tag;
+
+  // Hide all engines
+  document.getElementById('engine-sandbox').style.display = 'none';
+  document.getElementById('engine-pipeline').style.display = 'none';
+  document.getElementById('engine-splitscreen').style.display = 'none';
+  document.getElementById('engine-spatialchips').style.display = 'none';
+  document.getElementById('engine-cyberradar').style.display = 'none';
+
+  // Show active engine
+  const activeEngine = document.getElementById(meta.engineId);
+  if (activeEngine) {
+    if (meta.engineId === 'engine-splitscreen') {
+      activeEngine.style.display = 'grid';
+    } else if (meta.engineId === 'engine-spatialchips' || meta.engineId === 'engine-sandbox' || meta.engineId === 'engine-pipeline' || meta.engineId === 'engine-cyberradar') {
+      activeEngine.style.display = 'flex';
+    }
+  }
+}
+</script>
+
+</body>
+</html>
