@@ -717,16 +717,16 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
   border-radius: 100px;
   white-space: nowrap;
   box-shadow: 0 0 10px rgba(184, 255, 87, 0.4);
-  transform: rotateX(90deg) translateZ(6px);
-  opacity: 0;
+  transform: rotateX(0deg) translateZ(8px);
+  opacity: 1;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   z-index: 4;
 }
 .dropdown-card-master:hover .master-metric-badge,
 .dropdown-card-master.active-story .master-metric-badge {
-  transform: rotateX(0deg) translateZ(16px);
-  opacity: 1;
+  transform: scale(1.08) translateZ(16px);
+  box-shadow: 0 0 16px rgba(184, 255, 87, 0.8);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1220,7 +1220,7 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
         <div class="dropdown-panel-spatial" id="resources-spatial-panel">
           <ul class="spatial-cards-column">
             <li>
-              <a href="#audit" class="dropdown-card-master active-story" data-story="audit">
+              <a href="#audit" class="dropdown-card-master" data-story="audit">
                 <div class="card-inner-left">
                   <div class="icon-box-maps">
                     <div class="maps-sonar-ring-1"></div>
@@ -1449,6 +1449,26 @@ if (navItemSolutions) {
   navItemSolutions.addEventListener('mouseleave', () => {
     if (solutionsPanel) solutionsPanel.classList.remove('has-banner-active');
     cards.forEach(c => c.classList.remove('active-story'));
+  });
+}
+
+// Resources Panel Event Controller
+const resourcesPanel = document.getElementById('resources-spatial-panel');
+const navItemResources = document.getElementById('nav-item-resources');
+const resourceCards = document.querySelectorAll('#resources-spatial-panel .dropdown-card-master');
+
+resourceCards.forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    if (resourcesPanel) resourcesPanel.classList.add('has-banner-active');
+    resourceCards.forEach(c => c.classList.remove('active-story'));
+    card.classList.add('active-story');
+  });
+});
+
+if (navItemResources) {
+  navItemResources.addEventListener('mouseleave', () => {
+    if (resourcesPanel) resourcesPanel.classList.remove('has-banner-active');
+    resourceCards.forEach(c => c.classList.remove('active-story'));
   });
 }
 </script>
