@@ -232,9 +232,11 @@ function onResize() {
 }
 window.addEventListener('resize', onResize);
 
-const ambLight = new THREE.AmbientLight(0x0a182e, 2.8); scene.add(ambLight);
-const dirLight = new THREE.DirectionalLight(0xffffff, 3.2); dirLight.position.set(8, 14, 10); scene.add(dirLight);
-const pointCyan = new THREE.PointLight(0x00d4ff, 3.8, 30); pointCyan.position.set(-6, 6, 8); scene.add(pointCyan);
+// Omnidirectional 360-degree Lighting (Prevents dark backside shadows)
+const ambLight = new THREE.AmbientLight(0x0a182e, 3.6); scene.add(ambLight);
+const dirLightFront = new THREE.DirectionalLight(0xffffff, 3.5); dirLightFront.position.set(8, 14, 10); scene.add(dirLightFront);
+const dirLightBack = new THREE.DirectionalLight(0x00d4ff, 3.0); dirLightBack.position.set(-8, -6, -10); scene.add(dirLightBack);
+const pointCyan = new THREE.PointLight(0x00d4ff, 4.2, 40); pointCyan.position.set(-6, 6, 8); scene.add(pointCyan);
 
 /* ─── 850 PARTICLES ─── */
 const dustCount = 850;
@@ -258,39 +260,53 @@ dustGeo.setAttribute('color', new THREE.BufferAttribute(dustCols, 3));
 const dustMat = new THREE.PointsMaterial({ size: 0.18, vertexColors: true, transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending });
 scene.add(new THREE.Points(dustGeo, dustMat));
 
-/* ─── 3D PIN & STOREFRONT (POSITIONED AT USER'S RED RECTANGLE) ─── */
+/* ─── 3D PIN & COMPLETE LUMINOUS STOREFRONT BUILDING ─── */
 const pinGroup = new THREE.Group();
 pinGroup.position.set(7.6, -0.6, 0.0);
 pinGroup.scale.set(0.88, 0.88, 0.88);
 scene.add(pinGroup);
 
+// Pin Sphere Wireframe
 const headGeo = new THREE.SphereGeometry(2.4, 32, 32);
-const headMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.35 });
+const headMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.45 });
 const headMesh = new THREE.Mesh(headGeo, headMat);
-headMesh.position.y = 1.2;
 pinGroup.add(headMesh);
 
+// Complete 3D Storefront Building with Peaked Roof, Awning Canopy, Door & Window
 const shopGroup = new THREE.Group();
-shopGroup.position.y = 1.2;
 pinGroup.add(shopGroup);
 
 const shopMats = {
-  wall: new THREE.MeshStandardMaterial({ color: 0x0055aa, roughness: 0.2, metalness: 0.3, emissive: 0x001133, side: THREE.DoubleSide }),
-  roofCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, roughness: 0.2, metalness: 0.1, emissive: 0x00d4ff, emissiveIntensity: 0.45, side: THREE.DoubleSide }),
-  roofWhite: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.2, metalness: 0.1, emissive: 0xffffff, emissiveIntensity: 0.35, side: THREE.DoubleSide }),
+  wall: new THREE.MeshStandardMaterial({ color: 0x0055aa, roughness: 0.2, metalness: 0.3, emissive: 0x001a44, emissiveIntensity: 0.6, side: THREE.DoubleSide }),
+  roofCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, roughness: 0.2, metalness: 0.1, emissive: 0x00d4ff, emissiveIntensity: 0.75, side: THREE.DoubleSide }),
+  roofWhite: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.2, metalness: 0.1, emissive: 0xffffff, emissiveIntensity: 0.6, side: THREE.DoubleSide }),
   glassCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, emissive: 0x00d4ff, emissiveIntensity: 0.95, roughness: 0.1, metalness: 0.9, transparent: true, opacity: 0.95, side: THREE.DoubleSide }),
   doorWhite: new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x00d4ff, emissiveIntensity: 0.85, roughness: 0.2, side: THREE.DoubleSide }),
   foundation: new THREE.MeshStandardMaterial({ color: 0x04101e, roughness: 0.4, metalness: 0.6, side: THREE.DoubleSide })
 };
 
+// 1. Foundation Base
 const shopBase = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.2, 32), shopMats.foundation);
 shopBase.position.y = -0.6;
 shopGroup.add(shopBase);
 
+// 2. Storefront Walls
 const shopWalls = new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.45, 1.55), shopMats.wall);
 shopWalls.position.y = 0.2;
 shopGroup.add(shopWalls);
 
+// 3. Peaked Main Roof Gable (Chad)
+const roofShape = new THREE.Shape();
+roofShape.moveTo(-1.05, 0);
+roofShape.lineTo(0, 0.65);
+roofShape.lineTo(1.05, 0);
+roofShape.closePath();
+const roofGeo = new THREE.ExtrudeGeometry(roofShape, { depth: 1.7, bevelEnabled: false });
+const roofMesh = new THREE.Mesh(roofGeo, shopMats.roofCyan);
+roofMesh.position.set(0, 0.92, -0.85);
+shopGroup.add(roofMesh);
+
+// 4. Striped Awning Canopy Roof (Front Canopy)
 const awningGroup = new THREE.Group();
 awningGroup.position.set(0, 0.7, 0.88);
 awningGroup.rotation.x = Math.PI / 4.5;
@@ -301,21 +317,30 @@ for (let i = -3; i <= 3; i++) {
 }
 shopGroup.add(awningGroup);
 
+// 5. Storefront Glass Window
 const winGlass = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.6, 0.08), shopMats.glassCyan);
 winGlass.position.set(-0.42, 0.15, 0.79);
 shopGroup.add(winGlass);
 
+// 6. Storefront Entrance Door (Dorja)
 const shopDoor = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.9, 0.08), shopMats.doorWhite);
 shopDoor.position.set(0.45, 0.0, 0.79);
 shopGroup.add(shopDoor);
 
+// Door Handle
+const doorHandle = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.18, 16), shopMats.roofCyan);
+doorHandle.position.set(0.28, 0.0, 0.85);
+shopGroup.add(doorHandle);
+
+// Pin Bottom Cone Tip
 const tipGeo = new THREE.ConeGeometry(2.38, 3.8, 32);
-const tipMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.35 });
+const tipMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.45 });
 const tipMesh = new THREE.Mesh(tipGeo, tipMat);
 tipMesh.rotation.x = Math.PI;
 tipMesh.position.y = -0.7;
 pinGroup.add(tipMesh);
 
+// Orbiting Halos
 const ringGeo = new THREE.TorusGeometry(5.4, 0.035, 16, 120);
 const ringMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.35 });
 const halo1 = new THREE.Mesh(ringGeo, ringMat);
@@ -360,6 +385,7 @@ for (let i = 0; i < 5; i++) {
 
 /* ═══════════════════════════════════════════════════════════
    3D CUSTOMER SEARCH ➔ STOREFRONT WALK-IN CONVERSION ENGINE
+   (ZERO-CLIPPING DEPTHWRITE: FALSE TO PREVENT ANY BLACK RECTANGLES)
    ═══════════════════════════════════════════════════════════ */
 function createCustomerAvatarTex() {
   const c = document.createElement('canvas'); c.width = 128; c.height = 128;
@@ -405,18 +431,22 @@ const PURCHASE_LABELS = [
 function createKeywordTexture(text) {
   const c = document.createElement('canvas'); c.width = 512; c.height = 128;
   const ctx = c.getContext('2d');
-  ctx.fillStyle = 'rgba(8, 16, 30, 0.92)';
+  ctx.clearRect(0, 0, 512, 128);
+
+  ctx.fillStyle = 'rgba(6, 16, 32, 0.90)';
   ctx.strokeStyle = '#00d4ff';
   ctx.lineWidth = 4;
   ctx.shadowColor = 'rgba(0, 212, 255, 0.8)';
   ctx.shadowBlur = 18;
   ctx.beginPath(); ctx.roundRect(16, 20, 480, 88, 44); ctx.fill(); ctx.stroke();
+  
   ctx.shadowBlur = 0;
   ctx.font = 'bold 32px "Space Grotesk", sans-serif';
   ctx.fillStyle = '#ffffff';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText(text, 256, 64);
+  
   const tex = new THREE.CanvasTexture(c);
   tex.needsUpdate = true;
   return tex;
@@ -425,6 +455,8 @@ function createKeywordTexture(text) {
 function createPurchaseTexture(text) {
   const c = document.createElement('canvas'); c.width = 512; c.height = 128;
   const ctx = c.getContext('2d');
+  ctx.clearRect(0, 0, 512, 128);
+
   const grad = ctx.createLinearGradient(0, 0, 512, 0);
   grad.addColorStop(0, '#00d4ff');
   grad.addColorStop(1, '#b8ff57');
@@ -432,12 +464,14 @@ function createPurchaseTexture(text) {
   ctx.shadowColor = '#b8ff57';
   ctx.shadowBlur = 24;
   ctx.beginPath(); ctx.roundRect(16, 20, 480, 88, 44); ctx.fill();
+  
   ctx.shadowBlur = 0;
   ctx.font = '800 34px "Space Grotesk", sans-serif';
   ctx.fillStyle = '#020205';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText(text, 256, 64);
+  
   const tex = new THREE.CanvasTexture(c);
   tex.needsUpdate = true;
   return tex;
@@ -457,7 +491,8 @@ const customerAvatars = [];
 const TOTAL_CUSTOMERS = 8;
 
 for (let i = 0; i < TOTAL_CUSTOMERS; i++) {
-  const avatarSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: customerAvatarTex, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending }));
+  // CRITICAL: depthWrite: false prevents any transparent box from clipping 3D scene (eliminates "kalo porda")
+  const avatarSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: customerAvatarTex, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending, depthWrite: false }));
   avatarSprite.scale.set(0.48, 0.48, 1);
   customerGroup.add(avatarSprite);
 
@@ -465,7 +500,7 @@ for (let i = 0; i < TOTAL_CUSTOMERS; i++) {
   let keywordSprite = null;
   if (hasKeyword) {
     const kTex = cachedKeywordTexs[i % cachedKeywordTexs.length];
-    keywordSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: kTex, transparent: true, opacity: 0 }));
+    keywordSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: kTex, transparent: true, opacity: 0, depthWrite: false }));
     keywordSprite.scale.set(3.4, 0.85, 1);
     customerGroup.add(keywordSprite);
   }
@@ -487,7 +522,7 @@ const activePurchaseBadges = [];
 
 function triggerStorefrontPurchaseBurst(pos) {
   const pTex = cachedPurchaseTexs[Math.floor(Math.random() * cachedPurchaseTexs.length)];
-  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: pTex, transparent: true, opacity: 0, depthTest: false }));
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: pTex, transparent: true, opacity: 0, depthWrite: false }));
   const baseX = pinGroup.position.x + (Math.random() - 0.5) * 1.2;
   const baseY = pinGroup.position.y + 1.2;
   sprite.position.set(baseX, baseY, 2.0);
