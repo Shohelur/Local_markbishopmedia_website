@@ -3809,36 +3809,6 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 </div>
 
 <main class="hero-wrapper">
-  <div class="hero-inner-container">
-    <div class="hero-left-content" id="hero-left">
-      <div class="hero-pill-badge">
-        <span class="pulse-dot"></span>
-        <span>LOCAL VISIBILITY OPERATING SYSTEM</span>
-      </div>
-
-      <h1 class="hero-headline">
-        YOUR LOCAL CLIENTS<br>
-        <span class="glass-capsule">ARE SEARCHING</span><br>
-        WE MAKE SURE THEY<br>
-        FIND <span class="lime-accent">YOU FIRST.</span>
-      </h1>
-
-      <div class="hero-ticker-line">
-        <span class="ticker-label" id="ticker-label">DOMINANCE ENGINE:</span>
-        <div class="ticker-val-container">
-          <span class="ticker-val" id="ticker-val">9-Mile Local Geo-Grid Coverage</span>
-        </div>
-      </div>
-
-      <div>
-        <a href="#what-we-do" class="btn-primary-glow">
-          <span>⚡ EXPLORE WHAT WE DO</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</main>
 
 <!-- ═══════════════════════════════════════════════════════════
      DUMMY SCROLL TEST SECTION (TEMPORARY: FOR TESTING NAVIGATION STICKY FREEZE)
@@ -4339,20 +4309,20 @@ if (drawerClose) drawerClose.addEventListener('click', closeMobileDrawer);
 
 
 /* ═══════════════════════════════════════════════════════════
-   MASTER 3D NAVIGATION CONTROLLER (STICKY FREEZE & STORY DECK)
+   MASTER DUAL-DECK NAVIGATION ENGINE & 6S AUTO-REVEAL TIMER
    ═══════════════════════════════════════════════════════════ */
 
-// 1. Sticky Navigation Scroll Freeze Controller
+// 1. Scroll Sticky Freeze Controller
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 30) {
+  if (window.scrollY > 5) {
     document.body.classList.add('is-scrolled');
   } else {
     document.body.classList.remove('is-scrolled');
   }
 });
 
-// 2. Dual-Deck Hover Story Switcher
-const storyData = {
+// 2. Complete Storytelling Database (What We Do + Resources)
+const lockedDatabase = {
   maps: {
     title: '“We engineer your business into <span class="highlight">Google Maps Top 3</span> in 21 days.”',
     desc: 'When nearby local people search for your services, our system positions your verified profile in the local Top 3 before competitors, capturing the dominant share of high-intent inbound phone calls.',
@@ -4360,106 +4330,218 @@ const storyData = {
     beforeVal: '$12,000 / MO',
     afterStatus: 'Google Maps Top 3 Locked',
     afterVal: '+$60,000 / MO',
-    proofVal: '+$48,000 / MO VALUE'
+    proof: '+$48,000 / MO VALUE'
   },
   reviews: {
-    title: '“Automated <span class="highlight">5-Star Review Engine</span> & Generation protocol.”',
-    desc: 'Never chase reviews manually again. Our smart SMS/QR triggers convert happy walk-in clients into glowing 5-star Google reviews automatically while intercepting negative feedback.',
-    beforeStatus: 'Stagnant (3.8★ / 14 Reviews)',
-    beforeVal: 'Low Conversion',
-    afterStatus: '4.9★ with 280+ Reviews',
-    afterVal: 'Dominant Trust',
-    proofVal: '★ 4.9 RATING LOCKED'
+    title: '“We <span class="highlight">actively generate 5-star Google reviews</span> on autopilot.”',
+    desc: 'We do not just collect feedback; our system deploys automated multi-channel generation workflows that systematically convert your customers into verified 5-star Google reviews, building overwhelming local trust and dominating search rankings.',
+    beforeStatus: '12 Reviews (Stagnant Growth)',
+    beforeVal: 'LOW TRUST',
+    afterStatus: '250+ Generated 5-Star Reviews',
+    afterVal: '4.9★ RATING',
+    proof: '94% TRUST RATE'
   },
   citations: {
-    title: '“Synchronize with <span class="highlight">100+ Authority Directories</span> instantly.”',
-    desc: 'Lock consistent Name, Address, Phone (NAP) across Apple Maps, Bing, Yelp, and 100+ high-DA networks to establish ironclad algorithmic trust for Google Maps dominance.',
-    beforeStatus: 'Conflicting NAP & Missing Dirs',
-    beforeVal: 'Map Penalties',
-    afterStatus: '100% Synced & Verified',
-    afterVal: 'Authority Boost',
-    proofVal: '100+ DIRS VERIFIED'
+    title: '“We lock and synchronize your business NAP across <span class="highlight">100+ directories</span>.”',
+    desc: 'Our syndication engine locks your Name, Address & Phone across Apple Maps, Yelp, Bing, Yahoo & 100+ platforms so Google algorithms trust your local authority and boost your Top 3 ranking.',
+    beforeStatus: 'Inconsistent NAP Across Web',
+    beforeVal: 'RANK PENALTY',
+    afterStatus: '100+ High-Authority Dirs Synced',
+    afterVal: '100% TRUST',
+    proof: '100% AUTHORITY'
   },
   website: {
-    title: '“High-converting <span class="highlight">3D Spatial Experience</span> built for bookings.”',
-    desc: 'Turn search traffic into booked paying clients with state-of-the-art interactive spatial design that outperforms standard boring websites by 3.4x.',
-    beforeStatus: 'Generic 1.2% Conversion',
-    beforeVal: 'High Bounce Rate',
-    afterStatus: 'Interactive 3D Engine',
-    afterVal: '3.4x Bookings',
-    proofVal: '3.4x CONVERSION RATE'
+    title: '“We build a lightning-fast 3D website engineered to <span class="highlight">convert clicks into booked calls</span>.”',
+    desc: 'Visitors do not just browse; they get captivated by interactive 3D visual proof, smart local schema, and friction-free click-to-call triggers that convert 3.4x more traffic into paid contracts.',
+    beforeStatus: 'Generic Slow Site (1.2% Conv)',
+    beforeVal: 'LEAKING LEADS',
+    afterStatus: 'Interactive 3D Website (3.4x Conv)',
+    afterVal: '+$75,000 / MO',
+    proof: '3.4x BOOKINGS'
   },
   audit: {
-    title: '“Get your complimentary <span class="highlight">9-Mile Geo-Grid Visibility Audit</span>.”',
-    desc: 'See exactly where your business ranks across every neighborhood pin on the map and discover untapped high-ticket search volume.',
-    beforeStatus: 'Blind to Local Ranking Gaps',
-    beforeVal: 'Unknown Losses',
-    afterStatus: 'Full Radar Intelligence',
-    afterVal: 'Clear Growth Map',
-    proofVal: '100% FREE SCAN'
+    title: '“We scan your exact <span class="highlight">9-mile radius in 5 seconds</span>.”',
+    desc: 'Our street-level radar scan checks 81 GPS grid coordinates around your zip code to show exactly which competitors are stealing your calls and how our system overtakes them.',
+    beforeStatus: 'Blind to Visibility Gaps',
+    beforeVal: 'LOST REVENUE',
+    afterStatus: 'Full 81-Point Radar Scan',
+    afterVal: '100% FREE SCAN',
+    proof: '0 COST / 60 SECONDS'
   },
   blog: {
-    title: '“Insights and playbooks from the <span class="highlight">Local Visibility Lab</span>.”',
-    desc: 'Learn the exact strategies and algorithmic updates top-performing businesses use to dominate their local markets.',
+    title: '“We publish battle-tested <span class="highlight">Local SEO & Growth Guides</span>.”',
+    desc: 'Deep-dive tactical teardowns, algorithm update breakdowns, and step-by-step visibility playbooks designed specifically for local business owners scaling past 7-figures.',
     beforeStatus: 'Outdated SEO Tactics',
-    beforeVal: 'Low Traction',
+    beforeVal: 'RANK DROPS',
     afterStatus: 'Battle-Tested Playbooks',
-    afterVal: 'Modern Dominance',
-    proofVal: 'WEEKLY DISPATCHES'
+    afterVal: 'TOP 3 STRATEGIES',
+    proof: 'WEEKLY ARTICLES'
+  },
+  faq: {
+    title: '“Everything you need to know about the <span class="highlight">Visibility Operating System</span>.”',
+    desc: 'Transparent answers on timelines, ROI guarantees, directory sync integrations, 3D conversion engines, and how quickly your phone starts ringing with qualified local calls.',
+    beforeStatus: 'Unanswered Questions',
+    beforeVal: 'UNCERTAINTY',
+    afterStatus: '100% Transparent Answers',
+    afterVal: 'CLEAR ROADMAP',
+    proof: 'DIRECT ACCESS'
   }
 };
 
-const storyTitleEl = document.getElementById('story-title');
-const storyDescEl = document.getElementById('story-desc');
-const splitBeforeStatusEl = document.getElementById('split-before-status');
-const splitBeforeValEl = document.getElementById('split-before-val');
-const splitAfterStatusEl = document.getElementById('split-after-status');
-const splitAfterValEl = document.getElementById('split-after-val');
-const storyProofValEl = document.getElementById('story-proof-val');
+// DOM Elements: What We Do
+const solutionsPanel = document.getElementById('solutions-spatial-panel');
+const navItemSolutions = document.getElementById('nav-item-solutions');
+const cards = document.querySelectorAll('#solutions-spatial-panel .dropdown-card-master');
+const storyTitle = document.getElementById('story-title');
+const storyDesc = document.getElementById('story-desc');
+const splitBeforeStatus = document.getElementById('split-before-status');
+const splitBeforeVal = document.getElementById('split-before-val');
+const splitAfterStatus = document.getElementById('split-after-status');
+const splitAfterVal = document.getElementById('split-after-val');
+const storyProofVal = document.getElementById('story-proof-val');
+const storyBanner = document.getElementById('story-banner-display');
 
-document.querySelectorAll('.dropdown-card-master').forEach(card => {
+// DOM Elements: Resources
+const resourcesPanel = document.getElementById('resources-spatial-panel');
+const navItemResources = document.getElementById('nav-item-resources');
+const resourceCards = document.querySelectorAll('#resources-spatial-panel .dropdown-card-master');
+const resStoryTitle = document.getElementById('res-story-title');
+const resStoryDesc = document.getElementById('res-story-desc');
+const resSplitBeforeStatus = document.getElementById('res-split-before-status');
+const resSplitBeforeVal = document.getElementById('res-split-before-val');
+const resSplitAfterStatus = document.getElementById('res-split-after-status');
+const resSplitAfterVal = document.getElementById('res-split-after-val');
+const resStoryProofVal = document.getElementById('res-story-proof-val');
+const resourceStoryDeck = document.getElementById('resource-story-deck');
+
+let solutionsTimer = null;
+let resourcesTimer = null;
+
+function renderStoryCard(key) {
+  const data = lockedDatabase[key];
+  if (data && storyBanner) {
+    storyBanner.style.transform = 'perspective(1000px) rotateY(-3deg) translateZ(25px) scale(1.02)';
+    storyBanner.style.borderColor = 'var(--lime-glow)';
+    if (storyTitle) storyTitle.innerHTML = data.title;
+    if (storyDesc) storyDesc.innerHTML = data.desc;
+    if (splitBeforeStatus) splitBeforeStatus.innerHTML = data.beforeStatus;
+    if (splitBeforeVal) splitBeforeVal.innerHTML = data.beforeVal;
+    if (splitAfterStatus) splitAfterStatus.innerHTML = data.afterStatus;
+    if (splitAfterVal) splitAfterVal.innerHTML = data.afterVal;
+    if (storyProofVal) storyProofVal.innerHTML = data.proof;
+    setTimeout(() => {
+      storyBanner.style.transform = 'perspective(1000px) rotateY(-6deg) translateZ(15px) scale(1)';
+      storyBanner.style.borderColor = 'rgba(0, 212, 255, 0.35)';
+    }, 250);
+  }
+}
+
+function renderResourceCard(key) {
+  const data = lockedDatabase[key];
+  if (data && resourceStoryDeck) {
+    resourceStoryDeck.style.transform = 'perspective(1000px) rotateY(-3deg) translateZ(25px) scale(1.02)';
+    resourceStoryDeck.style.borderColor = 'var(--lime-glow)';
+    if (resStoryTitle) resStoryTitle.innerHTML = data.title;
+    if (resStoryDesc) resStoryDesc.innerHTML = data.desc;
+    if (resSplitBeforeStatus) resSplitBeforeStatus.innerHTML = data.beforeStatus;
+    if (resSplitBeforeVal) resSplitBeforeVal.innerHTML = data.beforeVal;
+    if (resSplitAfterStatus) resSplitAfterStatus.innerHTML = data.afterStatus;
+    if (resSplitAfterVal) resSplitAfterVal.innerHTML = data.afterVal;
+    if (resStoryProofVal) resStoryProofVal.innerHTML = data.proof;
+    setTimeout(() => {
+      resourceStoryDeck.style.transform = 'perspective(1000px) rotateY(-6deg) translateZ(15px) scale(1)';
+      resourceStoryDeck.style.borderColor = 'rgba(0, 212, 255, 0.35)';
+    }, 250);
+  }
+}
+
+// 1. WHAT WE DO: 6-Second Auto-Reveal + Instant Hover Pop
+if (navItemSolutions) {
+  navItemSolutions.addEventListener('mouseenter', () => {
+    clearTimeout(solutionsTimer);
+    solutionsTimer = setTimeout(() => {
+      if (solutionsPanel && !solutionsPanel.classList.contains('has-banner-active')) {
+        solutionsPanel.classList.add('has-banner-active');
+        if (cards[0]) cards[0].classList.add('active-story');
+        renderStoryCard('maps');
+      }
+    }, 6000); // 6.0 Second Auto Reveal
+  });
+
+  navItemSolutions.addEventListener('mouseleave', () => {
+    clearTimeout(solutionsTimer);
+    if (solutionsPanel) solutionsPanel.classList.remove('has-banner-active');
+    cards.forEach(c => c.classList.remove('active-story'));
+  });
+}
+
+cards.forEach(card => {
   card.addEventListener('mouseenter', () => {
-    const storyKey = card.getAttribute('data-story');
-    if (!storyKey || !storyData[storyKey]) return;
-    const data = storyData[storyKey];
-    
-    document.querySelectorAll('.dropdown-card-master').forEach(c => c.classList.remove('active-story'));
+    clearTimeout(solutionsTimer);
+    if (solutionsPanel) solutionsPanel.classList.add('has-banner-active');
+    cards.forEach(c => c.classList.remove('active-story'));
     card.classList.add('active-story');
+    const key = card.getAttribute('data-story');
+    renderStoryCard(key);
+  });
+});
 
-    if (storyTitleEl) storyTitleEl.innerHTML = data.title;
-    if (storyDescEl) storyDescEl.innerText = data.desc;
-    if (splitBeforeStatusEl) splitBeforeStatusEl.innerText = data.beforeStatus;
-    if (splitBeforeValEl) splitBeforeValEl.innerText = data.beforeVal;
-    if (splitAfterStatusEl) splitAfterStatusEl.innerText = data.afterStatus;
-    if (splitAfterValEl) splitAfterValEl.innerText = data.afterVal;
-    if (storyProofValEl) storyProofValEl.innerText = data.proofVal;
+// 2. RESOURCES: 6-Second Auto-Reveal + Instant Hover Pop
+if (navItemResources) {
+  navItemResources.addEventListener('mouseenter', () => {
+    clearTimeout(resourcesTimer);
+    resourcesTimer = setTimeout(() => {
+      if (resourcesPanel && !resourcesPanel.classList.contains('has-banner-active')) {
+        resourcesPanel.classList.add('has-banner-active');
+        if (resourceCards[0]) resourceCards[0].classList.add('active-story');
+        renderResourceCard('audit');
+      }
+    }, 6000); // 6.0 Second Auto Reveal
+  });
+
+  navItemResources.addEventListener('mouseleave', () => {
+    clearTimeout(resourcesTimer);
+    if (resourcesPanel) resourcesPanel.classList.remove('has-banner-active');
+    resourceCards.forEach(c => c.classList.remove('active-story'));
+  });
+}
+
+resourceCards.forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    clearTimeout(resourcesTimer);
+    if (resourcesPanel) resourcesPanel.classList.add('has-banner-active');
+    resourceCards.forEach(c => c.classList.remove('active-story'));
+    card.classList.add('active-story');
+    const key = card.getAttribute('data-story');
+    renderResourceCard(key);
   });
 });
 
 // 3. Mobile Drawer Controls
-
+const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');
+const mobDrawerCloseBtn = document.getElementById('mob-drawer-close-btn');
 const mobileDrawerSheet = document.getElementById('mobile-drawer-sheet');
-const drawerCloseBtn = document.getElementById('mob-drawer-close-btn');
 
 function openMobileDrawer() {
-  if (!mobileDrawerSheet) return;
-  mobileDrawerSheet.classList.add('active');
-  document.body.style.overflow = 'hidden';
+  document.body.classList.add('mobile-drawer-open');
 }
 function closeMobileDrawer() {
-  if (!mobileDrawerSheet) return;
-  mobileDrawerSheet.classList.remove('active');
-  document.body.style.overflow = '';
+  document.body.classList.remove('mobile-drawer-open');
 }
-if (menuTrigger) menuTrigger.addEventListener('click', openMobileDrawer);
-if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', closeMobileDrawer);
-
-function toggleMobDropdown(groupId) {
-  const group = document.getElementById(groupId);
-  if (!group) return;
-  group.classList.toggle('active');
+function toggleMobileDrawer() {
+  document.body.classList.toggle('mobile-drawer-open');
 }
+if (mobileMenuTrigger) mobileMenuTrigger.addEventListener('click', toggleMobileDrawer);
+if (mobDrawerCloseBtn) mobDrawerCloseBtn.addEventListener('click', closeMobileDrawer);
 
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMobileDrawer();
+});
+
+function toggleMobDropdown(id) {
+  const group = document.getElementById(id);
+  if (group) group.classList.toggle('active');
+}
 
 animate();
 </script>
