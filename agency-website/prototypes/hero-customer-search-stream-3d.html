@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>MBM · 3D Local Customer Search & Storefront Conversion Stream (Prototype)</title>
+<title>MBM · Ultra-Professional 3D Local Customer Search & Storefront Conversion Stream</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- Three.js CDN & OrbitControls -->
+<!-- Three.js CDN & OrbitControls & GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -16,17 +16,17 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg-dark:#020205;
+  --bg-core:#020205;
   --cyan-glow:#00d4ff;
   --lime-glow:#b8ff57;
   --gold-glow:#ffd700;
-  --panel-bg:rgba(11, 16, 29, 0.92);
+  --panel-bg:rgba(11, 16, 29, 0.94);
   --panel-border:rgba(0, 212, 255, 0.35);
 }
 
 body{
-  background:var(--bg-dark);
-  color:#fff;
+  background-color:var(--bg-core);
+  color:#ffffff;
   font-family:'Space Grotesk',sans-serif;
   height:100vh;
   width:100vw;
@@ -34,27 +34,53 @@ body{
   user-select:none;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   1. 3D CANVAS & BACKGROUND ATMOSPHERE
-   ═══════════════════════════════════════════════════════════ */
+/* CYBER MATRIX GRID BACKGROUND */
+body::before{
+  content:'';
+  position:fixed;
+  top:0;left:0;width:100vw;height:100vh;
+  background-image:
+    radial-gradient(circle at 50% 15%, rgba(0, 212, 255, 0.14) 0%, transparent 65%),
+    linear-gradient(to right, rgba(0, 212, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 212, 255, 0.035) 1px, transparent 1px);
+  background-size:100% 100%, 50px 50px, 50px 50px;
+  pointer-events:none;
+  z-index:1;
+}
+
+/* TOP AMBIENT NEON FLARE */
+.ambient-glow-top{
+  position:fixed;
+  top:-180px;
+  left:50%;
+  transform:translateX(-50%);
+  width:1050px;
+  height:480px;
+  background:radial-gradient(circle, rgba(0, 212, 255, 0.22) 0%, rgba(184, 255, 87, 0.12) 45%, transparent 75%);
+  filter:blur(100px);
+  pointer-events:none;
+  z-index:2;
+}
+
+/* 3D CANVAS & CINEMA VIGNETTE */
 #webgl-canvas{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
-  z-index:1;
+  z-index:2;
 }
 
 .cinema-vignette{
   position:absolute;
   inset:0;
-  z-index:2;
+  z-index:3;
   pointer-events:none;
-  background:radial-gradient(circle at center, transparent 40%, rgba(2,2,5,0.45) 75%, #020205 100%);
+  background:radial-gradient(circle at center, transparent 35%, rgba(2,2,5,0.45) 75%, #020205 100%);
 }
 
 /* ═══════════════════════════════════════════════════════════
-   2. TOP CONTROL & STORY HUD
+   2. TOP CONTROL HUD
    ═══════════════════════════════════════════════════════════ */
 .top-hud{
   position:absolute;
@@ -71,12 +97,12 @@ body{
 .hud-title-card{
   background:var(--panel-bg);
   border:1px solid var(--panel-border);
-  box-shadow:0 12px 35px rgba(0,0,0,0.8), 0 0 25px rgba(0,212,255,0.2);
-  backdrop-filter:blur(16px);
+  box-shadow:0 12px 35px rgba(0,0,0,0.85), 0 0 25px rgba(0,212,255,0.25);
+  backdrop-filter:blur(18px);
   border-radius:14px;
-  padding:12px 20px;
+  padding:14px 22px;
   pointer-events:auto;
-  max-width:440px;
+  max-width:480px;
 }
 
 .hud-badge{
@@ -89,23 +115,24 @@ body{
   display:flex;
   align-items:center;
   gap:6px;
-  margin-bottom:4px;
+  margin-bottom:5px;
 }
 .hud-badge .pulse-dot{
   width:8px;
   height:8px;
   border-radius:50%;
   background:#b8ff57;
-  box-shadow:0 0 8px #b8ff57;
+  box-shadow:0 0 10px #b8ff57;
   animation:pulseGreen 1.5s infinite;
 }
 @keyframes pulseGreen{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:0.5}}
 
 .hud-main-title{
-  font-size:16px;
+  font-size:17px;
   font-weight:800;
   letter-spacing:0.04em;
   color:#fff;
+  line-height:1.25;
 }
 .hud-main-title span{
   background:linear-gradient(135deg, #00d4ff, #b8ff57);
@@ -117,15 +144,15 @@ body{
 .hud-desc{
   font-family:'Inter', sans-serif;
   font-size:11.5px;
-  color:rgba(255,255,255,0.7);
+  color:rgba(255,255,255,0.75);
   line-height:1.45;
-  margin-top:4px;
+  margin-top:6px;
 }
 
-/* STORY STEPS PILLS */
+/* STORY STEPS TIMELINE PILLBOX */
 .story-steps-pillbox{
   position:absolute;
-  bottom:30px;
+  bottom:26px;
   left:50%;
   transform:translateX(-50%);
   display:flex;
@@ -133,7 +160,7 @@ body{
   gap:10px;
   background:var(--panel-bg);
   border:1.5px solid var(--panel-border);
-  box-shadow:0 15px 40px rgba(0,0,0,0.9), 0 0 30px rgba(0,212,255,0.25);
+  box-shadow:0 15px 45px rgba(0,0,0,0.92), 0 0 30px rgba(0,212,255,0.3);
   border-radius:100px;
   padding:8px 18px;
   backdrop-filter:blur(18px);
@@ -147,8 +174,8 @@ body{
   gap:8px;
   font-size:11.5px;
   font-weight:700;
-  color:rgba(255,255,255,0.85);
-  padding:4px 10px;
+  color:rgba(255,255,255,0.8);
+  padding:5px 12px;
   border-radius:100px;
   transition:all 0.25s ease;
 }
@@ -180,7 +207,7 @@ body{
   font-size:14px;
 }
 
-/* QUICK ACTION BUTTONS */
+/* ACTIONS */
 .hud-actions{
   display:flex;
   align-items:center;
@@ -208,7 +235,7 @@ body{
   box-shadow:0 0 20px rgba(0, 212, 255, 0.6);
 }
 
-/* LIVE HTML OVERLAYS FOR 3D CONVERSIONS */
+/* 2D PROJECTED FLOATING UI CARDS */
 #overlay-3d-labels{
   position:absolute;
   inset:0;
@@ -217,18 +244,18 @@ body{
   overflow:hidden;
 }
 
-.customer-search-bubble{
+.customer-search-card{
   position:absolute;
-  background:rgba(11, 16, 29, 0.94);
-  border:1px solid #00d4ff;
-  box-shadow:0 0 15px rgba(0,212,255,0.6);
-  border-radius:20px;
-  padding:4px 10px;
+  background:rgba(8, 14, 26, 0.95);
+  border:1px solid rgba(0, 212, 255, 0.6);
+  box-shadow:0 8px 25px rgba(0,0,0,0.8), 0 0 16px rgba(0,212,255,0.45);
+  border-radius:12px;
+  padding:6px 12px;
   display:flex;
   align-items:center;
-  gap:6px;
+  gap:8px;
   font-family:'JetBrains Mono', monospace;
-  font-size:10px;
+  font-size:10.5px;
   font-weight:700;
   color:#ffffff;
   white-space:nowrap;
@@ -236,19 +263,29 @@ body{
   pointer-events:none;
   opacity:0;
   transition:opacity 0.2s, transform 0.2s;
+  backdrop-filter:blur(10px);
 }
-.customer-search-bubble .search-icon{color:#b8ff57}
+.search-tag-badge{
+  background:rgba(184, 255, 87, 0.18);
+  border:1px solid #b8ff57;
+  color:#b8ff57;
+  font-size:9px;
+  font-weight:800;
+  padding:2px 6px;
+  border-radius:4px;
+}
 
 .purchase-badge-bubble{
   position:absolute;
   background:linear-gradient(135deg, #00d4ff, #b8ff57);
   color:#020205;
   font-family:'Space Grotesk', sans-serif;
-  font-size:11px;
+  font-size:12px;
   font-weight:800;
-  padding:4px 12px;
+  letter-spacing:0.04em;
+  padding:6px 16px;
   border-radius:100px;
-  box-shadow:0 0 25px rgba(184,255,87,0.8);
+  box-shadow:0 0 30px rgba(184,255,87,0.9), 0 8px 20px rgba(0,0,0,0.8);
   white-space:nowrap;
   transform:translate(-50%, -50%) scale(0);
   pointer-events:none;
@@ -258,7 +295,7 @@ body{
 </head>
 <body>
 
-<!-- 3D WebGL Canvas -->
+<div class="ambient-glow-top"></div>
 <canvas id="webgl-canvas"></canvas>
 <div class="cinema-vignette"></div>
 
@@ -272,14 +309,14 @@ body{
       <span class="pulse-dot"></span>
       <span>LOCAL VISIBILITY OS · 3D STORY PROTOTYPE</span>
     </div>
-    <div class="hud-main-title">Customer Search ➔ <span>#1 Google Storefront Walk-in</span></div>
+    <div class="hud-main-title">3D Customer Mobile Search ➔ <span>#1 Google Storefront Walk-in</span></div>
     <div class="hud-desc">
       গ্রাহকরা তাদের মোবাইল স্ক্রিনে সার্চ করছে (যেমন: <i>"Plumber near me"</i>), এবং আমাদের ক্লায়েন্ট গুগল ম্যাপে <b>#১ পজিশনে</b> থাকায় সরাসরি স্টোরে এসে কেনাকাটা করছে।
     </div>
   </div>
 
   <div class="hud-actions">
-    <button class="btn-action" onclick="spawnHighIntentSurge()">⚡ SPAWN CUSTOMER SURGE</button>
+    <button class="btn-action" onclick="spawnHighIntentSurge()">⚡ SPAWN HIGH-INTENT SURGE</button>
     <button class="btn-action" onclick="resetStoryCamera()">🎯 RESET VIEW</button>
   </div>
 </div>
@@ -304,7 +341,7 @@ body{
 
 <script>
 /* ═══════════════════════════════════════════════════════════
-   1. THREE.JS SCENE, CAMERA & LIGHTS
+   1. THREE.JS SCENE, LIGHTS & SHADERS (COPIED EXACTLY FROM MASTER)
    ═══════════════════════════════════════════════════════════ */
 const canvas = document.getElementById('webgl-canvas');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -313,68 +350,97 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 3.5, 24);
+camera.position.set(0, 3.2, 24);
 
 const controls = new THREE.OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.dampingFactor = 0.05;
 controls.maxDistance = 45;
-controls.minDistance = 10;
+controls.minDistance = 8;
 controls.target.set(0, 1.2, 0);
 
-// Ambient & Directional Lights
-const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+// Lighting Rig
+const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
 scene.add(ambientLight);
 
-const dirLight = new THREE.DirectionalLight(0x00d4ff, 2.0);
-dirLight.position.set(10, 20, 15);
-scene.add(dirLight);
+const dirLight1 = new THREE.DirectionalLight(0x00d4ff, 2.2);
+dirLight1.position.set(10, 20, 15);
+scene.add(dirLight1);
 
-const dirLight2 = new THREE.DirectionalLight(0xb8ff57, 1.5);
+const dirLight2 = new THREE.DirectionalLight(0xb8ff57, 1.6);
 dirLight2.position.set(-15, -10, 10);
 scene.add(dirLight2);
 
+// Ambient Floating Stardust Particles (Exact Match from Master)
+const dustGeo = new THREE.BufferGeometry();
+const dustCount = 450;
+const dustPositions = new Float32Array(dustCount * 3);
+const dustColors = new Float32Array(dustCount * 3);
+
+for (let i = 0; i < dustCount; i++) {
+  dustPositions[i * 3] = (Math.random() - 0.5) * 45;
+  dustPositions[i * 3 + 1] = (Math.random() - 0.5) * 35;
+  dustPositions[i * 3 + 2] = (Math.random() - 0.5) * 30;
+
+  const c = i % 2 === 0 ? new THREE.Color(0x00d4ff) : new THREE.Color(0xb8ff57);
+  dustColors[i * 3] = c.r;
+  dustColors[i * 3 + 1] = c.g;
+  dustColors[i * 3 + 2] = c.b;
+}
+
+dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
+dustGeo.setAttribute('color', new THREE.BufferAttribute(dustColors, 3));
+
+const dustMat = new THREE.PointsMaterial({ size: 0.14, vertexColors: true, transparent: true, opacity: 0.7, blending: THREE.AdditiveBlending });
+const ambientDust = new THREE.Points(dustGeo, dustMat);
+scene.add(ambientDust);
+
+// Proximity Grid
+const gridHelper = new THREE.GridHelper(40, 40, 0x00d4ff, 0x071526);
+gridHelper.position.y = -3.2;
+scene.add(gridHelper);
+
 /* ═══════════════════════════════════════════════════════════
-   2. AUTHENTIC 3D SMALL BUSINESS STOREFRONT BUILDING PIN
+   2. AUTHENTIC 3D STOREFRONT PIN (EXACT MATCH FROM MASTER & INTRO)
    ═══════════════════════════════════════════════════════════ */
-const centralStoreGroup = new THREE.Group();
-centralStoreGroup.position.set(0, 1.8, 0);
-scene.add(centralStoreGroup);
+const pinGroup = new THREE.Group();
+pinGroup.position.set(0, 1.8, 0);
+scene.add(pinGroup);
 
 // Glowing Wireframe Pin Sphere
 const sphereGeo = new THREE.SphereGeometry(2.4, 24, 24);
-const sphereMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.65 });
+const sphereMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.75 });
 const pinSphereMesh = new THREE.Mesh(sphereGeo, sphereMat);
-centralStoreGroup.add(pinSphereMesh);
+pinGroup.add(pinSphereMesh);
 
 // Pin Bottom Cone Tip
 const coneGeo = new THREE.ConeGeometry(0.7, 1.4, 18, 1, true);
-const coneMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.85 });
+const coneMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.9 });
 const tipMesh = new THREE.Mesh(coneGeo, coneMat);
 tipMesh.rotation.x = Math.PI;
 tipMesh.position.y = -2.8;
-centralStoreGroup.add(tipMesh);
+pinGroup.add(tipMesh);
 
-// 3D Storefront Building Construction
+// Storefront Building Group
 const shopGroup = new THREE.Group();
 shopGroup.position.set(0, -0.2, 0);
 
-// Dark foundation pedestal
-const baseGeo = new THREE.CylinderGeometry(1.65, 1.75, 0.22, 28);
+// Foundation Base Pedestal
+const baseGeo = new THREE.CylinderGeometry(1.65, 1.75, 0.22, 32);
 const baseMat = new THREE.MeshStandardMaterial({ color: 0x050d1a, roughness: 0.3, metalness: 0.8 });
 const shopBase = new THREE.Mesh(baseGeo, baseMat);
 shopBase.position.y = -0.65;
 shopGroup.add(shopBase);
 
-// Illuminated Yellow Pedestal Ring
-const ringGeo = new THREE.RingGeometry(1.3, 1.55, 28);
+// Illuminated Gold Pedestal Ring
+const ringGeo = new THREE.RingGeometry(1.3, 1.55, 32);
 const ringMat = new THREE.MeshBasicMaterial({ color: 0xffd700, side: THREE.DoubleSide });
 const pedestalRing = new THREE.Mesh(ringGeo, ringMat);
 pedestalRing.rotation.x = Math.PI / 2;
 pedestalRing.position.y = -0.52;
 shopGroup.add(pedestalRing);
 
-// 3D Store Walls (Vibrant Blue Glassmorphism)
+// 3D Store Walls
 const wallGeo = new THREE.BoxGeometry(1.5, 1.1, 1.1);
 const wallMat = new THREE.MeshStandardMaterial({
   color: 0x00a8ff, roughness: 0.15, metalness: 0.4, transparent: true, opacity: 0.92,
@@ -384,7 +450,7 @@ const shopWalls = new THREE.Mesh(wallGeo, wallMat);
 shopWalls.position.y = 0.0;
 shopGroup.add(shopWalls);
 
-// Striped Cyan/White Awning Canopy
+// Striped Awning Canopy
 const awningGroup = new THREE.Group();
 awningGroup.position.set(0, 0.42, 0.65);
 awningGroup.rotation.x = 0.45;
@@ -403,152 +469,185 @@ for (let s = 0; s < 4; s++) {
 }
 shopGroup.add(awningGroup);
 
-// Illuminated Store Window
+// Illuminated Window & Door
 const winGeo = new THREE.PlaneGeometry(0.55, 0.45);
 const winMat = new THREE.MeshBasicMaterial({ color: 0xe0f7ff, side: THREE.DoubleSide });
 const shopWin = new THREE.Mesh(winGeo, winMat);
 shopWin.position.set(-0.35, 0.05, 0.56);
 shopGroup.add(shopWin);
 
-// Illuminated Store Door
 const doorGeo = new THREE.PlaneGeometry(0.35, 0.75);
 const doorMat = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
 const shopDoor = new THREE.Mesh(doorGeo, doorMat);
 shopDoor.position.set(0.38, -0.12, 0.56);
 shopGroup.add(shopDoor);
 
-centralStoreGroup.add(shopGroup);
+pinGroup.add(shopGroup);
 
-// 5 Orbiting Golden Stars
+// Dual Orbiting Halos (Exact from Master)
+const haloMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.4 });
+const halo1 = new THREE.Mesh(new THREE.TorusGeometry(3.6, 0.025, 8, 48), haloMat);
+const halo2 = new THREE.Mesh(new THREE.TorusGeometry(4.4, 0.02, 8, 48), haloMat);
+halo1.rotation.x = Math.PI / 2.2;
+halo2.rotation.x = Math.PI / 2.8;
+pinGroup.add(halo1);
+pinGroup.add(halo2);
+
+// 5 Extruded Golden Stars with Comet Trails (Exact Match from Master)
 const starGroup = new THREE.Group();
+pinGroup.add(starGroup);
+
+const starShape = new THREE.Shape();
+const pts = 5;
+const rOut = 0.52, rIn = 0.24;
+for (let i = 0; i < pts * 2; i++) {
+  const r = i % 2 === 0 ? rOut : rIn;
+  const angle = (i * Math.PI) / pts - Math.PI / 2;
+  const x = Math.cos(angle) * r;
+  const y = Math.sin(angle) * r;
+  if (i === 0) starShape.moveTo(x, y);
+  else starShape.lineTo(x, y);
+}
+starShape.closePath();
+
+const starGeo = new THREE.ExtrudeGeometry(starShape, { depth: 0.16, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.04, bevelThickness: 0.04 });
+const starMat = new THREE.MeshStandardMaterial({
+  color: 0xc4ff3b, emissive: 0x95d600, emissiveIntensity: 0.8, roughness: 0.2, metalness: 0.7
+});
+
 const starMeshes = [];
+const starTrails = [];
+const TRAIL_LENGTH = 16;
 
 for (let i = 0; i < 5; i++) {
-  const shape = new THREE.Shape();
-  const pts = 5;
-  const outerR = 0.42, innerR = 0.20;
-  for (let p = 0; p < pts * 2; p++) {
-    const r = (p % 2 === 0) ? outerR : innerR;
-    const a = (p / (pts * 2)) * Math.PI * 2 - Math.PI / 2;
-    const x = Math.cos(a) * r;
-    const y = Math.sin(a) * r;
-    if (p === 0) shape.moveTo(x, y);
-    else shape.lineTo(x, y);
-  }
-  shape.closePath();
-
-  const extrudeSettings = { depth: 0.12, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.03, bevelThickness: 0.03 };
-  const starGeo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
-  const starMat = new THREE.MeshStandardMaterial({
-    color: 0xc4ff3b, emissive: 0x95d600, emissiveIntensity: 0.75, roughness: 0.2, metalness: 0.7
-  });
   const star = new THREE.Mesh(starGeo, starMat);
   starGroup.add(star);
   starMeshes.push({
     mesh: star,
     angle: (i / 5) * Math.PI * 2,
-    radius: 3.6,
-    speed: 0.012 + (i % 2) * 0.004,
-    yOffset: (i - 2) * 0.45
+    radius: 4.2,
+    speed: 0.014 + (i % 2) * 0.003,
+    yOffset: (i - 2) * 0.42
   });
-}
-centralStoreGroup.add(starGroup);
 
-// Ground Proximity Grid
-const gridHelper = new THREE.GridHelper(36, 36, 0x00d4ff, 0x071526);
-gridHelper.position.y = -3.2;
-scene.add(gridHelper);
+  const trailGeo = new THREE.BufferGeometry();
+  const trailPositions = new Float32Array(TRAIL_LENGTH * 3);
+  trailGeo.setAttribute('position', new THREE.BufferAttribute(trailPositions, 3));
+  
+  const trailMat = new THREE.PointsMaterial({
+    color: i % 2 === 0 ? 0xb8ff57 : 0x00d4ff,
+    size: 0.18,
+    transparent: true,
+    opacity: 0.7,
+    blending: THREE.AdditiveBlending
+  });
+  const trailPoints = new THREE.Points(trailGeo, trailMat);
+  starGroup.add(trailPoints);
+  starTrails.push({ points: trailPoints, history: [] });
+}
 
 /* ═══════════════════════════════════════════════════════════
-   3. 3D CUSTOMER AVATARS WITH GLOWING SMARTPHONES
+   3. ULTRA-PROFESSIONAL 3D CUSTOMER AVATARS (GLASS CAPSULES & PHONES)
    ═══════════════════════════════════════════════════════════ */
 const customerPool = [];
 const overlayContainer = document.getElementById('overlay-3d-labels');
 
 const SEARCH_QUERIES = [
-  '🔍 "Plumber near me"',
-  '🔍 "Emergency Dental Clinic"',
-  '🔍 "Best Pizza 24/7"',
-  '🔍 "Auto Repair near me"',
-  '🔍 "HVAC Repair 24h"',
-  '🔍 "Roofing Specialist"'
+  { tag: 'GOOGLE #1', text: 'Plumber near me' },
+  { tag: 'MAPS 3-PACK', text: 'Emergency Dentist' },
+  { tag: 'NEARBY', text: 'Best Pizza 24/7' },
+  { tag: 'TOP RATED', text: 'Auto Repair 24h' },
+  { tag: 'VERIFIED', text: 'HVAC Specialist' },
+  { tag: 'LOCAL #1', text: 'Emergency Locksmith' }
 ];
 
 const PURCHASE_AMOUNTS = [
-  '💰 +$240 Walk-in Order',
-  '🛍️ Booked Appointment',
-  '💰 +$580 Emergency Service',
-  '★ 5-Star Walk-in Review',
-  '💰 +$350 Local Purchase'
+  '💰 +$280 Paid Walk-in Order',
+  '🛍️ Booked VIP Appointment',
+  '💰 +$650 Emergency Walk-in',
+  '★ 5.0 Google Verified Review',
+  '💰 +$420 Local Storefront Sale'
 ];
 
-function createCustomerAvatar() {
+function createUltraProfessionalAvatar() {
   const avatarGroup = new THREE.Group();
 
-  // Head Sphere (Cyan Glow)
-  const headGeo = new THREE.SphereGeometry(0.24, 14, 14);
-  const headMat = new THREE.MeshStandardMaterial({ color: 0x00d4ff, emissive: 0x0066aa, emissiveIntensity: 0.6 });
-  const headMesh = new THREE.Mesh(headGeo, headMat);
-  headMesh.position.y = 0.95;
-  avatarGroup.add(headMesh);
-
-  // Body Torso
-  const bodyGeo = new THREE.CylinderGeometry(0.18, 0.28, 0.7, 12);
-  const bodyMat = new THREE.MeshStandardMaterial({ color: 0x0e1b2e, roughness: 0.4 });
+  // Glassmorphic Capsule Body (High-end Cyber Figure)
+  const bodyGeo = new THREE.CylinderGeometry(0.22, 0.28, 0.8, 16);
+  const bodyMat = new THREE.MeshStandardMaterial({
+    color: 0x0a1424, roughness: 0.2, metalness: 0.8,
+    emissive: 0x002244, emissiveIntensity: 0.5
+  });
   const bodyMesh = new THREE.Mesh(bodyGeo, bodyMat);
   bodyMesh.position.y = 0.45;
   avatarGroup.add(bodyMesh);
 
-  // Arm & Smartphone Hand
-  const armGeo = new THREE.BoxGeometry(0.1, 0.35, 0.1);
+  // Glowing Head (Cyan Hologram)
+  const headGeo = new THREE.SphereGeometry(0.25, 16, 16);
+  const headMat = new THREE.MeshStandardMaterial({
+    color: 0x00d4ff, emissive: 0x0088cc, emissiveIntensity: 0.85, roughness: 0.1
+  });
+  const headMesh = new THREE.Mesh(headGeo, headMat);
+  headMesh.position.y = 1.02;
+  avatarGroup.add(headMesh);
+
+  // Neon Head Halo Ring
+  const haloRingGeo = new THREE.TorusGeometry(0.32, 0.02, 8, 24);
+  const haloRingMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57 });
+  const haloRing = new THREE.Mesh(haloRingGeo, haloRingMat);
+  haloRing.rotation.x = Math.PI / 2;
+  haloRing.position.y = 1.15;
+  avatarGroup.add(haloRing);
+
+  // Arm holding 3D Smartphone
+  const armGeo = new THREE.BoxGeometry(0.12, 0.4, 0.12);
   const armMat = new THREE.MeshStandardMaterial({ color: 0x00d4ff });
   const armMesh = new THREE.Mesh(armGeo, armMat);
-  armMesh.rotation.x = -0.7;
-  armMesh.position.set(0.2, 0.5, 0.25);
+  armMesh.rotation.x = -0.8;
+  armMesh.position.set(0.24, 0.55, 0.3);
   avatarGroup.add(armMesh);
 
-  // Glowing Smartphone Screen
-  const phoneGeo = new THREE.BoxGeometry(0.18, 0.28, 0.04);
+  // 3D Smartphone (Illuminated Screen)
+  const phoneGeo = new THREE.BoxGeometry(0.22, 0.35, 0.04);
   const phoneMat = new THREE.MeshStandardMaterial({
-    color: 0xb8ff57, emissive: 0x00ffcc, emissiveIntensity: 1.2, roughness: 0.1
+    color: 0xb8ff57, emissive: 0x00ffcc, emissiveIntensity: 1.4, roughness: 0.1
   });
   const phoneMesh = new THREE.Mesh(phoneGeo, phoneMat);
-  phoneMesh.rotation.x = -0.7;
-  phoneMesh.position.set(0.2, 0.65, 0.42);
+  phoneMesh.rotation.x = -0.8;
+  phoneMesh.position.set(0.24, 0.72, 0.5);
   avatarGroup.add(phoneMesh);
 
-  // Screen Search Ray Beam
-  const beamGeo = new THREE.CylinderGeometry(0.02, 0.18, 0.6, 8);
-  const beamMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.5 });
+  // Glowing GPS Beam Projection from Phone to Pin
+  const beamGeo = new THREE.CylinderGeometry(0.02, 0.22, 0.8, 12);
+  const beamMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
   const beamMesh = new THREE.Mesh(beamGeo, beamMat);
-  beamMesh.position.set(0.2, 0.95, 0.55);
-  beamMesh.rotation.x = -0.5;
+  beamMesh.position.set(0.24, 1.12, 0.65);
+  beamMesh.rotation.x = -0.55;
   avatarGroup.add(beamMesh);
 
   scene.add(avatarGroup);
 
-  // HTML Search Query Bubble
-  const bubbleEl = document.createElement('div');
-  bubbleEl.className = 'customer-search-bubble';
-  overlayContainer.appendChild(bubbleEl);
+  // 2D Frosted UI Card
+  const cardEl = document.createElement('div');
+  cardEl.className = 'customer-search-card';
+  overlayContainer.appendChild(cardEl);
 
   return {
     group: avatarGroup,
-    bubble: bubbleEl,
+    card: cardEl,
     angle: 0,
     dist: 14,
     speed: 0.025,
-    state: 'spawning', // 'searching' -> 'streaming' -> 'converting'
-    queryText: SEARCH_QUERIES[0],
+    state: 'searching',
+    queryObj: SEARCH_QUERIES[0],
     progress: 0,
     pathCurve: null
   };
 }
 
-// Spawn Active Customer Stream
 function initCustomerStream(count = 6) {
   for (let i = 0; i < count; i++) {
-    const cust = createCustomerAvatar();
+    const cust = createUltraProfessionalAvatar();
     resetCustomerToPerimeter(cust, (i / count) * Math.PI * 2);
     customerPool.push(cust);
   }
@@ -559,26 +658,26 @@ function resetCustomerToPerimeter(cust, customAngle = null) {
   const startDist = 12 + Math.random() * 6;
   const startX = Math.cos(angle) * startDist;
   const startZ = Math.sin(angle) * startDist;
-  const startY = -3.2; // ground level
+  const startY = -3.2;
 
   cust.group.position.set(startX, startY, startZ);
   cust.group.lookAt(0, 0, 0);
   cust.progress = 0;
   cust.speed = 0.003 + Math.random() * 0.003;
   cust.state = 'searching';
-  cust.queryText = SEARCH_QUERIES[Math.floor(Math.random() * SEARCH_QUERIES.length)];
+  cust.queryObj = SEARCH_QUERIES[Math.floor(Math.random() * SEARCH_QUERIES.length)];
 
-  // Create smooth Bezier trajectory towards storefront door
+  // Smooth Quadratic Bezier curve directly to Storefront Door
   const midX = startX * 0.5 + (Math.random() - 0.5) * 2;
   const midZ = startZ * 0.5 + (Math.random() - 0.5) * 2;
   cust.pathCurve = new THREE.QuadraticBezierCurve3(
     new THREE.Vector3(startX, startY, startZ),
     new THREE.Vector3(midX, -1.8, midZ),
-    new THREE.Vector3(0.38, -0.6, 0.6) // Storefront Door coordinate
+    new THREE.Vector3(0.38, -0.6, 0.6) // Door position
   );
 
-  cust.bubble.innerHTML = '<span class="search-icon">🔍</span> ' + cust.queryText;
-  cust.bubble.style.opacity = '1';
+  cust.card.innerHTML = '<span class="search-tag-badge">' + cust.queryObj.tag + '</span> <span>🔍 "' + cust.queryObj.text + '"</span>';
+  cust.card.style.opacity = '1';
 }
 
 function triggerPurchaseEffect(pos) {
@@ -587,20 +686,18 @@ function triggerPurchaseEffect(pos) {
   badge.innerText = PURCHASE_AMOUNTS[Math.floor(Math.random() * PURCHASE_AMOUNTS.length)];
   overlayContainer.appendChild(badge);
 
-  // Project 3D position to 2D Screen
   const screenPos = toScreenPosition(pos, camera);
   badge.style.left = screenPos.x + 'px';
   badge.style.top = screenPos.y + 'px';
 
-  // GSAP Pulse & Float
   gsap.fromTo(badge, 
     { scale: 0.2, opacity: 0, y: 10 },
     { scale: 1.15, opacity: 1, y: -45, duration: 0.6, ease: 'back.out(2)', onComplete: () => {
-      gsap.to(badge, { opacity: 0, y: -70, scale: 0.9, duration: 0.5, delay: 0.8, onComplete: () => badge.remove() });
+      gsap.to(badge, { opacity: 0, y: -75, scale: 0.9, duration: 0.5, delay: 0.9, onComplete: () => badge.remove() });
     }}
   );
 
-  // Glow pulse on Storefront Awning & Foundation
+  // Storefront Wall Pulse
   gsap.to(shopWalls.scale, { x: 1.12, y: 1.12, z: 1.12, duration: 0.15, yoyo: true, repeat: 1 });
 }
 
@@ -621,12 +718,15 @@ let clock = new THREE.Clock();
 
 function animate() {
   requestAnimationFrame(animate);
-  const delta = clock.getDelta();
   const time = clock.getElapsedTime();
 
   // 1. Rotate 3D Storefront Pin and Orbiting Stars
-  centralStoreGroup.rotation.y = Math.sin(time * 0.3) * 0.2;
+  pinGroup.rotation.y = Math.sin(time * 0.3) * 0.2;
   tipMesh.rotation.y += 0.01;
+
+  halo1.rotation.z = time * 0.15;
+  halo2.rotation.y = -time * 0.2;
+  ambientDust.rotation.y = time * 0.02;
 
   starMeshes.forEach(s => {
     s.angle += s.speed;
@@ -637,7 +737,7 @@ function animate() {
     s.mesh.rotation.z = Math.sin(time + s.angle) * 0.15;
   });
 
-  // 2. Animate Customer Stream along Trajectories
+  // 2. Animate Customer Stream
   customerPool.forEach(cust => {
     if (cust.state === 'searching' || cust.state === 'streaming') {
       cust.progress += cust.speed;
@@ -652,23 +752,20 @@ function animate() {
         // Floating bounce walk motion
         cust.group.position.y += Math.abs(Math.sin(cust.progress * 30)) * 0.12;
 
-        // Position 2D search bubble above customer's head
-        const headScreen = toScreenPosition(new THREE.Vector3(pt.x, pt.y + 1.4, pt.z), camera);
-        cust.bubble.style.left = headScreen.x + 'px';
-        cust.bubble.style.top = headScreen.y + 'px';
+        // Position 2D search card above customer
+        const headScreen = toScreenPosition(new THREE.Vector3(pt.x, pt.y + 1.6, pt.z), camera);
+        cust.card.style.left = headScreen.x + 'px';
+        cust.card.style.top = headScreen.y + 'px';
 
-        // Highlight Step 2 when mid-journey
         if (cust.progress > 0.4 && cust.progress < 0.8) {
           document.getElementById('step-2-card').classList.add('active');
         }
       } else {
-        // Reached Storefront Door -> Trigger Conversion!
         cust.state = 'converting';
-        cust.bubble.style.opacity = '0';
+        cust.card.style.opacity = '0';
         triggerPurchaseEffect(cust.group.position);
         document.getElementById('step-3-card').classList.add('active');
 
-        // Reset after 1s delay
         setTimeout(() => {
           resetCustomerToPerimeter(cust);
           document.getElementById('step-2-card').classList.remove('active');
@@ -681,20 +778,19 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-// Spawning Customer Surge Feature
 function spawnHighIntentSurge() {
   for (let s = 0; s < 4; s++) {
     setTimeout(() => {
-      const cust = createCustomerAvatar();
+      const cust = createUltraProfessionalAvatar();
       resetCustomerToPerimeter(cust);
-      cust.speed = 0.006 + Math.random() * 0.004; // faster rush!
+      cust.speed = 0.006 + Math.random() * 0.004;
       customerPool.push(cust);
     }, s * 300);
   }
 }
 
 function resetStoryCamera() {
-  gsap.to(camera.position, { x: 0, y: 3.5, z: 24, duration: 1.0, ease: 'power2.inOut' });
+  gsap.to(camera.position, { x: 0, y: 3.2, z: 24, duration: 1.0, ease: 'power2.inOut' });
   controls.target.set(0, 1.2, 0);
 }
 
