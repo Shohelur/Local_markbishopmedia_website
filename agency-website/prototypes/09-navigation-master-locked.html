@@ -146,7 +146,7 @@ body::before {
   100% { transform: translateY(-50%) rotate(360deg); }
 }
 
-/* 2. SCROLLED STICKY STATE: FLOATING FROSTED GLASS CAPSULE WITH BORDER & SWISS GEARS */
+/* 2. SCROLLED STICKY STATE: TRANSLUCENT FROSTED GLASS CAPSULE WITH DOTTED BORDER & SWISS GEARS */
 body.is-scrolled .master-nav-wrapper {
   top: 10px;
 }
@@ -154,14 +154,14 @@ body.is-scrolled .master-nav-wrapper {
 body.is-scrolled .nav-capsule {
   width: min(1080px, 92%);
   padding: 5px 14px 5px 20px;
-  background: rgba(6, 11, 24, 0.95);
-  backdrop-filter: blur(28px) saturate(200%);
-  -webkit-backdrop-filter: blur(28px) saturate(200%);
-  border: 1.5px solid rgba(255, 215, 0, 0.5);
+  background: rgba(8, 14, 28, 0.55);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  border: 1.5px dotted rgba(255, 215, 0, 0.65);
   box-shadow: 
-    0 22px 55px rgba(0, 0, 0, 0.95),
-    0 0 30px rgba(255, 215, 0, 0.25),
-    inset 0 1px 2px rgba(255, 255, 255, 0.35);
+    0 16px 45px rgba(0, 0, 0, 0.75),
+    0 0 25px rgba(255, 215, 0, 0.2),
+    inset 0 1px 2px rgba(255, 255, 255, 0.25);
 }
 
 body.is-scrolled .nav-capsule::before {
