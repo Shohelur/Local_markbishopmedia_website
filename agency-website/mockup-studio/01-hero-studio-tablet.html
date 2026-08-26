@@ -1,0 +1,2645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Mark Bishop Media · Ultra Visual Mockup Studio (Canva Lock + Zen Fullscreen)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- html2canvas for 1-Click HD PNG Export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  background:#06080e;
+  color:#fff;
+  font-family:'Space Grotesk',sans-serif;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  user-select:none;
+  touch-action:none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   1. TOP STUDIO HEADER (HIDEABLE IN ZEN MODE)
+   ═══════════════════════════════════════════════════════════ */
+.studio-header{
+  min-height:58px;
+  background:#0b0f19;
+  border-bottom:1px solid rgba(0, 212, 255, 0.25);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  z-index:10000;
+  box-shadow:0 4px 20px rgba(0,0,0,0.8);
+  gap:12px;
+  transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+body.zen-mode .studio-header{
+  display:none !important;
+}
+body.zen-mode .preset-bar{
+  display:none !important;
+}
+body.zen-mode .sidebar-wrapper{
+  display:none !important;
+}
+body.zen-mode .stage-viewport{
+  padding:30px 20px 60px 20px !important;
+  overflow-y:auto !important;
+  background:#020205 !important;
+  align-items:flex-start !important;
+  justify-content:center !important;
+}
+body.zen-mode #artboard-canvas-wrapper{
+  margin:auto !important;
+}
+body.zen-mode #artboard-canvas-wrapper.desktop{
+  width:1280px;
+  height:740px;
+  max-width:96vw;
+  max-height:92vh;
+}
+body.zen-mode #artboard-canvas-wrapper.tablet{
+  width:820px !important;
+  height:880px !important;
+  border-radius:32px !important;
+  border:12px solid #182133 !important;
+}
+body.zen-mode #artboard-canvas-wrapper.mobile{
+  width:393px !important;
+  height:840px !important;
+  border-radius:48px !important;
+  border:12px solid #161f30 !important;
+}
+
+.brand-badge-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.brand-title{
+  font-size:14.5px;
+  font-weight:800;
+  letter-spacing:0.08em;
+  white-space:nowrap;
+}
+.brand-title span{
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.status-pill{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9.5px;
+  font-weight:700;
+  color:#b8ff57;
+  background:rgba(184, 255, 87, 0.12);
+  border:1px solid rgba(184, 255, 87, 0.35);
+  padding:2px 8px;
+  border-radius:100px;
+}
+
+/* DEVICE SWITCHER */
+.device-btn-group{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(0,0,0,0.5);
+  padding:4px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+.btn-device{
+  background:transparent;
+  border:1px solid transparent;
+  color:rgba(255,255,255,0.7);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:700;
+  padding:6px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  transition:all 0.2s;
+}
+.btn-device:hover{color:#fff;background:rgba(255,255,255,0.06)}
+.btn-device.active{
+  background:rgba(0, 212, 255, 0.18);
+  border-color:rgba(0, 212, 255, 0.55);
+  color:#00d4ff;
+  box-shadow:0 0 12px rgba(0, 212, 255, 0.3);
+}
+
+.header-action-group{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.btn-fullscreen-zen{
+  background:#182236;
+  border:1px solid rgba(0, 212, 255, 0.4);
+  color:#00d4ff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:700;
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.btn-fullscreen-zen:hover{background:rgba(0,212,255,0.25)}
+
+.btn-png-download{
+  background:linear-gradient(135deg, #ff9500, #ff2d55);
+  color:#fff;
+  border:none;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:800;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  box-shadow:0 0 16px rgba(255, 45, 85, 0.35);
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.btn-png-download:active{transform:scale(0.96)}
+
+.btn-export-specs{
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  color:#020205;
+  border:none;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:800;
+  padding:8px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(0, 212, 255, 0.4);
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.btn-export-specs:active{transform:scale(0.96)}
+
+.btn-toggle-sidebar{
+  background:#131a29;
+  border:1px solid rgba(0, 212, 255, 0.4);
+  color:#00d4ff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:700;
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  transition:all 0.2s;
+}
+.btn-toggle-sidebar:hover{background:rgba(0, 212, 255, 0.2)}
+
+/* ═══════════════════════════════════════════════════════════
+   2. PRESET QUICK BAR (HIDEABLE IN ZEN MODE)
+   ═══════════════════════════════════════════════════════════ */
+.preset-bar{
+  background:#080c14;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:6px 18px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:11px;
+  overflow-x:auto;
+  transition:all 0.3s ease;
+}
+body.zen-mode .preset-bar{
+  transform:translateY(-100%);
+  margin-top:-35px;
+  opacity:0;
+  pointer-events:none;
+}
+.preset-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em;white-space:nowrap}
+.btn-preset{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  color:#fff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:10.5px;
+  font-weight:700;
+  padding:4px 10px;
+  border-radius:6px;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:all 0.2s;
+}
+.btn-preset:hover{background:rgba(0, 212, 255, 0.15);border-color:#00d4ff;color:#00d4ff}
+
+/* FLOATING ZEN EXIT PILL */
+.zen-exit-banner{
+  display:none;
+  position:fixed;
+  top:12px;
+  right:16px;
+  z-index:99999;
+  background:rgba(12, 17, 28, 0.92);
+  border:1px solid #00d4ff;
+  color:#00d4ff;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  font-weight:800;
+  padding:6px 14px;
+  border-radius:100px;
+  box-shadow:0 0 20px rgba(0, 212, 255, 0.4);
+  cursor:pointer;
+  backdrop-filter:blur(10px);
+}
+body.zen-mode .zen-exit-banner{display:flex;align-items:center;gap:6px}
+
+/* ═══════════════════════════════════════════════════════════
+   3. DRAGGABLE FLOATING TOOLBAR WITH COLLAPSIBLE DRAWING TRAY
+   ═══════════════════════════════════════════════════════════ */
+#draggable-toolbar{
+  position:absolute;
+  top:76px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:9500;
+  background:rgba(12, 17, 28, 0.94);
+  border:1.5px solid rgba(0, 212, 255, 0.45);
+  box-shadow:0 12px 45px rgba(0,0,0,0.9), 0 0 25px rgba(0, 212, 255, 0.25);
+  border-radius:16px;
+  padding:5px 8px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  backdrop-filter:blur(18px);
+  touch-action:none;
+  cursor:default;
+}
+
+.core-tools-group{
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
+/* TOGGLE DRAWING TOOLS BUTTON */
+.btn-toggle-draw-tray{
+  background:rgba(0, 212, 255, 0.12);
+  border:1px solid rgba(0, 212, 255, 0.35);
+  color:#00d4ff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  padding:6px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  transition:all 0.2s;
+  white-space:nowrap;
+}
+.btn-toggle-draw-tray:hover{
+  background:rgba(0, 212, 255, 0.25);
+  border-color:#00d4ff;
+}
+.btn-toggle-draw-tray.active{
+  background:rgba(184, 255, 87, 0.2);
+  border-color:#b8ff57;
+  color:#b8ff57;
+}
+
+/* COLLAPSIBLE SECONDARY DRAWING TRAY */
+#drawing-tools-tray{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  transition:all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow:hidden;
+}
+#drawing-tools-tray.collapsed{
+  display:none !important;
+}
+
+/* YOUTUBE-STYLE FULLSCREEN BUTTON */
+.btn-youtube-fullscreen{
+  background:#182236;
+  border:1.5px solid rgba(0, 212, 255, 0.4);
+  color:#00d4ff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11.5px;
+  font-weight:800;
+  padding:7px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  transition:all 0.2s;
+}
+.btn-youtube-fullscreen:hover{
+  background:rgba(0, 212, 255, 0.25);
+  border-color:#00d4ff;
+  box-shadow:0 0 15px rgba(0, 212, 255, 0.4);
+}
+.btn-youtube-fullscreen svg{
+  fill:currentColor;
+  transition:transform 0.15s;
+}
+.btn-youtube-fullscreen:hover svg{
+  transform:scale(1.15);
+}
+
+/* FLOATING YOUTUBE CONTROL PILL AT BOTTOM RIGHT */
+.yt-floating-bottom-bar{
+  position:fixed;
+  bottom:20px;
+  right:24px;
+  z-index:99999;
+  background:rgba(12, 17, 28, 0.92);
+  border:1px solid rgba(0, 212, 255, 0.5);
+  border-radius:12px;
+  padding:6px 12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0, 212, 255, 0.3);
+  backdrop-filter:blur(14px);
+}
+.yt-player-btn{
+  background:transparent;
+  border:none;
+  color:#fff;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:4px;
+  border-radius:6px;
+  transition:background 0.15s, color 0.15s;
+}
+.yt-player-btn:hover{
+  background:rgba(0, 212, 255, 0.2);
+  color:#00d4ff;
+}
+
+.toolbar-drag-grip{
+  cursor:grab;
+  padding:4px 6px;
+  color:rgba(0, 212, 255, 0.6);
+  font-size:14px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  user-select:none;
+  border-radius:6px;
+  touch-action:none;
+  transition:background 0.2s, color 0.2s;
+}
+.toolbar-drag-grip:hover{background:rgba(0, 212, 255, 0.15);color:#00d4ff}
+.toolbar-drag-grip:active{cursor:grabbing}
+
+.tool-item{
+  width:36px;
+  height:36px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  border:1px solid transparent;
+  color:rgba(255,255,255,0.8);
+  border-radius:8px;
+  cursor:pointer;
+  position:relative;
+  transition:all 0.15s ease;
+  touch-action:manipulation;
+}
+.tool-item svg{width:17px;height:17px;stroke-width:2}
+.tool-item .shortcut-num{
+  position:absolute;
+  bottom:1px;
+  right:3px;
+  font-size:8px;
+  font-family:'JetBrains Mono',monospace;
+  color:rgba(255,255,255,0.4);
+}
+.tool-item:hover{background:rgba(255,255,255,0.08);color:#fff}
+.tool-item.active{
+  background:rgba(0, 212, 255, 0.25);
+  border-color:#00d4ff;
+  color:#00d4ff;
+  box-shadow:0 0 12px rgba(0, 212, 255, 0.4);
+}
+
+.toolbar-separator{
+  width:1px;
+  height:24px;
+  background:rgba(255,255,255,0.12);
+  margin:0 4px;
+}
+
+/* UNDO / REDO BUTTONS */
+.btn-history{
+  width:32px;
+  height:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.8);
+  border-radius:6px;
+  cursor:pointer;
+  transition:all 0.15s;
+}
+.btn-history:hover{background:rgba(0, 212, 255, 0.2);color:#00d4ff;border-color:#00d4ff}
+.btn-history:active{transform:scale(0.92)}
+
+/* CANVA LOCK TOGGLE ON TOOLBAR */
+.btn-lock-toggle{
+  width:34px;
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.8);
+  border-radius:8px;
+  cursor:pointer;
+  transition:all 0.15s;
+}
+.btn-lock-toggle.is-locked{
+  background:rgba(255, 59, 48, 0.2);
+  border-color:#ff3b30;
+  color:#ff3b30;
+  box-shadow:0 0 12px rgba(255, 59, 48, 0.4);
+}
+
+/* COLOR PALETTE */
+.floating-palette{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  padding-left:2px;
+}
+.color-dot{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,0.5);
+  cursor:pointer;
+  transition:transform 0.15s, border-color 0.15s;
+}
+.color-dot:hover, .color-dot.active{
+  transform:scale(1.25);
+  border-color:#fff;
+  box-shadow:0 0 10px currentColor;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   4. STUDIO MAIN STAGE
+   ═══════════════════════════════════════════════════════════ */
+.studio-main{
+  flex:1;
+  display:flex;
+  position:relative;
+  overflow:hidden;
+}
+
+.stage-viewport{
+  flex:1;
+  background:#030408;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  position:relative;
+  overflow-y:auto;
+  overflow-x:auto;
+  padding:30px 20px 80px 20px;
+  background-image:radial-gradient(rgba(0, 212, 255, 0.08) 1.2px, transparent 1.2px);
+  background-size:24px 24px;
+}
+
+/* ARTBOARD SIMULATOR */
+#artboard-canvas-wrapper{
+  background:#020205;
+  position:relative;
+  box-shadow:0 30px 100px rgba(0,0,0,0.98), 0 0 45px rgba(0, 212, 255, 0.2);
+  border:1px solid rgba(0, 212, 255, 0.35);
+  transition:width 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.3s ease;
+  overflow:hidden;
+  flex-shrink:0;
+  margin:0 auto;
+}
+
+#artboard-canvas-wrapper.desktop{width:1280px;height:740px;border-radius:14px}
+#artboard-canvas-wrapper.tablet{width:820px;height:880px;border-radius:32px;border-width:12px;border-color:#182133}
+#artboard-canvas-wrapper.mobile{width:393px;height:840px;border-radius:48px;border-width:12px;border-color:#161f30}
+
+/* ACTIVE DRAWING CANVAS */
+#drawing-surface{
+  position:absolute;
+  inset:0;
+  z-index:500;
+  pointer-events:none;
+  touch-action:none;
+}
+#drawing-surface.interactive{
+  pointer-events:all !important;
+  cursor:crosshair;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   5. DRAGGABLE & TOUCHABLE UI ELEMENTS
+   ═══════════════════════════════════════════════════════════ */
+.studio-element{
+  position:absolute;
+  cursor:move;
+  border:1.5px dashed transparent;
+  padding:10px 14px;
+  border-radius:12px;
+  touch-action:none;
+  user-select:none;
+  z-index:200;
+  transition:border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+.studio-element:hover{
+  border-color:rgba(0, 212, 255, 0.6);
+  background:rgba(0, 212, 255, 0.05);
+}
+.studio-element.selected-box{
+  border-color:#b8ff57 !important;
+  background:rgba(184, 255, 87, 0.1) !important;
+  box-shadow:0 0 25px rgba(184, 255, 87, 0.35);
+}
+
+/* CANVA CORNER RESIZE HANDLES */
+.resize-handle{
+  position:absolute;
+  width:12px;
+  height:12px;
+  background:#ffffff;
+  border:2.5px solid #00d4ff;
+  border-radius:3px;
+  z-index:300;
+  box-shadow:0 0 8px rgba(0, 212, 255, 0.9);
+  display:none;
+  touch-action:none;
+}
+.studio-element.selected-box .resize-handle{
+  display:block;
+}
+.studio-element.element-locked .resize-handle{
+  display:none !important;
+}
+.handle-nw{top:-6px;left:-6px;cursor:nwse-resize}
+.handle-ne{top:-6px;right:-6px;cursor:nesw-resize}
+.handle-se{bottom:-6px;right:-6px;cursor:nwse-resize}
+.handle-sw{bottom:-6px;left:-6px;cursor:nesw-resize}
+.handle-e{top:calc(50% - 6px);right:-6px;cursor:ew-resize}
+
+/* CANVA LOCK STATE */
+.studio-element.element-locked{
+  cursor:not-allowed !important;
+  border-color:rgba(255, 59, 48, 0.35) !important;
+}
+.studio-element.element-locked .element-tag{
+  background:#ff3b30 !important;
+  color:#fff !important;
+}
+.studio-element.element-locked::after{
+  content:'🔒 LOCKED';
+  position:absolute;
+  bottom:-18px;
+  right:0;
+  background:rgba(255,59,48,0.9);
+  color:#fff;
+  font-family:'JetBrains Mono',monospace;
+  font-size:8.5px;
+  font-weight:800;
+  padding:2px 6px;
+  border-radius:4px;
+}
+
+.element-tag{
+  display:none;
+  position:absolute;
+  top:-20px;
+  left:0;
+  background:#00d4ff;
+  color:#020205;
+  font-family:'JetBrains Mono',monospace;
+  font-size:9.5px;
+  font-weight:800;
+  padding:2px 8px;
+  border-radius:4px;
+  pointer-events:none;
+  box-shadow:0 2px 8px rgba(0,0,0,0.5);
+}
+.studio-element:hover .element-tag,
+.studio-element.selected-box .element-tag{display:block}
+
+/* Direct Text Editable Elements */
+[contenteditable="true"]{
+  outline:none;
+  cursor:text;
+  user-select:text;
+}
+[contenteditable="true"]:focus{
+  background:rgba(0, 212, 255, 0.2);
+  border-radius:6px;
+  box-shadow:0 0 14px rgba(0, 212, 255, 0.5);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MODEL 1: ECHOSYST FLOATING FROSTED GLASS CAPSULE NAVBAR
+   ═══════════════════════════════════════════════════════════ */
+#elem-nav{
+  top:20px;
+  left:35px;
+  right:35px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:rgba(10, 16, 30, 0.75);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid rgba(0, 212, 255, 0.22);
+  box-shadow:0 16px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(0, 212, 255, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  border-radius:100px;
+  padding:6px 8px 6px 20px;
+  transition:all 0.3s ease;
+  z-index:100;
+}
+#elem-nav:hover{
+  border-color:rgba(0, 212, 255, 0.4);
+  box-shadow:0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(0, 212, 255, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.25);
+}
+.nav-brand-box{
+  display:flex;
+  align-items:center;
+  text-decoration:none;
+}
+.nav-logo-img{
+  height:36px;
+  width:auto;
+  max-width:240px;
+  object-fit:contain;
+  filter:drop-shadow(0 0 12px rgba(0, 212, 255, 0.45));
+  transition:transform 0.25s ease;
+}
+.nav-logo-img:hover{
+  transform:scale(1.03);
+}
+.nav-menu-list{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.nav-menu-item{
+  position:relative;
+  font-family:'Inter', sans-serif;
+  font-size:13px;
+  font-weight:500;
+  color:rgba(255, 255, 255, 0.75);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  padding:8px 6px;
+  transition:color 0.2s ease;
+}
+.nav-menu-item:hover{
+  color:#00d4ff;
+}
+.nav-chevron{
+  font-size:9px;
+  color:rgba(255, 255, 255, 0.5);
+  transition:transform 0.25s ease, color 0.25s ease;
+}
+.nav-menu-item:hover .nav-chevron{
+  color:#00d4ff;
+  transform:rotate(180deg);
+}
+
+/* FROSTED GLASS DROPDOWN POPOVER */
+.nav-dropdown-menu{
+  position:absolute;
+  top:calc(100% + 8px);
+  left:50%;
+  transform:translateX(-50%) translateY(6px);
+  width:320px;
+  background:rgba(8, 13, 26, 0.96);
+  backdrop-filter:blur(30px) saturate(200%);
+  -webkit-backdrop-filter:blur(30px) saturate(200%);
+  border:1px solid rgba(0, 212, 255, 0.35);
+  box-shadow:0 24px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(0, 212, 255, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  border-radius:18px;
+  padding:10px;
+  list-style:none;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index:99999;
+}
+/* INVISIBLE HOVER BRIDGE: PREVENTS DROPDOWN FROM HIDING ON MOUSE MOVE */
+.nav-dropdown-menu::before{
+  content:'';
+  position:absolute;
+  top:-16px;
+  left:0;
+  right:0;
+  height:18px;
+  background:transparent;
+}
+.nav-menu-item:hover .nav-dropdown-menu,
+.nav-menu-item.active .nav-dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translateX(-50%) translateY(0);
+}
+.dropdown-item{
+  display:flex;
+  flex-direction:column;
+  padding:9px 12px;
+  border-radius:12px;
+  text-decoration:none;
+  transition:background 0.2s ease, transform 0.2s ease;
+}
+.dropdown-item:hover{
+  background:rgba(0, 212, 255, 0.12);
+  transform:translateX(3px);
+}
+.dropdown-title{
+  font-family:'Space Grotesk', sans-serif;
+  font-size:12.5px;
+  font-weight:700;
+  color:#ffffff;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.dropdown-desc{
+  font-family:'Inter', sans-serif;
+  font-size:10px;
+  color:rgba(255, 255, 255, 0.55);
+  margin-top:2px;
+}
+
+/* RIGHT ACTION GROUP */
+.nav-action-group{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.nav-link-subtle{
+  font-family:'Inter', sans-serif;
+  font-size:12.5px;
+  font-weight:500;
+  color:rgba(255, 255, 255, 0.7);
+  text-decoration:none;
+  cursor:pointer;
+  transition:color 0.2s;
+}
+.nav-link-subtle:hover{
+  color:#ffffff;
+}
+
+/* ECHOSYST SIGNATURE GLOWING BUTTON */
+.nav-btn-echosyst{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  color:#020205;
+  font-family:'Space Grotesk', sans-serif;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:0.06em;
+  padding:7px 14px 7px 18px;
+  border-radius:100px;
+  text-decoration:none;
+  cursor:pointer;
+  box-shadow:0 0 22px rgba(0, 212, 255, 0.45);
+  transition:all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border:none;
+}
+.nav-btn-echosyst:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 35px rgba(184, 255, 87, 0.75);
+}
+.btn-arrow-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:22px;
+  height:22px;
+  background:#020205;
+  color:#b8ff57;
+  border-radius:50%;
+  font-size:12px;
+  font-weight:900;
+  transition:transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+.nav-btn-echosyst:hover .btn-arrow-badge{
+  transform:translate(2px, -2px) rotate(45deg);
+  background:#ffffff;
+  color:#020205;
+}
+
+/* PILL BADGE */
+#elem-badge{
+  top:140px;
+  left:50px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(0, 212, 255, 0.08);
+  border:1px solid rgba(0, 212, 255, 0.35);
+  box-shadow:0 0 20px rgba(0, 212, 255, 0.2);
+  padding:6px 18px;
+  border-radius:100px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.22em;
+  color:#00d4ff;
+}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:#b8ff57;box-shadow:0 0 10px #b8ff57}
+
+/* HEADLINE */
+#elem-headline{
+  top:195px;
+  left:50px;
+  max-width:560px;
+  font-size:44px;
+  font-weight:800;
+  line-height:1.20;
+  letter-spacing:-0.03em;
+  text-transform:uppercase;
+}
+.capsule-box{
+  display:inline-block;
+  background:rgba(0, 212, 255, 0.12);
+  border:1.5px solid rgba(0, 212, 255, 0.6);
+  padding:2px 14px;
+  border-radius:12px;
+  color:#00d4ff;
+}
+.lime-highlight{color:#b8ff57;text-shadow:0 0 20px rgba(184, 255, 87, 0.7)}
+
+/* TICKER */
+#elem-ticker{
+  top:400px;
+  left:50px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.ticker-lbl{color:rgba(255,255,255,0.6);letter-spacing:0.08em}
+.ticker-val-glow{color:#b8ff57;text-shadow:0 0 15px rgba(184, 255, 87, 0.4)}
+
+/* CTA BUTTON */
+#elem-cta{
+  top:460px;
+  left:50px;
+}
+.cta-button-visual{
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  color:#020205;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:13.5px;
+  font-weight:800;
+  letter-spacing:0.06em;
+  padding:15px 34px;
+  border-radius:100px;
+  box-shadow:0 0 35px rgba(0,212,255,0.5);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* 3D PIN CONTAINER */
+#elem-3d-pin{
+  top:120px;
+  right:50px;
+  width:480px;
+  height:500px;
+  border:2px dashed rgba(0, 212, 255, 0.45);
+  background:radial-gradient(circle at center, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+  border-radius:28px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.pin-emoji-glow{
+  font-size:90px;
+  filter:drop-shadow(0 0 35px #00d4ff);
+  animation:floatPinAnim 3s ease-in-out infinite;
+}
+@keyframes floatPinAnim{
+  0%,100%{transform:translateY(0px) rotate(0deg)}
+  50%{transform:translateY(-14px) rotate(3deg)}
+}
+.pin-tag-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;
+  font-weight:700;
+  letter-spacing:0.2em;
+  color:#00d4ff;
+  margin-top:14px;
+}
+.pin-tag-sub{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  color:#b8ff57;
+  margin-top:4px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FIGMA TOUCH-ENABLED STICKY ANNOTATION NOTES
+   ═══════════════════════════════════════════════════════════ */
+.sticky-note{
+  position:absolute;
+  width:170px;
+  min-height:95px;
+  background:#ffe066;
+  color:#1a1500;
+  border-radius:10px;
+  padding:12px;
+  font-family:'Inter',sans-serif;
+  font-size:12px;
+  font-weight:600;
+  line-height:1.4;
+  box-shadow:0 12px 30px rgba(0,0,0,0.6);
+  z-index:600;
+  cursor:move;
+  touch-action:none;
+  border:1px solid #ffd43b;
+}
+.sticky-note-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:6px;
+  cursor:grab;
+  touch-action:none;
+}
+.sticky-note-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;
+  color:rgba(0,0,0,0.5);
+  font-weight:800;
+}
+.sticky-note .note-delete-btn{
+  width:20px;
+  height:20px;
+  background:#ff3b30;
+  color:#fff;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  cursor:pointer;
+  border:none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   6. COLLAPSIBLE RIGHT PROPERTIES SIDEBAR
+   ═══════════════════════════════════════════════════════════ */
+.sidebar-wrapper{
+  position:relative;
+  display:flex;
+  transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+body.zen-mode .sidebar-wrapper{
+  display:none;
+}
+
+.studio-sidebar{
+  width:310px;
+  background:#0c111c;
+  border-left:1px solid rgba(0, 212, 255, 0.25);
+  display:flex;
+  flex-direction:column;
+  padding:18px;
+  gap:16px;
+  overflow-y:auto;
+  touch-action:pan-y;
+  transition:transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease, padding 0.3s ease;
+}
+
+.studio-sidebar.collapsed{
+  transform:translateX(100%);
+  width:0;
+  padding:0;
+  border-left:none;
+  overflow:hidden;
+}
+
+/* FLOATING SIDEBAR TOGGLE ARROW */
+.sidebar-collapse-handle{
+  position:absolute;
+  top:50%;
+  left:-26px;
+  transform:translateY(-50%);
+  width:26px;
+  height:56px;
+  background:#0c111c;
+  border:1px solid rgba(0, 212, 255, 0.4);
+  border-right:none;
+  border-radius:10px 0 0 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:#00d4ff;
+  font-size:13px;
+  font-weight:800;
+  z-index:9000;
+  box-shadow:-4px 0 15px rgba(0,0,0,0.5);
+  transition:all 0.2s;
+}
+.sidebar-collapse-handle:hover{
+  background:rgba(0, 212, 255, 0.2);
+  color:#b8ff57;
+}
+
+.panel-header-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px;
+  font-weight:700;
+  letter-spacing:0.2em;
+  color:#00d4ff;
+  text-transform:uppercase;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  padding-bottom:5px;
+}
+
+.control-field{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.control-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px;
+  color:rgba(255,255,255,0.65);
+  display:flex;
+  justify-content:space-between;
+}
+.control-val{color:#b8ff57;font-weight:700}
+
+.range-slider{
+  width:100%;
+  height:7px;
+  accent-color:#00d4ff;
+  cursor:pointer;
+}
+
+/* FIGMA QUICK ALIGNMENT BUTTONS */
+.figma-align-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:6px;
+}
+.btn-align{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.12);
+  color:#fff;
+  padding:6px;
+  border-radius:6px;
+  font-size:10px;
+  font-weight:700;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+}
+.btn-align:hover{background:rgba(0, 212, 255, 0.2);border-color:#00d4ff;color:#00d4ff}
+
+/* ═══════════════════════════════════════════════════════════
+   7. EXPORT MODAL
+   ═══════════════════════════════════════════════════════════ */
+.specs-modal-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  z-index:99999;
+  backdrop-filter:blur(10px);
+  align-items:center;
+  justify-content:center;
+}
+.specs-modal-overlay.open{display:flex}
+
+.specs-modal-card{
+  width:620px;
+  background:#0c111c;
+  border:1.5px solid #00d4ff;
+  border-radius:18px;
+  padding:24px;
+  box-shadow:0 0 60px rgba(0,212,255,0.45);
+}
+.specs-title{font-size:17px;font-weight:800;color:#00d4ff;margin-bottom:6px}
+.specs-subtitle{font-size:12px;color:rgba(255,255,255,0.65);margin-bottom:14px}
+.specs-textarea{
+  width:100%;
+  height:240px;
+  background:#04060a;
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:10px;
+  color:#b8ff57;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  padding:14px;
+  resize:none;
+  outline:none;
+}
+.modal-actions-bar{
+  display:flex;
+  justify-content:flex-end;
+  gap:12px;
+  margin-top:16px;
+}
+.btn-card-close{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.25);
+  color:#fff;
+  padding:8px 18px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.btn-card-copy{
+  background:#00d4ff;
+  border:none;
+  color:#020205;
+  font-weight:800;
+  padding:8px 22px;
+  border-radius:8px;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- FLOATING ZEN EXIT BUTTON -->
+<div class="zen-exit-banner" onclick="toggleZenFullscreen()">
+  <span>⛶ ESC TO EXIT FULLSCREEN</span>
+</div>
+
+<!-- 1. TOP STUDIO HEADER -->
+<header class="studio-header" id="studio-top-nav">
+  <div class="brand-badge-box">
+    <div class="brand-title">MARK BISHOP <span>MEDIA</span></div>
+    <div class="status-pill">FIGMA + EXCALIDRAW STUDIO</div>
+  </div>
+
+  <!-- DEVICE SELECTOR -->
+  <div class="device-btn-group">
+    <button class="btn-device active" id="btn-dev-desktop" onclick="switchStudioDevice('desktop')">
+      <span>💻 DESKTOP</span>
+    </button>
+    <button class="btn-device" id="btn-dev-tablet" onclick="switchStudioDevice('tablet')">
+      <span>📱 TABLET (iPad)</span>
+    </button>
+    <button class="btn-device" id="btn-dev-mobile" onclick="switchStudioDevice('mobile')">
+      <span>📱 MOBILE (iPhone)</span>
+    </button>
+  </div>
+
+  <!-- EXPORT & SIDEBAR TOGGLE -->
+  <div class="header-action-group">
+    <!-- EXACT YOUTUBE FULLSCREEN BUTTON -->
+    <button class="btn-youtube-fullscreen" id="header-btn-yt-fullscreen" title="Full screen (f)" onclick="toggleYouTubeFullscreen()">
+      <svg class="icon-expand" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+      </svg>
+      <svg class="icon-compress" style="display:none" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+        <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+      </svg>
+      <span id="txt-yt-fullscreen">FULLSCREEN</span>
+    </button>
+    
+    <button class="btn-png-download" onclick="captureAndDownloadScreenshot()">
+      <span>📸 DOWNLOAD PNG</span>
+    </button>
+    <button class="btn-export-specs" onclick="generateAndOpenSpecs()">
+      <span>📋 COPY SPECS</span>
+    </button>
+    <button class="btn-toggle-sidebar" id="btn-toggle-panel" onclick="toggleSidebar()">
+      <span id="txt-sidebar-toggle">👁️ HIDE PANEL</span>
+    </button>
+  </div>
+</header>
+
+<!-- 2. PRESETS BAR -->
+<div class="preset-bar" id="studio-preset-bar">
+  <span class="preset-label">⚡ Layout Presets:</span>
+  <button class="btn-preset" onclick="applyLayoutPreset('golden')">1. Golden Ratio</button>
+  <button class="btn-preset" onclick="applyLayoutPreset('spotlight')">2. 3D Spotlight</button>
+  <button class="btn-preset" onclick="applyLayoutPreset('split')">3. High-Ticket Split</button>
+  <button class="btn-preset" onclick="applyLayoutPreset('appstack')">4. Mobile App Stack</button>
+  <button class="btn-preset" style="color:#ff3b30;border-color:rgba(255,59,48,0.3)" onclick="resetStudioLayout()">🔄 Reset</button>
+
+  <div style="width:1px;height:16px;background:rgba(255,255,255,0.15);margin:0 6px;"></div>
+
+  <span class="preset-label" style="color:#00d4ff">🏷️ Sub-Brand Logo:</span>
+  <button class="btn-preset btn-logo-opt active" id="btn-logo-opt-1" onclick="switchLogoOption('concept1')">🌟 Stacked Emblem (Selected)</button>
+  <button class="btn-preset btn-logo-opt" id="btn-logo-opt-2" onclick="switchLogoOption('concept2')">🚀 Horizontal Lockup</button>
+  <button class="btn-preset btn-logo-opt" id="btn-logo-opt-text" onclick="switchLogoOption('text')">✨ Pure Text</button>
+</div>
+
+<!-- 3. STUDIO MAIN WORKSPACE -->
+<div class="studio-main">
+
+  <!-- DRAGGABLE FLOATING TOOLBAR WITH 2-STAGE DRAWING TRAY -->
+  <div id="draggable-toolbar">
+    
+    <!-- 1. PERMANENT CORE CONTROLS (ALWAYS VISIBLE) -->
+    <div class="core-tools-group">
+      <!-- DRAG GRIP HANDLE -->
+      <div class="toolbar-drag-grip" id="toolbar-grip" title="Drag to reposition toolbar anywhere!">
+        ⋮⋮
+      </div>
+
+      <!-- UNDO & REDO BUTTONS -->
+      <button class="btn-history" id="btn-undo" title="Undo (Ctrl+Z)" onclick="performUndoAction()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+      </button>
+      <button class="btn-history" id="btn-redo" title="Redo (Ctrl+Y)" onclick="performRedoAction()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/></svg>
+      </button>
+
+      <div class="toolbar-separator"></div>
+
+      <!-- SELECTION POINTER TOOL -->
+      <button class="tool-item active" id="tool-select" title="Selection & Move (Key: 1)" onclick="setActiveWhiteboardTool('select')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>
+        <span class="shortcut-num">1</span>
+      </button>
+
+      <!-- CANVA LOCK / UNLOCK TOGGLE -->
+      <button class="btn-lock-toggle" id="btn-lock-selected" title="Lock Selected Element (Prevent accidental move)" onclick="toggleLockSelectedElement()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </button>
+
+      <!-- TOGGLE DRAWING TOOLS TRAY BUTTON -->
+      <button class="btn-toggle-draw-tray" id="btn-toggle-draw" title="Click to show/hide extra drawing tools" onclick="toggleDrawingToolsTray()">
+        <span>✏️ TOOLS</span>
+        <span id="tray-arrow-icon">❯</span>
+      </button>
+    </div>
+
+    <!-- 2. COLLAPSIBLE DRAWING TOOLS TRAY -->
+    <div id="drawing-tools-tray" class="collapsed">
+      <div class="toolbar-separator"></div>
+
+      <!-- 3. Rectangle Box -->
+      <button class="tool-item" id="tool-rect" title="Rectangle Box (Key: 2 - Click again to untick)" onclick="setActiveWhiteboardTool('rect')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+        <span class="shortcut-num">2</span>
+      </button>
+
+      <!-- 4. Circle / Ellipse -->
+      <button class="tool-item" id="tool-circle" title="Circle Highlight (Key: 3 - Click again to untick)" onclick="setActiveWhiteboardTool('circle')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/></svg>
+        <span class="shortcut-num">3</span>
+      </button>
+
+      <!-- 5. Arrow Tool -->
+      <button class="tool-item" id="tool-arrow" title="Draw Arrow ➔ (Key: 4 - Click again to untick)" onclick="setActiveWhiteboardTool('arrow')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span class="shortcut-num">4</span>
+      </button>
+
+      <!-- 6. Straight Line -->
+      <button class="tool-item" id="tool-line" title="Draw Line (Key: 5 - Click again to untick)" onclick="setActiveWhiteboardTool('line')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="4" y1="20" x2="20" y2="4"/></svg>
+        <span class="shortcut-num">5</span>
+      </button>
+
+      <!-- 7. Freehand Pen -->
+      <button class="tool-item" id="tool-pen" title="Freehand Pen (Key: 6 - Click again to untick)" onclick="setActiveWhiteboardTool('pen')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+        <span class="shortcut-num">6</span>
+      </button>
+
+      <!-- 8. Figma Sticky Note -->
+      <button class="tool-item" id="tool-sticky" title="Add Sticky Note (Key: 7)" onclick="spawnStickyNote()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <span class="shortcut-num">7</span>
+      </button>
+
+      <!-- 9. Eraser Tool -->
+      <button class="tool-item" id="tool-eraser" title="Eraser (Key: 8 - Click again to untick)" onclick="setActiveWhiteboardTool('eraser')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 20H7L3 16C2 15 2 13 3 12L13 2C14 1 16 1 17 2L22 7C23 8 23 10 22 11L14 19"/></svg>
+        <span class="shortcut-num">8</span>
+      </button>
+
+      <div class="toolbar-separator"></div>
+
+      <!-- COLOR PALETTE -->
+      <div class="floating-palette">
+        <div class="color-dot active" style="background:#00d4ff" onclick="pickPaletteColor('#00d4ff', this)"></div>
+        <div class="color-dot" style="background:#b8ff57" onclick="pickPaletteColor('#b8ff57', this)"></div>
+        <div class="color-dot" style="background:#ff3366" onclick="pickPaletteColor('#ff3366', this)"></div>
+        <div class="color-dot" style="background:#ffcc00" onclick="pickPaletteColor('#ffcc00', this)"></div>
+        <div class="color-dot" style="background:#ffffff" onclick="pickPaletteColor('#ffffff', this)"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FLOATING YOUTUBE FULLSCREEN CONTROL AT BOTTOM RIGHT -->
+  <div class="yt-floating-bottom-bar" id="yt-corner-bar" title="YouTube Fullscreen Mode (f)">
+    <button class="yt-player-btn" id="corner-btn-yt-fullscreen" onclick="toggleYouTubeFullscreen()" title="Full screen (f)">
+      <svg class="icon-expand" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+      </svg>
+      <svg class="icon-compress" style="display:none" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- SCROLLABLE ARTBOARD VIEWPORT -->
+  <main class="stage-viewport">
+    <div id="artboard-canvas-wrapper" class="desktop">
+
+      <!-- FULL CANVAS FOR DRAWING OVERLAY -->
+      <canvas id="drawing-surface"></canvas>
+
+      <!-- 1. NAVBAR COMPONENT: MODEL 1 FLOATING FROSTED GLASS CAPSULE -->
+      <div class="studio-element" id="elem-nav" data-name="Navbar Header">
+        <span class="element-tag">NAVBAR</span>
+        
+        <!-- LEFT: BRAND LOGO -->
+        <div id="nav-brand-container" class="nav-brand-box">
+          <img id="nav-logo-img" src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media - Local Visibility OS" class="nav-logo-img" />
+        </div>
+
+        <!-- CENTER: INTERACTIVE GLASS NAVIGATION WITH DROPDOWNS -->
+        <ul class="nav-menu-list" id="nav-menu-container">
+          <!-- 1. SOLUTIONS DROPDOWN (4 CLIENT-MINDSET PACKAGES) -->
+          <li class="nav-menu-item" onclick="toggleNavDropdown(this, event)">
+            <span>Solutions</span>
+            <span class="nav-chevron">▼</span>
+            <ul class="nav-dropdown-menu" onpointerdown="event.stopPropagation()">
+              <li>
+                <a href="#three-pack" class="dropdown-item" onpointerdown="event.stopPropagation()">
+                  <span class="dropdown-title">📍 Rank in Google Maps Top 3</span>
+                  <span class="dropdown-desc">Stop losing calls to competitors & show up first</span>
+                </a>
+              </li>
+              <li>
+                <a href="#reviews" class="dropdown-item" onpointerdown="event.stopPropagation()">
+                  <span class="dropdown-title">⭐ Automated 5-Star Reviews</span>
+                  <span class="dropdown-desc">Turn happy customers into real reviews on autopilot</span>
+                </a>
+              </li>
+              <li>
+                <a href="#citations" class="dropdown-item" onpointerdown="event.stopPropagation()">
+                  <span class="dropdown-title">🌐 100+ Directory Sync & Citations</span>
+                  <span class="dropdown-desc">Lock your business info on Apple, Yelp & Google</span>
+                </a>
+              </li>
+              <li>
+                <a href="#website" class="dropdown-item" onpointerdown="event.stopPropagation()">
+                  <span class="dropdown-title">🚀 High-Converting 3D Website</span>
+                  <span class="dropdown-desc">Modern, fast & built with schema to turn clicks to calls</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- 2. CASE STUDIES (DIRECT) -->
+          <li class="nav-menu-item">
+            <span>Case Studies</span>
+          </li>
+
+          <!-- 3. TESTIMONIALS (DIRECT) -->
+          <li class="nav-menu-item">
+            <span>Testimonials</span>
+          </li>
+
+          <!-- 4. RESOURCES DROPDOWN -->
+          <li class="nav-menu-item" onclick="toggleNavDropdown(this, event)">
+            <span>Resources</span>
+            <span class="nav-chevron">▼</span>
+            <ul class="nav-dropdown-menu" onpointerdown="event.stopPropagation()">
+              <li>
+                <a href="#audit" class="dropdown-item" onpointerdown="event.stopPropagation()">
+                  <span class="dropdown-title">⚡ Free 9-Mile Visibility Audit</span>
+                  <span class="dropdown-desc">Run an instant live ranking scan for your business</span>
+                </a>
+              </li>
+              <li>
+                <a href="#blog" class="dropdown-item" onpointerdown="event.stopPropagation()">
+                  <span class="dropdown-title">📑 Local Growth Blog</span>
+                  <span class="dropdown-desc">Proven tips to scale local customers & revenue</span>
+                </a>
+              </li>
+              <li>
+                <a href="#faq" class="dropdown-item" onpointerdown="event.stopPropagation()">
+                  <span class="dropdown-title">❓ Client FAQs</span>
+                  <span class="dropdown-desc">Everything you need to know about our system</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- RIGHT: ECHOSYST SIGNATURE ACTION GROUP -->
+        <div class="nav-action-group" id="nav-action-group">
+          <a href="#contact" class="nav-link-subtle" contenteditable="false" ondblclick="makeDirectEditable(this)">Talk to Mark</a>
+          <a href="#audit" class="nav-btn-echosyst" contenteditable="false" ondblclick="makeDirectEditable(this)">
+            <span>⚡ FREE AUDIT</span>
+            <span class="btn-arrow-badge">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 2. PILL BADGE -->
+      <div class="studio-element" id="elem-badge" data-name="Pill Badge">
+        <span class="element-tag">PILL BADGE</span>
+        <span class="pulse-dot"></span>
+        <span class="editable-content" contenteditable="false" ondblclick="makeDirectEditable(this)">LOCAL VISIBILITY OPERATING SYSTEM</span>
+      </div>
+
+      <!-- 3. MAIN HEADLINE -->
+      <div class="studio-element" id="elem-headline" data-name="Main Headline">
+        <span class="element-tag">MAIN HEADLINE</span>
+        <div class="editable-content" contenteditable="false" ondblclick="makeDirectEditable(this)">
+          YOUR LOCAL CLIENTS<br>
+          <span class="capsule-box">ARE SEARCHING</span><br>
+          WE MAKE SURE THEY<br>
+          FIND <span class="lime-highlight">YOU FIRST.</span>
+        </div>
+      </div>
+
+      <!-- 4. DYNAMIC TICKER -->
+      <div class="studio-element" id="elem-ticker" data-name="Dynamic Ticker">
+        <span class="element-tag">DYNAMIC TICKER</span>
+        <span class="ticker-lbl" contenteditable="false">DOMINANCE TARGET:</span>
+        <span class="ticker-val-glow" contenteditable="false" ondblclick="makeDirectEditable(this)">#1 Google Maps 3-Pack Positioning</span>
+      </div>
+
+      <!-- 5. CTA BUTTON -->
+      <div class="studio-element" id="elem-cta" data-name="CTA Button">
+        <span class="element-tag">CTA BUTTON</span>
+        <div class="cta-button-visual" contenteditable="false" ondblclick="makeDirectEditable(this)">
+          <span>⚡ EXPLORE WHAT WE DO</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+      <!-- 6. 3D PIN CONTAINER -->
+      <div class="studio-element" id="elem-3d-pin" data-name="3D Pin & Storefront">
+        <span class="element-tag">3D PIN & STOREFRONT</span>
+        <div class="pin-emoji-glow">📍</div>
+        <div class="pin-tag-title">3D GOOGLE MAP PIN + STOREFRONT</div>
+        <div class="pin-tag-sub">5 ORBITING STARS + REAL-TIME CONVERSION BADGES</div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- COLLAPSIBLE RIGHT SIDEBAR -->
+  <div class="sidebar-wrapper">
+    <div class="sidebar-collapse-handle" onclick="toggleSidebar()" title="Toggle Sidebar">
+      <span id="handle-arrow">❯</span>
+    </div>
+
+    <aside class="studio-sidebar" id="studio-sidebar-panel">
+      <div class="panel-header-title">SELECTED COMPONENT</div>
+      
+      <div class="control-field">
+        <div class="control-label"><span>ELEMENT:</span> <span class="control-val" id="disp-elem-name">Tap Any Item</span></div>
+        <div class="control-label"><span>TOP:</span> <span class="control-val" id="disp-pos-top">--</span></div>
+        <div class="control-label"><span>LEFT:</span> <span class="control-val" id="disp-pos-left">--</span></div>
+      </div>
+
+      <!-- CANVA LOCK STATUS -->
+      <button class="btn-preset" id="sidebar-lock-btn" style="width:100%;padding:8px;justify-content:center" onclick="toggleLockSelectedElement()">
+        <span>🔒 Lock This Element</span>
+      </button>
+
+      <div class="panel-header-title">FIGMA AUTO-ALIGN</div>
+      <div class="figma-align-grid">
+        <button class="btn-align" onclick="alignSelectedElement('left')">⬅️ Left</button>
+        <button class="btn-align" onclick="alignSelectedElement('center')">🎯 Center</button>
+        <button class="btn-align" onclick="alignSelectedElement('right')">➡️ Right</button>
+      </div>
+
+      <div class="panel-header-title">RESIZE & TOUCH SLIDERS</div>
+
+      <div class="control-field">
+        <div class="control-label"><span>FONT / EMOJI SIZE:</span> <span class="control-val" id="disp-font-size">44px</span></div>
+        <input type="range" min="12" max="80" value="44" class="range-slider" id="slider-font-size" oninput="changeSelectedFontSize(this.value)">
+      </div>
+
+      <div class="control-field">
+        <div class="control-label"><span>WIDTH / STAGE BOX:</span> <span class="control-val" id="disp-elem-width">560px</span></div>
+        <input type="range" min="160" max="950" value="560" class="range-slider" id="slider-elem-width" oninput="changeSelectedWidth(this.value)">
+      </div>
+
+      <div class="panel-header-title">WHITEBOARD ACTIONS</div>
+      
+      <button class="btn-preset" style="width:100%;padding:10px;justify-content:center;color:#ff3b30;border-color:rgba(255,59,48,0.4)" onclick="clearAllDrawingCanvas()">
+        <span>🧹 ERASE ALL DRAWINGS</span>
+      </button>
+
+      <div class="panel-header-title">SHORTCUT TIPS</div>
+      <p style="font-size:11.5px;line-height:1.6;color:rgba(255,255,255,0.6)">
+        <b>F / Esc:</b> YouTube Fullscreen (পুরু মনিটর ডিসপ্লে)<br>
+        <b>Double Click:</b> যেকোনো লেখার ওপর ডাবল ক্লিক করে লিখুন<br>
+        <b>Ctrl+Z / Ctrl+Y:</b> Undo ও Redo<br>
+        <b>🔒 Lock:</b> বক্স লক করে দিন যেন হাত লাগলে না নড়ে
+      </p>
+    </aside>
+  </div>
+
+</div>
+
+<!-- SPECS EXPORT MODAL -->
+<div class="specs-modal-overlay" id="specs-modal-box">
+  <div class="specs-modal-card">
+    <div class="specs-title">🎉 YOUR CUSTOM LAYOUT BLUEPRINT</div>
+    <div class="specs-subtitle">এই টেক্সটটুকু কপি করে চ্যাটে দিয়ে দিন। আমি হুবহু কোড করে দেব!</div>
+    <textarea class="specs-textarea" id="specs-export-data" readonly></textarea>
+    <div class="modal-actions-bar">
+      <button class="btn-card-close" onclick="closeSpecsModal()">Close</button>
+      <button class="btn-card-copy" onclick="copySpecsData()">📋 COPY BLUEPRINT</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   1. YOUTUBE-STYLE TRUE DISPLAY FULLSCREEN (NATIVE + ZEN)
+   ═══════════════════════════════════════════════════════════ */
+let isZenFullscreen = false;
+
+function toggleYouTubeFullscreen() {
+  if (!document.fullscreenElement) {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.log('Native fullscreen failed, using CSS zen fallback:', err);
+      });
+    }
+    applyFullscreenUI(true);
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen().catch(err => console.log(err));
+    }
+    applyFullscreenUI(false);
+  }
+  setTimeout(resizeDrawingCanvas, 320);
+}
+
+function toggleZenFullscreen() {
+  toggleYouTubeFullscreen();
+}
+
+function applyFullscreenUI(isFullscreen) {
+  isZenFullscreen = isFullscreen;
+  if (isFullscreen) {
+    document.body.classList.add('zen-mode');
+    document.querySelectorAll('.icon-expand').forEach(i => i.style.display = 'none');
+    document.querySelectorAll('.icon-compress').forEach(i => i.style.display = 'block');
+    const txt = document.getElementById('txt-yt-fullscreen');
+    if (txt) txt.innerText = 'EXIT FULLSCREEN';
+  } else {
+    document.body.classList.remove('zen-mode');
+    document.querySelectorAll('.icon-expand').forEach(i => i.style.display = 'block');
+    document.querySelectorAll('.icon-compress').forEach(i => i.style.display = 'none');
+    const txt = document.getElementById('txt-yt-fullscreen');
+    if (txt) txt.innerText = 'FULLSCREEN';
+  }
+}
+
+// Browser native fullscreen change event listener
+document.addEventListener('fullscreenchange', () => {
+  applyFullscreenUI(!!document.fullscreenElement);
+  setTimeout(resizeDrawingCanvas, 320);
+});
+
+// ESC or 'F' Key Toggle: Instant 1-Key Fullscreen Toggle!
+window.addEventListener('keydown', (e) => {
+  if (e.target.isContentEditable) return;
+  if (e.key === 'Escape' || e.key.toLowerCase() === 'f') {
+    toggleYouTubeFullscreen();
+    if (e.key === 'Escape' && !document.fullscreenElement) {
+      e.preventDefault();
+    }
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════
+   1.1 SUB-BRAND LOGO COMPARISON SWITCHER
+   ═══════════════════════════════════════════════════════════ */
+let currentLogoOption = 'concept2';
+
+function switchLogoOption(opt) {
+  currentLogoOption = opt;
+  document.querySelectorAll('.btn-logo-opt').forEach(b => b.classList.remove('active'));
+  const btnId = opt === 'concept1' ? 'btn-logo-opt-1' : opt === 'concept2' ? 'btn-logo-opt-2' : 'btn-logo-opt-text';
+  const activeBtn = document.getElementById(btnId);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  const img = document.getElementById('nav-logo-img');
+  const fallback = document.getElementById('nav-brand-fallback');
+
+  if (opt === 'concept1') {
+    img.style.display = 'block';
+    img.src = '../assets/logos/mbm-subbrand-concept1.jpg';
+    img.className = 'nav-logo-img stacked';
+    fallback.style.display = 'none';
+  } else if (opt === 'concept2') {
+    img.style.display = 'block';
+    img.src = '../assets/logos/mbm-subbrand-concept2.jpg';
+    img.className = 'nav-logo-img horizontal';
+    fallback.style.display = 'none';
+  } else {
+    img.style.display = 'none';
+    fallback.style.display = 'flex';
+  }
+  setTimeout(resizeDrawingCanvas, 100);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   2. COLLAPSIBLE DRAWING TRAY (SHOW / HIDE EXTRA DRAWING TOOLS)
+   ═══════════════════════════════════════════════════════════ */
+let isDrawingTrayOpen = false;
+
+function toggleDrawingToolsTray() {
+  isDrawingTrayOpen = !isDrawingTrayOpen;
+  const tray = document.getElementById('drawing-tools-tray');
+  const btn = document.getElementById('btn-toggle-draw');
+  const arrow = document.getElementById('tray-arrow-icon');
+
+  if (isDrawingTrayOpen) {
+    tray.classList.remove('collapsed');
+    btn.classList.add('active');
+    if (arrow) arrow.innerText = '❮';
+  } else {
+    tray.classList.add('collapsed');
+    btn.classList.remove('active');
+    if (arrow) arrow.innerText = '❯';
+    if (activeTool !== 'select') {
+      setActiveWhiteboardTool('select');
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   2. DEVICE ARTBOARD SWITCHER
+   ═══════════════════════════════════════════════════════════════════ */
+let currentDeviceType = 'desktop';
+const artboardBox = document.getElementById('artboard-canvas-wrapper');
+
+/* ═══════════════════════════════════════════════════════════
+   1.2 INTERACTIVE NAV DROPDOWN TOGGLE (CLICK & TOUCH SUPPORT)
+   ═══════════════════════════════════════════════════════════ */
+function toggleNavDropdown(el, evt) {
+  if (evt) evt.stopPropagation();
+  const wasActive = el.classList.contains('active');
+  document.querySelectorAll('.nav-menu-item').forEach(item => item.classList.remove('active'));
+  if (!wasActive) {
+    el.classList.add('active');
+  }
+}
+
+// Close dropdown on outside click
+document.addEventListener('pointerdown', (e) => {
+  if (!e.target.closest('.nav-menu-item')) {
+    document.querySelectorAll('.nav-menu-item').forEach(item => item.classList.remove('active'));
+  }
+});
+
+function switchStudioDevice(dev) {
+  currentDeviceType = dev;
+  document.querySelectorAll('#btn-dev-desktop, #btn-dev-tablet, #btn-dev-mobile').forEach(b => b.classList.remove('active'));
+  document.getElementById(`btn-dev-${dev}`).classList.add('active');
+
+  artboardBox.className = dev;
+
+  const logoImg = document.getElementById('nav-logo-img');
+  const subtleLink = document.querySelector('.nav-link-subtle');
+
+  if (dev === 'mobile') {
+    document.getElementById('nav-menu-container').style.display = 'none';
+    if (subtleLink) subtleLink.style.display = 'none';
+    if (logoImg) {
+      logoImg.src = '../assets/logos/mbm-icon.svg';
+      logoImg.style.height = '32px';
+      logoImg.style.width = '32px';
+    }
+    applyLayoutPreset('appstack');
+  } else if (dev === 'tablet') {
+    document.getElementById('nav-menu-container').style.display = 'flex';
+    if (subtleLink) subtleLink.style.display = 'none';
+    if (logoImg) {
+      logoImg.src = '../assets/logos/mbm-logo.svg';
+      logoImg.style.height = '36px';
+      logoImg.style.width = 'auto';
+    }
+    setElementCoordinates('elem-nav', 16, 20);
+    setElementCoordinates('elem-badge', 120, 24);
+    setElementCoordinates('elem-headline', 170, 24, 380);
+    document.getElementById('elem-headline').style.fontSize = '28px';
+    document.getElementById('elem-headline').style.textAlign = 'left';
+    setElementCoordinates('elem-ticker', 360, 24);
+    setElementCoordinates('elem-cta', 415, 24);
+    setElementCoordinates('elem-3d-pin', 120, 420, 380, 460);
+  } else {
+    document.getElementById('nav-menu-container').style.display = 'flex';
+    if (subtleLink) subtleLink.style.display = 'inline-block';
+    if (logoImg) {
+      logoImg.src = '../assets/logos/mbm-logo.svg';
+      logoImg.style.height = '36px';
+      logoImg.style.width = 'auto';
+    }
+    applyLayoutPreset('golden');
+  }
+
+  resizeDrawingCanvas();
+  saveLayoutToLocalStorage();
+}
+
+function setElementCoordinates(id, top, left, width, height) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (top !== undefined) el.style.top = `${top}px`;
+  if (left !== undefined) el.style.left = `${left}px`;
+  if (width !== undefined) el.style.width = `${width}px`;
+  if (height !== undefined) el.style.height = `${height}px`;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   3. DRAGGABLE FLOATING TOOLBAR ENGINE
+   ═══════════════════════════════════════════════════════════════════ */
+const dragToolbar = document.getElementById('draggable-toolbar');
+const gripHandle = document.getElementById('toolbar-grip');
+let isDraggingToolbar = false;
+let tbStartX = 0, tbStartY = 0;
+let tbInitialLeft = 0, tbInitialTop = 0;
+
+gripHandle.addEventListener('pointerdown', (e) => {
+  isDraggingToolbar = true;
+  tbStartX = e.clientX;
+  tbStartY = e.clientY;
+  tbInitialLeft = dragToolbar.offsetLeft;
+  tbInitialTop = dragToolbar.offsetTop;
+  
+  dragToolbar.style.transform = 'none';
+  dragToolbar.style.left = `${tbInitialLeft}px`;
+  dragToolbar.style.top = `${tbInitialTop}px`;
+
+  gripHandle.setPointerCapture(e.pointerId);
+  e.preventDefault();
+});
+
+window.addEventListener('pointermove', (e) => {
+  if (!isDraggingToolbar) return;
+  const dx = e.clientX - tbStartX;
+  const dy = e.clientY - tbStartY;
+
+  let newLeft = Math.max(10, Math.min(window.innerWidth - dragToolbar.offsetWidth - 10, tbInitialLeft + dx));
+  let newTop = Math.max(10, Math.min(window.innerHeight - dragToolbar.offsetHeight - 10, tbInitialTop + dy));
+
+  dragToolbar.style.left = `${newLeft}px`;
+  dragToolbar.style.top = `${newTop}px`;
+});
+
+window.addEventListener('pointerup', (e) => {
+  if (isDraggingToolbar) {
+    isDraggingToolbar = false;
+    try { gripHandle.releasePointerCapture(e.pointerId); } catch(err){}
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════════════
+   4. CANVA-STYLE ELEMENT LOCKING SYSTEM
+   ═══════════════════════════════════════════════════════════════════ */
+const lockedElementsSet = new Set();
+
+function toggleLockSelectedElement() {
+  if (!activeSelectedElem) return;
+  const id = activeSelectedElem.id;
+  const lockBtn = document.getElementById('btn-lock-selected');
+  const sidebarLockBtn = document.getElementById('sidebar-lock-btn');
+
+  if (lockedElementsSet.has(id)) {
+    lockedElementsSet.delete(id);
+    activeSelectedElem.classList.remove('element-locked');
+    lockBtn.classList.remove('is-locked');
+    sidebarLockBtn.innerHTML = '<span>🔒 Lock This Element</span>';
+  } else {
+    lockedElementsSet.add(id);
+    activeSelectedElem.classList.add('element-locked');
+    lockBtn.classList.add('is-locked');
+    sidebarLockBtn.innerHTML = '<span>🔓 Unlock Element</span>';
+  }
+}
+
+function syncLockStatusForElement(el) {
+  const lockBtn = document.getElementById('btn-lock-selected');
+  const sidebarLockBtn = document.getElementById('sidebar-lock-btn');
+  if (lockedElementsSet.has(el.id)) {
+    lockBtn.classList.add('is-locked');
+    sidebarLockBtn.innerHTML = '<span>🔓 Unlock Element</span>';
+  } else {
+    lockBtn.classList.remove('is-locked');
+    sidebarLockBtn.innerHTML = '<span>🔒 Lock This Element</span>';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   5. DIRECT TEXT EDITING (ON DOUBLE CLICK / TAP)
+   ═══════════════════════════════════════════════════════════════════ */
+function makeDirectEditable(el) {
+  el.setAttribute('contenteditable', 'true');
+  el.focus();
+  el.addEventListener('blur', () => {
+    el.setAttribute('contenteditable', 'false');
+    saveLayoutToLocalStorage();
+  }, { once: true });
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   6. UNDO / REDO HISTORY ENGINE
+   ═══════════════════════════════════════════════════════════════════ */
+let undoHistory = [];
+let redoHistory = [];
+
+function recordHistoryState() {
+  const snapshot = {
+    drawnShapes: JSON.parse(JSON.stringify(drawnShapesHistory)),
+    elements: captureAllElementPositions()
+  };
+  undoHistory.push(snapshot);
+  if (undoHistory.length > 30) undoHistory.shift();
+  redoHistory = [];
+}
+
+function captureAllElementPositions() {
+  const ids = ['elem-nav', 'elem-badge', 'elem-headline', 'elem-ticker', 'elem-cta', 'elem-3d-pin'];
+  const pos = {};
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      pos[id] = {
+        top: el.style.top,
+        left: el.style.left,
+        width: el.style.width,
+        fontSize: el.style.fontSize
+      };
+    }
+  });
+  return pos;
+}
+
+function performUndoAction() {
+  if (undoHistory.length === 0) return;
+  const currentState = {
+    drawnShapes: JSON.parse(JSON.stringify(drawnShapesHistory)),
+    elements: captureAllElementPositions()
+  };
+  redoHistory.push(currentState);
+
+  const prevState = undoHistory.pop();
+  drawnShapesHistory = prevState.drawnShapes;
+  restoreElementPositions(prevState.elements);
+  redrawAllSavedShapes();
+}
+
+function performRedoAction() {
+  if (redoHistory.length === 0) return;
+  const currentState = {
+    drawnShapes: JSON.parse(JSON.stringify(drawnShapesHistory)),
+    elements: captureAllElementPositions()
+  };
+  undoHistory.push(currentState);
+
+  const nextState = redoHistory.pop();
+  drawnShapesHistory = nextState.drawnShapes;
+  restoreElementPositions(nextState.elements);
+  redrawAllSavedShapes();
+}
+
+function restoreElementPositions(elemState) {
+  for (let id in elemState) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.style.top = elemState[id].top;
+      el.style.left = elemState[id].left;
+      el.style.width = elemState[id].width;
+      el.style.fontSize = elemState[id].fontSize;
+    }
+  }
+}
+
+// KEYBOARD SHORTCUTS: Ctrl+Z & Ctrl+Y
+window.addEventListener('keydown', (e) => {
+  if (e.target.isContentEditable) return;
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+    if (e.shiftKey) performRedoAction();
+    else performUndoAction();
+    e.preventDefault();
+  } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+    performRedoAction();
+    e.preventDefault();
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════════════
+   7. COLLAPSIBLE SIDEBAR
+   ═══════════════════════════════════════════════════════════════════ */
+let isSidebarOpen = true;
+const sidebarPanel = document.getElementById('studio-sidebar-panel');
+const handleArrow = document.getElementById('handle-arrow');
+const txtSidebarToggle = document.getElementById('txt-sidebar-toggle');
+
+function toggleSidebar() {
+  isSidebarOpen = !isSidebarOpen;
+  if (isSidebarOpen) {
+    sidebarPanel.classList.remove('collapsed');
+    handleArrow.innerText = '❯';
+    txtSidebarToggle.innerText = '👁️ HIDE PANEL';
+  } else {
+    sidebarPanel.classList.add('collapsed');
+    handleArrow.innerText = '❮';
+    txtSidebarToggle.innerText = '👁️ SHOW PANEL';
+  }
+  setTimeout(resizeDrawingCanvas, 320);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   8. EXCALIDRAW DRAWING ENGINE
+   ═══════════════════════════════════════════════════════════════════ */
+let activeTool = 'select';
+let activeColor = '#00d4ff';
+const drawingCanvas = document.getElementById('drawing-surface');
+const ctx = drawingCanvas.getContext('2d');
+
+let isDrawingAction = false;
+let startX = 0, startY = 0;
+let drawnShapesHistory = [];
+
+function resizeDrawingCanvas() {
+  drawingCanvas.width = artboardBox.clientWidth;
+  drawingCanvas.height = artboardBox.clientHeight;
+  redrawAllSavedShapes();
+}
+window.addEventListener('resize', resizeDrawingCanvas);
+setTimeout(resizeDrawingCanvas, 150);
+
+function setActiveWhiteboardTool(tool) {
+  if (activeTool === tool && tool !== 'select') {
+    activeTool = 'select'; // Untick/deactivate on second click!
+  } else {
+    activeTool = tool;
+  }
+
+  document.querySelectorAll('.tool-item').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById(`tool-${activeTool}`);
+  if (btn) btn.classList.add('active');
+
+  if (activeTool === 'select') {
+    drawingCanvas.classList.remove('interactive');
+  } else {
+    drawingCanvas.classList.add('interactive');
+  }
+}
+
+function pickPaletteColor(col, element) {
+  activeColor = col;
+  document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+  element.classList.add('active');
+  if (activeTool === 'select') {
+    setActiveWhiteboardTool('pen');
+  }
+}
+
+// Tool shortcuts 1 to 8
+window.addEventListener('keydown', (e) => {
+  if (e.target.isContentEditable) return;
+  const keyMap = {
+    '1': 'select', '2': 'rect', '3': 'circle', '4': 'arrow',
+    '5': 'line', '6': 'pen', '7': 'sticky', '8': 'eraser'
+  };
+  if (keyMap[e.key]) {
+    if (keyMap[e.key] === 'sticky') spawnStickyNote();
+    else setActiveWhiteboardTool(keyMap[e.key]);
+  }
+});
+
+/* DRAWING SURFACE POINTER EVENTS */
+let currentPathPoints = [];
+
+drawingCanvas.addEventListener('pointerdown', (e) => {
+  if (activeTool === 'select') return;
+  
+  isDrawingAction = true;
+  const rect = drawingCanvas.getBoundingClientRect();
+  startX = e.clientX - rect.left;
+  startY = e.clientY - rect.top;
+
+  drawingCanvas.setPointerCapture(e.pointerId);
+
+  if (activeTool === 'pen') {
+    currentPathPoints = [{ x: startX, y: startY }];
+  } else if (activeTool === 'eraser') {
+    eraseNearPoint(startX, startY);
+  }
+  e.preventDefault();
+});
+
+drawingCanvas.addEventListener('pointermove', (e) => {
+  if (!isDrawingAction) return;
+
+  const rect = drawingCanvas.getBoundingClientRect();
+  const curX = e.clientX - rect.left;
+  const curY = e.clientY - rect.top;
+
+  if (activeTool === 'pen') {
+    currentPathPoints.push({ x: curX, y: curY });
+    redrawAllSavedShapes();
+    drawFreehandStroke(currentPathPoints, activeColor, 4);
+  } else if (activeTool === 'eraser') {
+    eraseNearPoint(curX, curY);
+  } else {
+    redrawAllSavedShapes();
+    drawShapePreview(activeTool, startX, startY, curX, curY, activeColor);
+  }
+});
+
+drawingCanvas.addEventListener('pointerup', (e) => {
+  if (!isDrawingAction) return;
+  isDrawingAction = false;
+  try { drawingCanvas.releasePointerCapture(e.pointerId); } catch(err){}
+
+  const rect = drawingCanvas.getBoundingClientRect();
+  const endX = e.clientX - rect.left;
+  const endY = e.clientY - rect.top;
+
+  recordHistoryState();
+
+  if (activeTool === 'pen' && currentPathPoints.length > 1) {
+    drawnShapesHistory.push({ type: 'pen', points: [...currentPathPoints], color: activeColor, width: 4 });
+  } else if (activeTool === 'arrow') {
+    drawnShapesHistory.push({ type: 'arrow', x1: startX, y1: startY, x2: endX, y2: endY, color: activeColor });
+  } else if (activeTool === 'rect') {
+    drawnShapesHistory.push({ type: 'rect', x: Math.min(startX, endX), y: Math.min(startY, endY), w: Math.abs(endX - startX), h: Math.abs(endY - startY), color: activeColor });
+  } else if (activeTool === 'circle') {
+    drawnShapesHistory.push({ type: 'circle', cx: (startX + endX)/2, cy: (startY + endY)/2, rx: Math.abs(endX - startX)/2, ry: Math.abs(endY - startY)/2, color: activeColor });
+  } else if (activeTool === 'line') {
+    drawnShapesHistory.push({ type: 'line', x1: startX, y1: startY, x2: endX, y2: endY, color: activeColor });
+  }
+
+  currentPathPoints = [];
+  redrawAllSavedShapes();
+});
+
+function drawFreehandStroke(pts, color, width) {
+  if (pts.length < 2) return;
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, pts[0].y);
+  for (let i = 1; i < pts.length; i++) {
+    ctx.lineTo(pts[i].x, pts[i].y);
+  }
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 10;
+  ctx.stroke();
+}
+
+function drawShapePreview(type, x1, y1, x2, y2, color) {
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 3.5;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 10;
+
+  if (type === 'rect') {
+    ctx.strokeRect(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x2 - x1), Math.abs(y2 - y1));
+  } else if (type === 'circle') {
+    ctx.beginPath();
+    ctx.ellipse((x1 + x2)/2, (y1 + y2)/2, Math.abs(x2 - x1)/2, Math.abs(y2 - y1)/2, 0, 0, Math.PI * 2);
+    ctx.stroke();
+  } else if (type === 'line') {
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+  } else if (type === 'arrow') {
+    drawArrowOnCanvas(x1, y1, x2, y2, color);
+  }
+}
+
+function drawArrowOnCanvas(x1, y1, x2, y2, color) {
+  const headLen = 16;
+  const angle = Math.atan2(y2 - y1, x2 - x1);
+
+  ctx.strokeStyle = color;
+  ctx.fillStyle = color;
+  ctx.lineWidth = 3.5;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 12;
+
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI / 6), y2 - headLen * Math.sin(angle - Math.PI / 6));
+  ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI / 6), y2 - headLen * Math.sin(angle + Math.PI / 6));
+  ctx.closePath();
+  ctx.fill();
+}
+
+function redrawAllSavedShapes() {
+  ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+  drawnShapesHistory.forEach(s => {
+    if (s.type === 'pen') drawFreehandStroke(s.points, s.color, s.width);
+    else if (s.type === 'arrow') drawArrowOnCanvas(s.x1, s.y1, s.x2, s.y2, s.color);
+    else if (s.type === 'rect') drawShapePreview('rect', s.x, s.y, s.x + s.w, s.y + s.h, s.color);
+    else if (s.type === 'circle') drawShapePreview('circle', s.cx - s.rx, s.cy - s.ry, s.cx + s.rx, s.cy + s.ry, s.color);
+    else if (s.type === 'line') drawShapePreview('line', s.x1, s.y1, s.x2, s.y2, s.color);
+  });
+}
+
+function eraseNearPoint(x, y) {
+  recordHistoryState();
+  drawnShapesHistory = drawnShapesHistory.filter(s => {
+    if (s.type === 'pen') {
+      return !s.points.some(p => Math.hypot(p.x - x, p.y - y) < 25);
+    } else if (s.type === 'arrow' || s.type === 'line') {
+      return Math.hypot(s.x1 - x, s.y1 - y) >= 25 && Math.hypot(s.x2 - x, s.y2 - y) >= 25;
+    } else if (s.type === 'rect') {
+      return Math.hypot(s.x - x, s.y - y) >= 25;
+    } else if (s.type === 'circle') {
+      return Math.hypot(s.cx - x, s.cy - y) >= 25;
+    }
+    return true;
+  });
+  redrawAllSavedShapes();
+}
+
+function clearAllDrawingCanvas() {
+  recordHistoryState();
+  drawnShapesHistory = [];
+  ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   9. 100% TOUCH-ENABLED STICKY NOTES ENGINE
+   ═══════════════════════════════════════════════════════════ */
+function spawnStickyNote() {
+  const note = document.createElement('div');
+  note.className = 'sticky-note';
+  note.style.top = '220px';
+  note.style.left = '320px';
+  note.innerHTML = `
+    <div class="sticky-note-header">
+      <span class="sticky-note-tag">💡 STICKY NOTE</span>
+      <button class="note-delete-btn" onclick="this.closest('.sticky-note').remove()">✕</button>
+    </div>
+    <div contenteditable="true" style="outline:none;cursor:text">Double-tap or click to type instructions...</div>
+  `;
+  artboardBox.appendChild(note);
+
+  // 100% Universal Pointer Drag Support for Sticky Notes (Finger Touch & Mouse)
+  let isNoteDragging = false;
+  let nStartX = 0, nStartY = 0, nLeft = 0, nTop = 0;
+
+  const header = note.querySelector('.sticky-note-header');
+
+  header.addEventListener('pointerdown', (e) => {
+    if (e.target.classList.contains('note-delete-btn')) return;
+    isNoteDragging = true;
+    nStartX = e.clientX;
+    nStartY = e.clientY;
+    nLeft = note.offsetLeft;
+    nTop = note.offsetTop;
+    header.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+
+  header.addEventListener('pointermove', (e) => {
+    if (!isNoteDragging) return;
+    note.style.left = `${nLeft + (e.clientX - nStartX)}px`;
+    note.style.top = `${nTop + (e.clientY - nStartY)}px`;
+  });
+
+  header.addEventListener('pointerup', (e) => {
+    if (isNoteDragging) {
+      isNoteDragging = false;
+      try { header.releasePointerCapture(e.pointerId); } catch(err){}
+    }
+  });
+
+  setActiveWhiteboardTool('select');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   10. FIGMA AUTO-ALIGNMENT ACTIONS
+   ═══════════════════════════════════════════════════════════ */
+function alignSelectedElement(direction) {
+  if (!activeSelectedElem) return;
+  recordHistoryState();
+
+  const artW = artboardBox.clientWidth;
+  const elemW = activeSelectedElem.offsetWidth;
+
+  if (direction === 'left') {
+    activeSelectedElem.style.left = '40px';
+  } else if (direction === 'center') {
+    activeSelectedElem.style.left = `${Math.round((artW - elemW) / 2)}px`;
+  } else if (direction === 'right') {
+    activeSelectedElem.style.left = `${artW - elemW - 40}px`;
+  }
+  syncInspector(activeSelectedElem);
+  saveLayoutToLocalStorage();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   11. ELEMENT DRAG & TOUCH ENGINE (WITH CANVA CORNER RESIZE)
+   ═══════════════════════════════════════════════════════════ */
+let activeSelectedElem = null;
+let isPointerDragging = false;
+let startPointerX = 0, startPointerY = 0;
+let startElemLeft = 0, startElemTop = 0;
+
+// Corner Resize Engine State
+let isResizingElement = false;
+let resizeTarget = null;
+let resizeDir = '';
+let resStartX = 0, resStartY = 0;
+let resStartW = 0, resStartH = 0;
+let resStartL = 0, resStartT = 0;
+let resStartFontSize = 44;
+
+function attachResizeHandlesToElements() {
+  document.querySelectorAll('.studio-element').forEach(el => {
+    if (el.querySelector('.resize-handle')) return;
+    const handles = ['nw', 'ne', 'se', 'sw', 'e'];
+    handles.forEach(dir => {
+      const h = document.createElement('div');
+      h.className = `resize-handle handle-${dir}`;
+      h.dataset.handle = dir;
+      el.appendChild(h);
+
+      h.addEventListener('pointerdown', (e) => {
+        if (lockedElementsSet.has(el.id)) return;
+        e.stopPropagation();
+        startElementResize(e, el, dir);
+      });
+    });
+  });
+}
+setTimeout(attachResizeHandlesToElements, 100);
+
+function startElementResize(e, el, dir) {
+  isResizingElement = true;
+  resizeTarget = el;
+  resizeDir = dir;
+  resStartX = e.clientX;
+  resStartY = e.clientY;
+  resStartW = el.offsetWidth;
+  resStartH = el.offsetHeight;
+  resStartL = el.offsetLeft;
+  resStartT = el.offsetTop;
+  resStartFontSize = parseFloat(window.getComputedStyle(el).fontSize) || 20;
+
+  recordHistoryState();
+  e.target.setPointerCapture(e.pointerId);
+  e.preventDefault();
+}
+
+window.addEventListener('pointermove', (e) => {
+  if (isResizingElement && resizeTarget) {
+    const dx = e.clientX - resStartX;
+    const dy = e.clientY - resStartY;
+
+    let newW = resStartW;
+    let newH = resStartH;
+    let newL = resStartL;
+    let newT = resStartT;
+
+    if (resizeDir === 'se') {
+      newW = Math.max(120, resStartW + dx);
+      newH = Math.max(40, resStartH + dy);
+      // Proportionally scale font size when corner is dragged!
+      const scaleFactor = newW / resStartW;
+      const newFs = Math.max(12, Math.min(80, Math.round(resStartFontSize * scaleFactor)));
+      resizeTarget.style.fontSize = `${newFs}px`;
+      document.getElementById('slider-font-size').value = newFs;
+      document.getElementById('disp-font-size').innerText = `${newFs}px`;
+    } else if (resizeDir === 'e') {
+      newW = Math.max(120, resStartW + dx);
+    } else if (resizeDir === 'sw') {
+      newW = Math.max(120, resStartW - dx);
+      newL = resStartL + (resStartW - newW);
+    } else if (resizeDir === 'ne') {
+      newW = Math.max(120, resStartW + dx);
+      newT = resStartT + dy;
+    } else if (resizeDir === 'nw') {
+      newW = Math.max(120, resStartW - dx);
+      newL = resStartL + (resStartW - newW);
+      newT = resStartT + dy;
+    }
+
+    resizeTarget.style.width = `${newW}px`;
+    if (resizeTarget.id === 'elem-3d-pin') {
+      resizeTarget.style.height = `${newH}px`;
+    }
+    if (newL !== resStartL) resizeTarget.style.left = `${newL}px`;
+    if (newT !== resStartT) resizeTarget.style.top = `${newT}px`;
+
+    syncInspector(resizeTarget);
+    return;
+  }
+
+  if (!isPointerDragging || !activeSelectedElem || activeTool !== 'select') return;
+  if (lockedElementsSet.has(activeSelectedElem.id)) return;
+
+  const dx = e.clientX - startPointerX;
+  const dy = e.clientY - startPointerY;
+
+  let nextLeft = Math.max(0, Math.min(artboardBox.clientWidth - activeSelectedElem.offsetWidth, startElemLeft + dx));
+  let nextTop = Math.max(0, Math.min(artboardBox.clientHeight - activeSelectedElem.offsetHeight, startElemTop + dy));
+
+  // Magnetic Snap 10px
+  nextLeft = Math.round(nextLeft / 10) * 10;
+  nextTop = Math.round(nextTop / 10) * 10;
+
+  activeSelectedElem.style.left = `${nextLeft}px`;
+  activeSelectedElem.style.top = `${nextTop}px`;
+
+  syncInspector(activeSelectedElem);
+});
+
+window.addEventListener('pointerup', (e) => {
+  if (isResizingElement) {
+    isResizingElement = false;
+    resizeTarget = null;
+    saveLayoutToLocalStorage();
+  }
+  if (isPointerDragging) {
+    isPointerDragging = false;
+    if (activeSelectedElem) {
+      try { activeSelectedElem.releasePointerCapture(e.pointerId); } catch(err){}
+    }
+    saveLayoutToLocalStorage();
+  }
+});
+
+document.querySelectorAll('.studio-element').forEach(el => {
+  el.addEventListener('pointerdown', (e) => {
+    if (activeTool !== 'select' || e.target.classList.contains('resize-handle')) return;
+    selectTargetElement(el);
+
+    // If Element is LOCKED -> Don't drag!
+    if (lockedElementsSet.has(el.id)) return;
+
+    recordHistoryState();
+
+    isPointerDragging = true;
+    startPointerX = e.clientX;
+    startPointerY = e.clientY;
+    startElemLeft = el.offsetLeft;
+    startElemTop = el.offsetTop;
+
+    el.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+});
+
+function selectTargetElement(el) {
+  if (activeSelectedElem) activeSelectedElem.classList.remove('selected-box');
+  activeSelectedElem = el;
+  activeSelectedElem.classList.add('selected-box');
+  syncInspector(el);
+  syncLockStatusForElement(el);
+}
+
+function syncInspector(el) {
+  document.getElementById('disp-elem-name').innerText = el.dataset.name || el.id;
+  document.getElementById('disp-pos-top').innerText = `${el.offsetTop}px`;
+  document.getElementById('disp-pos-left').innerText = `${el.offsetLeft}px`;
+  document.getElementById('slider-elem-width').value = el.offsetWidth;
+  document.getElementById('disp-elem-width').innerText = `${el.offsetWidth}px`;
+  const fs = parseFloat(window.getComputedStyle(el).fontSize);
+  if (fs) {
+    document.getElementById('disp-font-size').innerText = `${Math.round(fs)}px`;
+    document.getElementById('slider-font-size').value = Math.round(fs);
+  }
+}
+
+function changeSelectedWidth(w) {
+  if (!activeSelectedElem || lockedElementsSet.has(activeSelectedElem.id)) return;
+  recordHistoryState();
+  activeSelectedElem.style.width = `${w}px`;
+  document.getElementById('disp-elem-width').innerText = `${w}px`;
+  saveLayoutToLocalStorage();
+}
+
+function changeSelectedFontSize(sz) {
+  if (!activeSelectedElem || lockedElementsSet.has(activeSelectedElem.id)) return;
+  recordHistoryState();
+  activeSelectedElem.style.fontSize = `${sz}px`;
+  document.getElementById('disp-font-size').innerText = `${sz}px`;
+  saveLayoutToLocalStorage();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   12. PRESETS & EXPORT
+   ═══════════════════════════════════════════════════════════ */
+function applyLayoutPreset(type) {
+  recordHistoryState();
+  if (type === 'golden') {
+    setElementCoordinates('elem-nav', 20, 40);
+    setElementCoordinates('elem-badge', 140, 50);
+    setElementCoordinates('elem-headline', 195, 50, 560);
+    document.getElementById('elem-headline').style.fontSize = '44px';
+    document.getElementById('elem-headline').style.textAlign = 'left';
+    setElementCoordinates('elem-ticker', 400, 50);
+    setElementCoordinates('elem-cta', 460, 50);
+    setElementCoordinates('elem-3d-pin', 120, 720, 480, 500);
+  } else if (type === 'spotlight') {
+    setElementCoordinates('elem-nav', 20, 40);
+    setElementCoordinates('elem-3d-pin', 90, 440, 400, 320);
+    setElementCoordinates('elem-badge', 430, 490);
+    setElementCoordinates('elem-headline', 480, 240, 800);
+    document.getElementById('elem-headline').style.fontSize = '36px';
+    document.getElementById('elem-headline').style.textAlign = 'center';
+    setElementCoordinates('elem-ticker', 610, 450);
+    setElementCoordinates('elem-cta', 655, 500);
+  } else if (type === 'split') {
+    setElementCoordinates('elem-nav', 20, 40);
+    setElementCoordinates('elem-3d-pin', 120, 50, 480, 500);
+    setElementCoordinates('elem-badge', 140, 600);
+    setElementCoordinates('elem-headline', 195, 600, 580);
+    document.getElementById('elem-headline').style.fontSize = '42px';
+    document.getElementById('elem-headline').style.textAlign = 'left';
+    setElementCoordinates('elem-ticker', 400, 600);
+    setElementCoordinates('elem-cta', 460, 600);
+  } else if (type === 'appstack') {
+    setElementCoordinates('elem-nav', 10, 10);
+    setElementCoordinates('elem-3d-pin', 55, 20, 350, 270);
+    setElementCoordinates('elem-badge', 340, 20);
+    setElementCoordinates('elem-headline', 380, 15, 360);
+    document.getElementById('elem-headline').style.fontSize = '20px';
+    document.getElementById('elem-headline').style.textAlign = 'center';
+    setElementCoordinates('elem-ticker', 525, 20);
+    setElementCoordinates('elem-cta', 575, 20);
+  }
+  saveLayoutToLocalStorage();
+}
+
+function resetStudioLayout() {
+  localStorage.removeItem('mbm_custom_studio_layout');
+  lockedElementsSet.clear();
+  clearAllDrawingCanvas();
+  switchStudioDevice('desktop');
+}
+
+function saveLayoutToLocalStorage() {
+  const ids = ['elem-nav', 'elem-badge', 'elem-headline', 'elem-ticker', 'elem-cta', 'elem-3d-pin'];
+  const state = {};
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      state[id] = {
+        top: el.style.top,
+        left: el.style.left,
+        width: el.style.width,
+        fontSize: el.style.fontSize
+      };
+    }
+  });
+  localStorage.setItem(`mbm_layout_${currentDeviceType}`, JSON.stringify(state));
+}
+
+async function captureAndDownloadScreenshot() {
+  const btn = document.querySelector('.btn-png-download');
+  btn.innerText = '⏳ CAPTURING...';
+
+  try {
+    const canvas = await html2canvas(artboardBox, {
+      backgroundColor: '#020205',
+      scale: 2,
+      useCORS: true
+    });
+    const link = document.createElement('a');
+    link.download = `mbm-hero-layout-${currentDeviceType}-${Date.now()}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    btn.innerText = '✅ DOWNLOADED!';
+    setTimeout(() => { btn.innerText = '📸 DOWNLOAD PNG'; }, 2000);
+  } catch (err) {
+    alert('Capture failed: ' + err.message);
+    btn.innerText = '📸 DOWNLOAD PNG';
+  }
+}
+
+function generateAndOpenSpecs() {
+  const ids = ['elem-nav', 'elem-badge', 'elem-headline', 'elem-ticker', 'elem-cta', 'elem-3d-pin'];
+  const specs = {
+    device: currentDeviceType.toUpperCase(),
+    exportedAt: new Date().toLocaleTimeString(),
+    positions: {}
+  };
+
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    specs.positions[id] = {
+      name: el.dataset.name,
+      top: el.style.top || `${el.offsetTop}px`,
+      left: el.style.left || `${el.offsetLeft}px`,
+      width: el.style.width || `${el.offsetWidth}px`,
+      fontSize: window.getComputedStyle(el).fontSize,
+      textAlign: window.getComputedStyle(el).textAlign
+    };
+  });
+
+  const formattedOutput = `/* ═══ MARK BISHOP MEDIA: USER APPROVED BLUEPRINT ═══ */
+ACTIVE_DEVICE: ${specs.device}
+TIMESTAMP: ${specs.exportedAt}
+
+1. NAVBAR:
+   - Top: ${specs.positions['elem-nav'].top}, Left: ${specs.positions['elem-nav'].left}
+
+2. PILL BADGE:
+   - Top: ${specs.positions['elem-badge'].top}, Left: ${specs.positions['elem-badge'].left}
+
+3. MAIN HEADLINE:
+   - Top: ${specs.positions['elem-headline'].top}, Left: ${specs.positions['elem-headline'].left}
+   - Font Size: ${specs.positions['elem-headline'].fontSize}
+   - Width: ${specs.positions['elem-headline'].width}
+   - Align: ${specs.positions['elem-headline'].textAlign}
+
+4. DYNAMIC TICKER:
+   - Top: ${specs.positions['elem-ticker'].top}, Left: ${specs.positions['elem-ticker'].left}
+
+5. CTA BUTTON:
+   - Top: ${specs.positions['elem-cta'].top}, Left: ${specs.positions['elem-cta'].left}
+
+6. 3D PIN & STOREFRONT:
+   - Top: ${specs.positions['elem-3d-pin'].top}, Left: ${specs.positions['elem-3d-pin'].left}
+   - Stage Width: ${specs.positions['elem-3d-pin'].width}
+`;
+
+  document.getElementById('specs-export-data').value = formattedOutput;
+  document.getElementById('specs-modal-box').classList.add('open');
+}
+
+function closeSpecsModal() {
+  document.getElementById('specs-modal-box').classList.remove('open');
+}
+
+function copySpecsData() {
+  const box = document.getElementById('specs-export-data');
+  box.select();
+  document.execCommand('copy');
+  alert('🎉 Layout blueprint copied! Paste it in Antigravity chat!');
+}
+</script>
+</body>
+</html>

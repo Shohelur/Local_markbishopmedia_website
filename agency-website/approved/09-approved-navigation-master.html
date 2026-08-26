@@ -1,0 +1,2389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mark Bishop Media — Master 3D Navigation (Locked Dual-Deck Split Engine)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL RESET & OBSIDIAN SPATIAL STAGE
+   ═══════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --bg-core: #020205;
+  --cyan-glow: #00d4ff;
+  --lime-glow: #b8ff57;
+  --gold-glow: #ffd700;
+  --purple-glow: #bd00ff;
+  --red-glow: #ff4757;
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --text-main: #ffffff;
+  --text-dim: rgba(255, 255, 255, 0.7);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-core);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  min-height: 320vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* CYBER MATRIX GRID */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-image: 
+    radial-gradient(circle at 50% 15%, rgba(0, 212, 255, 0.14) 0%, transparent 65%),
+    linear-gradient(to right, rgba(0, 212, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 212, 255, 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 50px 50px, 50px 50px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* TOP AMBIENT NEON FLARE */
+.ambient-glow-top {
+  position: fixed;
+  top: -180px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1050px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.22) 0%, rgba(184, 255, 87, 0.12) 45%, transparent 75%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CORE MASTER NAVIGATION CONTAINER (PERMANENTLY FIXED & FROZEN)
+   ═══════════════════════════════════════════════════════════ */
+.master-nav-wrapper {
+  position: fixed !important;
+  top: 16px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 999999 !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  perspective: 1200px;
+}
+
+/* 1. INITIAL TOP STATE: SEAMLESS & BORDERLESS (BLENDS 100% WITH WEBPAGE) */
+.nav-capsule {
+  pointer-events: auto;
+  position: relative;
+  width: min(1200px, 92%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid transparent;
+  box-shadow: none;
+  border-radius: 100px;
+  padding: 7px 18px 7px 24px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+/* Left: 3D Gold Precision Micro-Gear (Hidden at top, appears on scroll) */
+.nav-capsule::before {
+  content: '⚙️';
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9));
+  animation: spinGearLeft 3.5s linear infinite;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-50%) scale(0.4);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Right: 3D Lime Tourbillon Micro-Gear (Hidden at top, appears on scroll) */
+.nav-capsule::after {
+  content: '⚙️';
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 0 10px rgba(184, 255, 87, 0.9));
+  animation: spinGearRight 3.5s linear infinite reverse;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-50%) scale(0.4);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes spinGearLeft {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
+}
+@keyframes spinGearRight {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* 2. SCROLLED STICKY STATE: TRANSLUCENT FROSTED GLASS CAPSULE WITH DOTTED BORDER & SWISS GEARS */
+body.is-scrolled .master-nav-wrapper {
+  top: 10px;
+}
+
+body.is-scrolled .nav-capsule {
+  width: min(1080px, 92%);
+  padding: 5px 14px 5px 20px;
+  background: rgba(10, 18, 36, 0.22);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  border: 1.5px dotted rgba(255, 215, 0, 0.65);
+  box-shadow: 
+    0 12px 35px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 215, 0, 0.18),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.2);
+}
+
+body.is-scrolled .nav-capsule::before {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+body.is-scrolled .nav-capsule::after {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   3D SONAR RADAR PULSE ON LOGO
+   ═══════════════════════════════════════════════════════════ */
+.brand-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+  perspective: 600px;
+}
+.brand-logo-svg.brand-logo-full {
+  display: block !important;
+  height: 44px;
+  width: auto;
+  max-width: 290px;
+  object-fit: contain;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+.brand-logo-mobile-icon {
+  display: none !important;
+}
+body.is-scrolled .brand-logo-svg.brand-logo-full { height: 38px; }
+
+.sonar-ring-container {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  pointer-events: none;
+  z-index: 1;
+}
+.sonar-radar-wave {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1.5px solid var(--cyan-glow);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.3);
+}
+
+.brand-link:hover .brand-logo-svg {
+  transform: none;
+}
+.brand-link:hover .sonar-radar-wave:nth-child(1) {
+  animation: sonarWave 1.4s infinite cubic-bezier(0.1, 0.8, 0.3, 1);
+}
+.brand-link:hover .sonar-radar-wave:nth-child(2) {
+  animation: sonarWave 1.4s 0.4s infinite cubic-bezier(0.1, 0.8, 0.3, 1);
+  border-color: var(--lime-glow);
+}
+
+@keyframes sonarWave {
+  0% { transform: scale(0.4) translateZ(0); opacity: 0.95; box-shadow: 0 0 12px rgba(0, 212, 255, 0.7); }
+  70% { opacity: 0.4; box-shadow: 0 0 30px rgba(0, 212, 255, 0.3); }
+  100% { transform: scale(3) translateZ(30px); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CENTER NAVIGATION MENU LIST
+   ═══════════════════════════════════════════════════════════ */
+.nav-menu-list {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  list-style: none;
+}
+
+.nav-item {
+  position: relative;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 212, 255, 0.35);
+  box-shadow: 
+    0 0 16px rgba(0, 212, 255, 0.18),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.nav-chevron {
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.45);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+}
+.nav-item:hover .nav-chevron,
+.nav-item.active .nav-chevron {
+  color: var(--cyan-glow);
+  transform: rotate(180deg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   THE GRAND DUAL-DECK 3D SPATIAL COMMAND ARCHITECTURE
+   ═══════════════════════════════════════════════════════════ */
+.dropdown-panel-spatial {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: -20px;
+  display: flex;
+  gap: 16px;
+  width: 790px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 20000;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+#nav-item-resources .dropdown-panel-spatial {
+  left: -240px;
+}
+
+#resources-spatial-panel {
+  width: 750px;
+}
+#resources-spatial-panel .spatial-cards-column {
+  width: 330px;
+}
+#resources-spatial-panel .dropdown-card-master {
+  padding: 10px 13px;
+}
+
+/* INVISIBLE HOVER HITBOX BRIDGE */
+.dropdown-panel-spatial::before {
+  content: '';
+  position: absolute;
+  top: -24px;
+  left: -20px;
+  right: -20px;
+  height: 30px;
+  background: transparent;
+}
+
+.nav-item:hover .dropdown-panel-spatial,
+.nav-item.active .dropdown-panel-spatial {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LEFT COLUMN: 3D LIVING SERVICE CARDS (NO SUBTITLE)
+   ═══════════════════════════════════════════════════════════ */
+.spatial-cards-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 370px;
+  flex-shrink: 0;
+  list-style: none;
+}
+
+.dropdown-card-master {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 15px;
+  border-radius: 14px;
+  text-decoration: none;
+  background: rgba(9, 15, 30, 0.94);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(0, 212, 255, 0.22);
+  box-shadow: 
+    0 14px 35px rgba(0, 0, 0, 0.9),
+    0 0 16px rgba(0, 212, 255, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform: perspective(800px) translate3d(0, 20px, -40px) rotateX(-10deg) scale(0.95);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.nav-item:hover .dropdown-card-master {
+  opacity: 1;
+  transform: perspective(800px) translate3d(0, 0, 0) rotateX(0deg) scale(1);
+}
+
+.nav-item:hover .spatial-cards-column li:nth-child(1) .dropdown-card-master { transition-delay: 0.02s; }
+.nav-item:hover .spatial-cards-column li:nth-child(2) .dropdown-card-master { transition-delay: 0.05s; }
+.nav-item:hover .spatial-cards-column li:nth-child(3) .dropdown-card-master { transition-delay: 0.08s; }
+.nav-item:hover .spatial-cards-column li:nth-child(4) .dropdown-card-master { transition-delay: 0.11s; }
+
+/* HOVERED CARD HIGHLIGHT */
+.dropdown-card-master:hover,
+.dropdown-card-master.active-story {
+  background: rgba(12, 24, 48, 0.98);
+  border-color: var(--cyan-glow);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.95),
+    0 0 30px rgba(0, 212, 255, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  transform: perspective(800px) translate3d(6px, 0, 26px) scale(1.025);
+  z-index: 50;
+}
+
+.card-inner-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+  transform-style: preserve-3d;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   3D LIVING SERVICE ENGINES (WITH AUTHENTIC MAPS VECTOR PIN)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── 1. AUTHENTIC GOOGLE MAPS VECTOR PIN & GPS SONAR ─── */
+.icon-box-maps {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(0, 212, 255, 0.12);
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.google-maps-vector-pin {
+  width: 19px;
+  height: 19px;
+  position: relative;
+  z-index: 4;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 6px rgba(0, 212, 255, 0.6));
+}
+.maps-sonar-ring-1, .maps-sonar-ring-2 {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--cyan-glow);
+  opacity: 0;
+  pointer-events: none;
+}
+.maps-incoming-call-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: var(--lime-glow);
+  color: #020205;
+  font-size: 8.5px;
+  font-weight: 900;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(184, 255, 87, 0.8);
+  opacity: 0;
+  transform: scale(0.4) translateZ(15px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 5;
+}
+.dropdown-card-master:hover .icon-box-maps,
+.dropdown-card-master.active-story .icon-box-maps {
+  transform: translateZ(24px) scale(1.18) rotateY(-10deg);
+  background: rgba(0, 212, 255, 0.25);
+  box-shadow: 0 10px 25px rgba(0, 212, 255, 0.5);
+}
+.dropdown-card-master:hover .google-maps-vector-pin,
+.dropdown-card-master.active-story .google-maps-vector-pin {
+  transform: translateZ(10px) scale(1.15) translateY(-2px);
+}
+.dropdown-card-master:hover .maps-sonar-ring-1,
+.dropdown-card-master.active-story .maps-sonar-ring-1 {
+  animation: gpsPulse 1.2s infinite ease-out;
+}
+.dropdown-card-master:hover .maps-sonar-ring-2,
+.dropdown-card-master.active-story .maps-sonar-ring-2 {
+  animation: gpsPulse 1.2s 0.4s infinite ease-out;
+  border-color: var(--lime-glow);
+}
+.dropdown-card-master:hover .maps-incoming-call-badge,
+.dropdown-card-master.active-story .maps-incoming-call-badge {
+  opacity: 1;
+  transform: scale(1) translateZ(20px);
+  animation: callBadgeBounce 0.8s infinite alternate ease-in-out;
+}
+@keyframes gpsPulse {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+@keyframes callBadgeBounce {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(1.2) translateY(-2px); }
+}
+
+/* ─── 2. REVIEWS ENGINE ─── */
+.icon-box-reviews {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 215, 0, 0.12);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.star-3d-glyph { font-size: 17px; position: relative; z-index: 4; color: var(--gold-glow); transition: transform 0.3s ease; }
+.star-satellite-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px dotted var(--gold-glow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.reviews-verified-badge {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  background: #00d4ff;
+  color: #020205;
+  font-size: 8px;
+  font-weight: 900;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+.dropdown-card-master:hover .icon-box-reviews,
+.dropdown-card-master.active-story .icon-box-reviews {
+  transform: translateZ(24px) scale(1.18) rotateY(12deg);
+  background: rgba(255, 215, 0, 0.3);
+  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.55);
+}
+.dropdown-card-master:hover .star-3d-glyph,
+.dropdown-card-master.active-story .star-3d-glyph {
+  transform: translateZ(10px) scale(1.15) rotate(15deg);
+}
+.dropdown-card-master:hover .star-satellite-ring,
+.dropdown-card-master.active-story .star-satellite-ring {
+  opacity: 1;
+  animation: starOrbitSpin 1.6s infinite linear;
+}
+.dropdown-card-master:hover .reviews-verified-badge,
+.dropdown-card-master.active-story .reviews-verified-badge {
+  opacity: 1;
+  transform: scale(1) translateZ(18px);
+}
+@keyframes starOrbitSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ─── 3. CITATIONS ENGINE ─── */
+.icon-box-citations {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(0, 212, 255, 0.12);
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.globe-3d-glyph { font-size: 17px; position: relative; z-index: 4; transition: transform 0.3s ease; }
+.synapse-node-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--cyan-glow);
+  opacity: 0;
+  pointer-events: none;
+}
+.citations-sync-badge {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  background: #b8ff57;
+  color: #020205;
+  font-size: 8px;
+  font-weight: 900;
+  padding: 1px 4px;
+  border-radius: 100px;
+  box-shadow: 0 0 10px rgba(184, 255, 87, 0.8);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+.dropdown-card-master:hover .icon-box-citations,
+.dropdown-card-master.active-story .icon-box-citations {
+  transform: translateZ(24px) scale(1.18) rotateX(12deg);
+  background: rgba(0, 212, 255, 0.25);
+  box-shadow: 0 10px 25px rgba(0, 212, 255, 0.5);
+}
+.dropdown-card-master:hover .globe-3d-glyph,
+.dropdown-card-master.active-story .globe-3d-glyph {
+  transform: translateZ(10px) scale(1.1);
+  animation: globeGentleRotate 2s infinite ease-in-out alternate;
+}
+.dropdown-card-master:hover .synapse-node-ring,
+.dropdown-card-master.active-story .synapse-node-ring {
+  animation: synapseFlash 1s infinite ease-out;
+}
+.dropdown-card-master:hover .citations-sync-badge,
+.dropdown-card-master.active-story .citations-sync-badge {
+  opacity: 1;
+  transform: scale(1) translateZ(18px);
+}
+@keyframes synapseFlash {
+  0% { transform: scale(0.5); opacity: 0.9; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+@keyframes globeGentleRotate {
+  0% { transform: translateZ(10px) rotate(0deg); }
+  100% { transform: translateZ(10px) rotate(15deg); }
+}
+
+/* ─── 4. 3D WEBSITE ENGINE ─── */
+.icon-box-website {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(184, 255, 87, 0.12);
+  border: 1px solid rgba(184, 255, 87, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.rocket-3d-glyph { font-size: 17px; position: relative; z-index: 4; transition: transform 0.3s ease; }
+.viewport-laser-trail {
+  position: absolute;
+  bottom: -6px;
+  width: 18px;
+  height: 4px;
+  background: linear-gradient(90deg, #00d4ff, #b8ff57);
+  border-radius: 100px;
+  filter: blur(1px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.website-booked-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: linear-gradient(135deg, #00d4ff, #b8ff57);
+  color: #020205;
+  font-size: 8px;
+  font-weight: 900;
+  padding: 1px 5px;
+  border-radius: 100px;
+  box-shadow: 0 0 12px rgba(184, 255, 87, 0.8);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+.dropdown-card-master:hover .icon-box-website,
+.dropdown-card-master.active-story .icon-box-website {
+  transform: translateZ(24px) scale(1.18) rotateY(-12deg);
+  background: rgba(184, 255, 87, 0.3);
+  box-shadow: 0 10px 25px rgba(184, 255, 87, 0.55);
+}
+.dropdown-card-master:hover .rocket-3d-glyph,
+.dropdown-card-master.active-story .rocket-3d-glyph {
+  transform: translateZ(12px) scale(1.15) rotate(-10deg) translateY(-2px);
+}
+.dropdown-card-master:hover .viewport-laser-trail,
+.dropdown-card-master.active-story .viewport-laser-trail {
+  opacity: 1;
+  animation: rocketFlame 0.35s infinite alternate ease-in-out;
+}
+.dropdown-card-master:hover .website-booked-badge,
+.dropdown-card-master.active-story .website-booked-badge {
+  opacity: 1;
+  transform: scale(1) translateZ(20px);
+  animation: callBadgeBounce 0.8s 0.2s infinite alternate ease-in-out;
+}
+@keyframes rocketFlame {
+  0% { transform: scaleX(0.7); opacity: 0.6; }
+  100% { transform: scaleX(1.6); opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CARD TYPOGRAPHY (CLEAN, NO SUBTITLE)
+   ═══════════════════════════════════════════════════════════ */
+.master-card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+.master-metric-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: rgba(0, 212, 255, 0.85);
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.22);
+  padding: 2.5px 7.5px;
+  border-radius: 100px;
+  white-space: nowrap;
+  box-shadow: none;
+  transform: translateZ(4px);
+  opacity: 0.8;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 4;
+}
+.dropdown-card-master:hover .master-metric-badge,
+.dropdown-card-master.active-story .master-metric-badge {
+  color: #020205;
+  background: linear-gradient(135deg, var(--lime-glow), var(--cyan-glow));
+  border-color: transparent;
+  box-shadow: 0 0 14px rgba(184, 255, 87, 0.7);
+  transform: scale(1.06) translateZ(14px);
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RIGHT COLUMN: THE 3D MASTER [BEFORE VS AFTER] SPLIT BANNER
+   (PROGRESSIVE TIMED REVEAL + INSTANT HOVER POP)
+   ═══════════════════════════════════════════════════════════ */
+.spatial-story-deck {
+  flex: 1;
+  background: rgba(8, 14, 28, 0.96);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border: 1.5px solid rgba(0, 212, 255, 0.35);
+  border-radius: 18px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.95),
+    0 0 30px rgba(0, 212, 255, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.25);
+  transform: perspective(1000px) rotateY(-12deg) translateZ(-20px) scale(0.92);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* REVEALS EITHER AFTER 1.6S READING TIME OR INSTANTLY ON CARD HOVER */
+.dropdown-panel-spatial.has-banner-active .spatial-story-deck,
+.spatial-cards-column:hover ~ .spatial-story-deck,
+.spatial-story-deck:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: perspective(1000px) rotateY(-6deg) translateZ(15px) scale(1);
+}
+
+/* SCANLINE TEXTURE */
+.spatial-story-deck::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 212, 255, 0.035) 51%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.story-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--cyan-glow);
+  background: rgba(0, 212, 255, 0.12);
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  width: fit-content;
+}
+
+.story-voice-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15.5px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.story-voice-title span.highlight {
+  color: var(--lime-glow);
+  text-shadow: 0 0 10px rgba(184, 255, 87, 0.4);
+}
+
+.story-voice-narrative {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+    BEFORE VS AFTER REVENUE SPLIT SCREEN (CRISP & RAZOR-SHARP)
+   ═══════════════════════════════════════════════════════════ */
+.split-screen-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.split-card {
+  border-radius: 12px;
+  padding: 11px 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: none !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+.split-card.before {
+  background: rgba(255, 71, 87, 0.1);
+  border: 1px solid rgba(255, 71, 87, 0.4);
+}
+
+.split-card.after {
+  background: rgba(184, 255, 87, 0.14);
+  border: 1.5px solid rgba(184, 255, 87, 0.7);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(184, 255, 87, 0.1);
+}
+
+.split-header-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95);
+}
+.split-card.before .split-header-tag { color: #ff6b81; }
+.split-card.after .split-header-tag { color: #b8ff57; }
+
+.split-main-status {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.35;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+}
+
+.split-val-metric {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 800;
+  margin-top: 6px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95);
+}
+.split-card.before .split-val-metric { color: #ff6b81; }
+.split-card.after .split-val-metric { color: #b8ff57; }
+
+/* FOOTER IMPACT */
+.story-footer-proof {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.proof-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.proof-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--lime-glow);
+  background: rgba(184, 255, 87, 0.12);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(184, 255, 87, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RIGHT ACTION GROUP & GLOWING CTA
+   ═══════════════════════════════════════════════════════════ */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-contact-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-contact-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 212, 255, 0.35);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.btn-cta-glow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: linear-gradient(135deg, #00d4ff, #b8ff57);
+  color: #020205;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 6px 12px 6px 16px;
+  border-radius: 100px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  border: none;
+}
+.btn-cta-glow:hover {
+  transform: scale(1.06) translateZ(8px);
+  box-shadow: 0 0 40px rgba(184, 255, 87, 0.85);
+}
+
+.arrow-circle-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
+  background: #020205;
+  color: #b8ff57;
+  border-radius: 50%;
+  font-size: 10.5px;
+  font-weight: 900;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.25s ease;
+}
+.arrow-circle-badge span {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* ═══════════════════════════════════════════════════════════
+   3D CYBER HAMBURGER TRIGGER BUTTON (MOBILE ONLY)
+   ═══════════════════════════════════════════════════════════ */
+.mobile-menu-trigger {
+  display: none;
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4.5px;
+  padding: 0;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 100000;
+}
+.mobile-menu-trigger:hover,
+.mobile-menu-trigger:active {
+  background: rgba(0, 212, 255, 0.2);
+  border-color: var(--cyan-glow);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.5);
+  transform: scale(1.05);
+}
+.mob-burger-line {
+  width: 18px;
+  height: 2px;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+body.mobile-drawer-open .mob-burger-line:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+  background: var(--lime-glow);
+}
+body.mobile-drawer-open .mob-burger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+body.mobile-drawer-open .mob-burger-line:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+  background: var(--lime-glow);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   3D FROSTED GLASS MOBILE COMMAND DRAWER (FULLSCREEN SHEET)
+   ═══════════════════════════════════════════════════════════ */
+.mobile-drawer-sheet {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: rgba(4, 7, 16, 0.94);
+  backdrop-filter: blur(35px) saturate(220%);
+  -webkit-backdrop-filter: blur(35px) saturate(220%);
+  z-index: 99999999;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(100%);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+body.mobile-drawer-open .mobile-drawer-sheet {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.mob-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.18);
+  position: sticky;
+  top: 0;
+  background: rgba(4, 7, 16, 0.9);
+  backdrop-filter: blur(20px);
+  z-index: 10;
+}
+
+.mob-drawer-close-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.mob-drawer-close-btn:active {
+  background: rgba(255, 71, 87, 0.3);
+  border-color: #ff4757;
+  transform: scale(0.92);
+}
+
+.mob-drawer-content {
+  padding: 16px 18px 24px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UNBOXED SLEEK MOBILE NAVIGATION LIST (WITH ROW ICONS)
+   ═══════════════════════════════════════════════════════════ */
+.mob-dropdown-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mob-dropdown-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.mob-dropdown-trigger:active {
+  background: rgba(0, 212, 255, 0.12);
+  border-color: var(--cyan-glow);
+}
+.mob-trigger-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.mob-row-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: rgba(0, 212, 255, 0.12);
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.25);
+}
+.mob-trigger-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+.mob-count-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 800;
+  color: var(--lime-glow);
+  background: rgba(184, 255, 87, 0.12);
+  border: 1px solid rgba(184, 255, 87, 0.35);
+  padding: 2px 7px;
+  border-radius: 100px;
+}
+.mob-dropdown-chevron {
+  font-size: 11px;
+  color: var(--cyan-glow);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-right: 4px;
+}
+.mob-dropdown-group.is-collapsed .mob-dropdown-chevron {
+  transform: rotate(-90deg);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.mob-dropdown-cards-drawer {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 4px 0 6px 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mob-dropdown-group.is-collapsed .mob-dropdown-cards-drawer {
+  display: none;
+}
+
+/* DIRECT FULL-WIDTH LINKS ON MOBILE */
+.mob-direct-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+.mob-direct-nav-link:active {
+  background: rgba(0, 212, 255, 0.15);
+  border-color: var(--cyan-glow);
+}
+
+/* SLEEK 3D FLOATING GLASS CARDS (NO ENCLOSING BOX) */
+.mob-service-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  border-radius: 16px;
+  background: rgba(10, 18, 38, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 212, 255, 0.22);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.7),
+    0 0 15px rgba(0, 212, 255, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  text-decoration: none;
+  color: #ffffff;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+.mob-service-card:active {
+  background: rgba(14, 28, 58, 0.98);
+  border-color: var(--cyan-glow);
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
+  transform: scale(0.985);
+}
+
+.mob-card-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.mob-card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PERMANENT LIVE 3D ANIMATIONS FOR MOBILE ICON ENGINES
+   ═══════════════════════════════════════════════════════════ */
+.mob-service-card .icon-box-maps {
+  background: rgba(0, 212, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 212, 255, 0.45);
+}
+.mob-service-card .maps-sonar-ring-1 {
+  opacity: 1 !important;
+  animation: gpsPulse 1.8s infinite ease-out !important;
+}
+.mob-service-card .maps-sonar-ring-2 {
+  opacity: 1 !important;
+  animation: gpsPulse 1.8s 0.6s infinite ease-out !important;
+  border-color: var(--lime-glow) !important;
+}
+.mob-service-card .maps-incoming-call-badge {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  animation: callBadgeBounce 0.9s infinite alternate ease-in-out !important;
+}
+.mob-service-card .google-maps-vector-pin {
+  animation: pinSway3D 2.5s infinite ease-in-out !important;
+}
+
+.mob-service-card .icon-box-reviews {
+  background: rgba(255, 215, 0, 0.22);
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.45);
+}
+.mob-service-card .star-satellite-ring {
+  opacity: 1 !important;
+  animation: starOrbitSpin 2.2s infinite linear !important;
+}
+.mob-service-card .reviews-verified-badge {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+.mob-service-card .star-3d-glyph {
+  animation: starTwinkle3D 2s infinite ease-in-out !important;
+}
+
+.mob-service-card .icon-box-citations {
+  background: rgba(0, 212, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 212, 255, 0.45);
+}
+.mob-service-card .synapse-node-ring {
+  opacity: 1 !important;
+  animation: synapseSpin 3.5s infinite linear !important;
+}
+.mob-service-card .citations-sync-badge {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+.mob-service-card .globe-3d-glyph {
+  animation: globeRotate3D 4s infinite ease-in-out !important;
+}
+
+.mob-service-card .icon-box-website {
+  background: rgba(184, 255, 87, 0.2);
+  box-shadow: 0 4px 16px rgba(184, 255, 87, 0.45);
+}
+.mob-service-card .viewport-laser-trail {
+  opacity: 1 !important;
+  animation: laserPulse 1.5s infinite ease-in-out !important;
+}
+.mob-service-card .website-booked-badge {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+.mob-service-card .rocket-3d-glyph {
+  animation: rocketHover3D 2s infinite ease-in-out !important;
+}
+
+@keyframes pinSway3D {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-3px) rotate(8deg) scale(1.08); }
+}
+@keyframes starTwinkle3D {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.2) rotate(14deg); filter: drop-shadow(0 0 8px #ffd700); }
+}
+@keyframes synapseSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes globeRotate3D {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.15) rotate(14deg); filter: drop-shadow(0 0 8px #00d4ff); }
+}
+@keyframes rocketHover3D {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3.5px) scale(1.15) rotate(-6deg); }
+}
+
+/* DIRECT LINKS ON MOBILE */
+.mob-direct-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(10, 16, 32, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+.mob-direct-nav-link:active {
+  background: rgba(0, 212, 255, 0.15);
+  border-color: var(--cyan-glow);
+}
+
+.mob-drawer-footer-actions {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(4, 7, 16, 0.95);
+  position: sticky;
+  bottom: 0;
+}
+.mob-btn-talk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.mob-btn-audit-glow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #00d4ff, #b8ff57);
+  color: #020205;
+  text-decoration: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13.5px;
+  font-weight: 800;
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE MEDIA QUERIES (TABLET & MOBILE)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── TABLET SCREEN (769px - 1024px) ─── */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .nav-capsule {
+    width: 96%;
+    padding: 6px clamp(10px, 1.5vw, 16px);
+  }
+  .brand-logo-full {
+    height: clamp(32px, 3.8vw, 38px);
+    max-width: 220px;
+  }
+  .brand-logo-mobile-icon {
+    display: none !important;
+  }
+  .nav-menu-list {
+    gap: clamp(4px, 1vw, 10px);
+  }
+  .nav-item {
+    font-size: clamp(11.5px, 1.15vw, 13px);
+    padding: 5px clamp(6px, 0.8vw, 10px);
+  }
+  .nav-contact-link {
+    display: none;
+  }
+  .btn-cta-glow {
+    font-size: clamp(10.5px, 1.1vw, 12px);
+    padding: 5px clamp(8px, 1vw, 12px);
+  }
+  #nav-item-solutions .dropdown-panel-spatial {
+    left: -140px;
+    width: min(720px, 92vw);
+  }
+  #nav-item-resources .dropdown-panel-spatial {
+    left: -180px;
+    width: min(660px, 90vw);
+  }
+  .spatial-cards-column {
+    width: clamp(280px, 40vw, 340px);
+  }
+  .master-card-title {
+    font-size: clamp(11px, 1.25vw, 12.5px);
+  }
+  .story-voice-title {
+    font-size: clamp(13px, 1.4vw, 15px);
+  }
+  .story-voice-narrative {
+    font-size: clamp(10.5px, 1.1vw, 11.5px);
+  }
+}
+
+/* ─── MOBILE SCREEN (< 768px) ─── */
+@media (max-width: 768px) {
+  .master-nav-wrapper {
+    top: 10px;
+    padding: 0 10px;
+  }
+  .nav-capsule {
+    width: 100%;
+    padding: 6px 12px;
+    border-radius: 100px;
+  }
+  /* Hide Swiss micro-gears on tiny mobile view to avoid edge clipping */
+  .nav-capsule::before,
+  .nav-capsule::after {
+    display: none !important;
+  }
+  
+  /* MOBILE LOGO: Show ONLY the glowing icon monogram mark */
+  .brand-logo-full {
+    display: none !important;
+  }
+  .brand-logo-mobile-icon {
+    display: block !important;
+    height: 36px;
+    width: auto;
+    filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.5));
+  }
+  body.is-scrolled .brand-logo-mobile-icon {
+    height: 32px;
+  }
+  
+  /* Hide desktop menu items and contact link on mobile */
+  .nav-menu-list {
+    display: none !important;
+  }
+  .nav-contact-link {
+    display: none !important;
+  }
+
+  .nav-actions {
+    gap: 8px;
+  }
+  .btn-cta-glow {
+    font-size: 10.5px;
+    padding: 5px 9px 5px 11px;
+    letter-spacing: 0.02em;
+  }
+  .arrow-circle-badge {
+    width: 17px;
+    height: 17px;
+    font-size: 9px;
+  }
+  
+  /* Show 3D Cyber Burger trigger */
+  .mobile-menu-trigger {
+    display: flex;
+  }
+
+  .demo-page-content {
+    padding-top: 100px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .demo-section {
+    padding: 30px 18px;
+  }
+  .sec-title {
+    font-size: 26px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DEMO WEBPAGE SECTIONS
+   ═══════════════════════════════════════════════════════════ */
+.demo-page-content {
+  position: relative;
+  z-index: 10;
+  padding-top: 150px;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.demo-section {
+  min-height: 75vh;
+  margin-bottom: 50px;
+  border-radius: 24px;
+  background: rgba(10, 16, 30, 0.4);
+  border: 1px solid rgba(0, 212, 255, 0.12);
+  padding: 50px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.sec-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--cyan-glow);
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+
+.sec-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, #ffffff 60%, rgba(0,212,255,0.8));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sec-desc {
+  font-size: 15px;
+  color: var(--text-dim);
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+.active-variant-indicator-card {
+  background: rgba(0, 212, 255, 0.06);
+  border: 1.5px solid rgba(0, 212, 255, 0.35);
+  border-radius: 18px;
+  padding: 22px;
+  margin-top: 28px;
+  max-width: 760px;
+}
+.card-header-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--lime-glow);
+  letter-spacing: 0.16em;
+  margin-bottom: 6px;
+}
+.card-header-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.card-desc-val {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+}
+</style>
+</head>
+<body>
+
+<!-- TOP AMBIENT LIGHT -->
+<div class="ambient-glow-top"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     THE MASTER 3D NAVIGATION CAPSULE
+     ═══════════════════════════════════════════════════════════ -->
+<div class="master-nav-wrapper" id="master-nav-wrapper">
+  <nav class="nav-capsule" id="nav-capsule">
+    
+    <!-- 1. BRAND LOGO -->
+    <a href="#" class="brand-link" id="mag-logo" aria-label="Mark Bishop Media Home">
+      <div class="sonar-ring-container">
+        <div class="sonar-radar-wave"></div>
+        <div class="sonar-radar-wave"></div>
+      </div>
+      <img src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg brand-logo-full" />
+      <img src="../assets/logos/mbm-icon.svg" alt="Mark Bishop Media Icon" class="brand-logo-mobile-icon" />
+    </a>
+
+    <!-- 2. CENTER NAVIGATION LIST -->
+    <ul class="nav-menu-list" id="nav-menu-list">
+
+      <!-- WHAT WE DO (CLEAN CARDS ON LEFT + [BEFORE VS AFTER] SPLIT BANNER REVEALS ON CARD HOVER) -->
+      <li class="nav-item has-dropdown" id="nav-item-solutions">
+        <span>What We Do</span>
+        <span class="nav-chevron">▼</span>
+        
+        <!-- THE DUAL-DECK 3D SPATIAL COMMAND ARCHITECTURE -->
+        <div class="dropdown-panel-spatial" id="solutions-spatial-panel">
+          
+          <!-- LEFT DECK: CLEAN SINGLE-LINE 3D CARDS -->
+          <ul class="spatial-cards-column">
+            
+            <!-- SERVICE 1: AUTHENTIC GOOGLE MAPS PIN -->
+            <li>
+              <a href="#three-pack" class="dropdown-card-master" data-story="maps">
+                <div class="card-inner-left">
+                  <div class="icon-box-maps">
+                    <div class="maps-sonar-ring-1"></div>
+                    <div class="maps-sonar-ring-2"></div>
+                    <div class="maps-incoming-call-badge">📞</div>
+                    
+                    <!-- AUTHENTIC GOOGLE MAPS VECTOR PIN -->
+                    <svg class="google-maps-vector-pin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2Z" fill="url(#gmap-grad-1)"/>
+                      <circle cx="12" cy="9" r="3.2" fill="#020205"/>
+                      <defs>
+                        <linearGradient id="gmap-grad-1" x1="5" y1="2" x2="19" y2="22" gradientUnits="userSpaceOnUse">
+                          <stop stop-color="#00d4ff"/>
+                          <stop offset="1" stop-color="#b8ff57"/>
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                  <span class="master-card-title">Rank in Google Maps Top 3</span>
+                </div>
+                <span class="master-metric-badge">+320% CALLS</span>
+              </a>
+            </li>
+
+            <!-- SERVICE 2: 5-STAR REVIEWS -->
+            <li>
+              <a href="#reviews" class="dropdown-card-master" data-story="reviews">
+                <div class="card-inner-left">
+                  <div class="icon-box-reviews">
+                    <div class="star-satellite-ring"></div>
+                    <div class="reviews-verified-badge">✓</div>
+                    <span class="star-3d-glyph">⭐</span>
+                  </div>
+                  <span class="master-card-title">Automated 5-Star Reviews</span>
+                </div>
+                <span class="master-metric-badge">★ 4.9 RATING</span>
+              </a>
+            </li>
+
+            <!-- SERVICE 3: DIRECTORY CITATIONS -->
+            <li>
+              <a href="#citations" class="dropdown-card-master" data-story="citations">
+                <div class="card-inner-left">
+                  <div class="icon-box-citations">
+                    <div class="synapse-node-ring"></div>
+                    <div class="citations-sync-badge">SYNC</div>
+                    <span class="globe-3d-glyph">🌐</span>
+                  </div>
+                  <span class="master-card-title">100+ Directory Citations & Sync</span>
+                </div>
+                <span class="master-metric-badge">100+ DIRS</span>
+              </a>
+            </li>
+
+            <!-- SERVICE 4: HIGH-CONVERTING 3D WEBSITE -->
+            <li>
+              <a href="#website" class="dropdown-card-master" data-story="website">
+                <div class="card-inner-left">
+                  <div class="icon-box-website">
+                    <div class="viewport-laser-trail"></div>
+                    <div class="website-booked-badge">$ BOOKED</div>
+                    <span class="rocket-3d-glyph">🚀</span>
+                  </div>
+                  <span class="master-card-title">High-Converting 3D Website</span>
+                </div>
+                <span class="master-metric-badge">3.4x BOOKINGS</span>
+              </a>
+            </li>
+
+          </ul>
+
+          <!-- RIGHT DECK: MASTER [BEFORE VS AFTER] STORYTELLING SPLIT BANNER -->
+          <div class="spatial-story-deck" id="story-banner-display">
+            <div>
+              <div class="story-voice-title" id="story-title">“We engineer your business into <span class="highlight">Google Maps Top 3</span> in 21 days.”</div>
+              <div class="story-voice-narrative" id="story-desc">
+                When nearby local people search for your services, our system positions your verified profile in the local Top 3 before competitors, capturing the dominant share of high-intent inbound phone calls.
+              </div>
+            </div>
+
+            <!-- BEFORE VS AFTER SPLIT SCREEN -->
+            <div class="split-screen-container">
+              <div class="split-card before">
+                <div class="split-header-tag">🔴 WITHOUT MBM</div>
+                <div class="split-main-status" id="split-before-status">Unranked #12+ (Lost Calls)</div>
+                <div class="split-val-metric" id="split-before-val">$12,000 / MO</div>
+              </div>
+              <div class="split-card after">
+                <div class="split-header-tag">🟢 WITH MBM OS</div>
+                <div class="split-main-status" id="split-after-status">Google Maps Top 3 Locked</div>
+                <div class="split-val-metric" id="split-after-val">+$60,000 / MO</div>
+              </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="story-footer-proof">
+              <span class="proof-tag">CLIENT ROI IMPACT:</span>
+              <span class="proof-val" id="story-proof-val">+$48,000 / MO VALUE</span>
+            </div>
+          </div>
+
+        </div>
+      </li>
+
+      <!-- CASE STUDIES (DIRECT) -->
+      <li class="nav-item" id="nav-item-cases">
+        <span>Case Studies</span>
+      </li>
+
+      <!-- TESTIMONIALS (DIRECT) -->
+      <li class="nav-item" id="nav-item-testimonials">
+        <span>Testimonials</span>
+      </li>
+
+      <!-- RESOURCES DROPDOWN -->
+      <li class="nav-item has-dropdown" id="nav-item-resources">
+        <span>Resources</span>
+        <span class="nav-chevron">▼</span>
+        
+        <div class="dropdown-panel-spatial" id="resources-spatial-panel">
+          <ul class="spatial-cards-column">
+            <li>
+              <a href="#audit" class="dropdown-card-master" data-story="audit">
+                <div class="card-inner-left">
+                  <div class="icon-box-maps">
+                    <div class="maps-sonar-ring-1"></div>
+                    <span class="pin-3d-glyph">⚡</span>
+                  </div>
+                  <span class="master-card-title">Free 9-Mile Visibility Audit</span>
+                </div>
+                <span class="master-metric-badge">FREE SCAN</span>
+              </a>
+            </li>
+            <li>
+              <a href="#blog" class="dropdown-card-master" data-story="blog">
+                <div class="card-inner-left">
+                  <div class="icon-box-website">
+                    <div class="viewport-laser-trail"></div>
+                    <span class="rocket-3d-glyph">📑</span>
+                  </div>
+                  <span class="master-card-title">Local Growth Blog & Insights</span>
+                </div>
+                <span class="master-metric-badge">READ BLOG</span>
+              </a>
+            </li>
+            <li>
+              <a href="#faq" class="dropdown-card-master" data-story="faq">
+                <div class="card-inner-left">
+                  <div class="icon-box-citations">
+                    <div class="synapse-node-ring"></div>
+                    <span class="globe-3d-glyph">❓</span>
+                  </div>
+                  <span class="master-card-title">Frequently Asked Questions</span>
+                </div>
+                <span class="master-metric-badge">FAQS</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="spatial-story-deck" id="resource-story-deck">
+            <div>
+              <div class="story-voice-title" id="res-story-title">“We scan your exact <span class="highlight">9-mile radius in 5 seconds</span>.”</div>
+              <div class="story-voice-narrative" id="res-story-desc">
+                Our street-level radar scan checks 81 GPS grid coordinates around your zip code to show exactly which competitors are stealing your calls and how our system overtakes them.
+              </div>
+            </div>
+
+            <div class="split-screen-container">
+              <div class="split-card before">
+                <div class="split-header-tag">🔴 UNKNOWN RANK</div>
+                <div class="split-main-status" id="res-split-before-status">Blind to Visibility Gaps</div>
+                <div class="split-val-metric" id="res-split-before-val">LOST REVENUE</div>
+              </div>
+              <div class="split-card after">
+                <div class="split-header-tag">🟢 81-POINT AUDIT</div>
+                <div class="split-main-status" id="res-split-after-status">Full Geo-Grid Diagnostic</div>
+                <div class="split-val-metric" id="res-split-after-val">100% FREE SCAN</div>
+              </div>
+            </div>
+
+            <div class="story-footer-proof">
+              <span class="proof-tag">INSTANT ACCESS:</span>
+              <span class="proof-val" id="res-story-proof-val">0 COST / 60 SECONDS</span>
+            </div>
+          </div>
+
+        </div>
+      </li>
+
+    </ul>
+
+    <!-- 3. RIGHT ACTION GROUP -->
+    <div class="nav-actions">
+      <a href="#contact" class="nav-contact-link">Talk to Mark</a>
+      <a href="#audit" class="btn-cta-glow" id="mag-cta-btn">
+        <span>⚡ FREE AUDIT</span>
+        <span class="arrow-circle-badge"><span>↗</span></span>
+      </a>
+      <!-- 3D CYBER HAMBURGER TRIGGER (MOBILE ONLY) -->
+      <button class="mobile-menu-trigger" id="mobile-menu-trigger" aria-label="Toggle Mobile Command Menu">
+        <span class="mob-burger-line"></span>
+        <span class="mob-burger-line"></span>
+        <span class="mob-burger-line"></span>
+      </button>
+    </div>
+
+  </nav>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     3D FROSTED GLASS MOBILE COMMAND DRAWER (FULLSCREEN SHEET)
+     ═══════════════════════════════════════════════════════════ -->
+<div class="mobile-drawer-sheet" id="mobile-drawer-sheet" aria-modal="true" role="dialog">
+  
+  <!-- DRAWER HEADER (PURE ICON + BRAND MARK) -->
+  <div class="mob-drawer-header">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <img src="../assets/logos/mbm-icon.svg" alt="Mark Bishop Media" style="height: 36px; width: auto;" />
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 800; color: #fff; letter-spacing: 0.05em;">MBM <span style="color: var(--cyan-glow);">OS</span></span>
+    </div>
+    <button class="mob-drawer-close-btn" id="mob-drawer-close-btn" aria-label="Close Menu">✕</button>
+  </div>
+
+  <!-- SCROLLABLE COMMAND AREA -->
+  <div class="mob-drawer-content">
+    
+    <!-- 1. DROPDOWN GROUP: WHAT WE DO (UNBOXED SEAMLESS TOGGLE) -->
+    <div class="mob-dropdown-group" id="mob-group-whatwedo">
+      <button class="mob-dropdown-trigger" onclick="toggleMobDropdown('mob-group-whatwedo')" aria-label="Toggle What We Do dropdown">
+        <div class="mob-trigger-left">
+          <div class="mob-row-icon-box">
+            <span>⚡</span>
+          </div>
+          <span class="mob-trigger-title">What We Do</span>
+          <span class="mob-count-pill">4 SYSTEMS</span>
+        </div>
+        <span class="mob-dropdown-chevron">▼</span>
+      </button>
+
+      <div class="mob-dropdown-cards-drawer">
+        
+        <!-- SERVICE 1: GOOGLE MAPS 3-PACK -->
+        <a href="services/google-maps.html" class="mob-service-card" onclick="closeMobileDrawer()">
+          <div class="mob-card-info">
+            <div class="icon-box-maps">
+              <div class="maps-sonar-ring-1"></div>
+              <div class="maps-sonar-ring-2"></div>
+              <svg class="google-maps-vector-pin" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2Z" fill="url(#gmap-grad-mob)"/>
+                <circle cx="12" cy="9" r="3.2" fill="#ffffff"/>
+                <circle cx="12" cy="9" r="1.6" fill="#00d4ff"/>
+                <defs>
+                  <linearGradient id="gmap-grad-mob" x1="5" y1="2" x2="19" y2="22" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#00d4ff"/>
+                    <stop offset="1" stop-color="#b8ff57"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div class="maps-incoming-call-badge"><span>⚡</span></div>
+            </div>
+            <span class="mob-card-title">Rank in Google Maps Top 3</span>
+          </div>
+          <span class="master-metric-badge">+320% CALLS</span>
+        </a>
+
+        <!-- SERVICE 2: 5-STAR REVIEWS -->
+        <a href="services/automated-reviews.html" class="mob-service-card" onclick="closeMobileDrawer()">
+          <div class="mob-card-info">
+            <div class="icon-box-reviews">
+              <div class="star-satellite-ring"></div>
+              <div class="reviews-verified-badge">✓</div>
+              <span class="star-3d-glyph">⭐</span>
+            </div>
+            <span class="mob-card-title">Automated 5-Star Reviews</span>
+          </div>
+          <span class="master-metric-badge">★ 4.9 RATING</span>
+        </a>
+
+        <!-- SERVICE 3: DIRECTORY CITATIONS -->
+        <a href="services/citations-sync.html" class="mob-service-card" onclick="closeMobileDrawer()">
+          <div class="mob-card-info">
+            <div class="icon-box-citations">
+              <div class="synapse-node-ring"></div>
+              <div class="citations-sync-badge">SYNC</div>
+              <span class="globe-3d-glyph">🌐</span>
+            </div>
+            <span class="mob-card-title">100+ Directory Citations & Sync</span>
+          </div>
+          <span class="master-metric-badge">100+ DIRS</span>
+        </a>
+
+        <!-- SERVICE 4: 3D WEBSITES -->
+        <a href="services/3d-websites.html" class="mob-service-card" onclick="closeMobileDrawer()">
+          <div class="mob-card-info">
+            <div class="icon-box-website">
+              <div class="viewport-laser-trail"></div>
+              <div class="website-booked-badge">$ BOOKED</div>
+              <span class="rocket-3d-glyph">🚀</span>
+            </div>
+            <span class="mob-card-title">High-Converting 3D Website</span>
+          </div>
+          <span class="master-metric-badge">3.4x BOOKINGS</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- 2. DIRECT LINK: CASE STUDIES (FULL-WIDTH SINGLE ROW) -->
+    <a href="case-studies.html" class="mob-direct-nav-link" onclick="closeMobileDrawer()">
+      <div class="mob-trigger-left">
+        <div class="mob-row-icon-box" style="border-color: rgba(184, 255, 87, 0.35); background: rgba(184, 255, 87, 0.12); box-shadow: 0 0 12px rgba(184, 255, 87, 0.25);">
+          <span style="color: var(--lime-glow);">🏆</span>
+        </div>
+        <span class="mob-trigger-title">Case Studies & ROI</span>
+      </div>
+      <span style="color: var(--cyan-glow); font-size: 13px; padding-right: 4px;">↗</span>
+    </a>
+
+    <!-- 3. DIRECT LINK: TESTIMONIALS (FULL-WIDTH SINGLE ROW) -->
+    <a href="testimonials.html" class="mob-direct-nav-link" onclick="closeMobileDrawer()">
+      <div class="mob-trigger-left">
+        <div class="mob-row-icon-box" style="border-color: rgba(255, 215, 0, 0.35); background: rgba(255, 215, 0, 0.12); box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);">
+          <span style="color: var(--gold-glow);">💬</span>
+        </div>
+        <span class="mob-trigger-title">Client Testimonials</span>
+      </div>
+      <span style="color: var(--cyan-glow); font-size: 13px; padding-right: 4px;">↗</span>
+    </a>
+
+    <!-- 4. DROPDOWN GROUP: RESOURCES (UNBOXED SEAMLESS TOGGLE) -->
+    <div class="mob-dropdown-group" id="mob-group-resources">
+      <button class="mob-dropdown-trigger" onclick="toggleMobDropdown('mob-group-resources')" aria-label="Toggle Resources dropdown">
+        <div class="mob-trigger-left">
+          <div class="mob-row-icon-box" style="border-color: rgba(0, 212, 255, 0.35); background: rgba(0, 212, 255, 0.12);">
+            <span>📚</span>
+          </div>
+          <span class="mob-trigger-title">Resources</span>
+          <span class="mob-count-pill">3 HUBS</span>
+        </div>
+        <span class="mob-dropdown-chevron">▼</span>
+      </button>
+
+      <div class="mob-dropdown-cards-drawer">
+        
+        <!-- RESOURCE 1: FREE AUDIT SCAN -->
+        <a href="audit.html" class="mob-service-card" onclick="closeMobileDrawer()">
+          <div class="mob-card-info">
+            <div class="icon-box-maps">
+              <div class="maps-sonar-ring-1"></div>
+              <span class="pin-3d-glyph">⚡</span>
+            </div>
+            <span class="mob-card-title">Free 9-Mile Visibility Audit</span>
+          </div>
+          <span class="master-metric-badge">FREE SCAN</span>
+        </a>
+
+        <!-- RESOURCE 2: BLOG -->
+        <a href="blog.html" class="mob-service-card" onclick="closeMobileDrawer()">
+          <div class="mob-card-info">
+            <div class="icon-box-website">
+              <div class="viewport-laser-trail"></div>
+              <span class="rocket-3d-glyph">📑</span>
+            </div>
+            <span class="mob-card-title">Local Growth Blog & Insights</span>
+          </div>
+          <span class="master-metric-badge">READ BLOG</span>
+        </a>
+
+        <!-- RESOURCE 3: FAQS -->
+        <a href="faq.html" class="mob-service-card" onclick="closeMobileDrawer()">
+          <div class="mob-card-info">
+            <div class="icon-box-citations">
+              <div class="synapse-node-ring"></div>
+              <span class="globe-3d-glyph">❓</span>
+            </div>
+            <span class="mob-card-title">Frequently Asked Questions</span>
+          </div>
+          <span class="master-metric-badge">FAQS</span>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DRAWER STICKY FOOTER ACTIONS -->
+  <div class="mob-drawer-footer-actions">
+    <a href="#contact" class="mob-btn-talk" onclick="closeMobileDrawer()">💬 Talk to Mark Bishop</a>
+    <a href="#audit" class="mob-btn-audit-glow" onclick="closeMobileDrawer()">
+      <span>⚡ CLAIM FREE 9-MILE AUDIT</span>
+      <span>↗</span>
+    </a>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DEMO WEBPAGE SECTIONS
+     ═══════════════════════════════════════════════════════════ -->
+<main class="demo-page-content">
+
+  <!-- SECTION 1: HERO VIEW -->
+  <section class="demo-section" id="hero-sec">
+    <div class="sec-badge">● MASTER PROTOTYPE: GOOGLE TOP 3 + DUAL-ACTION REVIEWS + SPLIT BANNER</div>
+    <h1 class="sec-title">Refined 3D Navigation Architecture</h1>
+    <p class="sec-desc">
+      Hover over <strong>"Solutions ⌵"</strong> to experience the updated navigation: Authentic Google Maps Vector Pin, "Top 3" realistic promise, Team-oriented voice ("We"), and the [Before vs After] 3D Split Screen Banner!
+    </p>
+
+    <!-- TEST STREAM PASSING UNDER THE GLASS -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin:24px 0;">
+      <span style="background:linear-gradient(135deg,#00d4ff,#b8ff57);color:#020205;font-weight:800;padding:7px 16px;border-radius:100px;font-size:12px;box-shadow:0 0 20px rgba(0,212,255,0.4)">🔥 $1,450,000 REVENUE CLIENT ENGINE</span>
+      <span style="background:rgba(0,212,255,0.15);border:1px solid #00d4ff;color:#00d4ff;font-weight:700;padding:7px 16px;border-radius:100px;font-size:12px;">📍 GOOGLE MAPS TOP 3 LOCKED</span>
+      <span style="background:rgba(184,255,87,0.15);border:1px solid #b8ff57;color:#b8ff57;font-weight:700;padding:7px 16px;border-radius:100px;font-size:12px;">⭐ 250+ 5-STAR REVIEWS & GENERATION</span>
+    </div>
+
+    <div class="active-variant-indicator-card">
+      <div class="card-header-lbl">LOCKED MASTER HIGHLIGHTS:</div>
+      <div class="card-header-val">💎 Google Maps Vector Pin + Google Top 3 + Team Voice ("We") + [Before vs After] Split Banner</div>
+      <div class="card-desc-val">
+        1. <strong>Authentic Google Maps Pin:</strong> Replaced the emoji with a sleek, vibrant Google Maps vector pin with GPS concentric sonar waves.<br>
+        2. <strong>Realistic "Top 3":</strong> Positioned around dominating Google Maps Top 3 (Local 3-Pack).<br>
+        3. <strong>Dual Review Service:</strong> Showcases both automatic review capture from happy customers & smart review generation.<br>
+        4. <strong>Team Voice:</strong> Shifted copy from "I" to professional agency team voice ("We" / "Our System").<br>
+        5. <strong>Clean Cards:</strong> Subtitles removed from left cards for zero redundancy with the right banner!
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: PROOF DEMO -->
+  <section class="demo-section" id="proof-sec">
+    <div class="sec-badge">● STAGE 02 — LOCAL RADAR VISIBILITY</div>
+    <h2 class="sec-title" style="color:#00d4ff;text-shadow:0 0 30px rgba(0,212,255,0.4);">
+      9-MILE STREET-LEVEL GEO-GRID SCAN ENGINE
+    </h2>
+    <p class="sec-desc">
+      Scroll up and down to observe how the razor-thin frosted glass capsule softly refracts the bright typography.
+    </p>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DYNAMIC HOVER CONTROLLER SCRIPT
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+/* ─── 1. SMART SCROLL FREEZE & FLOAT ─── */
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 5) {
+    document.body.classList.add('is-scrolled');
+  } else {
+    document.body.classList.remove('is-scrolled');
+  }
+});
+
+/* ─── 2. REFINED STORYTELLING DATABASE (TEAM VOICE + TOP 3 + DUAL REVIEWS) ─── */
+const lockedDatabase = {
+  maps: {
+    title: '“We engineer your business into <span class="highlight">Google Maps Top 3</span> in 21 days.”',
+    desc: 'When nearby local people search for your services, our system positions your verified profile in the local Top 3 before competitors, capturing the dominant share of high-intent inbound phone calls.',
+    beforeStatus: 'Unranked #12+ (Lost Calls)',
+    beforeVal: '$12,000 / MO',
+    afterStatus: 'Google Maps Top 3 Locked',
+    afterVal: '+$60,000 / MO',
+    proof: '+$48,000 / MO VALUE'
+  },
+  reviews: {
+    title: '“We <span class="highlight">actively generate 5-star Google reviews</span> on autopilot.”',
+    desc: 'We do not just collect feedback; our system deploys automated multi-channel generation workflows that systematically convert your customers into verified 5-star Google reviews, building overwhelming local trust and dominating search rankings.',
+    beforeStatus: '12 Reviews (Stagnant Growth)',
+    beforeVal: 'LOW TRUST',
+    afterStatus: '250+ Generated 5-Star Reviews',
+    afterVal: '4.9★ RATING',
+    proof: '94% TRUST RATE'
+  },
+  citations: {
+    title: '“We lock and synchronize your business NAP across <span class="highlight">100+ directories</span>.”',
+    desc: 'Our syndication engine locks your Name, Address & Phone across Apple Maps, Yelp, Bing, Yahoo & 100+ platforms so Google algorithms trust your local authority and boost your Top 3 ranking.',
+    beforeStatus: 'Inconsistent NAP Across Web',
+    beforeVal: 'RANK PENALTY',
+    afterStatus: '100+ High-Authority Dirs Synced',
+    afterVal: '100% TRUST',
+    proof: '100% AUTHORITY'
+  },
+  website: {
+    title: '“We build a lightning-fast 3D website engineered to <span class="highlight">convert clicks into booked calls</span>.”',
+    desc: 'Visitors do not just browse; they get captivated by interactive 3D visual proof, smart local schema, and friction-free click-to-call triggers that convert 3.4x more traffic into paid contracts.',
+    beforeStatus: 'Generic Slow Site (1.2% Conv)',
+    beforeVal: 'LEAKING LEADS',
+    afterStatus: 'Interactive 3D Website (3.4x Conv)',
+    afterVal: '+$75,000 / MO',
+    proof: '3.4x BOOKINGS'
+  },
+  audit: {
+    title: '“We scan your exact <span class="highlight">9-mile radius in 5 seconds</span>.”',
+    desc: 'Our street-level radar scan checks 81 GPS grid coordinates around your zip code to show exactly which competitors are stealing your calls and how our system overtakes them.',
+    beforeStatus: 'Blind to Visibility Gaps',
+    beforeVal: 'LOST REVENUE',
+    afterStatus: 'Full 81-Point Radar Scan',
+    afterVal: '100% FREE SCAN',
+    proof: '0 COST / 60 SECONDS'
+  },
+  blog: {
+    title: '“We publish battle-tested <span class="highlight">Local SEO & Growth Guides</span>.”',
+    desc: 'Deep-dive tactical teardowns, algorithm update breakdowns, and step-by-step visibility playbooks designed specifically for local business owners scaling past 7-figures.',
+    beforeStatus: 'Outdated SEO Tactics',
+    beforeVal: 'RANK DROPS',
+    afterStatus: 'Battle-Tested Playbooks',
+    afterVal: 'TOP 3 STRATEGIES',
+    proof: 'WEEKLY ARTICLES'
+  },
+  faq: {
+    title: '“Everything you need to know about the <span class="highlight">Visibility Operating System</span>.”',
+    desc: 'Transparent answers on timelines, ROI guarantees, directory sync integrations, 3D conversion engines, and how quickly your phone starts ringing with qualified local calls.',
+    beforeStatus: 'Unanswered Questions',
+    beforeVal: 'UNCERTAINTY',
+    afterStatus: '100% Transparent Answers',
+    afterVal: 'CLEAR ROADMAP',
+    proof: 'DIRECT ACCESS'
+  }
+};
+
+/* ─── 3. INTERACTION CONTROLLER (SMART PROGRESSIVE REVEAL + INSTANT HOVER POP) ─── */
+const solutionsPanel = document.getElementById('solutions-spatial-panel');
+const navItemSolutions = document.getElementById('nav-item-solutions');
+const cards = document.querySelectorAll('#solutions-spatial-panel .dropdown-card-master');
+const storyTitle = document.getElementById('story-title');
+const storyDesc = document.getElementById('story-desc');
+const splitBeforeStatus = document.getElementById('split-before-status');
+const splitBeforeVal = document.getElementById('split-before-val');
+const splitAfterStatus = document.getElementById('split-after-status');
+const splitAfterVal = document.getElementById('split-after-val');
+const storyProofVal = document.getElementById('story-proof-val');
+const storyBanner = document.getElementById('story-banner-display');
+
+// Resources DOM Elements
+const resourcesPanel = document.getElementById('resources-spatial-panel');
+const navItemResources = document.getElementById('nav-item-resources');
+const resourceCards = document.querySelectorAll('#resources-spatial-panel .dropdown-card-master');
+const resStoryTitle = document.getElementById('res-story-title');
+const resStoryDesc = document.getElementById('res-story-desc');
+const resSplitBeforeStatus = document.getElementById('res-split-before-status');
+const resSplitBeforeVal = document.getElementById('res-split-before-val');
+const resSplitAfterStatus = document.getElementById('res-split-after-status');
+const resSplitAfterVal = document.getElementById('res-split-after-val');
+const resStoryProofVal = document.getElementById('res-story-proof-val');
+const resourceStoryDeck = document.getElementById('resource-story-deck');
+
+let solutionsTimer = null;
+let resourcesTimer = null;
+
+function renderStoryCard(key) {
+  const data = lockedDatabase[key];
+  if (data && storyBanner) {
+    storyBanner.style.transform = 'perspective(1000px) rotateY(-3deg) translateZ(25px) scale(1.02)';
+    storyBanner.style.borderColor = 'var(--lime-glow)';
+    
+    storyTitle.innerHTML = data.title;
+    storyDesc.innerHTML = data.desc;
+    splitBeforeStatus.innerHTML = data.beforeStatus;
+    splitBeforeVal.innerHTML = data.beforeVal;
+    splitAfterStatus.innerHTML = data.afterStatus;
+    splitAfterVal.innerHTML = data.afterVal;
+    storyProofVal.innerHTML = data.proof;
+    
+    setTimeout(() => {
+      storyBanner.style.transform = 'perspective(1000px) rotateY(-6deg) translateZ(15px) scale(1)';
+      storyBanner.style.borderColor = 'rgba(0, 212, 255, 0.35)';
+    }, 250);
+  }
+}
+
+function renderResourceCard(key) {
+  const data = lockedDatabase[key];
+  if (data && resourceStoryDeck) {
+    resourceStoryDeck.style.transform = 'perspective(1000px) rotateY(-3deg) translateZ(25px) scale(1.02)';
+    resourceStoryDeck.style.borderColor = 'var(--lime-glow)';
+    
+    if (resStoryTitle) resStoryTitle.innerHTML = data.title;
+    if (resStoryDesc) resStoryDesc.innerHTML = data.desc;
+    if (resSplitBeforeStatus) resSplitBeforeStatus.innerHTML = data.beforeStatus;
+    if (resSplitBeforeVal) resSplitBeforeVal.innerHTML = data.beforeVal;
+    if (resSplitAfterStatus) resSplitAfterStatus.innerHTML = data.afterStatus;
+    if (resSplitAfterVal) resSplitAfterVal.innerHTML = data.afterVal;
+    if (resStoryProofVal) resStoryProofVal.innerHTML = data.proof;
+    
+    setTimeout(() => {
+      resourceStoryDeck.style.transform = 'perspective(1000px) rotateY(-6deg) translateZ(15px) scale(1)';
+      resourceStoryDeck.style.borderColor = 'rgba(0, 212, 255, 0.35)';
+    }, 250);
+  }
+}
+
+// 1. WHAT WE DO LOGIC:
+if (navItemSolutions) {
+  navItemSolutions.addEventListener('mouseenter', () => {
+    clearTimeout(solutionsTimer);
+    solutionsTimer = setTimeout(() => {
+      if (solutionsPanel && !solutionsPanel.classList.contains('has-banner-active')) {
+        solutionsPanel.classList.add('has-banner-active');
+        cards[0].classList.add('active-story');
+        renderStoryCard('maps');
+      }
+    }, 6500);
+  });
+
+  navItemSolutions.addEventListener('mouseleave', () => {
+    clearTimeout(solutionsTimer);
+    if (solutionsPanel) solutionsPanel.classList.remove('has-banner-active');
+    cards.forEach(c => c.classList.remove('active-story'));
+  });
+}
+
+cards.forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    clearTimeout(solutionsTimer);
+    if (solutionsPanel) solutionsPanel.classList.add('has-banner-active');
+    cards.forEach(c => c.classList.remove('active-story'));
+    card.classList.add('active-story');
+    
+    const key = card.getAttribute('data-story');
+    renderStoryCard(key);
+  });
+});
+
+// 2. RESOURCES LOGIC:
+if (navItemResources) {
+  navItemResources.addEventListener('mouseenter', () => {
+    clearTimeout(resourcesTimer);
+    resourcesTimer = setTimeout(() => {
+      if (resourcesPanel && !resourcesPanel.classList.contains('has-banner-active')) {
+        resourcesPanel.classList.add('has-banner-active');
+        resourceCards[0].classList.add('active-story');
+        renderResourceCard('audit');
+      }
+    }, 6500);
+  });
+
+  navItemResources.addEventListener('mouseleave', () => {
+    clearTimeout(resourcesTimer);
+    if (resourcesPanel) resourcesPanel.classList.remove('has-banner-active');
+    resourceCards.forEach(c => c.classList.remove('active-story'));
+  });
+}
+
+resourceCards.forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    clearTimeout(resourcesTimer);
+    if (resourcesPanel) resourcesPanel.classList.add('has-banner-active');
+    resourceCards.forEach(c => c.classList.remove('active-story'));
+    card.classList.add('active-story');
+    
+    const key = card.getAttribute('data-story');
+    renderResourceCard(key);
+  });
+});
+
+/* ─── 4. MOBILE DRAWER & TOUCH ACCORDION CONTROLLER ─── */
+const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');
+const mobDrawerCloseBtn = document.getElementById('mob-drawer-close-btn');
+const mobileDrawerSheet = document.getElementById('mobile-drawer-sheet');
+
+function openMobileDrawer() {
+  document.body.classList.add('mobile-drawer-open');
+}
+
+function closeMobileDrawer() {
+  document.body.classList.remove('mobile-drawer-open');
+}
+
+function toggleMobileDrawer() {
+  document.body.classList.toggle('mobile-drawer-open');
+}
+
+if (mobileMenuTrigger) {
+  mobileMenuTrigger.addEventListener('click', toggleMobileDrawer);
+}
+if (mobDrawerCloseBtn) {
+  mobDrawerCloseBtn.addEventListener('click', closeMobileDrawer);
+}
+
+// Close mobile drawer on ESC key
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMobileDrawer();
+});
+
+// Toggle Unboxed Mobile Dropdowns
+function toggleMobDropdown(id) {
+  const group = document.getElementById(id);
+  if (group) {
+    group.classList.toggle('is-collapsed');
+  }
+}
+
+// Toggle Mobile Accordions (backward compatible)
+function toggleMobAccordion(id) {
+  const block = document.getElementById(id);
+  if (block) {
+    block.classList.toggle('is-expanded');
+  }
+}
+
+/* ─── 5. TABLET TOUCHSCREEN TAP HANDLER (POINTEREVENTS) ─── */
+document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+  item.addEventListener('pointerdown', (e) => {
+    if (window.innerWidth <= 1024 && window.innerWidth >= 769) {
+      if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+        const isCurrentActive = item.classList.contains('active');
+        document.querySelectorAll('.nav-item.has-dropdown').forEach(other => other.classList.remove('active'));
+        if (!isCurrentActive) {
+          item.classList.add('active');
+        }
+      }
+    }
+  });
+});
+
+// Close tablet dropdown on outside click
+document.addEventListener('pointerdown', (e) => {
+  if (window.innerWidth <= 1024 && window.innerWidth >= 769) {
+    if (!e.target.closest('.master-nav-wrapper')) {
+      document.querySelectorAll('.nav-item.has-dropdown').forEach(other => other.classList.remove('active'));
+    }
+  }
+});
+</script>
+
+</body>
+</html>
