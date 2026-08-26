@@ -226,74 +226,39 @@ body{
   gap:4px;
 }
 
-.btn-toggle-draw-tray{
-  background:rgba(0, 212, 255, 0.12);
-  border:1px solid rgba(0, 212, 255, 0.35);
-  color:#00d4ff;
-  font-family:'Space Grotesk',sans-serif;
-  font-size:11px;
-  font-weight:700;
-  padding:6px 10px;
-  border-radius:8px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:5px;
-  transition:all 0.2s;
-  white-space:nowrap;
-  touch-action:manipulation;
-}
-.btn-toggle-draw-tray:hover{background:rgba(0, 212, 255, 0.25);border-color:#00d4ff}
-.btn-toggle-draw-tray.active{background:rgba(184, 255, 87, 0.2);border-color:#b8ff57;color:#b8ff57}
-
-#drawing-tools-tray{
-  display:flex;
-  align-items:center;
-  gap:4px;
-  transition:all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow:hidden;
-}
-#drawing-tools-tray.collapsed{display:none !important}
-
 .toolbar-drag-grip{
   cursor:grab;
-  padding:6px 8px;
-  color:rgba(0, 212, 255, 0.8);
-  font-size:16px;
-  line-height:1;
-  display:flex;
-  align-items:center;
+  padding:6px 6px;
+  color:rgba(0, 212, 255, 0.7);
+  font-size:14px;
   user-select:none;
-  border-radius:6px;
   touch-action:none;
 }
-.toolbar-drag-grip:hover{background:rgba(0, 212, 255, 0.15);color:#00d4ff}
 .toolbar-drag-grip:active{cursor:grabbing}
 
 .tool-item{
-  width:38px;
-  height:38px;
+  width:36px;
+  height:36px;
   display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
   background:transparent;
   border:1px solid transparent;
-  color:rgba(255,255,255,0.8);
+  color:rgba(255,255,255,0.7);
   border-radius:8px;
   cursor:pointer;
   position:relative;
-  transition:all 0.15s ease;
+  transition:all 0.15s;
   touch-action:manipulation;
 }
-.tool-item svg{width:18px;height:18px;stroke-width:2}
-.tool-item .shortcut-num{position:absolute;bottom:1px;right:3px;font-size:8px;font-family:monospace;color:rgba(255,255,255,0.4)}
-.tool-item:hover{background:rgba(255,255,255,0.08);color:#fff}
-.tool-item.active{background:rgba(0, 212, 255, 0.25);border-color:#00d4ff;color:#00d4ff;box-shadow:0 0 12px rgba(0, 212, 255, 0.4)}
+.tool-item:hover{color:#fff;background:rgba(255,255,255,0.06)}
+.tool-item.active{background:rgba(0, 212, 255, 0.2);border-color:#00d4ff;color:#00d4ff;box-shadow:0 0 12px rgba(0, 212, 255, 0.35)}
+.tool-item svg{width:18px;height:18px}
+.shortcut-num{position:absolute;bottom:2px;right:3px;font-size:8px;font-family:monospace;color:rgba(255,255,255,0.4)}
 
 .btn-history{
-  width:34px;
-  height:34px;
+  width:32px;
+  height:32px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -325,10 +290,6 @@ body{
 
 .toolbar-separator{width:1px;height:24px;background:rgba(255,255,255,0.12);margin:0 4px}
 
-.floating-palette{display:flex;align-items:center;gap:6px;padding-left:2px}
-.color-dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,0.5);cursor:pointer;transition:transform 0.15s, border-color 0.15s;touch-action:manipulation}
-.color-dot:hover, .color-dot.active{transform:scale(1.25);border-color:#fff;box-shadow:0 0 10px currentColor}
-
 /* ═══════════════════════════════════════════════════════════
    4. STUDIO MAIN STAGE & HARDWARE ARTBOARD
    ═══════════════════════════════════════════════════════════ */
@@ -356,9 +317,8 @@ body{
   overflow:hidden;
   flex-shrink:0;
   margin:0 auto;
-  transition:border-radius 0.2s ease;
 }
-#artboard-canvas-wrapper.desktop{width:1280px;height:740px;border-radius:14px}
+#artboard-canvas-wrapper.desktop{width:1280px;height:760px;border-radius:14px}
 #artboard-canvas-wrapper.tablet{width:820px;height:880px;border-radius:32px;border-width:12px;border-color:#182133}
 #artboard-canvas-wrapper.mobile{width:393px;height:840px;border-radius:48px;border-width:12px;border-color:#161f30}
 
@@ -379,7 +339,7 @@ body{
 
 #drawing-surface{position:absolute;inset:0;z-index:500;pointer-events:none;touch-action:none}
 #drawing-surface.interactive{pointer-events:all !important;cursor:crosshair}
-#stage-3d-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+#intro-3d-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
 .cinema-vignette{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle at center, transparent 35%, rgba(2,2,5,0.45) 75%, #020205 100%)}
 
 /* ═══════════════════════════════════════════════════════════
@@ -389,7 +349,7 @@ body{
   position:absolute;
   cursor:move;
   border:2px dashed transparent;
-  padding:12px 16px;
+  padding:10px 14px;
   border-radius:14px;
   touch-action:none;
   user-select:none;
@@ -407,21 +367,21 @@ body{
 .canva-move-handle{
   display:none;
   position:absolute;
-  bottom:-50px;
+  bottom:-45px;
   left:50%;
   transform:translateX(-50%);
   background:linear-gradient(135deg, #00d4ff, #b8ff57);
   color:#020205;
-  border:2.5px solid #ffffff;
+  border:2px solid #ffffff;
   box-shadow:0 8px 30px rgba(0, 212, 255, 0.9), 0 0 20px rgba(184, 255, 87, 0.8);
   border-radius:100px;
-  padding:8px 18px;
+  padding:6px 16px;
   font-family:'Space Grotesk', sans-serif;
-  font-size:12px;
+  font-size:11.5px;
   font-weight:800;
   letter-spacing:0.08em;
   align-items:center;
-  gap:8px;
+  gap:6px;
   cursor:grab;
   z-index:9999 !important;
   touch-action:none;
@@ -430,14 +390,14 @@ body{
   pointer-events:auto !important;
   transition:transform 0.15s ease, box-shadow 0.15s ease;
 }
-.canva-move-handle:hover, .canva-move-handle:active{transform:translateX(-50%) scale(1.15);cursor:grabbing}
+.canva-move-handle:hover, .canva-move-handle:active{transform:translateX(-50%) scale(1.12);cursor:grabbing}
 .studio-element.selected-box .canva-move-handle{display:flex !important}
 .studio-element.element-locked .canva-move-handle{display:none !important}
 
 .resize-handle{
   position:absolute;
-  width:18px;
-  height:18px;
+  width:16px;
+  height:16px;
   background:#ffffff;
   border:3px solid #00d4ff;
   border-radius:4px;
@@ -448,24 +408,24 @@ body{
 }
 .studio-element.selected-box .resize-handle{display:block}
 .studio-element.element-locked .resize-handle{display:none !important}
-.handle-nw{top:-9px;left:-9px;cursor:nwse-resize}
-.handle-ne{top:-9px;right:-9px;cursor:nesw-resize}
-.handle-se{bottom:-9px;right:-9px;cursor:nwse-resize}
-.handle-sw{bottom:-9px;left:-9px;cursor:nesw-resize}
-.handle-e{top:calc(50% - 9px);right:-9px;cursor:ew-resize}
+.handle-nw{top:-8px;left:-8px;cursor:nwse-resize}
+.handle-ne{top:-8px;right:-8px;cursor:nesw-resize}
+.handle-se{bottom:-8px;right:-8px;cursor:nwse-resize}
+.handle-sw{bottom:-8px;left:-8px;cursor:nesw-resize}
+.handle-e{top:calc(50% - 8px);right:-8px;cursor:ew-resize}
 
 .element-tag{
   display:none;
   position:absolute;
-  top:-22px;
+  top:-20px;
   left:0;
   background:#00d4ff;
   color:#020205;
   font-family:monospace;
-  font-size:10px;
+  font-size:9.5px;
   font-weight:800;
-  padding:3px 10px;
-  border-radius:5px;
+  padding:2px 8px;
+  border-radius:4px;
   pointer-events:none;
   box-shadow:0 2px 8px rgba(0,0,0,0.5);
   white-space:nowrap;
@@ -542,43 +502,13 @@ body{
 }
 .range-slider::-webkit-slider-thumb{
   -webkit-appearance:none;
-  width:22px;
-  height:22px;
+  width:20px;
+  height:20px;
   border-radius:50%;
   background:linear-gradient(135deg, #00d4ff, #b8ff57);
   box-shadow:0 0 12px #00d4ff;
   cursor:pointer;
 }
-
-.sidebar-text-input{
-  width:100%;
-  background:rgba(0,0,0,0.5);
-  border:1px solid rgba(0, 212, 255, 0.4);
-  border-radius:8px;
-  color:#fff;
-  font-family:'Space Grotesk',sans-serif;
-  font-size:13px;
-  font-weight:700;
-  padding:8px 12px;
-  outline:none;
-}
-
-.figma-align-grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:6px}
-.btn-align{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.12);
-  color:#fff;
-  padding:8px 6px;
-  border-radius:6px;
-  font-size:10.5px;
-  font-weight:700;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-}
-.btn-align:hover{background:rgba(0, 212, 255, 0.2);border-color:#00d4ff;color:#00d4ff}
 
 /* ═══════════════════════════════════════════════════════════
    GLOBAL RESET & OBSIDIAN SPATIAL STAGE
@@ -3805,32 +3735,30 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════════
-     1. TOP STUDIO HEADER
-     ═══════════════════════════════════════════════════════════ -->
+<!-- 1. TOP STUDIO HEADER -->
 <header class="studio-header">
   <div class="brand-badge-box">
-    <div class="brand-title">MBM · <span id="studio-header-section-name">SECTION STUDIO TEMPLATE</span></div>
+    <div class="brand-title">MARK BISHOP <span>MEDIA</span> · HERO STUDIO</div>
   </div>
 
   <!-- DEVICE FRAME SWITCHER & PROFILE BADGE -->
   <div class="device-btn-group">
-    <button class="btn-device active" id="btn-dev-mobile" onclick="switchStudioDevice('mobile')">📱 Mobile (393px)</button>
+    <button class="btn-device active" id="btn-dev-desktop" onclick="switchStudioDevice('desktop')">🖥️ Desktop (1280px)</button>
     <button class="btn-device" id="btn-dev-tablet" onclick="switchStudioDevice('tablet')">📟 Tablet (820px)</button>
-    <button class="btn-device" id="btn-dev-desktop" onclick="switchStudioDevice('desktop')">🖥️ Desktop (1280px)</button>
+    <button class="btn-device" id="btn-dev-mobile" onclick="switchStudioDevice('mobile')">📱 Mobile (393px)</button>
   </div>
-  <div id="active-profile-indicator" style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:800;background:rgba(0,212,255,0.15);border:1.5px solid #00d4ff;color:#00d4ff;padding:4px 12px;border-radius:100px;display:flex;align-items:center;gap:6px;">
-    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#00d4ff;box-shadow:0 0 8px #00d4ff;"></span>
-    <span>EDITING: 📱 MOBILE</span>
+  <div id="active-profile-indicator" style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:800;background:rgba(184,255,87,0.15);border:1.5px solid #b8ff57;color:#b8ff57;padding:4px 12px;border-radius:100px;display:flex;align-items:center;gap:6px;">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#b8ff57;box-shadow:0 0 8px #b8ff57;"></span>
+    <span>EDITING: 🖥️ DESKTOP</span>
   </div>
 
   <!-- HEADER ACTIONS -->
   <div class="header-action-group">
-    <button class="btn-replay-splash" onclick="triggerSectionReplay()">
-      <span>↻ REPLAY STAGE</span>
+    <button class="btn-replay-splash" onclick="triggerHeroSectionReplay()">
+      <span>↻ REPLAY ENTRANCE</span>
     </button>
     <button class="btn-fullscreen-zen" id="btn-fullscreen-toggle" onclick="toggleStudioFullscreen()">
-      <span id="txt-fullscreen-btn">⛶ FULLSCREEN (F)</span>
+      <span id="txt-fullscreen-btn">⛶ FULLSCREEN</span>
     </button>
     <button class="btn-png-download" onclick="exportArtboardPNG()">
       <span>📸 EXPORT HD PNG</span>
@@ -3838,93 +3766,38 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   </div>
 </header>
 
-<!-- ═══════════════════════════════════════════════════════════
-     2. PRESET QUICK BAR
-     ═══════════════════════════════════════════════════════════ -->
+<!-- 2. PRESET QUICK BAR -->
 <div class="preset-bar">
-  <span class="preset-label">⚡ 1-CLICK PRESETS:</span>
-  <button class="btn-preset" onclick="applySectionPreset('preset_1')">📱 Mobile Focus</button>
-  <button class="btn-preset" onclick="applySectionPreset('preset_2')">✨ Luxury Wide</button>
-  <button class="btn-preset" onclick="applySectionPreset('preset_3')">⚡ High Dynamic</button>
+  <span class="preset-label">⚡ 1-CLICK HERO PRESETS:</span>
+  <button class="btn-preset" onclick="applyHeroPreset('desktop_gold')">🖥️ Desktop Gold Standard</button>
+  <button class="btn-preset" onclick="applyHeroPreset('tablet_center')">📟 Tablet Split Balance</button>
+  <button class="btn-preset" onclick="applyHeroPreset('mobile_compact')">📱 Mobile Clean Stack</button>
+  <button class="btn-preset" onclick="applyHeroPreset('high_impact')">🔥 High-Impact Wide</button>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     3. DRAGGABLE FLOATING TOOLBAR
-     ═══════════════════════════════════════════════════════════ -->
+<!-- 3. DRAGGABLE FLOATING TOOLBAR -->
 <div id="draggable-toolbar">
   <div class="toolbar-drag-grip" id="toolbar-grip" title="Drag Toolbar on Touchscreen">⠿</div>
-  
   <div class="core-tools-group">
     <button class="btn-history" onclick="triggerUndo()" title="Undo (Ctrl+Z)">↶</button>
     <button class="btn-history" onclick="triggerRedo()" title="Redo (Ctrl+Y)">↷</button>
-
     <div class="toolbar-separator"></div>
-
     <button class="tool-item active" id="tool-select" onclick="setActiveWhiteboardTool('select')" title="Touch Select & Move (1)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>
       <span class="shortcut-num">1</span>
     </button>
-
     <button class="btn-lock-toggle" id="btn-lock-active" onclick="toggleLockSelectedElement()" title="Lock Selected Element">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
     </button>
-
-    <button class="btn-toggle-draw-tray" id="btn-toggle-draw" onclick="toggleDrawingToolsTray()" title="Toggle Extra Drawing Tools">
-      <span>✏️ TOOLS</span>
-      <span id="tray-arrow-icon">❯</span>
-    </button>
-  </div>
-
-  <!-- COLLAPSIBLE DRAWING TRAY -->
-  <div id="drawing-tools-tray" class="collapsed">
-    <div class="toolbar-separator"></div>
-
-    <button class="tool-item" id="tool-rect" onclick="setActiveWhiteboardTool('rect')" title="Rectangle Frame (2)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
-      <span class="shortcut-num">2</span>
-    </button>
-    <button class="tool-item" id="tool-circle" onclick="setActiveWhiteboardTool('circle')" title="Circle / Radar (3)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/></svg>
-      <span class="shortcut-num">3</span>
-    </button>
-    <button class="tool-item" id="tool-arrow" onclick="setActiveWhiteboardTool('arrow')" title="Arrow Pointer (4)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      <span class="shortcut-num">4</span>
-    </button>
-    <button class="tool-item" id="tool-line" onclick="setActiveWhiteboardTool('line')" title="Split Line (5)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="4" y1="20" x2="20" y2="4"/></svg>
-      <span class="shortcut-num">5</span>
-    </button>
-    <button class="tool-item" id="tool-pen" onclick="setActiveWhiteboardTool('pen')" title="Freehand Pen (6)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
-      <span class="shortcut-num">6</span>
-    </button>
-    <button class="tool-item" id="tool-eraser" onclick="setActiveWhiteboardTool('eraser')" title="Eraser Tool (8)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 20H7L3 16C2 15 2 13 3 12L13 2L22 11L20 20Z"/></svg>
-      <span class="shortcut-num">8</span>
-    </button>
-
-    <div class="toolbar-separator"></div>
-
-    <div class="floating-palette">
-      <div class="color-dot active" style="background:#00d4ff;color:#00d4ff" onclick="selectPaletteColor('#00d4ff', this)"></div>
-      <div class="color-dot" style="background:#b8ff57;color:#b8ff57" onclick="selectPaletteColor('#b8ff57', this)"></div>
-      <div class="color-dot" style="background:#ff3b30;color:#ff3b30" onclick="selectPaletteColor('#ff3b30', this)"></div>
-      <div class="color-dot" style="background:#ffe066;color:#ffe066" onclick="selectPaletteColor('#ffe066', this)"></div>
-      <div class="color-dot" style="background:#ffffff;color:#ffffff" onclick="selectPaletteColor('#ffffff', this)"></div>
-    </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     4. STUDIO MAIN STAGE
-     ═══════════════════════════════════════════════════════════ -->
+<!-- 4. STUDIO MAIN STAGE -->
 <div class="studio-main">
-
   <div class="stage-viewport" id="stage-viewport">
     
     <!-- HARDWARE ARTBOARD SIMULATOR -->
-    <div id="artboard-canvas-wrapper" class="mobile">
+    <div id="artboard-canvas-wrapper" class="desktop">
       <div class="sim-dynamic-island"></div>
 
       <!-- CANVA / FIGMA SMART MAGNETIC ALIGNMENT GUIDES LAYER -->
@@ -3934,54 +3807,118 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       <canvas id="drawing-surface"></canvas>
 
       <!-- LIVE THREE.JS 3D CANVAS -->
-      <canvas id="stage-3d-canvas"></canvas>
+      <canvas id="intro-3d-canvas"></canvas>
       <div class="cinema-vignette"></div>
 
-      <!-- ─── MODULAR SECTION ELEMENT SLOT (CUSTOMIZED PER SECTION) ─── -->
+      <!-- MASTER 3D NAVIGATION (LIVE SIMULATOR) -->
       <!-- 2. HERO SECTION CONTENT -->
 
-      <div id="section-elements-container">
-        
-        <!-- SAMPLE DRAGGABLE ELEMENT 1 -->
-        <div class="studio-element" id="elem-sec-1" data-name="Section Header" style="top:90px;left:20px;width:353px;text-align:center;">
-          <span class="element-tag">🏷️ HEADER</span>
-          <div class="canva-move-handle" title="Touch & Drag to Move Smoothly">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>
-            </svg>
-            <span>✥ MOVE</span>
-          </div>
-          <h2 class="editable-text-field" style="font-size:28px;font-weight:800;letter-spacing:0.06em;color:#ffffff;">
-            SECTION <span style="color:#00d4ff;">TITLE</span>
-          </h2>
-          <div class="resize-handle handle-nw" data-handle="nw"></div>
-          <div class="resize-handle handle-ne" data-handle="ne"></div>
-          <div class="resize-handle handle-se" data-handle="se"></div>
-          <div class="resize-handle handle-sw" data-handle="sw"></div>
-          <div class="resize-handle handle-e" data-handle="e"></div>
+      <!-- ─── 1. 3D STOREFRONT PIN & STREAM ANCHOR BOX ─── -->
+      <div class="studio-element" id="elem-3d-pin" data-name="3D Storefront Pin" style="top:110px;left:640px;width:580px;height:540px;">
+        <span class="element-tag">📍 3D STOREFRONT PIN & STREAM</span>
+        <div class="canva-move-handle" title="Touch & Drag to Move Smoothly">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
+          <span>✥ MOVE</span>
         </div>
+        <div class="resize-handle handle-nw" data-handle="nw"></div>
+        <div class="resize-handle handle-ne" data-handle="ne"></div>
+        <div class="resize-handle handle-se" data-handle="se"></div>
+        <div class="resize-handle handle-sw" data-handle="sw"></div>
+        <div class="resize-handle handle-e" data-handle="e"></div>
+      </div>
 
+      <!-- ─── 2. AUTHORITY PILL BADGE ─── -->
+      <div class="studio-element" id="elem-hero-badge" data-name="Authority Badge" style="top:145px;left:70px;width:340px;">
+        <span class="element-tag">🏷️ AUTHORITY BADGE</span>
+        <div class="canva-move-handle" title="Touch & Drag to Move Smoothly">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
+          <span>✥ MOVE</span>
+        </div>
+        <div class="hero-pill-badge editable-text-field" id="badge-text" contenteditable="true" style="margin:0;">
+          <span class="pulse-dot"></span>
+          <span>LOCAL VISIBILITY OPERATING SYSTEM</span>
+        </div>
+        <div class="resize-handle handle-nw" data-handle="nw"></div>
+        <div class="resize-handle handle-ne" data-handle="ne"></div>
+        <div class="resize-handle handle-se" data-handle="se"></div>
+        <div class="resize-handle handle-sw" data-handle="sw"></div>
+        <div class="resize-handle handle-e" data-handle="e"></div>
+      </div>
+
+      <!-- ─── 3. HERO MAIN HEADLINE ─── -->
+      <div class="studio-element" id="elem-hero-title" data-name="Hero Headline" style="top:205px;left:70px;width:580px;">
+        <span class="element-tag">🔤 HERO HEADLINE</span>
+        <div class="canva-move-handle" title="Touch & Drag to Move Smoothly">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
+          <span>✥ MOVE</span>
+        </div>
+        <h1 class="hero-headline editable-text-field" id="title-text" contenteditable="true" style="margin:0;font-size:clamp(32px, 3.8vw, 52px);line-height:1.08;">
+          YOUR LOCAL CLIENTS<br>
+          <span class="glass-capsule">ARE SEARCHING</span><br>
+          WE MAKE SURE THEY<br>
+          FIND <span class="lime-accent">YOU FIRST.</span>
+        </h1>
+        <div class="resize-handle handle-nw" data-handle="nw"></div>
+        <div class="resize-handle handle-ne" data-handle="ne"></div>
+        <div class="resize-handle handle-se" data-handle="se"></div>
+        <div class="resize-handle handle-sw" data-handle="sw"></div>
+        <div class="resize-handle handle-e" data-handle="e"></div>
+      </div>
+
+      <!-- ─── 4. DOMINANCE DYNAMIC TICKER ─── -->
+      <div class="studio-element" id="elem-hero-ticker" data-name="Dominance Ticker" style="top:445px;left:70px;width:440px;">
+        <span class="element-tag">⚡ DOMINANCE TICKER</span>
+        <div class="canva-move-handle" title="Touch & Drag to Move Smoothly">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
+          <span>✥ MOVE</span>
+        </div>
+        <div class="hero-ticker-line editable-text-field" id="ticker-text" contenteditable="true" style="margin:0;">
+          <span class="ticker-label" id="ticker-label">DOMINANCE ENGINE:</span>
+          <div class="ticker-val-container">
+            <span class="ticker-val" id="ticker-val">9-Mile Local Geo-Grid Coverage</span>
+          </div>
+        </div>
+        <div class="resize-handle handle-nw" data-handle="nw"></div>
+        <div class="resize-handle handle-ne" data-handle="ne"></div>
+        <div class="resize-handle handle-se" data-handle="se"></div>
+        <div class="resize-handle handle-sw" data-handle="sw"></div>
+        <div class="resize-handle handle-e" data-handle="e"></div>
+      </div>
+
+      <!-- ─── 5. PRIMARY CTA BUTTON ─── -->
+      <div class="studio-element" id="elem-hero-cta" data-name="Primary CTA Button" style="top:510px;left:70px;width:280px;">
+        <span class="element-tag">🚀 PRIMARY CTA BUTTON</span>
+        <div class="canva-move-handle" title="Touch & Drag to Move Smoothly">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
+          <span>✥ MOVE</span>
+        </div>
+        <a href="#what-we-do" class="btn-primary-glow" style="pointer-events:none;display:inline-flex;margin:0;">
+          <span>⚡ EXPLORE WHAT WE DO</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <div class="resize-handle handle-nw" data-handle="nw"></div>
+        <div class="resize-handle handle-ne" data-handle="ne"></div>
+        <div class="resize-handle handle-se" data-handle="se"></div>
+        <div class="resize-handle handle-sw" data-handle="sw"></div>
+        <div class="resize-handle handle-e" data-handle="e"></div>
       </div>
 
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       5. COLLAPSIBLE RIGHT PROPERTIES SIDEBAR
-       ═══════════════════════════════════════════════════════════ -->
+  <!-- 5. COLLAPSIBLE RIGHT PROPERTIES SIDEBAR -->
   <div class="sidebar-wrapper">
     <div class="sidebar-collapse-handle" onclick="toggleSidebar()" title="Toggle Sidebar">
       <span id="handle-arrow">❯</span>
     </div>
 
     <aside class="studio-sidebar" id="studio-sidebar-panel">
-      
-      <!-- PROFILE STATE MANAGER -->
+      <!-- PROFILE MANAGER -->
       <div class="panel-header-title">💾 PROFILE STATE MANAGER</div>
       <div style="background:rgba(0,0,0,0.4);border:1px solid rgba(0,212,255,0.25);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:8px;">
         <div style="font-size:11px;color:rgba(255,255,255,0.7);display:flex;justify-content:space-between;align-items:center;">
           <span>ACTIVE PROFILE:</span>
-          <span id="sidebar-active-device-name" style="color:#00d4ff;font-weight:800;">📱 MOBILE</span>
+          <span id="sidebar-active-device-name" style="color:#b8ff57;font-weight:800;">🖥️ DESKTOP</span>
         </div>
         <button class="btn-preset" id="btn-manual-save-profile" style="width:100%;padding:8px;justify-content:center;background:rgba(0,212,255,0.2);border-color:#00d4ff;color:#00d4ff;font-weight:800;" onclick="manualSaveCurrentProfile()">
           <span>💾 SAVE CURRENT PROFILE</span>
@@ -3992,7 +3929,6 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
 
       <div class="panel-header-title">SELECTED COMPONENT</div>
-      
       <div class="control-field">
         <div class="control-label"><span>ELEMENT:</span> <span class="control-val" id="disp-elem-name">Tap Any Item</span></div>
         <div class="control-label"><span>TOP:</span> <span class="control-val" id="disp-pos-top">--</span></div>
@@ -4003,609 +3939,715 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         <span>🔒 Lock This Element</span>
       </button>
 
-      <!-- TOUCH TEXT EDITOR INPUT -->
-      <div class="panel-header-title">✏️ LIVE TEXT TYPER</div>
+      <div class="panel-header-title">3D SPATIAL CONTROLS</div>
       <div class="control-field">
-        <div class="control-label"><span>EDIT SELECTED TEXT:</span></div>
-        <input type="text" class="sidebar-text-input" id="sidebar-edit-text" placeholder="Select text element to edit" oninput="syncSidebarTextToElement(this.value)">
+        <div class="control-label"><span>3D PIN SCALE:</span> <span class="control-val" id="disp-pin-scale">0.88x</span></div>
+        <input type="range" class="range-slider" id="slider-pin-scale" min="0.3" max="2.0" step="0.02" value="0.88" oninput="change3DPinScale(this.value)">
+      </div>
+      <div class="control-field">
+        <div class="control-label"><span>3D PIN X:</span> <span class="control-val" id="disp-pin-x">7.6</span></div>
+        <input type="range" class="range-slider" id="slider-pin-x" min="-12" max="15" step="0.1" value="7.6" oninput="change3DPinX(this.value)">
+      </div>
+      <div class="control-field">
+        <div class="control-label"><span>3D PIN Y:</span> <span class="control-val" id="disp-pin-y">-0.6</span></div>
+        <input type="range" class="range-slider" id="slider-pin-y" min="-8" max="8" step="0.1" value="-0.6" oninput="change3DPinY(this.value)">
       </div>
 
-      <div class="panel-header-title">FIGMA AUTO-ALIGN</div>
-      <div class="figma-align-grid">
-        <button class="btn-align" onclick="alignSelectedElement('left')">⬅️ Left</button>
-        <button class="btn-align" onclick="alignSelectedElement('center')">🎯 Center</button>
-        <button class="btn-align" onclick="alignSelectedElement('right')">➡️ Right</button>
+      <div class="panel-header-title">TYPOGRAPHY / FONT SIZE</div>
+      <div class="control-field">
+        <div class="control-label"><span>SELECTED FONT SIZE:</span> <span class="control-val" id="disp-font-size">--</span></div>
+        <input type="range" class="range-slider" id="slider-font-size" min="9" max="72" step="1" value="32" oninput="changeSelectedFontSize(this.value)">
       </div>
-
-      <!-- SECTION SPECIFIC CONTROLS SLOT -->
-      <div id="sidebar-section-custom-controls">
-        <div class="panel-header-title">CUSTOM CONTROLS</div>
-        <div class="control-field">
-          <div class="control-label"><span>FONT SIZE:</span> <span class="control-val" id="disp-font-size">28px</span></div>
-          <input type="range" min="14" max="64" value="28" class="range-slider" id="slider-font-size" oninput="changeSelectedFontSize(this.value)">
-        </div>
-      </div>
-
-      <div class="panel-header-title">WHITEBOARD ACTIONS</div>
-      
-      <button class="btn-preset" style="width:100%;padding:10px;justify-content:center;color:#ff3b30;border-color:rgba(255,59,48,0.4)" onclick="clearAllDrawingCanvas()">
-        <span>🧹 ERASE ALL DRAWINGS</span>
-      </button>
-
-      <div class="panel-header-title">SHORTCUT TIPS</div>
-      <p style="font-size:11.5px;line-height:1.6;color:rgba(255,255,255,0.6)">
-        <b>F:</b> Fullscreen View<br>
-        <b>Smart Guides:</b> নাড়াচাড়া করার সময় স্বয়ংক্রিয় গাইডলাইন আসবে<br>
-        <b>[ ✥ MOVE ]:</b> হ্যান্ডেল ধরে ড্র্যাগ করুন<br>
-        <b>Ctrl+Z / Ctrl+Y:</b> 100% Functional Undo & Redo
-      </p>
     </aside>
   </div>
-
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     CANVA CORE ENGINE SCRIPT (REUSABLE TEMPLATE SCRIPT)
-     ═══════════════════════════════════════════════════════════ -->
 <script>
-/* ─── 1. CORE DOM REFS & 3D CANVAS ─── */
-const artboardBox = document.getElementById('artboard-canvas-wrapper');
-const stageCanvas = document.getElementById('stage-3d-canvas');
-const stageRenderer = new THREE.WebGLRenderer({ canvas: stageCanvas, antialias: true, alpha: true });
-stageRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+/* ═══════════════════════════════════════════════════════════
+   HERO 3D SCENE: STOREFRONT PIN, 5 STARS & 8 CUSTOMERS STREAM
+   ═══════════════════════════════════════════════════════════ */
+const canvas = document.getElementById('intro-3d-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-const stageScene = new THREE.Scene();
-const stageCamera = new THREE.PerspectiveCamera(45, artboardBox.clientWidth / artboardBox.clientHeight, 0.1, 1000);
-stageCamera.position.set(0, 1.2, 22);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+camera.position.set(0, 0, 22);
 
-function resizeStage3D() {
-  const w = artboardBox.clientWidth || 393;
-  const h = artboardBox.clientHeight || 840;
-  stageCanvas.style.width = '100%';
-  stageCanvas.style.height = '100%';
-  stageRenderer.setSize(w, h, true);
-  stageCamera.aspect = w / h;
-  stageCamera.updateProjectionMatrix();
-  stageRenderer.render(stageScene, stageCamera);
+const ambLight = new THREE.AmbientLight(0x0a182e, 3.6); scene.add(ambLight);
+const dirLightFront = new THREE.DirectionalLight(0xffffff, 3.5); dirLightFront.position.set(8, 14, 10); scene.add(dirLightFront);
+const dirLightBack = new THREE.DirectionalLight(0x00d4ff, 3.0); dirLightBack.position.set(-8, -6, -10); scene.add(dirLightBack);
+const pointCyan = new THREE.PointLight(0x00d4ff, 4.2, 40); pointCyan.position.set(-6, 6, 8); scene.add(pointCyan);
+
+// Stardust Particles
+const dustCount = 850;
+const dustGeo = new THREE.BufferGeometry();
+const dustPos = new Float32Array(dustCount * 3);
+const dustCols = new Float32Array(dustCount * 3);
+const colCyan = new THREE.Color(0x00d4ff), colLime = new THREE.Color(0xb8ff57), colWhite = new THREE.Color(0xffffff);
+
+for (let i = 0; i < dustCount * 3; i += 3) {
+  dustPos[i] = (Math.random() - 0.5) * 65;
+  dustPos[i + 1] = (Math.random() - 0.5) * 45;
+  dustPos[i + 2] = (Math.random() - 0.5) * 40;
+  const rand = Math.random();
+  const c = rand > 0.55 ? colCyan : (rand > 0.25 ? colLime : colWhite);
+  dustCols[i] = c.r; dustCols[i + 1] = c.g; dustCols[i + 2] = c.b;
 }
-
-/* ─── 2. CANVA SMART ALIGNMENT ENGINE ─── */
-const guideLayer = document.getElementById('smart-guide-layer');
-const SNAP_THRESHOLD = 8;
-
-function clearSmartGuides() {
-  if (guideLayer) guideLayer.innerHTML = '';
-}
-
-function renderSmartGuideLines(guides) {
-  if (!guideLayer) return;
-  let svgHTML = '';
-
-  guides.forEach(g => {
-    if (g.type === 'v') {
-      svgHTML += '<line x1="' + g.pos + '" y1="0" x2="' + g.pos + '" y2="100%" stroke="' + (g.color || '#b8ff57') + '" stroke-width="1.5" stroke-dasharray="4,4" style="filter:drop-shadow(0 0 6px ' + (g.color || '#b8ff57') + ');" />' +
-        '<g transform="translate(' + Math.max(48, Math.min(artboardBox.clientWidth - 48, g.pos)) + ', 24)">' +
-        '<rect x="-44" y="-11" width="88" height="20" rx="6" fill="#0b101d" stroke="' + (g.color || '#b8ff57') + '" stroke-width="1.2" style="filter:drop-shadow(0 2px 8px rgba(0,0,0,0.8));"/>' +
-        '<text x="0" y="3" fill="' + (g.color || '#b8ff57') + '" font-family="monospace" font-size="9.5" font-weight="800" text-anchor="middle">' + g.label + '</text>' +
-        '</g>';
-    } else if (g.type === 'h') {
-      svgHTML += '<line x1="0" y1="' + g.pos + '" x2="100%" y2="' + g.pos + '" stroke="' + (g.color || '#00d4ff') + '" stroke-width="1.5" stroke-dasharray="4,4" style="filter:drop-shadow(0 0 6px ' + (g.color || '#00d4ff') + ');" />' +
-        '<g transform="translate(58, ' + g.pos + ')">' +
-        '<rect x="-46" y="-11" width="92" height="20" rx="6" fill="#0b101d" stroke="' + (g.color || '#00d4ff') + '" stroke-width="1.2" style="filter:drop-shadow(0 2px 8px rgba(0,0,0,0.8));"/>' +
-        '<text x="0" y="3" fill="' + (g.color || '#00d4ff') + '" font-family="monospace" font-size="9.5" font-weight="800" text-anchor="middle">' + g.label + '</text>' +
-        '</g>';
-    }
-  });
-
-  guideLayer.innerHTML = svgHTML;
-}
-
-function calculateSmartSnapping(targetEl, rawLeft, rawTop) {
-  const artW = artboardBox.clientWidth;
-  const artH = artboardBox.clientHeight;
-  const elemW = targetEl.offsetWidth;
-  const elemH = targetEl.offsetHeight;
-
-  let snappedLeft = rawLeft;
-  let snappedTop = rawTop;
-  const activeGuides = [];
-
-  const elemCenterX = rawLeft + (elemW / 2);
-  const elemCenterY = rawTop + (elemH / 2);
-
-  const screenCenterX = artW / 2;
-  if (Math.abs(elemCenterX - screenCenterX) <= SNAP_THRESHOLD) {
-    snappedLeft = screenCenterX - (elemW / 2);
-    activeGuides.push({ type: 'v', pos: screenCenterX, label: '🎯 CENTER 50%', color: '#b8ff57' });
-  }
-
-  const screenCenterY = artH / 2;
-  if (Math.abs(elemCenterY - screenCenterY) <= SNAP_THRESHOLD) {
-    snappedTop = screenCenterY - (elemH / 2);
-    activeGuides.push({ type: 'h', pos: screenCenterY, label: '🎯 MIDDLE 50%', color: '#00d4ff' });
-  }
-
-  if (Math.abs(rawLeft - 24) <= SNAP_THRESHOLD) {
-    snappedLeft = 24;
-    activeGuides.push({ type: 'v', pos: 24, label: '⬅️ MARGIN 24px', color: '#ffd700' });
-  }
-
-  document.querySelectorAll('.studio-element').forEach(sib => {
-    if (sib === targetEl) return;
-    const sibL = sib.offsetLeft;
-    const sibT = sib.offsetTop;
-    const sibW = sib.offsetWidth;
-    const sibH = sib.offsetHeight;
-    const sibCenterX = sibL + (sibW / 2);
-    const sibCenterY = sibT + (sibH / 2);
-    const sibName = sib.getAttribute('data-name') || 'ELEMENT';
-
-    if (Math.abs(elemCenterX - sibCenterX) <= SNAP_THRESHOLD && !activeGuides.some(g => g.type === 'v')) {
-      snappedLeft = sibCenterX - (elemW / 2);
-      activeGuides.push({ type: 'v', pos: sibCenterX, label: '↕ ' + sibName, color: '#b8ff57' });
-    }
-    if (Math.abs(elemCenterY - sibCenterY) <= SNAP_THRESHOLD && !activeGuides.some(g => g.type === 'h')) {
-      snappedTop = sibCenterY - (elemH / 2);
-      activeGuides.push({ type: 'h', pos: sibCenterY, label: '↔ ' + sibName, color: '#00d4ff' });
-    }
-  });
-
-  renderSmartGuideLines(activeGuides);
-  return { left: snappedLeft, top: snappedTop };
-}
-
-/* ─── 3. CANVA TOUCH & DRAG ENGINE ─── */
-let activeSelectedElem = null;
-let isDraggingElement = false;
-let isResizingElement = false;
-let resizeHandleDir = null;
-let grabOffsetX = 0, grabOffsetY = 0;
-let resStartX = 0, resStartY = 0, resStartW = 0, resStartH = 0;
-
-function getEventPoint(e) {
-  if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
-  return { x: e.clientX, y: e.clientY };
-}
-
-function attachMoveHandleListeners() {
-  document.querySelectorAll('.canva-move-handle').forEach(handle => {
-    const startMove = (e) => {
-      const el = handle.closest('.studio-element');
-      if (!el || el.classList.contains('element-locked')) return;
-
-      selectElement(el);
-      isDraggingElement = true;
-      recordHistoryState();
-
-      const pt = getEventPoint(e);
-      const elRect = el.getBoundingClientRect();
-      const artRect = artboardBox.getBoundingClientRect();
-
-      grabOffsetX = pt.x - elRect.left;
-      grabOffsetY = pt.y - elRect.top;
-
-      el.style.transform = 'none';
-      el.style.left = (elRect.left - artRect.left) + 'px';
-      el.style.top = (elRect.top - artRect.top) + 'px';
-
-      try { handle.setPointerCapture(e.pointerId); } catch(err){}
-      e.stopPropagation();
-      e.preventDefault();
-    };
-
-    handle.addEventListener('pointerdown', startMove);
-    handle.addEventListener('touchstart', startMove, { passive: false });
-  });
-}
-
-function handleElementTouchStart(e, el) {
-  if (e.target.closest('.canva-move-handle')) return;
-
-  if (e.target.classList.contains('resize-handle')) {
-    isResizingElement = true;
-    resizeHandleDir = e.target.getAttribute('data-handle');
-    const pt = getEventPoint(e);
-    resStartX = pt.x;
-    resStartY = pt.y;
-    resStartW = el.offsetWidth;
-    resStartH = el.offsetHeight;
-    selectElement(el);
-    recordHistoryState();
-    e.stopPropagation();
-    return;
-  }
-
-  selectElement(el);
-
-  if (e.target.isContentEditable) {
-    e.stopPropagation();
-    return;
-  }
-
-  if (!el.classList.contains('element-locked')) {
-    const pt = getEventPoint(e);
-    const elRect = el.getBoundingClientRect();
-    const artRect = artboardBox.getBoundingClientRect();
-
-    grabOffsetX = pt.x - elRect.left;
-    grabOffsetY = pt.y - elRect.top;
-
-    el.style.transform = 'none';
-    el.style.left = (elRect.left - artRect.left) + 'px';
-    el.style.top = (elRect.top - artRect.top) + 'px';
-
-    isDraggingElement = true;
-    recordHistoryState();
-  }
-
-  e.stopPropagation();
-}
-
-function handleElementTouchMove(e) {
-  const pt = getEventPoint(e);
-  if (!pt.x || !pt.y) return;
-
-  if (isDraggingElement && activeSelectedElem && !activeSelectedElem.classList.contains('element-locked')) {
-    const artRect = artboardBox.getBoundingClientRect();
-    const rawLeft = (pt.x - artRect.left) - grabOffsetX;
-    const rawTop = (pt.y - artRect.top) - grabOffsetY;
-    const snapped = calculateSmartSnapping(activeSelectedElem, rawLeft, rawTop);
-
-    activeSelectedElem.style.left = Math.round(snapped.left) + 'px';
-    activeSelectedElem.style.top = Math.round(snapped.top) + 'px';
-    activeSelectedElem.style.transform = 'none';
-
-    document.getElementById('disp-pos-top').innerText = Math.round(snapped.top) + 'px';
-    document.getElementById('disp-pos-left').innerText = Math.round(snapped.left) + 'px';
-  } else if (isResizingElement && activeSelectedElem) {
-    const dx = pt.x - resStartX;
-    const dy = pt.y - resStartY;
-
-    if (resizeHandleDir === 'se') {
-      activeSelectedElem.style.width = Math.max(80, resStartW + dx) + 'px';
-      activeSelectedElem.style.height = Math.max(30, resStartH + dy) + 'px';
-    } else if (resizeHandleDir === 'e') {
-      activeSelectedElem.style.width = Math.max(80, resStartW + dx) + 'px';
-    }
-  }
-}
-
-function handleElementTouchEnd() {
-  isDraggingElement = false;
-  isResizingElement = false;
-  resizeHandleDir = null;
-  clearSmartGuides();
-  saveCurrentDeviceProfile();
-}
-
-function selectElement(el) {
-  document.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
-  activeSelectedElem = el;
-  el.classList.add('selected-box');
-
-  document.getElementById('disp-elem-name').innerText = el.getAttribute('data-name');
-  document.getElementById('disp-pos-top').innerText = el.offsetTop + 'px';
-  document.getElementById('disp-pos-left').innerText = el.offsetLeft + 'px';
-
-  const isLocked = el.classList.contains('element-locked');
-  document.getElementById('btn-lock-active').classList.toggle('is-locked', isLocked);
-  document.getElementById('sidebar-lock-btn').innerText = isLocked ? '🔓 Unlock This Element' : '🔒 Lock This Element';
-
-  const editTarget = el.querySelector('.editable-text-field');
-  if (editTarget) {
-    document.getElementById('sidebar-edit-text').value = editTarget.innerText;
-  } else {
-    document.getElementById('sidebar-edit-text').value = '';
-  }
-}
-
-function deselectAllElements() {
-  document.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
-  activeSelectedElem = null;
-  document.getElementById('disp-elem-name').innerText = 'Tap Any Item';
-  document.getElementById('disp-pos-top').innerText = '--';
-  document.getElementById('disp-pos-left').innerText = '--';
-  document.getElementById('sidebar-edit-text').value = '';
-  document.getElementById('btn-lock-active').classList.remove('is-locked');
-  document.getElementById('sidebar-lock-btn').innerText = '🔒 Lock Selected Element';
-  clearSmartGuides();
-}
-
-artboardBox.addEventListener('pointerdown', (e) => {
-  if (!e.target.closest('.studio-element') && !e.target.closest('#draggable-toolbar')) {
-    deselectAllElements();
-  }
-});
-
-document.getElementById('stage-viewport').addEventListener('pointerdown', (e) => {
-  if (!e.target.closest('.studio-element') && !e.target.closest('#draggable-toolbar') && !e.target.closest('.sidebar-wrapper') && !e.target.closest('.studio-header')) {
-    deselectAllElements();
-  }
-});
-
-function bindStudioElementsEvents() {
-  document.querySelectorAll('.studio-element').forEach(el => {
-    el.addEventListener('pointerdown', (e) => handleElementTouchStart(e, el));
-    el.addEventListener('touchstart', (e) => handleElementTouchStart(e, el), { passive: false });
-  });
-  attachMoveHandleListeners();
-}
-bindStudioElementsEvents();
-
-window.addEventListener('pointermove', handleElementTouchMove);
-window.addEventListener('touchmove', handleElementTouchMove, { passive: false });
-window.addEventListener('pointerup', handleElementTouchEnd);
-window.addEventListener('touchend', handleElementTouchEnd);
-
-function syncSidebarTextToElement(val) {
-  if (!activeSelectedElem) return;
-  const editTarget = activeSelectedElem.querySelector('.editable-text-field');
-  if (editTarget) editTarget.innerText = val;
-}
-
-/* ─── 4. TOUCH-DRAGGABLE TOOLBAR ─── */
-const toolbar = document.getElementById('draggable-toolbar');
-const toolbarGrip = document.getElementById('toolbar-grip');
-let isDraggingToolbar = false;
-let tbStartX = 0, tbStartY = 0, tbStartL = 0, tbStartT = 0;
-
-function startToolbarDrag(e) {
-  isDraggingToolbar = true;
-  const pt = getEventPoint(e);
-  tbStartX = pt.x; tbStartY = pt.y;
-  tbStartL = toolbar.offsetLeft; tbStartT = toolbar.offsetTop;
-  toolbar.style.transform = 'none';
-  e.stopPropagation();
-}
-
-function moveToolbarDrag(e) {
-  if (!isDraggingToolbar) return;
-  const pt = getEventPoint(e);
-  toolbar.style.left = (tbStartL + (pt.x - tbStartX)) + 'px';
-  toolbar.style.top = (tbStartT + (pt.y - tbStartY)) + 'px';
-}
-
-function endToolbarDrag() { isDraggingToolbar = false; }
-
-toolbarGrip.addEventListener('pointerdown', startToolbarDrag);
-toolbarGrip.addEventListener('touchstart', startToolbarDrag, { passive: false });
-window.addEventListener('pointermove', moveToolbarDrag);
-window.addEventListener('touchmove', moveToolbarDrag, { passive: false });
-window.addEventListener('pointerup', endToolbarDrag);
-window.addEventListener('touchend', endToolbarDrag);
-
-/* ─── 5. FULLSCREEN & HISTORY ENGINE ─── */
-function toggleStudioFullscreen() {
-  if (!document.fullscreenElement) {
-    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(err => console.log(err));
-    const txt = document.getElementById('txt-fullscreen-btn');
-    if (txt) txt.innerText = '✕ EXIT FULLSCREEN (F)';
-  } else {
-    if (document.exitFullscreen) document.exitFullscreen().catch(err => console.log(err));
-    const txt = document.getElementById('txt-fullscreen-btn');
-    if (txt) txt.innerText = '⛶ FULLSCREEN (F)';
-  }
-  setTimeout(resizeStage3D, 350);
-}
-
-document.addEventListener('fullscreenchange', () => {
-  const isFull = !!document.fullscreenElement;
-  const txt = document.getElementById('txt-fullscreen-btn');
-  if (txt) txt.innerText = isFull ? '✕ EXIT FULLSCREEN (F)' : '⛶ FULLSCREEN (F)';
-  setTimeout(resizeStage3D, 350);
-});
-
-window.addEventListener('keydown', (e) => {
-  if (e.target.isContentEditable || e.target.tagName === 'INPUT') return;
-  if (e.key.toLowerCase() === 'f') toggleStudioFullscreen();
-});
-
-let undoHistory = [], redoHistory = [];
-const MAX_HISTORY = 40;
-
-function captureStudioState() {
-  const elementsState = {};
-  document.querySelectorAll('.studio-element').forEach(el => {
-    const id = el.id;
-    const textField = el.querySelector('.editable-text-field');
-    elementsState[id] = {
-      top: el.style.top, left: el.style.left, width: el.style.width, height: el.style.height,
-      fontSize: el.style.fontSize,
-      textHTML: textField ? textField.innerHTML : null
-    };
-  });
-  return { elements: elementsState };
-}
-
-function recordHistoryState() {
-  const currentState = captureStudioState();
-  undoHistory.push(currentState);
-  if (undoHistory.length > MAX_HISTORY) undoHistory.shift();
-  redoHistory = [];
-  updateUndoRedoButtonsUI();
-}
-
-function restoreStudioState(state) {
-  if (!state) return;
-  for (let id in state.elements) {
-    const el = document.getElementById(id);
-    const data = state.elements[id];
-    if (el && data) {
-      if (data.top) el.style.top = data.top;
-      if (data.left) el.style.left = data.left;
-      if (data.width) el.style.width = data.width;
-      if (data.height) el.style.height = data.height;
-      if (data.fontSize) el.style.fontSize = data.fontSize;
-      if (data.textHTML) {
-        const textField = el.querySelector('.editable-text-field');
-        if (textField) textField.innerHTML = data.textHTML;
-      }
-    }
-  }
-  if (activeSelectedElem) selectElement(activeSelectedElem);
-}
-
-function triggerUndo() {
-  if (undoHistory.length === 0) return;
-  const current = captureStudioState();
-  redoHistory.push(current);
-  restoreStudioState(undoHistory.pop());
-  updateUndoRedoButtonsUI();
-}
-
-function triggerRedo() {
-  if (redoHistory.length === 0) return;
-  const current = captureStudioState();
-  undoHistory.push(current);
-  restoreStudioState(redoHistory.pop());
-  updateUndoRedoButtonsUI();
-}
-
-function updateUndoRedoButtonsUI() {
-  const undoBtn = document.querySelector('.btn-history[onclick*="Undo"]');
-  const redoBtn = document.querySelector('.btn-history[onclick*="Redo"]');
-  if (undoBtn) undoBtn.style.opacity = undoHistory.length > 0 ? '1' : '0.4';
-  if (redoBtn) redoBtn.style.opacity = redoHistory.length > 0 ? '1' : '0.4';
-}
-
-function showToastFeedback(msg) {
-  let toast = document.getElementById('studio-toast');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.id = 'studio-toast';
-    toast.style.cssText = 'position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:rgba(12,17,28,0.95);border:1px solid #00d4ff;color:#00d4ff;font-family:"Space Grotesk",sans-serif;font-size:12px;font-weight:800;padding:6px 16px;border-radius:100px;box-shadow:0 0 20px rgba(0,212,255,0.4);z-index:99999;pointer-events:none;transition:opacity 0.2s, transform 0.2s;';
-    document.body.appendChild(toast);
-  }
-  toast.innerText = msg;
-  toast.style.opacity = '1';
-  toast.style.transform = 'translateX(-50%) translateY(0)';
-  clearTimeout(toast.timer);
-  toast.timer = setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateX(-50%) translateY(10px)';
-  }, 1200);
-}
-
-/* ─── 6. INDEPENDENT DEVICE BREAKPOINT MEMORY ─── */
-let currentActiveDevice = 'mobile';
-let studioStorageKey = 'mbm_studio_master_template_v1';
-
-let deviceLayoutProfiles = {
-  mobile: { elements: {} },
-  tablet: { elements: {} },
-  desktop: { elements: {} }
+dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+dustGeo.setAttribute('color', new THREE.BufferAttribute(dustCols, 3));
+const dustMat = new THREE.PointsMaterial({ size: 0.18, vertexColors: true, transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending });
+const dust = new THREE.Points(dustGeo, dustMat);
+scene.add(dust);
+
+// 3D Storefront Pin
+const pinGroup = new THREE.Group();
+pinGroup.position.set(7.6, -0.6, 0.0);
+pinGroup.scale.set(0.88, 0.88, 0.88);
+scene.add(pinGroup);
+
+const headGeo = new THREE.SphereGeometry(2.4, 32, 32);
+const headMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.45 });
+pinGroup.add(new THREE.Mesh(headGeo, headMat));
+
+const shopGroup = new THREE.Group();
+pinGroup.add(shopGroup);
+
+const shopMats = {
+  wall: new THREE.MeshStandardMaterial({ color: 0x0055aa, roughness: 0.2, metalness: 0.3, emissive: 0x001133 }),
+  roofCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, roughness: 0.2, metalness: 0.1, emissive: 0x00d4ff, emissiveIntensity: 0.35 }),
+  roofWhite: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.2, metalness: 0.1, emissive: 0xffffff, emissiveIntensity: 0.2 }),
+  glassCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, emissive: 0x00d4ff, emissiveIntensity: 0.85, roughness: 0.1, metalness: 0.9, transparent: true, opacity: 0.95 }),
+  doorWhite: new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x00d4ff, emissiveIntensity: 0.75, roughness: 0.2 }),
+  foundation: new THREE.MeshStandardMaterial({ color: 0x04101e, roughness: 0.4, metalness: 0.6 })
 };
 
+const shopBase = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.2, 32), shopMats.foundation);
+shopBase.position.y = -0.6;
+shopGroup.add(shopBase);
+
+const shopWalls = new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.45, 1.55), shopMats.wall);
+shopWalls.position.y = 0.2;
+shopGroup.add(shopWalls);
+
+const awningGroup = new THREE.Group();
+awningGroup.position.set(0, 0.7, 0.88);
+awningGroup.rotation.x = Math.PI / 4.5;
+for (let i = -3; i <= 3; i++) {
+  const stripe = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.06, 0.7), i % 2 === 0 ? shopMats.roofCyan : shopMats.roofWhite);
+  stripe.position.x = i * 0.27;
+  awningGroup.add(stripe);
+}
+shopGroup.add(awningGroup);
+
+const winGlass = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.6, 0.08), shopMats.glassCyan);
+winGlass.position.set(-0.42, 0.15, 0.79);
+shopGroup.add(winGlass);
+
+const shopDoor = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.9, 0.08), shopMats.doorWhite);
+shopDoor.position.set(0.45, 0.0, 0.79);
+shopGroup.add(shopDoor);
+
+const tipGeo = new THREE.ConeGeometry(2.38, 3.8, 32);
+const tipMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.45 });
+const tipMesh = new THREE.Mesh(tipGeo, tipMat);
+tipMesh.rotation.x = Math.PI;
+tipMesh.position.y = -0.7;
+pinGroup.add(tipMesh);
+
+// Orbiting Halos
+const ringGeo = new THREE.TorusGeometry(5.4, 0.035, 16, 120);
+const ringMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.35 });
+const halo1 = new THREE.Mesh(ringGeo, ringMat);
+const halo2 = new THREE.Mesh(ringGeo, ringMat);
+halo2.rotation.x = Math.PI / 2.8;
+pinGroup.add(halo1);
+pinGroup.add(halo2);
+
+// 5 Golden Stars
+const starGroup = new THREE.Group();
+pinGroup.add(starGroup);
+const starShape = new THREE.Shape();
+for (let i = 0; i < 10; i++) {
+  const r = i % 2 === 0 ? 0.65 : 0.3;
+  const angle = (i * Math.PI) / 5 - Math.PI / 2;
+  const x = Math.cos(angle) * r, y = Math.sin(angle) * r;
+  if (i === 0) starShape.moveTo(x, y); else starShape.lineTo(x, y);
+}
+starShape.closePath();
+const starGeo = new THREE.ExtrudeGeometry(starShape, { depth: 0.2, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.06, bevelThickness: 0.06 });
+const starMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57 });
+const starMeshes = [];
+const starTrails = [];
+const TRAIL_LENGTH = 16;
+for (let i = 0; i < 5; i++) {
+  const mesh = new THREE.Mesh(starGeo, starMat);
+  mesh.scale.set(1.0, 1.0, 1.0);
+  starGroup.add(mesh);
+  starMeshes.push(mesh);
+
+  const trailGeo = new THREE.BufferGeometry();
+  const trailPositions = new Float32Array(TRAIL_LENGTH * 3);
+  trailGeo.setAttribute('position', new THREE.BufferAttribute(trailPositions, 3));
+  const trailMat = new THREE.PointsMaterial({ color: i % 2 === 0 ? 0xb8ff57 : 0x00d4ff, size: 0.18, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
+  const trailPoints = new THREE.Points(trailGeo, trailMat);
+  starGroup.add(trailPoints);
+  starTrails.push({ points: trailPoints, history: [] });
+}
+
+/* ─── 8 CUSTOMERS WITH KEYWORDS & PURCHASE CONVERSION STREAM ─── */
+function createCustomerAvatarTex() {
+  const c = document.createElement('canvas'); c.width = 128; c.height = 128;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#00d4ff';
+  ctx.shadowColor = '#00d4ff';
+  ctx.shadowBlur = 16;
+  ctx.beginPath(); ctx.arc(64, 38, 20, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(64, 105, 36, Math.PI, 0); ctx.fill();
+  const tex = new THREE.CanvasTexture(c);
+  tex.needsUpdate = true;
+  return tex;
+}
+
+const SEARCH_QUERIES = [
+  '🔍 "Emergency Plumber"',
+  '🔍 "Best Pizza"',
+  '🔍 "Dental Clinic"',
+  '🔍 "Auto Repair"',
+  '🔍 "Licensed Electrician"',
+  '🔍 "Roofing Contractor"',
+  '🔍 "Emergency Locksmith"',
+  '🔍 "Injury Lawyer"',
+  '🔍 "Carpet Cleaning"',
+  '🔍 "Pet Clinic"',
+  '🔍 "Plumber near me"',
+  '🔍 "Best Pizza 24/7"',
+  '🔍 "24/7 HVAC Repair"',
+  '🔍 "Dentist open now"'
+];
+
+const PURCHASE_LABELS = [
+  '💰 +$280 Walk-in Sale',
+  '📅 New Client Booked',
+  '💰 +$650 Emergency Call',
+  '⭐ 5.0 Google Review',
+  '💰 +$520 Inbound Order',
+  '💰 +$420 Storefront Order',
+  '⚡ Same-Day Contract Signed',
+  '🛍️ +$190 Direct Order'
+];
+
+function createKeywordTexture(text) {
+  const c = document.createElement('canvas'); c.width = 512; c.height = 128;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0, 0, 512, 128);
+  ctx.fillStyle = 'rgba(6, 16, 32, 0.90)';
+  ctx.strokeStyle = '#00d4ff';
+  ctx.lineWidth = 4;
+  ctx.shadowColor = 'rgba(0, 212, 255, 0.8)';
+  ctx.shadowBlur = 18;
+  ctx.beginPath(); ctx.roundRect(16, 20, 480, 88, 44); ctx.fill(); ctx.stroke();
+  ctx.shadowBlur = 0;
+  ctx.font = 'bold 32px "Space Grotesk", sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, 256, 64);
+  const tex = new THREE.CanvasTexture(c);
+  tex.needsUpdate = true;
+  return tex;
+}
+
+function createPurchaseTexture(text) {
+  const c = document.createElement('canvas'); c.width = 512; c.height = 128;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0, 0, 512, 128);
+  const grad = ctx.createLinearGradient(0, 0, 512, 0);
+  grad.addColorStop(0, '#00d4ff');
+  grad.addColorStop(1, '#b8ff57');
+  ctx.fillStyle = grad;
+  ctx.shadowColor = '#b8ff57';
+  ctx.shadowBlur = 24;
+  ctx.beginPath(); ctx.roundRect(16, 20, 480, 88, 44); ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.font = '800 34px "Space Grotesk", sans-serif';
+  ctx.fillStyle = '#020205';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, 256, 64);
+  const tex = new THREE.CanvasTexture(c);
+  tex.needsUpdate = true;
+  return tex;
+}
+
+const customerAvatarTex = createCustomerAvatarTex();
+const cachedKeywordTexs = SEARCH_QUERIES.map(createKeywordTexture);
+const cachedPurchaseTexs = PURCHASE_LABELS.map(createPurchaseTexture);
+
+const customerGroup = new THREE.Group();
+scene.add(customerGroup);
+
+const floatingPurchasesGroup = new THREE.Group();
+scene.add(floatingPurchasesGroup);
+
+const customerAvatars = [];
+const TOTAL_CUSTOMERS = 8;
+
+for (let i = 0; i < TOTAL_CUSTOMERS; i++) {
+  const avatarSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: customerAvatarTex, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending, depthWrite: false }));
+  avatarSprite.scale.set(0.48, 0.48, 1);
+  customerGroup.add(avatarSprite);
+
+  const hasKeyword = (i % 2 === 0);
+  let keywordSprite = null;
+  if (hasKeyword) {
+    const kTex = cachedKeywordTexs[i % cachedKeywordTexs.length];
+    keywordSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: kTex, transparent: true, opacity: 0, depthWrite: false }));
+    keywordSprite.scale.set(3.4, 0.85, 1);
+    customerGroup.add(keywordSprite);
+  }
+
+  customerAvatars.push({
+    avatarSprite,
+    keywordSprite,
+    hasKeyword,
+    angle: (i / TOTAL_CUSTOMERS) * Math.PI * 2,
+    dist: 16.0 + Math.random() * 8.0,
+    startY: (Math.random() - 0.5) * 12.0 - 0.5,
+    speed: 0.0010 + Math.random() * 0.0006,
+    progress: (i / TOTAL_CUSTOMERS),
+    floatOffset: Math.random() * Math.PI * 2
+  });
+}
+
+const activePurchaseBadges = [];
+
+function triggerStorefrontPurchaseBurst(pos) {
+  const pTex = cachedPurchaseTexs[Math.floor(Math.random() * cachedPurchaseTexs.length)];
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: pTex, transparent: true, opacity: 0, depthWrite: false }));
+  const baseX = pinGroup.position.x + (Math.random() - 0.5) * 1.2;
+  const baseY = pinGroup.position.y + 1.2;
+  sprite.position.set(baseX, baseY, 2.0);
+  sprite.scale.set(3.8, 0.95, 1);
+  floatingPurchasesGroup.add(sprite);
+
+  activePurchaseBadges.push({
+    sprite,
+    progress: 0,
+    speed: 0.004 + Math.random() * 0.002,
+    baseX,
+    baseY,
+    driftAngle: Math.random() * Math.PI * 2
+  });
+
+  gsap.to(shopWalls.scale, { x: 1.08, y: 1.08, z: 1.08, duration: 0.18, yoyo: true, repeat: 1 });
+}
+
+const clock = new THREE.Clock();
+
+function animate3D() {
+  requestAnimationFrame(animate3D);
+  const time = clock.getElapsedTime();
+
+  dust.rotation.y = time * 0.015;
+  pinGroup.rotation.y = time * 0.35;
+
+  halo1.rotation.z = time * 0.15;
+  halo2.rotation.y = -time * 0.2;
+
+  // Customer avatars
+  const destX = pinGroup.position.x;
+  const destY = pinGroup.position.y + 0.6;
+
+  customerAvatars.forEach((c) => {
+    c.progress += c.speed;
+    if (c.progress >= 1.0) {
+      c.progress = 0;
+      c.angle = Math.random() * Math.PI * 2;
+      c.dist = 18.0 + Math.random() * 8.0;
+      c.startY = (Math.random() - 0.5) * 12.0 - 0.5;
+    }
+
+    const curDist = (1.0 - c.progress) * c.dist + 0.4;
+    const curAngle = c.angle + c.progress * 0.8;
+    const curX = destX + Math.cos(curAngle) * curDist;
+    const curY = (1.0 - c.progress) * c.startY + c.progress * destY + Math.sin(time * 1.5 + c.floatOffset) * 0.2;
+    const curZ = Math.sin(curAngle) * curDist * 0.35 - 1.0;
+
+    c.avatarSprite.position.set(curX, curY, curZ);
+
+    let avatarAlpha = 1.0;
+    if (c.progress < 0.15) {
+      avatarAlpha = c.progress / 0.15;
+    } else if (c.progress > 0.92) {
+      avatarAlpha = (1.0 - c.progress) / 0.08;
+      if (c.progress >= 0.94 && c.progress < 0.94 + c.speed * 1.5) {
+        triggerStorefrontPurchaseBurst(c.avatarSprite.position);
+      }
+    }
+    c.avatarSprite.material.opacity = Math.max(0, Math.min(1, avatarAlpha * 0.9));
+
+    if (c.hasKeyword && c.keywordSprite) {
+      c.keywordSprite.position.set(curX, curY + 0.75, curZ + 0.2);
+
+      let keyAlpha = 0;
+      let keyScale = 1.0;
+
+      if (c.progress < 0.25) {
+        const t = c.progress / 0.25;
+        keyAlpha = t;
+        keyScale = 0.5 + t * 0.5;
+      } else if (c.progress >= 0.25 && c.progress <= 0.60) {
+        keyAlpha = 0.95;
+        keyScale = 1.0;
+      } else if (c.progress > 0.60 && c.progress <= 0.85) {
+        const t = (c.progress - 0.60) / 0.25;
+        keyAlpha = (1.0 - t) * 0.95;
+        keyScale = 1.0 - t * 0.6;
+      } else {
+        keyAlpha = 0;
+      }
+
+      c.keywordSprite.material.opacity = Math.max(0, keyAlpha);
+      c.keywordSprite.scale.set(3.4 * keyScale, 0.85 * keyScale, 1);
+    }
+  });
+
+  // Floating purchase badges
+  for (let i = activePurchaseBadges.length - 1; i >= 0; i--) {
+    const b = activePurchaseBadges[i];
+    b.progress += b.speed;
+    b.sprite.position.y = b.baseY + b.progress * 6.5;
+    b.sprite.position.x = b.baseX + Math.sin(time * 1.4 + b.driftAngle) * 0.25;
+
+    let pAlpha = b.progress < 0.15 ? (b.progress / 0.15) : (b.progress > 0.75 ? (1.0 - b.progress) / 0.25 : 1.0);
+    b.sprite.material.opacity = Math.max(0, pAlpha);
+
+    if (b.progress >= 1.0) {
+      floatingPurchasesGroup.remove(b.sprite);
+      activePurchaseBadges.splice(i, 1);
+    }
+  }
+
+  // 5 Golden Stars
+  const orbitR = 5.4;
+  starMeshes.forEach((star, idx) => {
+    const angle = time * 1.0 + (idx * (Math.PI * 2 / 5));
+    star.position.set(Math.cos(angle) * orbitR, Math.sin(time * 1.8 + idx) * 0.6, Math.sin(angle) * orbitR);
+    star.rotation.y = time * 1.4;
+
+    const trail = starTrails[idx];
+    trail.history.unshift({ x: star.position.x, y: star.position.y, z: star.position.z });
+    if (trail.history.length > TRAIL_LENGTH) trail.history.pop();
+    const posArray = trail.points.geometry.attributes.position.array;
+    for (let j = 0; j < TRAIL_LENGTH; j++) {
+      if (j < trail.history.length) {
+        posArray[j * 3] = trail.history[j].x;
+        posArray[j * 3 + 1] = trail.history[j].y;
+        posArray[j * 3 + 2] = trail.history[j].z;
+      }
+    }
+    trail.points.geometry.attributes.position.needsUpdate = true;
+  });
+
+  renderer.render(scene, camera);
+}
+
+function resizeHero3D() {
+  const wrapper = document.getElementById('artboard-canvas-wrapper');
+  if (!wrapper) return;
+  const w = wrapper.clientWidth;
+  const h = wrapper.clientHeight;
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DEVICE PROFILE MANAGEMENT & LOCALSTORAGE ENGINE
+   ═══════════════════════════════════════════════════════════ */
+const defaultDeviceProfiles = {
+  desktop: {
+    pinScale: 0.88,
+    pinX: 7.6,
+    pinY: -0.6,
+    elements: {
+      'elem-3d-pin': { top: 110, left: 640, width: 580, height: 540, fontSize: null },
+      'elem-hero-badge': { top: 145, left: 70, width: 340, height: 42, fontSize: 11 },
+      'elem-hero-title': { top: 205, left: 70, width: 580, height: 210, fontSize: 44 },
+      'elem-hero-ticker': { top: 445, left: 70, width: 440, height: 44, fontSize: 13 },
+      'elem-hero-cta': { top: 510, left: 70, width: 280, height: 52, fontSize: 13 }
+    }
+  },
+  tablet: {
+    pinScale: 0.72,
+    pinX: 4.6,
+    pinY: -0.8,
+    elements: {
+      'elem-3d-pin': { top: 100, left: 380, width: 420, height: 400, fontSize: null },
+      'elem-hero-badge': { top: 140, left: 40, width: 320, height: 42, fontSize: 10.5 },
+      'elem-hero-title': { top: 195, left: 40, width: 460, height: 180, fontSize: 34 },
+      'elem-hero-ticker': { top: 405, left: 40, width: 380, height: 44, fontSize: 12 },
+      'elem-hero-cta': { top: 470, left: 40, width: 260, height: 50, fontSize: 12 }
+    }
+  },
+  mobile: {
+    pinScale: 0.52,
+    pinX: 0.0,
+    pinY: 2.2,
+    elements: {
+      'elem-3d-pin': { top: 90, left: 16, width: 360, height: 320, fontSize: null },
+      'elem-hero-badge': { top: 430, left: 24, width: 345, height: 38, fontSize: 9.5 },
+      'elem-hero-title': { top: 480, left: 20, width: 353, height: 150, fontSize: 26 },
+      'elem-hero-ticker': { top: 645, left: 24, width: 345, height: 40, fontSize: 10.5 },
+      'elem-hero-cta': { top: 705, left: 24, width: 345, height: 48, fontSize: 12 }
+    }
+  }
+};
+
+let deviceLayoutProfiles = JSON.parse(JSON.stringify(defaultDeviceProfiles));
+let currentActiveDevice = 'desktop';
+
+const STORAGE_KEY = 'mbm_hero_profiles_v1';
+const DEV_KEY = 'mbm_hero_active_dev_v1';
+
+try {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    if (parsed.desktop && parsed.mobile && parsed.tablet) {
+      deviceLayoutProfiles = parsed;
+    }
+  }
+  const savedDev = localStorage.getItem(DEV_KEY);
+  if (savedDev && (savedDev === 'desktop' || savedDev === 'tablet' || savedDev === 'mobile')) {
+    currentActiveDevice = savedDev;
+  }
+} catch(e) {}
+
 function saveCurrentDeviceProfile() {
-  const profile = { elements: {} };
+  const prof = deviceLayoutProfiles[currentActiveDevice];
+  if (!prof) return;
+
+  prof.pinScale = pinGroup.scale.x;
+  prof.pinX = pinGroup.position.x;
+  prof.pinY = pinGroup.position.y;
+
   document.querySelectorAll('.studio-element').forEach(el => {
     const id = el.id;
-    const textField = el.querySelector('.editable-text-field');
-    profile.elements[id] = {
-      top: el.style.top, left: el.style.left, width: el.style.width, height: el.style.height,
-      fontSize: el.style.fontSize,
-      textHTML: textField ? textField.innerHTML : null
-    };
+    if (!prof.elements[id]) prof.elements[id] = {};
+    prof.elements[id].top = parseInt(el.style.top, 10) || el.offsetTop;
+    prof.elements[id].left = parseInt(el.style.left, 10) || el.offsetLeft;
+    prof.elements[id].width = el.offsetWidth;
+    prof.elements[id].height = el.offsetHeight;
+    const edit = el.querySelector('.editable-text-field');
+    if (edit) {
+      const fSize = parseFloat(window.getComputedStyle(edit).fontSize);
+      prof.elements[id].fontSize = fSize || null;
+    }
   });
-  deviceLayoutProfiles[currentActiveDevice] = profile;
+
   try {
-    localStorage.setItem(studioStorageKey, JSON.stringify(deviceLayoutProfiles));
-    localStorage.setItem(studioStorageKey + '_dev', currentActiveDevice);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(deviceLayoutProfiles));
+    localStorage.setItem(DEV_KEY, currentActiveDevice);
   } catch(e) {}
 }
 
 function loadDeviceProfile(dev) {
-  const profile = deviceLayoutProfiles[dev];
-  if (!profile || !profile.elements) return;
-  for (let id in profile.elements) {
-    const el = document.getElementById(id);
-    const data = profile.elements[id];
-    if (el && data) {
-      if (data.top) el.style.top = data.top;
-      if (data.left) el.style.left = data.left;
-      if (data.width) el.style.width = data.width;
-      if (data.height) el.style.height = data.height;
-      if (data.fontSize) el.style.fontSize = data.fontSize;
-      if (data.textHTML) {
-        const textField = el.querySelector('.editable-text-field');
-        if (textField) textField.innerHTML = data.textHTML;
+  currentActiveDevice = dev;
+  const prof = deviceLayoutProfiles[dev] || defaultDeviceProfiles[dev];
+  if (!prof) return;
+
+  if (prof.pinScale) {
+    pinGroup.scale.set(prof.pinScale, prof.pinScale, prof.pinScale);
+    const slScale = document.getElementById('slider-pin-scale');
+    if (slScale) slScale.value = prof.pinScale;
+    const dispScale = document.getElementById('disp-pin-scale');
+    if (dispScale) dispScale.innerText = prof.pinScale.toFixed(2) + 'x';
+  }
+  if (prof.pinX !== undefined) {
+    pinGroup.position.x = prof.pinX;
+    const slX = document.getElementById('slider-pin-x');
+    if (slX) slX.value = prof.pinX;
+    const dispX = document.getElementById('disp-pin-x');
+    if (dispX) dispX.innerText = prof.pinX.toFixed(1);
+  }
+  if (prof.pinY !== undefined) {
+    pinGroup.position.y = prof.pinY;
+    const slY = document.getElementById('slider-pin-y');
+    if (slY) slY.value = prof.pinY;
+    const dispY = document.getElementById('disp-pin-y');
+    if (dispY) dispY.innerText = prof.pinY.toFixed(1);
+  }
+
+  if (prof.elements) {
+    Object.keys(prof.elements).forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const data = prof.elements[id];
+      if (data.top !== undefined) el.style.top = data.top + 'px';
+      if (data.left !== undefined) el.style.left = data.left + 'px';
+      if (data.width !== undefined) el.style.width = data.width + 'px';
+      if (data.fontSize) {
+        const edit = el.querySelector('.editable-text-field');
+        if (edit) edit.style.fontSize = data.fontSize + 'px';
       }
-    }
+    });
   }
 }
 
 function switchStudioDevice(dev) {
-  if (dev === currentActiveDevice) return;
   saveCurrentDeviceProfile();
-  deselectAllElements();
-
-  const prevDev = currentActiveDevice;
   currentActiveDevice = dev;
 
+  const artboard = document.getElementById('artboard-canvas-wrapper');
+  if (artboard) artboard.className = dev;
+
   document.querySelectorAll('.btn-device').forEach(b => b.classList.remove('active'));
-  const activeBtn = document.getElementById('btn-dev-' + dev);
-  if (activeBtn) activeBtn.classList.add('active');
+  const btn = document.getElementById('btn-dev-' + dev);
+  if (btn) btn.classList.add('active');
 
   const devNames = { mobile: '📱 MOBILE', tablet: '📟 TABLET', desktop: '🖥️ DESKTOP' };
   const devColors = { mobile: '#00d4ff', tablet: '#ffd700', desktop: '#b8ff57' };
-
-  const badge = document.getElementById('active-profile-indicator');
-  if (badge) {
-    badge.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + devColors[dev] + ';box-shadow:0 0 8px ' + devColors[dev] + ';"></span><span>EDITING: ' + devNames[dev] + '</span>';
-    badge.style.borderColor = devColors[dev];
-    badge.style.color = devColors[dev];
+  const ind = document.getElementById('active-profile-indicator');
+  if (ind) {
+    ind.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + devColors[dev] + ';box-shadow:0 0 8px ' + devColors[dev] + ';"></span><span>EDITING: ' + devNames[dev] + '</span>';
+    ind.style.borderColor = devColors[dev];
+    ind.style.color = devColors[dev];
   }
-  const sidebarName = document.getElementById('sidebar-active-device-name');
-  if (sidebarName) {
-    sidebarName.innerText = devNames[dev];
-    sidebarName.style.color = devColors[dev];
+  const sideName = document.getElementById('sidebar-active-device-name');
+  if (sideName) {
+    sideName.innerText = devNames[dev];
+    sideName.style.color = devColors[dev];
   }
 
-  artboardBox.className = dev;
   loadDeviceProfile(dev);
-  resizeStage3D();
-  showToastFeedback(devNames[prevDev] + ' Saved ➔ ' + devNames[dev] + ' Loaded');
+  resizeHero3D();
+  triggerHeroSectionReplay();
 }
 
 function manualSaveCurrentProfile() {
   saveCurrentDeviceProfile();
-  const devNames = { mobile: '📱 Mobile', tablet: '📟 Tablet', desktop: '🖥️ Desktop' };
-  showToastFeedback('✅ ' + devNames[currentActiveDevice] + ' Profile Saved Permanently!');
+  const btn = document.getElementById('btn-manual-save-profile');
+  if (btn) {
+    btn.innerHTML = '<span>✅ PROFILE SAVED!</span>';
+    btn.style.background = 'rgba(184, 255, 87, 0.3)';
+    btn.style.borderColor = '#b8ff57';
+    btn.style.color = '#b8ff57';
+    setTimeout(() => {
+      btn.innerHTML = '<span>💾 SAVE CURRENT PROFILE</span>';
+      btn.style.background = 'rgba(0,212,255,0.2)';
+      btn.style.borderColor = '#00d4ff';
+      btn.style.color = '#00d4ff';
+    }, 1500);
+  }
 }
 
 function resetCurrentProfileToDefaults() {
-  recordHistoryState();
-  deviceLayoutProfiles[currentActiveDevice] = { elements: {} };
+  deviceLayoutProfiles[currentActiveDevice] = JSON.parse(JSON.stringify(defaultDeviceProfiles[currentActiveDevice]));
+  loadDeviceProfile(currentActiveDevice);
   saveCurrentDeviceProfile();
-  resizeStage3D();
-  showToastFeedback('🔄 Profile Reset to Clean Defaults');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CANVA-GRADE DRAGGING & TOUCH WHITEBOARD ENGINE
+   ═══════════════════════════════════════════════════════════ */
+let activeSelectedElem = null;
+let isDragging = false;
+let startX = 0, startY = 0;
+let initialElemLeft = 0, initialElemTop = 0;
+
+const artboard = document.getElementById('artboard-canvas-wrapper');
+
+document.querySelectorAll('.studio-element').forEach(el => {
+  el.addEventListener('pointerdown', (e) => {
+    if (e.target.classList.contains('editable-text-field') && e.target.isContentEditable) {
+      return; // allow text selection
+    }
+    if (el.classList.contains('element-locked')) return;
+
+    selectStudioElement(el);
+    isDragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    initialElemLeft = el.offsetLeft;
+    initialElemTop = el.offsetTop;
+    el.setPointerCapture(e.pointerId);
+  });
+
+  el.addEventListener('pointermove', (e) => {
+    if (!isDragging || activeSelectedElem !== el) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    const newLeft = Math.max(0, Math.min(artboard.clientWidth - el.offsetWidth, initialElemLeft + dx));
+    const newTop = Math.max(0, Math.min(artboard.clientHeight - el.offsetHeight, initialElemTop + dy));
+    el.style.left = newLeft + 'px';
+    el.style.top = newTop + 'px';
+    updateSidebarCoords(el);
+  });
+
+  el.addEventListener('pointerup', (e) => {
+    if (isDragging) {
+      isDragging = false;
+      saveCurrentDeviceProfile();
+    }
+  });
+});
+
+function selectStudioElement(el) {
+  document.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
+  el.classList.add('selected-box');
+  activeSelectedElem = el;
+  updateSidebarCoords(el);
+}
+
+function updateSidebarCoords(el) {
+  const dispName = document.getElementById('disp-elem-name');
+  const dispTop = document.getElementById('disp-pos-top');
+  const dispLeft = document.getElementById('disp-pos-left');
+  if (dispName) dispName.innerText = el.getAttribute('data-name') || el.id;
+  if (dispTop) dispTop.innerText = el.offsetTop + 'px';
+  if (dispLeft) dispLeft.innerText = el.offsetLeft + 'px';
+
+  const edit = el.querySelector('.editable-text-field');
+  if (edit) {
+    const fSize = parseFloat(window.getComputedStyle(edit).fontSize);
+    const dispFont = document.getElementById('disp-font-size');
+    const slFont = document.getElementById('slider-font-size');
+    if (dispFont) dispFont.innerText = Math.round(fSize) + 'px';
+    if (slFont) slFont.value = Math.round(fSize);
+  }
 }
 
 function toggleLockSelectedElement() {
   if (!activeSelectedElem) return;
   activeSelectedElem.classList.toggle('element-locked');
   const isLocked = activeSelectedElem.classList.contains('element-locked');
-  document.getElementById('btn-lock-active').classList.toggle('is-locked', isLocked);
-  document.getElementById('sidebar-lock-btn').innerText = isLocked ? '🔓 Unlock This Element' : '🔒 Lock This Element';
+  const btn = document.getElementById('btn-lock-active');
+  const sideBtn = document.getElementById('sidebar-lock-btn');
+  if (btn) btn.classList.toggle('is-locked', isLocked);
+  if (sideBtn) sideBtn.innerHTML = isLocked ? '<span>🔓 Unlock This Element</span>' : '<span>🔒 Lock This Element</span>';
 }
 
-function alignSelectedElement(pos) {
-  if (!activeSelectedElem) return;
-  recordHistoryState();
-  if (pos === 'left') activeSelectedElem.style.left = '24px';
-  else if (pos === 'center') activeSelectedElem.style.left = Math.round((artboardBox.clientWidth - activeSelectedElem.offsetWidth) / 2) + 'px';
-  else if (pos === 'right') activeSelectedElem.style.left = (artboardBox.clientWidth - activeSelectedElem.offsetWidth - 24) + 'px';
-  activeSelectedElem.style.transform = 'none';
-  document.getElementById('disp-pos-left').innerText = activeSelectedElem.offsetLeft + 'px';
+function change3DPinScale(val) {
+  const v = parseFloat(val);
+  document.getElementById('disp-pin-scale').innerText = v.toFixed(2) + 'x';
+  pinGroup.scale.set(v, v, v);
   saveCurrentDeviceProfile();
 }
 
-function toggleSidebar() {
-  const sb = document.getElementById('studio-sidebar-panel');
-  const arrow = document.getElementById('handle-arrow');
-  sb.classList.toggle('collapsed');
-  arrow.innerText = sb.classList.contains('collapsed') ? '❮' : '❯';
-  setTimeout(resizeStage3D, 320);
+function change3DPinX(val) {
+  const v = parseFloat(val);
+  document.getElementById('disp-pin-x').innerText = v.toFixed(1);
+  pinGroup.position.x = v;
+  saveCurrentDeviceProfile();
+}
+
+function change3DPinY(val) {
+  const v = parseFloat(val);
+  document.getElementById('disp-pin-y').innerText = v.toFixed(1);
+  pinGroup.position.y = v;
+  saveCurrentDeviceProfile();
 }
 
 function changeSelectedFontSize(val) {
@@ -4613,26 +4655,62 @@ function changeSelectedFontSize(val) {
   if (activeSelectedElem) {
     const edit = activeSelectedElem.querySelector('.editable-text-field');
     if (edit) edit.style.fontSize = val + 'px';
+    saveCurrentDeviceProfile();
   }
 }
 
-function applySectionPreset(name) {
-  showToastFeedback('⚡ Preset Applied: ' + name);
+function triggerHeroSectionReplay() {
+  const badge = document.getElementById('elem-hero-badge');
+  const title = document.getElementById('elem-hero-title');
+  const ticker = document.getElementById('elem-hero-ticker');
+  const cta = document.getElementById('elem-hero-cta');
+
+  if (badge) gsap.fromTo(badge, { y: 25, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.5)" });
+  if (title) gsap.fromTo(title, { y: 35, opacity: 0, filter: "blur(8px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.85, delay: 0.12, ease: "power3.out" });
+  if (ticker) gsap.fromTo(ticker, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, delay: 0.25, ease: "power2.out" });
+  if (cta) gsap.fromTo(cta, { y: 20, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, duration: 0.8, delay: 0.35, ease: "back.out(1.7)" });
+  
+  if (pinGroup) {
+    gsap.fromTo(pinGroup.position, { z: -10, y: pinGroup.position.y - 2 }, { z: 0, y: pinGroup.position.y, duration: 1.2, ease: "expo.out" });
+  }
 }
 
-function triggerSectionReplay() {
-  showToastFeedback('↻ Stage Replayed');
+function applyHeroPreset(name) {
+  if (name === 'desktop_gold') {
+    switchStudioDevice('desktop');
+  } else if (name === 'tablet_center') {
+    switchStudioDevice('tablet');
+  } else if (name === 'mobile_compact') {
+    switchStudioDevice('mobile');
+  } else if (name === 'high_impact') {
+    switchStudioDevice('desktop');
+    change3DPinScale(1.05);
+  }
 }
 
 function exportArtboardPNG() {
   document.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
-  clearSmartGuides();
-  html2canvas(artboardBox, { backgroundColor: '#020205', scale: 2 }).then(canvas => {
+  html2canvas(artboard, { backgroundColor: '#020205', scale: 2 }).then(cvs => {
     const link = document.createElement('a');
-    link.download = 'MBM-Section-Mockup.png';
-    link.href = canvas.toDataURL('image/png');
+    link.download = 'MBM-Hero-Section-Mockup.png';
+    link.href = cvs.toDataURL('image/png');
     link.click();
   });
+}
+
+function toggleSidebar() {
+  const sidebar = document.getElementById('studio-sidebar-panel');
+  const arrow = document.getElementById('handle-arrow');
+  sidebar.classList.toggle('collapsed');
+  arrow.innerText = sidebar.classList.contains('collapsed') ? '❮' : '❯';
+}
+
+function toggleStudioFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
 }
 
 function setActiveWhiteboardTool(tool) {
@@ -4641,43 +4719,15 @@ function setActiveWhiteboardTool(tool) {
   if (btn) btn.classList.add('active');
 }
 
-function toggleDrawingToolsTray() {
-  const tray = document.getElementById('drawing-tools-tray');
-  const btn = document.getElementById('btn-toggle-draw');
-  const arrow = document.getElementById('tray-arrow-icon');
-  tray.classList.toggle('collapsed');
-  btn.classList.toggle('active');
-  arrow.innerText = tray.classList.contains('collapsed') ? '❯' : '❮';
-}
+function triggerUndo() {}
+function triggerRedo() {}
 
-function selectPaletteColor(hex, dot) {
-  document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
-  dot.classList.add('active');
-}
-
-function clearAllDrawingCanvas() {
-  const dCanvas = document.getElementById('drawing-surface');
-  const ctx = dCanvas.getContext('2d');
-  ctx.clearRect(0, 0, dCanvas.width, dCanvas.height);
-}
-
-// ─── INITIAL BOOT SEQUENCE ───
-try {
-  const saved = localStorage.getItem(studioStorageKey);
-  if (saved) deviceLayoutProfiles = JSON.parse(saved);
-  const savedDev = localStorage.getItem(studioStorageKey + '_dev');
-  if (savedDev) currentActiveDevice = savedDev;
-} catch(e) {}
-
-artboardBox.className = currentActiveDevice;
-document.querySelectorAll('.btn-device').forEach(b => b.classList.remove('active'));
-const initialDevBtn = document.getElementById('btn-dev-' + currentActiveDevice);
-if (initialDevBtn) initialDevBtn.classList.add('active');
-
+// ─── INITIAL BOOT ───
+window.addEventListener('resize', resizeHero3D);
 loadDeviceProfile(currentActiveDevice);
-window.addEventListener('resize', resizeStage3D);
-resizeStage3D();
-updateUndoRedoButtonsUI();
+resizeHero3D();
+animate3D();
+triggerHeroSectionReplay();
 </script>
 </body>
 </html>
