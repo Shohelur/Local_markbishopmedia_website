@@ -396,7 +396,7 @@ const PURCHASE_LABELS = [
   '📅 New Client Booked',
   '💰 +$650 Emergency Call',
   '⭐ 5.0 Google Review',
-  '📞 Inbound Buyer Call',
+  '💰 +$520 Inbound Order',
   '💰 +$420 Storefront Order',
   '⚡ Same-Day Contract Signed',
   '🛍️ +$190 Direct Order'
@@ -454,7 +454,7 @@ const floatingPurchasesGroup = new THREE.Group();
 scene.add(floatingPurchasesGroup);
 
 const customerAvatars = [];
-const TOTAL_CUSTOMERS = 10;
+const TOTAL_CUSTOMERS = 8;
 
 for (let i = 0; i < TOTAL_CUSTOMERS; i++) {
   const avatarSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: customerAvatarTex, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending }));
