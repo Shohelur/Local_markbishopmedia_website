@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mark Bishop Media · Hero Section (Desktop Version)</title>
+<title>Mark Bishop Media · Hero Section Prototype</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -39,8 +39,6 @@ html,body{
   background:radial-gradient(circle at center, transparent 35%, rgba(2,2,5,0.45) 75%, #020205 100%);
 }
 
-/* NAVIGATION REMOVED FROM HERO PROTOTYPE */
-
 /* HERO VIEWPORT */
 .hero-wrapper{
   position:relative;
@@ -65,9 +63,9 @@ html,body{
   z-index: 30;
   max-width: 580px;
   width: 100%;
-  opacity: 1;
-  transform: none;
-  filter: none;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
   pointer-events: all;
 }
 
@@ -146,7 +144,6 @@ html,body{
   text-decoration:none;
 }
 .btn-primary-glow:hover{transform:scale(1.05) translateY(-2px);box-shadow:0 0 50px rgba(184,255,87,0.75)}
-#hero-left { opacity: 1 !important; transform: none !important; filter: none !important; visibility: visible !important; }
 </style>
 </head>
 <body>
@@ -155,9 +152,7 @@ html,body{
 <canvas id="master-3d-canvas"></canvas>
 <div class="scene-vignette"></div>
 
-<!-- NAVIGATION REMOVED: HERO ONLY -->
-
-<!-- 4. HERO SECTION -->
+<!-- 2. HERO SECTION CONTENT -->
 <main class="hero-wrapper">
   <div class="hero-inner-container">
     <div class="hero-left-content" id="hero-left">
@@ -220,16 +215,15 @@ function cycleTicker() {
 }
 setInterval(cycleTicker, 3200);
 
-/* ─── THREE.JS & GSAP DESKTOP SCENE ─── */
+/* ─── THREE.JS DESKTOP SCENE ─── */
 const canvas = document.getElementById('master-3d-canvas');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(0, 1.2, 22);
-
-const lookAtTarget = { x: 0, y: 1.2, z: 0 };
 
 function onResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -237,60 +231,10 @@ function onResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 window.addEventListener('resize', onResize);
-onResize();
 
 const ambLight = new THREE.AmbientLight(0x0a182e, 2.8); scene.add(ambLight);
 const dirLight = new THREE.DirectionalLight(0xffffff, 3.2); dirLight.position.set(8, 14, 10); scene.add(dirLight);
 const pointCyan = new THREE.PointLight(0x00d4ff, 3.8, 30); pointCyan.position.set(-6, 6, 8); scene.add(pointCyan);
-
-/* ─── PROCEDURAL TEXTURES ─── */
-function createCustomerTexture() {
-  const c = document.createElement('canvas'); c.width = 64; c.height = 64;
-  const ctx = c.getContext('2d');
-  ctx.beginPath(); ctx.arc(32, 18, 9, 0, Math.PI * 2); ctx.fillStyle = '#00f0ff'; ctx.shadowColor = '#00f0ff'; ctx.shadowBlur = 10; ctx.fill();
-  ctx.beginPath(); ctx.arc(32, 48, 15, Math.PI, 0, false); ctx.fillStyle = '#00f0ff'; ctx.fill();
-  return new THREE.CanvasTexture(c);
-}
-
-function createUltraPurchaseBadge(icon, mainText, subText, colorHex, bgHex) {
-  const c = document.createElement('canvas'); c.width = 360; c.height = 114;
-  const ctx = c.getContext('2d');
-  ctx.fillStyle = bgHex; ctx.strokeStyle = colorHex; ctx.lineWidth = 3.5; ctx.shadowColor = colorHex; ctx.shadowBlur = 24;
-  ctx.beginPath(); ctx.roundRect(10, 10, 340, 94, 20); ctx.fill(); ctx.stroke();
-  ctx.font = 'bold 36px sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillStyle = colorHex; ctx.fillText(icon, 28, 57);
-  ctx.font = 'bold 26px "Space Grotesk", sans-serif'; ctx.fillStyle = '#ffffff'; ctx.fillText(mainText, 84, 44);
-  ctx.font = 'bold 15px "JetBrains Mono", monospace'; ctx.fillStyle = colorHex; ctx.fillText(subText, 84, 74);
-  const tex = new THREE.CanvasTexture(c);
-  tex.needsUpdate = true;
-  return tex;
-}
-
-function createFloatingHoverBannerTexture() {
-  const c = document.createElement('canvas');
-  c.width = 480; c.height = 120;
-  const ctx = c.getContext('2d');
-  ctx.fillStyle = 'rgba(6, 22, 38, 0.98)';
-  ctx.strokeStyle = '#b8ff57';
-  ctx.lineWidth = 4;
-  ctx.shadowColor = '#b8ff57';
-  ctx.shadowBlur = 25;
-  ctx.beginPath(); ctx.roundRect(10, 10, 460, 100, 24); ctx.fill(); ctx.stroke();
-  ctx.font = 'bold 44px sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#b8ff57'; ctx.fillText('🏪', 30, 60);
-  ctx.font = '800 30px "Space Grotesk", sans-serif'; ctx.fillStyle = '#ffffff'; ctx.fillText('SMALL BUSINESS', 96, 46);
-  ctx.font = 'bold 16px "JetBrains Mono", monospace'; ctx.fillStyle = '#00d4ff'; ctx.fillText('● VERIFIED LOCAL STOREFRONT', 96, 80);
-  const tex = new THREE.CanvasTexture(c);
-  tex.needsUpdate = true;
-  return tex;
-}
-
-const customerTex = createCustomerTexture();
-const hoverBannerTex = createFloatingHoverBannerTexture();
-const purchaseTextures = [
-  createUltraPurchaseBadge('💰', '+$450 BOOKING', 'LOCAL CLIENT ACQUIRED', '#b8ff57', 'rgba(6, 26, 16, 0.96)'),
-  createUltraPurchaseBadge('📞', 'NEW INBOUND CALL', 'HIGH-INTENT BUYER', '#00d4ff', 'rgba(4, 20, 38, 0.96)'),
-  createUltraPurchaseBadge('★', '5-STAR SERVICE SALE', 'AUTOMATED 3-PACK WIN', '#b8ff57', 'rgba(6, 26, 16, 0.96)'),
-  createUltraPurchaseBadge('⚡', '+$680 RETAINER', 'REPEAT APPOINTMENT', '#b8ff57', 'rgba(6, 26, 16, 0.96)')
-];
 
 /* ─── 850 PARTICLES ─── */
 const dustCount = 850;
@@ -314,167 +258,10 @@ dustGeo.setAttribute('color', new THREE.BufferAttribute(dustCols, 3));
 const dustMat = new THREE.PointsMaterial({ size: 0.18, vertexColors: true, transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending });
 scene.add(new THREE.Points(dustGeo, dustMat));
 
-/* ═══════════════════════════════════════════════════════════
-   AUTHENTIC 3D CUSTOMER SEARCH ➔ STOREFRONT CONVERSION ENGINE
-   ═══════════════════════════════════════════════════════════ */
-const SEARCH_QUERIES_LIST = [
-  '🔍 "Plumber near me"',
-  '🔍 "Best Pizza 24/7"',
-  '🔍 "Emergency Dentist"',
-  '🔍 "Auto Repair near me"',
-  '🔍 "HVAC Specialist"',
-  '🔍 "Roofing Contractor"',
-  '🔍 "Emergency Locksmith"'
-];
-
-const PURCHASE_LABELS_LIST = [
-  '💰 +$280 Walk-in Sale',
-  '🛍️ Booked Appointment',
-  '💰 +$540 Emergency Service',
-  '★ 5.0 Google Review',
-  '💰 +$360 Storefront Sale'
-];
-
-function createKeywordPillTexture(text) {
-  const c = document.createElement('canvas');
-  c.width = 512;
-  c.height = 128;
-  const ctx = c.getContext('2d');
-
-  // Frosted Pill Container
-  ctx.fillStyle = 'rgba(8, 16, 30, 0.92)';
-  ctx.strokeStyle = '#00d4ff';
-  ctx.lineWidth = 4;
-  ctx.shadowColor = 'rgba(0, 212, 255, 0.8)';
-  ctx.shadowBlur = 18;
-
-  ctx.beginPath();
-  ctx.roundRect(16, 20, 480, 88, 44);
-  ctx.fill();
-  ctx.stroke();
-
-  // Keyword Text
-  ctx.shadowBlur = 0;
-  ctx.font = 'bold 32px "Space Grotesk", sans-serif';
-  ctx.fillStyle = '#ffffff';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(text, 256, 64);
-
-  const tex = new THREE.CanvasTexture(c);
-  tex.needsUpdate = true;
-  return tex;
-}
-
-function createPurchaseBadgeTexture(text) {
-  const c = document.createElement('canvas');
-  c.width = 512;
-  c.height = 128;
-  const ctx = c.getContext('2d');
-
-  // Glowing Green/Cyan Capsule
-  const grad = ctx.createLinearGradient(0, 0, 512, 0);
-  grad.addColorStop(0, '#00d4ff');
-  grad.addColorStop(1, '#b8ff57');
-
-  ctx.fillStyle = grad;
-  ctx.shadowColor = '#b8ff57';
-  ctx.shadowBlur = 24;
-
-  ctx.beginPath();
-  ctx.roundRect(16, 20, 480, 88, 44);
-  ctx.fill();
-
-  // Dark Bold Typography
-  ctx.shadowBlur = 0;
-  ctx.font = '800 34px "Space Grotesk", sans-serif';
-  ctx.fillStyle = '#020205';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(text, 256, 64);
-
-  const tex = new THREE.CanvasTexture(c);
-  tex.needsUpdate = true;
-  return tex;
-}
-
-// Pre-generate keyword and purchase textures
-const cachedKeywordTextures = SEARCH_QUERIES_LIST.map(createKeywordPillTexture);
-const cachedPurchaseTextures = PURCHASE_LABELS_LIST.map(createPurchaseBadgeTexture);
-
-// Customer Avatar Sprite Material
-const customerMat = new THREE.SpriteMaterial({ map: customerTex, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending });
-
-// Customer Avatar Pool (Clean & Calm Pacing: 8 Units)
-const customerGroup = new THREE.Group();
-scene.add(customerGroup);
-
-const floatingPurchasesGroup = new THREE.Group();
-scene.add(floatingPurchasesGroup);
-
-const customerAvatars = [];
-const TOTAL_CUSTOMERS = 8;
-
-for (let i = 0; i < TOTAL_CUSTOMERS; i++) {
-  // Avatar Silhouette Sprite
-  const avatarSprite = new THREE.Sprite(customerMat);
-  avatarSprite.scale.set(0.48, 0.48, 1);
-  customerGroup.add(avatarSprite);
-
-  // Keyword Popup Sprite (Attached only to ~40% to prevent overcrowding)
-  const hasKeyword = (i % 2 === 0);
-  let keywordSprite = null;
-  if (hasKeyword) {
-    const kTex = cachedKeywordTextures[i % cachedKeywordTextures.length];
-    keywordSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: kTex, transparent: true, opacity: 0 }));
-    keywordSprite.scale.set(3.4, 0.85, 1);
-    customerGroup.add(keywordSprite);
-  }
-
-  const custObj = {
-    avatarSprite,
-    keywordSprite,
-    hasKeyword,
-    angle: (i / TOTAL_CUSTOMERS) * Math.PI * 2,
-    dist: 16.0 + Math.random() * 8.0,
-    startY: (Math.random() - 0.5) * 12.0 - 0.5,
-    speed: 0.0010 + Math.random() * 0.0006, // Slow, elegant, organic glide
-    progress: (i / TOTAL_CUSTOMERS),
-    floatOffset: Math.random() * Math.PI * 2
-  };
-
-  customerAvatars.push(custObj);
-}
-
-// Active Floating Purchase Badges array
-const activePurchaseBadges = [];
-
-function triggerStorefrontPurchaseBurst(pos) {
-  const pTex = cachedPurchaseTextures[Math.floor(Math.random() * cachedPurchaseTextures.length)];
-  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: pTex, transparent: true, opacity: 0, depthTest: false }));
-  
-  const baseX = pinGroup.position.x + (Math.random() - 0.5) * 1.2;
-  const baseY = pinGroup.position.y + 1.2;
-  sprite.position.set(baseX, baseY, 2.0);
-  sprite.scale.set(3.8, 0.95, 1);
-  floatingPurchasesGroup.add(sprite);
-
-  activePurchaseBadges.push({
-    sprite,
-    progress: 0,
-    speed: 0.004 + Math.random() * 0.002,
-    baseX,
-    baseY,
-    driftAngle: Math.random() * Math.PI * 2
-  });
-
-  // Subtle pulse on Storefront Walls
-  gsap.to(shopWalls.scale, { x: 1.08, y: 1.08, z: 1.08, duration: 0.18, yoyo: true, repeat: 1 });
-}
-
-/* ─── 3D PIN & STOREFRONT ─── */
+/* ─── 3D PIN & STOREFRONT (POSITIONED AT USER'S RED RECTANGLE) ─── */
 const pinGroup = new THREE.Group();
 pinGroup.position.set(7.6, -0.6, 0.0);
+pinGroup.scale.set(0.88, 0.88, 0.88);
 scene.add(pinGroup);
 
 const headGeo = new THREE.SphereGeometry(2.4, 32, 32);
@@ -522,13 +309,6 @@ const shopDoor = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.9, 0.08), shopMats
 shopDoor.position.set(0.45, 0.0, 0.79);
 shopGroup.add(shopDoor);
 
-// Hover-Only Banner
-const hoverBannerMat = new THREE.SpriteMaterial({ map: hoverBannerTex, transparent: true, opacity: 0.0, depthTest: false });
-const hoverBannerSprite = new THREE.Sprite(hoverBannerMat);
-hoverBannerSprite.position.set(0, 2.5, 0);
-hoverBannerSprite.scale.set(0.001, 0.001, 0.001);
-pinGroup.add(hoverBannerSprite);
-
 const tipGeo = new THREE.ConeGeometry(2.38, 3.8, 32);
 const tipMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.35 });
 const tipMesh = new THREE.Mesh(tipGeo, tipMat);
@@ -544,16 +324,7 @@ halo2.rotation.x = Math.PI / 2.8;
 pinGroup.add(halo1);
 pinGroup.add(halo2);
 
-const purchaseRippleGeo = new THREE.RingGeometry(0.1, 0.5, 64);
-const purchaseRippleMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57, transparent: true, opacity: 0.95, side: THREE.DoubleSide });
-const purchaseRipple = new THREE.Mesh(purchaseRippleGeo, purchaseRippleMat);
-purchaseRipple.rotation.x = -Math.PI / 2;
-purchaseRipple.position.y = 1.2;
-pinGroup.add(purchaseRipple);
-
-/* PURCHASE BADGES INTEGRATED INTO DYNAMIC STOREFRONT ENGINE */
-
-/* ─── 5 GOLDEN STARS ─── */
+/* ─── 5 GOLDEN STARS + ORBIT SYSTEM ─── */
 const starGroup = new THREE.Group();
 pinGroup.add(starGroup);
 
@@ -574,7 +345,7 @@ const starTrails = [];
 const TRAIL_LENGTH = 16;
 for (let i = 0; i < 5; i++) {
   const mesh = new THREE.Mesh(starGeo, starMat);
-  mesh.scale.set(1.0, 1.0, 1.0); // Full 1.0 scale: All 5 stars 100% visible!
+  mesh.scale.set(1.0, 1.0, 1.0);
   starGroup.add(mesh);
   starMeshes.push(mesh);
 
@@ -587,83 +358,156 @@ for (let i = 0; i < 5; i++) {
   starTrails.push({ points: trailPoints, history: [] });
 }
 
-/* ─── GSAP INTRO TIMELINE ─── */
-let isInHeroMode = false;
-
-function triggerSeamlessIntro() {
-  isInHeroMode = false;
-  isHeroPurchasesEnabled = false;
-
-  gsap.set(pinGroup.position, { x: 0, y: 3.2, z: 0 });
-  gsap.set(pinGroup.scale, { x: 0.001, y: 0.001, z: 0.001 });
-  gsap.set(lookAtTarget, { x: 0, y: 1.2, z: 0 });
-  starMeshes.forEach(s => gsap.set(s.scale, { x: 0.001, y: 0.001, z: 0.001 }));
-
-  gsap.set('#preloader-layer', { opacity: 1, display: 'flex' });
-  gsap.set('#splash-title', { opacity: 0, y: 16, filter: 'blur(6px)' });
-  gsap.set('#splash-subline', { opacity: 0, y: 10 });
-  gsap.set('#splash-progress', { opacity: 0 });
-  gsap.set('#splash-progress-line', { width: '0%' });
-
-  
-  gsap.set('#hero-left', { opacity: 0, x: -30, filter: 'blur(10px)' });
-
-  const tl = gsap.timeline();
-  tl.to(pinGroup.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.8, ease: "elastic.out(1.2, 0.6)" }, 0.1);
-  starMeshes.forEach((s, idx) => {
-    tl.to(s.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.5, ease: "back.out(2)" }, 0.2 + idx * 0.08);
-  });
-  tl.to('#splash-title', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.5, ease: "power3.out" }, 0.3);
-  tl.to('#splash-subline', { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.4);
-  tl.to('#splash-progress', { opacity: 1, duration: 0.2 }, 0.3);
-  tl.to('#splash-progress-line', { width: '100%', duration: 1.0, ease: "power2.inOut" }, 0.4);
-
-  tl.to('#preloader-layer', { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 1.4);
-
-  // Desktop Golden Ratio Docking (From Center Y:3.2 to Right X:5.2, Y:0.5)
-  tl.to(pinGroup.position, { x: 5.2, y: 0.5, z: 0.0, duration: 0.9, ease: "power3.inOut" }, 1.4);
-  tl.to(pinGroup.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.9, ease: "power3.inOut" }, 1.4);
-  tl.to(lookAtTarget, {
-    x: 1.0, y: 0.6, z: 0, duration: 0.9, ease: "power3.inOut",
-    onComplete: () => {
-      isInHeroMode = true;
-      isHeroPurchasesEnabled = true;
-    }
-  }, 1.4);
-
-  
-  tl.to('#hero-left', { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.6, ease: "power3.out" }, 1.6);
+/* ═══════════════════════════════════════════════════════════
+   3D CUSTOMER SEARCH ➔ STOREFRONT WALK-IN CONVERSION ENGINE
+   ═══════════════════════════════════════════════════════════ */
+function createCustomerAvatarTex() {
+  const c = document.createElement('canvas'); c.width = 128; c.height = 128;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#00d4ff';
+  ctx.shadowColor = '#00d4ff';
+  ctx.shadowBlur = 16;
+  ctx.beginPath(); ctx.arc(64, 38, 20, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(64, 105, 36, Math.PI, 0); ctx.fill();
+  const tex = new THREE.CanvasTexture(c);
+  tex.needsUpdate = true;
+  return tex;
 }
 
-const raycaster = new THREE.Raycaster();
-const mouseVec = new THREE.Vector2();
-let isHoveringCircle = false;
+const SEARCH_QUERIES = [
+  '🔍 "Plumber near me"',
+  '🔍 "Best Pizza 24/7"',
+  '🔍 "Emergency Dentist"',
+  '🔍 "Auto Repair near me"',
+  '🔍 "HVAC Specialist"',
+  '🔍 "Roofing Contractor"',
+  '🔍 "Emergency Locksmith"'
+];
 
+const PURCHASE_LABELS = [
+  '💰 +$280 Walk-in Sale',
+  '🛍️ Booked Appointment',
+  '💰 +$540 Emergency Service',
+  '★ 5.0 Google Review',
+  '💰 +$360 Storefront Sale'
+];
+
+function createKeywordTexture(text) {
+  const c = document.createElement('canvas'); c.width = 512; c.height = 128;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = 'rgba(8, 16, 30, 0.92)';
+  ctx.strokeStyle = '#00d4ff';
+  ctx.lineWidth = 4;
+  ctx.shadowColor = 'rgba(0, 212, 255, 0.8)';
+  ctx.shadowBlur = 18;
+  ctx.beginPath(); ctx.roundRect(16, 20, 480, 88, 44); ctx.fill(); ctx.stroke();
+  ctx.shadowBlur = 0;
+  ctx.font = 'bold 32px "Space Grotesk", sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, 256, 64);
+  const tex = new THREE.CanvasTexture(c);
+  tex.needsUpdate = true;
+  return tex;
+}
+
+function createPurchaseTexture(text) {
+  const c = document.createElement('canvas'); c.width = 512; c.height = 128;
+  const ctx = c.getContext('2d');
+  const grad = ctx.createLinearGradient(0, 0, 512, 0);
+  grad.addColorStop(0, '#00d4ff');
+  grad.addColorStop(1, '#b8ff57');
+  ctx.fillStyle = grad;
+  ctx.shadowColor = '#b8ff57';
+  ctx.shadowBlur = 24;
+  ctx.beginPath(); ctx.roundRect(16, 20, 480, 88, 44); ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.font = '800 34px "Space Grotesk", sans-serif';
+  ctx.fillStyle = '#020205';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, 256, 64);
+  const tex = new THREE.CanvasTexture(c);
+  tex.needsUpdate = true;
+  return tex;
+}
+
+const customerAvatarTex = createCustomerAvatarTex();
+const cachedKeywordTexs = SEARCH_QUERIES.map(createKeywordTexture);
+const cachedPurchaseTexs = PURCHASE_LABELS.map(createPurchaseTexture);
+
+const customerGroup = new THREE.Group();
+scene.add(customerGroup);
+
+const floatingPurchasesGroup = new THREE.Group();
+scene.add(floatingPurchasesGroup);
+
+const customerAvatars = [];
+const TOTAL_CUSTOMERS = 8;
+
+for (let i = 0; i < TOTAL_CUSTOMERS; i++) {
+  const avatarSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: customerAvatarTex, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending }));
+  avatarSprite.scale.set(0.48, 0.48, 1);
+  customerGroup.add(avatarSprite);
+
+  const hasKeyword = (i % 2 === 0);
+  let keywordSprite = null;
+  if (hasKeyword) {
+    const kTex = cachedKeywordTexs[i % cachedKeywordTexs.length];
+    keywordSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: kTex, transparent: true, opacity: 0 }));
+    keywordSprite.scale.set(3.4, 0.85, 1);
+    customerGroup.add(keywordSprite);
+  }
+
+  customerAvatars.push({
+    avatarSprite,
+    keywordSprite,
+    hasKeyword,
+    angle: (i / TOTAL_CUSTOMERS) * Math.PI * 2,
+    dist: 16.0 + Math.random() * 8.0,
+    startY: (Math.random() - 0.5) * 12.0 - 0.5,
+    speed: 0.0010 + Math.random() * 0.0006,
+    progress: (i / TOTAL_CUSTOMERS),
+    floatOffset: Math.random() * Math.PI * 2
+  });
+}
+
+const activePurchaseBadges = [];
+
+function triggerStorefrontPurchaseBurst(pos) {
+  const pTex = cachedPurchaseTexs[Math.floor(Math.random() * cachedPurchaseTexs.length)];
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: pTex, transparent: true, opacity: 0, depthTest: false }));
+  const baseX = pinGroup.position.x + (Math.random() - 0.5) * 1.2;
+  const baseY = pinGroup.position.y + 1.2;
+  sprite.position.set(baseX, baseY, 2.0);
+  sprite.scale.set(3.8, 0.95, 1);
+  floatingPurchasesGroup.add(sprite);
+
+  activePurchaseBadges.push({
+    sprite,
+    progress: 0,
+    speed: 0.004 + Math.random() * 0.002,
+    baseX,
+    baseY,
+    driftAngle: Math.random() * Math.PI * 2
+  });
+
+  gsap.to(shopWalls.scale, { x: 1.08, y: 1.08, z: 1.08, duration: 0.18, yoyo: true, repeat: 1 });
+}
+
+/* ─── MOUSE PARALLAX & ANIMATION LOOP ─── */
+const mouseVec = new THREE.Vector2();
 window.addEventListener('mousemove', (e) => {
   mouseVec.x = (e.clientX / window.innerWidth) * 2 - 1;
   mouseVec.y = -(e.clientY / window.innerHeight) * 2 + 1;
 });
 
 const clock = new THREE.Clock();
-let rippleProgress = 0;
 
 function animate() {
   requestAnimationFrame(animate);
   const time = clock.getElapsedTime();
-
-  raycaster.setFromCamera(mouseVec, camera);
-  const intersects = raycaster.intersectObjects([headMesh, shopWalls, winGlass, shopDoor], true);
-  
-  if (intersects.length > 0 && !isHoveringCircle) {
-    isHoveringCircle = true;
-    gsap.to(hoverBannerSprite.position, { y: 2.5, duration: 0.45, ease: "back.out(2)" });
-    gsap.to(hoverBannerSprite.scale, { x: 4.8, y: 1.2, duration: 0.45, ease: "back.out(2)" });
-    gsap.to(hoverBannerSprite.material, { opacity: 1.0, duration: 0.3 });
-  } else if (intersects.length === 0 && isHoveringCircle) {
-    isHoveringCircle = false;
-    gsap.to(hoverBannerSprite.scale, { x: 0.001, y: 0.001, duration: 0.35, ease: "power2.in" });
-    gsap.to(hoverBannerSprite.material, { opacity: 0.0, duration: 0.3 });
-  }
 
   const targetCamX = mouseVec.x * 0.8;
   const targetCamY = mouseVec.y * 0.5 + 1.2;
@@ -673,41 +517,81 @@ function animate() {
 
   pinGroup.rotation.y = time * 0.35;
 
-  if (isHeroPurchasesEnabled) {
-    rippleProgress += 0.012;
-    if (rippleProgress >= 1.0) rippleProgress = 0;
-    const curR = rippleProgress * 5.4;
-    purchaseRipple.scale.set(curR, curR, 1);
-    purchaseRipple.material.opacity = (1.0 - rippleProgress) * 0.95;
-  } else {
-    purchaseRipple.material.opacity = 0;
-  }
+  // 1. CUSTOMER AVATARS & KEYWORD POPUP LIFECYCLE
+  const destX = pinGroup.position.x;
+  const destY = pinGroup.position.y + 0.6;
 
+  customerAvatars.forEach((c) => {
+    c.progress += c.speed;
+    if (c.progress >= 1.0) {
+      c.progress = 0;
+      c.angle = Math.random() * Math.PI * 2;
+      c.dist = 18.0 + Math.random() * 8.0;
+      c.startY = (Math.random() - 0.5) * 12.0 - 0.5;
+    }
+
+    const curDist = (1.0 - c.progress) * c.dist + 0.4;
+    const curAngle = c.angle + c.progress * 0.8;
+    const curX = destX + Math.cos(curAngle) * curDist;
+    const curY = (1.0 - c.progress) * c.startY + c.progress * destY + Math.sin(time * 1.5 + c.floatOffset) * 0.2;
+    const curZ = Math.sin(curAngle) * curDist * 0.35 - 1.0;
+
+    c.avatarSprite.position.set(curX, curY, curZ);
+
+    let avatarAlpha = 1.0;
+    if (c.progress < 0.15) {
+      avatarAlpha = c.progress / 0.15;
+    } else if (c.progress > 0.92) {
+      avatarAlpha = (1.0 - c.progress) / 0.08;
+      if (c.progress >= 0.94 && c.progress < 0.94 + c.speed * 1.5) {
+        triggerStorefrontPurchaseBurst(c.avatarSprite.position);
+      }
+    }
+    c.avatarSprite.material.opacity = Math.max(0, Math.min(1, avatarAlpha * 0.9));
+
+    if (c.hasKeyword && c.keywordSprite) {
+      c.keywordSprite.position.set(curX, curY + 0.75, curZ + 0.2);
+
+      let keyAlpha = 0;
+      let keyScale = 1.0;
+
+      if (c.progress < 0.25) {
+        const t = c.progress / 0.25;
+        keyAlpha = t;
+        keyScale = 0.5 + t * 0.5;
+      } else if (c.progress >= 0.25 && c.progress <= 0.60) {
+        keyAlpha = 0.95;
+        keyScale = 1.0;
+      } else if (c.progress > 0.60 && c.progress <= 0.85) {
+        const t = (c.progress - 0.60) / 0.25;
+        keyAlpha = (1.0 - t) * 0.95;
+        keyScale = 1.0 - t * 0.6;
+      } else {
+        keyAlpha = 0;
+      }
+
+      c.keywordSprite.material.opacity = Math.max(0, keyAlpha);
+      c.keywordSprite.scale.set(3.4 * keyScale, 0.85 * keyScale, 1);
+    }
+  });
+
+  // 2. FLOATING WALK-IN PURCHASE BADGES
   for (let i = activePurchaseBadges.length - 1; i >= 0; i--) {
     const b = activePurchaseBadges[i];
     b.progress += b.speed;
-    b.sprite.position.y = b.baseY + b.progress * 8.5;
-    b.sprite.position.x = b.baseX + Math.sin(time * 1.5 + b.driftAngle) * 0.35;
-    let alpha = b.progress < 0.1 ? (b.progress / 0.1) : (b.progress > 0.85 ? (1.0 - b.progress) / 0.15 : 1.0);
-    b.sprite.material.opacity = Math.max(0, alpha);
+    b.sprite.position.y = b.baseY + b.progress * 6.5;
+    b.sprite.position.x = b.baseX + Math.sin(time * 1.4 + b.driftAngle) * 0.25;
+
+    let pAlpha = b.progress < 0.15 ? (b.progress / 0.15) : (b.progress > 0.75 ? (1.0 - b.progress) / 0.25 : 1.0);
+    b.sprite.material.opacity = Math.max(0, pAlpha);
+
     if (b.progress >= 1.0) {
-      floatingBadgeGroup.remove(b.sprite);
+      floatingPurchasesGroup.remove(b.sprite);
       activePurchaseBadges.splice(i, 1);
     }
   }
 
-  customerAvatars.forEach(c => {
-    c.progress += c.speed;
-    if (c.progress >= 1.0) c.progress = 0;
-    const curDist = (1.0 - c.progress) * 18.0 + 1.2;
-    const curAngle = c.angle + c.progress * 1.2;
-    c.sprite.position.x = pinGroup.position.x + Math.cos(curAngle) * curDist;
-    c.sprite.position.y = (1.0 - c.progress) * c.startY + c.progress * (pinGroup.position.y + 1.2) + Math.sin(time * 1.2 + c.floatOffset) * 0.25;
-    c.sprite.position.z = Math.sin(curAngle) * curDist * 0.35 - 2.0;
-    const alpha = c.progress < 0.15 ? (c.progress / 0.15) : (c.progress > 0.85 ? (1.0 - c.progress) / 0.15 : 1.0);
-    c.sprite.material.opacity = alpha * 0.85;
-  });
-
+  // 3. 5 GOLDEN STARS ORBITING + COMET TRAILS
   const orbitR = 5.4;
   starMeshes.forEach((star, idx) => {
     const angle = time * 1.0 + (idx * (Math.PI * 2 / 5));
@@ -735,9 +619,6 @@ function animate() {
 }
 
 animate();
-window.addEventListener('load', () => {
-  initDirectHeroStage();
-});
 </script>
 </body>
 </html>
