@@ -1445,14 +1445,14 @@ function renderStoryCard(key) {
 if (navItemSolutions) {
   navItemSolutions.addEventListener('mouseenter', () => {
     clearTimeout(solutionsTimer);
-    // Relaxed human reading cadence (3.8s) allowing user to read all 4 card headings before revealing right banner
+    // Generous relaxed human reading time (6.5s) to comfortably read every card heading before auto-revealing right banner
     solutionsTimer = setTimeout(() => {
       if (solutionsPanel && !solutionsPanel.classList.contains('has-banner-active')) {
         solutionsPanel.classList.add('has-banner-active');
         cards[0].classList.add('active-story');
         renderStoryCard('maps');
       }
-    }, 3800);
+    }, 6500);
   });
 
   navItemSolutions.addEventListener('mouseleave', () => {
@@ -1483,13 +1483,13 @@ const resourceCards = document.querySelectorAll('#resources-spatial-panel .dropd
 if (navItemResources) {
   navItemResources.addEventListener('mouseenter', () => {
     clearTimeout(resourcesTimer);
-    // Relaxed human reading cadence (3.8s)
+    // Generous relaxed human reading time (6.5s)
     resourcesTimer = setTimeout(() => {
       if (resourcesPanel && !resourcesPanel.classList.contains('has-banner-active')) {
         resourcesPanel.classList.add('has-banner-active');
         resourceCards[0].classList.add('active-story');
       }
-    }, 3800);
+    }, 6500);
   });
 
   navItemResources.addEventListener('mouseleave', () => {
