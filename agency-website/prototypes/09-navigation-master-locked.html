@@ -1105,7 +1105,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   UNBOXED SLEEK MOBILE DROPDOWN ACCORDIONS
+   UNBOXED SLEEK MOBILE NAVIGATION LIST (WITH ROW ICONS)
    ═══════════════════════════════════════════════════════════ */
 .mob-dropdown-group {
   display: flex;
@@ -1118,20 +1118,38 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 6px;
-  background: transparent;
-  border: none;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 16px;
   cursor: pointer;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.25s ease;
+}
+.mob-dropdown-trigger:active {
+  background: rgba(0, 212, 255, 0.12);
+  border-color: var(--cyan-glow);
 }
 .mob-trigger-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+}
+.mob-row-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: rgba(0, 212, 255, 0.12);
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.25);
 }
 .mob-trigger-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 700;
   color: #ffffff;
 }
@@ -1142,13 +1160,14 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   color: var(--lime-glow);
   background: rgba(184, 255, 87, 0.12);
   border: 1px solid rgba(184, 255, 87, 0.35);
-  padding: 2px 8px;
+  padding: 2px 7px;
   border-radius: 100px;
 }
 .mob-dropdown-chevron {
   font-size: 11px;
   color: var(--cyan-glow);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-right: 4px;
 }
 .mob-dropdown-group.is-collapsed .mob-dropdown-chevron {
   transform: rotate(-90deg);
@@ -1159,10 +1178,32 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   display: flex;
   flex-direction: column;
   gap: 9px;
+  padding: 4px 0 6px 0;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .mob-dropdown-group.is-collapsed .mob-dropdown-cards-drawer {
   display: none;
+}
+
+/* DIRECT FULL-WIDTH LINKS ON MOBILE */
+.mob-direct-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+.mob-direct-nav-link:active {
+  background: rgba(0, 212, 255, 0.15);
+  border-color: var(--cyan-glow);
 }
 
 /* SLEEK 3D FLOATING GLASS CARDS (NO ENCLOSING BOX) */
@@ -1843,6 +1884,9 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     <div class="mob-dropdown-group" id="mob-group-whatwedo">
       <button class="mob-dropdown-trigger" onclick="toggleMobDropdown('mob-group-whatwedo')" aria-label="Toggle What We Do dropdown">
         <div class="mob-trigger-left">
+          <div class="mob-row-icon-box">
+            <span>⚡</span>
+          </div>
           <span class="mob-trigger-title">What We Do</span>
           <span class="mob-count-pill">4 SYSTEMS</span>
         </div>
@@ -1917,22 +1961,35 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
     </div>
 
-    <!-- 2. DIRECT ACTION ROW -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 2px 0;">
-      <a href="case-studies.html" class="mob-direct-nav-link" onclick="closeMobileDrawer()">
-        <span>Case Studies</span>
-        <span style="color: var(--cyan-glow); font-size: 13px;">↗</span>
-      </a>
-      <a href="testimonials.html" class="mob-direct-nav-link" onclick="closeMobileDrawer()">
-        <span>Testimonials</span>
-        <span style="color: var(--cyan-glow); font-size: 13px;">↗</span>
-      </a>
-    </div>
+    <!-- 2. DIRECT LINK: CASE STUDIES (FULL-WIDTH SINGLE ROW) -->
+    <a href="case-studies.html" class="mob-direct-nav-link" onclick="closeMobileDrawer()">
+      <div class="mob-trigger-left">
+        <div class="mob-row-icon-box" style="border-color: rgba(184, 255, 87, 0.35); background: rgba(184, 255, 87, 0.12); box-shadow: 0 0 12px rgba(184, 255, 87, 0.25);">
+          <span style="color: var(--lime-glow);">🏆</span>
+        </div>
+        <span class="mob-trigger-title">Case Studies & ROI</span>
+      </div>
+      <span style="color: var(--cyan-glow); font-size: 13px; padding-right: 4px;">↗</span>
+    </a>
 
-    <!-- 3. DROPDOWN GROUP: RESOURCES (UNBOXED SEAMLESS TOGGLE) -->
+    <!-- 3. DIRECT LINK: TESTIMONIALS (FULL-WIDTH SINGLE ROW) -->
+    <a href="testimonials.html" class="mob-direct-nav-link" onclick="closeMobileDrawer()">
+      <div class="mob-trigger-left">
+        <div class="mob-row-icon-box" style="border-color: rgba(255, 215, 0, 0.35); background: rgba(255, 215, 0, 0.12); box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);">
+          <span style="color: var(--gold-glow);">💬</span>
+        </div>
+        <span class="mob-trigger-title">Client Testimonials</span>
+      </div>
+      <span style="color: var(--cyan-glow); font-size: 13px; padding-right: 4px;">↗</span>
+    </a>
+
+    <!-- 4. DROPDOWN GROUP: RESOURCES (UNBOXED SEAMLESS TOGGLE) -->
     <div class="mob-dropdown-group" id="mob-group-resources">
       <button class="mob-dropdown-trigger" onclick="toggleMobDropdown('mob-group-resources')" aria-label="Toggle Resources dropdown">
         <div class="mob-trigger-left">
+          <div class="mob-row-icon-box" style="border-color: rgba(0, 212, 255, 0.35); background: rgba(0, 212, 255, 0.12);">
+            <span>📚</span>
+          </div>
           <span class="mob-trigger-title">Resources</span>
           <span class="mob-count-pill">3 HUBS</span>
         </div>
