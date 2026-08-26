@@ -3917,6 +3917,9 @@ scene.add(new THREE.Points(dustGeo, dustMat));
 
 /* ─── 3D PIN & STOREFRONT (POSITIONED AT USER'S RED RECTANGLE) ─── */
 const pinGroup = new THREE.Group();
+window.pinGroup = pinGroup;
+window.camera = camera;
+window.scene = scene;
 pinGroup.position.set(7.6, -0.6, 0.0);
 pinGroup.scale.set(0.88, 0.88, 0.88);
 scene.add(pinGroup);
@@ -4553,6 +4556,25 @@ function toggleMobDropdown(id) {
   const group = document.getElementById(id);
   if (group) group.classList.toggle('active');
 }
+
+/* ─── LIVE STUDIO POSTMESSAGE CONTROLLER ─── */
+window.addEventListener('message', (e) => {
+  if (!e.data || e.data.type !== 'MBM_HERO_CONFIG') return;
+  const { pinScale, pinX, pinY, headlineSize, heroY } = e.data;
+  if (window.pinGroup) {
+    if (pinScale !== undefined) window.pinGroup.scale.set(pinScale, pinScale, pinScale);
+    if (pinX !== undefined) window.pinGroup.position.x = pinX;
+    if (pinY !== undefined) window.pinGroup.position.y = pinY;
+  }
+  if (headlineSize !== undefined) {
+    const head = document.querySelector('.hero-headline');
+    if (head) head.style.fontSize = headlineSize + 'px';
+  }
+  if (heroY !== undefined) {
+    const heroLeft = document.getElementById('hero-left') || document.querySelector('.hero-left-content');
+    if (heroLeft) heroLeft.style.transform = 'translateY(' + heroY + 'px)';
+  }
+});
 
 animate();
 </script>
