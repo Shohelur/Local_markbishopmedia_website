@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mark Bishop Media — 6 Next-Gen 3D Navigation Capsule VFX Showcase</title>
+<title>Mark Bishop Media — World-Class 3D Revolutionary Navigation Showcase</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
 /* ═══════════════════════════════════════════════════════════
-   GLOBAL RESET & OBSIDIAN SPATIAL STAGE
+   GLOBAL RESET & OBSIDIAN SPATIAL VOID
    ═══════════════════════════════════════════════════════════ */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -23,10 +23,11 @@
   --lime-glow: #b8ff57;
   --gold-glow: #ffd700;
   --purple-glow: #bd00ff;
-  --red-glow: #ff4757;
   --glass-border: rgba(255, 255, 255, 0.12);
   --text-main: #ffffff;
   --text-dim: rgba(255, 255, 255, 0.7);
+  --mouse-x: 50%;
+  --mouse-y: 50%;
 }
 
 html {
@@ -71,7 +72,7 @@ body::before {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   TOP 6-VFX BORDER VARIANT SWITCHER BAR
+   TOP 5 WORLD-CLASS REVOLUTIONARY SWITCHER BAR
    ═══════════════════════════════════════════════════════════ */
 .top-variant-control-bar {
   position: fixed;
@@ -123,7 +124,7 @@ body::before {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 11px;
   font-weight: 700;
-  padding: 6px 11px;
+  padding: 6px 12px;
   border-radius: 100px;
   cursor: pointer;
   white-space: nowrap;
@@ -143,7 +144,7 @@ body::before {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CORE MASTER NAVIGATION CONTAINER (FIXED & FROZEN)
+   CORE MASTER NAVIGATION CONTAINER (ALWAYS FIXED & FROZEN)
    ═══════════════════════════════════════════════════════════ */
 .master-nav-wrapper {
   position: fixed !important;
@@ -167,7 +168,7 @@ body::before {
   justify-content: space-between;
   border-radius: 100px;
   padding: 6px 12px 6px 20px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
 }
 
@@ -180,213 +181,205 @@ body.is-scrolled .nav-capsule {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   6 BRAND NEW 3D MOTION VFX CAPSULE STYLES
+   5 REVOLUTIONARY WORLD-CLASS 3D CAPSULE CONCEPTS
    ═══════════════════════════════════════════════════════════ */
 
-/* ─── STYLE A: 🔮 CHROMATIC AURORA PLASMA SHIELD ─── */
-body[data-vfx="1"] .nav-capsule {
-  background: rgba(7, 12, 26, 0.94);
-  backdrop-filter: blur(30px) saturate(220%);
-  -webkit-backdrop-filter: blur(30px) saturate(220%);
-  border: 1.5px solid transparent;
+/* ─── 1. 🔮 LIQUID MERCURY FERROFLUID CHROME (CURSOR SPOTLIGHT REFRACTION) ─── */
+body[data-concept="1"] .nav-capsule {
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(0, 212, 255, 0.22) 0%, rgba(9, 15, 30, 0.95) 70%);
+  backdrop-filter: blur(35px) saturate(240%);
+  -webkit-backdrop-filter: blur(35px) saturate(240%);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
   box-shadow: 
-    0 18px 50px rgba(0, 0, 0, 0.95),
-    0 0 35px rgba(0, 212, 255, 0.3),
+    0 22px 60px rgba(0, 0, 0, 0.98),
+    0 0 35px rgba(0, 212, 255, 0.35),
+    inset 0 1.5px 3px rgba(255, 255, 255, 0.45);
+  overflow: hidden;
+}
+body[data-concept="1"] .nav-capsule::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(184, 255, 87, 0.35) 0%, transparent 40%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transition: opacity 0.2s ease;
+}
+
+/* ─── 2. ⚡ 3D KINETIC GYROSCOPIC ORBITERS (PRECISION SWISS CYBER RINGS) ─── */
+body[data-concept="2"] .nav-capsule {
+  background: rgba(8, 14, 28, 0.96);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1.5px solid rgba(0, 212, 255, 0.4);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.95),
+    0 0 30px rgba(0, 212, 255, 0.25),
     inset 0 1px 2px rgba(255, 255, 255, 0.3);
   position: relative;
 }
-body[data-vfx="1"] .nav-capsule::before {
+/* Gyroscopic 3D Satellite Rings on Left & Right Wings */
+body[data-concept="2"] .nav-capsule::before {
   content: '';
   position: absolute;
-  inset: -2px;
-  border-radius: 100px;
-  padding: 2px;
-  background: linear-gradient(135deg, #00d4ff, #b8ff57, #bd00ff, #00d4ff);
-  background-size: 300% 300%;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%) rotateX(65deg);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px dashed var(--cyan-glow);
+  animation: gyroSpinLeft 3s linear infinite;
   pointer-events: none;
-  animation: auroraPlasmaFlow 4s ease infinite;
+  box-shadow: 0 0 10px var(--cyan-glow);
 }
-@keyframes auroraPlasmaFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+body[data-concept="2"] .nav-capsule::after {
+  content: '';
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%) rotateY(65deg);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px dashed var(--lime-glow);
+  animation: gyroSpinRight 3s linear infinite;
+  pointer-events: none;
+  box-shadow: 0 0 10px var(--lime-glow);
+}
+@keyframes gyroSpinLeft {
+  0% { transform: translateY(-50%) rotateX(65deg) rotateZ(0deg); }
+  100% { transform: translateY(-50%) rotateX(65deg) rotateZ(360deg); }
+}
+@keyframes gyroSpinRight {
+  0% { transform: translateY(-50%) rotateY(65deg) rotateZ(0deg); }
+  100% { transform: translateY(-50%) rotateY(65deg) rotateZ(360deg); }
 }
 
-/* ─── STYLE B: ⚡ DUAL-ORBITING PARTICLE SPARKS ─── */
-body[data-vfx="2"] .nav-capsule {
-  background: rgba(6, 11, 24, 0.95);
-  backdrop-filter: blur(28px) saturate(200%);
-  -webkit-backdrop-filter: blur(28px) saturate(200%);
-  border: 1px solid rgba(0, 212, 255, 0.3);
+/* ─── 3. 💎 APPLE VISIONOS VOLUMETRIC PRISM LENS (3-LAYER SPATIAL DEPTH) ─── */
+body[data-concept="3"] .nav-capsule {
+  background: linear-gradient(135deg, rgba(14, 26, 56, 0.92) 0%, rgba(6, 12, 26, 0.98) 100%);
+  backdrop-filter: blur(40px) saturate(260%);
+  -webkit-backdrop-filter: blur(40px) saturate(260%);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-top-color: rgba(255, 255, 255, 0.6);
+  border-bottom-color: rgba(0, 212, 255, 0.5);
   box-shadow: 
-    0 16px 45px rgba(0, 0, 0, 0.9),
-    0 0 25px rgba(0, 212, 255, 0.2),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.25);
+    0 28px 65px rgba(0, 0, 0, 0.98),
+    0 0 45px rgba(0, 212, 255, 0.35),
+    inset 0 2px 3px rgba(255, 255, 255, 0.5),
+    inset 0 -2px 3px rgba(0, 212, 255, 0.3);
+  transform: perspective(800px) translateZ(16px);
   position: relative;
   overflow: hidden;
 }
-body[data-vfx="2"] .nav-capsule::before {
+body[data-concept="3"] .nav-capsule::before {
   content: '';
   position: absolute;
   top: 0;
-  left: -20%;
-  width: 30px;
-  height: 100%;
-  background: radial-gradient(circle, var(--cyan-glow) 0%, transparent 70%);
-  filter: blur(3px);
-  pointer-events: none;
-  animation: sparkOrbitRight 3s linear infinite;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #ffffff, var(--cyan-glow), var(--lime-glow), transparent);
+  animation: prismLaserSweep 3s ease-in-out infinite;
 }
-body[data-vfx="2"] .nav-capsule::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  right: -20%;
-  width: 30px;
-  height: 100%;
-  background: radial-gradient(circle, var(--lime-glow) 0%, transparent 70%);
-  filter: blur(3px);
-  pointer-events: none;
-  animation: sparkOrbitLeft 3s linear infinite;
-}
-@keyframes sparkOrbitRight {
-  0% { left: -20%; opacity: 0; }
-  20% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { left: 120%; opacity: 0; }
-}
-@keyframes sparkOrbitLeft {
-  0% { right: -20%; opacity: 0; }
-  20% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { right: 120%; opacity: 0; }
+@keyframes prismLaserSweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
-/* ─── STYLE C: 💎 BEVELED TITANIUM PRISM WITH SUN-FLARE GLINT ─── */
-body[data-vfx="3"] .nav-capsule {
-  background: linear-gradient(180deg, rgba(14, 24, 48, 0.95) 0%, rgba(6, 11, 24, 0.98) 100%);
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
-  border: 1.5px solid rgba(255, 255, 255, 0.22);
-  border-top-color: rgba(255, 255, 255, 0.45);
-  border-bottom-color: rgba(0, 212, 255, 0.4);
-  box-shadow: 
-    0 22px 55px rgba(0, 0, 0, 0.95),
-    0 0 30px rgba(0, 212, 255, 0.25),
-    inset 0 1.5px 2px rgba(255, 255, 255, 0.4),
-    inset 0 -1.5px 2px rgba(0, 212, 255, 0.2);
-  position: relative;
-  overflow: hidden;
-}
-body[data-vfx="3"] .nav-capsule::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -80px;
-  width: 60px;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), rgba(0, 212, 255, 0.8), transparent);
-  transform: skewX(-25deg);
-  pointer-events: none;
-  animation: sunFlareSweep 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-@keyframes sunFlareSweep {
-  0% { left: -80px; opacity: 0; }
-  30% { opacity: 0.9; }
-  70% { opacity: 0.9; }
-  100% { left: calc(100% + 80px); opacity: 0; }
-}
-
-/* ─── STYLE D: 🌊 EQUALIZER RADAR MEMBRANE (LIVING WAVE BORDER) ─── */
-body[data-vfx="4"] .nav-capsule {
-  background: rgba(7, 13, 28, 0.95);
-  backdrop-filter: blur(28px) saturate(200%);
-  -webkit-backdrop-filter: blur(28px) saturate(200%);
-  border: 1px solid rgba(0, 212, 255, 0.35);
-  border-bottom: 2px solid var(--lime-glow);
-  box-shadow: 
-    0 16px 45px rgba(0, 0, 0, 0.9),
-    0 0 25px rgba(184, 255, 87, 0.3),
-    inset 0 1px 2px rgba(255, 255, 255, 0.25);
-  animation: radarMembranePulse 2s ease-in-out infinite alternate;
-}
-@keyframes radarMembranePulse {
-  0% {
-    box-shadow: 0 16px 45px rgba(0,0,0,0.9), 0 0 15px rgba(0,212,255,0.25), 0 6px 20px rgba(184,255,87,0.2);
-    border-bottom-color: var(--cyan-glow);
-  }
-  100% {
-    box-shadow: 0 20px 55px rgba(0,0,0,0.95), 0 0 30px rgba(0,212,255,0.45), 0 8px 30px rgba(184,255,87,0.5);
-    border-bottom-color: var(--lime-glow);
-  }
-}
-
-/* ─── STYLE E: 🧲 SEGMENTED CYBER HUD RAILS (SCI-FI MECH FRAME) ─── */
-body[data-vfx="5"] .nav-capsule {
-  background: rgba(5, 10, 22, 0.96);
+/* ─── 4. 🛰️ LIVE GEO-GRID STREET RADAR SWEEPER (INTEGRATED SCANNER HUD) ─── */
+body[data-concept="4"] .nav-capsule {
+  background: rgba(4, 9, 20, 0.96);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  border: 1px dashed rgba(0, 212, 255, 0.5);
+  border: 1px solid rgba(0, 212, 255, 0.4);
   box-shadow: 
     0 20px 50px rgba(0, 0, 0, 0.95),
-    0 0 25px rgba(0, 212, 255, 0.25),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.2);
+    0 0 30px rgba(0, 212, 255, 0.3),
+    inset 0 0 20px rgba(0, 212, 255, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+/* Live Street Radar Grid & Sweeper Beam */
+body[data-concept="4"] .nav-capsule::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(0, 212, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 212, 255, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+body[data-concept="4"] .nav-capsule::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -40px;
+  width: 80px;
+  background: linear-gradient(90deg, transparent, rgba(184, 255, 87, 0.4), rgba(0, 212, 255, 0.6), transparent);
+  filter: blur(4px);
+  pointer-events: none;
+  animation: radarScanSweep 3.2s linear infinite;
+}
+@keyframes radarScanSweep {
+  0% { left: -80px; }
+  100% { left: calc(100% + 80px); }
+}
+
+/* ─── 5. 🧲 MODULAR CYBER MECH SPLIT SHELL (TRI-POD SYSTEM) ─── */
+body[data-concept="5"] .nav-capsule {
+  background: rgba(7, 13, 26, 0.95);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1.5px solid rgba(0, 212, 255, 0.5);
+  box-shadow: 
+    0 24px 60px rgba(0, 0, 0, 0.98),
+    0 0 35px rgba(0, 212, 255, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
   position: relative;
 }
-body[data-vfx="5"] .nav-capsule::before {
-  content: '● HUD-LOCK';
+body[data-concept="5"] .nav-capsule::before {
+  content: '⚡ MBM-OS ACTIVE';
   position: absolute;
   top: -9px;
-  right: 28px;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: 'JetBrains Mono', monospace;
   font-size: 8px;
   font-weight: 900;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   color: #020205;
   background: var(--lime-glow);
-  padding: 1px 6px;
+  padding: 1.5px 8px;
   border-radius: 4px;
-  box-shadow: 0 0 10px rgba(184, 255, 87, 0.8);
+  box-shadow: 0 0 12px var(--lime-glow);
 }
-body[data-vfx="5"] .nav-capsule::after {
-  content: '34.05°N, 118.24°W';
+body[data-concept="5"] .nav-capsule::after {
+  content: 'RADAR FREQ: 5.8GHz';
   position: absolute;
   bottom: -9px;
-  left: 28px;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: 'JetBrains Mono', monospace;
   font-size: 7.5px;
   font-weight: 800;
+  letter-spacing: 0.12em;
   color: var(--cyan-glow);
   background: rgba(0, 212, 255, 0.15);
   border: 1px solid var(--cyan-glow);
-  padding: 1px 6px;
+  padding: 1px 7px;
   border-radius: 4px;
 }
 
-/* ─── STYLE F: 🌌 ZERO-GRAVITY DEEP PARALLAX HALO ─── */
-body[data-vfx="6"] .nav-capsule {
-  background: rgba(6, 11, 24, 0.97);
-  backdrop-filter: blur(36px) saturate(240%);
-  -webkit-backdrop-filter: blur(36px) saturate(240%);
-  border: 1.5px solid rgba(0, 212, 255, 0.5);
-  box-shadow: 
-    0 30px 70px rgba(0, 0, 0, 0.98),
-    0 0 45px rgba(0, 212, 255, 0.45),
-    0 0 10px rgba(184, 255, 87, 0.3),
-    inset 0 1.5px 3px rgba(255, 255, 255, 0.35);
-  transform: perspective(800px) translateZ(12px);
-  animation: zeroGravFloat 3.5s ease-in-out infinite alternate;
-}
-@keyframes zeroGravFloat {
-  0% { transform: perspective(800px) translateZ(12px) translateY(0); }
-  100% { transform: perspective(800px) translateZ(24px) translateY(-3px); }
-}
-
 /* ═══════════════════════════════════════════════════════════
-   3D SONAR RADAR PULSE ON LOGO
+   BRAND LOGO & 3D SONAR RADAR
    ═══════════════════════════════════════════════════════════ */
 .brand-link {
   display: flex;
@@ -656,31 +649,30 @@ body.is-scrolled .brand-logo-svg { height: 33px; }
 }
 </style>
 </head>
-<body data-vfx="1">
+<body data-concept="1">
 
 <!-- TOP AMBIENT LIGHT -->
 <div class="ambient-glow-top"></div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     PERSISTENT 6-VFX BORDER LIVE SWITCHER CONTROL BAR
+     PERSISTENT 5 WORLD-CLASS 3D CONCEPT SWITCHER
      ═══════════════════════════════════════════════════════════ -->
 <header class="top-variant-control-bar">
   <div class="variant-brand-label">
-    <span class="variant-brand-badge">6 3D CAPSULE VFX</span>
-    <span>Select 3D Capsule Motion Style:</span>
+    <span class="variant-brand-badge">AWWWARDS-TIER 3D</span>
+    <span>Select World-Class 3D Concept:</span>
   </div>
   <div class="variant-buttons-group">
-    <button class="btn-var-select active" onclick="switchVfx(1)">1. 🔮 Aurora Plasma Shield</button>
-    <button class="btn-var-select" onclick="switchVfx(2)">2. ⚡ Dual-Orbiting Sparks</button>
-    <button class="btn-var-select" onclick="switchVfx(3)">3. 💎 Beveled Sun-Flare Prism</button>
-    <button class="btn-var-select" onclick="switchVfx(4)">4. 🌊 Equalizer Radar Membrane</button>
-    <button class="btn-var-select" onclick="switchVfx(5)">5. 🧲 Segmented Cyber HUD</button>
-    <button class="btn-var-select" onclick="switchVfx(6)">6. 🌌 Zero-Gravity Parallax</button>
+    <button class="btn-var-select active" onclick="switchConcept(1)">1. 🔮 Liquid Mercury Ferrofluid</button>
+    <button class="btn-var-select" onclick="switchConcept(2)">2. ⚡ 3D Kinetic Gyroscope</button>
+    <button class="btn-var-select" onclick="switchConcept(3)">3. 💎 VisionOS Volumetric Prism</button>
+    <button class="btn-var-select" onclick="switchConcept(4)">4. 🛰️ Street Geo-Grid Radar</button>
+    <button class="btn-var-select" onclick="switchConcept(5)">5. 🧲 Cyber Mech Tri-Pod</button>
   </div>
 </header>
 
 <!-- ═══════════════════════════════════════════════════════════
-     THE MASTER 3D NAVIGATION CAPSULE (VFX EQUIPPED)
+     THE MASTER 3D NAVIGATION CAPSULE
      ═══════════════════════════════════════════════════════════ -->
 <div class="master-nav-wrapper" id="master-nav-wrapper">
   <nav class="nav-capsule" id="nav-capsule">
@@ -721,10 +713,10 @@ body.is-scrolled .brand-logo-svg { height: 33px; }
 
   <!-- SECTION 1: HERO VIEW -->
   <section class="demo-section" id="hero-sec">
-    <div class="sec-badge" id="active-vfx-badge">● ACTIVE STYLE 1: 🔮 CHROMATIC AURORA PLASMA SHIELD</div>
-    <h1 class="sec-title" id="active-vfx-heading">6 Next-Gen 3D Capsule Motion VFX</h1>
-    <p class="sec-desc" id="active-vfx-desc">
-      Switch between the 6 distinct styles above and scroll up and down to observe how the floating frozen navigation bar behaves with high-end 3D motion physics and living energy borders!
+    <div class="sec-badge" id="active-concept-badge">● ACTIVE CONCEPT 1: 🔮 LIQUID MERCURY FERROFLUID</div>
+    <h1 class="sec-title" id="active-concept-heading">Interactive Cursor-Guided Liquid Ferrofluid</h1>
+    <p class="sec-desc" id="active-concept-desc">
+      Move your mouse across the navigation bar and scroll down. Notice how the ambient liquid mercury spotlight dynamically refracts and follows your cursor in real time!
     </p>
 
     <!-- TEST STREAM PASSING UNDER THE GLASS -->
@@ -735,10 +727,10 @@ body.is-scrolled .brand-logo-svg { height: 33px; }
     </div>
 
     <div class="active-variant-indicator-card">
-      <div class="card-header-lbl" id="card-lbl">ACTIVE 3D VFX DETAILS:</div>
-      <div class="card-header-val" id="card-val">🔮 Flowing Multi-Chromatic Aurora Plasma Wave</div>
+      <div class="card-header-lbl" id="card-lbl">3D CONCEPT HIGHLIGHTS:</div>
+      <div class="card-header-val" id="card-val">🔮 Liquid Mercury Glass + Volumetric Spotlight Refraction</div>
       <div class="card-desc-val" id="card-desc">
-        A seamless multi-chromatic neon plasma wave (Cyan ➔ Lime ➔ Purple ➔ Cyan) flowing continuously around the perimeter of the capsule at 60fps!
+        A living liquid chrome membrane with dynamic cursor-guided specular glints that react organically as you move your mouse across the navigation bar!
       </div>
     </div>
   </section>
@@ -757,10 +749,22 @@ body.is-scrolled .brand-logo-svg { height: 33px; }
 </main>
 
 <!-- ═══════════════════════════════════════════════════════════
-     DYNAMIC CONTROLLER SCRIPT
-     ═══════════════════════════════════════════════════════════ -->
+     DYNAMIC CURSOR & SCROLL CONTROLLER
+     ═══════════════════════════════════════════════════════════ */
 <script>
-/* ─── 1. SMART SCROLL FREEZE & FLOAT ─── */
+/* ─── 1. REAL-TIME CURSOR LIGHT TRACKING ─── */
+const capsule = document.getElementById('nav-capsule');
+document.addEventListener('mousemove', (e) => {
+  if (capsule) {
+    const rect = capsule.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    capsule.style.setProperty('--mouse-x', `${x}px`);
+    capsule.style.setProperty('--mouse-y', `${y}px`);
+  }
+});
+
+/* ─── 2. SMART SCROLL FREEZE & FLOAT ─── */
 window.addEventListener('scroll', () => {
   if (window.scrollY > 5) {
     document.body.classList.add('is-scrolled');
@@ -769,67 +773,60 @@ window.addEventListener('scroll', () => {
   }
 });
 
-/* ─── 2. 6-VFX CONTROLLER METADATA ─── */
-const vfxMetadata = {
+/* ─── 3. CONCEPT METADATA ─── */
+const conceptMetadata = {
   1: {
-    badge: '● ACTIVE STYLE 1: 🔮 CHROMATIC AURORA PLASMA SHIELD',
-    heading: 'Flowing Aurora Plasma Energy Wave',
-    desc: 'A seamless multi-chromatic neon plasma wave (Cyan ➔ Lime ➔ Purple ➔ Cyan) flowing continuously around the capsule border.',
-    val: '🔮 Flowing Multi-Chromatic Aurora Plasma Wave',
-    info: 'Using a multi-stop flowing gradient wave, the capsule feels wrapped in an active, iridescent sci-fi plasma energy shield.'
+    badge: '● ACTIVE CONCEPT 1: 🔮 LIQUID MERCURY FERROFLUID',
+    heading: 'Interactive Cursor-Guided Liquid Ferrofluid',
+    desc: 'Move your mouse across the navigation bar and scroll down. Notice how the ambient liquid mercury spotlight dynamically refracts and follows your cursor in real time!',
+    val: '🔮 Liquid Mercury Glass + Volumetric Spotlight Refraction',
+    info: 'A living liquid chrome membrane with dynamic cursor-guided specular glints that react organically as you move your mouse across the navigation bar!'
   },
   2: {
-    badge: '● ACTIVE STYLE 2: ⚡ DUAL-ORBITING PARTICLE SPARKS',
-    heading: 'Counter-Orbiting Electron Particle Sparks',
-    desc: 'Two ultra-bright neon particle sparks (cyan and lime) continuously racing in opposite directions around the capsule perimeter.',
-    val: '⚡ Counter-Orbiting Laser Particle Sparks',
-    info: 'Simulates an atomic synchrotron core with localized neon light nodes traveling smoothly around the glass edges.'
+    badge: '● ACTIVE CONCEPT 2: ⚡ 3D KINETIC GYROSCOPE ORBITERS',
+    heading: 'Precision Swiss Cyber Wireframe Orbiters',
+    desc: 'Notice the dual 3D kinetic gyroscope rings spinning continuously in true 3D space on the left and right wings of the navigation capsule!',
+    val: '⚡ Dual 3D Wireframe Gyroscopic Orbit Arcs',
+    info: 'Precision-engineered dashed orbital arcs spinning at 60fps in true 3D spatial perspective (rotateX / rotateY).'
   },
   3: {
-    badge: '● ACTIVE STYLE 3: 💎 BEVELED SUN-FLARE PRISM',
-    heading: 'Chamfered Titanium Prism with Diamond Sun-Flare',
-    desc: 'An ultra-luxurious Apple VisionOS beveled frame with a periodic diamond-cut sun-flare light sweep across the surface.',
-    val: '💎 Chamfered Titanium Bevel & Sun-Flare Glint',
-    info: 'Feels physically crafted out of frosted obsidian and polished titanium with high-precision light refractions.'
+    badge: '● ACTIVE CONCEPT 3: 💎 VISIONOS VOLUMETRIC PRISM',
+    heading: 'Apple VisionOS Volumetric Diamond Glass Prism',
+    desc: 'Deep multi-layered spatial depth (translateZ: 16px) with an active crystal laser flare continuously sweeping across the top bevel!',
+    val: '💎 3-Layer Spatial Depth & Crystal Laser Sweep',
+    info: 'Combines dual-tone rim lighting, diamond-beveled edges, and an energetic laser streak across the top glass surface.'
   },
   4: {
-    badge: '● ACTIVE STYLE 4: 🌊 EQUALIZER RADAR MEMBRANE',
-    heading: 'Living Waveform & Radar Pulse Membrane',
-    desc: 'The bottom border undulates with an energetic neon frequency glow that rhythmically breathes with local radar waves.',
-    val: '🌊 Dynamic Frequency Membrane & Neon Under-Glow',
-    info: 'A living, acoustic-like frequency pulse that gives the navbar an organic, highly reactive presence.'
+    badge: '● ACTIVE CONCEPT 4: 🛰️ STREET GEO-GRID RADAR SWEEPER',
+    heading: 'Integrated Street-Level Geo-Grid Radar Sweeper',
+    desc: 'The entire navigation bar becomes an active street radar scanner with an isometric coordinate grid and sweeping radar beam!',
+    val: '🛰️ Animated Geo-Grid Matrix + Live Sweeper Beam',
+    info: 'A high-frequency radar sweep beam glides across the capsule body, reflecting Mark Bishop Media’s core local visibility OS mission!'
   },
   5: {
-    badge: '● ACTIVE STYLE 5: 🧲 SEGMENTED CYBER HUD RAILS',
-    heading: 'Sci-Fi Mech Frame with Live HUD Tags',
-    desc: 'Futuristic dashed cyber rails with glowing [● HUD-LOCK] indicator badges and live GPS coordinate chips.',
-    val: '🧲 Dashed Cyber Rails & Live Micro HUD Chips',
-    info: 'Delivers an unmistakable billion-dollar AI operating system aesthetic with illuminated telemetry tags.'
-  },
-  6: {
-    badge: '● ACTIVE STYLE 6: 🌌 ZERO-GRAVITY DEEP PARALLAX',
-    heading: 'Zero-Gravity 3D Elevation with Deep Parallax Shadow',
-    desc: 'Extreme zero-gravity 3D spatial elevation (translateZ: 24px) with multi-layered dynamic drop shadows.',
-    val: '🌌 Zero-G Floating Elevation & Triple-Tier Shadow',
-    info: 'Makes the entire navigation bar feel like it is physically hovering 50px above the screen surface in true 3D spatial depth.'
+    badge: '● ACTIVE CONCEPT 5: 🧲 CYBER MECH TRI-POD SYSTEM',
+    heading: 'Modular Cybernetic HUD Frame with Live Status Pods',
+    desc: 'Equipped with glowing [⚡ MBM-OS ACTIVE] status badges and live [RADAR FREQ: 5.8GHz] telemetry tags locked directly onto the chassis!',
+    val: '🧲 Modular Cybernetic Chassis + Live Telemetry Tags',
+    info: 'Feels like military-grade sci-fi hardware built specifically for enterprise-tier local dominance.'
   }
 };
 
-function switchVfx(vfxNum) {
-  document.body.setAttribute('data-vfx', vfxNum);
+function switchConcept(conceptNum) {
+  document.body.setAttribute('data-concept', conceptNum);
   
   document.querySelectorAll('.btn-var-select').forEach((btn, idx) => {
-    if (idx + 1 === vfxNum) {
+    if (idx + 1 === conceptNum) {
       btn.classList.add('active');
     } else {
       btn.classList.remove('active');
     }
   });
 
-  const meta = vfxMetadata[vfxNum];
-  document.getElementById('active-vfx-badge').innerText = meta.badge;
-  document.getElementById('active-vfx-heading').innerText = meta.heading;
-  document.getElementById('active-vfx-desc').innerHTML = meta.desc;
+  const meta = conceptMetadata[conceptNum];
+  document.getElementById('active-concept-badge').innerText = meta.badge;
+  document.getElementById('active-concept-heading').innerText = meta.heading;
+  document.getElementById('active-concept-desc').innerHTML = meta.desc;
   document.getElementById('card-val').innerText = meta.val;
   document.getElementById('card-desc').innerHTML = meta.info;
 }
