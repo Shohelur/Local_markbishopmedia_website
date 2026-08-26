@@ -71,21 +71,21 @@ body::before {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CORE MASTER NAVIGATION CONTAINER
+   CORE MASTER NAVIGATION CONTAINER (PERMANENTLY FIXED & FROZEN)
    ═══════════════════════════════════════════════════════════ */
 .master-nav-wrapper {
-  position: absolute;
-  top: 18px;
+  position: fixed !important;
+  top: 16px;
   left: 0;
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: 10000;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 999999 !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
-/* 1. INITIAL TOP STATE: SLIM, SEAMLESSLY BLENDED WITH PAGE */
+/* 1. INITIAL TOP STATE: ULTRA-SLEEK INTEGRATED FROSTED GLASS */
 .nav-capsule {
   pointer-events: auto;
   position: relative;
@@ -93,37 +93,33 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(9, 15, 30, 0.65);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
   border-radius: 100px;
   padding: 6px 12px 6px 20px;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
 }
 
 /* 2. SCROLLED STATE: ULTRA-SLIM & AIRY FLOATING GLASS CAPSULE */
 body.is-scrolled .master-nav-wrapper {
-  position: fixed;
   top: 10px;
-  animation: floatInNav 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes floatInNav {
-  0% { transform: translateY(-16px) scale(0.98); opacity: 0; }
-  100% { transform: translateY(0) scale(1); opacity: 1; }
 }
 
 body.is-scrolled .nav-capsule {
-  width: min(1060px, 92%);
-  padding: 4px 10px 4px 18px;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(8px) saturate(150%);
-  -webkit-backdrop-filter: blur(8px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  width: min(1080px, 92%);
+  padding: 4.5px 10px 4.5px 18px;
+  background: rgba(6, 11, 24, 0.95);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1.5px solid rgba(0, 212, 255, 0.45);
   box-shadow: 
-    0 12px 35px rgba(0, 0, 0, 0.4),
-    0 0 20px rgba(0, 212, 255, 0.12),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.22);
+    0 16px 45px rgba(0, 0, 0, 0.9),
+    0 0 25px rgba(0, 212, 255, 0.2),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 /* ═══════════════════════════════════════════════════════════

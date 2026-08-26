@@ -72,41 +72,41 @@ body::before {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CORE MASTER NAVIGATION CONTAINER (ALWAYS FIXED & PERMANENT)
+   CORE MASTER NAVIGATION CONTAINER (PERMANENTLY FIXED & FROZEN)
    ═══════════════════════════════════════════════════════════ */
 .master-nav-wrapper {
-  position: fixed;
-  top: 18px;
+  position: fixed !important;
+  top: 16px;
   left: 0;
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: 10000;
-  transition: top 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 999999 !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
   perspective: 1200px;
 }
 
-/* 1. INITIAL TOP STATE: SEAMLESSLY BLENDED WITH WEBPAGE */
+/* 1. INITIAL TOP STATE: ULTRA-SLEEK INTEGRATED FROSTED GLASS */
 .nav-capsule {
   pointer-events: auto;
   position: relative;
-  width: min(1220px, 92%);
+  width: min(1200px, 92%);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(9, 15, 30, 0.65);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
   border-radius: 100px;
   padding: 6px 12px 6px 20px;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
 }
 
-/* 2. SCROLLED STICKY STATE: FLOATING FROSTED GLASS WITH CRISP GLOWING BORDER */
+/* 2. SCROLLED STICKY STATE: CONDENSED FLOATING SHIELD WITH GLOWING CYBER BORDER */
 body.is-scrolled .master-nav-wrapper {
   top: 10px;
 }
@@ -114,14 +114,14 @@ body.is-scrolled .master-nav-wrapper {
 body.is-scrolled .nav-capsule {
   width: min(1080px, 92%);
   padding: 4.5px 10px 4.5px 18px;
-  background: rgba(9, 15, 30, 0.85);
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
-  border: 1px solid rgba(0, 212, 255, 0.35);
+  background: rgba(6, 11, 24, 0.95);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1.5px solid rgba(0, 212, 255, 0.45);
   box-shadow: 
-    0 16px 45px rgba(0, 0, 0, 0.85),
-    0 0 25px rgba(0, 212, 255, 0.18),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.25);
+    0 16px 45px rgba(0, 0, 0, 0.9),
+    0 0 25px rgba(0, 212, 255, 0.2),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1290,7 +1290,7 @@ body.is-scrolled .brand-logo-svg { height: 33px; }
 <script>
 /* ─── 1. SMART SCROLL FREEZE & FLOAT ─── */
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 40) {
+  if (window.scrollY > 5) {
     document.body.classList.add('is-scrolled');
   } else {
     document.body.classList.remove('is-scrolled');
