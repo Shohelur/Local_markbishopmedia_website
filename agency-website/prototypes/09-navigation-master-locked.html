@@ -184,7 +184,8 @@ body.is-scrolled .nav-capsule::after {
   position: relative;
   perspective: 600px;
 }
-.brand-logo-svg {
+.brand-logo-svg.brand-logo-full {
+  display: block !important;
   height: 44px;
   width: auto;
   max-width: 290px;
@@ -193,7 +194,10 @@ body.is-scrolled .nav-capsule::after {
   position: relative;
   z-index: 2;
 }
-body.is-scrolled .brand-logo-svg { height: 38px; }
+.brand-logo-mobile-icon {
+  display: none !important;
+}
+body.is-scrolled .brand-logo-svg.brand-logo-full { height: 38px; }
 
 .sonar-ring-container {
   position: absolute;
