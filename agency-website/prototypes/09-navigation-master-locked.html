@@ -734,58 +734,9 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
   opacity: 1;
 }
 
-.card-right-group {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.card-arrow-cue {
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 800;
-  color: rgba(0, 212, 255, 0.35);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: translateX(0);
-}
-.dropdown-card-master:hover .card-arrow-cue,
-.dropdown-card-master.active-story .card-arrow-cue {
-  color: var(--lime-glow);
-  transform: translateX(3px);
-  text-shadow: 0 0 10px rgba(184, 255, 87, 0.9);
-}
-
-/* CARDS COLUMN TOP AFFORDANCE CUE */
-.cards-column-header-cue {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 6px 4px 6px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  margin-bottom: 2px;
-}
-.col-cue-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.45);
-}
-.col-cue-hint {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8px;
-  font-weight: 800;
-  color: var(--cyan-glow);
-  letter-spacing: 0.05em;
-  animation: pulseHint 2s infinite ease-in-out;
-}
-@keyframes pulseHint {
-  0%, 100% { opacity: 0.55; transform: translateX(0); }
-  50% { opacity: 1; transform: translateX(2px); color: var(--lime-glow); }
-}
-
 /* ═══════════════════════════════════════════════════════════
    RIGHT COLUMN: THE 3D MASTER [BEFORE VS AFTER] SPLIT BANNER
+   (PROGRESSIVE TIMED REVEAL + INSTANT HOVER POP)
    ═══════════════════════════════════════════════════════════ */
 .spatial-story-deck {
   flex: 1;
@@ -802,10 +753,21 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
     0 20px 50px rgba(0, 0, 0, 0.95),
     0 0 30px rgba(0, 212, 255, 0.25),
     inset 0 1px 2px rgba(255, 255, 255, 0.25);
-  transform: perspective(1000px) rotateY(-6deg) translateZ(15px);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: perspective(1000px) rotateY(-12deg) translateZ(-20px) scale(0.92);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
+}
+
+/* REVEALS EITHER AFTER 1.6S READING TIME OR INSTANTLY ON CARD HOVER */
+.dropdown-panel-spatial.has-banner-active .spatial-story-deck,
+.spatial-cards-column:hover ~ .spatial-story-deck,
+.spatial-story-deck:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: perspective(1000px) rotateY(-6deg) translateZ(15px) scale(1);
 }
 
 /* SCANLINE TEXTURE */
@@ -1132,18 +1094,12 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
         <!-- THE DUAL-DECK 3D SPATIAL COMMAND ARCHITECTURE -->
         <div class="dropdown-panel-spatial" id="solutions-spatial-panel">
           
-          <!-- LEFT DECK: CLEAN SINGLE-LINE 3D CARDS (WITH AFFORDANCE CUES) -->
+          <!-- LEFT DECK: CLEAN SINGLE-LINE 3D CARDS -->
           <ul class="spatial-cards-column">
             
-            <!-- COLUMN AFFORDANCE HINT -->
-            <div class="cards-column-header-cue">
-              <span class="col-cue-label">CORE SYSTEMS</span>
-              <span class="col-cue-hint">HOVER TO INSPECT 3D PROOF ↗</span>
-            </div>
-
             <!-- SERVICE 1: AUTHENTIC GOOGLE MAPS PIN -->
             <li>
-              <a href="#three-pack" class="dropdown-card-master active-story" data-story="maps">
+              <a href="#three-pack" class="dropdown-card-master" data-story="maps">
                 <div class="card-inner-left">
                   <div class="icon-box-maps">
                     <div class="maps-sonar-ring-1"></div>
@@ -1164,10 +1120,7 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                   </div>
                   <span class="master-card-title">Rank in Google Maps Top 3</span>
                 </div>
-                <div class="card-right-group">
-                  <span class="master-metric-badge">+320% CALLS</span>
-                  <span class="card-arrow-cue">→</span>
-                </div>
+                <span class="master-metric-badge">+320% CALLS</span>
               </a>
             </li>
 
@@ -1182,10 +1135,7 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                   </div>
                   <span class="master-card-title">Automated 5-Star Reviews</span>
                 </div>
-                <div class="card-right-group">
-                  <span class="master-metric-badge">★ 4.9 RATING</span>
-                  <span class="card-arrow-cue">→</span>
-                </div>
+                <span class="master-metric-badge">★ 4.9 RATING</span>
               </a>
             </li>
 
@@ -1200,10 +1150,7 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                   </div>
                   <span class="master-card-title">100+ Directory Citations & Sync</span>
                 </div>
-                <div class="card-right-group">
-                  <span class="master-metric-badge">100+ DIRS</span>
-                  <span class="card-arrow-cue">→</span>
-                </div>
+                <span class="master-metric-badge">100+ DIRS</span>
               </a>
             </li>
 
@@ -1218,10 +1165,7 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                   </div>
                   <span class="master-card-title">High-Converting 3D Website</span>
                 </div>
-                <div class="card-right-group">
-                  <span class="master-metric-badge">3.4x BOOKINGS</span>
-                  <span class="card-arrow-cue">→</span>
-                </div>
+                <span class="master-metric-badge">3.4x BOOKINGS</span>
               </a>
             </li>
 
@@ -1278,15 +1222,8 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
         
         <div class="dropdown-panel-spatial" id="resources-spatial-panel">
           <ul class="spatial-cards-column">
-            
-            <!-- COLUMN AFFORDANCE HINT -->
-            <div class="cards-column-header-cue">
-              <span class="col-cue-label">KNOWLEDGE BASE</span>
-              <span class="col-cue-hint">HOVER TO INSPECT 3D PROOF ↗</span>
-            </div>
-
             <li>
-              <a href="#audit" class="dropdown-card-master active-story" data-story="audit">
+              <a href="#audit" class="dropdown-card-master" data-story="audit">
                 <div class="card-inner-left">
                   <div class="icon-box-maps">
                     <div class="maps-sonar-ring-1"></div>
@@ -1294,10 +1231,7 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                   </div>
                   <span class="master-card-title">Free 9-Mile Visibility Audit</span>
                 </div>
-                <div class="card-right-group">
-                  <span class="master-metric-badge">FREE SCAN</span>
-                  <span class="card-arrow-cue">→</span>
-                </div>
+                <span class="master-metric-badge">FREE SCAN</span>
               </a>
             </li>
             <li>
@@ -1309,10 +1243,7 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                   </div>
                   <span class="master-card-title">Local Growth Case Studies</span>
                 </div>
-                <div class="card-right-group">
-                  <span class="master-metric-badge">INSIGHTS</span>
-                  <span class="card-arrow-cue">→</span>
-                </div>
+                <span class="master-metric-badge">INSIGHTS</span>
               </a>
             </li>
             <li>
@@ -1324,10 +1255,7 @@ body.is-scrolled .brand-logo-svg { height: 38px; }
                   </div>
                   <span class="master-card-title">Frequently Asked Questions</span>
                 </div>
-                <div class="card-right-group">
-                  <span class="master-metric-badge">FAQS</span>
-                  <span class="card-arrow-cue">→</span>
-                </div>
+                <span class="master-metric-badge">FAQS</span>
               </a>
             </li>
           </ul>
@@ -1476,8 +1404,9 @@ const lockedDatabase = {
   }
 };
 
-/* ─── 3. INTERACTION CONTROLLER (HOVER-TRIGGERED 3D BANNER) ─── */
+/* ─── 3. INTERACTION CONTROLLER (SMART PROGRESSIVE REVEAL + INSTANT HOVER POP) ─── */
 const solutionsPanel = document.getElementById('solutions-spatial-panel');
+const navItemSolutions = document.getElementById('nav-item-solutions');
 const cards = document.querySelectorAll('#solutions-spatial-panel .dropdown-card-master');
 const storyTitle = document.getElementById('story-title');
 const storyDesc = document.getElementById('story-desc');
@@ -1488,64 +1417,97 @@ const splitAfterVal = document.getElementById('split-after-val');
 const storyProofVal = document.getElementById('story-proof-val');
 const storyBanner = document.getElementById('story-banner-display');
 
-cards.forEach(card => {
-  card.addEventListener('mouseenter', () => {
-    if (solutionsPanel) solutionsPanel.classList.add('has-banner-active');
-    cards.forEach(c => c.classList.remove('active-story'));
-    card.classList.add('active-story');
-    
-    const key = card.getAttribute('data-story');
-    const data = lockedDatabase[key];
-    
-    if (data) {
-      // 3D Morph Animation in Banner
-      storyBanner.style.transform = 'perspective(1000px) rotateY(-3deg) translateZ(25px) scale(1.02)';
-      storyBanner.style.borderColor = 'var(--lime-glow)';
-      
-      storyTitle.innerHTML = data.title;
-      storyDesc.innerHTML = data.desc;
-      splitBeforeStatus.innerHTML = data.beforeStatus;
-      splitBeforeVal.innerHTML = data.beforeVal;
-      splitAfterStatus.innerHTML = data.afterStatus;
-      splitAfterVal.innerHTML = data.afterVal;
-      storyProofVal.innerHTML = data.proof;
-      
-      setTimeout(() => {
-        storyBanner.style.transform = 'perspective(1000px) rotateY(-6deg) translateZ(15px) scale(1)';
-        storyBanner.style.borderColor = 'rgba(0, 212, 255, 0.35)';
-      }, 250);
-    }
-  });
-});
+let solutionsTimer = null;
+let resourcesTimer = null;
 
-// Reset banner when mouse completely leaves the dropdown
-const navItemSolutions = document.getElementById('nav-item-solutions');
+function renderStoryCard(key) {
+  const data = lockedDatabase[key];
+  if (data && storyBanner) {
+    storyBanner.style.transform = 'perspective(1000px) rotateY(-3deg) translateZ(25px) scale(1.02)';
+    storyBanner.style.borderColor = 'var(--lime-glow)';
+    
+    storyTitle.innerHTML = data.title;
+    storyDesc.innerHTML = data.desc;
+    splitBeforeStatus.innerHTML = data.beforeStatus;
+    splitBeforeVal.innerHTML = data.beforeVal;
+    splitAfterStatus.innerHTML = data.afterStatus;
+    splitAfterVal.innerHTML = data.afterVal;
+    storyProofVal.innerHTML = data.proof;
+    
+    setTimeout(() => {
+      storyBanner.style.transform = 'perspective(1000px) rotateY(-6deg) translateZ(15px) scale(1)';
+      storyBanner.style.borderColor = 'rgba(0, 212, 255, 0.35)';
+    }, 250);
+  }
+}
+
+// 1. WHAT WE DO LOGIC:
 if (navItemSolutions) {
+  navItemSolutions.addEventListener('mouseenter', () => {
+    clearTimeout(solutionsTimer);
+    // After natural reading time (~1.6s), smoothly reveal the right banner with Card 1 if user didn't hover cards yet
+    solutionsTimer = setTimeout(() => {
+      if (solutionsPanel && !solutionsPanel.classList.contains('has-banner-active')) {
+        solutionsPanel.classList.add('has-banner-active');
+        cards[0].classList.add('active-story');
+        renderStoryCard('maps');
+      }
+    }, 1600);
+  });
+
   navItemSolutions.addEventListener('mouseleave', () => {
+    clearTimeout(solutionsTimer);
     if (solutionsPanel) solutionsPanel.classList.remove('has-banner-active');
     cards.forEach(c => c.classList.remove('active-story'));
   });
 }
 
-// Resources Panel Event Controller
+// Immediate Card Hover Override:
+cards.forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    clearTimeout(solutionsTimer);
+    if (solutionsPanel) solutionsPanel.classList.add('has-banner-active');
+    cards.forEach(c => c.classList.remove('active-story'));
+    card.classList.add('active-story');
+    
+    const key = card.getAttribute('data-story');
+    renderStoryCard(key);
+  });
+});
+
+// 2. RESOURCES LOGIC:
 const resourcesPanel = document.getElementById('resources-spatial-panel');
 const navItemResources = document.getElementById('nav-item-resources');
 const resourceCards = document.querySelectorAll('#resources-spatial-panel .dropdown-card-master');
 
+if (navItemResources) {
+  navItemResources.addEventListener('mouseenter', () => {
+    clearTimeout(resourcesTimer);
+    // After natural reading time (~1.6s), smoothly reveal the right banner with Card 1
+    resourcesTimer = setTimeout(() => {
+      if (resourcesPanel && !resourcesPanel.classList.contains('has-banner-active')) {
+        resourcesPanel.classList.add('has-banner-active');
+        resourceCards[0].classList.add('active-story');
+      }
+    }, 1600);
+  });
+
+  navItemResources.addEventListener('mouseleave', () => {
+    clearTimeout(resourcesTimer);
+    if (resourcesPanel) resourcesPanel.classList.remove('has-banner-active');
+    resourceCards.forEach(c => c.classList.remove('active-story'));
+  });
+}
+
+// Immediate Resource Card Hover Override:
 resourceCards.forEach(card => {
   card.addEventListener('mouseenter', () => {
+    clearTimeout(resourcesTimer);
     if (resourcesPanel) resourcesPanel.classList.add('has-banner-active');
     resourceCards.forEach(c => c.classList.remove('active-story'));
     card.classList.add('active-story');
   });
 });
-
-if (navItemResources) {
-  navItemResources.addEventListener('mouseleave', () => {
-    if (resourcesPanel) resourcesPanel.classList.remove('has-banner-active');
-    resourceCards.forEach(c => c.classList.remove('active-story'));
-  });
-}
 </script>
 
 </body>
