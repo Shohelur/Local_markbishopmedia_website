@@ -1265,34 +1265,49 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 /* ─── TABLET SCREEN (769px - 1024px) ─── */
 @media (max-width: 1024px) and (min-width: 769px) {
   .nav-capsule {
-    width: 95%;
-    padding: 6px 14px 6px 18px;
+    width: 96%;
+    padding: 6px clamp(10px, 1.5vw, 16px);
   }
-  .brand-logo-svg {
-    height: 38px;
-    max-width: 230px;
+  .brand-logo-full {
+    height: clamp(32px, 3.8vw, 38px);
+    max-width: 220px;
+  }
+  .brand-logo-mobile-icon {
+    display: none !important;
   }
   .nav-menu-list {
-    gap: 8px;
+    gap: clamp(4px, 1vw, 10px);
   }
   .nav-item {
-    font-size: 12px;
-    padding: 5px 8px;
+    font-size: clamp(11.5px, 1.15vw, 13px);
+    padding: 5px clamp(6px, 0.8vw, 10px);
   }
   .nav-contact-link {
     display: none;
   }
   .btn-cta-glow {
-    font-size: 11px;
-    padding: 5px 10px 5px 12px;
+    font-size: clamp(10.5px, 1.1vw, 12px);
+    padding: 5px clamp(8px, 1vw, 12px);
   }
   #nav-item-solutions .dropdown-panel-spatial {
-    left: -120px;
-    width: 740px;
+    left: -140px;
+    width: min(720px, 92vw);
   }
   #nav-item-resources .dropdown-panel-spatial {
-    left: -200px;
-    width: 700px;
+    left: -180px;
+    width: min(660px, 90vw);
+  }
+  .spatial-cards-column {
+    width: clamp(280px, 40vw, 340px);
+  }
+  .master-card-title {
+    font-size: clamp(11px, 1.25vw, 12.5px);
+  }
+  .story-voice-title {
+    font-size: clamp(13px, 1.4vw, 15px);
+  }
+  .story-voice-narrative {
+    font-size: clamp(10.5px, 1.1vw, 11.5px);
   }
 }
 
@@ -1313,9 +1328,18 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     display: none !important;
   }
   
-  .brand-logo-svg {
-    height: 34px;
-    max-width: 185px;
+  /* MOBILE LOGO: Show ONLY the glowing icon monogram mark */
+  .brand-logo-full {
+    display: none !important;
+  }
+  .brand-logo-mobile-icon {
+    display: block !important;
+    height: 36px;
+    width: auto;
+    filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.5));
+  }
+  body.is-scrolled .brand-logo-mobile-icon {
+    height: 32px;
   }
   
   /* Hide desktop menu items and contact link on mobile */
@@ -1466,7 +1490,8 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         <div class="sonar-radar-wave"></div>
         <div class="sonar-radar-wave"></div>
       </div>
-      <img src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg" />
+      <img src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg brand-logo-full" />
+      <img src="../assets/logos/mbm-icon.svg" alt="Mark Bishop Media Icon" class="brand-logo-mobile-icon" />
     </a>
 
     <!-- 2. CENTER NAVIGATION LIST -->
@@ -1700,16 +1725,19 @@ body.mobile-drawer-open .mobile-drawer-sheet {
      ═══════════════════════════════════════════════════════════ -->
 <div class="mobile-drawer-sheet" id="mobile-drawer-sheet" aria-modal="true" role="dialog">
   
-  <!-- DRAWER HEADER -->
+  <!-- DRAWER HEADER (PURE ICON + BRAND MARK) -->
   <div class="mob-drawer-header">
-    <img src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media" style="height: 32px; width: auto;" />
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <img src="../assets/logos/mbm-icon.svg" alt="Mark Bishop Media" style="height: 36px; width: auto;" />
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 800; color: #fff; letter-spacing: 0.05em;">MBM <span style="color: var(--cyan-glow);">OS</span></span>
+    </div>
     <button class="mob-drawer-close-btn" id="mob-drawer-close-btn" aria-label="Close Menu">✕</button>
   </div>
 
   <!-- SCROLLABLE COMMAND AREA -->
   <div class="mob-drawer-content">
     
-    <!-- 1. ACCORDION: WHAT WE DO -->
+    <!-- 1. ACCORDION: WHAT WE DO (DIRECT PAGE DESTINATIONS + 3D ANIMATED ICONS) -->
     <div class="mob-accordion-block is-expanded" id="mob-acc-whatwedo">
       <button class="mob-accordion-trigger" onclick="toggleMobAccordion('mob-acc-whatwedo')">
         <span>What We Do</span>
@@ -1720,33 +1748,63 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </button>
       <div class="mob-accordion-body">
         
-        <a href="#three-pack" class="mob-service-card" onclick="closeMobileDrawer()">
+        <!-- SERVICE 1: GOOGLE MAPS 3-PACK -->
+        <a href="services/google-maps.html" class="mob-service-card" onclick="closeMobileDrawer()">
           <div class="mob-card-info">
-            <span class="mob-card-icon">📍</span>
+            <div class="icon-box-maps">
+              <div class="maps-sonar-ring-1"></div>
+              <div class="maps-sonar-ring-2"></div>
+              <svg class="google-maps-vector-pin" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2Z" fill="url(#gmap-grad-mob)"/>
+                <circle cx="12" cy="9" r="3.2" fill="#ffffff"/>
+                <circle cx="12" cy="9" r="1.6" fill="#00d4ff"/>
+                <defs>
+                  <linearGradient id="gmap-grad-mob" x1="5" y1="2" x2="19" y2="22" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#00d4ff"/>
+                    <stop offset="1" stop-color="#b8ff57"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
             <span class="mob-card-title">Rank in Google Maps Top 3</span>
           </div>
           <span class="master-metric-badge">+320% CALLS</span>
         </a>
 
-        <a href="#reviews" class="mob-service-card" onclick="closeMobileDrawer()">
+        <!-- SERVICE 2: 5-STAR REVIEWS -->
+        <a href="services/automated-reviews.html" class="mob-service-card" onclick="closeMobileDrawer()">
           <div class="mob-card-info">
-            <span class="mob-card-icon">⭐</span>
+            <div class="icon-box-reviews">
+              <div class="star-satellite-ring"></div>
+              <div class="reviews-verified-badge">✓</div>
+              <span class="star-3d-glyph">⭐</span>
+            </div>
             <span class="mob-card-title">Automated 5-Star Reviews</span>
           </div>
           <span class="master-metric-badge">★ 4.9 RATING</span>
         </a>
 
-        <a href="#citations" class="mob-service-card" onclick="closeMobileDrawer()">
+        <!-- SERVICE 3: DIRECTORY CITATIONS -->
+        <a href="services/citations-sync.html" class="mob-service-card" onclick="closeMobileDrawer()">
           <div class="mob-card-info">
-            <span class="mob-card-icon">🌐</span>
+            <div class="icon-box-citations">
+              <div class="synapse-node-ring"></div>
+              <div class="citations-sync-badge">SYNC</div>
+              <span class="globe-3d-glyph">🌐</span>
+            </div>
             <span class="mob-card-title">100+ Directory Citations & Sync</span>
           </div>
           <span class="master-metric-badge">100+ DIRS</span>
         </a>
 
-        <a href="#website" class="mob-service-card" onclick="closeMobileDrawer()">
+        <!-- SERVICE 4: 3D WEBSITES -->
+        <a href="services/3d-websites.html" class="mob-service-card" onclick="closeMobileDrawer()">
           <div class="mob-card-info">
-            <span class="mob-card-icon">🚀</span>
+            <div class="icon-box-website">
+              <div class="viewport-laser-trail"></div>
+              <div class="website-booked-badge">$ BOOKED</div>
+              <span class="rocket-3d-glyph">🚀</span>
+            </div>
             <span class="mob-card-title">High-Converting 3D Website</span>
           </div>
           <span class="master-metric-badge">3.4x BOOKINGS</span>
@@ -1756,18 +1814,18 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     </div>
 
     <!-- 2. DIRECT LINK: CASE STUDIES -->
-    <a href="#cases" class="mob-direct-nav-link" onclick="closeMobileDrawer()">
+    <a href="case-studies.html" class="mob-direct-nav-link" onclick="closeMobileDrawer()">
       <span>Case Studies & Client ROI</span>
       <span style="color: var(--cyan-glow); font-size: 13px;">↗</span>
     </a>
 
     <!-- 3. DIRECT LINK: TESTIMONIALS -->
-    <a href="#testimonials" class="mob-direct-nav-link" onclick="closeMobileDrawer()">
+    <a href="testimonials.html" class="mob-direct-nav-link" onclick="closeMobileDrawer()">
       <span>Client Testimonials</span>
       <span style="color: var(--cyan-glow); font-size: 13px;">↗</span>
     </a>
 
-    <!-- 4. ACCORDION: RESOURCES -->
+    <!-- 4. ACCORDION: RESOURCES (DIRECT PAGE DESTINATIONS + 3D ANIMATED ICONS) -->
     <div class="mob-accordion-block" id="mob-acc-resources">
       <button class="mob-accordion-trigger" onclick="toggleMobAccordion('mob-acc-resources')">
         <span>Resources</span>
@@ -1778,25 +1836,37 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </button>
       <div class="mob-accordion-body">
         
-        <a href="#audit" class="mob-service-card" onclick="closeMobileDrawer()">
+        <!-- RESOURCE 1: FREE AUDIT SCAN -->
+        <a href="audit.html" class="mob-service-card" onclick="closeMobileDrawer()">
           <div class="mob-card-info">
-            <span class="mob-card-icon">⚡</span>
+            <div class="icon-box-maps">
+              <div class="maps-sonar-ring-1"></div>
+              <span class="pin-3d-glyph">⚡</span>
+            </div>
             <span class="mob-card-title">Free 9-Mile Visibility Audit</span>
           </div>
           <span class="master-metric-badge">FREE SCAN</span>
         </a>
 
-        <a href="#blog" class="mob-service-card" onclick="closeMobileDrawer()">
+        <!-- RESOURCE 2: BLOG -->
+        <a href="blog.html" class="mob-service-card" onclick="closeMobileDrawer()">
           <div class="mob-card-info">
-            <span class="mob-card-icon">📑</span>
+            <div class="icon-box-website">
+              <div class="viewport-laser-trail"></div>
+              <span class="rocket-3d-glyph">📑</span>
+            </div>
             <span class="mob-card-title">Local Growth Blog & Insights</span>
           </div>
           <span class="master-metric-badge">READ BLOG</span>
         </a>
 
-        <a href="#faq" class="mob-service-card" onclick="closeMobileDrawer()">
+        <!-- RESOURCE 3: FAQS -->
+        <a href="faq.html" class="mob-service-card" onclick="closeMobileDrawer()">
           <div class="mob-card-info">
-            <span class="mob-card-icon">❓</span>
+            <div class="icon-box-citations">
+              <div class="synapse-node-ring"></div>
+              <span class="globe-3d-glyph">❓</span>
+            </div>
             <span class="mob-card-title">Frequently Asked Questions</span>
           </div>
           <span class="master-metric-badge">FAQS</span>
