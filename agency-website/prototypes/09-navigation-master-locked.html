@@ -86,7 +86,7 @@ body::before {
   perspective: 1200px;
 }
 
-/* 1. INITIAL TOP STATE: ULTRA-SLEEK INTEGRATED FROSTED GLASS */
+/* 1. INITIAL TOP STATE: ULTRA-SLEEK 3D TOURBILLON GLASS CAPSULE */
 .nav-capsule {
   pointer-events: auto;
   position: relative;
@@ -97,30 +97,65 @@ body::before {
   background: rgba(9, 15, 30, 0.65);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  border: 1.5px solid rgba(255, 215, 0, 0.35);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.15);
   border-radius: 100px;
-  padding: 6px 12px 6px 20px;
+  padding: 7px 18px 7px 24px;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
 }
 
-/* 2. SCROLLED STICKY STATE: CONDENSED FLOATING SHIELD WITH GLOWING CYBER BORDER */
+/* Left: 3D Gold Precision Micro-Gear */
+.nav-capsule::before {
+  content: '⚙️';
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9));
+  animation: spinGearLeft 3.5s linear infinite;
+  pointer-events: none;
+}
+
+/* Right: 3D Lime Tourbillon Micro-Gear */
+.nav-capsule::after {
+  content: '⚙️';
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 0 10px rgba(184, 255, 87, 0.9));
+  animation: spinGearRight 3.5s linear infinite reverse;
+  pointer-events: none;
+}
+
+@keyframes spinGearLeft {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
+}
+@keyframes spinGearRight {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* 2. SCROLLED STICKY STATE: CONDENSED FLOATING SHIELD WITH SWISS KINETIC GEARS */
 body.is-scrolled .master-nav-wrapper {
   top: 10px;
 }
 
 body.is-scrolled .nav-capsule {
   width: min(1080px, 92%);
-  padding: 4.5px 10px 4.5px 18px;
+  padding: 5px 14px 5px 20px;
   background: rgba(6, 11, 24, 0.95);
   backdrop-filter: blur(28px) saturate(200%);
   -webkit-backdrop-filter: blur(28px) saturate(200%);
-  border: 1.5px solid rgba(0, 212, 255, 0.45);
+  border: 1.5px solid rgba(255, 215, 0, 0.5);
   box-shadow: 
-    0 16px 45px rgba(0, 0, 0, 0.9),
-    0 0 25px rgba(0, 212, 255, 0.2),
-    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    0 22px 55px rgba(0, 0, 0, 0.95),
+    0 0 30px rgba(255, 215, 0, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.35);
 }
 
 /* ═══════════════════════════════════════════════════════════
