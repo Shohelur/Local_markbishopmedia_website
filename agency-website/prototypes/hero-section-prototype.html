@@ -460,7 +460,7 @@ const starTrails = [];
 const TRAIL_LENGTH = 16;
 for (let i = 0; i < 5; i++) {
   const mesh = new THREE.Mesh(starGeo, starMat);
-  mesh.scale.set(0.001, 0.001, 0.001);
+  mesh.scale.set(1.0, 1.0, 1.0); // Full 1.0 scale: All 5 stars 100% visible!
   starGroup.add(mesh);
   starMeshes.push(mesh);
 
