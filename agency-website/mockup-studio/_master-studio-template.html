@@ -1492,28 +1492,25 @@ resizeStage3D();
 updateUndoRedoButtonsUI();
 
 /* ═══════════════════════════════════════════════════════════
-   TRUE LOCAL HTML FILE EDITOR ENGINE
-   Uses File System Access API to read, edit, and save ANY HTML file directly.
+   TRUE LOCAL HTML FILE EDITOR ENGINE (IFRAME ISOLATION)
+   Uses File System Access API + Iframe srcdoc for 100% CSS fidelity.
    ═══════════════════════════════════════════════════════════ */
 
 let currentFileHandle = null;
 let originalHtmlString = "";
-let importedHeadContent = "";
 let magicWandActive = false;
+let iframeWin = null;
+let iframeDoc = null;
 
 async function studioImportLocalFile() {
   try {
-    // 1. Show file picker
     if (!window.showOpenFilePicker) {
       alert("Your browser does not support the File System Access API. Please use Chrome/Edge on Desktop.");
       return;
     }
     
     const [fileHandle] = await window.showOpenFilePicker({
-      types: [{
-        description: 'HTML Files',
-        accept: {'text/html': ['.html']}
-      }],
+      types: [{ description: 'HTML Files', accept: {'text/html': ['.html']} }],
       excludeAcceptAllOption: true,
       multiple: false
     });
@@ -1526,7 +1523,6 @@ async function studioImportLocalFile() {
     document.getElementById('file-status-label').style.color = '#00d4ff';
     document.getElementById('studio-header-section-name').innerText = file.name.toUpperCase();
     
-    // Enable buttons
     document.getElementById('btn-magic-wand').disabled = false;
     document.getElementById('btn-magic-wand').style.opacity = '1';
     document.getElementById('btn-magic-wand').style.cursor = 'pointer';
@@ -1537,87 +1533,76 @@ async function studioImportLocalFile() {
     document.getElementById('btn-save-local').style.borderColor = '#b8ff57';
     document.getElementById('btn-save-local').style.color = '#b8ff57';
     
-    // 2. Parse HTML
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(originalHtmlString, 'text/html');
-    
-    // 3. Inject CSS
-    importedHeadContent = doc.head.innerHTML;
-    let styleContainer = document.getElementById('imported-prototype-styles');
-    if (!styleContainer) {
-      styleContainer = document.createElement('div');
-      styleContainer.id = 'imported-prototype-styles';
-      document.head.appendChild(styleContainer);
-    }
-    // Extract only <style> tags so we don't break studio fonts
-    let stylesText = Array.from(doc.head.querySelectorAll('style')).map(s => s.innerHTML).join('\n');
-    
-    // Prevent prototype body from breaking the studio layout
-    stylesText = stylesText.replace(/(?:^|\})\s*(html|body)\s*\{/gi, '} #artboard-canvas-wrapper {');
-    
-    styleContainer.innerHTML = '<style>' + stylesText + '</style>';
-    
-    // 4. Inject Body Content
+    // Clear canvas and inject iframe
     const container = document.getElementById('section-elements-container');
+    container.innerHTML = '<iframe id="live-prototype-frame" style="width:100%; height:100%; border:none; z-index:1;"></iframe>';
     
-    // Clean up previous scripts/threejs if any
-    while (typeof stageScene !== 'undefined' && stageScene.children && stageScene.children.length > 0) stageScene.remove(stageScene.children[0]);
-    if (window.importedScriptsInterval) clearInterval(window.importedScriptsInterval);
-    if (window.heroFrameId) cancelAnimationFrame(window.heroFrameId);
+    const iframe = document.getElementById('live-prototype-frame');
     
-    container.innerHTML = doc.body.innerHTML;
+    // Inject our wand outline CSS into the original HTML before loading it
+    const wandCss = `
+      <style id="studio-injected-tools-css">
+        .wand-outline {
+          outline: 2px dashed #b8ff57 !important;
+          outline-offset: 4px !important;
+          cursor: cell !important;
+          background: rgba(184,255,87,0.1) !important;
+        }
+        .canva-move-handle {
+          display:none; position:absolute; bottom:-50px; left:50%; transform:translateX(-50%);
+          background:linear-gradient(135deg, #00d4ff, #b8ff57); color:#020205; border:2.5px solid #ffffff;
+          box-shadow:0 8px 30px rgba(0, 212, 255, 0.9), 0 0 20px rgba(184, 255, 87, 0.8);
+          border-radius:100px; padding:8px 18px; font-family:sans-serif; font-size:12px; font-weight:800;
+          align-items:center; gap:8px; cursor:grab; z-index:999999 !important; touch-action:none;
+          user-select:none; white-space:nowrap; pointer-events:auto !important;
+        }
+        .studio-element.selected-box .canva-move-handle { display:flex !important; }
+        .studio-element { cursor:move; transition:border-color 0.15s, background 0.15s; z-index: 200; border: 2px dashed transparent; }
+        .studio-element:hover { border-color:rgba(0, 212, 255, 0.6); background:rgba(0, 212, 255, 0.05); }
+        .studio-element.selected-box { border-color:#b8ff57 !important; background:rgba(184, 255, 87, 0.12) !important; z-index: 1000 !important; }
+      </style>
+    `;
     
-    // 5. Execute Scripts (Three.js/GSAP inside the imported body)
-    const scripts = Array.from(container.querySelectorAll('script'));
-    scripts.forEach(oldScript => {
-      const newScript = document.createElement('script');
-      Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-      newScript.textContent = oldScript.textContent;
-      oldScript.parentNode.replaceChild(newScript, oldScript);
-    });
+    const htmlWithWand = originalHtmlString.replace('</head>', wandCss + '</head>');
     
-    showToastFeedback('✅ File Loaded Successfully!');
+    iframe.srcdoc = htmlWithWand;
     
-    // Force a resize to fix Three.js canvases
-    setTimeout(() => window.dispatchEvent(new Event('resize')), 500);
+    iframe.onload = () => {
+      iframeWin = iframe.contentWindow;
+      iframeDoc = iframe.contentDocument;
+      showToastFeedback('✅ Perfect Fidelity File Loaded!');
+    };
 
   } catch(e) {
-    if (e.name !== 'AbortError') {
-      console.error(e);
-      alert("Error loading file: " + e.message);
-    }
+    if (e.name !== 'AbortError') { console.error(e); alert("Error loading file: " + e.message); }
   }
 }
 
 // ─── MAGIC WAND (MAKE ELEMENTS DRAGGABLE) ───
 function toggleMagicWandMode() {
+  if (!iframeDoc) return;
   magicWandActive = !magicWandActive;
   const btn = document.getElementById('btn-magic-wand');
   if (magicWandActive) {
     btn.innerText = '🪄 SELECT TO DRAG (ON)';
     btn.style.background = 'rgba(184,255,87,0.2)';
-    showToastFeedback('🪄 Hover & Click any element to make it draggable!');
+    showToastFeedback('🪄 Hover & Click any element in the iframe to make it draggable!');
     
-    // Add event listeners for hover/click
-    document.getElementById('section-elements-container').addEventListener('mouseover', wandHover);
-    document.getElementById('section-elements-container').addEventListener('mouseout', wandOut);
-    document.getElementById('section-elements-container').addEventListener('click', wandClick);
+    iframeDoc.addEventListener('mouseover', wandHover);
+    iframeDoc.addEventListener('mouseout', wandOut);
+    iframeDoc.addEventListener('click', wandClick, true);
   } else {
     btn.innerText = '🪄 SELECT TO DRAG (OFF)';
     btn.style.background = 'rgba(184,255,87,0.1)';
-    // Remove listeners
-    document.getElementById('section-elements-container').removeEventListener('mouseover', wandHover);
-    document.getElementById('section-elements-container').removeEventListener('mouseout', wandOut);
-    document.getElementById('section-elements-container').removeEventListener('click', wandClick);
-    
-    // Remove any leftover outlines
-    document.querySelectorAll('.wand-outline').forEach(el => el.classList.remove('wand-outline'));
+    iframeDoc.removeEventListener('mouseover', wandHover);
+    iframeDoc.removeEventListener('mouseout', wandOut);
+    iframeDoc.removeEventListener('click', wandClick, true);
+    iframeDoc.querySelectorAll('.wand-outline').forEach(el => el.classList.remove('wand-outline'));
   }
 }
 
 function wandHover(e) {
-  if (!magicWandActive) return;
-  if (e.target.closest('.canva-move-handle') || e.target.closest('.resize-handle') || e.target.classList.contains('studio-element')) return;
+  if (!magicWandActive || e.target.closest('.canva-move-handle') || e.target.classList.contains('studio-element')) return;
   e.target.classList.add('wand-outline');
   e.stopPropagation();
 }
@@ -1626,54 +1611,88 @@ function wandOut(e) {
   e.target.classList.remove('wand-outline');
 }
 function wandClick(e) {
-  if (!magicWandActive) return;
-  if (e.target.closest('.canva-move-handle') || e.target.closest('.resize-handle') || e.target.classList.contains('studio-element')) return;
+  if (!magicWandActive || e.target.closest('.canva-move-handle') || e.target.classList.contains('studio-element')) return;
   
   e.preventDefault();
   e.stopPropagation();
   
   const el = e.target;
   el.classList.remove('wand-outline');
-  
-  // Make it draggable
   el.classList.add('studio-element');
-  el.classList.add('injected-draggable');
   
-  // Ensure it has absolute positioning and explicit top/left
-  const rect = el.getBoundingClientRect();
-  const parentRect = document.getElementById('section-elements-container').getBoundingClientRect();
-  
-  const compStyle = window.getComputedStyle(el);
+  const compStyle = iframeWin.getComputedStyle(el);
   if (compStyle.position === 'static' || compStyle.position === 'relative') {
+    const rect = el.getBoundingClientRect();
     el.style.position = 'absolute';
-    // Calculate exact pixel position relative to container
-    el.style.top = (rect.top - parentRect.top) + 'px';
-    el.style.left = (rect.left - parentRect.left) + 'px';
-    // Set explicit width to prevent collapse when absolute
+    el.style.top = rect.top + 'px';
+    el.style.left = rect.left + 'px';
     el.style.width = rect.width + 'px';
   }
   
   if (!el.id) el.id = 'imported-elem-' + Math.random().toString(36).substr(2, 9);
   
-  // Inject Canva Drag Handle inside the element
-  const moveHandle = document.createElement('div');
+  const moveHandle = iframeDoc.createElement('div');
   moveHandle.className = 'canva-move-handle injected-handle';
-  moveHandle.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg><span>✥ MOVE</span>';
+  moveHandle.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:6px;"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg><span>✥ MOVE</span>';
   moveHandle.title = 'Drag to Move';
+  
+  // Attach iframe-based drag logic
+  moveHandle.addEventListener('pointerdown', (evt) => {
+    iframeDoc.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
+    el.classList.add('selected-box');
+    
+    // Update parent UI
+    document.getElementById('disp-elem-name').innerText = el.id || 'Custom Element';
+    document.getElementById('disp-pos-top').innerText = el.style.top;
+    document.getElementById('disp-pos-left').innerText = el.style.left;
+    
+    let startX = evt.clientX;
+    let startY = evt.clientY;
+    let elLeft = parseFloat(el.style.left || 0);
+    let elTop = parseFloat(el.style.top || 0);
+    
+    const onMove = (me) => {
+      const dx = me.clientX - startX;
+      const dy = me.clientY - startY;
+      el.style.left = (elLeft + dx) + 'px';
+      el.style.top = (elTop + dy) + 'px';
+      document.getElementById('disp-pos-top').innerText = Math.round(elTop + dy) + 'px';
+      document.getElementById('disp-pos-left').innerText = Math.round(elLeft + dx) + 'px';
+    };
+    
+    const onUp = () => {
+      iframeWin.removeEventListener('pointermove', onMove);
+      iframeWin.removeEventListener('pointerup', onUp);
+    };
+    
+    iframeWin.addEventListener('pointermove', onMove);
+    iframeWin.addEventListener('pointerup', onUp);
+    try { evt.target.setPointerCapture(evt.pointerId); } catch(err){}
+    evt.preventDefault();
+    evt.stopPropagation();
+  });
+  
   el.appendChild(moveHandle);
-  
   showToastFeedback('✅ Element made draggable!');
-  
-  // Disable wand mode to let them drag it immediately
   toggleMagicWandMode();
-  
-  // Re-bind studio drag events so the new element works
-  bindStudioElementsEvents();
 }
+
+// Global click to deselect in iframe
+setInterval(() => {
+  if (iframeDoc && !iframeDoc._hasClickBinding) {
+    iframeDoc.addEventListener('pointerdown', (e) => {
+      if (!e.target.closest('.studio-element')) {
+        iframeDoc.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
+        document.getElementById('disp-elem-name').innerText = 'Tap Any Item';
+      }
+    });
+    iframeDoc._hasClickBinding = true;
+  }
+}, 1000);
 
 // ─── SAVE LOCALLY TO ORIGINAL HTML FILE ───
 async function studioSaveLocalFile() {
-  if (!currentFileHandle) {
+  if (!currentFileHandle || !iframeDoc) {
     alert("No file is currently loaded.");
     return;
   }
@@ -1682,36 +1701,23 @@ async function studioSaveLocalFile() {
   btn.innerText = '⏳ SAVING...';
   
   try {
-    // 1. We need to rebuild the HTML string.
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(originalHtmlString, 'text/html');
+    const docClone = iframeDoc.documentElement.cloneNode(true);
     
-    // 2. Clone the container so we can clean it up without breaking the live view
-    const containerClone = document.getElementById('section-elements-container').cloneNode(true);
-    
-    // 3. Remove injected studio helper classes and handles
-    containerClone.querySelectorAll('.injected-handle').forEach(el => el.remove());
-    containerClone.querySelectorAll('.resize-handle').forEach(el => el.remove());
-    containerClone.querySelectorAll('.element-tag').forEach(el => el.remove());
-    containerClone.querySelectorAll('.studio-element').forEach(el => {
+    // Clean injected studio logic
+    docClone.querySelectorAll('.injected-handle').forEach(el => el.remove());
+    docClone.querySelectorAll('#studio-injected-tools-css').forEach(el => el.remove());
+    docClone.querySelectorAll('.studio-element').forEach(el => {
        el.classList.remove('studio-element');
-       el.classList.remove('injected-draggable');
-       el.classList.remove('selected');
+       el.classList.remove('selected-box');
        if (el.className.trim() === '') el.removeAttribute('class');
     });
     
-    // 4. Put the cleaned body back into the parsed document
-    doc.body.innerHTML = containerClone.innerHTML;
+    const finalHTML = '<!DOCTYPE html>\n<html lang="en">\n' + docClone.innerHTML + '\n</html>';
     
-    // 5. Serialize to final HTML string
-    const finalHTML = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
-    
-    // 6. Write to disk!
     const writable = await currentFileHandle.createWritable();
     await writable.write(finalHTML);
     await writable.close();
     
-    // 7. Update original content to prevent losing changes if saved again
     originalHtmlString = finalHTML;
     
     btn.innerText = '✅ SAVED TO DISK';
@@ -1729,18 +1735,6 @@ async function studioSaveLocalFile() {
     btn.innerText = '❌ SAVE FAILED';
   }
 }
-
-// Global dynamic CSS for the Magic Wand
-const style = document.createElement('style');
-style.textContent = `
-  .wand-outline {
-    outline: 2px dashed #b8ff57 !important;
-    outline-offset: 4px !important;
-    cursor: cell !important;
-    background: rgba(184,255,87,0.1) !important;
-  }
-`;
-document.head.appendChild(style);
 </script>
 </body>
 </html>
