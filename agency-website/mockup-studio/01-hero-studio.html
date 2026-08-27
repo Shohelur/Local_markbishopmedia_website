@@ -3,13 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>MBM · Hero Section Mockup Studio (Live Import & Interactive Sync Engine)</title>
+<title>MBM · Hero Section Live Studio — 3D Pin & Customer Stream Arranger</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <!-- html2canvas for 1-Click HD PNG Export -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- Three.js & GSAP CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -59,7 +62,7 @@ body{
   gap:10px;
 }
 .brand-title{
-  font-size:14.5px;
+  font-size:14px;
   font-weight:800;
   letter-spacing:0.08em;
   white-space:nowrap;
@@ -111,7 +114,7 @@ body{
   gap:8px;
 }
 
-.btn-sync-master{
+.btn-replay-splash{
   background:linear-gradient(135deg, #00d4ff, #b8ff57);
   color:#020205;
   border:none;
@@ -128,7 +131,7 @@ body{
   transition:transform 0.15s;
   touch-action:manipulation;
 }
-.btn-sync-master:active{transform:scale(0.96)}
+.btn-replay-splash:active{transform:scale(0.96)}
 
 .btn-fullscreen-zen{
   background:#182236;
@@ -197,7 +200,137 @@ body{
 .btn-preset:hover{background:rgba(0, 212, 255, 0.15);border-color:#00d4ff;color:#00d4ff}
 
 /* ═══════════════════════════════════════════════════════════
-   3. STUDIO MAIN STAGE & HARDWARE ARTBOARD
+   3. DRAGGABLE FLOATING TOOLBAR
+   ═══════════════════════════════════════════════════════════ */
+#draggable-toolbar{
+  position:absolute;
+  top:76px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:9500;
+  background:rgba(12, 17, 28, 0.94);
+  border:1.5px solid rgba(0, 212, 255, 0.45);
+  box-shadow:0 12px 45px rgba(0,0,0,0.9), 0 0 25px rgba(0, 212, 255, 0.25);
+  border-radius:16px;
+  padding:5px 8px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  backdrop-filter:blur(18px);
+  touch-action:none;
+}
+
+.core-tools-group{
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
+.btn-toggle-draw-tray{
+  background:rgba(0, 212, 255, 0.12);
+  border:1px solid rgba(0, 212, 255, 0.35);
+  color:#00d4ff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  padding:6px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  transition:all 0.2s;
+  white-space:nowrap;
+  touch-action:manipulation;
+}
+.btn-toggle-draw-tray:hover{background:rgba(0, 212, 255, 0.25);border-color:#00d4ff}
+.btn-toggle-draw-tray.active{background:rgba(184, 255, 87, 0.2);border-color:#b8ff57;color:#b8ff57}
+
+#drawing-tools-tray{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  transition:all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow:hidden;
+}
+#drawing-tools-tray.collapsed{display:none !important}
+
+.toolbar-drag-grip{
+  cursor:grab;
+  padding:6px 8px;
+  color:rgba(0, 212, 255, 0.8);
+  font-size:16px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  user-select:none;
+  border-radius:6px;
+  touch-action:none;
+}
+.toolbar-drag-grip:hover{background:rgba(0, 212, 255, 0.15);color:#00d4ff}
+.toolbar-drag-grip:active{cursor:grabbing}
+
+.tool-item{
+  width:38px;
+  height:38px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  border:1px solid transparent;
+  color:rgba(255,255,255,0.8);
+  border-radius:8px;
+  cursor:pointer;
+  position:relative;
+  transition:all 0.15s ease;
+  touch-action:manipulation;
+}
+.tool-item svg{width:18px;height:18px;stroke-width:2}
+.tool-item .shortcut-num{position:absolute;bottom:1px;right:3px;font-size:8px;font-family:monospace;color:rgba(255,255,255,0.4)}
+.tool-item:hover{background:rgba(255,255,255,0.08);color:#fff}
+.tool-item.active{background:rgba(0, 212, 255, 0.25);border-color:#00d4ff;color:#00d4ff;box-shadow:0 0 12px rgba(0, 212, 255, 0.4)}
+
+.btn-history{
+  width:34px;
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.8);
+  border-radius:6px;
+  cursor:pointer;
+  transition:all 0.15s;
+  touch-action:manipulation;
+}
+.btn-history:hover{background:rgba(0, 212, 255, 0.2);color:#00d4ff;border-color:#00d4ff}
+
+.btn-lock-toggle{
+  width:36px;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.8);
+  border-radius:8px;
+  cursor:pointer;
+  transition:all 0.15s;
+  touch-action:manipulation;
+}
+.btn-lock-toggle.is-locked{background:rgba(255, 59, 48, 0.2);border-color:#ff3b30;color:#ff3b30;box-shadow:0 0 12px rgba(255, 59, 48, 0.4)}
+
+.toolbar-separator{width:1px;height:24px;background:rgba(255,255,255,0.12);margin:0 4px}
+
+.floating-palette{display:flex;align-items:center;gap:6px;padding-left:2px}
+.color-dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,0.5);cursor:pointer;transition:transform 0.15s, border-color 0.15s;touch-action:manipulation}
+.color-dot:hover, .color-dot.active{transform:scale(1.25);border-color:#fff;box-shadow:0 0 10px currentColor}
+
+/* ═══════════════════════════════════════════════════════════
+   4. STUDIO MAIN STAGE & HARDWARE ARTBOARD
    ═══════════════════════════════════════════════════════════ */
 .studio-main{flex:1;display:flex;position:relative;overflow:hidden}
 .stage-viewport{
@@ -223,9 +356,9 @@ body{
   overflow:hidden;
   flex-shrink:0;
   margin:0 auto;
-  transition:width 0.35s cubic-bezier(0.16, 1, 0.3, 1), height 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.3s ease;
+  transition:border-radius 0.2s ease;
 }
-#artboard-canvas-wrapper.desktop{width:1280px;height:760px;border-radius:14px}
+#artboard-canvas-wrapper.desktop{width:1280px;height:740px;border-radius:14px}
 #artboard-canvas-wrapper.tablet{width:820px;height:880px;border-radius:32px;border-width:12px;border-color:#182133}
 #artboard-canvas-wrapper.mobile{width:393px;height:840px;border-radius:48px;border-width:12px;border-color:#161f30}
 
@@ -244,23 +377,110 @@ body{
 }
 #artboard-canvas-wrapper.mobile .sim-dynamic-island{display:block}
 
-/* DIRECT LIVE IFRAME */
-#hero-live-frame{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  border:none;
-  background:transparent;
-  z-index:1;
-}
+#drawing-surface{position:absolute;inset:0;z-index:500;pointer-events:none;touch-action:none}
+#drawing-surface.interactive{pointer-events:all !important;cursor:crosshair}
+#stage-3d-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.cinema-vignette{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle at center, transparent 35%, rgba(2,2,5,0.45) 75%, #020205 100%)}
 
 /* ═══════════════════════════════════════════════════════════
-   4. COLLAPSIBLE RIGHT PROPERTIES SIDEBAR
+   5. CANVA-GRADE DRAGGABLE ELEMENTS
+   ═══════════════════════════════════════════════════════════ */
+.studio-element{
+  position:absolute;
+  cursor:move;
+  border:2px dashed transparent;
+  padding:12px 16px;
+  border-radius:14px;
+  touch-action:none;
+  user-select:none;
+  z-index:200;
+  transition:border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+.studio-element:hover{border-color:rgba(0, 212, 255, 0.6);background:rgba(0, 212, 255, 0.05)}
+.studio-element.selected-box{
+  border-color:#b8ff57 !important;
+  background:rgba(184, 255, 87, 0.12) !important;
+  box-shadow:0 0 30px rgba(184, 255, 87, 0.4);
+  z-index:1000 !important;
+}
+
+.canva-move-handle{
+  display:none;
+  position:absolute;
+  bottom:-50px;
+  left:50%;
+  transform:translateX(-50%);
+  background:linear-gradient(135deg, #00d4ff, #b8ff57);
+  color:#020205;
+  border:2.5px solid #ffffff;
+  box-shadow:0 8px 30px rgba(0, 212, 255, 0.9), 0 0 20px rgba(184, 255, 87, 0.8);
+  border-radius:100px;
+  padding:8px 18px;
+  font-family:'Space Grotesk', sans-serif;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:0.08em;
+  align-items:center;
+  gap:8px;
+  cursor:grab;
+  z-index:9999 !important;
+  touch-action:none;
+  user-select:none;
+  white-space:nowrap;
+  pointer-events:auto !important;
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+}
+.canva-move-handle:hover, .canva-move-handle:active{transform:translateX(-50%) scale(1.15);cursor:grabbing}
+.studio-element.selected-box .canva-move-handle{display:flex !important}
+.studio-element.element-locked .canva-move-handle{display:none !important}
+
+.resize-handle{
+  position:absolute;
+  width:18px;
+  height:18px;
+  background:#ffffff;
+  border:3px solid #00d4ff;
+  border-radius:4px;
+  z-index:300;
+  box-shadow:0 0 10px rgba(0, 212, 255, 0.95);
+  display:none;
+  touch-action:none;
+}
+.studio-element.selected-box .resize-handle{display:block}
+.studio-element.element-locked .resize-handle{display:none !important}
+.handle-nw{top:-9px;left:-9px;cursor:nwse-resize}
+.handle-ne{top:-9px;right:-9px;cursor:nesw-resize}
+.handle-se{bottom:-9px;right:-9px;cursor:nwse-resize}
+.handle-sw{bottom:-9px;left:-9px;cursor:nesw-resize}
+.handle-e{top:calc(50% - 9px);right:-9px;cursor:ew-resize}
+
+.element-tag{
+  display:none;
+  position:absolute;
+  top:-22px;
+  left:0;
+  background:#00d4ff;
+  color:#020205;
+  font-family:monospace;
+  font-size:10px;
+  font-weight:800;
+  padding:3px 10px;
+  border-radius:5px;
+  pointer-events:none;
+  box-shadow:0 2px 8px rgba(0,0,0,0.5);
+  white-space:nowrap;
+}
+.studio-element:hover .element-tag, .studio-element.selected-box .element-tag{display:block}
+
+.editable-text-field{outline:none;cursor:text;user-select:text;touch-action:auto}
+.editable-text-field:focus{background:rgba(0, 212, 255, 0.25);border-radius:8px;box-shadow:0 0 18px rgba(0, 212, 255, 0.6)}
+
+/* ═══════════════════════════════════════════════════════════
+   6. COLLAPSIBLE RIGHT PROPERTIES SIDEBAR
    ═══════════════════════════════════════════════════════════ */
 .sidebar-wrapper{position:relative;display:flex;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);z-index:9000}
 .studio-sidebar{
-  width:330px;
+  width:320px;
   background:#0c111c;
   border-left:1px solid rgba(0, 212, 255, 0.25);
   display:flex;
@@ -322,55 +542,73 @@ body{
 }
 .range-slider::-webkit-slider-thumb{
   -webkit-appearance:none;
-  width:20px;
-  height:20px;
+  width:22px;
+  height:22px;
   border-radius:50%;
   background:linear-gradient(135deg, #00d4ff, #b8ff57);
   box-shadow:0 0 12px #00d4ff;
   cursor:pointer;
 }
 
-.live-status-pill{
-  font-size:10.5px;
-  font-family:'JetBrains Mono', monospace;
-  font-weight:700;
-  background:rgba(0, 212, 255, 0.12);
-  border:1px solid rgba(0, 212, 255, 0.35);
-  color:#00d4ff;
-  padding:6px 12px;
+.sidebar-text-input{
+  width:100%;
+  background:rgba(0,0,0,0.5);
+  border:1px solid rgba(0, 212, 255, 0.4);
   border-radius:8px;
+  color:#fff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:13px;
+  font-weight:700;
+  padding:8px 12px;
+  outline:none;
+}
+
+.figma-align-grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:6px}
+.btn-align{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.12);
+  color:#fff;
+  padding:8px 6px;
+  border-radius:6px;
+  font-size:10.5px;
+  font-weight:700;
+  cursor:pointer;
   display:flex;
   align-items:center;
-  gap:6px;
+  justify-content:center;
+  gap:4px;
 }
+.btn-align:hover{background:rgba(0, 212, 255, 0.2);border-color:#00d4ff;color:#00d4ff}
 </style>
 </head>
 <body>
 
-<!-- 1. TOP STUDIO HEADER -->
+<!-- ═══════════════════════════════════════════════════════════
+     1. TOP STUDIO HEADER
+     ═══════════════════════════════════════════════════════════ -->
 <header class="studio-header">
   <div class="brand-badge-box">
-    <div class="brand-title">MARK BISHOP <span>MEDIA</span> · HERO LIVE STUDIO</div>
+    <div class="brand-title">MBM · <span id="studio-header-section-name">HERO SECTION STUDIO</span></div>
   </div>
 
   <!-- DEVICE FRAME SWITCHER & PROFILE BADGE -->
   <div class="device-btn-group">
-    <button class="btn-device active" id="btn-dev-desktop" onclick="switchStudioDevice('desktop')">🖥️ Desktop (1280px)</button>
+    <button class="btn-device active" id="btn-dev-mobile" onclick="switchStudioDevice('mobile')">📱 Mobile (393px)</button>
     <button class="btn-device" id="btn-dev-tablet" onclick="switchStudioDevice('tablet')">📟 Tablet (820px)</button>
-    <button class="btn-device" id="btn-dev-mobile" onclick="switchStudioDevice('mobile')">📱 Mobile (393px)</button>
+    <button class="btn-device" id="btn-dev-desktop" onclick="switchStudioDevice('desktop')">🖥️ Desktop (1280px)</button>
   </div>
-  <div id="active-profile-indicator" style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:800;background:rgba(184,255,87,0.15);border:1.5px solid #b8ff57;color:#b8ff57;padding:4px 12px;border-radius:100px;display:flex;align-items:center;gap:6px;">
-    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#b8ff57;box-shadow:0 0 8px #b8ff57;"></span>
-    <span>EDITING: 🖥️ DESKTOP</span>
+  <div id="active-profile-indicator" style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:800;background:rgba(0,212,255,0.15);border:1.5px solid #00d4ff;color:#00d4ff;padding:4px 12px;border-radius:100px;display:flex;align-items:center;gap:6px;">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#00d4ff;box-shadow:0 0 8px #00d4ff;"></span>
+    <span>EDITING: 📱 MOBILE</span>
   </div>
 
   <!-- HEADER ACTIONS -->
   <div class="header-action-group">
-    <button class="btn-sync-master" onclick="saveAndSyncToMaster()">
-      <span>⚡ SYNC TO MASTER</span>
+    <button class="btn-replay-splash" onclick="triggerSectionReplay()">
+      <span>↻ REPLAY HERO</span>
     </button>
     <button class="btn-fullscreen-zen" id="btn-fullscreen-toggle" onclick="toggleStudioFullscreen()">
-      <span id="txt-fullscreen-btn">⛶ FULLSCREEN</span>
+      <span id="txt-fullscreen-btn">⛶ FULLSCREEN (F)</span>
     </button>
     <button class="btn-png-download" onclick="exportArtboardPNG()">
       <span>📸 EXPORT HD PNG</span>
@@ -378,343 +616,1337 @@ body{
   </div>
 </header>
 
-<!-- 2. PRESET QUICK BAR -->
+<!-- ═══════════════════════════════════════════════════════════
+     2. PRESET QUICK BAR
+     ═══════════════════════════════════════════════════════════ -->
 <div class="preset-bar">
-  <span class="preset-label">⚡ 1-CLICK HERO PRESETS:</span>
-  <button class="btn-preset" onclick="applyPreset('desktop_standard')">🖥️ Desktop Gold Standard (X: 7.6, Scale: 0.88x)</button>
-  <button class="btn-preset" onclick="applyPreset('tablet_center')">📟 Tablet Centered (X: 4.2, Scale: 0.75x)</button>
-  <button class="btn-preset" onclick="applyPreset('mobile_compact')">📱 Mobile Clean Top (X: 0.0, Y: 2.4, Scale: 0.52x)</button>
-  <button class="btn-preset" onclick="applyPreset('high_impact')">🔥 High-Impact Wide (Scale: 1.05x)</button>
+  <span class="preset-label">⚡ HERO 1-CLICK PRESETS:</span>
+  <button class="btn-preset" onclick="applySectionPreset('mobile_hero')">📱 Mobile Stacked</button>
+  <button class="btn-preset" onclick="applySectionPreset('tablet_hero')">📟 Tablet Split</button>
+  <button class="btn-preset" onclick="applySectionPreset('desktop_hero')">🖥️ Desktop Gold Standard</button>
+  <button class="btn-preset" onclick="applySectionPreset('high_impact')">🔥 High Impact Wide</button>
 </div>
 
-<!-- 3. STUDIO MAIN STAGE -->
+<!-- ═══════════════════════════════════════════════════════════
+     3. DRAGGABLE FLOATING TOOLBAR
+     ═══════════════════════════════════════════════════════════ -->
+<div id="draggable-toolbar">
+  <div class="toolbar-drag-grip" id="toolbar-grip" title="Drag Toolbar on Touchscreen">⠿</div>
+  
+  <div class="core-tools-group">
+    <button class="btn-history" onclick="triggerUndo()" title="Undo (Ctrl+Z)">↶</button>
+    <button class="btn-history" onclick="triggerRedo()" title="Redo (Ctrl+Y)">↷</button>
+
+    <div class="toolbar-separator"></div>
+
+    <button class="tool-item active" id="tool-select" onclick="setActiveWhiteboardTool('select')" title="Touch Select & Move (1)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>
+      <span class="shortcut-num">1</span>
+    </button>
+
+    <button class="btn-lock-toggle" id="btn-lock-active" onclick="toggleLockSelectedElement()" title="Lock Selected Element">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </button>
+
+    <button class="btn-toggle-draw-tray" id="btn-toggle-draw" onclick="toggleDrawingToolsTray()" title="Toggle Extra Drawing Tools">
+      <span>✏️ TOOLS</span>
+      <span id="tray-arrow-icon">❯</span>
+    </button>
+  </div>
+
+  <!-- COLLAPSIBLE DRAWING TRAY -->
+  <div id="drawing-tools-tray" class="collapsed">
+    <div class="toolbar-separator"></div>
+
+    <button class="tool-item" id="tool-rect" onclick="setActiveWhiteboardTool('rect')" title="Rectangle Frame (2)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+      <span class="shortcut-num">2</span>
+    </button>
+    <button class="tool-item" id="tool-circle" onclick="setActiveWhiteboardTool('circle')" title="Circle / Radar (3)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/></svg>
+      <span class="shortcut-num">3</span>
+    </button>
+    <button class="tool-item" id="tool-arrow" onclick="setActiveWhiteboardTool('arrow')" title="Arrow Pointer (4)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      <span class="shortcut-num">4</span>
+    </button>
+    <button class="tool-item" id="tool-line" onclick="setActiveWhiteboardTool('line')" title="Split Line (5)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="4" y1="20" x2="20" y2="4"/></svg>
+      <span class="shortcut-num">5</span>
+    </button>
+    <button class="tool-item" id="tool-pen" onclick="setActiveWhiteboardTool('pen')" title="Freehand Pen (6)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
+      <span class="shortcut-num">6</span>
+    </button>
+    <button class="tool-item" id="tool-eraser" onclick="setActiveWhiteboardTool('eraser')" title="Eraser Tool (8)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 20H7L3 16C2 15 2 13 3 12L13 2L22 11L20 20Z"/></svg>
+      <span class="shortcut-num">8</span>
+    </button>
+
+    <div class="toolbar-separator"></div>
+
+    <div class="floating-palette">
+      <div class="color-dot active" style="background:#00d4ff;color:#00d4ff" onclick="selectPaletteColor('#00d4ff', this)"></div>
+      <div class="color-dot" style="background:#b8ff57;color:#b8ff57" onclick="selectPaletteColor('#b8ff57', this)"></div>
+      <div class="color-dot" style="background:#ff3b30;color:#ff3b30" onclick="selectPaletteColor('#ff3b30', this)"></div>
+      <div class="color-dot" style="background:#ffe066;color:#ffe066" onclick="selectPaletteColor('#ffe066', this)"></div>
+      <div class="color-dot" style="background:#ffffff;color:#ffffff" onclick="selectPaletteColor('#ffffff', this)"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     4. STUDIO MAIN STAGE
+     ═══════════════════════════════════════════════════════════ -->
 <div class="studio-main">
+
   <div class="stage-viewport" id="stage-viewport">
     
     <!-- HARDWARE ARTBOARD SIMULATOR -->
-    <div id="artboard-canvas-wrapper" class="desktop">
+    <div id="artboard-canvas-wrapper" class="mobile">
       <div class="sim-dynamic-island"></div>
 
-      <!-- DIRECT REAL PROTOTYPE LOAD VIA IFRAME -->
-      <iframe id="hero-live-frame" src="../prototypes/hero-section-prototype.html" title="Hero Section Live Preview"></iframe>
+      <!-- CANVA / FIGMA SMART MAGNETIC ALIGNMENT GUIDES LAYER -->
+      <svg id="smart-guide-layer" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:850;"></svg>
+
+      <!-- DRAWING CANVAS OVERLAY -->
+      <canvas id="drawing-surface"></canvas>
+
+      <!-- LIVE THREE.JS 3D CANVAS -->
+      <canvas id="stage-3d-canvas"></canvas>
+      <div class="cinema-vignette"></div>
+
+      <!-- ─── MODULAR SECTION ELEMENT SLOT (CUSTOMIZED PER SECTION) ─── -->
+      <div id="section-elements-container">
+        
+
+        <!-- ═══════════════════════════════════════════
+             HERO SECTION DRAGGABLE ELEMENTS
+             All use .studio-element for full canva engine support
+             ═══════════════════════════════════════════ -->
+
+        <!-- ELEMENT 1: AUTHORITY BADGE PILL -->
+        <div class="studio-element" id="elem-hero-badge" data-name="Authority Badge"
+             style="top:82px;left:50%;transform:translateX(-50%);width:auto;min-width:200px;text-align:center;">
+          <span class="element-tag">🏷️ BADGE</span>
+          <div class="canva-move-handle" title="Drag to Move">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>
+            </svg>
+            <span>✥ MOVE</span>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,255,0.12);border:1px solid rgba(0,212,255,0.45);border-radius:100px;padding:6px 14px;">
+            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#00d4ff;box-shadow:0 0 6px #00d4ff;"></span>
+            <span class="editable-text-field" style="font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:800;letter-spacing:0.18em;color:#00d4ff;">LOCAL VISIBILITY OPERATING SYSTEM</span>
+          </div>
+          <div class="resize-handle handle-nw" data-handle="nw"></div>
+          <div class="resize-handle handle-ne" data-handle="ne"></div>
+          <div class="resize-handle handle-se" data-handle="se"></div>
+          <div class="resize-handle handle-sw" data-handle="sw"></div>
+          <div class="resize-handle handle-e" data-handle="e"></div>
+        </div>
+
+        <!-- ELEMENT 2: MAIN HEADLINE -->
+        <div class="studio-element" id="elem-hero-title" data-name="Main Headline"
+             style="top:130px;left:8px;width:370px;text-align:center;">
+          <span class="element-tag">🔤 HEADLINE</span>
+          <div class="canva-move-handle" title="Drag to Move">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>
+            </svg>
+            <span>✥ MOVE</span>
+          </div>
+          <h1 class="editable-text-field" style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;line-height:1.15;letter-spacing:-0.01em;color:#ffffff;">
+            YOUR LOCAL CLIENTS<br>
+            <span style="background:linear-gradient(135deg,#00d4ff,#b8ff57);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">[ ARE SEARCHING ]</span><br>
+            WE MAKE SURE THEY<br>FIND YOU FIRST.
+          </h1>
+          <div class="resize-handle handle-nw" data-handle="nw"></div>
+          <div class="resize-handle handle-ne" data-handle="ne"></div>
+          <div class="resize-handle handle-se" data-handle="se"></div>
+          <div class="resize-handle handle-sw" data-handle="sw"></div>
+          <div class="resize-handle handle-e" data-handle="e"></div>
+        </div>
+
+        <!-- ELEMENT 3: DYNAMIC TICKER -->
+        <div class="studio-element" id="elem-hero-ticker" data-name="Dominance Ticker"
+             style="top:316px;left:8px;width:370px;">
+          <span class="element-tag">⚡ TICKER</span>
+          <div class="canva-move-handle" title="Drag to Move">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>
+            </svg>
+            <span>✥ MOVE</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;background:rgba(0,0,0,0.5);border:1px solid rgba(0,212,255,0.2);border-radius:100px;padding:7px 16px;overflow:hidden;">
+            <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#b8ff57;box-shadow:0 0 8px #b8ff57;flex-shrink:0;"></span>
+            <span class="editable-text-field" style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:800;letter-spacing:0.1em;color:rgba(255,255,255,0.6);">DOMINANCE ENGINE:</span>
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;color:#b8ff57;">9-Mile Local Geo-Grid Coverage</span>
+          </div>
+          <div class="resize-handle handle-nw" data-handle="nw"></div>
+          <div class="resize-handle handle-ne" data-handle="ne"></div>
+          <div class="resize-handle handle-se" data-handle="se"></div>
+          <div class="resize-handle handle-sw" data-handle="sw"></div>
+          <div class="resize-handle handle-e" data-handle="e"></div>
+        </div>
+
+        <!-- ELEMENT 4: CTA BUTTON -->
+        <div class="studio-element" id="elem-hero-cta" data-name="CTA Button"
+             style="top:366px;left:50%;transform:translateX(-50%);width:auto;min-width:180px;text-align:center;">
+          <span class="element-tag">🚀 CTA BUTTON</span>
+          <div class="canva-move-handle" title="Drag to Move">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>
+            </svg>
+            <span>✥ MOVE</span>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(0,212,255,0.2),rgba(184,255,87,0.12));border:1.5px solid rgba(0,212,255,0.6);border-radius:100px;padding:12px 28px;box-shadow:0 0 24px rgba(0,212,255,0.25),inset 0 1px 0 rgba(255,255,255,0.1);">
+            <span class="editable-text-field" style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:800;letter-spacing:0.08em;color:#fff;">⚡ EXPLORE WHAT WE DO</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="resize-handle handle-nw" data-handle="nw"></div>
+          <div class="resize-handle handle-ne" data-handle="ne"></div>
+          <div class="resize-handle handle-se" data-handle="se"></div>
+          <div class="resize-handle handle-sw" data-handle="sw"></div>
+          <div class="resize-handle handle-e" data-handle="e"></div>
+        </div>
+
+        <!-- ELEMENT 5: 3D PIN + CUSTOMER STREAM PANEL -->
+        <div class="studio-element" id="elem-3d-pin" data-name="3D Pin & Customer Stream"
+             style="top:430px;left:8px;width:370px;">
+          <span class="element-tag">📍 3D PIN + STREAM</span>
+          <div class="canva-move-handle" title="Drag to Move">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>
+            </svg>
+            <span>✥ MOVE</span>
+          </div>
+          <!-- Customer Stream Panel -->
+          <div style="background:rgba(2,2,5,0.72);border:1px solid rgba(0,212,255,0.25);border-radius:16px;padding:14px;backdrop-filter:blur(8px);">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#00d4ff;box-shadow:0 0 8px #00d4ff;"></div>
+              <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:800;color:#00d4ff;letter-spacing:0.12em;">LIVE CUSTOMER STREAM</span>
+            </div>
+            <!-- 8 customers (4+4) -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:8px;padding:5px 8px;">
+                <span style="font-size:13px;">🔍</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">"best plumber near me"</div>
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:7px;color:rgba(255,255,255,0.4);">Sarah M.</div>
+                </div>
+                <span style="font-family:'Space Grotesk',sans-serif;font-size:8px;font-weight:800;color:#b8ff57;">$285</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(184,255,87,0.06);border:1px solid rgba(184,255,87,0.2);border-radius:8px;padding:5px 8px;">
+                <span style="font-size:13px;">💰</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">"HVAC repair service"</div>
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:7px;color:rgba(255,255,255,0.4);">James R.</div>
+                </div>
+                <span style="font-family:'Space Grotesk',sans-serif;font-size:8px;font-weight:800;color:#b8ff57;">$480</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:8px;padding:5px 8px;">
+                <span style="font-size:13px;">🔍</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">"roof replacement quote"</div>
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:7px;color:rgba(255,255,255,0.4);">Maria L.</div>
+                </div>
+                <span style="font-family:'Space Grotesk',sans-serif;font-size:8px;font-weight:800;color:#b8ff57;">$1,850</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(184,255,87,0.06);border:1px solid rgba(184,255,87,0.2);border-radius:8px;padding:5px 8px;">
+                <span style="font-size:13px;">💰</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">"dentist accepting patients"</div>
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:7px;color:rgba(255,255,255,0.4);">Kevin T.</div>
+                </div>
+                <span style="font-family:'Space Grotesk',sans-serif;font-size:8px;font-weight:800;color:#b8ff57;">$320</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:8px;padding:5px 8px;">
+                <span style="font-size:13px;">🔍</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">"emergency electrician"</div>
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:7px;color:rgba(255,255,255,0.4);">Priya S.</div>
+                </div>
+                <span style="font-family:'Space Grotesk',sans-serif;font-size:8px;font-weight:800;color:#b8ff57;">$165</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(184,255,87,0.06);border:1px solid rgba(184,255,87,0.2);border-radius:8px;padding:5px 8px;">
+                <span style="font-size:13px;">💰</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">"auto body shop near me"</div>
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:7px;color:rgba(255,255,255,0.4);">Carlos V.</div>
+                </div>
+                <span style="font-family:'Space Grotesk',sans-serif;font-size:8px;font-weight:800;color:#b8ff57;">$740</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:8px;padding:5px 8px;">
+                <span style="font-size:13px;">🔍</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">"personal injury attorney"</div>
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:7px;color:rgba(255,255,255,0.4);">Linda K.</div>
+                </div>
+                <span style="font-family:'Space Grotesk',sans-serif;font-size:8px;font-weight:800;color:#b8ff57;">$4,200</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(184,255,87,0.06);border:1px solid rgba(184,255,87,0.2);border-radius:8px;padding:5px 8px;">
+                <span style="font-size:13px;">💰</span>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">"landscaping service"</div>
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:7px;color:rgba(255,255,255,0.4);">Tom A.</div>
+                </div>
+                <span style="font-family:'Space Grotesk',sans-serif;font-size:8px;font-weight:800;color:#b8ff57;">$890</span>
+              </div>
+            </div>
+          </div>
+          <div class="resize-handle handle-nw" data-handle="nw"></div>
+          <div class="resize-handle handle-ne" data-handle="ne"></div>
+          <div class="resize-handle handle-se" data-handle="se"></div>
+          <div class="resize-handle handle-sw" data-handle="sw"></div>
+          <div class="resize-handle handle-e" data-handle="e"></div>
+        </div>
+
+
+      </div>
+
     </div>
   </div>
 
-  <!-- 4. COLLAPSIBLE RIGHT PROPERTIES SIDEBAR -->
+  <!-- ═══════════════════════════════════════════════════════════
+       5. COLLAPSIBLE RIGHT PROPERTIES SIDEBAR
+       ═══════════════════════════════════════════════════════════ -->
   <div class="sidebar-wrapper">
     <div class="sidebar-collapse-handle" onclick="toggleSidebar()" title="Toggle Sidebar">
       <span id="handle-arrow">❯</span>
     </div>
 
     <aside class="studio-sidebar" id="studio-sidebar-panel">
-      <!-- LIVE ENGINE STATUS -->
-      <div class="panel-header-title">⚡ DIRECT LIVE PIPELINE</div>
-      <div class="live-status-pill">
-        <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#00d4ff;box-shadow:0 0 8px #00d4ff;"></span>
-        <span>CONNECTED: hero-section-prototype</span>
-      </div>
-
+      
+      <!-- PROFILE STATE MANAGER -->
+      <div class="panel-header-title">💾 PROFILE STATE MANAGER</div>
       <div style="background:rgba(0,0,0,0.4);border:1px solid rgba(0,212,255,0.25);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:8px;">
         <div style="font-size:11px;color:rgba(255,255,255,0.7);display:flex;justify-content:space-between;align-items:center;">
           <span>ACTIVE PROFILE:</span>
-          <span id="sidebar-active-device-name" style="color:#b8ff57;font-weight:800;">🖥️ DESKTOP</span>
+          <span id="sidebar-active-device-name" style="color:#00d4ff;font-weight:800;">📱 MOBILE</span>
         </div>
-        <button class="btn-preset" id="btn-manual-save-profile" style="width:100%;padding:8px;justify-content:center;background:rgba(0,212,255,0.2);border-color:#00d4ff;color:#00d4ff;font-weight:800;" onclick="saveAndSyncToMaster()">
-          <span>💾 SAVE CURRENT CONFIG</span>
+        <button class="btn-preset" id="btn-manual-save-profile" style="width:100%;padding:8px;justify-content:center;background:rgba(0,212,255,0.2);border-color:#00d4ff;color:#00d4ff;font-weight:800;" onclick="manualSaveCurrentProfile()">
+          <span>💾 SAVE CURRENT PROFILE</span>
         </button>
         <button class="btn-preset" style="width:100%;padding:6px;justify-content:center;font-size:10px;color:rgba(255,255,255,0.6);" onclick="resetCurrentProfileToDefaults()">
-          <span>🔄 Reset to Default Coordinates</span>
+          <span>🔄 Reset Current Profile</span>
         </button>
       </div>
 
-      <div class="panel-header-title">3D STOREFRONT PIN CONTROLS</div>
+      <div class="panel-header-title">SELECTED COMPONENT</div>
+      
       <div class="control-field">
-        <div class="control-label"><span>3D PIN SCALE:</span> <span class="control-val" id="disp-pin-scale">0.88x</span></div>
-        <input type="range" class="range-slider" id="slider-pin-scale" min="0.3" max="2.0" step="0.02" value="0.88" oninput="change3DPinScale(this.value)">
-      </div>
-      <div class="control-field">
-        <div class="control-label"><span>3D PIN X POSITION:</span> <span class="control-val" id="disp-pin-x">7.6</span></div>
-        <input type="range" class="range-slider" id="slider-pin-x" min="-12" max="15" step="0.1" value="7.6" oninput="change3DPinX(this.value)">
-      </div>
-      <div class="control-field">
-        <div class="control-label"><span>3D PIN Y POSITION:</span> <span class="control-val" id="disp-pin-y">-0.6</span></div>
-        <input type="range" class="range-slider" id="slider-pin-y" min="-8" max="8" step="0.1" value="-0.6" oninput="change3DPinY(this.value)">
+        <div class="control-label"><span>ELEMENT:</span> <span class="control-val" id="disp-elem-name">Tap Any Item</span></div>
+        <div class="control-label"><span>TOP:</span> <span class="control-val" id="disp-pos-top">--</span></div>
+        <div class="control-label"><span>LEFT:</span> <span class="control-val" id="disp-pos-left">--</span></div>
       </div>
 
-      <div class="panel-header-title">HERO TEXT ALIGNMENT</div>
-      <div class="control-field">
-        <div class="control-label"><span>HEADLINE FONT SIZE:</span> <span class="control-val" id="disp-headline-size">48px</span></div>
-        <input type="range" class="range-slider" id="slider-headline-size" min="20" max="64" step="1" value="48" oninput="changeHeadlineFontSize(this.value)">
-      </div>
-      <div class="control-field">
-        <div class="control-label"><span>TEXT DECK VERTICAL OFFSET:</span> <span class="control-val" id="disp-hero-y">0px</span></div>
-        <input type="range" class="range-slider" id="slider-hero-y" min="-100" max="200" step="5" value="0" oninput="changeHeroDeckY(this.value)">
-      </div>
-
-      <div class="panel-header-title">PRODUCTION JSON EXPORT</div>
-      <textarea id="json-export-box" readonly style="width:100%;height:110px;background:rgba(0,0,0,0.6);border:1px solid rgba(0,212,255,0.3);border-radius:8px;color:#b8ff57;font-family:'JetBrains Mono',monospace;font-size:10px;padding:8px;outline:none;resize:none;"></textarea>
-      <button class="btn-preset" style="width:100%;padding:8px;justify-content:center;background:rgba(184,255,87,0.15);border-color:#b8ff57;color:#b8ff57;font-weight:800;" onclick="copyProductionJSON()">
-        <span>📋 COPY PRODUCTION JSON</span>
+      <button class="btn-preset" id="sidebar-lock-btn" style="width:100%;padding:8px;justify-content:center" onclick="toggleLockSelectedElement()">
+        <span>🔒 Lock This Element</span>
       </button>
+
+      <!-- TOUCH TEXT EDITOR INPUT -->
+      <div class="panel-header-title">✏️ LIVE TEXT TYPER</div>
+      <div class="control-field">
+        <div class="control-label"><span>EDIT SELECTED TEXT:</span></div>
+        <input type="text" class="sidebar-text-input" id="sidebar-edit-text" placeholder="Select text element to edit" oninput="syncSidebarTextToElement(this.value)">
+      </div>
+
+      <div class="panel-header-title">FIGMA AUTO-ALIGN</div>
+      <div class="figma-align-grid">
+        <button class="btn-align" onclick="alignSelectedElement('left')">⬅️ Left</button>
+        <button class="btn-align" onclick="alignSelectedElement('center')">🎯 Center</button>
+        <button class="btn-align" onclick="alignSelectedElement('right')">➡️ Right</button>
+      </div>
+
+      <div id="sidebar-section-custom-controls">
+        <div class="panel-header-title">📍 3D PIN CONTROLS</div>
+
+        <div class="control-field">
+          <div class="control-label"><span>PIN SCALE:</span> <span class="control-val" id="disp-pin-scale">0.88x</span></div>
+          <input type="range" class="range-slider" id="slider-pin-scale" min="0.30" max="2.00" step="0.02" value="0.88"
+                 oninput="heroChange3DPinScale(this.value)">
+        </div>
+
+        <div class="control-field">
+          <div class="control-label"><span>PIN X POSITION:</span> <span class="control-val" id="disp-pin-x">7.6</span></div>
+          <input type="range" class="range-slider" id="slider-pin-x" min="-12" max="15" step="0.1" value="7.6"
+                 oninput="heroChange3DPinX(this.value)">
+        </div>
+
+        <div class="control-field">
+          <div class="control-label"><span>PIN Y POSITION:</span> <span class="control-val" id="disp-pin-y">-0.6</span></div>
+          <input type="range" class="range-slider" id="slider-pin-y" min="-8" max="8" step="0.1" value="-0.6"
+                 oninput="heroChange3DPinY(this.value)">
+        </div>
+
+        <div class="panel-header-title">FONT SIZE</div>
+        <div class="control-field">
+          <div class="control-label"><span>FONT SIZE:</span> <span class="control-val" id="disp-font-size">26px</span></div>
+          <input type="range" min="14" max="64" value="26" class="range-slider" id="slider-font-size" oninput="changeSelectedFontSize(this.value)">
+        </div>
+
+        <div class="panel-header-title">⚡ SYNC TO MASTER</div>
+        <button class="btn-preset" id="btn-sync-to-master"
+                style="width:100%;padding:10px;justify-content:center;background:linear-gradient(135deg,rgba(0,212,255,0.25),rgba(184,255,87,0.15));border-color:#00d4ff;color:#fff;font-weight:800;"
+                onclick="heroSyncToMasterPrototype()">
+          <span>⚡ APPLY & SYNC TO PROTOTYPE</span>
+        </button>
+
+        <div class="panel-header-title">3D PIN PRODUCTION JSON</div>
+        <textarea id="hero-json-export" readonly style="width:100%;height:90px;background:rgba(0,0,0,0.6);border:1px solid rgba(0,212,255,0.3);border-radius:8px;color:#b8ff57;font-family:'JetBrains Mono',monospace;font-size:9.5px;padding:8px;outline:none;resize:none;"></textarea>
+        <button class="btn-preset" style="width:100%;padding:7px;justify-content:center;font-size:10px;color:#b8ff57;border-color:rgba(184,255,87,0.4);" onclick="heroCopyJSON()">
+          📋 COPY PRODUCTION JSON
+        </button>
+      </div>
+
+      <div class="panel-header-title">WHITEBOARD ACTIONS</div>
+      
+      <button class="btn-preset" style="width:100%;padding:10px;justify-content:center;color:#ff3b30;border-color:rgba(255,59,48,0.4)" onclick="clearAllDrawingCanvas()">
+        <span>🧹 ERASE ALL DRAWINGS</span>
+      </button>
+
+      <div class="panel-header-title">SHORTCUT TIPS</div>
+      <p style="font-size:11.5px;line-height:1.6;color:rgba(255,255,255,0.6)">
+        <b>F:</b> Fullscreen View<br>
+        <b>Smart Guides:</b> নাড়াচাড়া করার সময় স্বয়ংক্রিয় গাইডলাইন আসবে<br>
+        <b>[ ✥ MOVE ]:</b> হ্যান্ডেল ধরে ড্র্যাগ করুন<br>
+        <b>Ctrl+Z / Ctrl+Y:</b> 100% Functional Undo & Redo
+      </p>
     </aside>
   </div>
+
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════
+     CANVA CORE ENGINE SCRIPT (REUSABLE TEMPLATE SCRIPT)
+     ═══════════════════════════════════════════════════════════ -->
 <script>
-/* ═══════════════════════════════════════════════════════════
-   LIVE IFRAME INTERACTION & ZERO-DISCREPANCY SYNC CONTROLLER
-   ═══════════════════════════════════════════════════════════ */
-const liveFrame = document.getElementById('hero-live-frame');
+/* ─── 1. CORE DOM REFS & 3D CANVAS ─── */
+const artboardBox = document.getElementById('artboard-canvas-wrapper');
+const stageCanvas = document.getElementById('stage-3d-canvas');
+const stageRenderer = new THREE.WebGLRenderer({ canvas: stageCanvas, antialias: true, alpha: true });
+stageRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-const defaultDeviceProfiles = {
-  desktop: {
-    pinScale: 0.88,
-    pinX: 7.6,
-    pinY: -0.6,
-    headlineSize: 48,
-    heroY: 0
-  },
-  tablet: {
-    pinScale: 0.75,
-    pinX: 4.2,
-    pinY: -0.8,
-    headlineSize: 36,
-    heroY: 0
-  },
-  mobile: {
-    pinScale: 0.52,
-    pinX: 0.0,
-    pinY: 2.4,
-    headlineSize: 26,
-    heroY: 20
+const stageScene = new THREE.Scene();
+const stageCamera = new THREE.PerspectiveCamera(45, artboardBox.clientWidth / artboardBox.clientHeight, 0.1, 1000);
+stageCamera.position.set(0, 1.2, 22);
+
+function resizeStage3D() {
+  const w = artboardBox.clientWidth || 393;
+  const h = artboardBox.clientHeight || 840;
+  stageCanvas.style.width = '100%';
+  stageCanvas.style.height = '100%';
+  stageRenderer.setSize(w, h, true);
+  stageCamera.aspect = w / h;
+  stageCamera.updateProjectionMatrix();
+  stageRenderer.render(stageScene, stageCamera);
+}
+
+/* ─── 2. CANVA SMART ALIGNMENT ENGINE ─── */
+const guideLayer = document.getElementById('smart-guide-layer');
+const SNAP_THRESHOLD = 8;
+
+function clearSmartGuides() {
+  if (guideLayer) guideLayer.innerHTML = '';
+}
+
+function renderSmartGuideLines(guides) {
+  if (!guideLayer) return;
+  let svgHTML = '';
+
+  guides.forEach(g => {
+    if (g.type === 'v') {
+      svgHTML += '<line x1="' + g.pos + '" y1="0" x2="' + g.pos + '" y2="100%" stroke="' + (g.color || '#b8ff57') + '" stroke-width="1.5" stroke-dasharray="4,4" style="filter:drop-shadow(0 0 6px ' + (g.color || '#b8ff57') + ');" />' +
+        '<g transform="translate(' + Math.max(48, Math.min(artboardBox.clientWidth - 48, g.pos)) + ', 24)">' +
+        '<rect x="-44" y="-11" width="88" height="20" rx="6" fill="#0b101d" stroke="' + (g.color || '#b8ff57') + '" stroke-width="1.2" style="filter:drop-shadow(0 2px 8px rgba(0,0,0,0.8));"/>' +
+        '<text x="0" y="3" fill="' + (g.color || '#b8ff57') + '" font-family="monospace" font-size="9.5" font-weight="800" text-anchor="middle">' + g.label + '</text>' +
+        '</g>';
+    } else if (g.type === 'h') {
+      svgHTML += '<line x1="0" y1="' + g.pos + '" x2="100%" y2="' + g.pos + '" stroke="' + (g.color || '#00d4ff') + '" stroke-width="1.5" stroke-dasharray="4,4" style="filter:drop-shadow(0 0 6px ' + (g.color || '#00d4ff') + ');" />' +
+        '<g transform="translate(58, ' + g.pos + ')">' +
+        '<rect x="-46" y="-11" width="92" height="20" rx="6" fill="#0b101d" stroke="' + (g.color || '#00d4ff') + '" stroke-width="1.2" style="filter:drop-shadow(0 2px 8px rgba(0,0,0,0.8));"/>' +
+        '<text x="0" y="3" fill="' + (g.color || '#00d4ff') + '" font-family="monospace" font-size="9.5" font-weight="800" text-anchor="middle">' + g.label + '</text>' +
+        '</g>';
+    }
+  });
+
+  guideLayer.innerHTML = svgHTML;
+}
+
+function calculateSmartSnapping(targetEl, rawLeft, rawTop) {
+  const artW = artboardBox.clientWidth;
+  const artH = artboardBox.clientHeight;
+  const elemW = targetEl.offsetWidth;
+  const elemH = targetEl.offsetHeight;
+
+  let snappedLeft = rawLeft;
+  let snappedTop = rawTop;
+  const activeGuides = [];
+
+  const elemCenterX = rawLeft + (elemW / 2);
+  const elemCenterY = rawTop + (elemH / 2);
+
+  const screenCenterX = artW / 2;
+  if (Math.abs(elemCenterX - screenCenterX) <= SNAP_THRESHOLD) {
+    snappedLeft = screenCenterX - (elemW / 2);
+    activeGuides.push({ type: 'v', pos: screenCenterX, label: '🎯 CENTER 50%', color: '#b8ff57' });
   }
-};
 
-let currentProfiles = JSON.parse(JSON.stringify(defaultDeviceProfiles));
-let currentDevice = 'desktop';
+  const screenCenterY = artH / 2;
+  if (Math.abs(elemCenterY - screenCenterY) <= SNAP_THRESHOLD) {
+    snappedTop = screenCenterY - (elemH / 2);
+    activeGuides.push({ type: 'h', pos: screenCenterY, label: '🎯 MIDDLE 50%', color: '#00d4ff' });
+  }
 
-const STORAGE_KEY = 'mbm_hero_live_sync_v1';
+  if (Math.abs(rawLeft - 24) <= SNAP_THRESHOLD) {
+    snappedLeft = 24;
+    activeGuides.push({ type: 'v', pos: 24, label: '⬅️ MARGIN 24px', color: '#ffd700' });
+  }
 
-try {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved) {
-    const parsed = JSON.parse(saved);
-    if (parsed.desktop && parsed.tablet && parsed.mobile) {
-      currentProfiles = parsed;
+  document.querySelectorAll('.studio-element').forEach(sib => {
+    if (sib === targetEl) return;
+    const sibL = sib.offsetLeft;
+    const sibT = sib.offsetTop;
+    const sibW = sib.offsetWidth;
+    const sibH = sib.offsetHeight;
+    const sibCenterX = sibL + (sibW / 2);
+    const sibCenterY = sibT + (sibH / 2);
+    const sibName = sib.getAttribute('data-name') || 'ELEMENT';
+
+    if (Math.abs(elemCenterX - sibCenterX) <= SNAP_THRESHOLD && !activeGuides.some(g => g.type === 'v')) {
+      snappedLeft = sibCenterX - (elemW / 2);
+      activeGuides.push({ type: 'v', pos: sibCenterX, label: '↕ ' + sibName, color: '#b8ff57' });
+    }
+    if (Math.abs(elemCenterY - sibCenterY) <= SNAP_THRESHOLD && !activeGuides.some(g => g.type === 'h')) {
+      snappedTop = sibCenterY - (elemH / 2);
+      activeGuides.push({ type: 'h', pos: sibCenterY, label: '↔ ' + sibName, color: '#00d4ff' });
+    }
+  });
+
+  renderSmartGuideLines(activeGuides);
+  return { left: snappedLeft, top: snappedTop };
+}
+
+/* ─── 3. CANVA TOUCH & DRAG ENGINE ─── */
+let activeSelectedElem = null;
+let isDraggingElement = false;
+let isResizingElement = false;
+let resizeHandleDir = null;
+let grabOffsetX = 0, grabOffsetY = 0;
+let resStartX = 0, resStartY = 0, resStartW = 0, resStartH = 0;
+
+function getEventPoint(e) {
+  if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  return { x: e.clientX, y: e.clientY };
+}
+
+function attachMoveHandleListeners() {
+  document.querySelectorAll('.canva-move-handle').forEach(handle => {
+    const startMove = (e) => {
+      const el = handle.closest('.studio-element');
+      if (!el || el.classList.contains('element-locked')) return;
+
+      selectElement(el);
+      isDraggingElement = true;
+      recordHistoryState();
+
+      const pt = getEventPoint(e);
+      const elRect = el.getBoundingClientRect();
+      const artRect = artboardBox.getBoundingClientRect();
+
+      grabOffsetX = pt.x - elRect.left;
+      grabOffsetY = pt.y - elRect.top;
+
+      el.style.transform = 'none';
+      el.style.left = (elRect.left - artRect.left) + 'px';
+      el.style.top = (elRect.top - artRect.top) + 'px';
+
+      try { handle.setPointerCapture(e.pointerId); } catch(err){}
+      e.stopPropagation();
+      e.preventDefault();
+    };
+
+    handle.addEventListener('pointerdown', startMove);
+    handle.addEventListener('touchstart', startMove, { passive: false });
+  });
+}
+
+function handleElementTouchStart(e, el) {
+  if (e.target.closest('.canva-move-handle')) return;
+
+  if (e.target.classList.contains('resize-handle')) {
+    isResizingElement = true;
+    resizeHandleDir = e.target.getAttribute('data-handle');
+    const pt = getEventPoint(e);
+    resStartX = pt.x;
+    resStartY = pt.y;
+    resStartW = el.offsetWidth;
+    resStartH = el.offsetHeight;
+    selectElement(el);
+    recordHistoryState();
+    e.stopPropagation();
+    return;
+  }
+
+  selectElement(el);
+
+  if (e.target.isContentEditable) {
+    e.stopPropagation();
+    return;
+  }
+
+  if (!el.classList.contains('element-locked')) {
+    const pt = getEventPoint(e);
+    const elRect = el.getBoundingClientRect();
+    const artRect = artboardBox.getBoundingClientRect();
+
+    grabOffsetX = pt.x - elRect.left;
+    grabOffsetY = pt.y - elRect.top;
+
+    el.style.transform = 'none';
+    el.style.left = (elRect.left - artRect.left) + 'px';
+    el.style.top = (elRect.top - artRect.top) + 'px';
+
+    isDraggingElement = true;
+    recordHistoryState();
+  }
+
+  e.stopPropagation();
+}
+
+function handleElementTouchMove(e) {
+  const pt = getEventPoint(e);
+  if (!pt.x || !pt.y) return;
+
+  if (isDraggingElement && activeSelectedElem && !activeSelectedElem.classList.contains('element-locked')) {
+    const artRect = artboardBox.getBoundingClientRect();
+    const rawLeft = (pt.x - artRect.left) - grabOffsetX;
+    const rawTop = (pt.y - artRect.top) - grabOffsetY;
+    const snapped = calculateSmartSnapping(activeSelectedElem, rawLeft, rawTop);
+
+    activeSelectedElem.style.left = Math.round(snapped.left) + 'px';
+    activeSelectedElem.style.top = Math.round(snapped.top) + 'px';
+    activeSelectedElem.style.transform = 'none';
+
+    document.getElementById('disp-pos-top').innerText = Math.round(snapped.top) + 'px';
+    document.getElementById('disp-pos-left').innerText = Math.round(snapped.left) + 'px';
+  } else if (isResizingElement && activeSelectedElem) {
+    const dx = pt.x - resStartX;
+    const dy = pt.y - resStartY;
+
+    if (resizeHandleDir === 'se') {
+      activeSelectedElem.style.width = Math.max(80, resStartW + dx) + 'px';
+      activeSelectedElem.style.height = Math.max(30, resStartH + dy) + 'px';
+    } else if (resizeHandleDir === 'e') {
+      activeSelectedElem.style.width = Math.max(80, resStartW + dx) + 'px';
     }
   }
-} catch(e) {}
-
-function getIframeWindow() {
-  return liveFrame.contentWindow;
-}
-function getIframeDocument() {
-  return liveFrame.contentDocument || (liveFrame.contentWindow ? liveFrame.contentWindow.document : null);
 }
 
-function applyLiveConfigToIframe() {
-  const prof = currentProfiles[currentDevice];
-  if (!prof) return;
-
-  if (liveFrame && liveFrame.contentWindow) {
-    liveFrame.contentWindow.postMessage({
-      type: 'MBM_HERO_CONFIG',
-      ...prof
-    }, '*');
-  }
-
-  updateControlsUI();
-  updateExportJSONBox();
+function handleElementTouchEnd() {
+  isDraggingElement = false;
+  isResizingElement = false;
+  resizeHandleDir = null;
+  clearSmartGuides();
+  saveCurrentDeviceProfile();
 }
 
-function updateControlsUI() {
-  const prof = currentProfiles[currentDevice];
-  if (!prof) return;
+function selectElement(el) {
+  document.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
+  activeSelectedElem = el;
+  el.classList.add('selected-box');
 
-  const sScale = document.getElementById('slider-pin-scale');
-  const dScale = document.getElementById('disp-pin-scale');
-  if (sScale) sScale.value = prof.pinScale;
-  if (dScale) dScale.innerText = prof.pinScale.toFixed(2) + 'x';
+  document.getElementById('disp-elem-name').innerText = el.getAttribute('data-name');
+  document.getElementById('disp-pos-top').innerText = el.offsetTop + 'px';
+  document.getElementById('disp-pos-left').innerText = el.offsetLeft + 'px';
 
-  const sX = document.getElementById('slider-pin-x');
-  const dX = document.getElementById('disp-pin-x');
-  if (sX) sX.value = prof.pinX;
-  if (dX) dX.innerText = prof.pinX.toFixed(1);
+  const isLocked = el.classList.contains('element-locked');
+  document.getElementById('btn-lock-active').classList.toggle('is-locked', isLocked);
+  document.getElementById('sidebar-lock-btn').innerText = isLocked ? '🔓 Unlock This Element' : '🔒 Lock This Element';
 
-  const sY = document.getElementById('slider-pin-y');
-  const dY = document.getElementById('disp-pin-y');
-  if (sY) sY.value = prof.pinY;
-  if (dY) dY.innerText = prof.pinY.toFixed(1);
-
-  const sHead = document.getElementById('slider-headline-size');
-  const dHead = document.getElementById('disp-headline-size');
-  if (sHead) sHead.value = prof.headlineSize || 48;
-  if (dHead) dHead.innerText = (prof.headlineSize || 48) + 'px';
-
-  const sHeroY = document.getElementById('slider-hero-y');
-  const dHeroY = document.getElementById('disp-hero-y');
-  if (sHeroY) sHeroY.value = prof.heroY || 0;
-  if (dHeroY) dHeroY.innerText = (prof.heroY || 0) + 'px';
-}
-
-function updateExportJSONBox() {
-  const box = document.getElementById('json-export-box');
-  if (box) {
-    box.value = JSON.stringify(currentProfiles, null, 2);
+  const editTarget = el.querySelector('.editable-text-field');
+  if (editTarget) {
+    document.getElementById('sidebar-edit-text').value = editTarget.innerText;
+  } else {
+    document.getElementById('sidebar-edit-text').value = '';
   }
 }
 
-function change3DPinScale(val) {
-  const v = parseFloat(val);
-  currentProfiles[currentDevice].pinScale = v;
-  document.getElementById('disp-pin-scale').innerText = v.toFixed(2) + 'x';
-  applyLiveConfigToIframe();
+function deselectAllElements() {
+  document.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
+  activeSelectedElem = null;
+  document.getElementById('disp-elem-name').innerText = 'Tap Any Item';
+  document.getElementById('disp-pos-top').innerText = '--';
+  document.getElementById('disp-pos-left').innerText = '--';
+  document.getElementById('sidebar-edit-text').value = '';
+  document.getElementById('btn-lock-active').classList.remove('is-locked');
+  document.getElementById('sidebar-lock-btn').innerText = '🔒 Lock Selected Element';
+  clearSmartGuides();
 }
 
-function change3DPinX(val) {
-  const v = parseFloat(val);
-  currentProfiles[currentDevice].pinX = v;
-  document.getElementById('disp-pin-x').innerText = v.toFixed(1);
-  applyLiveConfigToIframe();
+artboardBox.addEventListener('pointerdown', (e) => {
+  if (!e.target.closest('.studio-element') && !e.target.closest('#draggable-toolbar')) {
+    deselectAllElements();
+  }
+});
+
+document.getElementById('stage-viewport').addEventListener('pointerdown', (e) => {
+  if (!e.target.closest('.studio-element') && !e.target.closest('#draggable-toolbar') && !e.target.closest('.sidebar-wrapper') && !e.target.closest('.studio-header')) {
+    deselectAllElements();
+  }
+});
+
+function bindStudioElementsEvents() {
+  document.querySelectorAll('.studio-element').forEach(el => {
+    el.addEventListener('pointerdown', (e) => handleElementTouchStart(e, el));
+    el.addEventListener('touchstart', (e) => handleElementTouchStart(e, el), { passive: false });
+  });
+  attachMoveHandleListeners();
+}
+bindStudioElementsEvents();
+
+window.addEventListener('pointermove', handleElementTouchMove);
+window.addEventListener('touchmove', handleElementTouchMove, { passive: false });
+window.addEventListener('pointerup', handleElementTouchEnd);
+window.addEventListener('touchend', handleElementTouchEnd);
+
+function syncSidebarTextToElement(val) {
+  if (!activeSelectedElem) return;
+  const editTarget = activeSelectedElem.querySelector('.editable-text-field');
+  if (editTarget) editTarget.innerText = val;
 }
 
-function change3DPinY(val) {
-  const v = parseFloat(val);
-  currentProfiles[currentDevice].pinY = v;
-  document.getElementById('disp-pin-y').innerText = v.toFixed(1);
-  applyLiveConfigToIframe();
+/* ─── 4. TOUCH-DRAGGABLE TOOLBAR ─── */
+const toolbar = document.getElementById('draggable-toolbar');
+const toolbarGrip = document.getElementById('toolbar-grip');
+let isDraggingToolbar = false;
+let tbStartX = 0, tbStartY = 0, tbStartL = 0, tbStartT = 0;
+
+function startToolbarDrag(e) {
+  isDraggingToolbar = true;
+  const pt = getEventPoint(e);
+  tbStartX = pt.x; tbStartY = pt.y;
+  tbStartL = toolbar.offsetLeft; tbStartT = toolbar.offsetTop;
+  toolbar.style.transform = 'none';
+  e.stopPropagation();
 }
 
-function changeHeadlineFontSize(val) {
-  const v = parseInt(val, 10);
-  currentProfiles[currentDevice].headlineSize = v;
-  document.getElementById('disp-headline-size').innerText = v + 'px';
-  applyLiveConfigToIframe();
+function moveToolbarDrag(e) {
+  if (!isDraggingToolbar) return;
+  const pt = getEventPoint(e);
+  toolbar.style.left = (tbStartL + (pt.x - tbStartX)) + 'px';
+  toolbar.style.top = (tbStartT + (pt.y - tbStartY)) + 'px';
 }
 
-function changeHeroDeckY(val) {
-  const v = parseInt(val, 10);
-  currentProfiles[currentDevice].heroY = v;
-  document.getElementById('disp-hero-y').innerText = v + 'px';
-  applyLiveConfigToIframe();
+function endToolbarDrag() { isDraggingToolbar = false; }
+
+toolbarGrip.addEventListener('pointerdown', startToolbarDrag);
+toolbarGrip.addEventListener('touchstart', startToolbarDrag, { passive: false });
+window.addEventListener('pointermove', moveToolbarDrag);
+window.addEventListener('touchmove', moveToolbarDrag, { passive: false });
+window.addEventListener('pointerup', endToolbarDrag);
+window.addEventListener('touchend', endToolbarDrag);
+
+/* ─── 5. FULLSCREEN & HISTORY ENGINE ─── */
+function toggleStudioFullscreen() {
+  if (!document.fullscreenElement) {
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(err => console.log(err));
+    const txt = document.getElementById('txt-fullscreen-btn');
+    if (txt) txt.innerText = '✕ EXIT FULLSCREEN (F)';
+  } else {
+    if (document.exitFullscreen) document.exitFullscreen().catch(err => console.log(err));
+    const txt = document.getElementById('txt-fullscreen-btn');
+    if (txt) txt.innerText = '⛶ FULLSCREEN (F)';
+  }
+  setTimeout(resizeStage3D, 350);
+}
+
+document.addEventListener('fullscreenchange', () => {
+  const isFull = !!document.fullscreenElement;
+  const txt = document.getElementById('txt-fullscreen-btn');
+  if (txt) txt.innerText = isFull ? '✕ EXIT FULLSCREEN (F)' : '⛶ FULLSCREEN (F)';
+  setTimeout(resizeStage3D, 350);
+});
+
+window.addEventListener('keydown', (e) => {
+  if (e.target.isContentEditable || e.target.tagName === 'INPUT') return;
+  if (e.key.toLowerCase() === 'f') toggleStudioFullscreen();
+});
+
+let undoHistory = [], redoHistory = [];
+const MAX_HISTORY = 40;
+
+function captureStudioState() {
+  const elementsState = {};
+  document.querySelectorAll('.studio-element').forEach(el => {
+    const id = el.id;
+    const textField = el.querySelector('.editable-text-field');
+    elementsState[id] = {
+      top: el.style.top, left: el.style.left, width: el.style.width, height: el.style.height,
+      fontSize: el.style.fontSize,
+      textHTML: textField ? textField.innerHTML : null
+    };
+  });
+  return { elements: elementsState };
+}
+
+function recordHistoryState() {
+  const currentState = captureStudioState();
+  undoHistory.push(currentState);
+  if (undoHistory.length > MAX_HISTORY) undoHistory.shift();
+  redoHistory = [];
+  updateUndoRedoButtonsUI();
+}
+
+function restoreStudioState(state) {
+  if (!state) return;
+  for (let id in state.elements) {
+    const el = document.getElementById(id);
+    const data = state.elements[id];
+    if (el && data) {
+      if (data.top) el.style.top = data.top;
+      if (data.left) el.style.left = data.left;
+      if (data.width) el.style.width = data.width;
+      if (data.height) el.style.height = data.height;
+      if (data.fontSize) el.style.fontSize = data.fontSize;
+      if (data.textHTML) {
+        const textField = el.querySelector('.editable-text-field');
+        if (textField) textField.innerHTML = data.textHTML;
+      }
+    }
+  }
+  if (activeSelectedElem) selectElement(activeSelectedElem);
+}
+
+function triggerUndo() {
+  if (undoHistory.length === 0) return;
+  const current = captureStudioState();
+  redoHistory.push(current);
+  restoreStudioState(undoHistory.pop());
+  updateUndoRedoButtonsUI();
+}
+
+function triggerRedo() {
+  if (redoHistory.length === 0) return;
+  const current = captureStudioState();
+  undoHistory.push(current);
+  restoreStudioState(redoHistory.pop());
+  updateUndoRedoButtonsUI();
+}
+
+function updateUndoRedoButtonsUI() {
+  const undoBtn = document.querySelector('.btn-history[onclick*="Undo"]');
+  const redoBtn = document.querySelector('.btn-history[onclick*="Redo"]');
+  if (undoBtn) undoBtn.style.opacity = undoHistory.length > 0 ? '1' : '0.4';
+  if (redoBtn) redoBtn.style.opacity = redoHistory.length > 0 ? '1' : '0.4';
+}
+
+function showToastFeedback(msg) {
+  let toast = document.getElementById('studio-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'studio-toast';
+    toast.style.cssText = 'position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:rgba(12,17,28,0.95);border:1px solid #00d4ff;color:#00d4ff;font-family:"Space Grotesk",sans-serif;font-size:12px;font-weight:800;padding:6px 16px;border-radius:100px;box-shadow:0 0 20px rgba(0,212,255,0.4);z-index:99999;pointer-events:none;transition:opacity 0.2s, transform 0.2s;';
+    document.body.appendChild(toast);
+  }
+  toast.innerText = msg;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(-50%) translateY(10px)';
+  }, 1200);
+}
+
+/* ─── 6. INDEPENDENT DEVICE BREAKPOINT MEMORY ─── */
+let currentActiveDevice = 'mobile';
+let studioStorageKey = 'mbm_hero_profiles_v2';
+
+let deviceLayoutProfiles = {
+  mobile: { elements: {} },
+  tablet: { elements: {} },
+  desktop: { elements: {} }
+};
+
+function saveCurrentDeviceProfile() {
+  const profile = { elements: {} };
+  document.querySelectorAll('.studio-element').forEach(el => {
+    const id = el.id;
+    const textField = el.querySelector('.editable-text-field');
+    profile.elements[id] = {
+      top: el.style.top, left: el.style.left, width: el.style.width, height: el.style.height,
+      fontSize: el.style.fontSize,
+      textHTML: textField ? textField.innerHTML : null
+    };
+  });
+  deviceLayoutProfiles[currentActiveDevice] = profile;
+  try {
+    localStorage.setItem(studioStorageKey, JSON.stringify(deviceLayoutProfiles));
+    localStorage.setItem(studioStorageKey + '_dev', currentActiveDevice);
+  } catch(e) {}
+}
+
+function loadDeviceProfile(dev) {
+  const profile = deviceLayoutProfiles[dev];
+  if (!profile || !profile.elements) return;
+  for (let id in profile.elements) {
+    const el = document.getElementById(id);
+    const data = profile.elements[id];
+    if (el && data) {
+      if (data.top) el.style.top = data.top;
+      if (data.left) el.style.left = data.left;
+      if (data.width) el.style.width = data.width;
+      if (data.height) el.style.height = data.height;
+      if (data.fontSize) el.style.fontSize = data.fontSize;
+      if (data.textHTML) {
+        const textField = el.querySelector('.editable-text-field');
+        if (textField) textField.innerHTML = data.textHTML;
+      }
+    }
+  }
 }
 
 function switchStudioDevice(dev) {
-  currentDevice = dev;
-  const artboard = document.getElementById('artboard-canvas-wrapper');
-  if (artboard) artboard.className = dev;
+  if (dev === currentActiveDevice) return;
+  saveCurrentDeviceProfile();
+  deselectAllElements();
+
+  const prevDev = currentActiveDevice;
+  currentActiveDevice = dev;
 
   document.querySelectorAll('.btn-device').forEach(b => b.classList.remove('active'));
-  const btn = document.getElementById('btn-dev-' + dev);
-  if (btn) btn.classList.add('active');
+  const activeBtn = document.getElementById('btn-dev-' + dev);
+  if (activeBtn) activeBtn.classList.add('active');
 
   const devNames = { mobile: '📱 MOBILE', tablet: '📟 TABLET', desktop: '🖥️ DESKTOP' };
   const devColors = { mobile: '#00d4ff', tablet: '#ffd700', desktop: '#b8ff57' };
-  const ind = document.getElementById('active-profile-indicator');
-  if (ind) {
-    ind.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + devColors[dev] + ';box-shadow:0 0 8px ' + devColors[dev] + ';"></span><span>EDITING: ' + devNames[dev] + '</span>';
-    ind.style.borderColor = devColors[dev];
-    ind.style.color = devColors[dev];
+
+  const badge = document.getElementById('active-profile-indicator');
+  if (badge) {
+    badge.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + devColors[dev] + ';box-shadow:0 0 8px ' + devColors[dev] + ';"></span><span>EDITING: ' + devNames[dev] + '</span>';
+    badge.style.borderColor = devColors[dev];
+    badge.style.color = devColors[dev];
   }
-  const sideName = document.getElementById('sidebar-active-device-name');
-  if (sideName) {
-    sideName.innerText = devNames[dev];
-    sideName.style.color = devColors[dev];
+  const sidebarName = document.getElementById('sidebar-active-device-name');
+  if (sidebarName) {
+    sidebarName.innerText = devNames[dev];
+    sidebarName.style.color = devColors[dev];
   }
 
-  applyLiveConfigToIframe();
+  artboardBox.className = dev;
+  loadDeviceProfile(dev);
+  resizeStage3D();
+  showToastFeedback(devNames[prevDev] + ' Saved ➔ ' + devNames[dev] + ' Loaded');
 }
 
-function applyPreset(key) {
-  if (key === 'desktop_standard') {
-    switchStudioDevice('desktop');
-    change3DPinX(7.6);
-    change3DPinY(-0.6);
-    change3DPinScale(0.88);
-  } else if (key === 'tablet_center') {
-    switchStudioDevice('tablet');
-    change3DPinX(4.2);
-    change3DPinY(-0.8);
-    change3DPinScale(0.75);
-  } else if (key === 'mobile_compact') {
-    switchStudioDevice('mobile');
-    change3DPinX(0.0);
-    change3DPinY(2.4);
-    change3DPinScale(0.52);
-  } else if (key === 'high_impact') {
-    switchStudioDevice('desktop');
-    change3DPinScale(1.05);
-  }
-}
-
-function saveAndSyncToMaster() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(currentProfiles));
-  } catch(e) {}
-
-  const btn = document.getElementById('btn-manual-save-profile');
-  if (btn) {
-    btn.innerHTML = '<span>✅ CONFIG SAVED & SYNCED!</span>';
-    btn.style.background = 'rgba(184, 255, 87, 0.3)';
-    btn.style.borderColor = '#b8ff57';
-    btn.style.color = '#b8ff57';
-    setTimeout(() => {
-      btn.innerHTML = '<span>💾 SAVE CURRENT CONFIG</span>';
-      btn.style.background = 'rgba(0,212,255,0.2)';
-      btn.style.borderColor = '#00d4ff';
-      btn.style.color = '#00d4ff';
-    }, 1500);
-  }
+function manualSaveCurrentProfile() {
+  saveCurrentDeviceProfile();
+  const devNames = { mobile: '📱 Mobile', tablet: '📟 Tablet', desktop: '🖥️ Desktop' };
+  showToastFeedback('✅ ' + devNames[currentActiveDevice] + ' Profile Saved Permanently!');
 }
 
 function resetCurrentProfileToDefaults() {
-  currentProfiles[currentDevice] = JSON.parse(JSON.stringify(defaultDeviceProfiles[currentDevice]));
-  applyLiveConfigToIframe();
-  saveAndSyncToMaster();
+  recordHistoryState();
+  deviceLayoutProfiles[currentActiveDevice] = { elements: {} };
+  saveCurrentDeviceProfile();
+  resizeStage3D();
+  showToastFeedback('🔄 Profile Reset to Clean Defaults');
 }
 
-function copyProductionJSON() {
-  const box = document.getElementById('json-export-box');
-  if (box) {
-    box.select();
-    navigator.clipboard.writeText(box.value).catch(() => {});
-  }
+function toggleLockSelectedElement() {
+  if (!activeSelectedElem) return;
+  activeSelectedElem.classList.toggle('element-locked');
+  const isLocked = activeSelectedElem.classList.contains('element-locked');
+  document.getElementById('btn-lock-active').classList.toggle('is-locked', isLocked);
+  document.getElementById('sidebar-lock-btn').innerText = isLocked ? '🔓 Unlock This Element' : '🔒 Lock This Element';
+}
+
+function alignSelectedElement(pos) {
+  if (!activeSelectedElem) return;
+  recordHistoryState();
+  if (pos === 'left') activeSelectedElem.style.left = '24px';
+  else if (pos === 'center') activeSelectedElem.style.left = Math.round((artboardBox.clientWidth - activeSelectedElem.offsetWidth) / 2) + 'px';
+  else if (pos === 'right') activeSelectedElem.style.left = (artboardBox.clientWidth - activeSelectedElem.offsetWidth - 24) + 'px';
+  activeSelectedElem.style.transform = 'none';
+  document.getElementById('disp-pos-left').innerText = activeSelectedElem.offsetLeft + 'px';
+  saveCurrentDeviceProfile();
 }
 
 function toggleSidebar() {
-  const sidebar = document.getElementById('studio-sidebar-panel');
+  const sb = document.getElementById('studio-sidebar-panel');
   const arrow = document.getElementById('handle-arrow');
-  sidebar.classList.toggle('collapsed');
-  arrow.innerText = sidebar.classList.contains('collapsed') ? '❮' : '❯';
+  sb.classList.toggle('collapsed');
+  arrow.innerText = sb.classList.contains('collapsed') ? '❮' : '❯';
+  setTimeout(resizeStage3D, 320);
 }
 
-function toggleStudioFullscreen() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen().catch(() => {});
-  } else {
-    document.exitFullscreen().catch(() => {});
+function changeSelectedFontSize(val) {
+  document.getElementById('disp-font-size').innerText = val + 'px';
+  if (activeSelectedElem) {
+    const edit = activeSelectedElem.querySelector('.editable-text-field');
+    if (edit) edit.style.fontSize = val + 'px';
   }
 }
 
+function applySectionPreset(name) {
+  showToastFeedback('⚡ Preset Applied: ' + name);
+}
+
+function triggerSectionReplay() {
+  showToastFeedback('↻ Stage Replayed');
+}
+
 function exportArtboardPNG() {
-  const artboard = document.getElementById('artboard-canvas-wrapper');
-  html2canvas(artboard, { backgroundColor: '#020205', scale: 2 }).then(cvs => {
+  document.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
+  clearSmartGuides();
+  html2canvas(artboardBox, { backgroundColor: '#020205', scale: 2 }).then(canvas => {
     const link = document.createElement('a');
-    link.download = 'MBM-Hero-Section-Studio.png';
-    link.href = cvs.toDataURL('image/png');
+    link.download = 'MBM-Hero-Section-Mockup.png';
+    link.href = canvas.toDataURL('image/png');
     link.click();
   });
 }
 
-// When iframe finishes loading, apply current device configuration
-liveFrame.addEventListener('load', () => {
-  console.log('Live iframe connected successfully!');
-  applyLiveConfigToIframe();
+function setActiveWhiteboardTool(tool) {
+  document.querySelectorAll('.tool-item').forEach(btn => btn.classList.remove('active'));
+  const btn = document.getElementById('tool-' + tool);
+  if (btn) btn.classList.add('active');
+}
+
+function toggleDrawingToolsTray() {
+  const tray = document.getElementById('drawing-tools-tray');
+  const btn = document.getElementById('btn-toggle-draw');
+  const arrow = document.getElementById('tray-arrow-icon');
+  tray.classList.toggle('collapsed');
+  btn.classList.toggle('active');
+  arrow.innerText = tray.classList.contains('collapsed') ? '❯' : '❮';
+}
+
+function selectPaletteColor(hex, dot) {
+  document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+  dot.classList.add('active');
+}
+
+function clearAllDrawingCanvas() {
+  const dCanvas = document.getElementById('drawing-surface');
+  const ctx = dCanvas.getContext('2d');
+  ctx.clearRect(0, 0, dCanvas.width, dCanvas.height);
+}
+
+// ─── INITIAL BOOT SEQUENCE ───
+try {
+  const saved = localStorage.getItem(studioStorageKey);
+  if (saved) deviceLayoutProfiles = JSON.parse(saved);
+  const savedDev = localStorage.getItem(studioStorageKey + '_dev');
+  if (savedDev) currentActiveDevice = savedDev;
+} catch(e) {}
+
+artboardBox.className = currentActiveDevice;
+document.querySelectorAll('.btn-device').forEach(b => b.classList.remove('active'));
+const initialDevBtn = document.getElementById('btn-dev-' + currentActiveDevice);
+if (initialDevBtn) initialDevBtn.classList.add('active');
+
+loadDeviceProfile(currentActiveDevice);
+window.addEventListener('resize', resizeStage3D);
+resizeStage3D();
+updateUndoRedoButtonsUI();
+
+
+/* ═══════════════════════════════════════════════════════════
+   HERO-SPECIFIC: 3D STOREFRONT PIN SCENE
+   ═══════════════════════════════════════════════════════════ */
+const heroScene = stageScene;
+const heroCamera = stageCamera;
+const heroRenderer = stageRenderer;
+
+// Lights
+const heroAmbient = new THREE.AmbientLight(0x0a182e, 2.8);
+heroScene.add(heroAmbient);
+const heroDirLight = new THREE.DirectionalLight(0xffffff, 3.2);
+heroDirLight.position.set(8, 14, 10);
+heroScene.add(heroDirLight);
+const heroCyan = new THREE.PointLight(0x00d4ff, 3.8, 30);
+heroCyan.position.set(-6, 6, 8);
+heroScene.add(heroCyan);
+
+// 850 Dust Particles
+const dustCount = 850;
+const dustGeo = new THREE.BufferGeometry();
+const dustPos = new Float32Array(dustCount * 3);
+const dustCols = new Float32Array(dustCount * 3);
+const cCyan = new THREE.Color(0x00d4ff);
+const cLime = new THREE.Color(0xb8ff57);
+const cWhite = new THREE.Color(0xffffff);
+for (let i = 0; i < dustCount * 3; i += 3) {
+  dustPos[i] = (Math.random() - 0.5) * 65;
+  dustPos[i+1] = (Math.random() - 0.5) * 45;
+  dustPos[i+2] = (Math.random() - 0.5) * 40;
+  const r = Math.random();
+  const c = r > 0.55 ? cCyan : (r > 0.25 ? cLime : cWhite);
+  dustCols[i] = c.r; dustCols[i+1] = c.g; dustCols[i+2] = c.b;
+}
+dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+dustGeo.setAttribute('color', new THREE.BufferAttribute(dustCols, 3));
+const dustMat = new THREE.PointsMaterial({ size: 0.18, vertexColors: true, transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending });
+heroScene.add(new THREE.Points(dustGeo, dustMat));
+
+// 3D Pin Group
+const heroPinGroup = new THREE.Group();
+heroPinGroup.position.set(7.6, -0.6, 0.0);
+heroPinGroup.scale.set(0.88, 0.88, 0.88);
+heroScene.add(heroPinGroup);
+
+// Pin Head (wireframe sphere)
+const headGeo = new THREE.SphereGeometry(2.4, 32, 32);
+const headMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.35 });
+const headMesh = new THREE.Mesh(headGeo, headMat);
+headMesh.position.y = 1.2;
+heroPinGroup.add(headMesh);
+
+// Shop Group
+const shopGroup = new THREE.Group();
+shopGroup.position.y = 1.2;
+heroPinGroup.add(shopGroup);
+
+const shopMats = {
+  wall: new THREE.MeshStandardMaterial({ color: 0x082038, roughness: 0.3, metalness: 0.2 }),
+  roofLime: new THREE.MeshStandardMaterial({ color: 0xb8ff57, roughness: 0.2, metalness: 0.1 }),
+  roofDark: new THREE.MeshStandardMaterial({ color: 0x031020, roughness: 0.3, metalness: 0.1 }),
+  glassCyan: new THREE.MeshStandardMaterial({ color: 0x00d4ff, emissive: 0x00d4ff, emissiveIntensity: 0.6, roughness: 0.1, metalness: 0.9, transparent: true, opacity: 0.85 }),
+  doorLime: new THREE.MeshStandardMaterial({ color: 0xb8ff57, emissive: 0xb8ff57, emissiveIntensity: 0.4, roughness: 0.2 }),
+  foundation: new THREE.MeshStandardMaterial({ color: 0x04101e, roughness: 0.4, metalness: 0.6 })
+};
+
+// Foundation
+const shopBase = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.2, 32), shopMats.foundation);
+shopBase.position.y = -0.6;
+shopGroup.add(shopBase);
+
+// Walls
+const shopWalls = new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.45, 1.55), shopMats.wall);
+shopWalls.position.y = 0.2;
+shopGroup.add(shopWalls);
+
+// Roof
+const roofPeak = new THREE.Mesh(new THREE.CylinderGeometry(0, 1.35, 0.65, 4), shopMats.roofLime);
+roofPeak.position.y = 1.15;
+roofPeak.rotation.y = Math.PI / 4;
+shopGroup.add(roofPeak);
+const roofBase = new THREE.Mesh(new THREE.BoxGeometry(2.05, 0.14, 1.7), shopMats.roofDark);
+roofBase.position.y = 0.92;
+shopGroup.add(roofBase);
+
+// Awning
+const awningGroup = new THREE.Group();
+awningGroup.position.set(0, 0.15, 0.86);
+shopGroup.add(awningGroup);
+for (let s = 0; s < 6; s++) {
+  const stripe = new THREE.Mesh(
+    new THREE.BoxGeometry(0.28, 0.08, 0.38),
+    s % 2 === 0 ? shopMats.roofLime : shopMats.roofDark
+  );
+  stripe.position.x = -0.7 + s * 0.28;
+  stripe.rotation.x = -0.18;
+  awningGroup.add(stripe);
+}
+
+// Windows
+[-0.62, 0.62].forEach(xPos => {
+  const win = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.45, 0.08), shopMats.glassCyan);
+  win.position.set(xPos, 0.28, 0.78);
+  shopGroup.add(win);
+  const frame = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.55, 0.06), shopMats.roofDark);
+  frame.position.set(xPos, 0.28, 0.76);
+  shopGroup.add(frame);
 });
 
-// Boot
-updateControlsUI();
-updateExportJSONBox();
+// Door
+const door = new THREE.Mesh(new THREE.BoxGeometry(0.44, 0.7, 0.08), shopMats.doorLime);
+door.position.set(0, -0.12, 0.78);
+shopGroup.add(door);
+
+// Sign
+const sign = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.28, 0.08), shopMats.glassCyan);
+sign.position.set(0, 0.7, 0.78);
+shopGroup.add(sign);
+
+// 5 Golden Orbiting Stars
+const starGroup = new THREE.Group();
+heroPinGroup.add(starGroup);
+const starMat = new THREE.MeshStandardMaterial({ color: 0xffd700, emissive: 0xffd700, emissiveIntensity: 1.2 });
+const starOrbits = [];
+for (let s = 0; s < 5; s++) {
+  const starMesh = new THREE.Mesh(new THREE.OctahedronGeometry(0.18, 0), starMat);
+  const angle = (s / 5) * Math.PI * 2;
+  const orbitRadius = 3.2;
+  starMesh.position.set(Math.cos(angle) * orbitRadius, 1.5 + Math.sin(angle * 1.6) * 0.5, Math.sin(angle) * orbitRadius * 0.55);
+  starGroup.add(starMesh);
+  starOrbits.push({ mesh: starMesh, angle, speed: 0.012 + s * 0.003, radius: orbitRadius });
+}
+
+// Camera defaults
+const heroDevCamPositions = {
+  mobile:  { x: 0, y: 0.8, z: 26 },
+  tablet:  { x: 2, y: 0.8, z: 24 },
+  desktop: { x: 0, y: 1.2, z: 22 }
+};
+
+function heroUpdateCameraForDevice(dev) {
+  const pos = heroDevCamPositions[dev] || heroDevCamPositions.mobile;
+  heroCamera.position.set(pos.x, pos.y, pos.z);
+}
+
+// 3D Animation loop (replaces the template's empty stageRenderer call)
+let heroFrame3DId = null;
+function animateHero3D() {
+  heroFrame3DId = requestAnimationFrame(animateHero3D);
+  const t = Date.now() * 0.001;
+
+  // Rotate star orbits
+  starOrbits.forEach(orb => {
+    orb.angle += orb.speed;
+    orb.mesh.position.x = Math.cos(orb.angle) * orb.radius;
+    orb.mesh.position.z = Math.sin(orb.angle) * orb.radius * 0.55;
+    orb.mesh.position.y = 1.5 + Math.sin(orb.angle * 1.8) * 0.55;
+    orb.mesh.rotation.y += 0.06;
+  });
+
+  // Gentle pin bob
+  heroPinGroup.position.y = -0.6 + Math.sin(t * 0.5) * 0.12;
+  // Gentle star group rotation
+  starGroup.rotation.y += 0.004;
+
+  heroRenderer.render(heroScene, heroCamera);
+}
+animateHero3D();
+
+// Override resizeStage3D to also update hero camera
+const _origResizeStage3D = resizeStage3D;
+window.resizeStage3D = function() {
+  _origResizeStage3D();
+  heroUpdateCameraForDevice(currentActiveDevice);
+};
+
+// Override switchStudioDevice to update hero camera
+const _origSwitchDevice = switchStudioDevice;
+window.switchStudioDevice = function(dev) {
+  _origSwitchDevice(dev);
+  heroUpdateCameraForDevice(dev);
+  // Update 3D pin presets for device
+  if (dev === 'mobile') {
+    heroApplyPinCoords(0, 2.4, 0.52);
+  } else if (dev === 'tablet') {
+    heroApplyPinCoords(4.2, -0.8, 0.75);
+  } else {
+    heroApplyPinCoords(7.6, -0.6, 0.88);
+  }
+};
+
+/* ─── HERO SECTION SPECIFIC FUNCTIONS ─── */
+function heroApplyPinCoords(x, y, scale) {
+  heroPinGroup.position.x = x;
+  heroPinGroup.position.y = y;
+  heroPinGroup.scale.set(scale, scale, scale);
+
+  const sScale = document.getElementById('slider-pin-scale');
+  const dScale = document.getElementById('disp-pin-scale');
+  if (sScale) sScale.value = scale;
+  if (dScale) dScale.innerText = scale.toFixed(2) + 'x';
+
+  const sX = document.getElementById('slider-pin-x');
+  const dX = document.getElementById('disp-pin-x');
+  if (sX) sX.value = x;
+  if (dX) dX.innerText = x.toFixed(1);
+
+  const sY = document.getElementById('slider-pin-y');
+  const dY = document.getElementById('disp-pin-y');
+  if (sY) sY.value = y;
+  if (dY) dY.innerText = y.toFixed(1);
+
+  heroUpdateExportJSON();
+}
+
+function heroChange3DPinScale(val) {
+  const v = parseFloat(val);
+  document.getElementById('disp-pin-scale').innerText = v.toFixed(2) + 'x';
+  heroPinGroup.scale.set(v, v, v);
+  heroUpdateExportJSON();
+}
+
+function heroChange3DPinX(val) {
+  const v = parseFloat(val);
+  document.getElementById('disp-pin-x').innerText = v.toFixed(1);
+  heroPinGroup.position.x = v;
+  heroUpdateExportJSON();
+}
+
+function heroChange3DPinY(val) {
+  const v = parseFloat(val);
+  document.getElementById('disp-pin-y').innerText = v.toFixed(1);
+  heroPinGroup.position.y = v;
+  heroUpdateExportJSON();
+}
+
+function heroUpdateExportJSON() {
+  const jsonBox = document.getElementById('hero-json-export');
+  if (!jsonBox) return;
+  const exportData = {
+    pinScale: parseFloat(heroPinGroup.scale.x.toFixed(2)),
+    pinX: parseFloat(heroPinGroup.position.x.toFixed(1)),
+    pinY: parseFloat(heroPinGroup.position.y.toFixed(1)),
+    device: currentActiveDevice
+  };
+  jsonBox.value = JSON.stringify(exportData, null, 2);
+}
+
+function heroSyncToMasterPrototype() {
+  manualSaveCurrentProfile();
+  heroUpdateExportJSON();
+  const btn = document.getElementById('btn-sync-to-master');
+  if (btn) {
+    btn.innerHTML = '<span>✅ SYNCED! Copy JSON below & tell AI to apply.</span>';
+    btn.style.background = 'rgba(184,255,87,0.25)';
+    btn.style.borderColor = '#b8ff57';
+    setTimeout(() => {
+      btn.innerHTML = '<span>⚡ APPLY & SYNC TO PROTOTYPE</span>';
+      btn.style.background = 'linear-gradient(135deg,rgba(0,212,255,0.25),rgba(184,255,87,0.15))';
+      btn.style.borderColor = '#00d4ff';
+    }, 2000);
+  }
+}
+
+function heroCopyJSON() {
+  const box = document.getElementById('hero-json-export');
+  if (box) {
+    box.select();
+    navigator.clipboard.writeText(box.value).catch(() => {});
+    showToastFeedback('📋 JSON Copied to Clipboard!');
+  }
+}
+
+// Override applySectionPreset for hero
+window.applySectionPreset = function(name) {
+  if (name === 'mobile_hero') {
+    switchStudioDevice('mobile');
+    heroApplyPinCoords(0, 2.4, 0.52);
+  } else if (name === 'tablet_hero') {
+    switchStudioDevice('tablet');
+    heroApplyPinCoords(4.2, -0.8, 0.75);
+  } else if (name === 'desktop_hero') {
+    switchStudioDevice('desktop');
+    heroApplyPinCoords(7.6, -0.6, 0.88);
+  } else if (name === 'high_impact') {
+    heroApplyPinCoords(heroPinGroup.position.x, heroPinGroup.position.y, 1.15);
+  }
+  showToastFeedback('⚡ Hero Preset Applied: ' + name);
+};
+
+// Init: set camera and export JSON
+heroUpdateCameraForDevice(currentActiveDevice);
+heroUpdateExportJSON();
+
 </script>
 </body>
 </html>
