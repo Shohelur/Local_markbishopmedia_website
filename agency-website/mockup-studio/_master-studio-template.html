@@ -1493,7 +1493,7 @@ updateUndoRedoButtonsUI();
 
 /* ═══════════════════════════════════════════════════════════
    TRUE LOCAL HTML FILE EDITOR ENGINE (IFRAME ISOLATION)
-   Canva-Grade Ultimate Overlay System & Smart Placeholders
+   Canva-Grade Ultimate Overlay System & Smart Placeholders (Flawless)
    ═══════════════════════════════════════════════════════════ */
 
 let currentFileHandle = null;
@@ -1660,8 +1660,12 @@ function wandClick(e) {
   const compStyle = iframeWin.getComputedStyle(el);
   if (compStyle.position === 'static' || compStyle.position === 'relative') {
     const rect = el.getBoundingClientRect();
-    const origTop = el.offsetTop;
-    const origLeft = el.offsetLeft;
+    
+    // Calculate precise top/left relative to offsetParent padding box to prevent ANY shift
+    const op = el.offsetParent || iframeDoc.documentElement;
+    const opRect = op.getBoundingClientRect();
+    const exactTop = rect.top - opRect.top - op.clientTop + op.scrollTop;
+    const exactLeft = rect.left - opRect.left - op.clientLeft + op.scrollLeft;
     
     // Smart Placeholder Injection
     const placeholder = iframeDoc.createElement('div');
@@ -1673,8 +1677,8 @@ function wandClick(e) {
     el.parentNode.insertBefore(placeholder, el);
     
     el.style.position = 'absolute';
-    el.style.top = origTop + 'px';
-    el.style.left = origLeft + 'px';
+    el.style.top = exactTop + 'px';
+    el.style.left = exactLeft + 'px';
     el.style.width = rect.width + 'px';
     el.style.height = rect.height + 'px';
     el.style.margin = '0';
@@ -1701,11 +1705,11 @@ function updateOverlayPosition() {
   const el = currentIframeSelectedElement;
   if (!overlay || !el) return;
   
-  // Use offsetTop/Left since element is absolute within its offsetParent
-  overlay.style.top = el.offsetTop + 'px';
-  overlay.style.left = el.offsetLeft + 'px';
-  overlay.style.width = el.offsetWidth + 'px';
-  overlay.style.height = el.offsetHeight + 'px';
+  const rect = el.getBoundingClientRect();
+  overlay.style.top = (rect.top + iframeWin.scrollY) + 'px';
+  overlay.style.left = (rect.left + iframeWin.scrollX) + 'px';
+  overlay.style.width = rect.width + 'px';
+  overlay.style.height = rect.height + 'px';
 }
 
 function setupOverlayDragEvents(overlay) {
@@ -1716,17 +1720,19 @@ function setupOverlayDragEvents(overlay) {
     const el = currentIframeSelectedElement;
     let startX = evt.clientX;
     let startY = evt.clientY;
-    let elLeft = parseFloat(el.style.left || 0);
-    let elTop = parseFloat(el.style.top || 0);
+    
+    const compStyle = iframeWin.getComputedStyle(el);
+    let startLeft = parseFloat(compStyle.left) || 0;
+    let startTop = parseFloat(compStyle.top) || 0;
     
     const onMove = (me) => {
       const dx = me.clientX - startX;
       const dy = me.clientY - startY;
-      el.style.left = (elLeft + dx) + 'px';
-      el.style.top = (elTop + dy) + 'px';
+      el.style.left = (startLeft + dx) + 'px';
+      el.style.top = (startTop + dy) + 'px';
       updateOverlayPosition();
-      document.getElementById('disp-pos-top').innerText = Math.round(elTop + dy) + 'px';
-      document.getElementById('disp-pos-left').innerText = Math.round(elLeft + dx) + 'px';
+      document.getElementById('disp-pos-top').innerText = Math.round(startTop + dy) + 'px';
+      document.getElementById('disp-pos-left').innerText = Math.round(startLeft + dx) + 'px';
     };
     const onUp = () => { iframeWin.removeEventListener('pointermove', onMove); iframeWin.removeEventListener('pointerup', onUp); };
     
