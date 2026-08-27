@@ -617,13 +617,45 @@ body{
 </header>
 
 <!-- ═══════════════════════════════════════════════════════════
+     1b. UNIVERSAL SECTION LOADER BAR
+     ═══════════════════════════════════════════════════════════ -->
+<div class="preset-bar" style="background:#080c1a;border-bottom:1.5px solid rgba(0,212,255,0.35);gap:10px;">
+  <span class="preset-label" style="color:#00d4ff;">📂 LOAD SECTION:</span>
+
+  <button class="btn-preset" id="btn-load-hero"
+    style="background:rgba(0,212,255,0.18);border-color:#00d4ff;color:#00d4ff;font-weight:800;"
+    onclick="studioLoadSection('hero')">
+    🏙️ HERO SECTION (Phase 2)
+  </button>
+
+  <button class="btn-preset" id="btn-load-phase3"
+    style="opacity:0.45;cursor:not-allowed;"
+    title="Coming Soon — Phase 3 not yet built" disabled>
+    🗺️ GEO-GRID RADAR (Phase 3)
+  </button>
+
+  <button class="btn-preset" id="btn-load-phase4"
+    style="opacity:0.45;cursor:not-allowed;"
+    title="Coming Soon" disabled>
+    📊 SERVICE MATRIX (Phase 4)
+  </button>
+
+  <div style="flex:1;"></div>
+  <button class="btn-preset"
+    style="background:rgba(255,59,48,0.12);border-color:rgba(255,59,48,0.5);color:#ff3b30;font-size:10px;"
+    onclick="studioClearCanvas()">
+    🧹 CLEAR CANVAS
+  </button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
      2. PRESET QUICK BAR
      ═══════════════════════════════════════════════════════════ -->
 <div class="preset-bar">
-  <span class="preset-label">⚡ 1-CLICK PRESETS:</span>
-  <button class="btn-preset" onclick="applySectionPreset('preset_1')">📱 Mobile Focus</button>
-  <button class="btn-preset" onclick="applySectionPreset('preset_2')">✨ Luxury Wide</button>
-  <button class="btn-preset" onclick="applySectionPreset('preset_3')">⚡ High Dynamic</button>
+  <span class="preset-label" id="preset-bar-label">⚡ 1-CLICK PRESETS:</span>
+  <button class="btn-preset" id="preset-btn-1" onclick="applySectionPreset('preset_1')">📱 Mobile Focus</button>
+  <button class="btn-preset" id="preset-btn-2" onclick="applySectionPreset('preset_2')">✨ Luxury Wide</button>
+  <button class="btn-preset" id="preset-btn-3" onclick="applySectionPreset('preset_3')">⚡ High Dynamic</button>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
@@ -793,10 +825,14 @@ body{
         <button class="btn-align" onclick="alignSelectedElement('right')">➡️ Right</button>
       </div>
 
-      <!-- SECTION SPECIFIC CONTROLS SLOT -->
+      <!-- SECTION SPECIFIC CONTROLS SLOT — auto-updated by studioLoadSection() -->
       <div id="sidebar-section-custom-controls">
-        <div class="panel-header-title">CUSTOM CONTROLS</div>
-        <div class="control-field">
+        <div class="panel-header-title">LOAD A SECTION FIRST</div>
+        <p style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.6;">
+          Click a section button in the top bar to load it into the canvas.
+          Section-specific controls will appear here.
+        </p>
+        <div class="control-field" style="margin-top:8px;">
           <div class="control-label"><span>FONT SIZE:</span> <span class="control-val" id="disp-font-size">28px</span></div>
           <input type="range" min="14" max="64" value="28" class="range-slider" id="slider-font-size" oninput="changeSelectedFontSize(this.value)">
         </div>
@@ -1454,6 +1490,407 @@ loadDeviceProfile(currentActiveDevice);
 window.addEventListener('resize', resizeStage3D);
 resizeStage3D();
 updateUndoRedoButtonsUI();
+
+/* ═══════════════════════════════════════════════════════════
+   UNIVERSAL SECTION LOADER ENGINE
+   Loads any section's draggable elements into the canvas.
+   No new file needed — everything stays in _master-studio-template.html
+   ═══════════════════════════════════════════════════════════ */
+
+const SECTION_DEFINITIONS = {
+
+  hero: {
+    name: 'Hero Section (Phase 2)',
+    storageKey: 'mbm_hero_profiles_v2',
+    presets: [
+      { label: '📱 Mobile Stacked', fn: () => heroApplyPinCoords(0, 2.4, 0.52) },
+      { label: '📟 Tablet Split',   fn: () => heroApplyPinCoords(4.2, -0.8, 0.75) },
+      { label: '🖥️ Desktop Gold',  fn: () => heroApplyPinCoords(7.6, -0.6, 0.88) },
+    ],
+    sidebarControlsHTML: `
+      <div class="panel-header-title">📍 3D PIN CONTROLS</div>
+      <div class="control-field">
+        <div class="control-label"><span>PIN SCALE:</span> <span class="control-val" id="disp-pin-scale">0.88x</span></div>
+        <input type="range" class="range-slider" id="slider-pin-scale" min="0.30" max="2.00" step="0.02" value="0.88" oninput="heroChange3DPinScale(this.value)">
+      </div>
+      <div class="control-field">
+        <div class="control-label"><span>PIN X:</span> <span class="control-val" id="disp-pin-x">7.6</span></div>
+        <input type="range" class="range-slider" id="slider-pin-x" min="-12" max="15" step="0.1" value="7.6" oninput="heroChange3DPinX(this.value)">
+      </div>
+      <div class="control-field">
+        <div class="control-label"><span>PIN Y:</span> <span class="control-val" id="disp-pin-y">-0.6</span></div>
+        <input type="range" class="range-slider" id="slider-pin-y" min="-8" max="8" step="0.1" value="-0.6" oninput="heroChange3DPinY(this.value)">
+      </div>
+      <div class="panel-header-title">FONT SIZE</div>
+      <div class="control-field">
+        <div class="control-label"><span>FONT SIZE:</span> <span class="control-val" id="disp-font-size">26px</span></div>
+        <input type="range" min="14" max="64" value="26" class="range-slider" id="slider-font-size" oninput="changeSelectedFontSize(this.value)">
+      </div>
+      <div class="panel-header-title">⚡ 1-CLICK SYNC</div>
+      <button class="btn-preset" id="btn-sync-master"
+        style="width:100%;padding:10px;justify-content:center;background:linear-gradient(135deg,rgba(0,212,255,0.25),rgba(184,255,87,0.15));border-color:#00d4ff;color:#fff;font-weight:800;"
+        onclick="studioSyncSectionToPrototype()">
+        ⚡ APPLY & SYNC TO PROTOTYPE
+      </button>
+      <div class="panel-header-title">PRODUCTION JSON</div>
+      <textarea id="section-json-export" readonly style="width:100%;height:90px;background:rgba(0,0,0,0.6);border:1px solid rgba(0,212,255,0.3);border-radius:8px;color:#b8ff57;font-family:monospace;font-size:9.5px;padding:8px;outline:none;resize:none;"></textarea>
+      <button class="btn-preset" style="width:100%;padding:7px;justify-content:center;font-size:10px;color:#b8ff57;border-color:rgba(184,255,87,0.4);" onclick="studioCopyJSON()">
+        📋 COPY JSON
+      </button>
+    `,
+    elementsHTML: `
+      <!-- HERO BADGE -->
+      <div class="studio-element" id="elem-hero-badge" data-name="Authority Badge"
+           style="top:82px;left:50%;transform:translateX(-50%);width:auto;min-width:200px;text-align:center;">
+        <span class="element-tag">🏷️ BADGE</span>
+        <div class="canva-move-handle" title="Drag to Move">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
+          <span>✥ MOVE</span>
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,255,0.12);border:1px solid rgba(0,212,255,0.45);border-radius:100px;padding:6px 14px;">
+          <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#00d4ff;box-shadow:0 0 6px #00d4ff;"></span>
+          <span class="editable-text-field" style="font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:800;letter-spacing:0.18em;color:#00d4ff;">LOCAL VISIBILITY OPERATING SYSTEM</span>
+        </div>
+        <div class="resize-handle handle-nw" data-handle="nw"></div><div class="resize-handle handle-ne" data-handle="ne"></div>
+        <div class="resize-handle handle-se" data-handle="se"></div><div class="resize-handle handle-sw" data-handle="sw"></div>
+        <div class="resize-handle handle-e" data-handle="e"></div>
+      </div>
+
+      <!-- HERO HEADLINE -->
+      <div class="studio-element" id="elem-hero-title" data-name="Main Headline"
+           style="top:130px;left:8px;width:370px;text-align:center;">
+        <span class="element-tag">🔤 HEADLINE</span>
+        <div class="canva-move-handle" title="Drag to Move">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
+          <span>✥ MOVE</span>
+        </div>
+        <h1 class="editable-text-field" style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;line-height:1.15;color:#fff;">
+          YOUR LOCAL CLIENTS<br>
+          <span style="background:linear-gradient(135deg,#00d4ff,#b8ff57);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+            [ ARE SEARCHING ]
+          </span><br>
+          WE MAKE SURE THEY<br>FIND YOU FIRST.
+        </h1>
+        <div class="resize-handle handle-nw" data-handle="nw"></div><div class="resize-handle handle-ne" data-handle="ne"></div>
+        <div class="resize-handle handle-se" data-handle="se"></div><div class="resize-handle handle-sw" data-handle="sw"></div>
+        <div class="resize-handle handle-e" data-handle="e"></div>
+      </div>
+
+      <!-- HERO TICKER -->
+      <div class="studio-element" id="elem-hero-ticker" data-name="Dominance Ticker"
+           style="top:316px;left:8px;width:370px;">
+        <span class="element-tag">⚡ TICKER</span>
+        <div class="canva-move-handle" title="Drag to Move">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
+          <span>✥ MOVE</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(0,0,0,0.5);border:1px solid rgba(0,212,255,0.2);border-radius:100px;padding:7px 16px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#b8ff57;box-shadow:0 0 8px #b8ff57;flex-shrink:0;"></span>
+          <span class="editable-text-field" style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:800;color:rgba(255,255,255,0.6);letter-spacing:0.1em;">DOMINANCE ENGINE:</span>
+          <span style="font-size:10px;font-weight:700;color:#b8ff57;">9-Mile Local Geo-Grid Coverage</span>
+        </div>
+        <div class="resize-handle handle-nw" data-handle="nw"></div><div class="resize-handle handle-ne" data-handle="ne"></div>
+        <div class="resize-handle handle-se" data-handle="se"></div><div class="resize-handle handle-sw" data-handle="sw"></div>
+        <div class="resize-handle handle-e" data-handle="e"></div>
+      </div>
+
+      <!-- HERO CTA -->
+      <div class="studio-element" id="elem-hero-cta" data-name="CTA Button"
+           style="top:370px;left:50%;transform:translateX(-50%);width:auto;min-width:180px;text-align:center;">
+        <span class="element-tag">🚀 CTA</span>
+        <div class="canva-move-handle" title="Drag to Move">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
+          <span>✥ MOVE</span>
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(0,212,255,0.2),rgba(184,255,87,0.12));border:1.5px solid rgba(0,212,255,0.6);border-radius:100px;padding:12px 28px;box-shadow:0 0 24px rgba(0,212,255,0.25);">
+          <span class="editable-text-field" style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:800;letter-spacing:0.08em;color:#fff;">⚡ EXPLORE WHAT WE DO</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="resize-handle handle-nw" data-handle="nw"></div><div class="resize-handle handle-ne" data-handle="ne"></div>
+        <div class="resize-handle handle-se" data-handle="se"></div><div class="resize-handle handle-sw" data-handle="sw"></div>
+        <div class="resize-handle handle-e" data-handle="e"></div>
+      </div>
+
+      <!-- HERO CUSTOMER STREAM -->
+      <div class="studio-element" id="elem-3d-pin" data-name="3D Pin & Customer Stream"
+           style="top:430px;left:8px;width:370px;">
+        <span class="element-tag">📍 3D PIN + STREAM</span>
+        <div class="canva-move-handle" title="Drag to Move">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
+          <span>✥ MOVE</span>
+        </div>
+        <div style="background:rgba(2,2,5,0.72);border:1px solid rgba(0,212,255,0.25);border-radius:16px;padding:14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:#00d4ff;box-shadow:0 0 8px #00d4ff;"></div>
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:800;color:#00d4ff;letter-spacing:0.12em;">LIVE CUSTOMER STREAM</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+            <div style="display:flex;align-items:center;gap:6px;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:8px;padding:5px 8px;"><span style="font-size:13px;">🔍</span><div style="flex:1;min-width:0;"><div style="font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&ldquo;best plumber near me&rdquo;</div><div style="font-size:7px;color:rgba(255,255,255,0.4);">Sarah M.</div></div><span style="font-size:8px;font-weight:800;color:#b8ff57;">$285</span></div>
+            <div style="display:flex;align-items:center;gap:6px;background:rgba(184,255,87,0.06);border:1px solid rgba(184,255,87,0.2);border-radius:8px;padding:5px 8px;"><span style="font-size:13px;">💰</span><div style="flex:1;min-width:0;"><div style="font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&ldquo;HVAC repair service&rdquo;</div><div style="font-size:7px;color:rgba(255,255,255,0.4);">James R.</div></div><span style="font-size:8px;font-weight:800;color:#b8ff57;">$480</span></div>
+            <div style="display:flex;align-items:center;gap:6px;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:8px;padding:5px 8px;"><span style="font-size:13px;">🔍</span><div style="flex:1;min-width:0;"><div style="font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&ldquo;roof replacement quote&rdquo;</div><div style="font-size:7px;color:rgba(255,255,255,0.4);">Maria L.</div></div><span style="font-size:8px;font-weight:800;color:#b8ff57;">$1,850</span></div>
+            <div style="display:flex;align-items:center;gap:6px;background:rgba(184,255,87,0.06);border:1px solid rgba(184,255,87,0.2);border-radius:8px;padding:5px 8px;"><span style="font-size:13px;">💰</span><div style="flex:1;min-width:0;"><div style="font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&ldquo;dentist accepting patients&rdquo;</div><div style="font-size:7px;color:rgba(255,255,255,0.4);">Kevin T.</div></div><span style="font-size:8px;font-weight:800;color:#b8ff57;">$320</span></div>
+            <div style="display:flex;align-items:center;gap:6px;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:8px;padding:5px 8px;"><span style="font-size:13px;">🔍</span><div style="flex:1;min-width:0;"><div style="font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&ldquo;emergency electrician&rdquo;</div><div style="font-size:7px;color:rgba(255,255,255,0.4);">Priya S.</div></div><span style="font-size:8px;font-weight:800;color:#b8ff57;">$165</span></div>
+            <div style="display:flex;align-items:center;gap:6px;background:rgba(184,255,87,0.06);border:1px solid rgba(184,255,87,0.2);border-radius:8px;padding:5px 8px;"><span style="font-size:13px;">💰</span><div style="flex:1;min-width:0;"><div style="font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&ldquo;auto body shop near me&rdquo;</div><div style="font-size:7px;color:rgba(255,255,255,0.4);">Carlos V.</div></div><span style="font-size:8px;font-weight:800;color:#b8ff57;">$740</span></div>
+            <div style="display:flex;align-items:center;gap:6px;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:8px;padding:5px 8px;"><span style="font-size:13px;">🔍</span><div style="flex:1;min-width:0;"><div style="font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&ldquo;personal injury attorney&rdquo;</div><div style="font-size:7px;color:rgba(255,255,255,0.4);">Linda K.</div></div><span style="font-size:8px;font-weight:800;color:#b8ff57;">$4,200</span></div>
+            <div style="display:flex;align-items:center;gap:6px;background:rgba(184,255,87,0.06);border:1px solid rgba(184,255,87,0.2);border-radius:8px;padding:5px 8px;"><span style="font-size:13px;">💰</span><div style="flex:1;min-width:0;"><div style="font-size:8px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&ldquo;landscaping service&rdquo;</div><div style="font-size:7px;color:rgba(255,255,255,0.4);">Tom A.</div></div><span style="font-size:8px;font-weight:800;color:#b8ff57;">$890</span></div>
+          </div>
+        </div>
+        <div class="resize-handle handle-nw" data-handle="nw"></div><div class="resize-handle handle-ne" data-handle="ne"></div>
+        <div class="resize-handle handle-se" data-handle="se"></div><div class="resize-handle handle-sw" data-handle="sw"></div>
+        <div class="resize-handle handle-e" data-handle="e"></div>
+      </div>
+    `
+  }
+};
+
+let activeLoadedSection = null;
+
+function studioLoadSection(sectionKey) {
+  const def = SECTION_DEFINITIONS[sectionKey];
+  if (!def) return;
+
+  // Save current before clearing
+  saveCurrentDeviceProfile();
+  deselectAllElements();
+  undoHistory = []; redoHistory = [];
+  updateUndoRedoButtonsUI();
+
+  // Clear canvas elements
+  const container = document.getElementById('section-elements-container');
+  container.innerHTML = def.elementsHTML;
+
+  // Update storage key
+  studioStorageKey = def.storageKey;
+  try {
+    const saved = localStorage.getItem(studioStorageKey);
+    if (saved) deviceLayoutProfiles = JSON.parse(saved);
+    else deviceLayoutProfiles = { mobile: { elements:{} }, tablet: { elements:{} }, desktop: { elements:{} } };
+  } catch(e) {
+    deviceLayoutProfiles = { mobile: { elements:{} }, tablet: { elements:{} }, desktop: { elements:{} } };
+  }
+
+  // Load saved profile for current device
+  loadDeviceProfile(currentActiveDevice);
+
+  // Rebind drag events to new elements
+  bindStudioElementsEvents();
+
+  // Update sidebar controls
+  document.getElementById('sidebar-section-custom-controls').innerHTML = def.sidebarControlsHTML;
+
+  // Update preset bar
+  const label = document.getElementById('preset-bar-label');
+  if (label) label.innerText = '⚡ ' + def.name.toUpperCase() + ' PRESETS:';
+  const presetBtns = [document.getElementById('preset-btn-1'), document.getElementById('preset-btn-2'), document.getElementById('preset-btn-3')];
+  def.presets.forEach((p, i) => {
+    if (presetBtns[i]) {
+      presetBtns[i].innerText = p.label;
+      presetBtns[i].onclick = p.fn;
+    }
+  });
+
+  // Update active section
+  activeLoadedSection = sectionKey;
+
+  // Highlight active load button
+  document.querySelectorAll('[id^="btn-load-"]').forEach(b => {
+    b.style.background = '';
+    b.style.borderColor = '';
+    b.style.color = '';
+  });
+  const activeBtn = document.getElementById('btn-load-' + sectionKey);
+  if (activeBtn) {
+    activeBtn.style.background = 'rgba(184,255,87,0.2)';
+    activeBtn.style.borderColor = '#b8ff57';
+    activeBtn.style.color = '#b8ff57';
+  }
+
+  // Header label
+  const headerName = document.getElementById('studio-header-section-name');
+  if (headerName) headerName.innerText = def.name.toUpperCase();
+
+  showToastFeedback('✅ ' + def.name + ' Loaded into Canvas!');
+
+  // Init section-specific 3D if needed
+  if (sectionKey === 'hero') heroInit3DPinScene();
+}
+
+function studioClearCanvas() {
+  if (!confirm('Clear the canvas? All unsaved positions will be lost.')) return;
+  const container = document.getElementById('section-elements-container');
+  container.innerHTML = '';
+  activeLoadedSection = null;
+  document.getElementById('sidebar-section-custom-controls').innerHTML =
+    '<div class="panel-header-title">LOAD A SECTION FIRST</div><p style="font-size:11px;color:rgba(255,255,255,0.5);">Click a section button in the top bar.</p>';
+  showToastFeedback('🧹 Canvas Cleared');
+}
+
+function studioSyncSectionToPrototype() {
+  if (!activeLoadedSection) { showToastFeedback('⚠️ No section loaded!'); return; }
+  saveCurrentDeviceProfile();
+  studioUpdateExportJSON();
+  const btn = document.getElementById('btn-sync-master');
+  if (btn) {
+    btn.innerHTML = '✅ SAVED! Copy JSON below.';
+    btn.style.borderColor = '#b8ff57';
+    setTimeout(() => { btn.innerHTML = '⚡ APPLY & SYNC TO PROTOTYPE'; btn.style.borderColor = '#00d4ff'; }, 2000);
+  }
+  showToastFeedback('✅ Saved! Copy JSON → tell AI to apply.');
+}
+
+function studioUpdateExportJSON() {
+  const box = document.getElementById('section-json-export');
+  if (!box) return;
+  const elemData = {};
+  document.querySelectorAll('.studio-element').forEach(el => {
+    elemData[el.id] = { top: el.style.top, left: el.style.left, width: el.style.width };
+  });
+  const out = {
+    section: activeLoadedSection,
+    device: currentActiveDevice,
+    elements: elemData,
+    pin3D: window.heroPinGroup ? {
+      scale: parseFloat(window.heroPinGroup.scale.x.toFixed(2)),
+      x: parseFloat(window.heroPinGroup.position.x.toFixed(1)),
+      y: parseFloat(window.heroPinGroup.position.y.toFixed(1))
+    } : null
+  };
+  box.value = JSON.stringify(out, null, 2);
+}
+
+function studioCopyJSON() {
+  const box = document.getElementById('section-json-export');
+  if (!box) return;
+  navigator.clipboard.writeText(box.value).catch(() => {});
+  showToastFeedback('📋 JSON Copied!');
+}
+
+/* ─── HERO-SPECIFIC 3D PIN ENGINE ─── */
+let heroPinGroup = null;
+let heroStarsData = [];
+let heroFrameId = null;
+
+function heroInit3DPinScene() {
+  // Stop previous loop
+  if (heroFrameId) cancelAnimationFrame(heroFrameId);
+
+  // Clear previous hero objects (remove all user objects except camera/renderer)
+  while (stageScene.children.length > 0) stageScene.remove(stageScene.children[0]);
+
+  // Lights
+  stageScene.add(new THREE.AmbientLight(0x0a182e, 2.8));
+  const dl = new THREE.DirectionalLight(0xffffff, 3.2);
+  dl.position.set(8, 14, 10); stageScene.add(dl);
+  const pl = new THREE.PointLight(0x00d4ff, 3.8, 30);
+  pl.position.set(-6, 6, 8); stageScene.add(pl);
+
+  // Particles
+  const dc = 850, dg = new THREE.BufferGeometry();
+  const dp = new Float32Array(dc * 3), dcols = new Float32Array(dc * 3);
+  const cC = new THREE.Color(0x00d4ff), cL = new THREE.Color(0xb8ff57), cW = new THREE.Color(0xffffff);
+  for (let i = 0; i < dc * 3; i += 3) {
+    dp[i] = (Math.random()-0.5)*65; dp[i+1] = (Math.random()-0.5)*45; dp[i+2] = (Math.random()-0.5)*40;
+    const r = Math.random(), c = r>0.55?cC:(r>0.25?cL:cW);
+    dcols[i]=c.r; dcols[i+1]=c.g; dcols[i+2]=c.b;
+  }
+  dg.setAttribute('position', new THREE.BufferAttribute(dp, 3));
+  dg.setAttribute('color', new THREE.BufferAttribute(dcols, 3));
+  stageScene.add(new THREE.Points(dg, new THREE.PointsMaterial({ size:0.18, vertexColors:true, transparent:true, opacity:0.75, blending:THREE.AdditiveBlending })));
+
+  // Pin Group
+  heroPinGroup = new THREE.Group();
+  window.heroPinGroup = heroPinGroup;
+  heroPinGroup.position.set(7.6, -0.6, 0);
+  heroPinGroup.scale.set(0.88, 0.88, 0.88);
+  stageScene.add(heroPinGroup);
+
+  // Pin Head
+  const hm = new THREE.Mesh(new THREE.SphereGeometry(2.4,32,32), new THREE.MeshBasicMaterial({color:0x00d4ff,wireframe:true,transparent:true,opacity:0.35}));
+  hm.position.y=1.2; heroPinGroup.add(hm);
+
+  // Shop
+  const sg = new THREE.Group(); sg.position.y=1.2; heroPinGroup.add(sg);
+  const wm={wall:new THREE.MeshStandardMaterial({color:0x082038,roughness:0.3,metalness:0.2}),
+    roofLime:new THREE.MeshStandardMaterial({color:0xb8ff57,roughness:0.2,metalness:0.1}),
+    roofDark:new THREE.MeshStandardMaterial({color:0x031020,roughness:0.3}),
+    cyan:new THREE.MeshStandardMaterial({color:0x00d4ff,emissive:0x00d4ff,emissiveIntensity:0.6,transparent:true,opacity:0.85}),
+    lime:new THREE.MeshStandardMaterial({color:0xb8ff57,emissive:0xb8ff57,emissiveIntensity:0.4}),
+    base:new THREE.MeshStandardMaterial({color:0x04101e,roughness:0.4,metalness:0.6})};
+  sg.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(1.6,1.6,0.2,32),wm.base),{position:{set(a,b,c){this.position.x=a;this.position.y=b;this.position.z=c;}}}).clone());
+  const base=new THREE.Mesh(new THREE.CylinderGeometry(1.6,1.6,0.2,32),wm.base); base.position.y=-0.6; sg.add(base);
+  const walls=new THREE.Mesh(new THREE.BoxGeometry(1.9,1.45,1.55),wm.wall); walls.position.y=0.2; sg.add(walls);
+  const roof=new THREE.Mesh(new THREE.CylinderGeometry(0,1.35,0.65,4),wm.roofLime); roof.position.y=1.15; roof.rotation.y=Math.PI/4; sg.add(roof);
+  const roofBase=new THREE.Mesh(new THREE.BoxGeometry(2.05,0.14,1.7),wm.roofDark); roofBase.position.y=0.92; sg.add(roofBase);
+  [-0.62,0.62].forEach(x=>{ const w=new THREE.Mesh(new THREE.BoxGeometry(0.42,0.45,0.08),wm.cyan); w.position.set(x,0.28,0.78); sg.add(w); });
+  const door=new THREE.Mesh(new THREE.BoxGeometry(0.44,0.7,0.08),wm.lime); door.position.set(0,-0.12,0.78); sg.add(door);
+  const sign=new THREE.Mesh(new THREE.BoxGeometry(1.2,0.28,0.08),wm.cyan); sign.position.set(0,0.7,0.78); sg.add(sign);
+
+  // 5 Orbiting Stars
+  const starGroup=new THREE.Group(); heroPinGroup.add(starGroup);
+  const starMat=new THREE.MeshStandardMaterial({color:0xffd700,emissive:0xffd700,emissiveIntensity:1.2});
+  heroStarsData=[];
+  for(let s=0;s<5;s++){
+    const m=new THREE.Mesh(new THREE.OctahedronGeometry(0.18,0),starMat);
+    const a=(s/5)*Math.PI*2, r=3.2;
+    m.position.set(Math.cos(a)*r,1.5+Math.sin(a*1.6)*0.5,Math.sin(a)*r*0.55);
+    starGroup.add(m);
+    heroStarsData.push({mesh:m,angle:a,speed:0.012+s*0.003,r});
+  }
+  window.heroStarGroup = starGroup;
+
+  // Camera
+  stageCamera.position.set(0,1.2,22);
+
+  // Animate
+  function heroLoop(){
+    heroFrameId=requestAnimationFrame(heroLoop);
+    const t=Date.now()*0.001;
+    heroStarsData.forEach(o=>{
+      o.angle+=o.speed;
+      o.mesh.position.x=Math.cos(o.angle)*o.r;
+      o.mesh.position.z=Math.sin(o.angle)*o.r*0.55;
+      o.mesh.position.y=1.5+Math.sin(o.angle*1.8)*0.55;
+      o.mesh.rotation.y+=0.06;
+    });
+    heroPinGroup.position.y=-0.6+Math.sin(t*0.5)*0.12;
+    starGroup.rotation.y+=0.004;
+    stageRenderer.render(stageScene,stageCamera);
+  }
+  heroLoop();
+
+  showToastFeedback('🎯 3D Pin Scene Initialized!');
+}
+
+function heroApplyPinCoords(x,y,scale){
+  if(!heroPinGroup) return;
+  heroPinGroup.position.x=x; heroPinGroup.position.y=y;
+  heroPinGroup.scale.set(scale,scale,scale);
+  const s=document.getElementById('slider-pin-scale'), d=document.getElementById('disp-pin-scale');
+  if(s){s.value=scale;} if(d){d.innerText=scale.toFixed(2)+'x';}
+  const sx=document.getElementById('slider-pin-x'), dx=document.getElementById('disp-pin-x');
+  if(sx){sx.value=x;} if(dx){dx.innerText=x.toFixed(1);}
+  const sy=document.getElementById('slider-pin-y'), dy=document.getElementById('disp-pin-y');
+  if(sy){sy.value=y;} if(dy){dy.innerText=y.toFixed(1);}
+  studioUpdateExportJSON();
+}
+function heroChange3DPinScale(v){
+  v=parseFloat(v);
+  const d=document.getElementById('disp-pin-scale'); if(d) d.innerText=v.toFixed(2)+'x';
+  if(heroPinGroup) heroPinGroup.scale.set(v,v,v);
+  studioUpdateExportJSON();
+}
+function heroChange3DPinX(v){
+  v=parseFloat(v);
+  const d=document.getElementById('disp-pin-x'); if(d) d.innerText=v.toFixed(1);
+  if(heroPinGroup) heroPinGroup.position.x=v;
+  studioUpdateExportJSON();
+}
+function heroChange3DPinY(v){
+  v=parseFloat(v);
+  const d=document.getElementById('disp-pin-y'); if(d) d.innerText=v.toFixed(1);
+  if(heroPinGroup) heroPinGroup.position.y=v;
+  studioUpdateExportJSON();
+}
 </script>
 </body>
 </html>
