@@ -1493,7 +1493,7 @@ updateUndoRedoButtonsUI();
 
 /* ═══════════════════════════════════════════════════════════
    TRUE LOCAL HTML FILE EDITOR ENGINE (IFRAME ISOLATION)
-   Canva-Grade Ultimate Overlay System & Smart Placeholders (Flawless)
+   BULLETPROOF RELATIVE-NUDGE & OVERLAY SYSTEM
    ═══════════════════════════════════════════════════════════ */
 
 let currentFileHandle = null;
@@ -1539,10 +1539,11 @@ async function studioImportLocalFile() {
     
     const iframe = document.getElementById('live-prototype-frame');
     
-    // Inject Canva-Grade Overlay CSS
+    // Inject Bulletproof Overlay CSS
     const wandCss = `
       <style id="studio-injected-tools-css">
         .wand-active-global #master-3d-canvas, .wand-active-global canvas { pointer-events: auto !important; }
+        .wand-active-global .scene-vignette { pointer-events: none !important; }
         .wand-outline { outline: 2px dashed #b8ff57 !important; outline-offset: 4px !important; cursor: cell !important; background: rgba(184,255,87,0.1) !important; }
         
         #studio-selection-overlay {
@@ -1565,7 +1566,6 @@ async function studioImportLocalFile() {
         .handle-s { bottom:-8px; left:calc(50% - 8px); cursor:ns-resize; }
         
         .studio-element { cursor:move; }
-        .studio-placeholder { opacity: 0; pointer-events: none; }
       </style>
     `;
     
@@ -1592,14 +1592,14 @@ async function studioImportLocalFile() {
       
       setupOverlayDragEvents(overlay);
       
-      showToastFeedback('✅ Perfect Fidelity File Loaded!');
+      showToastFeedback('✅ Bulletproof Engine Loaded!');
       
-      // Override text input
+      // Override text input to use innerHTML so nested spans don't break
       const textInput = document.getElementById('sidebar-edit-text');
       if (textInput && !textInput._iframeBound) {
         textInput.addEventListener('input', (e) => {
           if (currentIframeSelectedElement) {
-             currentIframeSelectedElement.innerText = e.target.value;
+             currentIframeSelectedElement.innerHTML = e.target.value;
              updateOverlayPosition();
           }
         });
@@ -1658,30 +1658,13 @@ function wandClick(e) {
   if (!el.id) el.id = 'imported-elem-' + Math.random().toString(36).substr(2, 9);
   
   const compStyle = iframeWin.getComputedStyle(el);
-  if (compStyle.position === 'static' || compStyle.position === 'relative') {
-    const rect = el.getBoundingClientRect();
-    
-    // Calculate precise top/left relative to offsetParent padding box to prevent ANY shift
-    const op = el.offsetParent || iframeDoc.documentElement;
-    const opRect = op.getBoundingClientRect();
-    const exactTop = rect.top - opRect.top - op.clientTop + op.scrollTop;
-    const exactLeft = rect.left - opRect.left - op.clientLeft + op.scrollLeft;
-    
-    // Smart Placeholder Injection
-    const placeholder = iframeDoc.createElement('div');
-    placeholder.className = 'studio-placeholder';
-    placeholder.style.width = rect.width + 'px';
-    placeholder.style.height = rect.height + 'px';
-    placeholder.style.margin = compStyle.margin;
-    placeholder.style.display = compStyle.display;
-    el.parentNode.insertBefore(placeholder, el);
-    
-    el.style.position = 'absolute';
-    el.style.top = exactTop + 'px';
-    el.style.left = exactLeft + 'px';
-    el.style.width = rect.width + 'px';
-    el.style.height = rect.height + 'px';
-    el.style.margin = '0';
+  
+  // BULLETPROOF LOGIC: Instead of absolute, use relative!
+  // This preserves the exact DOM flow, so NO siblings jump!
+  if (compStyle.position === 'static') {
+    el.style.position = 'relative';
+    el.style.top = '0px';
+    el.style.left = '0px';
   }
   
   selectElementIframe(el);
@@ -1694,10 +1677,13 @@ function selectElementIframe(el) {
   const overlay = iframeDoc.getElementById('studio-selection-overlay');
   if (overlay) overlay.style.display = 'block';
   
-  document.getElementById('disp-elem-name').innerText = el.id || 'Custom Element';
-  document.getElementById('disp-pos-top').innerText = el.style.top;
-  document.getElementById('disp-pos-left').innerText = el.style.left;
-  document.getElementById('sidebar-edit-text').value = el.innerText;
+  document.getElementById('disp-elem-name').innerText = el.id || el.tagName;
+  document.getElementById('disp-pos-top').innerText = el.style.top || '0px';
+  document.getElementById('disp-pos-left').innerText = el.style.left || '0px';
+  
+  // Use innerHTML so user can edit raw HTML without breaking nested spans
+  let rawHtml = el.innerHTML.trim();
+  document.getElementById('sidebar-edit-text').value = rawHtml;
 }
 
 function updateOverlayPosition() {
@@ -1721,9 +1707,9 @@ function setupOverlayDragEvents(overlay) {
     let startX = evt.clientX;
     let startY = evt.clientY;
     
-    const compStyle = iframeWin.getComputedStyle(el);
-    let startLeft = parseFloat(compStyle.left) || 0;
-    let startTop = parseFloat(compStyle.top) || 0;
+    // Read the current inline top/left (works perfectly for relative, absolute, fixed)
+    let startLeft = parseFloat(el.style.left) || 0;
+    let startTop = parseFloat(el.style.top) || 0;
     
     const onMove = (me) => {
       const dx = me.clientX - startX;
