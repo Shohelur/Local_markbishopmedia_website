@@ -1493,7 +1493,7 @@ updateUndoRedoButtonsUI();
 
 /* ═══════════════════════════════════════════════════════════
    TRUE LOCAL HTML FILE EDITOR ENGINE (IFRAME ISOLATION)
-   Uses File System Access API + Iframe srcdoc for 100% CSS fidelity.
+   Canva-Grade Ultimate Overlay System & Smart Placeholders
    ═══════════════════════════════════════════════════════════ */
 
 let currentFileHandle = null;
@@ -1506,7 +1506,7 @@ let currentIframeSelectedElement = null;
 async function studioImportLocalFile() {
   try {
     if (!window.showOpenFilePicker) {
-      alert("Your browser does not support the File System Access API. Please use Chrome/Edge on Desktop.");
+      alert("Your browser does not support the File System Access API.");
       return;
     }
     
@@ -1539,34 +1539,33 @@ async function studioImportLocalFile() {
     
     const iframe = document.getElementById('live-prototype-frame');
     
-    // Inject our wand outline and resize handles CSS into the original HTML
+    // Inject Canva-Grade Overlay CSS
     const wandCss = `
       <style id="studio-injected-tools-css">
         .wand-active-global #master-3d-canvas, .wand-active-global canvas { pointer-events: auto !important; }
-        .wand-outline {
-          outline: 2px dashed #b8ff57 !important; outline-offset: 4px !important;
-          cursor: cell !important; background: rgba(184,255,87,0.1) !important;
+        .wand-outline { outline: 2px dashed #b8ff57 !important; outline-offset: 4px !important; cursor: cell !important; background: rgba(184,255,87,0.1) !important; }
+        
+        #studio-selection-overlay {
+          position: absolute; display: none; pointer-events: none; z-index: 9999999;
+          border: 2px solid #b8ff57; background: rgba(184, 255, 87, 0.05);
         }
         .canva-move-handle {
-          display:none; position:absolute; bottom:-45px; left:50%; transform:translateX(-50%);
+          position:absolute; bottom:-45px; left:50%; transform:translateX(-50%);
           background:linear-gradient(135deg, #00d4ff, #b8ff57); color:#020205; border:2.5px solid #ffffff;
-          box-shadow:0 8px 30px rgba(0, 212, 255, 0.9), 0 0 20px rgba(184, 255, 87, 0.8);
-          border-radius:100px; padding:6px 14px; font-family:sans-serif; font-size:11px; font-weight:800;
-          align-items:center; gap:8px; cursor:grab; z-index:999999 !important; touch-action:none;
-          user-select:none; white-space:nowrap; pointer-events:auto !important;
+          box-shadow:0 8px 30px rgba(0, 212, 255, 0.9); border-radius:100px; padding:6px 14px;
+          font-family:sans-serif; font-size:11px; font-weight:800; align-items:center; display:flex;
+          gap:8px; cursor:grab; touch-action:none; user-select:none; white-space:nowrap; pointer-events:auto !important;
         }
         .resize-handle {
           position:absolute; width:16px; height:16px; background:#ffffff; border:3px solid #00d4ff;
-          border-radius:4px; z-index:999999; display:none; touch-action:none; pointer-events:auto !important;
-          box-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+          border-radius:4px; touch-action:none; pointer-events:auto !important; box-shadow: 0 0 10px rgba(0,212,255,0.8);
         }
         .handle-se { bottom:-8px; right:-8px; cursor:nwse-resize; }
         .handle-e { top:calc(50% - 8px); right:-8px; cursor:ew-resize; }
         .handle-s { bottom:-8px; left:calc(50% - 8px); cursor:ns-resize; }
-        .studio-element.selected-box .canva-move-handle, .studio-element.selected-box .resize-handle { display:flex !important; }
-        .studio-element { cursor:move; transition:border-color 0.15s, background 0.15s; z-index: 200; border: 2px dashed transparent; }
-        .studio-element:hover { border-color:rgba(0, 212, 255, 0.6); background:rgba(0, 212, 255, 0.05); }
-        .studio-element.selected-box { border-color:#b8ff57 !important; background:rgba(184, 255, 87, 0.12) !important; z-index: 1000 !important; }
+        
+        .studio-element { cursor:move; }
+        .studio-placeholder { opacity: 0; pointer-events: none; }
       </style>
     `;
     
@@ -1576,23 +1575,32 @@ async function studioImportLocalFile() {
     iframe.onload = () => {
       iframeWin = iframe.contentWindow;
       iframeDoc = iframe.contentDocument;
+      
+      // Inject Overlay Container into iframe body
+      const overlay = iframeDoc.createElement('div');
+      overlay.id = 'studio-selection-overlay';
+      overlay.innerHTML = `
+        <div class="canva-move-handle injected-ui">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:6px;"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
+          <span>✥ MOVE</span>
+        </div>
+        <div class="resize-handle handle-se injected-ui" data-dir="se"></div>
+        <div class="resize-handle handle-e injected-ui" data-dir="e"></div>
+        <div class="resize-handle handle-s injected-ui" data-dir="s"></div>
+      `;
+      iframeDoc.body.appendChild(overlay);
+      
+      setupOverlayDragEvents(overlay);
+      
       showToastFeedback('✅ Perfect Fidelity File Loaded!');
       
-      // Override default studio sidebar text input
+      // Override text input
       const textInput = document.getElementById('sidebar-edit-text');
       if (textInput && !textInput._iframeBound) {
         textInput.addEventListener('input', (e) => {
           if (currentIframeSelectedElement) {
-             const el = currentIframeSelectedElement;
-             const moveH = el.querySelector('.canva-move-handle');
-             const resizeHs = Array.from(el.querySelectorAll('.resize-handle'));
-             if(moveH) moveH.remove();
-             resizeHs.forEach(h => h.remove());
-             
-             el.innerText = e.target.value;
-             
-             if(moveH) el.appendChild(moveH);
-             resizeHs.forEach(h => el.appendChild(h));
+             currentIframeSelectedElement.innerText = e.target.value;
+             updateOverlayPosition();
           }
         });
         textInput._iframeBound = true;
@@ -1630,7 +1638,7 @@ function toggleMagicWandMode() {
 }
 
 function wandHover(e) {
-  if (!magicWandActive || e.target.closest('.canva-move-handle') || e.target.closest('.resize-handle') || e.target.classList.contains('studio-element')) return;
+  if (!magicWandActive || e.target.closest('#studio-selection-overlay') || e.target.classList.contains('studio-element')) return;
   e.target.classList.add('wand-outline');
   e.stopPropagation();
 }
@@ -1639,7 +1647,7 @@ function wandOut(e) {
   e.target.classList.remove('wand-outline');
 }
 function wandClick(e) {
-  if (!magicWandActive || e.target.closest('.canva-move-handle') || e.target.closest('.resize-handle') || e.target.classList.contains('studio-element')) return;
+  if (!magicWandActive || e.target.closest('#studio-selection-overlay') || e.target.classList.contains('studio-element')) return;
   
   e.preventDefault();
   e.stopPropagation();
@@ -1647,42 +1655,65 @@ function wandClick(e) {
   const el = e.target;
   el.classList.remove('wand-outline');
   el.classList.add('studio-element');
+  if (!el.id) el.id = 'imported-elem-' + Math.random().toString(36).substr(2, 9);
   
   const compStyle = iframeWin.getComputedStyle(el);
   if (compStyle.position === 'static' || compStyle.position === 'relative') {
     const rect = el.getBoundingClientRect();
+    const origTop = el.offsetTop;
+    const origLeft = el.offsetLeft;
+    
+    // Smart Placeholder Injection
+    const placeholder = iframeDoc.createElement('div');
+    placeholder.className = 'studio-placeholder';
+    placeholder.style.width = rect.width + 'px';
+    placeholder.style.height = rect.height + 'px';
+    placeholder.style.margin = compStyle.margin;
+    placeholder.style.display = compStyle.display;
+    el.parentNode.insertBefore(placeholder, el);
+    
     el.style.position = 'absolute';
-    el.style.top = rect.top + 'px';
-    el.style.left = rect.left + 'px';
+    el.style.top = origTop + 'px';
+    el.style.left = origLeft + 'px';
     el.style.width = rect.width + 'px';
-    el.style.height = rect.height + 'px'; // Fix layout collapse
-    el.style.margin = '0'; // Remove margins to prevent offset bugs when absolute
+    el.style.height = rect.height + 'px';
+    el.style.margin = '0';
   }
   
-  if (!el.id) el.id = 'imported-elem-' + Math.random().toString(36).substr(2, 9);
+  selectElementIframe(el);
+  showToastFeedback('✅ Element Editable & Resizable!');
+}
+
+function selectElementIframe(el) {
+  currentIframeSelectedElement = el;
+  updateOverlayPosition();
+  const overlay = iframeDoc.getElementById('studio-selection-overlay');
+  if (overlay) overlay.style.display = 'block';
   
-  // Create Move Handle
-  const moveHandle = iframeDoc.createElement('div');
-  moveHandle.className = 'canva-move-handle injected-handle';
-  moveHandle.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:6px;"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg><span>✥ MOVE</span>';
+  document.getElementById('disp-elem-name').innerText = el.id || 'Custom Element';
+  document.getElementById('disp-pos-top').innerText = el.style.top;
+  document.getElementById('disp-pos-left').innerText = el.style.left;
+  document.getElementById('sidebar-edit-text').value = el.innerText;
+}
+
+function updateOverlayPosition() {
+  const overlay = iframeDoc.getElementById('studio-selection-overlay');
+  const el = currentIframeSelectedElement;
+  if (!overlay || !el) return;
   
-  const triggerSelect = () => {
-    iframeDoc.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
-    el.classList.add('selected-box');
-    currentIframeSelectedElement = el;
-    
-    // Clean handles for text extraction
-    const clone = el.cloneNode(true);
-    clone.querySelectorAll('.injected-handle').forEach(h => h.remove());
-    
-    document.getElementById('disp-elem-name').innerText = el.id || 'Custom Element';
-    document.getElementById('disp-pos-top').innerText = el.style.top;
-    document.getElementById('disp-pos-left').innerText = el.style.left;
-    document.getElementById('sidebar-edit-text').value = clone.innerText;
-  };
-  
+  // Use offsetTop/Left since element is absolute within its offsetParent
+  overlay.style.top = el.offsetTop + 'px';
+  overlay.style.left = el.offsetLeft + 'px';
+  overlay.style.width = el.offsetWidth + 'px';
+  overlay.style.height = el.offsetHeight + 'px';
+}
+
+function setupOverlayDragEvents(overlay) {
+  // Move Handle
+  const moveHandle = overlay.querySelector('.canva-move-handle');
   moveHandle.addEventListener('pointerdown', (evt) => {
-    triggerSelect();
+    if (!currentIframeSelectedElement) return;
+    const el = currentIframeSelectedElement;
     let startX = evt.clientX;
     let startY = evt.clientY;
     let elLeft = parseFloat(el.style.left || 0);
@@ -1693,6 +1724,7 @@ function wandClick(e) {
       const dy = me.clientY - startY;
       el.style.left = (elLeft + dx) + 'px';
       el.style.top = (elTop + dy) + 'px';
+      updateOverlayPosition();
       document.getElementById('disp-pos-top').innerText = Math.round(elTop + dy) + 'px';
       document.getElementById('disp-pos-left').innerText = Math.round(elLeft + dx) + 'px';
     };
@@ -1703,14 +1735,13 @@ function wandClick(e) {
     try { evt.target.setPointerCapture(evt.pointerId); } catch(err){}
     evt.preventDefault(); evt.stopPropagation();
   });
-  el.appendChild(moveHandle);
   
-  // Create Resize Handles
-  ['se', 'e', 's'].forEach(dir => {
-    const handle = iframeDoc.createElement('div');
-    handle.className = `resize-handle handle-${dir} injected-handle`;
+  // Resize Handles
+  overlay.querySelectorAll('.resize-handle').forEach(handle => {
     handle.addEventListener('pointerdown', (evt) => {
-       triggerSelect();
+       if (!currentIframeSelectedElement) return;
+       const el = currentIframeSelectedElement;
+       const dir = handle.getAttribute('data-dir');
        let startX = evt.clientX;
        let startY = evt.clientY;
        let startW = el.offsetWidth;
@@ -1719,6 +1750,7 @@ function wandClick(e) {
        const onMove = (me) => {
           if (dir.includes('e')) el.style.width = Math.max(20, startW + (me.clientX - startX)) + 'px';
           if (dir.includes('s')) el.style.height = Math.max(20, startH + (me.clientY - startY)) + 'px';
+          updateOverlayPosition();
        };
        const onUp = () => { iframeWin.removeEventListener('pointermove', onMove); iframeWin.removeEventListener('pointerup', onUp); };
        
@@ -1727,23 +1759,21 @@ function wandClick(e) {
        try { evt.target.setPointerCapture(evt.pointerId); } catch(err){}
        evt.stopPropagation(); evt.preventDefault();
     });
-    el.appendChild(handle);
   });
-  
-  showToastFeedback('✅ Element Editable & Resizable!');
-  // Removing auto-toggle so user can select multiple elements!
-  // toggleMagicWandMode(); 
 }
 
 // Global click to deselect in iframe
 setInterval(() => {
   if (iframeDoc && !iframeDoc._hasClickBinding) {
     iframeDoc.addEventListener('pointerdown', (e) => {
-      if (!e.target.closest('.studio-element') && !magicWandActive) {
-        iframeDoc.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
+      if (!e.target.closest('#studio-selection-overlay') && !e.target.closest('.studio-element') && !magicWandActive) {
         currentIframeSelectedElement = null;
+        const overlay = iframeDoc.getElementById('studio-selection-overlay');
+        if (overlay) overlay.style.display = 'none';
         document.getElementById('disp-elem-name').innerText = 'Tap Any Item';
         document.getElementById('sidebar-edit-text').value = '';
+      } else if (e.target.classList.contains('studio-element') && !magicWandActive) {
+        selectElementIframe(e.target);
       }
     });
     iframeDoc._hasClickBinding = true;
@@ -1764,12 +1794,11 @@ async function studioSaveLocalFile() {
     const docClone = iframeDoc.documentElement.cloneNode(true);
     
     // Clean injected studio logic
-    docClone.querySelectorAll('.injected-handle').forEach(el => el.remove());
+    docClone.querySelectorAll('#studio-selection-overlay').forEach(el => el.remove());
     docClone.querySelectorAll('#studio-injected-tools-css').forEach(el => el.remove());
     docClone.body.classList.remove('wand-active-global');
     docClone.querySelectorAll('.studio-element').forEach(el => {
        el.classList.remove('studio-element');
-       el.classList.remove('selected-box');
        if (el.className.trim() === '') el.removeAttribute('class');
     });
     
