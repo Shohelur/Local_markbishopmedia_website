@@ -332,6 +332,7 @@ body{
 /* ═══════════════════════════════════════════════════════════
    4. STUDIO MAIN STAGE & HARDWARE ARTBOARD
    ═══════════════════════════════════════════════════════════ */
+.studio-header { z-index: 10000; position: relative; }
 .studio-main{flex:1;display:flex;position:relative;overflow:hidden}
 .stage-viewport{
   flex:1;
@@ -357,6 +358,8 @@ body{
   flex-shrink:0;
   margin:0 auto;
   transition:border-radius 0.2s ease;
+  transform: translateZ(0); 
+  z-index: 10;
 }
 #artboard-canvas-wrapper.desktop{width:1280px;height:740px;border-radius:14px}
 #artboard-canvas-wrapper.tablet{width:820px;height:880px;border-radius:32px;border-width:12px;border-color:#182133}
@@ -478,7 +481,7 @@ body{
 /* ═══════════════════════════════════════════════════════════
    6. COLLAPSIBLE RIGHT PROPERTIES SIDEBAR
    ═══════════════════════════════════════════════════════════ */
-.sidebar-wrapper{position:relative;display:flex;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);z-index:9000}
+.sidebar-wrapper{position:relative;display:flex;transition:all 0.33s cubic-bezier(0.4, 0, 0.2, 1);z-index:99990}
 .studio-sidebar{
   width:320px;
   background:#0c111c;
@@ -510,7 +513,7 @@ body{
   color:#00d4ff;
   font-size:14px;
   font-weight:800;
-  z-index:9000;
+  z-index:99999;
   touch-action:manipulation;
 }
 .sidebar-collapse-handle:hover{background:rgba(0, 212, 255, 0.2);color:#b8ff57}
@@ -1547,8 +1550,12 @@ async function studioImportLocalFile() {
       document.head.appendChild(styleContainer);
     }
     // Extract only <style> tags so we don't break studio fonts
-    const styles = Array.from(doc.head.querySelectorAll('style')).map(s => s.outerHTML).join('\n');
-    styleContainer.innerHTML = styles;
+    let stylesText = Array.from(doc.head.querySelectorAll('style')).map(s => s.innerHTML).join('\n');
+    
+    // Prevent prototype body from breaking the studio layout
+    stylesText = stylesText.replace(/(?:^|\})\s*(html|body)\s*\{/gi, '} #artboard-canvas-wrapper {');
+    
+    styleContainer.innerHTML = '<style>' + stylesText + '</style>';
     
     // 4. Inject Body Content
     const container = document.getElementById('section-elements-container');
