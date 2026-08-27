@@ -1501,6 +1501,7 @@ let originalHtmlString = "";
 let magicWandActive = false;
 let iframeWin = null;
 let iframeDoc = null;
+let currentIframeSelectedElement = null;
 
 async function studioImportLocalFile() {
   try {
@@ -1533,30 +1534,36 @@ async function studioImportLocalFile() {
     document.getElementById('btn-save-local').style.borderColor = '#b8ff57';
     document.getElementById('btn-save-local').style.color = '#b8ff57';
     
-    // Clear canvas and inject iframe
     const container = document.getElementById('section-elements-container');
     container.innerHTML = '<iframe id="live-prototype-frame" style="width:100%; height:100%; border:none; z-index:1;"></iframe>';
     
     const iframe = document.getElementById('live-prototype-frame');
     
-    // Inject our wand outline CSS into the original HTML before loading it
+    // Inject our wand outline and resize handles CSS into the original HTML
     const wandCss = `
       <style id="studio-injected-tools-css">
+        .wand-active-global * { pointer-events: auto !important; }
         .wand-outline {
-          outline: 2px dashed #b8ff57 !important;
-          outline-offset: 4px !important;
-          cursor: cell !important;
-          background: rgba(184,255,87,0.1) !important;
+          outline: 2px dashed #b8ff57 !important; outline-offset: 4px !important;
+          cursor: cell !important; background: rgba(184,255,87,0.1) !important;
         }
         .canva-move-handle {
-          display:none; position:absolute; bottom:-50px; left:50%; transform:translateX(-50%);
+          display:none; position:absolute; bottom:-45px; left:50%; transform:translateX(-50%);
           background:linear-gradient(135deg, #00d4ff, #b8ff57); color:#020205; border:2.5px solid #ffffff;
           box-shadow:0 8px 30px rgba(0, 212, 255, 0.9), 0 0 20px rgba(184, 255, 87, 0.8);
-          border-radius:100px; padding:8px 18px; font-family:sans-serif; font-size:12px; font-weight:800;
+          border-radius:100px; padding:6px 14px; font-family:sans-serif; font-size:11px; font-weight:800;
           align-items:center; gap:8px; cursor:grab; z-index:999999 !important; touch-action:none;
           user-select:none; white-space:nowrap; pointer-events:auto !important;
         }
-        .studio-element.selected-box .canva-move-handle { display:flex !important; }
+        .resize-handle {
+          position:absolute; width:16px; height:16px; background:#ffffff; border:3px solid #00d4ff;
+          border-radius:4px; z-index:999999; display:none; touch-action:none; pointer-events:auto !important;
+          box-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+        }
+        .handle-se { bottom:-8px; right:-8px; cursor:nwse-resize; }
+        .handle-e { top:calc(50% - 8px); right:-8px; cursor:ew-resize; }
+        .handle-s { bottom:-8px; left:calc(50% - 8px); cursor:ns-resize; }
+        .studio-element.selected-box .canva-move-handle, .studio-element.selected-box .resize-handle { display:flex !important; }
         .studio-element { cursor:move; transition:border-color 0.15s, background 0.15s; z-index: 200; border: 2px dashed transparent; }
         .studio-element:hover { border-color:rgba(0, 212, 255, 0.6); background:rgba(0, 212, 255, 0.05); }
         .studio-element.selected-box { border-color:#b8ff57 !important; background:rgba(184, 255, 87, 0.12) !important; z-index: 1000 !important; }
@@ -1564,13 +1571,32 @@ async function studioImportLocalFile() {
     `;
     
     const htmlWithWand = originalHtmlString.replace('</head>', wandCss + '</head>');
-    
     iframe.srcdoc = htmlWithWand;
     
     iframe.onload = () => {
       iframeWin = iframe.contentWindow;
       iframeDoc = iframe.contentDocument;
       showToastFeedback('✅ Perfect Fidelity File Loaded!');
+      
+      // Override default studio sidebar text input
+      const textInput = document.getElementById('sidebar-edit-text');
+      if (textInput && !textInput._iframeBound) {
+        textInput.addEventListener('input', (e) => {
+          if (currentIframeSelectedElement) {
+             const el = currentIframeSelectedElement;
+             const moveH = el.querySelector('.canva-move-handle');
+             const resizeHs = Array.from(el.querySelectorAll('.resize-handle'));
+             if(moveH) moveH.remove();
+             resizeHs.forEach(h => h.remove());
+             
+             el.innerText = e.target.value;
+             
+             if(moveH) el.appendChild(moveH);
+             resizeHs.forEach(h => el.appendChild(h));
+          }
+        });
+        textInput._iframeBound = true;
+      }
     };
 
   } catch(e) {
@@ -1586,7 +1612,8 @@ function toggleMagicWandMode() {
   if (magicWandActive) {
     btn.innerText = '🪄 SELECT TO DRAG (ON)';
     btn.style.background = 'rgba(184,255,87,0.2)';
-    showToastFeedback('🪄 Hover & Click any element in the iframe to make it draggable!');
+    iframeDoc.body.classList.add('wand-active-global');
+    showToastFeedback('🪄 Wand Active: Click ANY element to make it editable!');
     
     iframeDoc.addEventListener('mouseover', wandHover);
     iframeDoc.addEventListener('mouseout', wandOut);
@@ -1594,6 +1621,7 @@ function toggleMagicWandMode() {
   } else {
     btn.innerText = '🪄 SELECT TO DRAG (OFF)';
     btn.style.background = 'rgba(184,255,87,0.1)';
+    iframeDoc.body.classList.remove('wand-active-global');
     iframeDoc.removeEventListener('mouseover', wandHover);
     iframeDoc.removeEventListener('mouseout', wandOut);
     iframeDoc.removeEventListener('click', wandClick, true);
@@ -1602,7 +1630,7 @@ function toggleMagicWandMode() {
 }
 
 function wandHover(e) {
-  if (!magicWandActive || e.target.closest('.canva-move-handle') || e.target.classList.contains('studio-element')) return;
+  if (!magicWandActive || e.target.closest('.canva-move-handle') || e.target.closest('.resize-handle') || e.target.classList.contains('studio-element')) return;
   e.target.classList.add('wand-outline');
   e.stopPropagation();
 }
@@ -1611,7 +1639,7 @@ function wandOut(e) {
   e.target.classList.remove('wand-outline');
 }
 function wandClick(e) {
-  if (!magicWandActive || e.target.closest('.canva-move-handle') || e.target.classList.contains('studio-element')) return;
+  if (!magicWandActive || e.target.closest('.canva-move-handle') || e.target.closest('.resize-handle') || e.target.classList.contains('studio-element')) return;
   
   e.preventDefault();
   e.stopPropagation();
@@ -1627,25 +1655,34 @@ function wandClick(e) {
     el.style.top = rect.top + 'px';
     el.style.left = rect.left + 'px';
     el.style.width = rect.width + 'px';
+    el.style.height = rect.height + 'px'; // Fix layout collapse
+    el.style.margin = '0'; // Remove margins to prevent offset bugs when absolute
   }
   
   if (!el.id) el.id = 'imported-elem-' + Math.random().toString(36).substr(2, 9);
   
+  // Create Move Handle
   const moveHandle = iframeDoc.createElement('div');
   moveHandle.className = 'canva-move-handle injected-handle';
   moveHandle.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:6px;"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg><span>✥ MOVE</span>';
-  moveHandle.title = 'Drag to Move';
   
-  // Attach iframe-based drag logic
-  moveHandle.addEventListener('pointerdown', (evt) => {
+  const triggerSelect = () => {
     iframeDoc.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
     el.classList.add('selected-box');
+    currentIframeSelectedElement = el;
     
-    // Update parent UI
+    // Clean handles for text extraction
+    const clone = el.cloneNode(true);
+    clone.querySelectorAll('.injected-handle').forEach(h => h.remove());
+    
     document.getElementById('disp-elem-name').innerText = el.id || 'Custom Element';
     document.getElementById('disp-pos-top').innerText = el.style.top;
     document.getElementById('disp-pos-left').innerText = el.style.left;
-    
+    document.getElementById('sidebar-edit-text').value = clone.innerText;
+  };
+  
+  moveHandle.addEventListener('pointerdown', (evt) => {
+    triggerSelect();
     let startX = evt.clientX;
     let startY = evt.clientY;
     let elLeft = parseFloat(el.style.left || 0);
@@ -1659,31 +1696,54 @@ function wandClick(e) {
       document.getElementById('disp-pos-top').innerText = Math.round(elTop + dy) + 'px';
       document.getElementById('disp-pos-left').innerText = Math.round(elLeft + dx) + 'px';
     };
-    
-    const onUp = () => {
-      iframeWin.removeEventListener('pointermove', onMove);
-      iframeWin.removeEventListener('pointerup', onUp);
-    };
+    const onUp = () => { iframeWin.removeEventListener('pointermove', onMove); iframeWin.removeEventListener('pointerup', onUp); };
     
     iframeWin.addEventListener('pointermove', onMove);
     iframeWin.addEventListener('pointerup', onUp);
     try { evt.target.setPointerCapture(evt.pointerId); } catch(err){}
-    evt.preventDefault();
-    evt.stopPropagation();
+    evt.preventDefault(); evt.stopPropagation();
+  });
+  el.appendChild(moveHandle);
+  
+  // Create Resize Handles
+  ['se', 'e', 's'].forEach(dir => {
+    const handle = iframeDoc.createElement('div');
+    handle.className = `resize-handle handle-${dir} injected-handle`;
+    handle.addEventListener('pointerdown', (evt) => {
+       triggerSelect();
+       let startX = evt.clientX;
+       let startY = evt.clientY;
+       let startW = el.offsetWidth;
+       let startH = el.offsetHeight;
+       
+       const onMove = (me) => {
+          if (dir.includes('e')) el.style.width = Math.max(20, startW + (me.clientX - startX)) + 'px';
+          if (dir.includes('s')) el.style.height = Math.max(20, startH + (me.clientY - startY)) + 'px';
+       };
+       const onUp = () => { iframeWin.removeEventListener('pointermove', onMove); iframeWin.removeEventListener('pointerup', onUp); };
+       
+       iframeWin.addEventListener('pointermove', onMove);
+       iframeWin.addEventListener('pointerup', onUp);
+       try { evt.target.setPointerCapture(evt.pointerId); } catch(err){}
+       evt.stopPropagation(); evt.preventDefault();
+    });
+    el.appendChild(handle);
   });
   
-  el.appendChild(moveHandle);
-  showToastFeedback('✅ Element made draggable!');
-  toggleMagicWandMode();
+  showToastFeedback('✅ Element Editable & Resizable!');
+  // Removing auto-toggle so user can select multiple elements!
+  // toggleMagicWandMode(); 
 }
 
 // Global click to deselect in iframe
 setInterval(() => {
   if (iframeDoc && !iframeDoc._hasClickBinding) {
     iframeDoc.addEventListener('pointerdown', (e) => {
-      if (!e.target.closest('.studio-element')) {
+      if (!e.target.closest('.studio-element') && !magicWandActive) {
         iframeDoc.querySelectorAll('.studio-element').forEach(i => i.classList.remove('selected-box'));
+        currentIframeSelectedElement = null;
         document.getElementById('disp-elem-name').innerText = 'Tap Any Item';
+        document.getElementById('sidebar-edit-text').value = '';
       }
     });
     iframeDoc._hasClickBinding = true;
@@ -1706,6 +1766,7 @@ async function studioSaveLocalFile() {
     // Clean injected studio logic
     docClone.querySelectorAll('.injected-handle').forEach(el => el.remove());
     docClone.querySelectorAll('#studio-injected-tools-css').forEach(el => el.remove());
+    docClone.body.classList.remove('wand-active-global');
     docClone.querySelectorAll('.studio-element').forEach(el => {
        el.classList.remove('studio-element');
        el.classList.remove('selected-box');
