@@ -1542,7 +1542,7 @@ async function studioImportLocalFile() {
     // Inject our wand outline and resize handles CSS into the original HTML
     const wandCss = `
       <style id="studio-injected-tools-css">
-        .wand-active-global * { pointer-events: auto !important; }
+        .wand-active-global #master-3d-canvas, .wand-active-global canvas { pointer-events: auto !important; }
         .wand-outline {
           outline: 2px dashed #b8ff57 !important; outline-offset: 4px !important;
           cursor: cell !important; background: rgba(184,255,87,0.1) !important;
