@@ -2560,7 +2560,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   <p>Our proprietary 6D Scan Engine scans your 9-mile radius, extracting live citation and ranking data to reveal exactly where you are losing customers.</p>
   
   <div class="terminal-box" id="terminal-ui">
-    <div class="terminal-header"><span>[ PROCESSING 6D ALGORITHM ]</span> <span id="status-text">ANALYZING...</span></div>
+    <div class="terminal-header"><span>[ 6D ENGINE ]</span> <span id="status-text">ANALYZING CAPABILITIES...</span></div>
     
     <div class="metric-row"><span class="metric-label">IMPACT</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-impact"></div></div><span class="metric-value" id="val-impact">--</span></div>
     <div class="metric-row"><span class="metric-label">CONFIDENCE</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-confidence"></div></div><span class="metric-value" id="val-confidence">--</span></div>
@@ -2580,14 +2580,14 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   <div style="width: 100%; padding-left: 7%; padding-right: 7%; display: flex; margin-top: -80px; position: relative; z-index: 40; box-sizing: border-box;">
     <div class="radar-cards-wrapper" style="display:flex; flex-direction:row; gap:40px; align-items:stretch; width: 100%;">
   <div class="outcome-box" id="outcome-ui" style="flex: 0 1 480px; border: 1px solid rgba(0, 212, 255, 0.4); box-shadow: 0 0 30px rgba(0, 212, 255, 0.15), inset 0 0 20px rgba(0, 212, 255, 0.05); background: rgba(2, 6, 15, 0.85); backdrop-filter: blur(12px); display: flex; flex-direction: column; justify-content: space-between; padding: 24px; margin: 0; border-radius: 12px; box-sizing: border-box;">
-    <div class="outcome-title" style="color: #00d4ff; text-shadow: 0 0 10px rgba(0,212,255,0.6);">▶ LOCAL MARKET GAP</div>
-    <div class="outcome-text" style="font-size: 16px; letter-spacing: -0.01em; color: rgba(255,255,255,0.9);">Are local competitors stealing your high-intent calls? <span style="color:#b8ff57; font-weight:600;">See exactly where you are invisible</span> across your 9-mile radius.</div>
+    <div class="outcome-title" style="color: #00d4ff; text-shadow: 0 0 10px rgba(0,212,255,0.6);">▶ THE VISIBILITY GAP</div>
+    <div class="outcome-text" style="font-size: 16px; letter-spacing: -0.01em; color: rgba(255,255,255,0.9);">Stop guessing why the phone isn't ringing. We deploy an AI-driven local scan across a 9-mile radius, processing over <span style="color:#b8ff57; font-weight:600;">12,000 live data points</span> to reveal exactly where competitors are stealing your calls.</div>
     <div style="display:flex; justify-content:space-between; align-items:flex-end; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; margin-top: 8px;">
       <div>
-        <div style="font-family:'JetBrains Mono'; font-size:10px; color:rgba(255,255,255,0.5); margin-bottom:4px; letter-spacing: 0.15em;">GEO-GRID SCAN</div>
-        <div class="outcome-score" style="color: #00d4ff; text-shadow: 0 0 20px rgba(0,212,255,0.5);">81<span style="font-size:16px;color:rgba(255,255,255,0.5); letter-spacing:0.05em; margin-left:4px;">POINTS</span></div>
+        <div style="font-family:'JetBrains Mono'; font-size:10px; color:rgba(255,255,255,0.5); margin-bottom:4px; letter-spacing: 0.15em;">GRID COVERAGE</div>
+        <div class="outcome-score" style="color: #00d4ff; text-shadow: 0 0 20px rgba(0,212,255,0.5);">9<span style="font-size:16px;color:rgba(255,255,255,0.5); letter-spacing:0.05em; margin-left:4px;">MILES</span></div>
       </div>
-      <a href="#audit" class="btn-action" style="background: linear-gradient(135deg, #00d4ff, #b8ff57); color: #020205; text-shadow: none; box-shadow: 0 0 25px rgba(0,212,255,0.4); font-family: 'Space Grotesk', sans-serif; font-weight: 800; letter-spacing: 0.05em; transition: all 0.3s ease; text-decoration: none; padding: 12px 24px; border-radius: 100px;">FIND MY LOST TRAFFIC</a>
+      <a href="#audit" class="btn-action" style="background: linear-gradient(135deg, #00d4ff, #b8ff57); color: #020205; text-shadow: none; box-shadow: 0 0 25px rgba(0,212,255,0.4); font-family: 'Space Grotesk', sans-serif; font-weight: 800; letter-spacing: 0.05em; transition: all 0.3s ease; text-decoration: none; padding: 12px 24px; border-radius: 100px;">RUN FREE LOCAL SCAN</a>
     </div>
   </div>
 
@@ -3815,8 +3815,8 @@ function startAuditSequence() {
   });
   
   auditTimeline.add(() => {
-    document.getElementById('status-text').innerText = 'SCAN COMPLETE';
-    document.getElementById('status-text').style.color = '#ffcc00';
+    document.getElementById('status-text').innerText = 'READY FOR DEPLOYMENT';
+    document.getElementById('status-text').style.color = '#b8ff57';
     const outcomeBox = document.getElementById('outcome-ui');
     outcomeBox.style.display = 'block';
     gsap.fromTo(outcomeBox, { opacity:0, y:20 }, { opacity:1, y:0, duration:0.5 });
