@@ -85,4 +85,7 @@
 - 2026-08-20: ZERO GUESSWORK / 100% REAL RESEARCH DATA HARD RULE: Every audit MUST be conducted using live web research and scraping of real business signals (actual reviews count, verified rating, real services catalog, true directory presence, and actual local competitors). Never guess, fabricate, or invent numbers, scores, or claims.
 - 2026-08-20: MASTER REPORT LOCATION: All generated HTML reports must be saved directly into `local-business-ai/reports/` and served live via local server.
 
+## mbm-project-memory
 
+- 2026-08-30 [Phase 3 Radar Section]: Asymmetrical Dashboard Layout Pattern. When combining text (terminal) with visual UI cards, an asymmetrical layout (narrow text card on left `flex: 0 1 480px`, wide data card on right `flex: 1` spanning to margin) creates a premium landscape aesthetic compared to equal 50/50 blocks.
+- 2026-08-30 [Phase 3 Radar Section]: Absolute Positioning vs Margin. Absolute positioning causes major Z-index and overlap bugs with previous sections. Fixed by moving elements into normal document flow (`display: flex`) and using negative margins (`margin-top: -80px`) to pull elements up safely without breaking responsive reflow.

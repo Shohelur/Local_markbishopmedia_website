@@ -50,9 +50,10 @@ This file is automatically loaded by Antigravity IDE & Antigravity CLI (`agy`) a
   - Phase 1 (Approved): 3D Intro Splash Preloader & 5-Star Orbits.
   - Phase 2 (Approved): Hero Viewport, 3D Storefront Pin & Live Customer Stream.
   - Phase 9 (Approved): Master 3D Navigation with Dual-Deck Split Engine & Mobile Drawer.
+  - Phase 3 (Approved): Interactive 3D Geo-Grid Radar Instant Scan Section.
 - **Immediate Task:**
   1. Fine-tune 3D Intro Splash via `00-intro-studio.html` to user's exact preferences.
-  2. Phase 3 (Next): Interactive 3D Geo-Grid Radar Instant Scan Section.
+  2. Phase 4 (Next): Build the "See More" Data Reveal Section below the Radar UI.
 
 ---
 
