@@ -2609,25 +2609,164 @@ const dustMat = new THREE.PointsMaterial({ size: 0.18, vertexColors: true, trans
 const ambientDust = new THREE.Points(dustGeo, dustMat);
 scene.add(ambientDust);
 
-// 3. REFINED MICRO CUSTOMER AVATARS (20 DELICATE AVATARS)
+/* ═══════════════════════════════════════════════════════════
+   AUTHENTIC 3D CUSTOMER SEARCH ➔ STOREFRONT CONVERSION ENGINE
+   ═══════════════════════════════════════════════════════════ */
+const SEARCH_QUERIES_LIST = [
+  '🔍 "Plumber near me"',
+  '🔍 "Best Pizza 24/7"',
+  '🔍 "Emergency Dentist"',
+  '🔍 "Auto Repair near me"',
+  '🔍 "HVAC Specialist"',
+  '🔍 "Roofing Contractor"',
+  '🔍 "Emergency Locksmith"'
+];
+
+const PURCHASE_LABELS_LIST = [
+  '💰 +$280 Walk-in Sale',
+  '🛍️ Booked Appointment',
+  '💰 +$520 Inbound Order',
+  '★ 5.0 Google Review',
+  '💰 +$360 Storefront Sale'
+];
+
+function createKeywordPillTexture(text) {
+  const c = document.createElement('canvas');
+  c.width = 512;
+  c.height = 128;
+  const ctx = c.getContext('2d');
+
+  // Frosted Pill Container
+  ctx.fillStyle = 'rgba(8, 16, 30, 0.92)';
+  ctx.strokeStyle = '#00d4ff';
+  ctx.lineWidth = 4;
+  ctx.shadowColor = 'rgba(0, 212, 255, 0.8)';
+  ctx.shadowBlur = 18;
+
+  ctx.beginPath();
+  ctx.roundRect(16, 20, 480, 88, 44);
+  ctx.fill();
+  ctx.stroke();
+
+  // Keyword Text
+  ctx.shadowBlur = 0;
+  ctx.font = 'bold 32px "Space Grotesk", sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, 256, 64);
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.needsUpdate = true;
+  return tex;
+}
+
+function createPurchaseBadgeTexture(text) {
+  const c = document.createElement('canvas');
+  c.width = 512;
+  c.height = 128;
+  const ctx = c.getContext('2d');
+
+  // Glowing Green/Cyan Capsule
+  const grad = ctx.createLinearGradient(0, 0, 512, 0);
+  grad.addColorStop(0, '#00d4ff');
+  grad.addColorStop(1, '#b8ff57');
+
+  ctx.fillStyle = grad;
+  ctx.shadowColor = '#b8ff57';
+  ctx.shadowBlur = 24;
+
+  ctx.beginPath();
+  ctx.roundRect(16, 20, 480, 88, 44);
+  ctx.fill();
+
+  // Dark Bold Typography
+  ctx.shadowBlur = 0;
+  ctx.font = '800 34px "Space Grotesk", sans-serif';
+  ctx.fillStyle = '#020205';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, 256, 64);
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.needsUpdate = true;
+  return tex;
+}
+
+// Pre-generate keyword and purchase textures
+const cachedKeywordTextures = SEARCH_QUERIES_LIST.map(createKeywordPillTexture);
+const cachedPurchaseTextures = PURCHASE_LABELS_LIST.map(createPurchaseBadgeTexture);
+
+// Customer Avatar Sprite Material
+const customerMat = new THREE.SpriteMaterial({ map: customerTex, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending });
+
+// Customer Avatar Pool (Clean & Calm Pacing: 8 Units)
 const customerGroup = new THREE.Group();
 scene.add(customerGroup);
-const customerMat = new THREE.SpriteMaterial({ map: customerTex, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending });
+
+const floatingPurchasesGroup = new THREE.Group();
+scene.add(floatingPurchasesGroup);
+
 const customerAvatars = [];
-for (let i = 0; i < 20; i++) {
-  const sprite = new THREE.Sprite(customerMat);
-  const angle = (i / 20) * Math.PI * 2 + Math.random() * 0.4;
-  const dist = 18.0 + Math.random() * 8.0;
-  const startX = Math.cos(angle) * dist;
-  const startY = (Math.random() - 0.5) * 14.0 + 2.0;
-  const startZ = Math.sin(angle) * dist * 0.35 - 2.0;
-  sprite.position.set(startX, startY, startZ);
-  sprite.scale.set(0.48, 0.48, 1);
-  customerGroup.add(sprite);
-  customerAvatars.push({
-    sprite: sprite, startX: startX, startY: startY, startZ: startZ, angle: angle,
-    speed: 0.0018 + Math.random() * 0.002, progress: (i / 20), floatOffset: Math.random() * Math.PI * 2
+const TOTAL_CUSTOMERS = 8;
+
+for (let i = 0; i < TOTAL_CUSTOMERS; i++) {
+  // Avatar Silhouette Sprite
+  const avatarSprite = new THREE.Sprite(customerMat);
+  avatarSprite.scale.set(0.48, 0.48, 1);
+  customerGroup.add(avatarSprite);
+
+  // Keyword Popup Sprite (Attached only to ~40% to prevent overcrowding)
+  const hasKeyword = (i % 2 === 0);
+  let keywordSprite = null;
+  if (hasKeyword) {
+    const kTex = cachedKeywordTextures[i % cachedKeywordTextures.length];
+    keywordSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: kTex, transparent: true, opacity: 0 }));
+    keywordSprite.scale.set(3.4, 0.85, 1);
+    customerGroup.add(keywordSprite);
+  }
+
+  const custObj = {
+    avatarSprite,
+    keywordSprite,
+    hasKeyword,
+    angle: (i / TOTAL_CUSTOMERS) * Math.PI * 2,
+    dist: 16.0 + Math.random() * 8.0,
+    startY: (Math.random() - 0.5) * 12.0 - 0.5,
+    speed: 0.0010 + Math.random() * 0.0006, // Slow, elegant, organic glide
+    progress: (i / TOTAL_CUSTOMERS),
+    floatOffset: Math.random() * Math.PI * 2
+  };
+
+  customerAvatars.push(custObj);
+}
+
+// Active Floating Purchase Badges array
+const activePurchaseBadges = [];
+
+function triggerStorefrontPurchaseBurst(pos) {
+  const pTex = cachedPurchaseTextures[Math.floor(Math.random() * cachedPurchaseTextures.length)];
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: pTex, transparent: true, opacity: 0, depthTest: false }));
+  
+  const baseX = pinGroup.position.x + (Math.random() - 0.5) * 1.2;
+  const baseY = pinGroup.position.y + 1.2;
+  sprite.position.set(baseX, baseY, 2.0);
+  sprite.scale.set(3.8, 0.95, 1);
+  floatingPurchasesGroup.add(sprite);
+
+  activePurchaseBadges.push({
+    sprite,
+    progress: 0,
+    speed: 0.004 + Math.random() * 0.002,
+    baseX,
+    baseY,
+    driftAngle: Math.random() * Math.PI * 2
   });
+
+  // Subtle pulse on Storefront Walls
+  if (typeof shopWalls !== 'undefined') {
+    gsap.to(shopWalls.scale, { x: 1.08, y: 1.08, z: 1.08, duration: 0.18, yoyo: true, repeat: 1 });
+  }
 }
 
 // 4. CENTRAL 3D GLASS PIN + VERIFIED BADGE + STOREFRONT
@@ -2708,27 +2847,7 @@ purchaseRipple.rotation.x = -Math.PI / 2;
 purchaseRipple.position.set(0, -0.6, 0);
 pinGroup.add(purchaseRipple);
 
-// FLOATING PURCHASE BADGES
-const floatingBadgeGroup = new THREE.Group();
-scene.add(floatingBadgeGroup);
-let activePurchaseBadges = [];
-
-function spawnRandomPurchaseBadge() {
-  if (!isHeroPurchasesEnabled) return;
-  const tex = purchaseTextures[Math.floor(Math.random() * purchaseTextures.length)];
-  const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0 });
-  const sprite = new THREE.Sprite(mat);
-  const baseX = pinGroup.position.x + (Math.random() - 0.5) * 2.8;
-  const baseY = pinGroup.position.y + 0.8;
-  sprite.position.set(baseX, baseY, 1.2);
-  sprite.scale.set(4.3, 1.36, 1);
-  floatingBadgeGroup.add(sprite);
-  activePurchaseBadges.push({
-    sprite: sprite, progress: 0, speed: 0.007 + Math.random() * 0.003,
-    baseX: baseX, baseY: baseY, driftAngle: Math.random() * Math.PI * 2
-  });
-}
-setInterval(spawnRandomPurchaseBadge, 1700);
+// Old floating badges replaced by dynamic event trigger.
 
 // 5. FIVE 3D GOLDEN STARS + COMET LIGHT TRAILS (ORBITING AROUND PIN)
 const starGroup = new THREE.Group();
@@ -3237,17 +3356,88 @@ function animate() {
 
   // Customer Avatars Flocking In
   const targetY = isInHeroMode ? (pinGroup.position.y + 1.2) : 4.4;
-  customerAvatars.forEach(c => {
+  // ─── 1. CUSTOMER AVATARS & KEYWORD POPUP LIFECYCLE ───
+  const destX = pinGroup.position.x;
+  const destY = pinGroup.position.y + 0.6;
+
+  customerAvatars.forEach((c, idx) => {
     c.progress += c.speed;
-    if (c.progress >= 1.0) c.progress = 0;
-    const curDist = (1.0 - c.progress) * 18.0 + 1.2;
-    const curAngle = c.angle + c.progress * 1.2;
-    c.sprite.position.x = pinGroup.position.x + Math.cos(curAngle) * curDist;
-    c.sprite.position.y = (1.0 - c.progress) * c.startY + c.progress * targetY + Math.sin(time * 1.2 + c.floatOffset) * 0.25;
-    c.sprite.position.z = Math.sin(curAngle) * curDist * 0.35 - 2.0;
-    const alpha = c.progress < 0.15 ? (c.progress / 0.15) : (c.progress > 0.85 ? (1.0 - c.progress) / 0.15 : 1.0);
-    c.sprite.material.opacity = alpha * 0.85;
+
+    if (c.progress >= 1.0) {
+      c.progress = 0;
+      c.angle = Math.random() * Math.PI * 2;
+      c.dist = 18.0 + Math.random() * 8.0;
+      c.startY = (Math.random() - 0.5) * 12.0 - 0.5;
+    }
+
+    // Smooth trajectory from distance towards 3D Storefront Pin
+    const curDist = (1.0 - c.progress) * c.dist + 0.4;
+    const curAngle = c.angle + c.progress * 0.8;
+    const curX = destX + Math.cos(curAngle) * curDist;
+    const curY = (1.0 - c.progress) * c.startY + c.progress * destY + Math.sin(time * 1.5 + c.floatOffset) * 0.2;
+    const curZ = Math.sin(curAngle) * curDist * 0.35 - 1.0;
+
+    c.avatarSprite.position.set(curX, curY, curZ);
+
+    // Avatar visibility: Smooth entry from distance, stays 100% visible, then dissolves inside storefront
+    let avatarAlpha = 1.0;
+    if (c.progress < 0.15) {
+      avatarAlpha = c.progress / 0.15;
+    } else if (c.progress > 0.92) {
+      avatarAlpha = (1.0 - c.progress) / 0.08;
+      // When reaching door (~0.95), trigger purchase burst once per cycle
+      if (isHeroPurchasesEnabled && c.progress >= 0.94 && c.progress < 0.94 + c.speed * 1.5) {
+        triggerStorefrontPurchaseBurst(c.avatarSprite.position);
+      }
+    }
+    c.avatarSprite.material.opacity = Math.max(0, Math.min(1, avatarAlpha * 0.9));
+
+    // Keyword Popup Lifecycle (Starts small in distance, stays readable, dissolves before pin)
+    if (c.hasKeyword && c.keywordSprite) {
+      c.keywordSprite.position.set(curX, curY + 0.75, curZ + 0.2);
+
+      let keyAlpha = 0;
+      let keyScale = 1.0;
+
+      if (c.progress < 0.25) {
+        // Far distance: starts small, gradually fades in
+        const t = c.progress / 0.25;
+        keyAlpha = t;
+        keyScale = 0.5 + t * 0.5;
+      } else if (c.progress >= 0.25 && c.progress <= 0.60) {
+        // Mid-journey: 100% visible & readable
+        keyAlpha = 0.95;
+        keyScale = 1.0;
+      } else if (c.progress > 0.60 && c.progress <= 0.85) {
+        // Approaching 3D Pin: shrinks and dissolves smoothly
+        const t = (c.progress - 0.60) / 0.25;
+        keyAlpha = (1.0 - t) * 0.95;
+        keyScale = 1.0 - t * 0.6; // shrinks to 0.4
+      } else {
+        // Close to pin: completely dissolved
+        keyAlpha = 0;
+      }
+
+      c.keywordSprite.material.opacity = Math.max(0, keyAlpha);
+      c.keywordSprite.scale.set(3.4 * keyScale, 0.85 * keyScale, 1);
+    }
   });
+
+  // ─── 2. FLOATING WALK-IN PURCHASE BADGES (FLOATS UP FROM DOOR & DISSOLVES) ───
+  for (let i = activePurchaseBadges.length - 1; i >= 0; i--) {
+    const b = activePurchaseBadges[i];
+    b.progress += b.speed;
+    b.sprite.position.y = b.baseY + b.progress * 6.5;
+    b.sprite.position.x = b.baseX + Math.sin(time * 1.4 + b.driftAngle) * 0.25;
+
+    let pAlpha = b.progress < 0.15 ? (b.progress / 0.15) : (b.progress > 0.75 ? (1.0 - b.progress) / 0.25 : 1.0);
+    b.sprite.material.opacity = Math.max(0, pAlpha);
+
+    if (b.progress >= 1.0) {
+      floatingPurchasesGroup.remove(b.sprite);
+      activePurchaseBadges.splice(i, 1);
+    }
+  }
 
   // 5 Extruded Golden Stars Orbiting Pin + Comet Light Trails
   const orbitR = 5.4;
