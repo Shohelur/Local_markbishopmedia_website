@@ -7,5 +7,14 @@
         "timeout": 15
       }
     ]
+  },
+  "mbm-skill-creator": {
+    "Stop": [
+      {
+        "type": "command",
+        "command": "node .agents/hooks/skill-creator.js",
+        "timeout": 20
+      }
+    ]
   }
 }
