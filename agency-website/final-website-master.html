@@ -2569,13 +2569,16 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     <div class="metric-row"><span class="metric-label">FIXABILITY</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-fixability"></div></div><span class="metric-value" id="val-fixability">--</span></div>
     <div class="metric-row"><span class="metric-label">RELEVANCE</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-relevance"></div></div><span class="metric-value" id="val-relevance">--</span></div>
   </div>
+</div>
+
   <style>
     @media(max-width: 860px) {
-      .radar-cards-wrapper { flex-direction: column !important; width: 100% !important; margin-left: 0 !important; }
+      .radar-cards-wrapper { flex-direction: column !important; width: 90% !important; bottom: 2% !important; }
       .radar-cards-wrapper > div { width: 100% !important; flex: none !important; margin-bottom: 20px; }
     }
   </style>
-  <div class="radar-cards-wrapper" style="display:flex; flex-direction:row; gap:20px; align-items:stretch; width: 900px; max-width: 85vw; margin-top: 20px;">
+  <div style="width: 100%; display: flex; justify-content: center; position: relative; z-index: 40;">
+    <div class="radar-cards-wrapper" style="display:flex; flex-direction:row; gap:40px; align-items:stretch; width: 1000px; max-width: 90vw;">
   <div class="outcome-box" id="outcome-ui" style="flex: 1; border: 1px solid rgba(0, 212, 255, 0.4); box-shadow: 0 0 30px rgba(0, 212, 255, 0.15), inset 0 0 20px rgba(0, 212, 255, 0.05); background: rgba(2, 6, 15, 0.85); backdrop-filter: blur(12px); display: flex; flex-direction: column; justify-content: space-between;">
     <div class="outcome-title" style="color: #00d4ff; text-shadow: 0 0 10px rgba(0,212,255,0.6);">▶ LOCAL MARKET GAP</div>
     <div class="outcome-text" style="font-size: 16px; letter-spacing: -0.01em; color: rgba(255,255,255,0.9);">Are local competitors stealing your high-intent calls? <span style="color:#b8ff57; font-weight:600;">See exactly where you are invisible</span> across your 9-mile radius.</div>
@@ -2626,6 +2629,8 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     </div>
   </div>
   </div>
+  </div>
+</div>
 
 </section>
 
