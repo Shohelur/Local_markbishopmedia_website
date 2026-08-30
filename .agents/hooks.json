@@ -1,0 +1,11 @@
+{
+  "mbm-session-memory": {
+    "Stop": [
+      {
+        "type": "command",
+        "command": "node .agents/hooks/memory-capture.js",
+        "timeout": 15
+      }
+    ]
+  }
+}
