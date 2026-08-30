@@ -1,5 +1,8 @@
 # Mark Bishop Media — Master Project & Agent Guidelines
 
+> **Agent Skills Available:** `mbm-local-seo` | `mbm-memory-bridge` | `mbm-copywriting` | `mbm-project-memory`
+> **Rules Always Active:** `mbm-agent-soul.md` | `mbm-brand-context.md`
+
 This file is automatically loaded by Antigravity IDE & Antigravity CLI (`agy`) as the master rulebook for `d:\Agentic OS`.
 
 ---
@@ -58,3 +61,30 @@ This file is automatically loaded by Antigravity IDE & Antigravity CLI (`agy`) a
 - **Repo:** `https://github.com/Shohelur/Local_markbishopmedia_website.git`
 - **Branch:** `main`
 
+---
+
+## 6. Accumulated Technical Learnings
+
+> These are hard-won lessons from real bugs and build sessions. Read before touching any section.
+
+### 3D Animation Rules
+- `clock.getDelta()` inside `animate()` returns ~0 after the first call because `getElapsedTime()` was already called. **Always use `t = clock.getElapsedTime()` and set `sweepAngle = t * speed`** — never accumulate with getDelta.
+- Scan beam lengths: use `Math.hypot(W, H)` (screen diagonal) not `Math.max(W, H)`. Ensures beam reaches every corner at all angles.
+- `heroElementsOpacity` must be declared BEFORE the `animate()` function block, not inside it.
+- Three.js `MeshBasicMaterial` does not respond to lights — only `MeshStandardMaterial` / `MeshPhongMaterial` do.
+
+### File Injection Safety Rules
+- **Never** use regex injection on large HTML files — it causes `SyntaxError` if the pattern matches inside a string literal.
+- Always use exact literal string replacement with `String.prototype.replace()` via Node.js scripts.
+- After any Node.js script injection, verify with `new Function(extractedScript)` to catch syntax errors before opening in browser.
+- Duplicate `const` declarations crash the entire script — always check for existing declarations before injecting variables.
+
+### Localhost Server
+- Server runs from `d:\Agentic OS` root: `python -m http.server 8080`
+- Server must be restarted after each system sleep/restart — it does not persist.
+- Files served at: `http://localhost:8080/agency-website/...`
+
+### Studio → Master Transfer Rule
+- **Zero-discrepancy policy:** Exact numbers from studio (scale, position, Y-offset) must be copied verbatim to master.
+- Never approximate or "eyeball" values during transfer.
+- Always cross-check 3 variables: `pinScale`, Y-position, and camera position for each breakpoint.
