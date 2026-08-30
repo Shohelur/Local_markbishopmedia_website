@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Variant C: Minimalist Sonar Radar</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#020205; overflow-y:auto; overflow-x:hidden; font-family:'Space Grotesk',sans-serif; color:#fff; }
+  #audit-canvas { position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:1; }
+  
+  .vignette { position:fixed; inset:0; background:radial-gradient(circle at center, transparent 30%, rgba(2,2,5,0.7) 80%, #020205 100%); z-index:2; pointer-events:none; }
+  
+  header { position:fixed; top:0; left:0; width:100%; padding:14px 28px; z-index:50;
+    background:rgba(2,2,5,0.7); border-bottom:1px solid rgba(0,212,255,0.1);
+    display:flex; justify-content:space-between; align-items:center; }
+  .h-title { color:#00d4ff; font-size:16px; font-weight:700; letter-spacing:1px; }
+  .h-badge { background:#00d4ff; color:#000; padding:3px 12px; border-radius:20px; font-size:11px; font-weight:700; }
+  
+  .ui-container { position:relative; margin-top:120px; margin-bottom:120px; left:7%; z-index:10; max-width:480px; width:100%; pointer-events:auto; }
+  
+  .engine-badge { 
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(0,212,255,0.12); border:1px solid rgba(0,212,255,0.5);
+    color:#00d4ff; font-family:'JetBrains Mono'; font-size:11px; font-weight:700; 
+    padding:5px 14px; border-radius:100px; margin-bottom:20px; 
+  }
+  .engine-badge .pulse { width:6px; height:6px; background:#00d4ff; border-radius:50%; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,212,255,0.7); } 70% { box-shadow: 0 0 0 6px rgba(0,212,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,212,255,0); } }
+
+  h2 { font-size:38px; font-weight:800; line-height:1.1; margin-bottom:16px; text-transform:uppercase; letter-spacing:1px; }
+  h2 span { color:#b8ff57; }
+  p { color:rgba(255,255,255,0.6); font-size:15px; line-height:1.7; margin-bottom:30px; max-width:420px; }
+  
+  .terminal-box {
+    background:rgba(5, 8, 14, 0.85); border:1px solid rgba(0,212,255,0.25);
+    border-radius:12px; padding:24px; box-shadow:0 20px 40px rgba(0,0,0,0.5);
+    font-family:'JetBrains Mono', monospace; position:relative; overflow:hidden;
+  }
+  .terminal-box::before {
+    content:''; position:absolute; top:0; left:0; width:100%; height:2px;
+    background:linear-gradient(90deg, #00d4ff, #b8ff57);
+  }
+  
+  .terminal-header { font-size:11px; color:#00d4ff; letter-spacing:2px; margin-bottom:16px; font-weight:700; display:flex; justify-content:space-between; }
+  .metric-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-size:13px; }
+  .metric-label { color:rgba(255,255,255,0.7); }
+  .metric-value { font-weight:700; color:#fff; }
+  .metric-bar-bg { flex-grow:1; height:4px; background:rgba(255,255,255,0.1); margin:0 15px; border-radius:4px; overflow:hidden; }
+  .metric-bar-fill { height:100%; width:0%; background:#00d4ff; transition:width 0.4s ease; }
+  
+  .outcome-box {
+    display:none;
+    background:rgba(184, 255, 87, 0.05); border:1px solid rgba(184, 255, 87, 0.4);
+    border-radius:12px; padding:24px; margin-top:20px;
+  }
+  .outcome-title { font-family:'JetBrains Mono'; font-size:12px; color:#b8ff57; letter-spacing:1px; margin-bottom:12px; font-weight:700; }
+  .outcome-text { font-size:18px; font-weight:700; line-height:1.4; color:#fff; margin-bottom:16px; }
+  .outcome-score { font-size:42px; font-weight:800; color:#b8ff57; font-family:'JetBrains Mono'; line-height:1; }
+  
+  .btn-action {
+    display:inline-block; margin-top:24px; background:#00d4ff; color:#000;
+    font-weight:800; font-family:'Space Grotesk'; font-size:14px; padding:16px 32px;
+    border-radius:100px; text-decoration:none; text-transform:uppercase; letter-spacing:1px;
+    box-shadow:0 0 20px rgba(0,212,255,0.4); transition:all 0.3s;
+    cursor:pointer;
+  }
+
+  #btn-rerun { position:fixed; bottom:20px; right:20px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:8px 16px; border-radius:6px; cursor:pointer; font-family:'JetBrains Mono'; font-size:11px; z-index:100; }
+</style>
+</head>
+<body>
+<header>
+  <span class="h-title">VARIANT C: MINIMALIST SONAR RADAR</span>
+  <span class="h-badge">PROTOTYPE</span>
+</header>
+
+<div class="vignette"></div>
+<canvas id="audit-canvas"></canvas>
+
+<div class="ui-container">
+  <div class="engine-badge"><div class="pulse"></div> AI LOCAL SEO AUDIT ENGINE</div>
+  <h2>WE DON'T GUESS.<br><span>WE MEASURE.</span></h2>
+  <p>Our proprietary 6D Audit Engine scans your 9-mile radius, extracting live citation and ranking data to reveal exactly where you are losing customers.</p>
+  
+  <div class="terminal-box" id="terminal-ui">
+    <div class="terminal-header"><span>[ PROCESSING 6D ALGORITHM ]</span> <span id="status-text">ANALYZING...</span></div>
+    
+    <div class="metric-row"><span class="metric-label">IMPACT</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-impact"></div></div><span class="metric-value" id="val-impact">--</span></div>
+    <div class="metric-row"><span class="metric-label">CONFIDENCE</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-confidence"></div></div><span class="metric-value" id="val-confidence">--</span></div>
+    <div class="metric-row"><span class="metric-label">GAP</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-gap"></div></div><span class="metric-value" id="val-gap">--</span></div>
+    <div class="metric-row"><span class="metric-label">URGENCY</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-urgency"></div></div><span class="metric-value" id="val-urgency">--</span></div>
+    <div class="metric-row"><span class="metric-label">FIXABILITY</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-fixability"></div></div><span class="metric-value" id="val-fixability">--</span></div>
+    <div class="metric-row"><span class="metric-label">RELEVANCE</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-relevance"></div></div><span class="metric-value" id="val-relevance">--</span></div>
+  </div>
+  
+  <div class="outcome-box" id="outcome-ui">
+    <div class="outcome-title">▶ PRIORITY FINDING REVEALED</div>
+    <div class="outcome-text">Missing 3 Primary Citations (Angi, BBB, Yelp). Competitors are capturing your local traffic.</div>
+    <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+      <div>
+        <div style="font-family:'JetBrains Mono'; font-size:10px; color:rgba(255,255,255,0.5); margin-bottom:4px;">PRIORITY SCORE</div>
+        <div class="outcome-score">94<span style="font-size:24px;color:rgba(255,255,255,0.3)">/100</span></div>
+      </div>
+      <a href="#" class="btn-action">CLAIM 12% LOST TRAFFIC</a>
+    </div>
+  </div>
+</div>
+
+<button id="btn-rerun" onclick="startAuditSequence()">RE-RUN AUDIT</button>
+
+<script>
+// ==========================================
+// 3D SCENE: VARIANT C - MINIMALIST SONAR
+// ==========================================
+const canvas = document.getElementById('audit-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x020205, 0.02);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(0, 35, 30); // Top-down angled view
+camera.lookAt(0, 0, 0);
+
+const COLOR_CYAN = new THREE.Color(0x00d4ff);
+const COLOR_LIME = new THREE.Color(0xb8ff57);
+const COLOR_RED  = new THREE.Color(0xff3366);
+
+const mainGroup = new THREE.Group();
+mainGroup.position.x = 10;
+scene.add(mainGroup);
+
+// Floor Grid
+const gridHelper = new THREE.GridHelper(200, 200, 0x00d4ff, 0x00d4ff);
+gridHelper.material.opacity = 0.08;
+gridHelper.material.transparent = true;
+mainGroup.add(gridHelper);
+
+// Minimalist Center Core (Replaced with MBM Logo as requested)
+const mbmTex = new THREE.TextureLoader().load('../assets/logos/mbm-icon.svg');
+const centerMat = new THREE.SpriteMaterial({ map: mbmTex, color: 0xffffff, transparent: true });
+const centerCore = new THREE.Sprite(centerMat);
+centerCore.scale.set(4, 4, 1);
+centerCore.position.y = 1.5;
+mainGroup.add(centerCore);
+
+// Sonar Rings (Expanding)
+const sonarRings = [];
+for(let i=0; i<4; i++) {
+  const ring = new THREE.Mesh(
+    new THREE.RingGeometry(0.1, 0.2, 64),
+    new THREE.MeshBasicMaterial({ color: COLOR_CYAN, transparent: true, opacity: 0, side: THREE.DoubleSide })
+  );
+  ring.rotation.x = -Math.PI / 2;
+  ring.position.y = 0.1;
+  mainGroup.add(ring);
+  sonarRings.push(ring);
+}
+
+// Directories (Geometric Blips)
+const directories = ['Google', 'Yelp', 'BBB', 'Angi', 'Zocdoc', 'Healthgrades', 'Bing', 'Apple Maps'];
+const nodes = [];
+
+directories.forEach((name, i) => {
+  const angle = (i / directories.length) * Math.PI * 2;
+  const radius = 10 + Math.random() * 12;
+  
+  const pos = new THREE.Vector3(Math.cos(angle) * radius, 0, Math.sin(angle) * radius);
+  
+  // Minimalist blip (Diamond/Octahedron)
+  const blipGeo = new THREE.OctahedronGeometry(0.6, 0);
+  const blipMat = new THREE.MeshBasicMaterial({ color: 0x444444, wireframe: true });
+  const blip = new THREE.Mesh(blipGeo, blipMat);
+  blip.position.copy(pos);
+  blip.position.y = 0.6;
+  mainGroup.add(blip);
+  
+  // Ripple effect under blip
+  const ripple = new THREE.Mesh(
+    new THREE.RingGeometry(0.5, 0.8, 32),
+    new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, side: THREE.DoubleSide })
+  );
+  ripple.rotation.x = -Math.PI / 2;
+  ripple.position.copy(pos);
+  ripple.position.y = 0.2;
+  mainGroup.add(ripple);
+  
+  // Label
+  const labelSprite = createTextSprite(name, '#666666');
+  labelSprite.position.copy(pos);
+  labelSprite.position.y += 2;
+  mainGroup.add(labelSprite);
+  
+  nodes.push({
+    mesh: blip,
+    ripple: ripple,
+    label: labelSprite,
+    pos: pos,
+    radius: radius,
+    name: name,
+    active: false,
+    isProblem: (name === 'Yelp' || name === 'BBB' || name === 'Angi')
+  });
+});
+
+function createTextSprite(text, color) {
+  const cv = document.createElement('canvas');
+  cv.width = 256; cv.height = 64;
+  const ctx = cv.getContext('2d');
+  ctx.fillStyle = color;
+  ctx.font = 'bold 22px "JetBrains Mono"';
+  ctx.textAlign = 'center';
+  ctx.fillText(text, 128, 40);
+  const tex = new THREE.CanvasTexture(cv);
+  const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, blending: THREE.AdditiveBlending });
+  const sprite = new THREE.Sprite(mat);
+  sprite.scale.set(7, 1.75, 1);
+  return sprite;
+}
+
+// Audit Animation Logic
+let auditTimeline;
+function startAuditSequence() {
+  if(auditTimeline) auditTimeline.kill();
+  
+  nodes.forEach(n => {
+    n.active = false;
+    n.mesh.material.color.setHex(0x444444);
+    n.ripple.material.opacity = 0;
+    
+    const resetLabel = createTextSprite(n.name, '#666666');
+    resetLabel.position.copy(n.label.position);
+    mainGroup.remove(n.label);
+    n.label = resetLabel;
+    mainGroup.add(n.label);
+  });
+  
+  document.getElementById('outcome-ui').style.display = 'none';
+  document.getElementById('status-text').innerText = 'BROADCASTING SONAR...';
+  document.getElementById('status-text').style.color = '#00d4ff';
+  
+  const metrics = ['impact', 'confidence', 'gap', 'urgency', 'fixability', 'relevance'];
+  metrics.forEach(m => {
+    document.getElementById(`val-${m}`).innerText = '--';
+    document.getElementById(`bar-${m}`).style.width = '0%';
+    document.getElementById(`bar-${m}`).style.background = '#00d4ff';
+  });
+
+  // Sonar Waves
+  sonarRings.forEach((ring, idx) => {
+    gsap.fromTo(ring.scale, {x:1, y:1}, {x:200, y:200, duration: 4, ease: "linear", repeat: 1, delay: idx * 0.8});
+    gsap.fromTo(ring.material, {opacity: 0.8}, {opacity: 0, duration: 4, ease: "power2.out", repeat: 1, delay: idx * 0.8});
+  });
+
+  // Hit nodes based on their distance (radius)
+  nodes.forEach((n, idx) => {
+    const hitTime = (n.radius / 20) * 2; // Approximate time wave reaches node
+    setTimeout(() => {
+      n.active = true;
+      const finalColor = n.isProblem ? COLOR_RED : COLOR_LIME;
+      const finalHex = n.isProblem ? '#ff3366' : '#b8ff57';
+      
+      // Node flash
+      gsap.to(n.mesh.material, { color: finalColor, duration: 0.1 });
+      gsap.to(n.mesh.scale, { x: 2, y: 2, z: 2, duration: 0.2, yoyo: true, repeat: 1 });
+      
+      // Ripple effect
+      n.ripple.material.color = finalColor;
+      gsap.fromTo(n.ripple.scale, {x:1, y:1}, {x:5, y:5, duration: 1, ease: "power2.out"});
+      gsap.fromTo(n.ripple.material, {opacity: 0.8}, {opacity: 0, duration: 1, ease: "power2.out"});
+      
+      // Update label
+      const newLabel = createTextSprite(n.name, finalHex);
+      newLabel.position.copy(n.label.position);
+      mainGroup.remove(n.label);
+      n.label = newLabel;
+      mainGroup.add(n.label);
+    }, hitTime * 1000);
+  });
+  
+  // Terminal Logic
+  auditTimeline = gsap.timeline();
+  const targetScores = { impact: 95, confidence: 100, gap: 82, urgency: 98, fixability: 90, relevance: 100 };
+  
+  metrics.forEach((m, index) => {
+    let obj = { val: 0 };
+    auditTimeline.to(obj, {
+      val: targetScores[m], duration: 1.5, delay: index * 0.2 + 1, ease: "power2.out",
+      onUpdate: () => {
+        const current = Math.floor(obj.val);
+        document.getElementById(`val-${m}`).innerText = current;
+        document.getElementById(`bar-${m}`).style.width = current + '%';
+        if(current > 90 && (m==='impact' || m==='urgency' || m==='gap')) {
+          document.getElementById(`bar-${m}`).style.background = '#ff3366';
+        } else if (current > 80) {
+          document.getElementById(`bar-${m}`).style.background = '#b8ff57';
+        }
+      }
+    }, 0.5);
+  });
+  
+  auditTimeline.add(() => {
+    document.getElementById('status-text').innerText = 'AUDIT COMPLETE';
+    document.getElementById('status-text').style.color = '#b8ff57';
+    const outcomeBox = document.getElementById('outcome-ui');
+    outcomeBox.style.display = 'block';
+    gsap.fromTo(outcomeBox, { opacity:0, y:20 }, { opacity:1, y:0, duration:0.5 });
+  }, "+=3.5");
+}
+
+const clock = new THREE.Clock();
+let mx = 0, my = 0;
+window.addEventListener('mousemove', e => {
+  mx = (e.clientX / window.innerWidth) * 2 - 1;
+  my = -(e.clientY / window.innerHeight) * 2 + 1;
+});
+
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+  
+  mainGroup.rotation.y = t * 0.02; // Very slow majestic rotation
+  
+  camera.position.x += (mx * 10 - camera.position.x) * 0.05;
+  camera.position.z += (30 + my * 10 - camera.position.z) * 0.05;
+  camera.lookAt(0, 0, 0);
+  
+  centerCore.rotation.y = t;
+  centerCore.rotation.x = t * 0.5;
+
+  nodes.forEach((n, i) => {
+    n.mesh.rotation.y = t * 2 + i;
+    if(!n.active) {
+      n.mesh.position.y = 0.6 + Math.sin(t * 3 + i) * 0.2;
+      n.label.position.y = n.mesh.position.y + 1.5;
+    }
+  });
+
+  renderer.render(scene, camera);
+}
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+animate();
+setTimeout(startAuditSequence, 1000);
+</script>
+</body>
+</html>

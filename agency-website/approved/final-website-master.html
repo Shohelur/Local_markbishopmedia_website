@@ -1949,6 +1949,68 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   .manifesto-sub-row { grid-template-columns: 1fr; gap: 14px; }
   .hero-wrapper { padding-top: 120px; }
 }
+
+  
+  #audit-canvas { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; }
+  
+  .radar-vignette { position:fixed; inset:0; background:radial-gradient(circle at center, transparent 30%, rgba(2, 20, 10, 0.7) 80%, #000502 100%); z-index:2; pointer-events:none; }
+  
+  .radar-header { position:fixed; top:0; left:0; width:100%; padding:14px 28px; z-index:50;
+    background:rgba(2,2,5,0.7); border-bottom:1px solid rgba(0,255,102,0.1);
+    display:flex; justify-content:space-between; align-items:center; }
+  .h-title { color:#00ff66; font-size:16px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+  .h-badge { background:#00ff66; color:#000; padding:3px 12px; border-radius:20px; font-size:11px; font-weight:700; }
+  
+  .radar-ui-container { position:relative; margin-top:120px; margin-bottom:120px; left:7%; z-index:10; max-width:480px; width:100%; pointer-events:auto; }
+  
+  .engine-badge { 
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(0,255,102,0.12); border:1px solid rgba(0,255,102,0.5);
+    color:#00ff66; font-family:'JetBrains Mono'; font-size:11px; font-weight:700; 
+    padding:5px 14px; border-radius:100px; margin-bottom:20px; 
+  }
+  .engine-badge .pulse { width:6px; height:6px; background:#00ff66; border-radius:50%; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,255,102,0.7); } 70% { box-shadow: 0 0 0 6px rgba(0,255,102,0); } 100% { box-shadow: 0 0 0 0 rgba(0,255,102,0); } }
+
+  .radar-ui-container h2 { font-size:38px; font-weight:800; line-height:1.1; margin-bottom:16px; text-transform:uppercase; letter-spacing:1px; }
+  h2 span { color:#ffcc00; }
+  .radar-ui-container p { color:rgba(255,255,255,0.6); font-size:15px; line-height:1.7; margin-bottom:30px; max-width:420px; }
+  
+  .terminal-box {
+    background:rgba(2, 12, 6, 0.85); border:1px solid rgba(0,255,102,0.25);
+    border-radius:12px; padding:24px; box-shadow:0 20px 40px rgba(0,0,0,0.5);
+    font-family:'JetBrains Mono', monospace; position:relative; overflow:hidden;
+  }
+  .terminal-box::before {
+    content:''; position:absolute; top:0; left:0; width:100%; height:2px;
+    background:linear-gradient(90deg, #00ff66, #ffcc00);
+  }
+  
+  .terminal-.radar-header { font-size:11px; color:#00ff66; letter-spacing:2px; margin-bottom:16px; font-weight:700; display:flex; justify-content:space-between; }
+  .metric-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-size:13px; }
+  .metric-label { color:rgba(255,255,255,0.7); }
+  .metric-value { font-weight:700; color:#fff; }
+  .metric-bar-bg { flex-grow:1; height:4px; background:rgba(255,255,255,0.1); margin:0 15px; border-radius:4px; overflow:hidden; }
+  .metric-bar-fill { height:100%; width:0%; background:#00ff66; transition:width 0.4s ease; }
+  
+  .outcome-box {
+    display:none;
+    background:rgba(255,204,0,0.05); border:1px solid rgba(255,204,0,0.4);
+    border-radius:12px; padding:24px; margin-top:20px;
+  }
+  .outcome-title { font-family:'JetBrains Mono'; font-size:12px; color:#ffcc00; letter-spacing:1px; margin-bottom:12px; font-weight:700; }
+  .outcome-text { font-size:18px; font-weight:700; line-height:1.4; color:#fff; margin-bottom:16px; }
+  .outcome-score { font-size:42px; font-weight:800; color:#ffcc00; font-family:'JetBrains Mono'; line-height:1; }
+  
+  .btn-action {
+    display:inline-block; margin-top:24px; background:#00ff66; color:#000;
+    font-weight:800; font-family:'Space Grotesk'; font-size:14px; padding:16px 32px;
+    border-radius:100px; text-decoration:none; text-transform:uppercase; letter-spacing:1px;
+    box-shadow:0 0 20px rgba(0,255,102,0.4); transition:all 0.3s;
+    cursor:pointer;
+  }
+
+  #btn-rerun { position:fixed; bottom:20px; right:20px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:8px 16px; border-radius:6px; cursor:pointer; font-family:'JetBrains Mono'; font-size:11px; z-index:100; }
 </style>
 </head>
 <body>
@@ -2483,6 +2545,95 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   </div>
 </section>
 
+
+<!-- ═══════════════════════════════════════════════════════════
+     STAGE 6: PHASE 3 INTERACTIVE GEO-GRID RADAR 
+     ═══════════════════════════════════════════════════════════ -->
+<section id="phase3-radar-container" style="position:relative; width:100%; min-height:100vh; overflow:hidden; border-top:1px solid rgba(0,255,102,0.15); background:#010a05; z-index:30;">
+  <canvas id="audit-canvas"></canvas>
+<!-- BULLETPROOF HTML OVERLAY FOR SVG LOGO -->
+<img id="center-logo-html" src="./assets/logos/mbm-icon.svg" style="position:absolute; top:50%; left:50%; width:100px; height:100px; transform:translate(-50%, -50%); z-index:10; pointer-events:none; filter: drop-shadow(0 0 15px rgba(0,255,102,0.6));">
+
+<div class="radar-ui-container">
+  <div class="engine-badge"><div class="pulse"></div> AI LOCAL SEO SCAN ENGINE</div>
+  <h2>WE DON'T GUESS.<br><span>WE MEASURE.</span></h2>
+  <p>Our proprietary 6D Scan Engine scans your 9-mile radius, extracting live citation and ranking data to reveal exactly where you are losing customers.</p>
+  
+  <div class="terminal-box" id="terminal-ui">
+    <div class="terminal-header"><span>[ 6D ENGINE ]</span> <span id="status-text">ANALYZING CAPABILITIES...</span></div>
+    
+    <div class="metric-row"><span class="metric-label">IMPACT</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-impact"></div></div><span class="metric-value" id="val-impact">--</span></div>
+    <div class="metric-row"><span class="metric-label">CONFIDENCE</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-confidence"></div></div><span class="metric-value" id="val-confidence">--</span></div>
+    <div class="metric-row"><span class="metric-label">GAP</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-gap"></div></div><span class="metric-value" id="val-gap">--</span></div>
+    <div class="metric-row"><span class="metric-label">URGENCY</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-urgency"></div></div><span class="metric-value" id="val-urgency">--</span></div>
+    <div class="metric-row"><span class="metric-label">FIXABILITY</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-fixability"></div></div><span class="metric-value" id="val-fixability">--</span></div>
+    <div class="metric-row"><span class="metric-label">RELEVANCE</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-relevance"></div></div><span class="metric-value" id="val-relevance">--</span></div>
+  </div>
+</div>
+
+  <style>
+    @media(max-width: 860px) {
+      .radar-cards-wrapper { flex-direction: column !important; width: 90% !important; bottom: 2% !important; }
+      .radar-cards-wrapper > div { width: 100% !important; flex: none !important; margin-bottom: 20px; }
+    }
+  </style>
+  <div style="width: 100%; padding-left: 7%; padding-right: 7%; display: flex; margin-top: -80px; position: relative; z-index: 40; box-sizing: border-box;">
+    <div class="radar-cards-wrapper" style="display:flex; flex-direction:row; gap:40px; align-items:stretch; width: 100%;">
+  <div class="outcome-box" id="outcome-ui" style="flex: 0 1 480px; border: 1px solid rgba(0, 212, 255, 0.4); box-shadow: 0 0 30px rgba(0, 212, 255, 0.15), inset 0 0 20px rgba(0, 212, 255, 0.05); background: rgba(2, 6, 15, 0.85); backdrop-filter: blur(12px); display: flex; flex-direction: column; justify-content: space-between; padding: 24px; margin: 0; border-radius: 12px; box-sizing: border-box;">
+    <div class="outcome-title" style="color: #00d4ff; text-shadow: 0 0 10px rgba(0,212,255,0.6);">▶ THE VISIBILITY GAP</div>
+    <div class="outcome-text" style="font-size: 16px; letter-spacing: -0.01em; color: rgba(255,255,255,0.9);">Stop guessing why the phone isn't ringing. We deploy an AI-driven local scan across a 9-mile radius, processing over <span style="color:#b8ff57; font-weight:600;">12,000 live data points</span> to reveal exactly where competitors are stealing your calls.</div>
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; margin-top: 8px;">
+      <div>
+        <div style="font-family:'JetBrains Mono'; font-size:10px; color:rgba(255,255,255,0.5); margin-bottom:4px; letter-spacing: 0.15em;">GRID COVERAGE</div>
+        <div class="outcome-score" style="color: #00d4ff; text-shadow: 0 0 20px rgba(0,212,255,0.5);">9<span style="font-size:16px;color:rgba(255,255,255,0.5); letter-spacing:0.05em; margin-left:4px;">MILES</span></div>
+      </div>
+      <a href="#audit" class="btn-action" style="background: linear-gradient(135deg, #00d4ff, #b8ff57); color: #020205; text-shadow: none; box-shadow: 0 0 25px rgba(0,212,255,0.4); font-family: 'Space Grotesk', sans-serif; font-weight: 800; letter-spacing: 0.05em; transition: all 0.3s ease; text-decoration: none; padding: 12px 24px; border-radius: 100px;">RUN FREE LOCAL SCAN</a>
+    </div>
+  </div>
+
+  <!-- LIVE DATA STREAM GRAPHIC (RIGHT SIDE) -->
+  <div id="engine-status-widget" style="flex: 1; border: 1px solid rgba(184, 255, 87, 0.2); background: rgba(2, 6, 15, 0.75); backdrop-filter: blur(12px); padding: 24px; margin: 0; border-radius: 12px; box-sizing: border-box; z-index: 20; display:flex; flex-direction:column; justify-content: space-between; gap: 14px; box-shadow: 0 0 30px rgba(184, 255, 87, 0.1);">
+    <style>
+      @keyframes barPulse { 0% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } 100% { transform: scaleY(0.4); } }
+      .eq-bar { flex:1; border-radius:2px; transform-origin: bottom; animation: barPulse 1.5s infinite ease-in-out; }
+      .eq-bar:nth-child(4n+1) { background:rgba(0,212,255,0.8); animation-delay: 0.1s; height:60%; }
+      .eq-bar:nth-child(4n+2) { background:rgba(0,212,255,0.4); animation-delay: 0.4s; height:80%; }
+      .eq-bar:nth-child(4n+3) { background:#b8ff57; animation-delay: 0.2s; height:100%; box-shadow:0 0 10px rgba(184,255,87,0.5); }
+      .eq-bar:nth-child(4n) { background:rgba(0,212,255,0.6); animation-delay: 0.5s; height:50%; }
+      .eq-bar:nth-child(7n) { background:rgba(0,212,255,0.9); animation-delay: 0.7s; height:90%; }
+    </style>
+    
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div style="font-family:'JetBrains Mono'; font-size:9px; color:rgba(255,255,255,0.5); letter-spacing:0.15em;">6D ALGORITHM STATUS</div>
+      <div style="display:flex; align-items:center; gap: 6px;">
+        <span style="font-family:'JetBrains Mono'; font-size:9px; color:#b8ff57; letter-spacing:0.1em;">SYNCING</span>
+        <span style="width:6px; height:6px; border-radius:50%; background:#b8ff57; box-shadow:0 0 10px #b8ff57; animation: pulse-dot 1.5s infinite;"></span>
+      </div>
+    </div>
+    
+    <div style="display:flex; gap: 4px; height: 36px; align-items:flex-end; justify-content: space-between; margin: 20px 0;">
+      <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+      <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+      <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+      <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+      <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+    </div>
+    
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px;">
+      <div style="font-family:'Space Grotesk'; font-size:11px; color:rgba(255,255,255,0.7); font-weight:600; text-transform:uppercase;">
+        Data Stream <br><span style="color:#00d4ff;">Encrypted</span>
+      </div>
+      <div style="font-family:'JetBrains Mono'; font-size:18px; font-weight:800; color:#fff;">
+        100<span style="font-size:10px; color:rgba(255,255,255,0.4);">%</span>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</div>
+
+</section>
+
 <!-- ═══════════════════════════════════════════════════════════
      MASTER JAVASCRIPT CONTROLLER
      ═══════════════════════════════════════════════════════════ -->
@@ -2609,25 +2760,165 @@ const dustMat = new THREE.PointsMaterial({ size: 0.18, vertexColors: true, trans
 const ambientDust = new THREE.Points(dustGeo, dustMat);
 scene.add(ambientDust);
 
-// 3. REFINED MICRO CUSTOMER AVATARS (20 DELICATE AVATARS)
-const customerGroup = new THREE.Group();
-scene.add(customerGroup);
+/* ═══════════════════════════════════════════════════════════
+   AUTHENTIC 3D CUSTOMER SEARCH ➔ STOREFRONT CONVERSION ENGINE
+   ═══════════════════════════════════════════════════════════ */
+const SEARCH_QUERIES_LIST = [
+  '🔍 "Plumber near me"',
+  '🔍 "Best Pizza 24/7"',
+  '🔍 "Emergency Dentist"',
+  '🔍 "Auto Repair near me"',
+  '🔍 "HVAC Specialist"',
+  '🔍 "Roofing Contractor"',
+  '🔍 "Emergency Locksmith"'
+];
+
+const PURCHASE_LABELS_LIST = [
+  '💰 +$280 Walk-in Sale',
+  '🛍️ Booked Appointment',
+  '💰 +$520 Inbound Order',
+  '★ 5.0 Google Review',
+  '💰 +$360 Storefront Sale'
+];
+
+function createKeywordPillTexture(text) {
+  const c = document.createElement('canvas');
+  c.width = 512;
+  c.height = 128;
+  const ctx = c.getContext('2d');
+
+  // Frosted Pill Container
+  ctx.fillStyle = 'rgba(8, 16, 30, 0.92)';
+  ctx.strokeStyle = '#00d4ff';
+  ctx.lineWidth = 4;
+  ctx.shadowColor = 'rgba(0, 212, 255, 0.8)';
+  ctx.shadowBlur = 18;
+
+  ctx.beginPath();
+  ctx.roundRect(16, 20, 480, 88, 44);
+  ctx.fill();
+  ctx.stroke();
+
+  // Keyword Text
+  ctx.shadowBlur = 0;
+  ctx.font = 'bold 32px "Space Grotesk", sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, 256, 64);
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.needsUpdate = true;
+  return tex;
+}
+
+function createPurchaseBadgeTexture(text) {
+  const c = document.createElement('canvas');
+  c.width = 512;
+  c.height = 128;
+  const ctx = c.getContext('2d');
+
+  // Glowing Green/Cyan Capsule
+  const grad = ctx.createLinearGradient(0, 0, 512, 0);
+  grad.addColorStop(0, '#00d4ff');
+  grad.addColorStop(1, '#b8ff57');
+
+  ctx.fillStyle = grad;
+  ctx.shadowColor = '#b8ff57';
+  ctx.shadowBlur = 24;
+
+  ctx.beginPath();
+  ctx.roundRect(16, 20, 480, 88, 44);
+  ctx.fill();
+
+  // Dark Bold Typography
+  ctx.shadowBlur = 0;
+  ctx.font = '800 34px "Space Grotesk", sans-serif';
+  ctx.fillStyle = '#020205';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, 256, 64);
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.needsUpdate = true;
+  return tex;
+}
+
+// Pre-generate keyword and purchase textures
+const cachedKeywordTextures = SEARCH_QUERIES_LIST.map(createKeywordPillTexture);
+const cachedPurchaseTextures = PURCHASE_LABELS_LIST.map(createPurchaseBadgeTexture);
+
+// Customer Avatar Sprite Material
 const customerMat = new THREE.SpriteMaterial({ map: customerTex, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending });
+
+// Customer Avatar Pool (Clean & Calm Pacing: 8 Units)
+const customerGroup = new THREE.Group();
+customerGroup.visible = false;
+scene.add(customerGroup);
+
+const floatingPurchasesGroup = new THREE.Group();
+scene.add(floatingPurchasesGroup);
+
 const customerAvatars = [];
-for (let i = 0; i < 20; i++) {
-  const sprite = new THREE.Sprite(customerMat);
-  const angle = (i / 20) * Math.PI * 2 + Math.random() * 0.4;
-  const dist = 18.0 + Math.random() * 8.0;
-  const startX = Math.cos(angle) * dist;
-  const startY = (Math.random() - 0.5) * 14.0 + 2.0;
-  const startZ = Math.sin(angle) * dist * 0.35 - 2.0;
-  sprite.position.set(startX, startY, startZ);
-  sprite.scale.set(0.48, 0.48, 1);
-  customerGroup.add(sprite);
-  customerAvatars.push({
-    sprite: sprite, startX: startX, startY: startY, startZ: startZ, angle: angle,
-    speed: 0.0018 + Math.random() * 0.002, progress: (i / 20), floatOffset: Math.random() * Math.PI * 2
+const TOTAL_CUSTOMERS = 8;
+
+for (let i = 0; i < TOTAL_CUSTOMERS; i++) {
+  // Avatar Silhouette Sprite
+  const avatarSprite = new THREE.Sprite(customerMat);
+  avatarSprite.scale.set(0.48, 0.48, 1);
+  customerGroup.add(avatarSprite);
+
+  // Keyword Popup Sprite (Attached only to ~40% to prevent overcrowding)
+  const hasKeyword = (i % 2 === 0);
+  let keywordSprite = null;
+  if (hasKeyword) {
+    const kTex = cachedKeywordTextures[i % cachedKeywordTextures.length];
+    keywordSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: kTex, transparent: true, opacity: 0 }));
+    keywordSprite.scale.set(3.4, 0.85, 1);
+    customerGroup.add(keywordSprite);
+  }
+
+  const custObj = {
+    avatarSprite,
+    keywordSprite,
+    hasKeyword,
+    angle: (i / TOTAL_CUSTOMERS) * Math.PI * 2,
+    dist: 16.0 + Math.random() * 8.0,
+    startY: (Math.random() - 0.5) * 12.0 - 0.5,
+    speed: 0.0010 + Math.random() * 0.0006, // Slow, elegant, organic glide
+    progress: (i / TOTAL_CUSTOMERS),
+    floatOffset: Math.random() * Math.PI * 2
+  };
+
+  customerAvatars.push(custObj);
+}
+
+// Active Floating Purchase Badges array
+const activePurchaseBadges = [];
+
+function triggerStorefrontPurchaseBurst(pos) {
+  const pTex = cachedPurchaseTextures[Math.floor(Math.random() * cachedPurchaseTextures.length)];
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: pTex, transparent: true, opacity: 0, depthTest: false }));
+  
+  const baseX = pinGroup.position.x + (Math.random() - 0.5) * 1.2;
+  const baseY = pinGroup.position.y + 1.2;
+  sprite.position.set(baseX, baseY, 2.0);
+  sprite.scale.set(3.8, 0.95, 1);
+  floatingPurchasesGroup.add(sprite);
+
+  activePurchaseBadges.push({
+    sprite,
+    progress: 0,
+    speed: 0.004 + Math.random() * 0.002,
+    baseX,
+    baseY,
+    driftAngle: Math.random() * Math.PI * 2
   });
+
+  // Subtle pulse on Storefront Walls
+  if (typeof shopWalls !== 'undefined') {
+    gsap.to(shopWalls.scale, { x: 1.08, y: 1.08, z: 1.08, duration: 0.18, yoyo: true, repeat: 1 });
+  }
 }
 
 // 4. CENTRAL 3D GLASS PIN + VERIFIED BADGE + STOREFRONT
@@ -2708,27 +2999,7 @@ purchaseRipple.rotation.x = -Math.PI / 2;
 purchaseRipple.position.set(0, -0.6, 0);
 pinGroup.add(purchaseRipple);
 
-// FLOATING PURCHASE BADGES
-const floatingBadgeGroup = new THREE.Group();
-scene.add(floatingBadgeGroup);
-let activePurchaseBadges = [];
-
-function spawnRandomPurchaseBadge() {
-  if (!isHeroPurchasesEnabled) return;
-  const tex = purchaseTextures[Math.floor(Math.random() * purchaseTextures.length)];
-  const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0 });
-  const sprite = new THREE.Sprite(mat);
-  const baseX = pinGroup.position.x + (Math.random() - 0.5) * 2.8;
-  const baseY = pinGroup.position.y + 0.8;
-  sprite.position.set(baseX, baseY, 1.2);
-  sprite.scale.set(4.3, 1.36, 1);
-  floatingBadgeGroup.add(sprite);
-  activePurchaseBadges.push({
-    sprite: sprite, progress: 0, speed: 0.007 + Math.random() * 0.003,
-    baseX: baseX, baseY: baseY, driftAngle: Math.random() * Math.PI * 2
-  });
-}
-setInterval(spawnRandomPurchaseBadge, 1700);
+// Old floating badges replaced by dynamic event trigger.
 
 // 5. FIVE 3D GOLDEN STARS + COMET LIGHT TRAILS (ORBITING AROUND PIN)
 const starGroup = new THREE.Group();
@@ -2894,6 +3165,7 @@ function triggerSeamlessIntro() {
     onComplete: () => {
       isInHeroMode = true;
       isHeroPurchasesEnabled = true;
+      customerGroup.visible = true;
     }
   }, 2.4);
 
@@ -3215,18 +3487,7 @@ function animate() {
     purchaseRipple.material.opacity = 0;
   }
 
-  for (let i = activePurchaseBadges.length - 1; i >= 0; i--) {
-    const b = activePurchaseBadges[i];
-    b.progress += b.speed;
-    b.sprite.position.y = b.baseY + b.progress * 8.5;
-    b.sprite.position.x = b.baseX + Math.sin(time * 1.5 + b.driftAngle) * 0.35;
-    let alpha = b.progress < 0.1 ? (b.progress / 0.1) : (b.progress > 0.85 ? (1.0 - b.progress) / 0.15 : 1.0);
-    b.sprite.material.opacity = Math.max(0, alpha);
-    if (b.progress >= 1.0) {
-      floatingBadgeGroup.remove(b.sprite);
-      activePurchaseBadges.splice(i, 1);
-    }
-  }
+
 
   // Corner Competitor Shops Subtle Drift
   competitorGroup.rotation.y = time * 0.002;
@@ -3237,17 +3498,88 @@ function animate() {
 
   // Customer Avatars Flocking In
   const targetY = isInHeroMode ? (pinGroup.position.y + 1.2) : 4.4;
-  customerAvatars.forEach(c => {
+  // ─── 1. CUSTOMER AVATARS & KEYWORD POPUP LIFECYCLE ───
+  const destX = pinGroup.position.x;
+  const destY = pinGroup.position.y + 0.6;
+
+  customerAvatars.forEach((c, idx) => {
     c.progress += c.speed;
-    if (c.progress >= 1.0) c.progress = 0;
-    const curDist = (1.0 - c.progress) * 18.0 + 1.2;
-    const curAngle = c.angle + c.progress * 1.2;
-    c.sprite.position.x = pinGroup.position.x + Math.cos(curAngle) * curDist;
-    c.sprite.position.y = (1.0 - c.progress) * c.startY + c.progress * targetY + Math.sin(time * 1.2 + c.floatOffset) * 0.25;
-    c.sprite.position.z = Math.sin(curAngle) * curDist * 0.35 - 2.0;
-    const alpha = c.progress < 0.15 ? (c.progress / 0.15) : (c.progress > 0.85 ? (1.0 - c.progress) / 0.15 : 1.0);
-    c.sprite.material.opacity = alpha * 0.85;
+
+    if (c.progress >= 1.0) {
+      c.progress = 0;
+      c.angle = Math.random() * Math.PI * 2;
+      c.dist = 18.0 + Math.random() * 8.0;
+      c.startY = (Math.random() - 0.5) * 12.0 - 0.5;
+    }
+
+    // Smooth trajectory from distance towards 3D Storefront Pin
+    const curDist = (1.0 - c.progress) * c.dist + 0.4;
+    const curAngle = c.angle + c.progress * 0.8;
+    const curX = destX + Math.cos(curAngle) * curDist;
+    const curY = (1.0 - c.progress) * c.startY + c.progress * destY + Math.sin(time * 1.5 + c.floatOffset) * 0.2;
+    const curZ = Math.sin(curAngle) * curDist * 0.35 - 1.0;
+
+    c.avatarSprite.position.set(curX, curY, curZ);
+
+    // Avatar visibility: Smooth entry from distance, stays 100% visible, then dissolves inside storefront
+    let avatarAlpha = 1.0;
+    if (c.progress < 0.15) {
+      avatarAlpha = c.progress / 0.15;
+    } else if (c.progress > 0.92) {
+      avatarAlpha = (1.0 - c.progress) / 0.08;
+      // When reaching door (~0.95), trigger purchase burst once per cycle
+      if (isHeroPurchasesEnabled && c.progress >= 0.94 && c.progress < 0.94 + c.speed * 1.5) {
+        triggerStorefrontPurchaseBurst(c.avatarSprite.position);
+      }
+    }
+    c.avatarSprite.material.opacity = Math.max(0, Math.min(1, avatarAlpha * 0.9));
+
+    // Keyword Popup Lifecycle (Starts small in distance, stays readable, dissolves before pin)
+    if (c.hasKeyword && c.keywordSprite) {
+      c.keywordSprite.position.set(curX, curY + 0.75, curZ + 0.2);
+
+      let keyAlpha = 0;
+      let keyScale = 1.0;
+
+      if (c.progress < 0.25) {
+        // Far distance: starts small, gradually fades in
+        const t = c.progress / 0.25;
+        keyAlpha = t;
+        keyScale = 0.5 + t * 0.5;
+      } else if (c.progress >= 0.25 && c.progress <= 0.60) {
+        // Mid-journey: 100% visible & readable
+        keyAlpha = 0.95;
+        keyScale = 1.0;
+      } else if (c.progress > 0.60 && c.progress <= 0.85) {
+        // Approaching 3D Pin: shrinks and dissolves smoothly
+        const t = (c.progress - 0.60) / 0.25;
+        keyAlpha = (1.0 - t) * 0.95;
+        keyScale = 1.0 - t * 0.6; // shrinks to 0.4
+      } else {
+        // Close to pin: completely dissolved
+        keyAlpha = 0;
+      }
+
+      c.keywordSprite.material.opacity = Math.max(0, keyAlpha);
+      c.keywordSprite.scale.set(3.4 * keyScale, 0.85 * keyScale, 1);
+    }
   });
+
+  // ─── 2. FLOATING WALK-IN PURCHASE BADGES (FLOATS UP FROM DOOR & DISSOLVES) ───
+  for (let i = activePurchaseBadges.length - 1; i >= 0; i--) {
+    const b = activePurchaseBadges[i];
+    b.progress += b.speed;
+    b.sprite.position.y = b.baseY + b.progress * 6.5;
+    b.sprite.position.x = b.baseX + Math.sin(time * 1.4 + b.driftAngle) * 0.25;
+
+    let pAlpha = b.progress < 0.15 ? (b.progress / 0.15) : (b.progress > 0.75 ? (1.0 - b.progress) / 0.25 : 1.0);
+    b.sprite.material.opacity = Math.max(0, pAlpha);
+
+    if (b.progress >= 1.0) {
+      floatingPurchasesGroup.remove(b.sprite);
+      activePurchaseBadges.splice(i, 1);
+    }
+  }
 
   // 5 Extruded Golden Stars Orbiting Pin + Comet Light Trails
   const orbitR = 5.4;
@@ -3285,6 +3617,258 @@ function animate() {
 // Start immediately
 animate();
 triggerSeamlessIntro();
+
+function initRadar3D() {
+  // ==========================================
+// 3D SCENE: Variant E: Emerald Matrix
+// ==========================================
+const canvas = document.getElementById('audit-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x010a05, 0.02);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(0, 35, 30); // Top-down angled view
+camera.lookAt(0, 0, 0);
+
+const COLOR_PRIMARY = new THREE.Color('#00ff66');
+const COLOR_ACCENT  = new THREE.Color('#ffcc00');
+const COLOR_PROBLEM = new THREE.Color('#ff3333');
+
+const mainGroup = new THREE.Group();
+mainGroup.position.x = 10;
+scene.add(mainGroup);
+
+// Floor Grid
+const gridHelper = new THREE.GridHelper(200, 200, '#00ff66', '#00ff66');
+gridHelper.material.opacity = 0.08;
+gridHelper.material.transparent = true;
+mainGroup.add(gridHelper);
+
+// ==========================================
+// MBM LOGO (HTML OVERLAY ANCHOR)
+// ==========================================
+const centerAnchor = new THREE.Object3D();
+centerAnchor.position.y = 1.5;
+mainGroup.add(centerAnchor);
+
+// Sonar Rings (Expanding)
+const sonarRings = [];
+for(let i=0; i<4; i++) {
+  const ring = new THREE.Mesh(
+    new THREE.RingGeometry(0.1, 0.2, 64),
+    new THREE.MeshBasicMaterial({ color: COLOR_PRIMARY, transparent: true, opacity: 0, side: THREE.DoubleSide })
+  );
+  ring.rotation.x = -Math.PI / 2;
+  ring.position.y = 0.1;
+  mainGroup.add(ring);
+  sonarRings.push(ring);
+}
+
+// Directories (Equidistant Badges)
+const directories = ['Google', 'Yelp', 'BBB', 'Angi', 'Zocdoc', 'Healthgrades', 'Bing', 'Apple Maps'];
+const nodes = [];
+
+directories.forEach((name, i) => {
+  const angle = (i / directories.length) * Math.PI * 2;
+  const radius = 16; // FIXED DISTANCE as requested
+  
+  const pos = new THREE.Vector3(Math.cos(angle) * radius, 0, Math.sin(angle) * radius);
+  
+  // Custom Letter Badge (First letter as requested)
+  const badgeSprite = createLetterBadge(name.charAt(0), '#444444', '#111111');
+  badgeSprite.position.copy(pos);
+  badgeSprite.position.y = 0.8;
+  mainGroup.add(badgeSprite);
+  
+  // Ripple effect under blip
+  const ripple = new THREE.Mesh(
+    new THREE.RingGeometry(0.5, 0.8, 32),
+    new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, side: THREE.DoubleSide })
+  );
+  ripple.rotation.x = -Math.PI / 2;
+  ripple.position.copy(pos);
+  ripple.position.y = 0.2;
+  mainGroup.add(ripple);
+  
+  nodes.push({
+    mesh: badgeSprite,
+    ripple: ripple,
+    pos: pos,
+    radius: radius,
+    name: name,
+    active: false,
+    isProblem: (name === 'Yelp' || name === 'BBB' || name === 'Angi')
+  });
+});
+
+function createLetterBadge(letter, borderColor, bgColor) {
+  const cv = document.createElement('canvas');
+  cv.width = 128; cv.height = 128;
+  const ctx = cv.getContext('2d');
+  
+  ctx.beginPath();
+  ctx.arc(64, 64, 60, 0, Math.PI * 2);
+  ctx.fillStyle = bgColor;
+  ctx.fill();
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = borderColor;
+  ctx.stroke();
+
+  ctx.fillStyle = borderColor;
+  ctx.font = 'bold 70px "Space Grotesk"';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  // Adjusting Y offset slightly to perfectly center the letter visually
+  ctx.fillText(letter, 64, 70);
+
+  const tex = new THREE.CanvasTexture(cv);
+  const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, blending: THREE.AdditiveBlending });
+  const sprite = new THREE.Sprite(mat);
+  sprite.scale.set(3, 3, 1);
+  return sprite;
+}
+
+// Audit Animation Logic
+let auditTimeline;
+function startAuditSequence() {
+  if(auditTimeline) auditTimeline.kill();
+  
+  nodes.forEach(n => {
+    n.active = false;
+    n.ripple.material.opacity = 0;
+    
+    const resetBadge = createLetterBadge(n.name.charAt(0), '#444444', '#111111');
+    resetBadge.position.copy(n.mesh.position);
+    mainGroup.remove(n.mesh);
+    n.mesh = resetBadge;
+    mainGroup.add(n.mesh);
+  });
+  
+  document.getElementById('outcome-ui').style.display = 'none';
+  document.getElementById('status-text').innerText = 'BROADCASTING SONAR...';
+  document.getElementById('status-text').style.color = '#00ff66';
+  
+  const metrics = ['impact', 'confidence', 'gap', 'urgency', 'fixability', 'relevance'];
+  metrics.forEach(m => {
+    document.getElementById(`val-${m}`).innerText = '--';
+    document.getElementById(`bar-${m}`).style.width = '0%';
+    document.getElementById(`bar-${m}`).style.background = '#00ff66';
+  });
+
+  // Continuous Sonar Waves (INFINITE REPEAT)
+  sonarRings.forEach((ring, idx) => {
+    gsap.killTweensOf(ring.scale);
+    gsap.killTweensOf(ring.material);
+    gsap.fromTo(ring.scale, {x:1, y:1}, {x:200, y:200, duration: 4, ease: "linear", repeat: -1, delay: idx * 0.8});
+    gsap.fromTo(ring.material, {opacity: 0.8}, {opacity: 0, duration: 4, ease: "power2.out", repeat: -1, delay: idx * 0.8});
+  });
+
+  // Hit nodes based on their distance
+  // Speed is 200/4 = 50 units/sec. All nodes are at radius=16, so hitTime is 16/50 = 0.32s
+  nodes.forEach((n, idx) => {
+    const hitTime = n.radius / 50; 
+    setTimeout(() => {
+      n.active = true;
+      const finalColorObj = n.isProblem ? COLOR_PROBLEM : COLOR_ACCENT;
+      const finalHex = n.isProblem ? '#ff3333' : '#ffcc00';
+      
+      // Node flash
+      const newBadge = createLetterBadge(n.name.charAt(0), finalHex, '#010a05');
+      newBadge.position.copy(n.mesh.position);
+      mainGroup.remove(n.mesh);
+      n.mesh = newBadge;
+      mainGroup.add(n.mesh);
+      
+      gsap.fromTo(n.mesh.scale, { x: 3, y: 3 }, { x: 4.5, y: 4.5, duration: 0.2, yoyo: true, repeat: 1 });
+      
+      // Ripple effect
+      n.ripple.material.color = finalColorObj;
+      gsap.fromTo(n.ripple.scale, {x:1, y:1}, {x:5, y:5, duration: 1, ease: "power2.out"});
+      gsap.fromTo(n.ripple.material, {opacity: 0.8}, {opacity: 0, duration: 1, ease: "power2.out"});
+      
+    }, hitTime * 1000);
+  });
+  
+  // Terminal Logic
+  auditTimeline = gsap.timeline();
+  const targetScores = { impact: 95, confidence: 100, gap: 82, urgency: 98, fixability: 90, relevance: 100 };
+  
+  metrics.forEach((m, index) => {
+    let obj = { val: 0 };
+    auditTimeline.to(obj, {
+      val: targetScores[m], duration: 1.5, delay: index * 0.2 + 1, ease: "power2.out",
+      onUpdate: () => {
+        const current = Math.floor(obj.val);
+        document.getElementById(`val-${m}`).innerText = current;
+        document.getElementById(`bar-${m}`).style.width = current + '%';
+        if(current > 90 && (m==='impact' || m==='urgency' || m==='gap')) {
+          document.getElementById(`bar-${m}`).style.background = '#ff3333';
+        } else if (current > 80) {
+          document.getElementById(`bar-${m}`).style.background = '#ffcc00';
+        }
+      }
+    }, 0.5);
+  });
+  
+  auditTimeline.add(() => {
+    document.getElementById('status-text').innerText = 'READY FOR DEPLOYMENT';
+    document.getElementById('status-text').style.color = '#b8ff57';
+    const outcomeBox = document.getElementById('outcome-ui');
+    outcomeBox.style.display = 'block';
+    gsap.fromTo(outcomeBox, { opacity:0, y:20 }, { opacity:1, y:0, duration:0.5 });
+  }, "+=3.5");
+}
+
+const clock = new THREE.Clock();
+let mx = 0, my = 0;
+window.addEventListener('mousemove', e => {
+  mx = (e.clientX / window.innerWidth) * 2 - 1;
+  my = -(e.clientY / window.innerHeight) * 2 + 1;
+});
+
+const tempV = new THREE.Vector3();
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+  
+  mainGroup.rotation.y = t * 0.05; // Circular icons slowly rotate
+  
+  camera.position.x += (mx * 10 - camera.position.x) * 0.05;
+  camera.position.z += (30 + my * 10 - camera.position.z) * 0.05;
+  camera.lookAt(0, 0, 0);
+  
+  // Sync HTML Logo Overlay with 3D Center Anchor
+  centerAnchor.getWorldPosition(tempV);
+  tempV.project(camera);
+  const cx = (tempV.x * 0.5 + 0.5) * window.innerWidth;
+  const cy = -(tempV.y * 0.5 - 0.5) * window.innerHeight;
+  document.getElementById('center-logo-html').style.left = `${cx}px`;
+  document.getElementById('center-logo-html').style.top = `${cy}px`;
+  
+  nodes.forEach((n, i) => {
+    n.mesh.rotation.y = -mainGroup.rotation.y; // Counter-rotate badges so letters face camera
+    if(!n.active) {
+      n.mesh.position.y = 0.8 + Math.sin(t * 3 + i) * 0.2;
+    }
+  });
+
+  renderer.render(scene, camera);
+}
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+animate();
+setTimeout(startAuditSequence, 1000); // Master Animation on load
+}
+initRadar3D();
+
 </script>
 </body>
 </html>

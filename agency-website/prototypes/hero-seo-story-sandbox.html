@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBM - SEO Story Sandbox</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background-color: #020205; overflow: hidden; font-family: 'Space Grotesk', sans-serif; color: #fff; }
+    
+    #canvas-container { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none; }
+    
+    /* UI Overlay */
+    .ui-panel {
+      position: absolute; top: 40px; left: 40px; z-index: 10;
+      background: rgba(2, 2, 5, 0.72); border: 1px solid rgba(0, 212, 255, 0.35);
+      border-radius: 16px; padding: 20px; width: 340px;
+      backdrop-filter: blur(12px); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    }
+    .ui-title { font-size: 11px; font-weight: 800; color: #00d4ff; letter-spacing: 0.12em; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: #ff3b30; box-shadow: 0 0 10px #ff3b30; animation: pulse 1.5s infinite; transition: background 1s, box-shadow 1s; }
+    @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.5); } 100% { opacity: 1; transform: scale(1); } }
+    
+    .status-text { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #ff3b30; font-weight: 700; margin-bottom: 8px; }
+    
+    .btn-action {
+      background: linear-gradient(135deg, #00d4ff, #b8ff57); color: #020205;
+      font-weight: 800; font-size: 12px; padding: 10px 20px; border: none; border-radius: 8px;
+      cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+      pointer-events: auto;
+    }
+    .btn-action:active { transform: scale(0.95); }
+    
+    /* Floating 2D Elements synced with 3D */
+    #floating-labels-container { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 5; pointer-events: none; }
+    
+    .hologram-badge {
+      position: absolute; transform: translate(-50%, -50%);
+      background: rgba(0, 212, 255, 0.15); border: 1.5px solid #00d4ff;
+      color: #00d4ff; font-weight: 800; font-size: 14px; padding: 6px 16px;
+      border-radius: 100px; box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+      text-shadow: 0 0 10px #00d4ff; opacity: 0; transition: opacity 0.3s;
+      white-space: nowrap;
+    }
+    
+    .customer-query {
+      position: absolute; transform: translate(-50%, -100%);
+      background: rgba(0, 0, 0, 0.8); border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.8); font-size: 10px; font-weight: 600;
+      padding: 4px 10px; border-radius: 6px; white-space: nowrap;
+      pointer-events: none; transition: opacity 0.2s;
+    }
+    .customer-query .source { color: #00d4ff; font-family: 'JetBrains Mono', monospace; font-size: 8.5px; display: block; margin-bottom: 2px; }
+    
+    .monetary-badge {
+      position: absolute; transform: translate(-50%, -50%);
+      background: #b8ff57; color: #020205; font-size: 12px; font-weight: 800;
+      padding: 4px 12px; border-radius: 100px; box-shadow: 0 0 15px rgba(184, 255, 87, 0.6);
+      pointer-events: none; z-index: 20;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- UI Panel -->
+  <div class="ui-panel">
+    <div class="ui-title">
+      <div class="pulse-dot" id="ui-pulse"></div>
+      CLIENT SEO DOMINANCE: MAPS
+    </div>
+    <div class="status-text" id="ui-status">STATUS: UNRANKED (Page 4)</div>
+    <p style="font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5;">
+      Watch what happens when Mark Bishop Media audits the client and pushes them to the <b>Google Maps Top 3 Pack</b>.
+    </p>
+    <button class="btn-action" onclick="triggerSEOAudit()" id="action-btn">⚡ DEPLOY SEO AUDIT</button>
+  </div>
+
+  <div id="canvas-container"></div>
+  <div id="floating-labels-container">
+    <!-- #1 Hologram -->
+    <div class="hologram-badge" id="rank-hologram">🏆 RANKED #1 ON MAPS</div>
+  </div>
+
+<script>
+// Queries
+const SEARCH_QUERIES = [
+  '"Emergency Plumber near me"', '"Best Pizza 24/7"', '"Dental Clinic"',
+  '"Auto Repair shop"', '"Licensed Electrician"', '"Roofing Contractor quote"',
+  '"Emergency Locksmith"', '"Injury Lawyer near me"', '"Carpet Cleaning"'
+];
+const BUY_LABELS = [
+  '💰 +$280 Sale', '📅 Booked Appt', '💰 +$650 Emergency',
+  '⭐ 5.0 Map Review', '📞 Call Triggered', '💰 +$420 Order'
+];
+
+// Scene Setup
+const container = document.getElementById('canvas-container');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
+camera.position.set(0, 15, 30);
+camera.lookAt(0, 0, 0);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+container.appendChild(renderer.domElement);
+
+// Lighting
+const ambientLight = new THREE.AmbientLight(0x0a182e, 2);
+scene.add(ambientLight);
+const dirLight = new THREE.DirectionalLight(0xffffff, 2);
+dirLight.position.set(5, 10, 5);
+scene.add(dirLight);
+
+// Materials (Start Red/Dull)
+const colorRed = new THREE.Color(0xff3b30);
+const colorDarkRed = new THREE.Color(0x3a0000);
+const colorCyan = new THREE.Color(0x00d4ff);
+const colorLime = new THREE.Color(0xb8ff57);
+const colorGold = new THREE.Color(0xffd700);
+const colorDarkBlue = new THREE.Color(0x031020);
+
+const matWall = new THREE.MeshStandardMaterial({ color: colorDarkRed, roughness: 0.3 });
+const matRoof = new THREE.MeshStandardMaterial({ color: colorRed, roughness: 0.2 });
+const matGlass = new THREE.MeshStandardMaterial({ color: colorRed, emissive: colorRed, emissiveIntensity: 0.2, transparent: true, opacity: 0.8 });
+const matPin = new THREE.MeshBasicMaterial({ color: colorRed, wireframe: true, transparent: true, opacity: 0.4 });
+
+// 1. The 3D Client Store (Center)
+const storeGroup = new THREE.Group();
+scene.add(storeGroup);
+
+const walls = new THREE.Mesh(new THREE.BoxGeometry(2.5, 2.0, 2.0), matWall);
+walls.position.y = 1.0;
+storeGroup.add(walls);
+
+const roof = new THREE.Mesh(new THREE.CylinderGeometry(0, 2.0, 1.0, 4), matRoof);
+roof.position.y = 2.5;
+roof.rotation.y = Math.PI / 4;
+storeGroup.add(roof);
+
+const door = new THREE.Mesh(new THREE.BoxGeometry(0.6, 1.2, 0.1), matGlass);
+door.position.set(0, 0.6, 1.0);
+storeGroup.add(door);
+
+const pinSphere = new THREE.Mesh(new THREE.SphereGeometry(3.5, 32, 32), matPin);
+pinSphere.position.y = 1.8;
+storeGroup.add(pinSphere);
+
+// 2. SEO Geo-Grid (Radar)
+const gridHelper = new THREE.GridHelper(50, 25, 0x002244, 0x001122);
+gridHelper.position.y = -0.1;
+scene.add(gridHelper);
+
+const radarGeo = new THREE.RingGeometry(0.1, 0.5, 64);
+const radarMat = new THREE.MeshBasicMaterial({ color: colorRed, transparent: true, opacity: 0.5, side: THREE.DoubleSide });
+const radarPulse = new THREE.Mesh(radarGeo, radarMat);
+radarPulse.rotation.x = -Math.PI / 2;
+scene.add(radarPulse);
+
+// State
+let isRanked = false;
+let activeCustomers = [];
+const labelsContainer = document.getElementById('floating-labels-container');
+
+// Coordinate sync
+function to2D(pos3D) {
+  const vec = pos3D.clone();
+  vec.project(camera);
+  const x = (vec.x * .5 + .5) * window.innerWidth;
+  const y = (vec.y * -.5 + .5) * window.innerHeight;
+  return { x, y };
+}
+
+// Spark a Customer (The Blue Route & Avatar)
+function spawnCustomer() {
+  if (!isRanked) return;
+  
+  // Random start on the edge of the grid
+  const angle = Math.random() * Math.PI * 2;
+  const radius = 15 + Math.random() * 10;
+  const startX = Math.cos(angle) * radius;
+  const startZ = Math.sin(angle) * radius;
+  
+  const startPos = new THREE.Vector3(startX, 0.2, startZ);
+  const endPos = new THREE.Vector3(0, 0.2, 0); // Store
+  
+  // Create Blue Route Line
+  const pathGeo = new THREE.BufferGeometry().setFromPoints([startPos, endPos]);
+  const pathMat = new THREE.LineBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.2 });
+  const pathLine = new THREE.Line(pathGeo, pathMat);
+  scene.add(pathLine);
+  
+  // Create Customer Avatar (Glowing Orb)
+  const orbGeo = new THREE.SphereGeometry(0.3, 16, 16);
+  const orbMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57 });
+  const orb = new THREE.Mesh(orbGeo, orbMat);
+  orb.position.copy(startPos);
+  scene.add(orb);
+  
+  // HTML Label
+  const lbl = document.createElement('div');
+  lbl.className = 'customer-query';
+  const q = SEARCH_QUERIES[Math.floor(Math.random() * SEARCH_QUERIES.length)];
+  lbl.innerHTML = `<span class="source">📍 Google Maps Route</span>🔍 ${q}`;
+  labelsContainer.appendChild(lbl);
+  
+  activeCustomers.push({
+    orb: orb, line: pathLine, label: lbl,
+    start: startPos, end: endPos,
+    progress: 0, speed: 0.003 + Math.random() * 0.004
+  });
+}
+
+function spawnMonetaryBadge(pos2D) {
+  const badge = document.createElement('div');
+  badge.className = 'monetary-badge';
+  badge.innerText = BUY_LABELS[Math.floor(Math.random() * BUY_LABELS.length)];
+  badge.style.left = pos2D.x + 'px';
+  badge.style.top = pos2D.y + 'px';
+  labelsContainer.appendChild(badge);
+  
+  gsap.to(badge, {
+    top: pos2D.y - 80,
+    opacity: 0,
+    duration: 1.5,
+    ease: "power2.out",
+    onComplete: () => badge.remove()
+  });
+}
+
+// 4. The Transformation Laser
+function triggerSEOAudit() {
+  if (isRanked) return;
+  
+  // Update UI immediately
+  const statusEl = document.getElementById('ui-status');
+  statusEl.innerText = "STATUS: RANKING IN PROGRESS...";
+  statusEl.style.color = "#ffd700";
+  
+  document.getElementById('action-btn').style.display = 'none';
+  
+  // 1. Radar expands and turns Cyan
+  gsap.to(radarPulse.scale, { x: 40, y: 40, duration: 2, ease: "power2.out" });
+  gsap.to(radarMat.color, { r: colorCyan.r, g: colorCyan.g, b: colorCyan.b, duration: 1 });
+  
+  // 2. Building upgrades from Red to Gold/Cyan
+  gsap.to(matWall.color, { r: colorDarkBlue.r, g: colorDarkBlue.g, b: colorDarkBlue.b, duration: 1.5, delay: 0.5 });
+  gsap.to(matRoof.color, { r: colorLime.r, g: colorLime.g, b: colorLime.b, duration: 1.5, delay: 0.5 });
+  gsap.to(matGlass.color, { r: colorCyan.r, g: colorCyan.g, b: colorCyan.b, duration: 1.5, delay: 0.5 });
+  gsap.to(matGlass.emissive, { r: colorCyan.r, g: colorCyan.g, b: colorCyan.b, duration: 1.5, delay: 0.5, emissiveIntensity: 1 });
+  gsap.to(matPin.color, { r: colorCyan.r, g: colorCyan.g, b: colorCyan.b, duration: 1.5, delay: 0.5 });
+  
+  setTimeout(() => {
+    isRanked = true;
+    statusEl.innerText = "STATUS: RANKED #1 (DOMINATING)";
+    statusEl.style.color = "#b8ff57";
+    
+    document.getElementById('ui-pulse').style.background = "#b8ff57";
+    document.getElementById('ui-pulse').style.boxShadow = "0 0 10px #b8ff57";
+    
+    // Show Hologram
+    const holo = document.getElementById('rank-hologram');
+    holo.style.opacity = 1;
+    
+    // Start customer flood
+    setInterval(spawnCustomer, 700);
+    for(let i=0; i<3; i++) setTimeout(spawnCustomer, i*150);
+  }, 2000);
+}
+
+// Animation Loop
+function animate() {
+  requestAnimationFrame(animate);
+  
+  storeGroup.position.y = Math.sin(Date.now() * 0.002) * 0.2;
+  
+  // Radar Sweep
+  if (isRanked) {
+    radarPulse.scale.x += 0.4;
+    radarPulse.scale.y += 0.4;
+    radarMat.opacity -= 0.01;
+    if (radarPulse.scale.x > 50) {
+      radarPulse.scale.set(0.1, 0.1, 1);
+      radarMat.opacity = 0.5;
+    }
+  }
+  
+  // Hologram Sync
+  const holoPos = to2D(new THREE.Vector3(0, storeGroup.position.y + 6.0, 0));
+  const holo = document.getElementById('rank-hologram');
+  holo.style.left = holoPos.x + 'px';
+  holo.style.top = holoPos.y + 'px';
+  
+  // Customer Animation
+  for (let i = activeCustomers.length - 1; i >= 0; i--) {
+    let c = activeCustomers[i];
+    c.progress += c.speed;
+    
+    if (c.progress >= 1.0) {
+      // Hit Store!
+      scene.remove(c.orb);
+      scene.remove(c.line);
+      c.label.remove();
+      
+      const hitPos = to2D(c.end.clone().add(new THREE.Vector3(0,1,0)));
+      spawnMonetaryBadge(hitPos);
+      
+      activeCustomers.splice(i, 1);
+    } else {
+      // Interpolate
+      c.orb.position.lerpVectors(c.start, c.end, c.progress);
+      // Sync label
+      const orb2D = to2D(c.orb.position.clone().add(new THREE.Vector3(0, 0.8, 0)));
+      c.label.style.left = orb2D.x + 'px';
+      c.label.style.top = orb2D.y + 'px';
+    }
+  }
+  
+  // Camera slowly orbits
+  const time = Date.now() * 0.0001;
+  camera.position.x = Math.sin(time) * 30;
+  camera.position.z = Math.cos(time) * 30;
+  camera.lookAt(0, 0, 0);
+  
+  renderer.render(scene, camera);
+}
+
+// Handle Resize
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+animate();
+
+</script>
+</body>
+</html>
