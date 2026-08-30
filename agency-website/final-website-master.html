@@ -1951,7 +1951,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 }
 
   
-  #audit-canvas { position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:1; }
+  #audit-canvas { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; }
   
   .radar-vignette { position:fixed; inset:0; background:radial-gradient(circle at center, transparent 30%, rgba(2, 20, 10, 0.7) 80%, #000502 100%); z-index:2; pointer-events:none; }
   
@@ -2549,7 +2549,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 <!-- ═══════════════════════════════════════════════════════════
      STAGE 6: PHASE 3 INTERACTIVE GEO-GRID RADAR 
      ═══════════════════════════════════════════════════════════ -->
-<section id="phase3-radar-container" style="position:relative; width:100%; min-height:100vh; overflow:hidden; border-top:1px solid rgba(0,255,102,0.15);">
+<section id="phase3-radar-container" style="position:relative; width:100%; min-height:100vh; overflow:hidden; border-top:1px solid rgba(0,255,102,0.15); background:#010a05; z-index:30;">
   <canvas id="audit-canvas"></canvas>
 <!-- BULLETPROOF HTML OVERLAY FOR SVG LOGO -->
 <img id="center-logo-html" src="../assets/logos/mbm-icon.svg" style="position:fixed; top:50%; left:50%; width:100px; height:100px; transform:translate(-50%, -50%); z-index:10; pointer-events:none; filter: drop-shadow(0 0 15px rgba(0,255,102,0.6));">
@@ -2805,6 +2805,7 @@ const customerMat = new THREE.SpriteMaterial({ map: customerTex, transparent: tr
 
 // Customer Avatar Pool (Clean & Calm Pacing: 8 Units)
 const customerGroup = new THREE.Group();
+customerGroup.visible = false;
 scene.add(customerGroup);
 
 const floatingPurchasesGroup = new THREE.Group();
@@ -3116,6 +3117,7 @@ function triggerSeamlessIntro() {
     onComplete: () => {
       isInHeroMode = true;
       isHeroPurchasesEnabled = true;
+      customerGroup.visible = true;
     }
   }, 2.4);
 
