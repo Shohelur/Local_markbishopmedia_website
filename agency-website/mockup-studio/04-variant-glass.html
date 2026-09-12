@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 4: Flawless Glass Hologram (Perfected)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Three.js Core -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<style>
+  :root {
+    --cyan: #00ffcc;
+    --cyan-glow: rgba(0, 255, 204, 0.8);
+    --bg-dark: #010a0f;
+  }
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background-color: var(--bg-dark);
+    /* Vibrant Space Nebula Background matching the AI Image */
+    background-image: 
+      radial-gradient(circle at 70% 20%, rgba(0, 255, 204, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 30% 80%, rgba(0, 150, 255, 0.15) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 50%, rgba(2, 20, 30, 0.8) 0%, var(--bg-dark) 100%);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    overflow-x: hidden;
+  }
+
+  /* Deep Space Stars */
+  .stars {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
+  }
+  .stars::after {
+    content: ''; position: absolute; width: 2px; height: 2px; background: transparent;
+    box-shadow: 
+      10vw 20vh #fff, 30vw 10vh #fff, 50vw 30vh #fff, 70vw 15vh #fff, 90vw 25vh #fff,
+      15vw 60vh #fff, 35vw 80vh #fff, 55vw 70vh #fff, 75vw 85vh #fff, 95vw 65vh #fff,
+      25vw 45vh rgba(0,255,204,0.5), 65vw 55vh rgba(0,255,204,0.5), 85vw 45vh rgba(0,255,204,0.5);
+    opacity: 0.5; border-radius: 50%;
+  }
+
+  /* Layout */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    max-width: 1300px;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    perspective: 2500px;
+  }
+
+  /* =========================================
+     THE PERFECTED GLASS CARD
+     ========================================= */
+  .glass-card {
+    /* Highly translucent frosted glass */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%);
+    backdrop-filter: blur(40px) saturate(140%);
+    -webkit-backdrop-filter: blur(40px) saturate(140%);
+    
+    border-radius: 24px;
+    height: 520px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    text-align: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    
+    /* Complex Borders replicating the AI image */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.6); /* Top highlight */
+    border-bottom: 1px solid rgba(0, 255, 204, 0.5); /* Bottom cyan edge */
+    
+    /* Shadow Depth & Inner Glow */
+    box-shadow: 
+      0 40px 80px rgba(0,0,0,0.8), /* Deep drop shadow */
+      inset 0 1px 0 rgba(255,255,255,0.4), /* Inner top rim light */
+      inset 0 -60px 100px rgba(0, 255, 204, 0.15); /* Massive cyan glow from bottom */
+    
+    transform-style: preserve-3d;
+  }
+
+  /* Bottom Cyan Base Glow (Outside the card) */
+  .card-glow-base {
+    position: absolute;
+    bottom: -20px; left: 10%; right: 10%;
+    height: 20px;
+    background: var(--cyan);
+    filter: blur(30px);
+    opacity: 0.5;
+    z-index: 1;
+    transition: opacity 0.4s;
+  }
+  .glass-card:hover .card-glow-base { opacity: 0.8; }
+  .glass-card:hover { transform: translateY(-12px) scale3d(1.02, 1.02, 1.02); }
+
+  /* Hologram Canvas Container (Top 50%) */
+  .hologram-container {
+    width: 100%;
+    height: 240px;
+    position: relative;
+    margin-bottom: 30px;
+    transform: translateZ(30px); /* Pops out slightly */
+  }
+  
+  canvas.hologram-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    outline: none;
+    pointer-events: none;
+  }
+
+  /* Typography */
+  .card-title {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    transform: translateZ(20px);
+  }
+
+  .card-desc {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: auto;
+    transform: translateZ(15px);
+  }
+
+  /* The Cyan Button */
+  .card-btn {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-top: 20px;
+    padding: 10px 0;
+    transition: all 0.3s;
+    text-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
+    transform: translateZ(25px);
+  }
+
+  @media (max-width: 1200px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 768px) { .bento-grid { grid-template-columns: 1fr; } }
+
+</style>
+</head>
+<body>
+
+  <div class="stars"></div>
+
+  <div class="bento-grid">
+    
+    <!-- Card 1 -->
+    <div class="glass-card">
+      <div class="card-glow-base"></div>
+      <div class="hologram-container"><canvas id="holo-1" class="hologram-canvas"></canvas></div>
+      <div class="card-title">SPATIAL EXPLORER</div>
+      <div class="card-desc">Discover immersive worlds and locations globally.<br><br>Navigate with unparalleled clarity.</div>
+      <div class="card-btn">[ LEARN MORE ]</div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="glass-card">
+      <div class="card-glow-base"></div>
+      <div class="hologram-container"><canvas id="holo-2" class="hologram-canvas"></canvas></div>
+      <div class="card-title">GLOBAL SYNC</div>
+      <div class="card-desc">Connect seamlessly across dimensions and devices.<br><br>Real-time global connectivity.</div>
+      <div class="card-btn">[ CONNECT ]</div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="glass-card">
+      <div class="card-glow-base"></div>
+      <div class="hologram-container"><canvas id="holo-3" class="hologram-canvas"></canvas></div>
+      <div class="card-title">CREATIVE SPARK</div>
+      <div class="card-desc">Unleash imagination in the spatial canvas.<br><br>Create interactive experiences.</div>
+      <div class="card-btn">[ EXPLORE ]</div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="glass-card">
+      <div class="card-glow-base"></div>
+      <div class="hologram-container"><canvas id="holo-4" class="hologram-canvas"></canvas></div>
+      <div class="card-title">NETWORK MATRIX</div>
+      <div class="card-desc">Harness secure, resilient data networks.<br><br>Decentralized data infrastructure.</div>
+      <div class="card-btn">[ INTEGRATE ]</div>
+    </div>
+
+  </div>
+
+  <script>
+    // ========================================================
+    // PERFECTIONIST 3D HOLOGRAM SYSTEM (Mimicking the AI Image)
+    // ========================================================
+    const CYAN = 0x00ffcc;
+    const CYAN_GLOW = 0x00aaff;
+    
+    // Dynamic Glow Texture Generator (Fake Bloom)
+    function createGlowTexture() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 128; canvas.height = 128;
+      const ctx = canvas.getContext('2d');
+      const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+      grad.addColorStop(0, 'rgba(0, 255, 204, 1)');
+      grad.addColorStop(0.2, 'rgba(0, 255, 204, 0.8)');
+      grad.addColorStop(0.5, 'rgba(0, 255, 204, 0.3)');
+      grad.addColorStop(1, 'rgba(0, 255, 204, 0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0,0,128,128);
+      return new THREE.CanvasTexture(canvas);
+    }
+    const glowTex = createGlowTexture();
+    const glowSpriteMat = new THREE.SpriteMaterial({ map: glowTex, color: 0xffffff, blending: THREE.AdditiveBlending, transparent: true, opacity: 0.8 });
+
+    // Materials
+    const lineMat = new THREE.LineBasicMaterial({ color: CYAN, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending });
+    const lineFaintMat = new THREE.LineBasicMaterial({ color: CYAN, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
+    const solidMat = new THREE.MeshBasicMaterial({ color: 0x002233, transparent: true, opacity: 0.8 });
+
+    function initScene(canvasId) {
+      const canvas = document.getElementById(canvasId);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+      camera.position.z = 7;
+      
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      return { scene, camera, renderer };
+    }
+
+    // --------------------------------------------------------
+    // Hologram 1: Spatial Explorer (Map Pin + Platform)
+    // --------------------------------------------------------
+    const h1 = initScene('holo-1');
+    const g1 = new THREE.Group();
+    
+    // Base glowing platform
+    const platformGeo = new THREE.PlaneGeometry(5, 5, 10, 10);
+    const platform = new THREE.LineSegments(new THREE.WireframeGeometry(platformGeo), lineFaintMat);
+    platform.rotation.x = Math.PI / 2.2;
+    platform.position.y = -1.5;
+    g1.add(platform);
+
+    const platformGlow = new THREE.Sprite(glowSpriteMat);
+    platformGlow.scale.set(6, 2, 1);
+    platformGlow.position.y = -1.5;
+    g1.add(platformGlow);
+
+    // The Pin
+    const pinGroup = new THREE.Group();
+    // Inner solid
+    const pinSolid = new THREE.Mesh(new THREE.ConeGeometry(0.8, 1.8, 16), solidMat);
+    // Outer wireframe
+    const pinWire = new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.ConeGeometry(0.82, 1.82, 16)), lineMat);
+    pinGroup.add(pinSolid); pinGroup.add(pinWire);
+    
+    // Pin Sphere top
+    const sphereSolid = new THREE.Mesh(new THREE.SphereGeometry(0.8, 16, 16), solidMat);
+    const sphereWire = new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.SphereGeometry(0.82, 16, 16)), lineMat);
+    sphereSolid.position.y = 0.9; sphereWire.position.y = 0.9;
+    pinGroup.add(sphereSolid); pinGroup.add(sphereWire);
+
+    // Pin Core Glow
+    const pinGlow = new THREE.Sprite(glowSpriteMat);
+    pinGlow.scale.set(3, 4, 1);
+    pinGlow.position.y = 0.5;
+    pinGroup.add(pinGlow);
+
+    pinGroup.rotation.x = Math.PI; // point down
+    pinGroup.position.y = 0.8;
+    g1.add(pinGroup);
+    h1.scene.add(g1);
+
+    // --------------------------------------------------------
+    // Hologram 2: Global Sync (Earth Globe + Orbits + Satellites)
+    // --------------------------------------------------------
+    const h2 = initScene('holo-2');
+    const g2 = new THREE.Group();
+
+    // Globe
+    const globeSolid = new THREE.Mesh(new THREE.IcosahedronGeometry(1.5, 3), solidMat);
+    const globeWire = new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(1.52, 3)), lineMat);
+    g2.add(globeSolid); g2.add(globeWire);
+
+    // Core Glow
+    const globeGlow = new THREE.Sprite(glowSpriteMat);
+    globeGlow.scale.set(4, 4, 1);
+    g2.add(globeGlow);
+
+    // Orbital Rings
+    const orbits = new THREE.Group();
+    for(let i=0; i<3; i++) {
+      const ringGeo = new THREE.RingGeometry(2 + (i*0.3), 2.02 + (i*0.3), 64);
+      const ringMat = new THREE.MeshBasicMaterial({ color: CYAN, side: THREE.DoubleSide, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending });
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.rotation.x = Math.random() * Math.PI;
+      ring.rotation.y = Math.random() * Math.PI;
+      
+      // Add a satellite node on the ring
+      const sat = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), new THREE.MeshBasicMaterial({color: 0xffffff}));
+      sat.position.x = 2 + (i*0.3);
+      ring.add(sat);
+      
+      orbits.add(ring);
+    }
+    g2.add(orbits);
+    h2.scene.add(g2);
+
+    // --------------------------------------------------------
+    // Hologram 3: Creative Spark (Intricate Star / Hexagon)
+    // --------------------------------------------------------
+    const h3 = initScene('holo-3');
+    const g3 = new THREE.Group();
+
+    // The Star Frame
+    const starGeo = new THREE.OctahedronGeometry(1.8, 0);
+    const starWire = new THREE.LineSegments(new THREE.WireframeGeometry(starGeo), new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending }));
+    g3.add(starWire);
+
+    // Inner Core Geometry
+    const coreGeo = new THREE.IcosahedronGeometry(0.8, 1);
+    const coreWire = new THREE.LineSegments(new THREE.WireframeGeometry(coreGeo), lineMat);
+    g3.add(coreWire);
+
+    // Star Glow
+    const starGlow = new THREE.Sprite(glowSpriteMat);
+    starGlow.scale.set(5, 5, 1);
+    g3.add(starGlow);
+
+    // Swirling Particles
+    const pGeo = new THREE.BufferGeometry();
+    const pPos = new Float32Array(200 * 3);
+    for(let i=0; i<600; i++) { pPos[i] = (Math.random()-0.5)*5; }
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+    const pMat = new THREE.PointsMaterial({ color: CYAN, size: 0.05, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
+    const pMesh = new THREE.Points(pGeo, pMat);
+    g3.add(pMesh);
+
+    h3.scene.add(g3);
+
+    // --------------------------------------------------------
+    // Hologram 4: Network Matrix (Complex Data Nodes)
+    // --------------------------------------------------------
+    const h4 = initScene('holo-4');
+    const g4 = new THREE.Group();
+
+    const nodes = [];
+    for(let i=0; i<15; i++) {
+      const node = new THREE.Mesh(new THREE.SphereGeometry(0.12, 8, 8), new THREE.MeshBasicMaterial({color: 0xffffff}));
+      node.position.set((Math.random()-0.5)*4, (Math.random()-0.5)*4, (Math.random()-0.5)*4);
+      g4.add(node);
+      nodes.push(node);
+      
+      // Node Glow
+      const nGlow = new THREE.Sprite(glowSpriteMat);
+      nGlow.scale.set(0.8, 0.8, 1);
+      node.add(nGlow);
+    }
+
+    // Connect them
+    nodes.forEach((n1, i) => {
+      nodes.forEach((n2, j) => {
+        if(i < j && n1.position.distanceTo(n2.position) < 2.5) {
+          const lGeo = new THREE.BufferGeometry().setFromPoints([n1.position, n2.position]);
+          const line = new THREE.Line(lGeo, lineFaintMat);
+          g4.add(line);
+        }
+      });
+    });
+
+    // Central massive glow
+    const netGlow = new THREE.Sprite(glowSpriteMat);
+    netGlow.scale.set(4, 4, 1);
+    g4.add(netGlow);
+
+    h4.scene.add(g4);
+
+    // ========================================================
+    // ANIMATION & PARALLAX
+    // ========================================================
+    const clock = new THREE.Clock();
+    
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+
+      // Anim 1: Pin bobs and rotates
+      pinGroup.position.y = 0.8 + Math.sin(t*2)*0.15;
+      pinGroup.rotation.y = t * 0.8;
+      g1.rotation.y = Math.sin(t*0.5)*0.2;
+      h1.renderer.render(h1.scene, h1.camera);
+
+      // Anim 2: Globe rotates, orbits spin
+      globeSolid.rotation.y = t * 0.2; globeWire.rotation.y = t * 0.2;
+      orbits.rotation.x = t * 0.1; orbits.rotation.y = t * 0.3;
+      h2.renderer.render(h2.scene, h2.camera);
+
+      // Anim 3: Star pulses and particles swirl
+      g3.rotation.y = t * 0.4;
+      g3.rotation.z = Math.sin(t*0.5)*0.3;
+      pMesh.rotation.y = t * 0.2;
+      h3.renderer.render(h3.scene, h3.camera);
+
+      // Anim 4: Network rotates slowly
+      g4.rotation.y = t * 0.15;
+      g4.rotation.x = Math.sin(t*0.2)*0.2;
+      h4.renderer.render(h4.scene, h4.camera);
+    }
+    animate();
+
+    // Responsive Resizing
+    window.addEventListener('resize', () => {
+      [h1, h2, h3, h4].forEach(h => {
+        const c = h.renderer.domElement;
+        const w = c.parentElement;
+        h.camera.aspect = w.clientWidth / w.clientHeight;
+        h.camera.updateProjectionMatrix();
+        h.renderer.setSize(w.clientWidth, w.clientHeight);
+      });
+    });
+
+  </script>
+</body>
+</html>

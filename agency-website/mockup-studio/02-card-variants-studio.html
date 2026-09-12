@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Phase 4 Card Variants Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    body {
+      background: #020205;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 50px 20px;
+      overflow-x: hidden;
+    }
+    .variant-section {
+      margin-bottom: 100px;
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      background: rgba(20,20,25,0.4);
+    }
+    .variant-title {
+      font-size: 24px;
+      margin-bottom: 30px;
+      color: #00d4ff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+    .cards-grid {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    /* ==============================================================
+       VARIANT 1: PURE CSS VERCEL/APPLE PREMIUM (No Three.js)
+       ============================================================== */
+    .v1-card {
+      width: 280px;
+      height: 400px;
+      background: linear-gradient(180deg, rgba(25,25,30,0.8) 0%, rgba(5,5,10,0.9) 100%);
+      border-radius: 24px;
+      position: relative;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .v1-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 25px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, var(--glow-color) 100%);
+      z-index: -1;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+    }
+    .v1-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.2), 0 0 40px var(--glow-color);
+    }
+    .v1-card:hover::before {
+      opacity: 1;
+    }
+    .v1-icon-box {
+      width: 140px;
+      height: 140px;
+      margin-top: 20px;
+      margin-bottom: 40px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .v1-icon-glow {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: var(--glow-color);
+      filter: blur(40px);
+      opacity: 0.2;
+      border-radius: 50%;
+      transition: opacity 0.3s ease;
+    }
+    .v1-card:hover .v1-icon-glow { opacity: 0.5; }
+    .v1-icon {
+      font-size: 60px;
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 0 15px var(--glow-color));
+    }
+    .v1-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; letter-spacing: 1px; }
+    .v1-desc { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+    /* ==============================================================
+       VARIANT 2: HYPER-MINIMAL THREE.JS (Clean Metals, No Wireframes)
+       ============================================================== */
+    .v2-card {
+      width: 280px;
+      height: 400px;
+      background: rgba(10,10,12,0.9);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .v2-card:hover {
+      border-color: rgba(255,255,255,0.2);
+    }
+    .v2-canvas-container {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 20px;
+    }
+    .v2-img-container {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .v2-holo-image {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      animation: floatHolo 6s ease-in-out infinite;
+    }
+    @keyframes floatHolo {
+      0% { transform: translate(-50%, -47%); }
+      50% { transform: translate(-50%, -53%); }
+      100% { transform: translate(-50%, -47%); }
+    }
+    .v2-title { font-size: 15px; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; }
+    .v2-desc { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+    /* ==============================================================
+       VARIANT 3: 3D PARALLAX GLASS (Mouse Move Tilt effect)
+       ============================================================== */
+    .v3-card {
+      width: 280px;
+      height: 400px;
+      position: relative;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+    .v3-card-inner {
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.1s;
+      transform-style: preserve-3d;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .v3-icon {
+      font-size: 80px;
+      margin: 40px 0;
+      transform: translateZ(50px);
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+    }
+    .v3-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      transform: translateZ(30px);
+      color: var(--glow-color);
+    }
+    .v3-desc {
+      font-size: 13px;
+      color: #aaa;
+      transform: translateZ(20px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- VARIANT 1: PURE CSS PREMIUM -->
+  <div class="variant-section">
+    <div class="variant-title">Variant 1: Pure CSS "Apple/Vercel" Premium (No 3D Engine)</div>
+    <div class="cards-grid">
+      <div class="v1-card" style="--glow-color: #00d4ff;">
+        <div class="v1-icon-box">
+          <div class="v1-icon-glow"></div>
+          <div class="v1-icon">📍</div>
+        </div>
+        <div class="v1-title">GOOGLE MAPS TOP 3</div>
+        <div class="v1-desc">Outrank local competitors in the 9-mile radius.</div>
+      </div>
+      
+      <div class="v1-card" style="--glow-color: #ffd700;">
+        <div class="v1-icon-box">
+          <div class="v1-icon-glow"></div>
+          <div class="v1-icon">⭐</div>
+        </div>
+        <div class="v1-title">5-STAR REVIEWS</div>
+        <div class="v1-desc">Automated reputation capture system.</div>
+      </div>
+
+      <div class="v1-card" style="--glow-color: #b8ff57;">
+        <div class="v1-icon-box">
+          <div class="v1-icon-glow"></div>
+          <div class="v1-icon">🌐</div>
+        </div>
+        <div class="v1-title">100+ CITATIONS</div>
+        <div class="v1-desc">Instant NAP sync across premium directories.</div>
+      </div>
+      
+      <div class="v1-card" style="--glow-color: #bd00ff;">
+        <div class="v1-icon-box">
+          <div class="v1-icon-glow"></div>
+          <div class="v1-icon">💻</div>
+        </div>
+        <div class="v1-title">3D WEBSITE</div>
+        <div class="v1-desc">High-converting digital storefronts.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VARIANT 2: HYPER-MINIMAL THREE.JS -->
+  <div class="variant-section">
+    <div class="variant-title">Variant 2: Clean Minimalist Three.js (Solid Metals)</div>
+    <div class="cards-grid">
+      <div class="v2-card">
+        <div class="v2-img-container"><img src="../assets/icons/icon_maps_transparent.png" class="v2-holo-image"></div>
+        <div class="v2-title" style="color: #00d4ff;">Google Maps Top 3</div>
+        <div class="v2-desc">Outrank local competitors in the 9-mile radius.</div>
+      </div>
+      <div class="v2-card">
+        <div class="v2-img-container"><img src="../assets/icons/icon_reviews.png" class="v2-holo-image"></div>
+        <div class="v2-title" style="color: #ffd700;">5-Star Reviews</div>
+        <div class="v2-desc">Automated reputation capture system.</div>
+      </div>
+      <div class="v2-card">
+        <div class="v2-img-container"><img src="../assets/icons/icon_citations.png" class="v2-holo-image"></div>
+        <div class="v2-title" style="color: #b8ff57;">100+ Citations</div>
+        <div class="v2-desc">Instant NAP sync across premium directories.</div>
+      </div>
+      <div class="v2-card">
+        <div class="v2-img-container"><img src="../assets/icons/icon_website.png" class="v2-holo-image"></div>
+        <div class="v2-title" style="color: #bd00ff;">3D Website</div>
+        <div class="v2-desc">High-converting digital storefronts.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VARIANT 3: PARALLAX 3D TILT GLASS -->
+  <div class="variant-section">
+    <div class="variant-title">Variant 3: Interactive Parallax CSS Glass</div>
+    <div class="cards-grid">
+      
+      <div class="v3-card tilt-card">
+        <div class="v3-card-inner" style="--glow-color: #00d4ff;">
+          <div class="v3-icon">🎯</div>
+          <div class="v3-title">GOOGLE MAPS TOP 3</div>
+          <div class="v3-desc">Outrank local competitors in the 9-mile radius.</div>
+        </div>
+      </div>
+      
+      <div class="v3-card tilt-card">
+        <div class="v3-card-inner" style="--glow-color: #ffd700;">
+          <div class="v3-icon">🌟</div>
+          <div class="v3-title">5-STAR REVIEWS</div>
+          <div class="v3-desc">Automated reputation capture system.</div>
+        </div>
+      </div>
+
+      <div class="v3-card tilt-card">
+        <div class="v3-card-inner" style="--glow-color: #b8ff57;">
+          <div class="v3-icon">🔗</div>
+          <div class="v3-title">100+ CITATIONS</div>
+          <div class="v3-desc">Instant NAP sync across premium directories.</div>
+        </div>
+      </div>
+      
+      <div class="v3-card tilt-card">
+        <div class="v3-card-inner" style="--glow-color: #bd00ff;">
+          <div class="v3-icon">📱</div>
+          <div class="v3-title">3D WEBSITE</div>
+          <div class="v3-desc">High-converting digital storefronts.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // VARIANT 2: THREE.JS INIT
+    // ==========================================
+    function initV2() {
+      const cards = document.querySelectorAll('.v2-card');
+      cards.forEach(card => {
+        const img = card.querySelector('.v2-holo-image');
+        
+        card.style.perspective = '1000px';
+        card.style.transformStyle = 'preserve-3d';
+        card.style.transition = 'transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1)';
+        
+        if(img) img.style.transition = 'transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1)';
+
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = ((y - centerY) / centerY) * -12;
+          const rotateY = ((x - centerX) / centerX) * 12;
+          
+          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+          
+          if(img) {
+            const imgX = ((x - centerX) / centerX) * -10;
+            const imgY = ((y - centerY) / centerY) * -10;
+            img.style.transform = `translate(calc(-50% + ${imgX}px), calc(-50% + ${imgY}px)) translateZ(60px) scale(1.05)`;
+          }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+          if(img) img.style.transform = 'translate(-50%, -50%) translateZ(40px) scale(1)';
+        });
+      });
+    }
+    window.addEventListener('load', initV2);
+
+    // ==========================================
+    // VARIANT 3: PARALLAX TILT LOGIC
+    // ==========================================
+    const tiltCards = document.querySelectorAll('.tilt-card');
+    tiltCards.forEach(card => {
+      const inner = card.querySelector('.v3-card-inner');
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -15;
+        const rotateY = ((x - centerX) / centerX) * 15;
+        inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        inner.style.transform = `rotateX(0deg) rotateY(0deg)`;
+      });
+    });
+  </script>
+</body>
+</html>

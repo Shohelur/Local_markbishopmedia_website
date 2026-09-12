@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase 4: Cinematic GSAP Scrollytelling</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    :root {
+      --cyan: #00ffcc;
+      --cyan-glow: rgba(0, 255, 204, 0.8);
+      --bg-dark: #010a0f;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 70% 20%, rgba(0, 255, 204, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 30% 80%, rgba(0, 150, 255, 0.15) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 50%, rgba(2, 20, 30, 0.8) 0%, var(--bg-dark) 100%);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .stars::after {
+      content: ''; position: absolute; width: 2px; height: 2px; background: transparent;
+      box-shadow: 10vw 20vh #fff, 30vw 10vh #fff, 50vw 30vh #fff, 70vw 15vh #fff, 90vw 25vh #fff, 15vw 60vh #fff, 35vw 80vh #fff, 55vw 70vh #fff, 75vw 85vh #fff, 95vw 65vh #fff, 25vw 45vh rgba(0,255,204,0.5), 65vw 55vh rgba(0,255,204,0.5), 85vw 45vh rgba(0,255,204,0.5); opacity: 0.5; border-radius: 50%;
+    }
+
+    /* SCROLLYTELLING MASTER CONTAINER */
+    .pin-master {
+      position: relative;
+      width: 100%;
+      height: 100vh; /* GSAP will add the scroll space via pin-spacer */
+      z-index: 10;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 1. INTRO BLOCK */
+    .intro-block {
+      text-align: center; max-width: 800px; position: absolute; top: 15vh;
+      left: 50%; transform: translateX(-50%);
+      will-change: transform, opacity;
+    }
+    .kicker { font-size: 14px; font-weight: 700; color: var(--cyan); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; display: block; }
+    .main-title { font-size: 32px; font-weight: 700; margin-bottom: 24px; line-height: 1.2; text-transform: uppercase; letter-spacing: 1px; }
+    .intro-text { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.6; font-weight: 400; }
+
+    /* 2. THE CARDS WRAPPER */
+    .cards-wrapper {
+      position: absolute;
+      top: 40vh; /* slightly higher */
+      width: 100%;
+      max-width: 1300px;
+      padding: 0 20px;
+      left: 50%; transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      z-index: 20;
+    }
+
+    .glass-card {
+      flex: 1;
+      max-width: 280px; 
+      height: 480px; 
+      position: relative;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%);
+      backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border-radius: 24px;
+      display: flex; flex-direction: column; align-items: center; padding: 30px 20px; text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.3); border-top: 1.5px solid rgba(255, 255, 255, 0.6); border-bottom: 1px solid rgba(0, 255, 204, 0.5);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -60px 100px rgba(0, 255, 204, 0.15);
+      will-change: transform, opacity;
+    }
+    
+    /* Card internal elements to fade out during animation */
+    .card-ui { transition: opacity 0.3s; will-change: opacity; }
+    
+    .card-glow-base { position: absolute; bottom: -20px; left: 10%; right: 10%; height: 20px; background: var(--cyan); filter: blur(30px); opacity: 0.5; z-index: 1; }
+    
+    /* The core 3D object that survives the morph */
+    .hologram-container { width: 100%; height: 220px; position: relative; margin-bottom: 30px; pointer-events: none; will-change: transform; }
+    canvas.hologram-canvas { position: absolute; inset: 0; width: 100%; height: 100%; outline: none; pointer-events: none; }
+
+    .card-title { font-size: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #fff; margin-bottom: 16px; }
+    .card-desc { font-size: 13px; font-weight: 400; line-height: 1.5; color: rgba(255, 255, 255, 0.7); margin-bottom: auto; }
+
+    /* 3. DETAIL TEXT PANELS (Hidden initially) */
+    .detail-text-panel {
+      position: absolute;
+      top: 25vh;
+      width: 45vw;
+      opacity: 0;
+      visibility: hidden;
+      will-change: transform, opacity;
+    }
+    .detail-text-panel.left { left: 10vw; }
+    .detail-text-panel.right { right: 10vw; text-align: left; }
+    
+    .detail-title { font-size: 48px; font-weight: 700; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1px; background: linear-gradient(to right, #ffffff, var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; padding-bottom: 5px; line-height: 1.1; }
+    .detail-desc { font-size: 18px; color: rgba(255,255,255,0.8); line-height: 1.7; font-weight: 400; margin-bottom: 40px; }
+    
+    .feature-list { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+    .feature-item { background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid rgba(255,255,255,0.05); border-left: 2px solid var(--cyan); border-radius: 12px; padding: 20px; }
+    .feature-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+    .feature-title::before { content: '✦'; color: var(--cyan); font-size: 12px; }
+    .feature-desc { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+    
+    .scroll-hint { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); font-size: 12px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 2px; animation: bounce 2s infinite; pointer-events: none; }
+    @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); } 40% { transform: translateY(-10px) translateX(-50%); } 60% { transform: translateY(-5px) translateX(-50%); } }
+
+    /* Spacer for end of page */
+    .bottom-spacer { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; border-top: 1px solid rgba(255,255,255,0.1); }
+    .cta-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 18px 40px; color: #000; background: var(--cyan); border-radius: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; transition: all 0.3s; }
+
+  </style>
+</head>
+<body>
+
+  <div class="stars"></div>
+
+  <!-- THE CINEMATIC SCROLL MASTER -->
+  <section class="pin-master" id="pin-master">
+      
+      <!-- Intro Text -->
+      <div class="intro-block" id="intro-text">
+        <span class="kicker">The 4 Engines of Local Growth</span>
+        <h1 class="main-title">Your local visibility is not controlled by one thing.</h1>
+        <p class="intro-text">Google Maps, customer reviews, business listings, and your website all work together to determine how easily local customers discover, trust, and contact your business. Scroll down to see the engines in action.</p>
+      </div>
+
+      <!-- The Cards -->
+      <div class="cards-wrapper">
+        <div class="glass-card" id="card-maps">
+          <div class="card-glow-base card-ui"></div>
+          <div class="hologram-container" id="holo-container-maps"><canvas id="holo-maps" class="hologram-canvas"></canvas></div>
+          <div class="card-title card-ui">Google Maps</div>
+          <div class="card-desc card-ui">Optimize the signals that influence your visibility.</div>
+        </div>
+        
+        <div class="glass-card" id="card-reviews">
+          <div class="card-glow-base card-ui"></div>
+          <div class="hologram-container" id="holo-container-reviews"><canvas id="holo-reviews" class="hologram-canvas"></canvas></div>
+          <div class="card-title card-ui">Reviews</div>
+          <div class="card-desc card-ui">Turn great customer experiences into trust.</div>
+        </div>
+
+        <div class="glass-card" id="card-citations">
+          <div class="card-glow-base card-ui"></div>
+          <div class="hologram-container" id="holo-container-citations"><canvas id="holo-citations" class="hologram-canvas"></canvas></div>
+          <div class="card-title card-ui">Citations</div>
+          <div class="card-desc card-ui">Make your business info consistent.</div>
+        </div>
+
+        <div class="glass-card" id="card-website">
+          <div class="card-glow-base card-ui"></div>
+          <div class="hologram-container" id="holo-container-website"><canvas id="holo-website" class="hologram-canvas"></canvas></div>
+          <div class="card-title card-ui">Website</div>
+          <div class="card-desc card-ui">Turn local traffic into real conversations.</div>
+        </div>
+      </div>
+
+      <!-- Detail Text Panels -->
+      <div class="detail-text-panel left" id="text-maps">
+        <h2 class="detail-title">Google Maps Visibility</h2>
+        <p class="detail-desc">Get found when local customers are ready to buy. We optimize the signals that influence your visibility across Google Maps.</p>
+        <div class="feature-list">
+          <div class="feature-item"><div class="feature-title">Profile Optimization</div><div class="feature-desc">Completeness, categories, services, and core signals.</div></div>
+          <div class="feature-item"><div class="feature-title">Geo-Grid Analysis</div><div class="feature-desc">Understand how visibility changes across your target service area.</div></div>
+        </div>
+      </div>
+
+      <div class="detail-text-panel right" id="text-reviews">
+        <h2 class="detail-title">Review Growth System</h2>
+        <p class="detail-desc">Turn great customer experiences into visible trust. We help create a consistent process for asking customers for feedback.</p>
+        <div class="feature-list">
+          <div class="feature-item"><div class="feature-title">Request Automation</div><div class="feature-desc">Consistent process for requesting feedback after interactions.</div></div>
+          <div class="feature-item"><div class="feature-title">Reputation Monitoring</div><div class="feature-desc">Track activity and changes in customer sentiment.</div></div>
+        </div>
+      </div>
+
+      <div class="detail-text-panel left" id="text-citations">
+        <h2 class="detail-title">Local Listings Sync</h2>
+        <p class="detail-desc">Your business information should be accurate wherever customers search. We strengthen your footprint across directories.</p>
+        <div class="feature-list">
+          <div class="feature-item"><div class="feature-title">NAP Consistency</div><div class="feature-desc">Keep your name, address, and phone aligned everywhere.</div></div>
+          <div class="feature-item"><div class="feature-title">Citation Cleanup</div><div class="feature-desc">Find outdated or duplicate listings that need attention.</div></div>
+        </div>
+      </div>
+
+      <div class="detail-text-panel right" id="text-website">
+        <h2 class="detail-title">High-Converting Website</h2>
+        <p class="detail-desc">Turn local traffic into real conversations. Your website needs to make it easy for visitors to trust your business and take action.</p>
+        <div class="feature-list">
+          <div class="feature-item"><div class="feature-title">Conversion Experience</div><div class="feature-desc">Strong calls to action and friction-free user journeys.</div></div>
+          <div class="feature-item"><div class="feature-title">Service Architecture</div><div class="feature-desc">Clearly communicate what you offer and where you serve.</div></div>
+        </div>
+      </div>
+      
+      <div class="scroll-hint" id="scroll-hint">SCROLL DOWN TO EXPLORE</div>
+  </section>
+
+  <section class="bottom-spacer">
+    <div style="text-align: center;">
+      <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 20px;">Ready to dominate your 9-mile radius?</h2>
+      <a href="#" class="cta-btn">GET YOUR FREE AUDIT</a>
+    </div>
+  </section>
+
+
+  <script>
+    // ========================================================
+    // PERFECTIONIST 3D HOLOGRAM SYSTEM 
+    // ========================================================
+    const CYAN = 0x00ffcc;
+    
+    function createGlowTexture() {
+      const canvas = document.createElement('canvas'); canvas.width = 128; canvas.height = 128;
+      const ctx = canvas.getContext('2d'); const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+      grad.addColorStop(0, 'rgba(0, 255, 204, 1)'); grad.addColorStop(0.2, 'rgba(0, 255, 204, 0.8)'); grad.addColorStop(0.5, 'rgba(0, 255, 204, 0.3)'); grad.addColorStop(1, 'rgba(0, 255, 204, 0)');
+      ctx.fillStyle = grad; ctx.fillRect(0,0,128,128); return new THREE.CanvasTexture(canvas);
+    }
+    const glowTex = createGlowTexture();
+    const glowSpriteMat = new THREE.SpriteMaterial({ map: glowTex, color: 0xffffff, blending: THREE.AdditiveBlending, transparent: true, opacity: 0.8 });
+    const lineMat = new THREE.LineBasicMaterial({ color: CYAN, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending });
+    const lineFaintMat = new THREE.LineBasicMaterial({ color: CYAN, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
+    const solidMat = new THREE.MeshBasicMaterial({ color: 0x002233, transparent: true, opacity: 0.8 });
+
+    const renderersData = [];
+
+    function initScene(canvasId) {
+      const canvas = document.getElementById(canvasId);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+      camera.position.z = 7;
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      const data = { scene, camera, renderer, canvas };
+      renderersData.push(data);
+      return data;
+    }
+
+    const h1 = initScene('holo-maps');
+    const g1 = new THREE.Group();
+    const platform = new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.PlaneGeometry(5, 5, 10, 10)), lineFaintMat); platform.rotation.x = Math.PI / 2.2; platform.position.y = -1.5; g1.add(platform);
+    const pinGroup = new THREE.Group();
+    pinGroup.add(new THREE.Mesh(new THREE.ConeGeometry(0.8, 1.8, 16), solidMat)); pinGroup.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.ConeGeometry(0.82, 1.82, 16)), lineMat));
+    const sph = new THREE.Mesh(new THREE.SphereGeometry(0.8, 16, 16), solidMat); sph.position.y = 0.9; pinGroup.add(sph);
+    const sphW = new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.SphereGeometry(0.82, 16, 16)), lineMat); sphW.position.y = 0.9; pinGroup.add(sphW);
+    pinGroup.rotation.x = Math.PI; pinGroup.position.y = 0.8; g1.add(pinGroup); h1.scene.add(g1);
+
+    const h2 = initScene('holo-reviews');
+    const g2 = new THREE.Group();
+    g2.add(new THREE.Mesh(new THREE.IcosahedronGeometry(1.5, 3), solidMat)); g2.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(1.52, 3)), lineMat));
+    const orbits = new THREE.Group();
+    for(let i=0; i<3; i++) {
+      const ring = new THREE.Mesh(new THREE.RingGeometry(2+(i*0.3), 2.02+(i*0.3), 64), new THREE.MeshBasicMaterial({ color: CYAN, side: THREE.DoubleSide, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending }));
+      ring.rotation.x = Math.random() * Math.PI; ring.rotation.y = Math.random() * Math.PI;
+      const sat = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), new THREE.MeshBasicMaterial({color: 0xffffff})); sat.position.x = 2+(i*0.3); ring.add(sat);
+      orbits.add(ring);
+    }
+    g2.add(orbits); h2.scene.add(g2);
+
+    const h3 = initScene('holo-citations');
+    const g3 = new THREE.Group();
+    g3.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.OctahedronGeometry(1.8, 0)), new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending })));
+    g3.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(0.8, 1)), lineMat));
+    const pGeo = new THREE.BufferGeometry(); const pPos = new Float32Array(200 * 3);
+    for(let i=0; i<600; i++) pPos[i] = (Math.random()-0.5)*5;
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+    const pMesh = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: CYAN, size: 0.05, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending }));
+    g3.add(pMesh); h3.scene.add(g3);
+
+    const h4 = initScene('holo-website');
+    const g4 = new THREE.Group();
+    const nodes = [];
+    for(let i=0; i<15; i++) {
+      const node = new THREE.Mesh(new THREE.SphereGeometry(0.12, 8, 8), new THREE.MeshBasicMaterial({color: 0xffffff}));
+      node.position.set((Math.random()-0.5)*4, (Math.random()-0.5)*4, (Math.random()-0.5)*4);
+      g4.add(node); nodes.push(node);
+    }
+    nodes.forEach((n1, i) => {
+      nodes.forEach((n2, j) => {
+        if(i < j && n1.position.distanceTo(n2.position) < 2.5) g4.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([n1.position, n2.position]), lineFaintMat));
+      });
+    });
+    h4.scene.add(g4);
+
+    const clock = new THREE.Clock(); 
+    let animTime = 0;
+    // Base speed for grid, faster speed when isolated
+    window.holoSpeedMultiplier = 1;
+
+    function animate() {
+      requestAnimationFrame(animate); 
+      animTime += clock.getDelta() * window.holoSpeedMultiplier;
+      
+      pinGroup.position.y = 0.8 + Math.sin(animTime*2)*0.15; pinGroup.rotation.y = animTime * 0.8; g1.rotation.y = Math.sin(animTime*0.5)*0.2; h1.renderer.render(h1.scene, h1.camera);
+      orbits.rotation.x = animTime * 0.1; orbits.rotation.y = animTime * 0.3; h2.renderer.render(h2.scene, h2.camera);
+      g3.rotation.y = animTime * 0.4; g3.rotation.z = Math.sin(animTime*0.5)*0.3; pMesh.rotation.y = animTime * 0.2; h3.renderer.render(h3.scene, h3.camera);
+      g4.rotation.y = animTime * 0.15; g4.rotation.x = Math.sin(animTime*0.2)*0.2; h4.renderer.render(h4.scene, h4.camera);
+    }
+    animate();
+
+
+    // ========================================================
+    // GSAP SCROLLYTELLING LOGIC
+    // ========================================================
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Initial setup: hide text panels
+    gsap.set('.detail-text-panel', { autoAlpha: 0, y: 50 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".pin-master",
+        start: "top top",
+        end: "+=400%", // 4 scroll phases
+        scrub: 1,      // Smooth scrubbing
+        pin: true      // Pin the section
+      }
+    });
+
+    // Helper to estimate responsive translations based on flex positions
+    // Moves it heavily to the left or right side visually
+    const moveRight = "30vw";
+    const moveLeft = "-30vw";
+
+    // --- PHASE 1: GRID TO MAPS ---
+    tl.addLabel("phase1")
+      .to('#intro-text', { autoAlpha: 0, y: -50, duration: 1 }, "phase1")
+      .to('#scroll-hint', { autoAlpha: 0, duration: 0.5 }, "phase1")
+      // Fade out non-active cards (Just .to() prevents immediateRender issues)
+      .to(['#card-reviews', '#card-citations', '#card-website'], { autoAlpha: 0, y: 100, scale: 0.8, duration: 1 }, "phase1")
+      // Animate Maps card to the Right Side
+      .to('#card-maps', { 
+        x: moveRight,
+        y: -150, 
+        duration: 1.5,
+        ease: "power2.inOut"
+      }, "phase1")
+      // Fade out Card UI, leaving only the 3D Hologram
+      .to('#card-maps', { background: 'transparent', border: 'none', boxShadow: 'none', duration: 1 }, "phase1+=0.5")
+      .to('#card-maps .card-ui', { autoAlpha: 0, duration: 0.5 }, "phase1+=0.5")
+      // Scale up the hologram container
+      .to('#holo-container-maps', { scale: 1.8, duration: 1.5 }, "phase1")
+      // Bring in Maps Text (Left Side)
+      .to('#text-maps', { autoAlpha: 1, y: 0, duration: 1 }, "phase1+=0.5");
+
+
+    // --- PHASE 2: MAPS TO REVIEWS ---
+    tl.addLabel("phase2", "+=0.5")
+      .to('#text-maps', { autoAlpha: 0, y: -50, duration: 1 }, "phase2")
+      .to('#card-maps', { autoAlpha: 0, y: -300, duration: 1 }, "phase2")
+      // Pre-set the Reviews Card (bypasses immediateRender bugs of fromTo)
+      .set('#card-reviews', { x: moveLeft, y: 200, background: 'transparent', border: 'none', boxShadow: 'none' }, "phase2")
+      .set('#card-reviews .card-ui', { autoAlpha: 0 }, "phase2")
+      // Animate it in
+      .to('#card-reviews', { autoAlpha: 1, y: -150, duration: 1.5, ease: "power2.inOut" }, "phase2")
+      .to('#holo-container-reviews', { scale: 1.8, duration: 1.5 }, "phase2")
+      .to('#text-reviews', { autoAlpha: 1, y: 0, duration: 1 }, "phase2+=0.5");
+
+
+    // --- PHASE 3: REVIEWS TO CITATIONS ---
+    tl.addLabel("phase3", "+=0.5")
+      .to('#text-reviews', { autoAlpha: 0, y: -50, duration: 1 }, "phase3")
+      .to('#card-reviews', { autoAlpha: 0, y: -300, duration: 1 }, "phase3")
+      // Pre-set Citations Card
+      .set('#card-citations', { x: moveRight, y: 200, background: 'transparent', border: 'none', boxShadow: 'none' }, "phase3")
+      .set('#card-citations .card-ui', { autoAlpha: 0 }, "phase3")
+      // Animate it in
+      .to('#card-citations', { autoAlpha: 1, y: -150, duration: 1.5, ease: "power2.inOut" }, "phase3")
+      .to('#holo-container-citations', { scale: 1.8, duration: 1.5 }, "phase3")
+      .to('#text-citations', { autoAlpha: 1, y: 0, duration: 1 }, "phase3+=0.5");
+
+
+    // --- PHASE 4: CITATIONS TO WEBSITE ---
+    tl.addLabel("phase4", "+=0.5")
+      .to('#text-citations', { autoAlpha: 0, y: -50, duration: 1 }, "phase4")
+      .to('#card-citations', { autoAlpha: 0, y: -300, duration: 1 }, "phase4")
+      // Pre-set Website Card
+      .set('#card-website', { x: moveLeft, y: 200, background: 'transparent', border: 'none', boxShadow: 'none' }, "phase4")
+      .set('#card-website .card-ui', { autoAlpha: 0 }, "phase4")
+      // Animate it in
+      .to('#card-website', { autoAlpha: 1, y: -150, duration: 1.5, ease: "power2.inOut" }, "phase4")
+      .to('#holo-container-website', { scale: 1.8, duration: 1.5 }, "phase4")
+      .to('#text-website', { autoAlpha: 1, y: 0, duration: 1 }, "phase4+=0.5");
+
+    // Add a tiny buffer at the end so it doesn't snap abruptly
+    tl.to({}, {duration: 0.5});
+
+    // Recalculate values on resize to keep it perfectly centered
+    window.addEventListener("resize", () => {
+      ScrollTrigger.refresh();
+    });
+
+  </script>
+</body>
+</html>

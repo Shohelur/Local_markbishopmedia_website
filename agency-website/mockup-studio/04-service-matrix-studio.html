@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 4: Ultra-Modern 3D Bento Matrix</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Three.js for Premium 3D Elements -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #02040a;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    overflow-x: hidden;
+  }
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    max-width: 1400px;
+    width: 100%;
+    perspective: 2000px; /* Essential for 3D Tilt */
+  }
+
+  @media (max-width: 1200px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 768px) { .bento-grid { grid-template-columns: 1fr; } }
+
+  /* Holographic Parallax Card Wrapper */
+  .card-wrapper {
+    position: relative;
+    transform-style: preserve-3d;
+    cursor: pointer;
+  }
+
+  .bento-card {
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 480px;
+    transform-style: preserve-3d;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.1);
+  }
+
+  /* Gorgeous Saturated Base Gradients */
+  .card-map { background: linear-gradient(180deg, #0a1b3f 0%, #060e1d 100%); }
+  .card-citation { background: linear-gradient(180deg, #11331e 0%, #06120a 100%); }
+  .card-review { background: linear-gradient(180deg, #3d2d05 0%, #171102 100%); }
+  .card-link { background: linear-gradient(180deg, #380d15 0%, #140508 100%); }
+
+  /* Film Grain Noise for Glass Realism */
+  .bento-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+    opacity: 0.08;
+    z-index: 1;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  /* Mouse-Tracking Spotlight Overlay */
+  .spotlight {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.1), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .card-wrapper:hover .spotlight { opacity: 1; }
+
+  /* Shimmering Animated Border (Neon Glow Edge) */
+  .glow-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 1.5px;
+    background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), var(--glow-color), transparent 50%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .card-wrapper:hover .glow-border { opacity: 1; }
+
+  /* Content Container (Lifts up on Z-axis) */
+  .card-content {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transform: translateZ(30px); /* Holographic pop */
+  }
+
+  /* Header Area */
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 24px 16px 24px;
+    transform: translateZ(20px);
+  }
+
+  .header-left { display: flex; align-items: center; gap: 12px; }
+  .icon-box {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  .icon-box svg { width: 24px; height: 24px; }
+  
+  .card-title {
+    font-size: 18px; font-weight: 700; color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .arrow-btn {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.5); font-size: 14px;
+    transition: all 0.2s ease;
+  }
+  .card-wrapper:hover .arrow-btn {
+    background: rgba(255,255,255,0.15); color: #fff;
+    transform: translateX(4px);
+  }
+
+  /* Description Text */
+  .card-desc {
+    padding: 0 24px; font-size: 14px; line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 10px;
+    transform: translateZ(10px);
+  }
+
+  /* Cyberpunk Decode Text Class */
+  .cyber-text { font-family: 'JetBrains Mono', monospace; }
+
+  /* Bottom Visual Container (Real 3D Canvas) */
+  .card-visual {
+    flex: 1;
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    background: rgba(0,0,0,0.2);
+    transform: translateZ(5px);
+  }
+
+  canvas.webgl-card {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    outline: none;
+  }
+
+</style>
+</head>
+<body>
+
+  <div class="bento-grid">
+    
+    <!-- Card 1: Map Optimization -->
+    <div class="card-wrapper" style="--glow-color: #00d4ff;">
+      <div class="bento-card card-map">
+        <div class="spotlight"></div>
+        <div class="glow-border"></div>
+        <div class="card-content">
+          <div class="card-header">
+            <div class="header-left">
+              <div class="icon-box" style="color: #00d4ff;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
+              </div>
+              <div class="card-title cyber-text" data-text="Map Optimization">Map Optimization</div>
+            </div>
+            <div class="arrow-btn">❯</div>
+          </div>
+          <div class="card-desc cyber-text" data-text="Manipulate local signals to lock your Business Profile at the #1 Map Pack spot.">
+            Manipulate local signals to lock your Business Profile at the #1 Map Pack spot.
+          </div>
+          <div class="card-visual">
+            <canvas id="canvas-map" class="webgl-card"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Citation Network -->
+    <div class="card-wrapper" style="--glow-color: #b8ff57;">
+      <div class="bento-card card-citation">
+        <div class="spotlight"></div>
+        <div class="glow-border"></div>
+        <div class="card-content">
+          <div class="card-header">
+            <div class="header-left">
+              <div class="icon-box" style="color: #b8ff57;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              </div>
+              <div class="card-title cyber-text" data-text="Citation Network">Citation Network</div>
+            </div>
+            <div class="arrow-btn">❯</div>
+          </div>
+          <div class="card-desc cyber-text" data-text="Sync NAP data across 150+ tier-1 directories for undeniable entity authority.">
+            Sync NAP data across 150+ tier-1 directories for undeniable entity authority.
+          </div>
+          <div class="card-visual">
+            <canvas id="canvas-citation" class="webgl-card"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Review Automation -->
+    <div class="card-wrapper" style="--glow-color: #ffd700;">
+      <div class="bento-card card-review">
+        <div class="spotlight"></div>
+        <div class="glow-border"></div>
+        <div class="card-content">
+          <div class="card-header">
+            <div class="header-left">
+              <div class="icon-box" style="color: #ffd700;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <div class="card-title cyber-text" data-text="Review Automation">Review Automation</div>
+            </div>
+            <div class="arrow-btn">❯</div>
+          </div>
+          <div class="card-desc cyber-text" data-text="Intercept negative feedback privately. Route 5-star experiences to Google.">
+            Intercept negative feedback privately. Route 5-star experiences to Google.
+          </div>
+          <div class="card-visual">
+            <canvas id="canvas-review" class="webgl-card"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Local Backlinks -->
+    <div class="card-wrapper" style="--glow-color: #ff3b30;">
+      <div class="bento-card card-link">
+        <div class="spotlight"></div>
+        <div class="glow-border"></div>
+        <div class="card-content">
+          <div class="card-header">
+            <div class="header-left">
+              <div class="icon-box" style="color: #ff3b30;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+              </div>
+              <div class="card-title cyber-text" data-text="Local Backlinks">Local Backlinks</div>
+            </div>
+            <div class="arrow-btn">❯</div>
+          </div>
+          <div class="card-desc cyber-text" data-text="Acquire high-authority local backlinks signaling you as the dominant entity.">
+            Acquire high-authority local backlinks signaling you as the dominant entity.
+          </div>
+          <div class="card-visual">
+            <canvas id="canvas-link" class="webgl-card"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ==========================================
+    // 1. Holographic Parallax & Mouse Tracking
+    // ==========================================
+    const wrappers = document.querySelectorAll('.card-wrapper');
+
+    wrappers.forEach(wrapper => {
+      const card = wrapper.querySelector('.bento-card');
+      
+      wrapper.addEventListener('mousemove', (e) => {
+        const rect = wrapper.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Pass mouse coords to CSS for Spotlight and Glowing Border
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+
+        // 3D Tilt Logic
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -12; // Max 12deg
+        const rotateY = ((x - centerX) / centerX) * 12;
+        
+        wrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        wrapper.style.transition = 'none';
+      });
+
+      wrapper.addEventListener('mouseleave', () => {
+        wrapper.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
+        wrapper.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        card.style.setProperty('--mouse-x', `-1000px`); // Hide spotlight
+      });
+    });
+
+    // ==========================================
+    // 2. Cyberpunk Text Scramble Effect
+    // ==========================================
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
+    const textElements = document.querySelectorAll('.cyber-text');
+    
+    textElements.forEach(el => {
+      const originalText = el.getAttribute('data-text');
+      let iterations = 0;
+      const interval = setInterval(() => {
+        el.innerText = originalText.split('')
+          .map((letter, index) => {
+            if(index < iterations) return originalText[index];
+            return chars[Math.floor(Math.random() * chars.length)];
+          })
+          .join('');
+        
+        if(iterations >= originalText.length) clearInterval(interval);
+        iterations += 1/3; // Speed of decode
+      }, 30);
+    });
+
+    // ==========================================
+    // 3. Three.js Real 3D Canvases
+    // ==========================================
+    
+    function setupCardScene(canvasId, colorHex) {
+      const canvas = document.getElementById(canvasId);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(50, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+      camera.position.z = 10;
+      
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+
+      // Light
+      const light = new THREE.PointLight(colorHex, 2, 50);
+      light.position.set(2, 5, 5);
+      scene.add(light);
+      scene.add(new THREE.AmbientLight(0x222222));
+
+      return { scene, camera, renderer };
+    }
+
+    // A. Map Scene (Grid + Floating Cone Pin)
+    const mapSetup = setupCardScene('canvas-map', 0x00d4ff);
+    const mapGrid = new THREE.GridHelper(20, 20, 0x00d4ff, 0x00d4ff);
+    mapGrid.material.opacity = 0.3;
+    mapGrid.material.transparent = true;
+    mapGrid.rotation.x = Math.PI / 3;
+    mapGrid.position.y = -2;
+    mapSetup.scene.add(mapGrid);
+    
+    const pinGeo = new THREE.ConeGeometry(1, 2.5, 4);
+    const pinMat = new THREE.MeshPhongMaterial({ color: 0x00d4ff, wireframe: true });
+    const pin = new THREE.Mesh(pinGeo, pinMat);
+    pin.rotation.x = Math.PI;
+    mapSetup.scene.add(pin);
+
+    // B. Citation Scene (Wireframe Globe)
+    const citSetup = setupCardScene('canvas-citation', 0xb8ff57);
+    const globeGeo = new THREE.IcosahedronGeometry(3, 1);
+    const globeMat = new THREE.MeshPhongMaterial({ color: 0xb8ff57, wireframe: true });
+    const globe = new THREE.Mesh(globeGeo, globeMat);
+    citSetup.scene.add(globe);
+
+    // C. Review Scene (Glowing 3D Star)
+    const revSetup = setupCardScene('canvas-review', 0xffd700);
+    const starGeo = new THREE.OctahedronGeometry(2.5, 0);
+    const starMat = new THREE.MeshPhongMaterial({ color: 0xffd700, emissive: 0x443300, wireframe: true });
+    const star = new THREE.Mesh(starGeo, starMat);
+    revSetup.scene.add(star);
+
+    // D. Link Scene (Network Nodes)
+    const linkSetup = setupCardScene('canvas-link', 0xff3b30);
+    const nodeGroup = new THREE.Group();
+    const nodeGeo = new THREE.SphereGeometry(0.5, 8, 8);
+    const nodeMat = new THREE.MeshPhongMaterial({ color: 0xff3b30, wireframe: true });
+    
+    for(let i=0; i<5; i++) {
+      const node = new THREE.Mesh(nodeGeo, nodeMat);
+      node.position.set((Math.random()-0.5)*8, (Math.random()-0.5)*8, (Math.random()-0.5)*4);
+      nodeGroup.add(node);
+      
+      // Connect lines
+      if(i > 0) {
+        const lineGeo = new THREE.BufferGeometry().setFromPoints([nodeGroup.children[i-1].position, node.position]);
+        const lineMat = new THREE.LineBasicMaterial({ color: 0xff3b30, transparent: true, opacity: 0.5 });
+        const line = new THREE.Line(lineGeo, lineMat);
+        nodeGroup.add(line);
+      }
+    }
+    linkSetup.scene.add(nodeGroup);
+
+    // Render Loop
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+
+      // Map Animation
+      pin.position.y = Math.sin(t * 2) * 0.5;
+      pin.rotation.y = t * 0.5;
+      mapSetup.renderer.render(mapSetup.scene, mapSetup.camera);
+
+      // Citation Animation
+      globe.rotation.y = t * 0.4;
+      globe.rotation.x = t * 0.2;
+      citSetup.renderer.render(citSetup.scene, citSetup.camera);
+
+      // Review Animation
+      star.rotation.y = t;
+      star.rotation.z = Math.sin(t) * 0.2;
+      revSetup.renderer.render(revSetup.scene, revSetup.camera);
+
+      // Link Animation
+      nodeGroup.rotation.y = t * 0.3;
+      nodeGroup.rotation.x = t * 0.1;
+      linkSetup.renderer.render(linkSetup.scene, linkSetup.camera);
+    }
+    animate();
+
+    // Handle Resize for 4 canvases
+    window.addEventListener('resize', () => {
+      [mapSetup, citSetup, revSetup, linkSetup].forEach(setup => {
+        const c = setup.renderer.domElement;
+        const wrapper = c.parentElement;
+        setup.camera.aspect = wrapper.clientWidth / wrapper.clientHeight;
+        setup.camera.updateProjectionMatrix();
+        setup.renderer.setSize(wrapper.clientWidth, wrapper.clientHeight);
+      });
+    });
+  </script>
+</body>
+</html>

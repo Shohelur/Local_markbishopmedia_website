@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Soft Premium 3D Graphics Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    body {
+      background: #020205; /* Kept dark as per their brand, but 3D will be soft */
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    
+    .cards-grid {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 1400px;
+      padding: 40px;
+    }
+
+    /* PREMIUM CARD DESIGN */
+    .premium-card {
+      width: 280px;
+      height: 420px;
+      background: linear-gradient(180deg, rgba(20,20,25,0.8) 0%, rgba(10,10,15,0.9) 100%);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      position: relative;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .premium-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1), 0 10px 40px var(--glow-color);
+    }
+
+    /* Background Ambient Glow inside card */
+    .card-glow-bg {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      width: 180px;
+      height: 180px;
+      transform: translate(-50%, -50%);
+      background: var(--glow-color);
+      filter: blur(50px);
+      opacity: 0.1;
+      border-radius: 50%;
+      transition: opacity 0.4s ease;
+      z-index: 0;
+    }
+    .premium-card:hover .card-glow-bg {
+      opacity: 0.25;
+    }
+
+    /* 3D Canvas Container */
+    .canvas-container {
+      width: 100%;
+      height: 240px;
+      position: relative;
+      z-index: 2;
+      margin-bottom: 20px;
+    }
+    canvas {
+      width: 100%;
+      height: 100%;
+      outline: none;
+    }
+
+    /* Typography */
+    .card-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #fff;
+      position: relative;
+      z-index: 2;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+      position: relative;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cards-grid">
+    
+    <!-- CARD 1: MAPS -->
+    <div class="premium-card" style="--glow-color: rgba(0,212,255, 0.6);">
+      <div class="card-glow-bg"></div>
+      <div class="canvas-container"><canvas id="canvas-maps"></canvas></div>
+      <div class="card-title">Google Maps Top 3</div>
+      <div class="card-desc">Outrank local competitors in the 9-mile radius.</div>
+    </div>
+    
+    <!-- CARD 2: REVIEWS -->
+    <div class="premium-card" style="--glow-color: rgba(255,215,0, 0.6);">
+      <div class="card-glow-bg"></div>
+      <div class="canvas-container"><canvas id="canvas-reviews"></canvas></div>
+      <div class="card-title">5-Star Reviews</div>
+      <div class="card-desc">Automated reputation capture system.</div>
+    </div>
+
+    <!-- CARD 3: CITATIONS -->
+    <div class="premium-card" style="--glow-color: rgba(184,255,87, 0.6);">
+      <div class="card-glow-bg"></div>
+      <div class="canvas-container"><canvas id="canvas-citations"></canvas></div>
+      <div class="card-title">100+ Citations</div>
+      <div class="card-desc">Instant NAP sync across premium directories.</div>
+    </div>
+    
+    <!-- CARD 4: WEBSITE -->
+    <div class="premium-card" style="--glow-color: rgba(189,0,255, 0.6);">
+      <div class="card-glow-bg"></div>
+      <div class="canvas-container"><canvas id="canvas-website"></canvas></div>
+      <div class="card-title">3D Website</div>
+      <div class="card-desc">High-converting digital storefronts.</div>
+    </div>
+
+  </div>
+
+  <script>
+    function initSoftPremium3D() {
+      const clock = new THREE.Clock();
+      const scenes = [];
+
+      function createSoftEnvironment(canvasId) {
+        const canvas = document.getElementById(canvasId);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(40, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+        camera.position.z = 10;
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.0;
+
+        // Soft, studio-like lighting
+        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444455, 0.6);
+        scene.add(hemiLight);
+        
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        dirLight.position.set(5, 10, 7);
+        scene.add(dirLight);
+        
+        const backLight = new THREE.DirectionalLight(0xccccff, 0.5);
+        backLight.position.set(-5, -5, -5);
+        scene.add(backLight);
+
+        const group = new THREE.Group();
+        scene.add(group);
+
+        return { renderer, scene, camera, group };
+      }
+
+      // Material configs for realistic/soft look
+      const mapMat = new THREE.MeshPhysicalMaterial({
+        color: 0x00aaff, roughness: 0.1, metalness: 0.1, clearcoat: 1.0, clearcoatRoughness: 0.1
+      });
+      const glassMat = new THREE.MeshPhysicalMaterial({
+        color: 0xffffff, transmission: 0.9, opacity: 1, transparent: true, roughness: 0, ior: 1.5, thickness: 1.0
+      });
+      const goldMat = new THREE.MeshPhysicalMaterial({
+        color: 0xffaa00, roughness: 0.2, metalness: 0.8, clearcoat: 0.5, clearcoatRoughness: 0.2
+      });
+      const silverMat = new THREE.MeshPhysicalMaterial({
+        color: 0xcccccc, roughness: 0.3, metalness: 0.6, clearcoat: 0.3
+      });
+      const darkPlasticMat = new THREE.MeshPhysicalMaterial({
+        color: 0x111111, roughness: 0.6, metalness: 0.2
+      });
+      const screenMat = new THREE.MeshPhysicalMaterial({
+        color: 0xbd00ff, emissive: 0xbd00ff, emissiveIntensity: 0.5, roughness: 0.2, metalness: 0.1
+      });
+
+      // ---------------------------------------------------------
+      // ENGINE 1: MAPS (Premium Glass/Metallic Map Pin)
+      // ---------------------------------------------------------
+      const mapSetup = createSoftEnvironment('canvas-maps');
+      
+      // We create a Lathe geometry for a smooth teardrop pin
+      const points = [];
+      for ( let i = 0; i <= 20; i ++ ) {
+        const t = i / 20;
+        // parametric teardrop curve
+        const x = Math.sin(t * Math.PI) * (1 - t) * 1.5;
+        const y = (t * 2.5) - 1.25;
+        points.push( new THREE.Vector2( x, y ) );
+      }
+      const pinGeo = new THREE.LatheGeometry( points, 32 );
+      const pinMesh = new THREE.Mesh(pinGeo, mapMat);
+      pinMesh.rotation.x = Math.PI; // flip upside down
+      pinMesh.position.y = 0.5;
+      
+      // Inner sphere hole
+      const holeMesh = new THREE.Mesh(new THREE.SphereGeometry(0.4, 32, 32), glassMat);
+      holeMesh.position.y = 1.0;
+      
+      mapSetup.group.add(pinMesh, holeMesh);
+      
+      mapSetup.animate = (t) => {
+        mapSetup.group.rotation.y = t * 0.5;
+        mapSetup.group.position.y = Math.sin(t * 2) * 0.1; // soft floating
+      };
+      scenes.push(mapSetup);
+
+      // ---------------------------------------------------------
+      // ENGINE 2: REVIEWS (Solid Realistic Golden Star)
+      // ---------------------------------------------------------
+      const revSetup = createSoftEnvironment('canvas-reviews');
+      
+      const starShape = new THREE.Shape();
+      const outerR = 1.8; const innerR = 0.8;
+      for (let i = 0; i < 10; i++) {
+        const r = i % 2 === 0 ? outerR : innerR;
+        const a = (i / 10) * Math.PI * 2;
+        if (i === 0) starShape.moveTo(Math.cos(a)*r, Math.sin(a)*r);
+        else starShape.lineTo(Math.cos(a)*r, Math.sin(a)*r);
+      }
+      const extSet = { depth: 0.4, bevelEnabled: true, bevelThickness: 0.15, bevelSize: 0.15, bevelSegments: 4, curveSegments: 12 };
+      const starGeo = new THREE.ExtrudeGeometry(starShape, extSet);
+      starGeo.center();
+      
+      const starMesh = new THREE.Mesh(starGeo, goldMat);
+      revSetup.group.add(starMesh);
+      
+      revSetup.animate = (t) => {
+        revSetup.group.rotation.y = t * 0.6;
+        revSetup.group.rotation.x = Math.sin(t) * 0.2;
+      };
+      scenes.push(revSetup);
+
+      // ---------------------------------------------------------
+      // ENGINE 3: CITATIONS (Network Graph - Spheres & Tubes)
+      // ---------------------------------------------------------
+      const citSetup = createSoftEnvironment('canvas-citations');
+      
+      const nodeGeo = new THREE.SphereGeometry(0.35, 32, 32);
+      const tubeMat = new THREE.MeshPhysicalMaterial({ color: 0x88cc44, roughness: 0.2, metalness: 0.5, clearcoat: 0.5 });
+      
+      // Create 4 nodes
+      const n1 = new THREE.Mesh(nodeGeo, silverMat); n1.position.set(0, 1.2, 0);
+      const n2 = new THREE.Mesh(nodeGeo, silverMat); n2.position.set(-1.2, -0.8, 0.8);
+      const n3 = new THREE.Mesh(nodeGeo, silverMat); n3.position.set(1.2, -0.8, 0.8);
+      const n4 = new THREE.Mesh(nodeGeo, silverMat); n4.position.set(0, -0.4, -1.2);
+      citSetup.group.add(n1, n2, n3, n4);
+      
+      // Helper to create cylinders between points
+      function createTube(p1, p2) {
+        const distance = p1.distanceTo(p2);
+        const tubeGeo = new THREE.CylinderGeometry(0.08, 0.08, distance, 16);
+        const tube = new THREE.Mesh(tubeGeo, tubeMat);
+        const mid = p1.clone().lerp(p2, 0.5);
+        tube.position.copy(mid);
+        tube.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), p2.clone().sub(p1).normalize());
+        citSetup.group.add(tube);
+      }
+      createTube(n1.position, n2.position);
+      createTube(n1.position, n3.position);
+      createTube(n1.position, n4.position);
+      createTube(n2.position, n3.position);
+      createTube(n3.position, n4.position);
+      createTube(n4.position, n2.position);
+      
+      citSetup.animate = (t) => {
+        citSetup.group.rotation.y = t * 0.3;
+        citSetup.group.rotation.x = t * 0.2;
+        citSetup.group.rotation.z = Math.sin(t*0.5)*0.1;
+      };
+      scenes.push(citSetup);
+
+      // ---------------------------------------------------------
+      // ENGINE 4: WEBSITE (3D Floating Screen/Laptop)
+      // ---------------------------------------------------------
+      const webSetup = createSoftEnvironment('canvas-website');
+      
+      // Screen Frame
+      const frameGeo = new THREE.BoxGeometry(3.6, 2.2, 0.1);
+      const frame = new THREE.Mesh(frameGeo, darkPlasticMat);
+      
+      // Screen Display (Glowing)
+      const displayGeo = new THREE.PlaneGeometry(3.4, 2.0);
+      const display = new THREE.Mesh(displayGeo, screenMat);
+      display.position.z = 0.06; // slightly in front of frame
+      
+      // Base/Stand
+      const standGeo = new THREE.CylinderGeometry(0.1, 0.1, 0.6, 16);
+      const stand = new THREE.Mesh(standGeo, silverMat);
+      stand.position.y = -1.3;
+      
+      const baseGeo = new THREE.BoxGeometry(1.5, 0.05, 1.0);
+      const base = new THREE.Mesh(baseGeo, silverMat);
+      base.position.y = -1.6;
+      
+      webSetup.group.add(frame, display, stand, base);
+      
+      webSetup.animate = (t) => {
+        webSetup.group.rotation.y = Math.sin(t * 0.8) * 0.4;
+        webSetup.group.rotation.x = Math.sin(t * 0.5) * 0.1;
+        webSetup.group.position.y = Math.sin(t * 2) * 0.1; // hovering
+      };
+      scenes.push(webSetup);
+
+
+      // ---------------------------------------------------------
+      // RENDER LOOP
+      // ---------------------------------------------------------
+      function animate() {
+        requestAnimationFrame(animate);
+        const t = clock.getElapsedTime();
+        scenes.forEach(s => {
+          s.animate(t);
+          s.renderer.render(s.scene, s.camera);
+        });
+      }
+      animate();
+    }
+
+    window.addEventListener('load', initSoftPremium3D);
+  </script>
+</body>
+</html>

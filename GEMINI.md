@@ -89,3 +89,5 @@ This file is automatically loaded by Antigravity IDE & Antigravity CLI (`agy`) a
 - **Zero-discrepancy policy:** Exact numbers from studio (scale, position, Y-offset) must be copied verbatim to master.
 - Never approximate or "eyeball" values during transfer.
 - Always cross-check 3 variables: `pinScale`, Y-position, and camera position for each breakpoint.
+
+- 2026-09-01 [Phase 4 Service Matrix]: Used Three.js AdditiveBlending and 2D Canvas Sprites for a fake bloom/glow effect. This creates an extremely premium neon holographic aesthetic without the massive performance cost of full post-processing bloom pipelines.

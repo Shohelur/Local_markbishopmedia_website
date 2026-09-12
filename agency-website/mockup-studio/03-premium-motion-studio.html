@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Premium 3D Motion Graphics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    body {
+      background: #010103;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    
+    /* Cinematic Background */
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(20, 20, 30, 0.5) 0%, #010103 100%);
+      z-index: -1;
+    }
+
+    .cards-grid {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 1400px;
+      padding: 40px;
+    }
+
+    /* PREMIUM CARD DESIGN */
+    .premium-card {
+      width: 280px;
+      height: 420px;
+      background: rgba(10, 10, 15, 0.4);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      position: relative;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .premium-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 40px 80px rgba(0,0,0,1), inset 0 1px 0 rgba(255,255,255,0.3), 0 0 40px var(--glow-color);
+    }
+
+    /* Background Ambient Glow */
+    .card-glow-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 150px;
+      height: 150px;
+      transform: translate(-50%, -80%);
+      background: var(--glow-color);
+      filter: blur(60px);
+      opacity: 0.15;
+      border-radius: 50%;
+      transition: opacity 0.4s ease;
+      z-index: 0;
+    }
+    .premium-card:hover .card-glow-bg {
+      opacity: 0.35;
+    }
+
+    /* 3D Canvas Container */
+    .canvas-container {
+      width: 100%;
+      height: 220px;
+      position: relative;
+      z-index: 2;
+      margin-bottom: 20px;
+    }
+    canvas {
+      width: 100%;
+      height: 100%;
+      outline: none;
+    }
+
+    /* Typography */
+    .card-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #fff;
+      position: relative;
+      z-index: 2;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+      position: relative;
+      z-index: 2;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="cards-grid">
+    
+    <!-- CARD 1: MAPS -->
+    <div class="premium-card" style="--glow-color: #00d4ff;">
+      <div class="card-glow-bg"></div>
+      <div class="canvas-container"><canvas id="canvas-maps"></canvas></div>
+      <div class="card-title">Google Maps Top 3</div>
+      <div class="card-desc">Dynamic GPS routing matrix.</div>
+    </div>
+    
+    <!-- CARD 2: REVIEWS -->
+    <div class="premium-card" style="--glow-color: #ffd700;">
+      <div class="card-glow-bg"></div>
+      <div class="canvas-container"><canvas id="canvas-reviews"></canvas></div>
+      <div class="card-title">5-Star Reputation</div>
+      <div class="card-desc">Quantum trust processing core.</div>
+    </div>
+
+    <!-- CARD 3: CITATIONS -->
+    <div class="premium-card" style="--glow-color: #b8ff57;">
+      <div class="card-glow-bg"></div>
+      <div class="canvas-container"><canvas id="canvas-citations"></canvas></div>
+      <div class="card-title">Citation Network</div>
+      <div class="card-desc">Global directory neural web.</div>
+    </div>
+    
+    <!-- CARD 4: WEBSITE -->
+    <div class="premium-card" style="--glow-color: #bd00ff;">
+      <div class="card-glow-bg"></div>
+      <div class="canvas-container"><canvas id="canvas-website"></canvas></div>
+      <div class="card-title">3D Website Core</div>
+      <div class="card-desc">Tesseract conversion architecture.</div>
+    </div>
+
+  </div>
+
+  <script>
+    function initPremium3D() {
+      const clock = new THREE.Clock();
+      const scenes = [];
+
+      function createBaseHologram(canvasId, colorHex) {
+        const canvas = document.getElementById(canvasId);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+        camera.position.z = 10;
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // Cinematic Lighting
+        const ambient = new THREE.AmbientLight(0xffffff, 0.3);
+        scene.add(ambient);
+        const mainLight = new THREE.PointLight(colorHex, 2, 50);
+        mainLight.position.set(5, 5, 5);
+        scene.add(mainLight);
+        const fillLight = new THREE.PointLight(0xffffff, 1, 50);
+        fillLight.position.set(-5, -5, -5);
+        scene.add(fillLight);
+
+        const group = new THREE.Group();
+        scene.add(group);
+
+        return { renderer, scene, camera, group, color: colorHex };
+      }
+
+      // ---------------------------------------------------------
+      // ENGINE 1: MAPS (Orbital GPS Matrix)
+      // ---------------------------------------------------------
+      const mapSetup = createBaseHologram('canvas-maps', 0x00d4ff);
+      const mMat = new THREE.MeshPhysicalMaterial({ color: 0x00d4ff, emissive: 0x00d4ff, emissiveIntensity: 0.5, wireframe: true, transparent: true, opacity: 0.6 });
+      const mCoreGeo = new THREE.SphereGeometry(1.5, 32, 32);
+      const mCore = new THREE.Mesh(mCoreGeo, new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending }));
+      const mRing1 = new THREE.Mesh(new THREE.TorusGeometry(2.5, 0.02, 16, 100), mMat);
+      const mRing2 = new THREE.Mesh(new THREE.TorusGeometry(2.5, 0.02, 16, 100), mMat);
+      mRing1.rotation.x = Math.PI/2; mRing2.rotation.y = Math.PI/2;
+      
+      // Floating nodes
+      const mPtsGeo = new THREE.BufferGeometry();
+      const mPtsArr = new Float32Array(100 * 3);
+      for(let i=0; i<300; i++) mPtsArr[i] = (Math.random()-0.5)*6;
+      mPtsGeo.setAttribute('position', new THREE.BufferAttribute(mPtsArr, 3));
+      const mPts = new THREE.Points(mPtsGeo, new THREE.PointsMaterial({ color: 0x00d4ff, size: 0.05, blending: THREE.AdditiveBlending }));
+      
+      mapSetup.group.add(mCore, mRing1, mRing2, mPts);
+      
+      mapSetup.animate = (t) => {
+        mapSetup.group.rotation.y = t * 0.3;
+        mapSetup.group.rotation.x = Math.sin(t*0.5)*0.2;
+        mRing1.rotation.x = t * 0.5;
+        mRing2.rotation.y = t * 0.7;
+        mPts.rotation.z = t * 0.1;
+      };
+      scenes.push(mapSetup);
+
+      // ---------------------------------------------------------
+      // ENGINE 2: REVIEWS (Quantum Crystal)
+      // ---------------------------------------------------------
+      const revSetup = createBaseHologram('canvas-reviews', 0xffd700);
+      
+      // Glass Crystal
+      const crystalGeo = new THREE.IcosahedronGeometry(2, 0);
+      const crystalMat = new THREE.MeshPhysicalMaterial({ 
+        color: 0xffd700, emissive: 0xffa500, emissiveIntensity: 0.2, 
+        roughness: 0, metalness: 0.1, transmission: 1, thickness: 1, transparent: true, opacity: 0.9 
+      });
+      const crystal = new THREE.Mesh(crystalGeo, crystalMat);
+      
+      // Inner pulsating energy core
+      const coreGeo = new THREE.IcosahedronGeometry(1.2, 2);
+      const coreMat = new THREE.MeshBasicMaterial({ color: 0xffd700, wireframe: true, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
+      const rCore = new THREE.Mesh(coreGeo, coreMat);
+      
+      revSetup.group.add(crystal, rCore);
+      
+      revSetup.animate = (t) => {
+        revSetup.group.rotation.y = t * 0.4;
+        revSetup.group.rotation.x = t * 0.2;
+        rCore.rotation.y = -t * 0.8;
+        const scale = 1 + Math.sin(t * 3) * 0.15;
+        rCore.scale.set(scale, scale, scale);
+      };
+      scenes.push(revSetup);
+
+      // ---------------------------------------------------------
+      // ENGINE 3: CITATIONS (Neural Web)
+      // ---------------------------------------------------------
+      const citSetup = createBaseHologram('canvas-citations', 0xb8ff57);
+      
+      // Dodecahedron inside Icosahedron
+      const outerGeo = new THREE.IcosahedronGeometry(2.5, 1);
+      const innerGeo = new THREE.DodecahedronGeometry(1.5, 0);
+      const webMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57, wireframe: true, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending });
+      const solidCitMat = new THREE.MeshPhysicalMaterial({ color: 0xb8ff57, emissive: 0xb8ff57, emissiveIntensity: 0.3, transparent: true, opacity: 0.2, blending: THREE.AdditiveBlending });
+      
+      const outerWeb = new THREE.Mesh(outerGeo, webMat);
+      const innerSolid = new THREE.Mesh(innerGeo, solidCitMat);
+      const innerWeb = new THREE.Mesh(innerGeo, webMat);
+      
+      citSetup.group.add(outerWeb, innerSolid, innerWeb);
+      
+      citSetup.animate = (t) => {
+        outerWeb.rotation.y = t * 0.2;
+        outerWeb.rotation.z = t * 0.1;
+        innerSolid.rotation.y = -t * 0.5;
+        innerSolid.rotation.x = t * 0.3;
+        innerWeb.rotation.y = -t * 0.5;
+        innerWeb.rotation.x = t * 0.3;
+        
+        // Pulse outer web opacity
+        webMat.opacity = 0.2 + Math.abs(Math.sin(t * 2)) * 0.4;
+      };
+      scenes.push(citSetup);
+
+      // ---------------------------------------------------------
+      // ENGINE 4: WEBSITE (Holographic Tesseract)
+      // ---------------------------------------------------------
+      const webSetup = createBaseHologram('canvas-website', 0xbd00ff);
+      
+      const tOuterGeo = new THREE.BoxGeometry(3, 3, 3);
+      const tInnerGeo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+      
+      const edgeMat = new THREE.LineBasicMaterial({ color: 0xbd00ff, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
+      
+      const outerEdges = new THREE.LineSegments(new THREE.EdgesGeometry(tOuterGeo), edgeMat);
+      const innerEdges = new THREE.LineSegments(new THREE.EdgesGeometry(tInnerGeo), edgeMat);
+      
+      const tCoreMat = new THREE.MeshBasicMaterial({ color: 0xbd00ff, transparent: true, opacity: 0.2, blending: THREE.AdditiveBlending });
+      const tCore = new THREE.Mesh(tInnerGeo, tCoreMat);
+      
+      webSetup.group.add(outerEdges, innerEdges, tCore);
+      
+      webSetup.animate = (t) => {
+        webSetup.group.rotation.x = t * 0.3;
+        webSetup.group.rotation.y = t * 0.4;
+        
+        innerEdges.rotation.x = -t * 0.5;
+        innerEdges.rotation.y = -t * 0.6;
+        tCore.rotation.x = -t * 0.5;
+        tCore.rotation.y = -t * 0.6;
+        
+        // Morphing scale effect
+        const scale = 1 + Math.sin(t * 2) * 0.2;
+        innerEdges.scale.set(scale, scale, scale);
+        tCore.scale.set(scale, scale, scale);
+      };
+      scenes.push(webSetup);
+
+
+      // ---------------------------------------------------------
+      // RENDER LOOP
+      // ---------------------------------------------------------
+      function animate() {
+        requestAnimationFrame(animate);
+        const t = clock.getElapsedTime();
+        scenes.forEach(s => {
+          s.animate(t);
+          s.renderer.render(s.scene, s.camera);
+        });
+      }
+      animate();
+    }
+
+    window.addEventListener('load', initPremium3D);
+  </script>
+</body>
+</html>

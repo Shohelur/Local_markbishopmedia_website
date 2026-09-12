@@ -1,0 +1,408 @@
+<!-- 
+  PHASE 4: SERVICE ECOSYSTEM MATRIX
+  Mega-Scale Cinematic Video Split-Engine (Apple-Style Video Reveal)
+-->
+<section id="phase4-service-section" style="
+  position: relative; 
+  width: 100%;
+  min-height: 100vh; 
+  background-color: #010609; 
+  z-index: 5;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+">
+
+  <!-- Ambient Background Gradients -->
+  <div class="phase4-ambient phase4-amb-maps"></div>
+  <div class="phase4-ambient phase4-amb-reviews"></div>
+  <div class="phase4-ambient phase4-amb-citations"></div>
+  <div class="phase4-ambient phase4-amb-website"></div>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       PHASE 4 CINEMATIC NAMESPACED STYLES 
+       ═══════════════════════════════════════════════════════════ */
+    .phase4-ambient {
+      position: absolute; top: 0; right: 0; width: 60%; height: 100vh;
+      filter: blur(180px); opacity: 0; pointer-events: none; transition: opacity 0.8s ease;
+      z-index: 0;
+    }
+    .phase4-ambient.active { opacity: 0.12; }
+    .phase4-amb-maps { background: radial-gradient(circle at center, #00ffcc 0%, transparent 70%); }
+    .phase4-amb-reviews { background: radial-gradient(circle at center, #ffd700 0%, transparent 70%); }
+    .phase4-amb-citations { background: radial-gradient(circle at center, #b8ff57 0%, transparent 70%); }
+    .phase4-amb-website { background: radial-gradient(circle at center, #bd00ff 0%, transparent 70%); }
+
+    /* THE SPLIT ENGINE LAYOUT - EDGE TO EDGE */
+    .phase4-split-layout {
+      display: flex;
+      width: 100%;
+      height: 100vh;
+      align-items: stretch;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ─── LEFT COLUMN: MEGA TYPOGRAPHY TRIGGERS ─── */
+    .phase4-triggers-column {
+      flex: 0 0 50%;
+      padding: 0 5%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 15px;
+      z-index: 20;
+    }
+
+    .phase4-section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      padding-left: 5px;
+    }
+
+    .phase4-trigger-card {
+      position: relative;
+      cursor: pointer;
+      padding: 10px 0;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Mega Outline Typography */
+    .phase4-trigger-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(35px, 4.5vw, 65px);
+      font-weight: 800;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.15);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      display: inline-block;
+    }
+    
+    /* The Fill Effect */
+    .phase4-trigger-title::before {
+      content: attr(data-text);
+      position: absolute;
+      left: 0; top: 0; width: 0; height: 100%;
+      color: var(--hover-color);
+      -webkit-text-stroke: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: width 0.6s cubic-bezier(0.8, 0, 0.2, 1);
+      text-shadow: 0 0 40px var(--hover-color-dim);
+    }
+
+    .phase4-trigger-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.6;
+      max-width: 450px;
+      margin-top: 15px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s ease;
+      height: 0;
+      overflow: hidden;
+    }
+
+    /* Active States */
+    .phase4-trigger-card[data-target="maps"] { --hover-color: #00ffcc; --hover-color-dim: rgba(0,255,204,0.4); }
+    .phase4-trigger-card[data-target="reviews"] { --hover-color: #ffd700; --hover-color-dim: rgba(255,215,0,0.4); }
+    .phase4-trigger-card[data-target="citations"] { --hover-color: #b8ff57; --hover-color-dim: rgba(184,255,87,0.4); }
+    .phase4-trigger-card[data-target="website"] { --hover-color: #bd00ff; --hover-color-dim: rgba(189,0,255,0.4); }
+
+    .phase4-trigger-card.active { transform: translateX(30px); }
+    .phase4-trigger-card.active .phase4-trigger-title::before { width: 100%; }
+    .phase4-trigger-card.active .phase4-trigger-desc { opacity: 1; transform: translateY(0); height: auto; margin-bottom: 25px; }
+
+    /* ─── RIGHT COLUMN: CINEMATIC VIDEO STAGE ─── */
+    .phase4-stage-column {
+      flex: 1;
+      height: 100vh;
+      position: relative;
+      background: #000;
+    }
+
+    /* Shutter Reveal Panel */
+    .phase4-stage-panel {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      opacity: 0;
+      visibility: hidden;
+      clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);
+      transition: opacity 0.4s ease, clip-path 0.7s cubic-bezier(0.8, 0, 0.2, 1);
+    }
+    .phase4-stage-panel.active {
+      opacity: 1;
+      visibility: visible;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      z-index: 5;
+    }
+
+    /* Edge-to-Edge Video Player */
+    .phase4-cinematic-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      z-index: 1;
+      background: #111; /* Fallback */
+    }
+    
+    /* Overlay Gradient for Text Readability */
+    .phase4-video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 30%, transparent 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Immersive ROI Data Area (Floating) */
+    .phase4-roi-container {
+      position: relative;
+      z-index: 3;
+      padding: 50px 60px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      align-items: center;
+      transform: translateY(20px);
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .phase4-stage-panel.active .phase4-roi-container {
+      transform: translateY(0);
+    }
+    
+    .phase4-roi-stat { text-align: left; }
+    .phase4-roi-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      line-height: 1;
+      text-shadow: 0 0 30px currentColor;
+    }
+    .phase4-roi-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .phase4-cta-btn {
+      justify-self: end;
+      padding: 16px 36px;
+      border-radius: 100px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #000;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .phase4-cta-btn:hover { transform: scale(1.08); }
+
+    @media (max-width: 1100px) {
+      .phase4-split-layout { flex-direction: column; height: auto; }
+      .phase4-triggers-column { width: 100%; padding: 80px 5% 40px 5%; }
+      .phase4-trigger-title { font-size: 45px; }
+      .phase4-stage-column { width: 100%; height: 65vh; min-height: 500px; border-top: 1px solid rgba(255,255,255,0.1); }
+      .phase4-roi-container { padding: 30px; grid-template-columns: 1fr 1fr; gap: 20px; }
+      .phase4-cta-btn { grid-column: span 2; justify-self: stretch; text-align: center; margin-top: 10px; }
+    }
+  </style>
+
+  <div class="phase4-split-layout">
+    
+    <!-- LEFT: MEGA TRIGGERS -->
+    <div class="phase4-triggers-column" id="phase4-triggers-wrapper">
+      
+      <div class="phase4-section-label">04 // THE GROWTH ENGINES</div>
+
+      <div class="phase4-trigger-card active" data-target="maps">
+        <div class="phase4-trigger-title" data-text="MAPS ENGINE">MAPS ENGINE</div>
+        <div class="phase4-trigger-desc">Lock your Business Profile at the top of the Local Map Pack with pinpoint spatial accuracy. Dominate your 9-mile radius.</div>
+      </div>
+
+      <div class="phase4-trigger-card" data-target="reviews">
+        <div class="phase4-trigger-title" data-text="REVIEWS ENGINE">REVIEWS ENGINE</div>
+        <div class="phase4-trigger-desc">Intercept negative feedback internally. Route verified 5-star experiences directly to public platforms like Google and Yelp.</div>
+      </div>
+
+      <div class="phase4-trigger-card" data-target="citations">
+        <div class="phase4-trigger-title" data-text="CITATIONS ENGINE">CITATIONS ENGINE</div>
+        <div class="phase4-trigger-desc">Synchronize your NAP data seamlessly across 150+ tier-1 directories for undeniable entity authority and trust signals.</div>
+      </div>
+
+      <div class="phase4-trigger-card" data-target="website">
+        <div class="phase4-trigger-title" data-text="WEBSITE ENGINE">WEBSITE ENGINE</div>
+        <div class="phase4-trigger-desc">Deploy high-conversion 3D architecture engineered to turn local traffic into booked appointments with sub-second load times.</div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: CINEMATIC VIDEO STAGE -->
+    <div class="phase4-stage-column" id="phase4-stage-wrapper">
+      
+      <!-- STAGE 1: MAPS -->
+      <div class="phase4-stage-panel active" id="phase4-panel-maps">
+        <video class="phase4-cinematic-video" data-id="vid-maps" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1920">
+          <source src="https://assets.codepen.io/3364143/7btrrd.mp4" type="video/mp4">
+        </video>
+        <div class="phase4-video-overlay"></div>
+        <div class="phase4-roi-container">
+          <div class="phase4-roi-stat">
+            <div class="phase4-roi-val" style="color: #00ffcc;">+312%</div>
+            <div class="phase4-roi-label">Local Visibility</div>
+          </div>
+          <div class="phase4-roi-stat">
+            <div class="phase4-roi-val" style="color: #fff;">TOP 3</div>
+            <div class="phase4-roi-label">Map Pack Ranking</div>
+          </div>
+          <button class="phase4-cta-btn" style="background: #00ffcc; box-shadow: 0 0 30px rgba(0,255,204,0.3);">INITIATE MAPS</button>
+        </div>
+      </div>
+
+      <!-- STAGE 2: REVIEWS -->
+      <div class="phase4-stage-panel" id="phase4-panel-reviews">
+        <video class="phase4-cinematic-video" data-id="vid-reviews" loop muted playsinline poster="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&q=80&w=1920">
+          <source src="https://assets.codepen.io/3364143/7btrrd.mp4" type="video/mp4">
+        </video>
+        <div class="phase4-video-overlay"></div>
+        <div class="phase4-roi-container">
+          <div class="phase4-roi-stat">
+            <div class="phase4-roi-val" style="color: #ffd700;">4.8★</div>
+            <div class="phase4-roi-label">Average Rating Goal</div>
+          </div>
+          <div class="phase4-roi-stat">
+            <div class="phase4-roi-val" style="color: #fff;">100%</div>
+            <div class="phase4-roi-label">Negative Intercept</div>
+          </div>
+          <button class="phase4-cta-btn" style="background: #ffd700; box-shadow: 0 0 30px rgba(255,215,0,0.3);">BOOST REPUTATION</button>
+        </div>
+      </div>
+
+      <!-- STAGE 3: CITATIONS -->
+      <div class="phase4-stage-panel" id="phase4-panel-citations">
+        <video class="phase4-cinematic-video" data-id="vid-citations" loop muted playsinline poster="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1920">
+          <source src="https://assets.codepen.io/3364143/7btrrd.mp4" type="video/mp4">
+        </video>
+        <div class="phase4-video-overlay"></div>
+        <div class="phase4-roi-container">
+          <div class="phase4-roi-stat">
+            <div class="phase4-roi-val" style="color: #b8ff57;">150+</div>
+            <div class="phase4-roi-label">Directories Synced</div>
+          </div>
+          <div class="phase4-roi-stat">
+            <div class="phase4-roi-val" style="color: #fff;">99.9%</div>
+            <div class="phase4-roi-label">NAP Data Accuracy</div>
+          </div>
+          <button class="phase4-cta-btn" style="background: #b8ff57; box-shadow: 0 0 30px rgba(184,255,87,0.3);">SYNC DATA</button>
+        </div>
+      </div>
+
+      <!-- STAGE 4: WEBSITE -->
+      <div class="phase4-stage-panel" id="phase4-panel-website">
+        <video class="phase4-cinematic-video" data-id="vid-website" loop muted playsinline poster="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1920">
+          <source src="https://assets.codepen.io/3364143/7btrrd.mp4" type="video/mp4">
+        </video>
+        <div class="phase4-video-overlay"></div>
+        <div class="phase4-roi-container">
+          <div class="phase4-roi-stat">
+            <div class="phase4-roi-val" style="color: #bd00ff;">2.4x</div>
+            <div class="phase4-roi-label">Conversion Rate</div>
+          </div>
+          <div class="phase4-roi-stat">
+            <div class="phase4-roi-val" style="color: #fff;">< 1s</div>
+            <div class="phase4-roi-label">Render Time</div>
+          </div>
+          <button class="phase4-cta-btn" style="background: #bd00ff; box-shadow: 0 0 30px rgba(189,0,255,0.3);">DEPLOY FUNNEL</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // ========================================================
+    // PHASE 4 JS: CINEMATIC VIDEO ROUTING & PARALLAX
+    // ========================================================
+    function initPhase4Cinematic() {
+      const triggers = document.querySelectorAll('.phase4-trigger-card');
+      const panels = document.querySelectorAll('.phase4-stage-panel');
+      const ambients = document.querySelectorAll('.phase4-ambient');
+      
+      // Setup initial state
+      document.querySelector('.phase4-amb-maps').classList.add('active');
+
+      triggers.forEach(trigger => {
+        trigger.addEventListener('mouseenter', () => {
+          const target = trigger.getAttribute('data-target');
+          
+          // Pause all videos to save resources
+          document.querySelectorAll('.phase4-cinematic-video').forEach(vid => {
+            if(!vid.paused) vid.pause();
+          });
+
+          // Reset UI
+          triggers.forEach(t => t.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          ambients.forEach(a => a.classList.remove('active'));
+          
+          // Activate Target UI
+          trigger.classList.add('active');
+          const activePanel = document.getElementById(`phase4-panel-${target}`);
+          activePanel.classList.add('active');
+          document.querySelector(`.phase4-amb-${target}`).classList.add('active');
+          
+          // Play target video
+          const activeVid = activePanel.querySelector('video');
+          if(activeVid && activeVid.paused) {
+             activeVid.play().catch(e => console.log("Autoplay prevented:", e));
+          }
+        });
+      });
+
+      // Subtle Magnetic Parallax on ROI Container for 3D feel over 2D Video
+      const stageWrapper = document.getElementById('phase4-stage-wrapper');
+      stageWrapper.addEventListener('mousemove', (e) => {
+        const rect = stageWrapper.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20; // max 10px shift
+        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20;
+        
+        document.querySelectorAll('.phase4-roi-container').forEach(container => {
+          container.style.transform = `translate(${x}px, ${y}px)`;
+        });
+      });
+      stageWrapper.addEventListener('mouseleave', () => {
+        document.querySelectorAll('.phase4-roi-container').forEach(container => {
+          container.style.transform = `translate(0px, 0px)`;
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if(document.getElementById('phase4-service-section')) initPhase4Cinematic();
+    });
+  </script>
+</section>

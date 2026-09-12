@@ -89,3 +89,5 @@
 
 - 2026-08-30 [Phase 3 Radar Section]: Asymmetrical Dashboard Layout Pattern. When combining text (terminal) with visual UI cards, an asymmetrical layout (narrow text card on left `flex: 0 1 480px`, wide data card on right `flex: 1` spanning to margin) creates a premium landscape aesthetic compared to equal 50/50 blocks.
 - 2026-08-30 [Phase 3 Radar Section]: Absolute Positioning vs Margin. Absolute positioning causes major Z-index and overlap bugs with previous sections. Fixed by moving elements into normal document flow (`display: flex`) and using negative margins (`margin-top: -80px`) to pull elements up safely without breaking responsive reflow.
+
+- 2026-09-01 [Phase 4 Service Matrix]: When designing premium WebGL UIs, CSS static mockups are not sufficient to present an 'ultra-premium' concept to the user. Always spend the time (tokens) to implement the actual Three.js lighting, shadows, and blending modes before showing the first variant.

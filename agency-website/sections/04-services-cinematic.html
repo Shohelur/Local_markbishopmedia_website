@@ -1,0 +1,369 @@
+<style>
+/* ═══════════════════════════════════════════════════════════
+   PHASE 4: MASTER SERVICES SECTION (CINEMATIC SCROLL)
+   ═══════════════════════════════════════════════════════════ */
+
+/* MASTER CONTAINER */
+.phase4-pin-master {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* GSAP will add the scroll space via pin-spacer */
+  z-index: 10;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg-core);
+}
+
+/* 1. INTRO BLOCK */
+.phase4-intro {
+  text-align: center; max-width: 800px; position: absolute; top: 12vh;
+  left: 50%; transform: translateX(-50%);
+  will-change: transform, opacity;
+  z-index: 15;
+}
+.phase4-kicker { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--cyan-glow); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; display: block; }
+.phase4-title { font-family: 'Inter', sans-serif; font-size: clamp(32px, 4vw, 56px); font-weight: 800; line-height: 1.1; margin-bottom: 20px; text-transform: uppercase; }
+.phase4-title span { color: var(--lime-glow); }
+.phase4-desc { font-family: 'Inter', sans-serif; font-size: 16px; color: var(--text-dim); line-height: 1.6; max-width: 600px; margin: 0 auto; }
+
+/* 2. THE CARDS WRAPPER */
+.phase4-cards-wrapper {
+  position: absolute;
+  top: 38vh;
+  width: 100%;
+  max-width: 1300px;
+  padding: 0 20px;
+  left: 50%; transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  z-index: 20;
+}
+
+.phase4-glass-card {
+  flex: 1;
+  max-width: 280px; 
+  height: 480px; 
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 20px;
+  display: flex; flex-direction: column; align-items: center; padding: 30px 20px; text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.15); border-top: 1px solid rgba(255, 255, 255, 0.3); border-bottom: 1px solid rgba(0, 212, 255, 0.4);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.2), inset 0 -40px 80px rgba(0, 212, 255, 0.1);
+  will-change: transform, opacity;
+}
+
+.phase4-card-ui { transition: opacity 0.3s; will-change: opacity; }
+.phase4-glow-base { position: absolute; bottom: -15px; left: 15%; right: 15%; height: 15px; background: var(--cyan-glow); filter: blur(25px); opacity: 0.5; z-index: 1; }
+
+.phase4-hologram-container { width: 100%; height: 220px; position: relative; margin-bottom: 25px; pointer-events: none; will-change: transform; }
+canvas.phase4-holo-canvas { position: absolute; inset: 0; width: 100%; height: 100%; outline: none; pointer-events: none; }
+
+.phase4-card-title { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #fff; margin-bottom: 12px; }
+.phase4-card-desc { font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 400; line-height: 1.5; color: rgba(255, 255, 255, 0.6); margin-bottom: auto; }
+
+/* 3. DETAIL TEXT PANELS (Hidden initially) */
+.phase4-detail-panel {
+  position: absolute;
+  top: 38vh;
+  width: 450px;
+  z-index: 15;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  font-family: 'Inter', sans-serif;
+}
+
+.phase4-panel-right { left: 55%; }
+.phase4-panel-left { right: 55%; text-align: right; }
+
+.phase4-panel-tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #020205; background: var(--cyan-glow); padding: 4px 12px; border-radius: 100px; margin-bottom: 16px; letter-spacing: 1px; }
+.phase4-panel-title { font-size: 38px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; text-transform: uppercase; letter-spacing: -0.02em; }
+.phase4-panel-desc { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 30px; }
+
+.phase4-btn-action { display: inline-block; padding: 14px 30px; background: rgba(0, 212, 255, 0.1); border: 1px solid var(--cyan-glow); color: #fff; font-weight: 700; border-radius: 100px; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; }
+.phase4-btn-action:hover { background: var(--cyan-glow); color: #020205; box-shadow: 0 0 25px rgba(0, 212, 255, 0.5); }
+
+/* SCROLL HINT */
+.phase4-scroll-hint {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 3px; color: rgba(255,255,255,0.4); text-transform: uppercase;
+}
+</style>
+
+<!-- THE CINEMATIC SCROLL MASTER -->
+<section class="phase4-pin-master" id="phase4-services">
+  
+  <!-- Intro Text -->
+  <div class="phase4-intro" id="phase4-intro-text">
+    <span class="phase4-kicker">Local Visibility OS</span>
+    <h2 class="phase4-title">The <span>Unfair</span> Advantage</h2>
+    <p class="phase4-desc">Four specialized systems engineered to dominate your 9-mile radius and turn local traffic into high-intent inbound phone calls.</p>
+  </div>
+  
+  <div class="phase4-cards-wrapper" id="phase4-cards-wrapper">
+    
+    <!-- CARD 1: MAPS -->
+    <div class="phase4-glass-card" id="phase4-card-maps">
+      <div class="phase4-glow-base"></div>
+      <div class="phase4-hologram-container" id="phase4-holo-container-maps">
+        <canvas class="phase4-holo-canvas" id="canvas-maps"></canvas>
+      </div>
+      <div class="phase4-card-ui">
+        <div class="phase4-card-title">Google Maps Top 3</div>
+        <div class="phase4-card-desc">Outrank local competitors in the 9-mile radius.</div>
+      </div>
+    </div>
+    
+    <!-- CARD 2: REVIEWS -->
+    <div class="phase4-glass-card" id="phase4-card-reviews">
+      <div class="phase4-glow-base" style="background: var(--gold-glow);"></div>
+      <div class="phase4-hologram-container" id="phase4-holo-container-reviews">
+        <canvas class="phase4-holo-canvas" id="canvas-reviews"></canvas>
+      </div>
+      <div class="phase4-card-ui">
+        <div class="phase4-card-title">5-Star Reviews</div>
+        <div class="phase4-card-desc">Automated reputation capture system.</div>
+      </div>
+    </div>
+    
+    <!-- CARD 3: CITATIONS -->
+    <div class="phase4-glass-card" id="phase4-card-citations">
+      <div class="phase4-glow-base" style="background: var(--lime-glow);"></div>
+      <div class="phase4-hologram-container" id="phase4-holo-container-citations">
+        <canvas class="phase4-holo-canvas" id="canvas-citations"></canvas>
+      </div>
+      <div class="phase4-card-ui">
+        <div class="phase4-card-title">100+ Citations</div>
+        <div class="phase4-card-desc">Instant NAP sync across premium directories.</div>
+      </div>
+    </div>
+    
+    <!-- CARD 4: WEBSITE -->
+    <div class="phase4-glass-card" id="phase4-card-website">
+      <div class="phase4-glow-base" style="background: var(--purple-glow);"></div>
+      <div class="phase4-hologram-container" id="phase4-holo-container-website">
+        <canvas class="phase4-holo-canvas" id="canvas-website"></canvas>
+      </div>
+      <div class="phase4-card-ui">
+        <div class="phase4-card-title">3D Website</div>
+        <div class="phase4-card-desc">High-converting digital storefronts.</div>
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- DETAILED TEXT PANELS -->
+  <div class="phase4-detail-panel phase4-panel-right" id="phase4-text-maps">
+    <div class="phase4-panel-tag">CORE ENGINE 01</div>
+    <div class="phase4-panel-title">Rank in Google Maps <span style="color:var(--cyan-glow);">Top 3</span></div>
+    <div class="phase4-panel-desc">When local customers search for your services, they don't look past the top 3 results. Our system optimizes your Google Business Profile with real-time GPS grid signals, ensuring you dominate the 9-mile radius and capture the highest-intent inbound calls before your competitors even know what happened.</div>
+    <a href="#audit" class="phase4-btn-action">Scan Your Visibility</a>
+  </div>
+
+  <div class="phase4-detail-panel phase4-panel-left" id="phase4-text-reviews">
+    <div class="phase4-panel-tag" style="background: var(--gold-glow); color: #020205;">CORE ENGINE 02</div>
+    <div class="phase4-panel-title">Automated <span style="color:var(--gold-glow);">5-Star</span> Reviews</div>
+    <div class="phase4-panel-desc">Visibility without trust is useless. We deploy automated review capture systems that intercept unhappy customers before they post, while seamlessly routing your happiest clients to Google. Build an unbreakable 5-star reputation that makes choosing your business the only logical option.</div>
+    <a href="#audit" class="phase4-btn-action" style="border-color: var(--gold-glow);">Analyze Reputation</a>
+  </div>
+
+  <div class="phase4-detail-panel phase4-panel-right" id="phase4-text-citations">
+    <div class="phase4-panel-tag" style="background: var(--lime-glow); color: #020205;">CORE ENGINE 03</div>
+    <div class="phase4-panel-title">100+ Directory <span style="color:var(--lime-glow);">Citations</span></div>
+    <div class="phase4-panel-desc">Inconsistent business data destroys local rankings. We instantly sync your NAP (Name, Address, Phone) across 100+ premium directories, GPS networks, and voice search engines. Lock down your digital footprint and feed Google the exact authority signals it needs to rank you #1.</div>
+    <a href="#audit" class="phase4-btn-action" style="border-color: var(--lime-glow);">Check Citations</a>
+  </div>
+
+  <div class="phase4-detail-panel phase4-panel-left" id="phase4-text-website">
+    <div class="phase4-panel-tag" style="background: var(--purple-glow); color: #fff;">CORE ENGINE 04</div>
+    <div class="phase4-panel-title">High-Converting <span style="color:var(--purple-glow);">Website</span></div>
+    <div class="phase4-panel-desc">A generic website bleeds money. We engineer lightning-fast, high-converting digital storefronts designed specifically to turn local traffic into booked appointments. No fluff—just a ruthless conversion machine built on the exact psychological triggers that make local customers buy.</div>
+    <a href="#audit" class="phase4-btn-action" style="border-color: var(--purple-glow);">View Templates</a>
+  </div>
+  
+  <div class="phase4-scroll-hint" id="phase4-scroll-hint">SCROLL TO EXPLORE ENGINES</div>
+</section>
+
+<script>
+// GSAP ScrollToPlugin is required for anchor routing!
+// Make sure it's loaded in the head: <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"><\/script>
+
+function initPhase4Services() {
+  if (typeof THREE === 'undefined' || typeof gsap === 'undefined') return;
+
+  // 1. SETUP THREE.JS HOLOGRAMS
+  function createHologram(canvasId, type, color) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return null;
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+    camera.position.z = 10;
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    // Create unique shapes based on type
+    let mesh;
+    if (type === 'maps') {
+      const geo = new THREE.OctahedronGeometry(2.5, 0);
+      const mat = new THREE.MeshBasicMaterial({ color: color, wireframe: true, transparent: true, opacity: 0.8 });
+      mesh = new THREE.Mesh(geo, mat);
+    } else if (type === 'reviews') {
+      const geo = new THREE.TorusGeometry(2, 0.5, 16, 32);
+      const mat = new THREE.MeshBasicMaterial({ color: color, wireframe: true, transparent: true, opacity: 0.8 });
+      mesh = new THREE.Mesh(geo, mat);
+    } else if (type === 'citations') {
+      const geo = new THREE.IcosahedronGeometry(2.5, 1);
+      const mat = new THREE.MeshBasicMaterial({ color: color, wireframe: true, transparent: true, opacity: 0.8 });
+      mesh = new THREE.Mesh(geo, mat);
+    } else if (type === 'website') {
+      const geo = new THREE.BoxGeometry(3, 3, 3);
+      const mat = new THREE.MeshBasicMaterial({ color: color, wireframe: true, transparent: true, opacity: 0.8 });
+      mesh = new THREE.Mesh(geo, mat);
+    }
+    group.add(mesh);
+
+    // Core
+    const coreGeo = new THREE.SphereGeometry(1, 16, 16);
+    const coreMat = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.4 });
+    const core = new THREE.Mesh(coreGeo, coreMat);
+    group.add(core);
+
+    return { renderer, scene, camera, group, mesh };
+  }
+
+  const holos = {
+    maps: createHologram('canvas-maps', 'maps', 0x00d4ff),
+    reviews: createHologram('canvas-reviews', 'reviews', 0xffd700),
+    citations: createHologram('canvas-citations', 'citations', 0xb8ff57),
+    website: createHologram('canvas-website', 'website', 0xbd00ff)
+  };
+
+  const p4Clock = new THREE.Clock();
+  function animateHolos() {
+    requestAnimationFrame(animateHolos);
+    const t = p4Clock.getElapsedTime();
+    Object.values(holos).forEach(h => {
+      if (!h) return;
+      h.group.rotation.y = t * 0.5;
+      h.mesh.rotation.x = Math.sin(t * 0.5) * 0.5;
+      h.renderer.render(h.scene, h.camera);
+    });
+  }
+  animateHolos();
+
+  // 2. GSAP SCROLLTIMELINE
+  gsap.registerPlugin(ScrollTrigger);
+
+  const moveRight = "30vw";
+  const moveLeft = "-30vw";
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#phase4-services",
+      start: "top top",
+      end: "+=400%",
+      scrub: 1,
+      pin: true,
+      id: "phase4-st"
+    }
+  });
+
+  tl.addLabel("phase1")
+    .to('#phase4-intro-text', { autoAlpha: 0, y: -50, duration: 1 }, "phase1")
+    .to('#phase4-scroll-hint', { autoAlpha: 0, duration: 0.5 }, "phase1")
+    .to(['#phase4-card-reviews', '#phase4-card-citations', '#phase4-card-website'], { autoAlpha: 0, y: 100, scale: 0.8, duration: 1 }, "phase1")
+    
+    // Animate Maps card
+    .to('#phase4-card-maps', { x: moveLeft, y: -100, duration: 1.5, ease: "power2.inOut" }, "phase1")
+    .to('#phase4-card-maps', { background: 'transparent', border: 'none', boxShadow: 'none', duration: 1 }, "phase1+=0.5")
+    .to('#phase4-card-maps .phase4-card-ui', { autoAlpha: 0, duration: 0.5 }, "phase1+=0.5")
+    .to('#phase4-holo-container-maps', { scale: 1.8, duration: 1.5 }, "phase1")
+    .to('#phase4-text-maps', { autoAlpha: 1, y: 0, duration: 1 }, "phase1+=0.5");
+
+  tl.addLabel("phase2", "+=0.5")
+    .to('#phase4-text-maps', { autoAlpha: 0, y: -50, duration: 1 }, "phase2")
+    .to('#phase4-card-maps', { autoAlpha: 0, y: -300, duration: 1 }, "phase2")
+    .set('#phase4-card-reviews', { x: moveRight, y: 200, background: 'transparent', border: 'none', boxShadow: 'none' }, "phase2")
+    .set('#phase4-card-reviews .phase4-card-ui', { autoAlpha: 0 }, "phase2")
+    .to('#phase4-card-reviews', { autoAlpha: 1, y: -100, duration: 1.5, ease: "power2.inOut" }, "phase2")
+    .to('#phase4-holo-container-reviews', { scale: 1.8, duration: 1.5 }, "phase2")
+    .to('#phase4-text-reviews', { autoAlpha: 1, y: 0, duration: 1 }, "phase2+=0.5");
+
+  tl.addLabel("phase3", "+=0.5")
+    .to('#phase4-text-reviews', { autoAlpha: 0, y: -50, duration: 1 }, "phase3")
+    .to('#phase4-card-reviews', { autoAlpha: 0, y: -300, duration: 1 }, "phase3")
+    .set('#phase4-card-citations', { x: moveLeft, y: 200, background: 'transparent', border: 'none', boxShadow: 'none' }, "phase3")
+    .set('#phase4-card-citations .phase4-card-ui', { autoAlpha: 0 }, "phase3")
+    .to('#phase4-card-citations', { autoAlpha: 1, y: -100, duration: 1.5, ease: "power2.inOut" }, "phase3")
+    .to('#phase4-holo-container-citations', { scale: 1.8, duration: 1.5 }, "phase3")
+    .to('#phase4-text-citations', { autoAlpha: 1, y: 0, duration: 1 }, "phase3+=0.5");
+
+  tl.addLabel("phase4", "+=0.5")
+    .to('#phase4-text-citations', { autoAlpha: 0, y: -50, duration: 1 }, "phase4")
+    .to('#phase4-card-citations', { autoAlpha: 0, y: -300, duration: 1 }, "phase4")
+    .set('#phase4-card-website', { x: moveRight, y: 200, background: 'transparent', border: 'none', boxShadow: 'none' }, "phase4")
+    .set('#phase4-card-website .phase4-card-ui', { autoAlpha: 0 }, "phase4")
+    .to('#phase4-card-website', { autoAlpha: 1, y: -100, duration: 1.5, ease: "power2.inOut" }, "phase4")
+    .to('#phase4-holo-container-website', { scale: 1.8, duration: 1.5 }, "phase4")
+    .to('#phase4-text-website', { autoAlpha: 1, y: 0, duration: 1 }, "phase4+=0.5");
+    
+  tl.to({}, {duration: 0.5}); // Buffer
+}
+
+// Ensure it initializes after load
+window.addEventListener('load', initPhase4Services);
+
+// 3. ANCHOR LINK ROUTING INTERCEPTOR
+document.addEventListener('DOMContentLoaded', () => {
+  // Bind all nav links that point to the 4 sections
+  const serviceLinks = document.querySelectorAll('a[href="#three-pack"], a[href="#reviews"], a[href="#citations"], a[href="#website"]');
+  
+  serviceLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      // Check if ScrollToPlugin exists
+      if (!gsap.plugins.scrollTo) {
+        console.warn("GSAP ScrollToPlugin missing! Anchor routing skipped.");
+        return; 
+      }
+      
+      e.preventDefault();
+      
+      const targetId = link.getAttribute('href').substring(1); // "three-pack", "reviews" etc.
+      
+      // Map IDs to GSAP labels
+      const labelMap = {
+        'three-pack': 'phase1',
+        'reviews': 'phase2',
+        'citations': 'phase3',
+        'website': 'phase4'
+      };
+      
+      const st = ScrollTrigger.getById("phase4-st");
+      if (st && labelMap[targetId]) {
+        // Calculate the exact pixel scroll position for that label
+        const targetScroll = st.labelToScroll(labelMap[targetId]);
+        
+        // Close dropdown if it's open (mobile)
+        const drawer = document.getElementById('mobile-drawer-sheet');
+        if (drawer && drawer.classList.contains('active')) {
+          drawer.classList.remove('active');
+        }
+        
+        // Smoothly animate the window scroll to that position
+        gsap.to(window, {
+          scrollTo: { y: targetScroll, autoKill: false },
+          duration: 1.5,
+          ease: "power3.inOut"
+        });
+      }
+    });
+  });
+});
+</script>

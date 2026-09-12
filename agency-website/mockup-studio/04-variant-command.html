@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 4: Command Center Variant (Perfected)</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #ff5500;
+    --orange-glow: rgba(255, 85, 0, 0.4);
+    --blue: #00ccff;
+    --blue-glow: rgba(0, 204, 255, 0.4);
+    --bg-dark: #000000;
+    --panel-bg: #050505;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background-color: var(--bg-dark);
+    color: #fff;
+    font-family: 'Share Tech Mono', monospace;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  /* ==========================================================
+     HUD FRAME STYLING (The intricate cut-corner borders)
+     ========================================================== */
+  .hud-frame {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    /* Outer cut corners */
+    clip-path: polygon(
+      20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), 
+      calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px), 0 20px
+    );
+    background: var(--orange);
+    padding: 2px;
+    transition: filter 0.3s;
+    filter: drop-shadow(0 0 10px var(--orange-glow));
+  }
+  
+  .hud-frame.theme-blue {
+    background: var(--blue);
+    filter: drop-shadow(0 0 10px var(--blue-glow));
+  }
+  .hud-frame:hover { filter: drop-shadow(0 0 20px currentColor); }
+
+  .hud-inner {
+    width: 100%; height: 100%;
+    background: var(--panel-bg);
+    clip-path: inherit;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  /* Inner corner brackets */
+  .hud-inner::before, .hud-inner::after {
+    content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+    pointer-events: none;
+  }
+  .hud-inner::before {
+    background: 
+      linear-gradient(currentColor, currentColor) top left/30px 2px no-repeat,
+      linear-gradient(currentColor, currentColor) top left/2px 30px no-repeat,
+      linear-gradient(currentColor, currentColor) top right/30px 2px no-repeat,
+      linear-gradient(currentColor, currentColor) top right/2px 30px no-repeat;
+    opacity: 0.5;
+  }
+  .hud-inner::after {
+    background: 
+      linear-gradient(currentColor, currentColor) bottom left/30px 2px no-repeat,
+      linear-gradient(currentColor, currentColor) bottom left/2px 30px no-repeat,
+      linear-gradient(currentColor, currentColor) bottom right/30px 2px no-repeat,
+      linear-gradient(currentColor, currentColor) bottom right/2px 30px no-repeat;
+    opacity: 0.5;
+  }
+
+  /* ==========================================================
+     HUD CONTENT STYLING
+     ========================================================== */
+  .hud-header {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 12px; margin-bottom: 20px;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 2px;
+  }
+  .hud-title { font-size: 24px; font-weight: 700; text-transform: uppercase; }
+  .hud-status { font-size: 14px; font-weight: 600; padding: 2px 8px; background: currentColor; color: #000; border-radius: 2px; }
+
+  .hud-body { flex: 1; position: relative; display: flex; flex-direction: column; }
+  
+  .hud-data-row {
+    display: flex; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 10px;
+  }
+  .hud-data-row span { color: currentColor; font-weight: bold; }
+
+  /* Canvas Container */
+  .canvas-container {
+    flex: 1; position: relative; width: 100%; margin: 15px 0;
+    overflow: hidden;
+  }
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  /* Bottom Buttons */
+  .hud-actions { display: flex; gap: 15px; margin-top: auto; }
+  .hud-btn {
+    flex: 1; padding: 10px 0; text-align: center;
+    border: 1px solid currentColor; background: rgba(255,255,255,0.03);
+    color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
+    transition: all 0.2s;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  }
+  .hud-btn:hover { background: currentColor; color: #000; box-shadow: 0 0 15px currentColor; }
+
+  @media (max-width: 1000px) { .bento-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+  <div class="bento-grid">
+    
+    <!-- CARD 1: AEGIS THREAT MONITOR (ORANGE) -->
+    <div class="hud-frame" style="color: var(--orange);">
+      <div class="hud-inner">
+        <div class="hud-header">
+          <div class="hud-title">[ AEGIS THREAT MONITOR ]</div>
+          <div class="hud-status">ACTIVE</div>
+        </div>
+        <div class="hud-body">
+          <div class="hud-data-row">
+            <div>Targeting Node:<br><span>[Gomma-7]</span></div>
+            <div style="text-align: right;">Signal:<br><span>[LOCKED]</span></div>
+          </div>
+          <div class="canvas-container"><canvas id="canvas-radar"></canvas></div>
+          <div class="hud-actions">
+            <div class="hud-btn">SYSTEM SCAN</div>
+            <div class="hud-btn">VIEW INCIDENTS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2: NEURAL NETWORK (BLUE) -->
+    <div class="hud-frame theme-blue" style="color: var(--blue);">
+      <div class="hud-inner">
+        <div class="hud-header">
+          <div class="hud-title">[ NEURAL NETWORK ]</div>
+          <div class="hud-status">OPTIMIZER</div>
+        </div>
+        <div class="hud-body">
+          <div class="hud-data-row">
+            <div>Latency: <span>[3.2ms]</span></div>
+            <div>Nodes: <span>[214]</span></div>
+            <div>Eff: <span>[94.6%]</span></div>
+          </div>
+          <div class="canvas-container"><canvas id="canvas-network"></canvas></div>
+          <div class="hud-actions">
+            <div class="hud-btn">ADJUST PROTOCOLS</div>
+            <div class="hud-btn">REFINE ARRAY</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3: GLOBAL OPERATIONS HUB (ORANGE) -->
+    <div class="hud-frame" style="color: var(--orange);">
+      <div class="hud-inner">
+        <div class="hud-header">
+          <div class="hud-title">GLOBAL OPERATIONS HUB</div>
+          <div class="hud-status">ONLINE</div>
+        </div>
+        <div class="hud-body">
+          <div class="canvas-container"><canvas id="canvas-map"></canvas></div>
+          <div class="hud-data-row" style="margin-top: 10px;">
+            <div>Ops Status: <span>[STABLE]</span></div>
+            <div>Global Latency: <span>[89ms]</span></div>
+          </div>
+          <div class="hud-actions">
+            <div class="hud-btn">REGIONAL VIEW</div>
+            <div class="hud-btn">STATUS DEPLOY</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 4: CYBER SECURITY PROTOCOLS (BLUE) -->
+    <div class="hud-frame theme-blue" style="color: var(--blue);">
+      <div class="hud-inner">
+        <div class="hud-header">
+          <div class="hud-title">CYBER SECURITY PROTOCOLS</div>
+          <div class="hud-status" style="background: #00ff00;">SECURED</div>
+        </div>
+        <div class="hud-body">
+          <div style="font-size: 11px; color: #ff3333; margin-bottom: 10px; line-height: 1.4;">
+            REAL-TIME SYSTEM LOGS<br>
+            ALERT: UNAUTHORIZED ACCESS BLOCKED | NODE: [Theta-9] | LOG: [14:31:02]<br>
+            ALERT: UNAUTHORIZED ACCESS BLOCKED | NODE: [Theta-5] | LOG: [14:31:02]<br>
+          </div>
+          <div class="canvas-container"><canvas id="canvas-cyber"></canvas></div>
+          <div class="hud-data-row">
+            <div>ENCRYPTION LEVEL: <span>ALPHA-256</span></div>
+          </div>
+          <div class="hud-actions">
+            <div class="hud-btn">MANAGE ACCESS</div>
+            <div class="hud-btn">VIEW LOGS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Utility for crisp canvas
+    function setupCanvas(id) {
+      const cvs = document.getElementById(id);
+      const ctx = cvs.getContext('2d');
+      const rect = cvs.parentElement.getBoundingClientRect();
+      cvs.width = rect.width * 2;
+      cvs.height = rect.height * 2;
+      ctx.scale(2, 2);
+      return { cvs, ctx, w: rect.width, h: rect.height };
+    }
+
+    // ==========================================
+    // 1. RADAR SYSTEM
+    // ==========================================
+    const radar = setupCanvas('canvas-radar');
+    let angle = 0;
+    const dots = Array.from({length: 5}, () => ({
+      a: Math.random() * Math.PI * 2,
+      r: Math.random() * (radar.h/2 - 20),
+      life: 0
+    }));
+
+    function drawRadar() {
+      const {ctx, w, h} = radar;
+      const cx = w/2, cy = h/2, radius = Math.min(cx, cy) - 10;
+      
+      ctx.clearRect(0,0,w,h);
+      ctx.strokeStyle = 'rgba(255, 85, 0, 0.3)';
+      ctx.lineWidth = 1;
+
+      // Grid Rings
+      for(let i=1; i<=4; i++) {
+        ctx.beginPath(); ctx.arc(cx, cy, (radius/4)*i, 0, Math.PI*2); ctx.stroke();
+      }
+      // Crosshairs
+      ctx.beginPath(); ctx.moveTo(cx, cy - radius); ctx.lineTo(cx, cy + radius); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx - radius, cy); ctx.lineTo(cx + radius, cy); ctx.stroke();
+
+      // Sweeping Beam
+      angle += 0.04;
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(angle);
+      const grad = ctx.createConicGradient(0, 0, 0);
+      grad.addColorStop(0, 'rgba(255, 85, 0, 0)');
+      grad.addColorStop(0.9, 'rgba(255, 85, 0, 0.1)');
+      grad.addColorStop(1, 'rgba(255, 85, 0, 0.8)');
+      ctx.fillStyle = grad;
+      ctx.beginPath(); ctx.moveTo(0,0); ctx.arc(0,0, radius, 0, Math.PI*2); ctx.fill();
+      // Leading line
+      ctx.strokeStyle = '#ff5500'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(radius, 0); ctx.stroke();
+      ctx.restore();
+
+      // Blips (Dots)
+      dots.forEach(dot => {
+        // Calculate angular difference
+        let diff = (angle % (Math.PI*2)) - dot.a;
+        if(diff < 0) diff += Math.PI*2;
+        if(diff < 0.1) dot.life = 1; // Ping!
+
+        if(dot.life > 0) {
+          ctx.fillStyle = `rgba(255, 85, 0, ${dot.life})`;
+          ctx.beginPath();
+          ctx.arc(cx + Math.cos(dot.a)*dot.r, cy + Math.sin(dot.a)*dot.r, 3, 0, Math.PI*2);
+          ctx.fill();
+          ctx.shadowColor = '#ff5500'; ctx.shadowBlur = 10; ctx.fill(); ctx.shadowBlur = 0;
+          dot.life -= 0.02;
+        }
+      });
+      requestAnimationFrame(drawRadar);
+    }
+    drawRadar();
+
+    // ==========================================
+    // 2. NEURAL NETWORK GRAPH
+    // ==========================================
+    const net = setupCanvas('canvas-network');
+    let time = 0;
+    function drawNetwork() {
+      const {ctx, w, h} = net;
+      ctx.clearRect(0,0,w,h);
+      time += 0.02;
+
+      // Background Grid
+      ctx.strokeStyle = 'rgba(0, 204, 255, 0.1)'; ctx.lineWidth = 1;
+      for(let x=0; x<w; x+=20) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke(); }
+      for(let y=0; y<h; y+=20) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
+
+      const lines = [
+        { f: 0.02, a: 30, o: 0, c: '#00ccff' },
+        { f: 0.03, a: 40, o: 2, c: '#00ccff' },
+        { f: 0.015, a: 50, o: 1, c: 'rgba(0, 204, 255, 0.5)' }
+      ];
+
+      ctx.lineJoin = 'round';
+      
+      lines.forEach(l => {
+        ctx.beginPath();
+        ctx.strokeStyle = l.c;
+        ctx.lineWidth = 2;
+        for(let x=0; x<=w; x+=10) {
+          let y = h/2 + Math.sin(x*l.f + time + l.o) * l.a;
+          if(x===0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          
+          // Draw Nodes occasionally
+          if(x % 60 === 0 && x > 0 && x < w) {
+            ctx.fillStyle = l.c;
+            ctx.fillRect(x-3, y-3, 6, 6);
+            ctx.shadowColor = l.c; ctx.shadowBlur = 10; ctx.fillRect(x-3, y-3, 6, 6); ctx.shadowBlur = 0;
+          }
+        }
+        ctx.stroke();
+      });
+      requestAnimationFrame(drawNetwork);
+    }
+    drawNetwork();
+
+    // ==========================================
+    // 3. GLOBAL OPERATIONS MAP
+    // ==========================================
+    const map = setupCanvas('canvas-map');
+    let mTime = 0;
+    
+    // Fake continents using random clustered dots
+    const mapDots = [];
+    for(let i=0; i<300; i++) {
+      let x = Math.random() * map.w; let y = Math.random() * map.h;
+      // create bands for fake continents
+      if(Math.sin(x*0.02)*Math.cos(y*0.03) > 0.2) mapDots.push({x,y});
+    }
+    
+    const flights = [
+      {sx: 40, sy: 60, ex: 150, ey: 80, p: 0},
+      {sx: 150, sy: 80, ex: 250, ey: 40, p: 0.5},
+      {sx: 250, sy: 40, ex: 80, ey: 120, p: 0.2}
+    ];
+
+    function drawMap() {
+      const {ctx, w, h} = map;
+      ctx.clearRect(0,0,w,h);
+      mTime += 0.02;
+
+      // Draw map dots
+      ctx.fillStyle = 'rgba(255, 85, 0, 0.3)';
+      mapDots.forEach(d => { ctx.fillRect(d.x, d.y, 2, 2); });
+
+      // Draw Arcs
+      ctx.strokeStyle = '#ff5500'; ctx.lineWidth = 1.5;
+      flights.forEach(f => {
+        f.p += 0.01; if(f.p > 1) f.p = 0;
+        
+        // Draw dashed trail
+        ctx.beginPath();
+        ctx.moveTo(f.sx, f.sy);
+        // Quadratic curve for arc
+        const cx = (f.sx + f.ex)/2; const cy = Math.min(f.sy, f.ey) - 40;
+        ctx.quadraticCurveTo(cx, cy, f.ex, f.ey);
+        ctx.setLineDash([5, 10]);
+        ctx.stroke(); ctx.setLineDash([]);
+
+        // Draw moving ping
+        const t = f.p;
+        const px = Math.pow(1-t, 2)*f.sx + 2*(1-t)*t*cx + Math.pow(t,2)*f.ex;
+        const py = Math.pow(1-t, 2)*f.sy + 2*(1-t)*t*cy + Math.pow(t,2)*f.ey;
+        
+        ctx.fillStyle = '#fff';
+        ctx.beginPath(); ctx.arc(px, py, 3, 0, Math.PI*2); ctx.fill();
+        ctx.shadowColor = '#ff5500'; ctx.shadowBlur = 10; ctx.fill(); ctx.shadowBlur = 0;
+        
+        // Base nodes
+        ctx.fillStyle = '#ff5500';
+        ctx.beginPath(); ctx.arc(f.sx, f.sy, 4, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(f.ex, f.ey, 4, 0, Math.PI*2); ctx.fill();
+      });
+      requestAnimationFrame(drawMap);
+    }
+    drawMap();
+
+    // ==========================================
+    // 4. CYBER SECURITY (PADLOCK & CIRCUITS)
+    // ==========================================
+    const cyb = setupCanvas('canvas-cyber');
+    let cybTime = 0;
+    
+    function drawCyber() {
+      const {ctx, w, h} = cyb;
+      ctx.clearRect(0,0,w,h);
+      cybTime += 0.02;
+      const cx = w/2, cy = h/2;
+
+      // Draw circuits
+      ctx.strokeStyle = 'rgba(0, 204, 255, 0.2)'; ctx.lineWidth = 2;
+      for(let i=0; i<8; i++) {
+        let y = 20 + i*15;
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(cx - 50, y); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(w, y); ctx.lineTo(cx + 50, y); ctx.stroke();
+        // Moving data packets
+        let px = (cybTime*50 + i*30) % cx;
+        ctx.fillStyle = '#00ccff';
+        ctx.fillRect(px, y-1.5, 5, 3);
+        ctx.fillRect(w - px, y-1.5, 5, 3);
+      }
+
+      // Rotating Rings
+      ctx.save(); ctx.translate(cx, cy);
+      
+      ctx.strokeStyle = '#00ccff';
+      ctx.shadowColor = '#00ccff'; ctx.shadowBlur = 10;
+      
+      ctx.rotate(cybTime * 0.5);
+      ctx.beginPath(); ctx.arc(0,0, 40, 0, Math.PI*1.5); ctx.stroke();
+      
+      ctx.rotate(-cybTime * 0.8);
+      ctx.beginPath(); ctx.arc(0,0, 50, Math.PI*0.5, Math.PI*1.8); ctx.stroke();
+      
+      ctx.restore();
+
+      // Center Padlock
+      ctx.fillStyle = '#00ccff';
+      ctx.shadowColor = '#00ccff'; ctx.shadowBlur = 15;
+      // Lock body
+      ctx.fillRect(cx - 15, cy, 30, 25);
+      // Lock shackle
+      ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.arc(cx, cy, 10, Math.PI, 0); ctx.stroke();
+      ctx.shadowBlur = 0;
+
+    }
+    setInterval(drawCyber, 30); // Use setInterval for slightly different pace
+
+  </script>
+</body>
+</html>
