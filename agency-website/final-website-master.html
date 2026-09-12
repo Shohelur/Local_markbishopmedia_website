@@ -2662,6 +2662,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 .p4-content { flex: 1; }
 .p4-visual { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; }
 .p4-visual-img { width: 100%; max-width: 480px; transition: transform 0.5s ease; background: transparent; }
+.citations-image { width: min(75%, 380px) !important; max-height: 90%; height: auto; object-fit: contain; }
 .p4-visual:hover .p4-visual-img { transform: scale(1.03) rotateY(-3deg); }
 .p4-section.alt .p4-visual:hover .p4-visual-img { transform: scale(1.03) rotateY(3deg); }
 .p4-visual-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; filter: blur(100px); z-index: -1; opacity: 0.15; border-radius: 50%; }
@@ -2772,7 +2773,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #b8ff57;"></div>
-        <img src="assets/images/service_citations_transparent_clean.png" class="p4-visual-img" alt="Citations Visual">
+        <img src="assets/images/service_citations_transparent_clean.png" class="p4-visual-img citations-image" alt="Citations Visual">
       </div>
     </div>
 
