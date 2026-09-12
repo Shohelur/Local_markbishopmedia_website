@@ -40,6 +40,8 @@ This file is automatically loaded by Antigravity IDE & Antigravity CLI (`agy`) a
 4. **Append-Only Stacking on Master:** When adding a new section, NEVER modify previous approved sections. Append the new section cleanly below the existing stack.
 5. **3D Animation Rule:** Keep 3D animations live and smooth on client view (no auto-pausing).
 6. **Zero-Discrepancy Studio-to-Master Sync Rule:** When the user customizes any section in a mockup studio (`00-intro-studio.html`, `01-hero-studio.html`, etc.) and approves it, the AI MUST faithfully and strictly transfer the EXACT numbers, dimensions, font sizes, line wraps (e.g. 2-line title on mobile), 3D scales (`pinScale`), and Y-positions for each device breakpoint (`mobile` and `desktop`). NEVER guess, approximate, or leave legacy hardcoded variables (such as old `0.34x` scales) in the master code. Always perform a line-by-line cross-check.
+7. **Absolute Git Safety Rule:** NEVER execute destructive git commands (like `git reset --hard`, `git checkout .`, `git clean -fd`) without explicit user permission and a verified backup. Doing so deletes uncommitted user work. Always `git commit` and `git push` immediately after successfully completing a task to prevent data loss.
+8. **Explicit Constraint Adherence:** When the user repeatedly gives a specific instruction (e.g., "Fix transparency at the IMAGE ASSET level, NOT with CSS"), DO NOT repeatedly attempt to solve it using the forbidden method. Respect constraints unconditionally on the very first attempt.
 
 ---
 
