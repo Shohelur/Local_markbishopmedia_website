@@ -2634,6 +2634,172 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 
 </section>
 
+<style>
+/* ═══════════════════════════════════════════════════════════
+   PHASE 4: MASTER SERVICES SECTION (CLASSIC STACK)
+   ═══════════════════════════════════════════════════════════ */
+.p4-container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 120px 5% 100px 5%; font-family: 'Inter', sans-serif; position: relative; z-index: 10; }
+.p4-heading { text-align: center; margin-bottom: 60px; }
+.p4-kicker { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; color: #00d4ff; background: rgba(0, 212, 255, 0.1); padding: 6px 16px; border-radius: 100px; margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase; border: 1px solid rgba(0, 212, 255, 0.2); }
+.p4-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(40px, 5vw, 65px); font-weight: 800; color: #fff; line-height: 1.1; letter-spacing: -0.02em; }
+.p4-title span { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.2); }
+
+.p4-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 150px; }
+.p4-card { background: #020205; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 0; text-align: center; cursor: pointer; text-decoration: none; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; flex-direction: column; overflow: hidden; }
+.p4-card-img-wrapper { width: 100%; aspect-ratio: 1/1; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.p4-card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.p4-card-text-wrapper { padding: 32px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
+.p4-card:hover { transform: translateY(-10px); border-color: rgba(255,255,255,0.2); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+.p4-card:hover .p4-card-img { transform: scale(1.05); }
+.p4-card-title { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+.p4-card-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+@media (max-width: 1024px) { .p4-cards-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .p4-cards-grid { grid-template-columns: 1fr; } }
+
+@keyframes float3D {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+.p4-section { display: flex; align-items: center; justify-content: space-between; margin-bottom: 150px; gap: 80px; scroll-margin-top: 120px; }
+.p4-section.alt { flex-direction: row-reverse; }
+.p4-content { flex: 1; }
+.p4-visual { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; animation: float3D 6s ease-in-out infinite; }
+.p4-visual-img { width: 100%; max-width: 400px; transition: transform 0.5s ease; background: transparent; }
+.citations-image { width: min(75%, 340px) !important; max-height: 90%; height: auto; object-fit: contain; }
+.p4-visual:hover .p4-visual-img { transform: scale(1.03) rotateY(-3deg); }
+.p4-section.alt .p4-visual:hover .p4-visual-img { transform: scale(1.03) rotateY(3deg); }
+.p4-visual-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; filter: blur(100px); z-index: -1; opacity: 0.15; border-radius: 50%; }
+
+.p4-tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 100px; margin-bottom: 24px; letter-spacing: 1px; color: #020205; }
+.p4-h3 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 4vw, 48px); font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 24px; letter-spacing: -0.02em; }
+.p4-p { font-size: 18px; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 40px; }
+.p4-btn { display: inline-flex; align-items: center; padding: 14px 32px; background: transparent; border: 1px solid; font-weight: 700; border-radius: 100px; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; color: #fff; }
+.p4-btn:hover { box-shadow: 0 0 30px rgba(255,255,255,0.2); }
+
+@media (max-width: 900px) {
+  .p4-section, .p4-section.alt { flex-direction: column; text-align: center; gap: 40px; margin-bottom: 100px; }
+  .p4-visual-img { max-width: 100%; }
+}
+</style>
+
+<section id="phase4-services" style="background: linear-gradient(180deg, #020205 0%, #060c18 100%); position: relative; z-index: 10; border-top: 1px solid rgba(255,255,255,0.05);">
+  <div class="p4-container">
+    
+    <!-- HEADING -->
+    <div class="p4-heading" style="padding-top: 40px; margin-bottom: 80px;">
+      <div class="p4-kicker" style="color: #00e5ff; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 24px; border: none; background: transparent; padding: 0;">
+        THE 4 ENGINES OF LOCAL GROWTH
+      </div>
+      <h2 class="p4-title" style="max-width: 900px; margin: 0 auto 30px auto; font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 4vw, 48px); font-weight: 800; color: #ffffff; line-height: 1.3; text-transform: uppercase; letter-spacing: 0.5px;">
+        Your Local Visibility Is Not Controlled<br>By One Thing.
+      </h2>
+      <p class="p4-header-desc" style="max-width: 850px; margin: 0 auto; color: rgba(255, 255, 255, 0.75); font-size: 18px; line-height: 1.7; font-family: 'Inter', sans-serif; font-weight: 400;">
+        Google Maps, customer reviews, business listings, and your website all work together to determine how easily local customers discover, trust, and contact your business. Our four growth systems are built to strengthen each layer and turn local visibility into a stronger customer acquisition engine.
+      </p>
+    </div>
+
+    <!-- CARDS GRID -->
+    <div class="p4-cards-grid">
+      <a href="#three-pack" class="p4-card" style="background: linear-gradient(180deg, rgba(0, 100, 255, 0.12), rgba(0, 5, 20, 0.95)); border: 1px solid rgba(0, 150, 255, 0.25);">
+        <div class="p4-card-img-wrapper">
+          <img src="assets/images/card_maps.jpg" class="p4-card-img" alt="Google Maps">
+        </div>
+        <div class="p4-card-text-wrapper">
+          <div class="p4-card-title" style="color: #00d4ff;">Google Maps Top 3</div>
+          <div class="p4-card-desc">Dominate local search in your 9-mile radius.</div>
+        </div>
+      </a>
+      <a href="#reviews" class="p4-card" style="background: linear-gradient(180deg, rgba(255, 200, 0, 0.12), rgba(20, 15, 0, 0.95)); border: 1px solid rgba(255, 200, 0, 0.25);">
+        <div class="p4-card-img-wrapper">
+          <img src="assets/images/card_reviews.jpg" class="p4-card-img" alt="5-Star Reviews">
+        </div>
+        <div class="p4-card-text-wrapper">
+          <div class="p4-card-title" style="color: #ffd700;">5-Star Reviews</div>
+          <div class="p4-card-desc">Automated reputation capture system.</div>
+        </div>
+      </a>
+      <a href="#citations" class="p4-card" style="background: linear-gradient(180deg, rgba(0, 255, 100, 0.12), rgba(0, 20, 5, 0.95)); border: 1px solid rgba(0, 255, 100, 0.25);">
+        <div class="p4-card-img-wrapper">
+          <img src="assets/images/card_citations.jpg" class="p4-card-img" alt="100+ Citations">
+        </div>
+        <div class="p4-card-text-wrapper">
+          <div class="p4-card-title" style="color: #b8ff57;">100+ Citations</div>
+          <div class="p4-card-desc">Instant NAP sync across premium directories.</div>
+        </div>
+      </a>
+      <a href="#website" class="p4-card" style="background: linear-gradient(180deg, rgba(255, 0, 100, 0.12), rgba(20, 0, 5, 0.95)); border: 1px solid rgba(255, 0, 100, 0.25);">
+        <div class="p4-card-img-wrapper">
+          <img src="assets/images/card_website.jpg" class="p4-card-img" alt="3D Website">
+        </div>
+        <div class="p4-card-text-wrapper">
+          <div class="p4-card-title" style="color: #bd00ff;">3D Website</div>
+          <div class="p4-card-desc">High-converting digital storefronts.</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- SECTION 1: MAPS -->
+    <div class="p4-section" id="three-pack">
+      <div class="p4-content">
+        <div class="p4-tag" style="background: #00d4ff;">CORE ENGINE 01</div>
+        <h3 class="p4-h3">Rank in Google Maps <span style="color: #00d4ff;">Top 3</span></h3>
+        <p class="p4-p">When local customers search for your services, they don't look past the top 3 results. Our system optimizes your Google Business Profile with real-time GPS grid signals, ensuring you dominate the 9-mile radius and capture the highest-intent inbound calls before your competitors even know what happened.</p>
+        <a href="#audit" class="p4-btn" style="border-color: #00d4ff; color: #00d4ff;">Scan Your Visibility</a>
+      </div>
+      <div class="p4-visual">
+        <div class="p4-visual-glow" style="background: #00d4ff;"></div>
+        <img src="assets/images/google_maps_transparent_clean.png" class="p4-visual-img" alt="Google Maps Top 3 Visual">
+      </div>
+    </div>
+
+    <!-- SECTION 2: REVIEWS -->
+    <div class="p4-section alt" id="reviews">
+      <div class="p4-content">
+        <div class="p4-tag" style="background: #ffd700;">CORE ENGINE 02</div>
+        <h3 class="p4-h3">Automated <span style="color: #ffd700;">5-Star</span> Reviews</h3>
+        <p class="p4-p">Visibility without trust is useless. We deploy automated review capture systems that intercept unhappy customers before they post, while seamlessly routing your happiest clients to Google. Build an unbreakable 5-star reputation that makes choosing your business the only logical option.</p>
+        <a href="#audit" class="p4-btn" style="border-color: #ffd700; color: #ffd700;">Analyze Reputation</a>
+      </div>
+      <div class="p4-visual">
+        <div class="p4-visual-glow" style="background: #ffd700;"></div>
+        <img src="assets/images/service_reviews_transparent_clean.png" class="p4-visual-img" alt="5-Star Reviews Visual">
+      </div>
+    </div>
+
+    <!-- SECTION 3: CITATIONS -->
+    <div class="p4-section" id="citations">
+      <div class="p4-content">
+        <div class="p4-tag" style="background: #b8ff57;">CORE ENGINE 03</div>
+        <h3 class="p4-h3">100+ Directory <span style="color: #b8ff57;">Citations</span></h3>
+        <p class="p4-p">Inconsistent business data destroys local rankings. We instantly sync your NAP (Name, Address, Phone) across 100+ premium directories, GPS networks, and voice search engines. Lock down your digital footprint and feed Google the exact authority signals it needs to rank you #1.</p>
+        <a href="#audit" class="p4-btn" style="border-color: #b8ff57; color: #b8ff57;">Check Citations</a>
+      </div>
+      <div class="p4-visual">
+        <div class="p4-visual-glow" style="background: #b8ff57;"></div>
+        <img src="assets/images/service_citations_transparent_clean.png" class="p4-visual-img citations-image" alt="Citations Visual">
+      </div>
+    </div>
+
+    <!-- SECTION 4: WEBSITE -->
+    <div class="p4-section alt" id="website">
+      <div class="p4-content">
+        <div class="p4-tag" style="background: #bd00ff; color: #fff;">CORE ENGINE 04</div>
+        <h3 class="p4-h3">High-Converting <span style="color: #bd00ff;">Website</span></h3>
+        <p class="p4-p">A generic website bleeds money. We engineer lightning-fast, high-converting digital storefronts designed specifically to turn local traffic into booked appointments. No fluff—just a ruthless conversion machine built on the exact psychological triggers that make local customers buy.</p>
+        <a href="#audit" class="p4-btn" style="border-color: #bd00ff; color: #bd00ff;">View Templates</a>
+      </div>
+      <div class="p4-visual">
+        <div class="p4-visual-glow" style="background: #bd00ff;"></div>
+        <img src="assets/images/service_website_transparent_clean.png" class="p4-visual-img" alt="Website Visual">
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ═══════════════════════════════════════════════════════════
      MASTER JAVASCRIPT CONTROLLER
      ═══════════════════════════════════════════════════════════ -->
@@ -3872,3 +4038,5 @@ initRadar3D();
 </script>
 </body>
 </html>
+
+
