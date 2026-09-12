@@ -51,9 +51,9 @@ This file is automatically loaded by Antigravity IDE & Antigravity CLI (`agy`) a
   - Phase 2 (Approved): Hero Viewport, 3D Storefront Pin & Live Customer Stream.
   - Phase 9 (Approved): Master 3D Navigation with Dual-Deck Split Engine & Mobile Drawer.
   - Phase 3 (Approved): Interactive 3D Geo-Grid Radar Instant Scan Section.
+  - Phase 4 (Approved): Core Services Grid & Detail Sections with 3D Transparent Assets.
 - **Immediate Task:**
-  1. Fine-tune 3D Intro Splash via `00-intro-studio.html` to user's exact preferences.
-  2. Phase 4 (Next): Build the "See More" Data Reveal Section below the Radar UI.
+  1. Determine next Phase (Phase 5 or equivalent).
 
 ---
 
@@ -91,3 +91,7 @@ This file is automatically loaded by Antigravity IDE & Antigravity CLI (`agy`) a
 - Always cross-check 3 variables: `pinScale`, Y-position, and camera position for each breakpoint.
 
 - 2026-09-01 [Phase 4 Service Matrix]: Used Three.js AdditiveBlending and 2D Canvas Sprites for a fake bloom/glow effect. This creates an extremely premium neon holographic aesthetic without the massive performance cost of full post-processing bloom pipelines.
+
+### Transparency & Stacking Context
+- **mix-blend-mode isolation:** Setting `perspective` on a parent container creates an isolated stacking context. If a child inside uses `mix-blend-mode: screen`, it will blend with the parent's *transparent* background (resulting in a black box) rather than the page background. Remove `perspective` or move the blend mode to the parent.
+- **JPG Artifacts in Alpha Masking:** When using math to convert a black-background JPG into a transparent PNG (`alpha = max(R,G,B)`), JPG compression noise causes faint dark grey pixels that become semi-transparent artifacts (bounding boxes). ALWAYS apply a strict alpha threshold (e.g., `black_level = 25/255`) and linearly remap the remaining alpha values to completely crush the noise floor before exporting the PNG.
