@@ -4762,7 +4762,7 @@ function initScene1(scene, camera, renderer) {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   
   // Moved camera back and up to make elements look smaller
-  camera.position.set(0, 12, 20);
+  camera.position.set(0, 15, 25);
   camera.lookAt(0, 2, 0);
   
   // Lighting (Adjusted for richer colors, less blow-out)
@@ -4794,7 +4794,7 @@ function initScene1(scene, camera, renderer) {
 
   // Scale down the entire group by 0.8 to fit better next to the text
   const masterGroup = new THREE.Group();
-  masterGroup.scale.set(1.1, 1.1, 1.1);
+  masterGroup.scale.set(1.0, 1.0, 1.0);
   scene.add(masterGroup);
 
   const clayGroup = new THREE.Group();
@@ -4924,7 +4924,7 @@ function initScene2(scene, camera, renderer) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   
-  camera.position.set(0, 12, 20);
+  camera.position.set(0, 15, 25);
   camera.lookAt(0, 2, 0);
   
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
@@ -4949,7 +4949,7 @@ function initScene2(scene, camera, renderer) {
   const createClayMat = (color) => new THREE.MeshStandardMaterial({ color: color, roughness: 0.85, metalness: 0.1 });
 
   const masterGroup = new THREE.Group();
-  masterGroup.scale.set(1.1, 1.1, 1.1);
+  masterGroup.scale.set(1.0, 1.0, 1.0);
   scene.add(masterGroup);
 
   const clayGroup = new THREE.Group();
