@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase 7 - Premium Industry Grid</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #01050a;
+      --card-bg: rgba(255, 255, 255, 0.02);
+      --card-border: rgba(255, 255, 255, 0.05);
+      
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: #fff;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 24px;
+      overflow-x: hidden;
+    }
+
+    .ambient-glow {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80vw;
+      height: 80vh;
+      background: radial-gradient(circle, rgba(0, 229, 255, 0.03) 0%, rgba(0,0,0,0) 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+      max-width: 800px;
+    }
+
+    .section-subtitle {
+      font-family: var(--font-display);
+      color: #00e5ff;
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 800;
+      line-height: 1.1;
+      background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 24px;
+    }
+
+    /* PREMIUM GRID LAYOUT */
+    .bento-container {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    /* THE CARDS */
+    .bento-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px 20px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      color: inherit;
+      min-height: 160px;
+    }
+
+    /* Hover States & Mouse Tracking Glows */
+    .bento-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--hover-color, rgba(255,255,255,0.06)), transparent 40%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .bento-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: var(--border-hover, rgba(255,255,255,0.15));
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow: 0 15px 35px -10px var(--shadow-hover, rgba(0,0,0,0.5));
+    }
+    
+    .bento-card:hover::before {
+      opacity: 1;
+    }
+    
+    .bento-card:hover .bento-icon-wrapper {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px var(--border-hover);
+    }
+
+    /* Content Styling */
+    .bento-icon-wrapper {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.4s ease;
+    }
+
+    .bento-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.5px;
+    }
+
+    /* Custom Colors per card */
+    .c-dental { --hover-color: rgba(0, 229, 255, 0.1); --border-hover: rgba(0, 229, 255, 0.4); --shadow-hover: rgba(0, 229, 255, 0.2); }
+    .c-dental .bento-icon-wrapper { color: #00e5ff; }
+
+    .c-hvac { --hover-color: rgba(255, 85, 0, 0.1); --border-hover: rgba(255, 85, 0, 0.4); --shadow-hover: rgba(255, 85, 0, 0.2); }
+    .c-hvac .bento-icon-wrapper { color: #ff5500; }
+
+    .c-roof { --hover-color: rgba(184, 255, 87, 0.1); --border-hover: rgba(184, 255, 87, 0.4); --shadow-hover: rgba(184, 255, 87, 0.2); }
+    .c-roof .bento-icon-wrapper { color: #b8ff57; }
+
+    .c-law { --hover-color: rgba(189, 0, 255, 0.1); --border-hover: rgba(189, 0, 255, 0.4); --shadow-hover: rgba(189, 0, 255, 0.2); }
+    .c-law .bento-icon-wrapper { color: #bd00ff; }
+
+    .c-realestate { --hover-color: rgba(255, 215, 0, 0.1); --border-hover: rgba(255, 215, 0, 0.4); --shadow-hover: rgba(255, 215, 0, 0.2); }
+    .c-realestate .bento-icon-wrapper { color: #ffd700; }
+
+    .c-auto { --hover-color: rgba(255, 50, 50, 0.1); --border-hover: rgba(255, 50, 50, 0.4); --shadow-hover: rgba(255, 50, 50, 0.2); }
+    .c-auto .bento-icon-wrapper { color: #ff3232; }
+
+    .c-food { --hover-color: rgba(255, 140, 0, 0.1); --border-hover: rgba(255, 140, 0, 0.4); --shadow-hover: rgba(255, 140, 0, 0.2); }
+    .c-food .bento-icon-wrapper { color: #ff8c00; }
+
+    .c-all { 
+      grid-column: span 2; 
+      flex-direction: row; 
+      gap: 20px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.04) 100%);
+      --hover-color: rgba(255, 255, 255, 0.05); 
+      --border-hover: rgba(255, 255, 255, 0.3); 
+    }
+    .c-all .bento-icon-wrapper { margin-bottom: 0; color: #fff; }
+    .c-all .bento-title { font-size: 20px; }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .bento-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .c-all { grid-column: span 3; }
+    }
+
+    @media (max-width: 768px) {
+      .bento-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .c-all { grid-column: span 2; }
+    }
+
+    @media (max-width: 480px) {
+      .bento-container {
+        grid-template-columns: 1fr;
+      }
+      .c-all { grid-column: 1 / -1; flex-direction: column; text-align: center; }
+      .c-all .bento-icon-wrapper { margin-bottom: 16px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+
+  <div class="section-header">
+    <div class="section-subtitle">Who We Serve</div>
+    <h2 class="section-title">Dominating Local Markets.</h2>
+    <p style="color: rgba(255,255,255,0.6); font-size: 18px; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+      If your customers live within a 9-mile radius, we have the precise blueprint to capture them before your competitors do.
+    </p>
+  </div>
+
+  <div class="bento-container">
+    
+    <!-- 1. DENTISTS -->
+    <a href="#" class="bento-card c-dental">
+      <div class="bento-icon-wrapper">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+      </div>
+      <h3 class="bento-title">Dentists</h3>
+    </a>
+
+    <!-- 2. PLUMBERS / HVAC -->
+    <a href="#" class="bento-card c-hvac">
+      <div class="bento-icon-wrapper">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+      </div>
+      <h3 class="bento-title">HVAC & Plumbers</h3>
+    </a>
+
+    <!-- 3. ROOFERS -->
+    <a href="#" class="bento-card c-roof">
+      <div class="bento-icon-wrapper">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      </div>
+      <h3 class="bento-title">Roofers</h3>
+    </a>
+
+    <!-- 4. LAWYERS -->
+    <a href="#" class="bento-card c-law">
+      <div class="bento-icon-wrapper">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18"></path><path d="M6 7l-3 7c0 2 1.5 3 3 3s3-1 3-3l-3-7"></path><path d="M18 7l-3 7c0 2 1.5 3 3 3s3-1 3-3l-3-7"></path></svg>
+      </div>
+      <h3 class="bento-title">Attorneys</h3>
+    </a>
+
+    <!-- 5. REAL ESTATE -->
+    <a href="#" class="bento-card c-realestate">
+      <div class="bento-icon-wrapper">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+      </div>
+      <h3 class="bento-title">Real Estate</h3>
+    </a>
+
+    <!-- 6. AUTO REPAIR -->
+    <a href="#" class="bento-card c-auto">
+      <div class="bento-icon-wrapper">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" y1="8" x2="12" y2="8"></line><line x1="3.95" y1="6.06" x2="8.54" y2="14"></line><line x1="10.88" y1="21.94" x2="15.46" y2="14"></line></svg>
+      </div>
+      <h3 class="bento-title">Auto Repair</h3>
+    </a>
+
+    <!-- 7. RESTAURANTS -->
+    <a href="#" class="bento-card c-food">
+      <div class="bento-icon-wrapper">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></svg>
+      </div>
+      <h3 class="bento-title">Restaurants</h3>
+    </a>
+
+    <!-- 8. OTHERS (FULL WIDTH) -->
+    <a href="#" class="bento-card c-all">
+      <div class="bento-icon-wrapper">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+      </div>
+      <h3 class="bento-title">All Local Businesses →</h3>
+    </a>
+
+  </div>
+
+  <script>
+    // Mouse tracking for subtle glow effect on cards
+    document.querySelectorAll('.bento-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  </script>
+</body>
+</html>
