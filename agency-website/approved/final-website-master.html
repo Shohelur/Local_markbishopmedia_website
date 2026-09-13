@@ -3904,7 +3904,8 @@ function startAuditSequence() {
     mainGroup.add(n.mesh);
   });
   
-  document.getElementById('outcome-ui').style.display = 'none';
+  document.getElementById('outcome-ui').style.visibility = 'hidden';
+  document.getElementById('outcome-ui').style.opacity = '0';
 
 
   // Continuous Sonar Waves (INFINITE REPEAT)
@@ -3948,7 +3949,7 @@ function startAuditSequence() {
   auditTimeline.add(() => {
 
     const outcomeBox = document.getElementById('outcome-ui');
-    outcomeBox.style.display = 'block';
+    outcomeBox.style.visibility = 'visible';
     gsap.fromTo(outcomeBox, { opacity:0, y:20 }, { opacity:1, y:0, duration:0.5 });
   }, "+=3.5");
 }
