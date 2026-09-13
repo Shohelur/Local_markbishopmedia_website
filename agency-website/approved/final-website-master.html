@@ -833,6 +833,70 @@ body.is-scrolled .brand-logo-svg.brand-logo-full { height: 38px; }
   transition: all 0.3s ease;
   z-index: 5;
 }
+
+.icon-box-missedcall {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 106, 0, 0.12);
+  border: 1px solid rgba(255, 106, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+}
+.dropdown-card-master:hover .icon-box-missedcall,
+.dropdown-card-master.active-story .icon-box-missedcall {
+  transform: translateZ(24px) scale(1.18) rotateY(-10deg);
+  background: rgba(255, 106, 0, 0.3);
+  box-shadow: 0 10px 25px rgba(255, 106, 0, 0.5);
+}
+.missedcall-pulse-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: 1px solid #ff6a00;
+  opacity: 0;
+  pointer-events: none;
+}
+.dropdown-card-master:hover .missedcall-pulse-ring,
+.dropdown-card-master.active-story .missedcall-pulse-ring {
+  opacity: 1;
+  animation: gpsPulse 1.8s infinite ease-out;
+}
+.missedcall-text-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: #ff6a00;
+  color: #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5px;
+  font-weight: 900;
+  padding: 1px 4px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(255, 106, 0, 0.4);
+  opacity: 0.5;
+  transform: scale(0.9);
+  transition: all 0.3s ease;
+}
+.dropdown-card-master:hover .missedcall-text-badge,
+.dropdown-card-master.active-story .missedcall-text-badge {
+  opacity: 1;
+  transform: scale(1);
+  animation: callBadgeBounce 0.9s infinite alternate ease-in-out;
+}
+.phone-3d-glyph {
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+.dropdown-card-master:hover .phone-3d-glyph,
+.dropdown-card-master.active-story .phone-3d-glyph {
+  animation: rocketHover3D 2s infinite ease-in-out;
+}
 .dropdown-card-master:hover .icon-box-website,
 .dropdown-card-master.active-story .icon-box-website {
   transform: translateZ(24px) scale(1.18) rotateY(-12deg);
@@ -2142,6 +2206,20 @@ body.mobile-drawer-open .mobile-drawer-sheet {
               </a>
             </li>
 
+            <!-- SERVICE 5: MISSED-CALL AI -->
+            <li>
+              <a href="#missed-call-ai" class="dropdown-card-master" data-story="missedcall">
+                <div class="card-inner-left">
+                  <div class="icon-box-missedcall">
+                    <div class="missedcall-pulse-ring"></div>
+                    <div class="missedcall-text-badge">SMS</div>
+                    <span class="phone-3d-glyph">📱</span>
+                  </div>
+                  <span class="master-card-title">Missed-Call AI System</span>
+                </div>
+                <span class="master-metric-badge">24/7 AUTOPILOT</span>
+              </a>
+            </li>
           </ul>
 
           <!-- RIGHT DECK: MASTER [BEFORE VS AFTER] STORYTELLING SPLIT BANNER -->
@@ -3373,6 +3451,16 @@ window.addEventListener('scroll', () => {
 
 /* ─── 2. REFINED STORYTELLING DATABASE (TEAM VOICE + TOP 3 + DUAL REVIEWS) ─── */
 const lockedDatabase = {
+
+  missedcall: {
+    title: '“We instantly <span class="highlight">turn missed calls into booked jobs</span> with AI.”',
+    desc: 'Over 60% of local customers call the next business if you don\'t answer. Our AI receptionist instantly texts back every missed call, engages the lead, and books the appointment 24/7.',
+    beforeStatus: 'Missed Calls Ignored',
+    beforeVal: 'LOST JOBS',
+    afterStatus: 'AI Auto-Texts & Books 24/7',
+    afterVal: '+$24,000 / MO',
+    proof: '0 LOST LEADS'
+  },
   maps: {
     title: '“We engineer your business into <span class="highlight">Google Maps Top 3</span> in 21 days.”',
     desc: 'When nearby local people search for your services, our system positions your verified profile in the local Top 3 before competitors, capturing the dominant share of high-intent inbound phone calls.',
