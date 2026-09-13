@@ -2635,11 +2635,11 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 .p4-title span { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.2); }
 
 .p4-cards-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 150px; }
-.p4-card { background: #020205; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 0; text-align: center; cursor: pointer; text-decoration: none; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; flex-direction: column; overflow: hidden; }
+.p4-card { background: #020205; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 0; text-align: center; cursor: pointer; text-decoration: none; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s ease, box-shadow 0.4s ease; display: flex; flex-direction: column; overflow: hidden; transform-style: preserve-3d; }
 .p4-card-img-wrapper { width: 100%; aspect-ratio: 1/1; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .p4-card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .p4-card-text-wrapper { padding: 32px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
-.p4-card:hover { transform: translateY(-10px); border-color: rgba(255,255,255,0.2); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+.p4-card:hover { border-color: rgba(255,255,255,0.2); box-shadow: 0 30px 60px rgba(0,0,0,0.8); z-index: 10; }
 .p4-card:hover .p4-card-img { transform: scale(1.05); }
 .p4-card-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(16px, 1.5vw, 20px); font-weight: 700; color: #fff; margin-bottom: 8px; }
 .p4-card-desc { font-size: clamp(12px, 1vw, 13px); color: rgba(255,255,255,0.6); line-height: 1.5; }
@@ -4024,7 +4024,34 @@ setTimeout(startAuditSequence, 1000); // Master Animation on load
 initRadar3D();
 
 </script>
+
+<script>
+/* ─── PHASE 4: 3D PREMIUM CARD HOVER EFFECT ─── */
+document.querySelectorAll('.p4-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    // Smooth 3D tilt (max 12 degrees)
+    const rotateX = ((y - centerY) / centerY) * -12;
+    const rotateY = ((x - centerX) / centerX) * 12;
+    
+    card.style.transition = 'none'; // Instant follow
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+  });
+  
+  card.addEventListener('mouseleave', () => {
+    card.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
+    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+  });
+});
+</script>
 </body>
+
 </html>
 
 
