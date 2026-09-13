@@ -3461,6 +3461,253 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════════
+     PHASE 7: INFINITE INDUSTRY MARQUEE
+     ═══════════════════════════════════════════════════════════ -->
+<style>
+/* Phase 7 Scoped CSS */
+#phase7-industry-marquee {
+  position: relative;
+  width: 100%;
+  padding: 40px 0;
+  /* Beautiful dark gradient to obscure the 3D canvas behind it */
+  background: radial-gradient(ellipse at center, #0a1128 0%, #010409 100%);
+  border-top: 1px solid rgba(0, 229, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+  z-index: 10;
+}
+
+    :root {
+      --bg-dark: #01050a;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* body {
+      background-color: var(--bg-dark);
+      color: #fff;
+      font-family: var(--font-body);
+      */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    .ambient-glow {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100vw;
+      height: 100px;
+      background: linear-gradient(90deg, rgba(0,229,255,0.05) 0%, rgba(189,0,255,0.05) 100%);
+      z-index: -1;
+      pointer-events: none;
+      filter: blur(40px);
+    }
+
+    #phase7-industry-marquee .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #phase7-industry-marquee .section-subtitle {
+      font-family: var(--font-display);
+      color: #00e5ff;
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    #phase7-industry-marquee .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 64px);
+      font-weight: 800;
+      line-height: 1.1;
+      /* Vibrant colorful gradient */
+      background: linear-gradient(90deg, #00e5ff 0%, #bd00ff 50%, #ff5500 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+
+    #phase7-industry-marquee .section-desc {
+      font-size: 18px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.6);
+      max-width: 650px;
+    }
+
+    /* THE MARQUEE CONTAINER */
+    .marquee-wrapper {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 24px 0;
+      display: flex;
+      /* Faded edges */
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 40px;
+      white-space: nowrap;
+      /* The animation */
+      animation: scroll 65s linear infinite;
+    }
+
+    /* Pause on hover */
+    .marquee-wrapper:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-50% - 20px)); } /* Scrolls exactly half the track width */
+    }
+
+    /* INDIVIDUAL ITEMS */
+    .industry-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 50px; /* Pill shape */
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .industry-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px -10px rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .industry-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--theme-color, #00e5ff);
+    }
+
+    /* Theme colors for icons */
+    .t-med { --theme-color: #00e5ff; }
+    .t-hvac { --theme-color: #ff5500; }
+    .t-roof { --theme-color: #b8ff57; }
+    .t-law { --theme-color: #bd00ff; }
+    .t-auto { --theme-color: #ff3333; }
+    .t-elec { --theme-color: #ffd700; }
+    .t-pest { --theme-color: #00ff88; }
+    .t-clean { --theme-color: #0088ff; }
+    .t-real { --theme-color: #ff9900; }
+    .t-land { --theme-color: #33cc33; }
+    .t-chiro { --theme-color: #00ccff; }
+    .t-food { --theme-color: #ff3366; }
+    .t-move { --theme-color: #ffcc00; }
+    .t-gym { --theme-color: #ff5500; }
+    .t-spa { --theme-color: #ff66b2; }
+    .t-vet { --theme-color: #33ff99; }
+    .t-build { --theme-color: #ffaa00; }
+    .t-paint { --theme-color: #aa00ff; }
+    .t-cpa { --theme-color: #00ffcc; }
+    .t-all { --theme-color: #ffffff; }
+
+  
+</style>
+
+<section id="phase7-industry-marquee">
+  
+
+  <div class="section-header">
+    <div class="section-subtitle">WHO WE SERVE</div>
+    <h2 class="section-title">Dominating Local Markets.</h2>
+    <p class="section-desc">
+      If your customers live within a 9-mile radius, we have the precise blueprint to capture them before your competitors do.
+    </p>
+  </div>
+
+  <div class="marquee-wrapper">
+    <!-- The track must contain TWO exact copies of the items to loop seamlessly -->
+    <div class="marquee-track">
+      
+      <!-- SET 1 -->
+      <div class="industry-item t-med"><div class="industry-icon">⚕️</div> Dentists & Medical</div>
+      <div class="industry-item t-hvac"><div class="industry-icon">🔧</div> Plumbers & HVAC</div>
+      <div class="industry-item t-roof"><div class="industry-icon">🏠</div> Roofers & Contractors</div>
+      <div class="industry-item t-law"><div class="industry-icon">⚖️</div> Attorneys & Law Firms</div>
+      <div class="industry-item t-elec"><div class="industry-icon">⚡</div> Electricians</div>
+      <div class="industry-item t-auto"><div class="industry-icon">🚗</div> Auto Repair</div>
+      <div class="industry-item t-pest"><div class="industry-icon">🐜</div> Pest Control</div>
+      <div class="industry-item t-clean"><div class="industry-icon">✨</div> Cleaning Services</div>
+      <div class="industry-item t-real"><div class="industry-icon">🏡</div> Real Estate</div>
+      <div class="industry-item t-land"><div class="industry-icon">🌳</div> Landscaping</div>
+      <div class="industry-item t-chiro"><div class="industry-icon">🦴</div> Chiropractors</div>
+      <div class="industry-item t-food"><div class="industry-icon">🍽️</div> Restaurants & Cafes</div>
+      <div class="industry-item t-move"><div class="industry-icon">📦</div> Movers</div>
+      <div class="industry-item t-gym"><div class="industry-icon">🏋️</div> Fitness Centers</div>
+      <div class="industry-item t-spa"><div class="industry-icon">💆‍♀️</div> Salons & Spas</div>
+      <div class="industry-item t-vet"><div class="industry-icon">🐾</div> Veterinarians</div>
+      <div class="industry-item t-build"><div class="industry-icon">🔨</div> Home Remodeling</div>
+      <div class="industry-item t-paint"><div class="industry-icon">🎨</div> Painters</div>
+      <div class="industry-item t-cpa"><div class="industry-icon">📊</div> Accountants & CPAs</div>
+      <div class="industry-item t-all"><div class="industry-icon">📍</div> All Local Businesses</div>
+
+      <!-- SET 2 (DUPLICATE FOR SEAMLESS LOOPING) -->
+      <div class="industry-item t-med"><div class="industry-icon">⚕️</div> Dentists & Medical</div>
+      <div class="industry-item t-hvac"><div class="industry-icon">🔧</div> Plumbers & HVAC</div>
+      <div class="industry-item t-roof"><div class="industry-icon">🏠</div> Roofers & Contractors</div>
+      <div class="industry-item t-law"><div class="industry-icon">⚖️</div> Attorneys & Law Firms</div>
+      <div class="industry-item t-elec"><div class="industry-icon">⚡</div> Electricians</div>
+      <div class="industry-item t-auto"><div class="industry-icon">🚗</div> Auto Repair</div>
+      <div class="industry-item t-pest"><div class="industry-icon">🐜</div> Pest Control</div>
+      <div class="industry-item t-clean"><div class="industry-icon">✨</div> Cleaning Services</div>
+      <div class="industry-item t-real"><div class="industry-icon">🏡</div> Real Estate</div>
+      <div class="industry-item t-land"><div class="industry-icon">🌳</div> Landscaping</div>
+      <div class="industry-item t-chiro"><div class="industry-icon">🦴</div> Chiropractors</div>
+      <div class="industry-item t-food"><div class="industry-icon">🍽️</div> Restaurants & Cafes</div>
+      <div class="industry-item t-move"><div class="industry-icon">📦</div> Movers</div>
+      <div class="industry-item t-gym"><div class="industry-icon">🏋️</div> Fitness Centers</div>
+      <div class="industry-item t-spa"><div class="industry-icon">💆‍♀️</div> Salons & Spas</div>
+      <div class="industry-item t-vet"><div class="industry-icon">🐾</div> Veterinarians</div>
+      <div class="industry-item t-build"><div class="industry-icon">🔨</div> Home Remodeling</div>
+      <div class="industry-item t-paint"><div class="industry-icon">🎨</div> Painters</div>
+      <div class="industry-item t-cpa"><div class="industry-icon">📊</div> Accountants & CPAs</div>
+      <div class="industry-item t-all"><div class="industry-icon">📍</div> All Local Businesses</div>
+
+    </div>
+  </div>
+</section>
+
 <script>
 /* ─── 1. THREE.JS MASTER UNIVERSE INITIALIZATION ─── */
 const canvas = document.getElementById('master-3d-canvas');
