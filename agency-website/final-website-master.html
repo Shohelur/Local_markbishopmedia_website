@@ -4434,7 +4434,7 @@ scene.fog = new THREE.FogExp2(0x010a05, 0.02);
 
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(0, 35, 30); // Top-down angled view
-camera.lookAt(0, 0, 0);
+camera.lookAt(0, 2, 0);
 
 const COLOR_PRIMARY = new THREE.Color('#00ff66');
 const COLOR_ACCENT  = new THREE.Color('#ffcc00');
@@ -4616,7 +4616,7 @@ function animate() {
   
   camera.position.x += (mx * 10 - camera.position.x) * 0.05;
   camera.position.z += (30 + my * 10 - camera.position.z) * 0.05;
-  camera.lookAt(0, 0, 0);
+  camera.lookAt(0, 2, 0);
   
   // Sync HTML Logo Overlay with 3D Center Anchor
   centerAnchor.getWorldPosition(tempV);
@@ -4762,8 +4762,8 @@ function initScene1(scene, camera, renderer) {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   
   // Moved camera back and up to make elements look smaller
-  camera.position.set(0, 18, 30);
-  camera.lookAt(0, 0, 0);
+  camera.position.set(0, 12, 20);
+  camera.lookAt(0, 2, 0);
   
   // Lighting (Adjusted for richer colors, less blow-out)
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
@@ -4794,7 +4794,7 @@ function initScene1(scene, camera, renderer) {
 
   // Scale down the entire group by 0.8 to fit better next to the text
   const masterGroup = new THREE.Group();
-  masterGroup.scale.set(0.85, 0.85, 0.85);
+  masterGroup.scale.set(1.1, 1.1, 1.1);
   scene.add(masterGroup);
 
   const clayGroup = new THREE.Group();
@@ -4924,8 +4924,8 @@ function initScene2(scene, camera, renderer) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   
-  camera.position.set(0, 18, 30);
-  camera.lookAt(0, 0, 0);
+  camera.position.set(0, 12, 20);
+  camera.lookAt(0, 2, 0);
   
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
   scene.add(ambientLight);
@@ -4949,7 +4949,7 @@ function initScene2(scene, camera, renderer) {
   const createClayMat = (color) => new THREE.MeshStandardMaterial({ color: color, roughness: 0.85, metalness: 0.1 });
 
   const masterGroup = new THREE.Group();
-  masterGroup.scale.set(0.85, 0.85, 0.85);
+  masterGroup.scale.set(1.1, 1.1, 1.1);
   scene.add(masterGroup);
 
   const clayGroup = new THREE.Group();
@@ -5029,7 +5029,7 @@ function initScene2(scene, camera, renderer) {
 // Scene 3: Global Command Center (Laser Beams)
 function initScene3(scene, camera) {
   camera.position.set(0, 10, 25);
-  camera.lookAt(0, 0, 0);
+  camera.lookAt(0, 2, 0);
   
   const earthGroup = new THREE.Group();
   scene.add(earthGroup);
