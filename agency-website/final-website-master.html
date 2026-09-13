@@ -4700,6 +4700,7 @@ document.querySelectorAll('.p4-card').forEach(card => {
 function initPhase5ScrollPipeline() {
   const container = document.querySelector('.p5-pipeline-container');
   const waveActive = document.getElementById('p5-wave-active');
+  const scrollLine = document.getElementById('p5-scroll-line');
   const cards = document.querySelectorAll('.p5-step-card');
   
   if(!container || !waveActive) return;
@@ -4718,6 +4719,9 @@ function initPhase5ScrollPipeline() {
     
     // Draw SVG path
     waveActive.style.strokeDashoffset = pathLength - (scrollProgress * pathLength);
+    if(scrollLine) {
+      scrollLine.style.setProperty('--scroll-height', `${scrollProgress * 100}%`);
+    }
     
     cards.forEach((card) => {
       const cardTop = card.offsetTop;
