@@ -2964,19 +2964,23 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 .p5-right {
   float: right;
 }
+@keyframes numberPop {
+  0% { transform: translateY(20px) scale(0.5); opacity: 0; -webkit-text-stroke: 1px transparent; }
+  60% { transform: translateY(-5px) scale(1.2); opacity: 1; -webkit-text-stroke: 2px #b8ff57; text-shadow: 0 0 30px #b8ff57; color: rgba(184,255,87,0.2); }
+  100% { transform: translateY(0) scale(1); opacity: 1; -webkit-text-stroke: 1px #00d4ff; text-shadow: 0 0 20px rgba(0,212,255,0.5); color: transparent; }
+}
 .p5-step-number {
   position: absolute;
   top: -20px;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 900;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(0,212,255,0.3);
-  transition: all 0.3s ease;
+  -webkit-text-stroke: 1px rgba(0,212,255,0.1);
+  opacity: 0;
 }
 .p5-step-card.active .p5-step-number {
-  -webkit-text-stroke: 1px #00d4ff;
-  text-shadow: 0 0 20px rgba(0,212,255,0.4);
+  animation: numberPop 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 .p5-left .p5-step-number { right: -10px; }
 .p5-right .p5-step-number { left: -10px; }
@@ -3179,19 +3183,23 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 .p5-right {
   float: right;
 }
+@keyframes numberPop {
+  0% { transform: translateY(20px) scale(0.5); opacity: 0; -webkit-text-stroke: 1px transparent; }
+  60% { transform: translateY(-5px) scale(1.2); opacity: 1; -webkit-text-stroke: 2px #b8ff57; text-shadow: 0 0 30px #b8ff57; color: rgba(184,255,87,0.2); }
+  100% { transform: translateY(0) scale(1); opacity: 1; -webkit-text-stroke: 1px #00d4ff; text-shadow: 0 0 20px rgba(0,212,255,0.5); color: transparent; }
+}
 .p5-step-number {
   position: absolute;
   top: -20px;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 900;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(0,212,255,0.3);
-  transition: all 0.3s ease;
+  -webkit-text-stroke: 1px rgba(0,212,255,0.1);
+  opacity: 0;
 }
 .p5-step-card.active .p5-step-number {
-  -webkit-text-stroke: 1px #00d4ff;
-  text-shadow: 0 0 20px rgba(0,212,255,0.4);
+  animation: numberPop 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 .p5-left .p5-step-number { right: -10px; }
 .p5-right .p5-step-number { left: -10px; }
