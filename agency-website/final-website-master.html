@@ -4722,15 +4722,16 @@ function initPhase5ScrollPipeline() {
     }
     
     cards.forEach((card) => {
-      const cardTop = card.offsetTop;
-      const threshold = cardTop / rect.height;
-      
-      if(scrollProgress > threshold) {
-        card.classList.add('active');
-      } else {
-        card.classList.remove('active');
-      }
-    });
+        const cardRect = card.getBoundingClientRect();
+        
+        // Trigger exactly when the top of the card hits the scroll line's active edge (startFill)
+        // startFill is windowHeight * 0.7. We check if the card is above this line on the screen.
+        if(cardRect.top < startFill) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
   });
 }
 document.addEventListener('DOMContentLoaded', initPhase5ScrollPipeline);
