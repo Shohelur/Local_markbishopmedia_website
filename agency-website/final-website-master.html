@@ -4979,6 +4979,22 @@ function initScene2(scene, camera, renderer) {
   const coverMesh = new THREE.Mesh(coverGeo, createClayMat(0xcfe8fc));
   coverMesh.position.set(0, 3.1, zOffset);
   cardGroup.add(coverMesh);
+
+  // 1.5 Business Profile Icon (Circle overlapping cover photo)
+  const iconGeo = new THREE.CylinderGeometry(0.6, 0.6, 0.2, 32);
+  const iconMesh = new THREE.Mesh(iconGeo, createClayMat(0xffffff));
+  iconMesh.rotation.x = Math.PI / 2;
+  iconMesh.position.set(-1.8, 1.8, zOffset + 0.1);
+  iconMesh.castShadow = true;
+  cardGroup.add(iconMesh);
+  
+  // Inner colored circle for the icon
+  const innerIconGeo = new THREE.CylinderGeometry(0.4, 0.4, 0.22, 32);
+  const innerIconMesh = new THREE.Mesh(innerIconGeo, createClayMat(0x4caf50)); // Green icon center
+  innerIconMesh.rotation.x = Math.PI / 2;
+  innerIconMesh.position.set(-1.8, 1.8, zOffset + 0.1);
+  cardGroup.add(innerIconMesh);
+  
   
   // 2. Business Name (Dark thick bar)
   const titleMesh = new THREE.Mesh(new THREE.BoxGeometry(3.5, 0.4, 0.2), createClayMat(0x333333));
