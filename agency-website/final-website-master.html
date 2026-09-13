@@ -2116,6 +2116,17 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 .sh-code { font-family: 'Courier New', Courier, monospace; font-size: 11px; color: #00d4ff; }
 .scifi-hud-box.right .sh-code, .scifi-hud-box.right .sh-text { color: #b8ff57; font-family: 'Courier New', monospace; font-size: 11px; }
 
+
+.clay-webgl-container {
+  width: 100%; height: 100%;
+  position: absolute; top: 0; left: 0; z-index: 2;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); /* Soft sky blue background */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1), inset 0 0 0 4px rgba(255,255,255,0.4);
+}
+.clay-webgl-container canvas { border-radius: 20px; outline: none; }
+
 @media(max-width: 860px) {
   .p5-row { flex-direction: column; text-align: center; }
   .p5-step-card { width: 90% !important; order: 1; margin: 20px 0 !important; float: none !important;}
@@ -3340,7 +3351,8 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <div class="p5-pipeline-container">
     <div class="p5-glow-line" id="p5-scroll-line"></div>
     
-    <!-- STEP 1: Deep Audit -->
+    
+    <!-- STEP 1: Deep Audit (Claymorphism) -->
     <div class="p5-row">
       <div class="p5-step-card p5-left">
         <div class="p5-step-number">01</div>
@@ -3350,13 +3362,10 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         </div>
       </div>
       <div class="p5-visual-container p5-right-vis">
-        <!-- Matrix Canvas Behind WebGL -->
-        <canvas id="matrix-canvas-1" class="scifi-bg-canvas"></canvas>
-        <div id="p5-canvas-1" class="scifi-webgl-container"></div>
-        <div class="scifi-hud">SYS.AUDIT.INIT // GEO_SCAN_ACTIVE // THREATS_DETECTED: 12</div>
+        <div id="p5-canvas-1" class="clay-webgl-container"></div>
       </div>
     </div>
-    
+
     <!-- STEP 2: Asset Optimization -->
     <div class="p5-row">
       <div class="p5-visual-container p5-left-vis">
@@ -4752,67 +4761,159 @@ function createScifiScene(containerId, initFn) {
   renderLoop();
 }
 
-// Scene 1: 3D Battlefield Scanner (Topographical Grid + Radar)
-function initScene1(scene, camera) {
-  camera.position.set(0, 20, 25);
-  camera.lookAt(0, 0, 0);
+// Scene 1: 3D Claymorphism Audit Map
+function initScene1(scene, camera, renderer) {
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   
-  // Dense Wireframe Terrain
-  const planeGeo = new THREE.PlaneGeometry(50, 50, 20, 20);
-  const pos = planeGeo.attributes.position.array;
-  for(let i=0; i<pos.length; i+=3) {
-    pos[i+2] = Math.random() * 2; // Add noise for topography
-  }
-  const planeMat = new THREE.MeshBasicMaterial({ color: 0x004444, wireframe: true, transparent: true, opacity: 0.6 });
-  const terrain = new THREE.Mesh(planeGeo, planeMat);
-  terrain.rotation.x = -Math.PI / 2;
-  scene.add(terrain);
+  camera.position.set(0, 15, 25);
+  camera.lookAt(0, 2, 0);
   
-  // Radar Sweep Cone
-  const coneGeo = new THREE.ConeGeometry(25, 20, 32, 1, true, 0, Math.PI/4);
-  const coneMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57, transparent: true, opacity: 0.2, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
-  const radar = new THREE.Mesh(coneGeo, coneMat);
-  radar.rotation.x = -Math.PI / 2;
-  radar.position.y = 10;
-  scene.add(radar);
+  // Lighting (Soft Studio Setup)
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+  scene.add(ambientLight);
   
-  // Competitor Threat Nodes (Red)
-  const nodes = new THREE.Group();
-  for(let i=0; i<15; i++) {
-    const geo = new THREE.BoxGeometry(1, 1, 1);
-    const mat = new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.8 });
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.position.set((Math.random()-0.5)*30, 0.5, (Math.random()-0.5)*30);
-    nodes.add(mesh);
-  }
-  scene.add(nodes);
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.4);
+  hemiLight.position.set(0, 20, 0);
+  scene.add(hemiLight);
+  
+  const dirLight = new THREE.DirectionalLight(0xfff0dd, 1);
+  dirLight.position.set(10, 20, 10);
+  dirLight.castShadow = true;
+  dirLight.shadow.mapSize.width = 1024;
+  dirLight.shadow.mapSize.height = 1024;
+  dirLight.shadow.camera.near = 0.5;
+  dirLight.shadow.camera.far = 50;
+  dirLight.shadow.camera.left = -15;
+  dirLight.shadow.camera.right = 15;
+  dirLight.shadow.camera.top = 15;
+  dirLight.shadow.camera.bottom = -15;
+  dirLight.shadow.bias = -0.001;
+  scene.add(dirLight);
 
-  // Background Matrix Canvas logic
-  const mCanvas = document.getElementById('matrix-canvas-1');
-  if(mCanvas) {
-    const ctx = mCanvas.getContext('2d');
-    mCanvas.width = 400; mCanvas.height = 350;
-    const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-    const drops = [];
-    for(let i=0; i<mCanvas.width/10; i++) drops[i] = 1;
-    setInterval(() => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-      ctx.fillRect(0, 0, mCanvas.width, mCanvas.height);
-      ctx.fillStyle = '#0f0';
-      ctx.font = '10px monospace';
-      for(let i=0; i<drops.length; i++) {
-        const text = chars[Math.floor(Math.random()*chars.length)];
-        ctx.fillText(text, i*10, drops[i]*10);
-        if(drops[i]*10 > mCanvas.height && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
-      }
-    }, 50);
+  // Clay Material Helper
+  const createClayMat = (color) => new THREE.MeshStandardMaterial({
+    color: color, roughness: 0.9, metalness: 0.05
+  });
+
+  const clayGroup = new THREE.Group();
+  scene.add(clayGroup);
+
+  // Map Base (Soft Green)
+  const baseGeo = new THREE.CylinderGeometry(9, 9, 1.5, 64);
+  const baseMat = createClayMat(0xa8d5ba);
+  const base = new THREE.Mesh(baseGeo, baseMat);
+  base.position.y = -0.75;
+  base.receiveShadow = true;
+  base.castShadow = true;
+  clayGroup.add(base);
+
+  // Map Pin (Matte Red)
+  const pinGroup = new THREE.Group();
+  const pinTopGeo = new THREE.SphereGeometry(1.2, 32, 32);
+  const pinTopMat = createClayMat(0xff6b6b);
+  const pinTop = new THREE.Mesh(pinTopGeo, pinTopMat);
+  pinTop.position.y = 1.5;
+  pinTop.castShadow = true;
+  pinGroup.add(pinTop);
+  
+  const pinBotGeo = new THREE.ConeGeometry(1.2, 2.5, 32);
+  const pinBot = new THREE.Mesh(pinBotGeo, pinTopMat);
+  pinBot.position.y = 0;
+  pinBot.rotation.x = Math.PI;
+  pinBot.castShadow = true;
+  pinGroup.add(pinBot);
+  
+  // White dot inside pin
+  const pinDotGeo = new THREE.SphereGeometry(0.5, 16, 16);
+  const pinDotMat = createClayMat(0xffffff);
+  const pinDot = new THREE.Mesh(pinDotGeo, pinDotMat);
+  pinDot.position.set(0, 1.5, 1);
+  pinGroup.add(pinDot);
+
+  pinGroup.position.set(0, 1.25, 0);
+  clayGroup.add(pinGroup);
+
+  // Houses (Pastel Colors)
+  const colors = [0xffd93d, 0x6bc4ff, 0xffa3a3];
+  for(let i=0; i<5; i++) {
+    const hGroup = new THREE.Group();
+    const hBaseGeo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+    const hBaseMat = createClayMat(colors[i % colors.length]);
+    const hBase = new THREE.Mesh(hBaseGeo, hBaseMat);
+    hBase.position.y = 0.75;
+    hBase.castShadow = true;
+    hGroup.add(hBase);
+    
+    const hRoofGeo = new THREE.ConeGeometry(1.2, 1.2, 4);
+    const hRoofMat = createClayMat(0xff9f43);
+    const hRoof = new THREE.Mesh(hRoofGeo, hRoofMat);
+    hRoof.position.y = 2.1;
+    hRoof.rotation.y = Math.PI/4;
+    hRoof.castShadow = true;
+    hGroup.add(hRoof);
+    
+    const angle = (i / 5) * Math.PI * 2;
+    const radius = 5 + Math.random();
+    hGroup.position.set(Math.cos(angle)*radius, 0, Math.sin(angle)*radius);
+    
+    // Face the center (pin)
+    hGroup.lookAt(0, 0, 0);
+    clayGroup.add(hGroup);
   }
+
+  // Magnifying Glass
+  const magGroup = new THREE.Group();
+  
+  // Lens Ring (Matte Blue)
+  const ringGeo = new THREE.TorusGeometry(3, 0.6, 32, 64);
+  const ringMat = createClayMat(0x4aa3ff);
+  const ring = new THREE.Mesh(ringGeo, ringMat);
+  ring.castShadow = true;
+  magGroup.add(ring);
+  
+  // Handle (Wood/Clay Brown)
+  const handleGeo = new THREE.CylinderGeometry(0.6, 0.6, 4.5, 32);
+  const handleMat = createClayMat(0xcd9a5b);
+  const handle = new THREE.Mesh(handleGeo, handleMat);
+  handle.position.set(3.5, -3.5, 0);
+  handle.rotation.z = Math.PI / 4;
+  handle.castShadow = true;
+  magGroup.add(handle);
+  
+  // Glass Lens (Transmission)
+  const lensGeo = new THREE.CylinderGeometry(2.9, 2.9, 0.1, 32);
+  const lensMat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: 0,
+    roughness: 0.1,
+    transmission: 0.9,
+    ior: 1.5,
+    thickness: 1.0,
+    transparent: true,
+    opacity: 1
+  });
+  const lens = new THREE.Mesh(lensGeo, lensMat);
+  lens.rotation.x = Math.PI / 2;
+  magGroup.add(lens);
+  
+  magGroup.position.set(-2, 7, 5);
+  scene.add(magGroup);
 
   return () => {
-    radar.rotation.z -= 0.04;
-    terrain.rotation.z += 0.002;
-    nodes.rotation.y += 0.002;
+    // Gentle floating of the whole map
+    clayGroup.position.y = Math.sin(Date.now() * 0.001) * 0.3;
+    clayGroup.rotation.y = Math.sin(Date.now() * 0.0005) * 0.1;
+    
+    // Pin bouncing slightly
+    pinGroup.position.y = 1.25 + Math.abs(Math.sin(Date.now() * 0.002)) * 0.5;
+    
+    // Magnifying glass hovering and scanning
+    magGroup.position.x = -2 + Math.sin(Date.now() * 0.001) * 3;
+    magGroup.position.y = 7 + Math.sin(Date.now() * 0.0015) * 0.5;
+    magGroup.position.z = 5 + Math.cos(Date.now() * 0.001) * 2;
+    magGroup.rotation.x = Math.sin(Date.now() * 0.0008) * 0.2;
+    magGroup.rotation.y = Math.cos(Date.now() * 0.0009) * 0.2;
   };
 }
 
