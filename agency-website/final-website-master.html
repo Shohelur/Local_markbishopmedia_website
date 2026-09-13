@@ -2121,9 +2121,8 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   width: 100%; height: 100%;
   position: absolute; top: 0; left: 0; z-index: 2;
   border-radius: 20px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); /* Soft sky blue background */
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1), inset 0 0 0 4px rgba(255,255,255,0.4);
+  overflow: visible;
+  background: transparent; /* Removed background */
 }
 .clay-webgl-container canvas { border-radius: 20px; outline: none; }
 
@@ -4766,98 +4765,105 @@ function initScene1(scene, camera, renderer) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   
-  camera.position.set(0, 15, 25);
-  camera.lookAt(0, 2, 0);
+  // Moved camera back and up to make elements look smaller
+  camera.position.set(0, 18, 30);
+  camera.lookAt(0, 0, 0);
   
-  // Lighting (Soft Studio Setup)
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+  // Lighting (Adjusted for richer colors, less blow-out)
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
   scene.add(ambientLight);
   
-  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.4);
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.3);
   hemiLight.position.set(0, 20, 0);
   scene.add(hemiLight);
   
-  const dirLight = new THREE.DirectionalLight(0xfff0dd, 1);
-  dirLight.position.set(10, 20, 10);
+  const dirLight = new THREE.DirectionalLight(0xffeedd, 0.8);
+  dirLight.position.set(15, 25, 10);
   dirLight.castShadow = true;
   dirLight.shadow.mapSize.width = 1024;
   dirLight.shadow.mapSize.height = 1024;
   dirLight.shadow.camera.near = 0.5;
   dirLight.shadow.camera.far = 50;
-  dirLight.shadow.camera.left = -15;
-  dirLight.shadow.camera.right = 15;
-  dirLight.shadow.camera.top = 15;
-  dirLight.shadow.camera.bottom = -15;
+  dirLight.shadow.camera.left = -12;
+  dirLight.shadow.camera.right = 12;
+  dirLight.shadow.camera.top = 12;
+  dirLight.shadow.camera.bottom = -12;
   dirLight.shadow.bias = -0.001;
   scene.add(dirLight);
 
-  // Clay Material Helper
+  // Soft Clay Material Helper
   const createClayMat = (color) => new THREE.MeshStandardMaterial({
-    color: color, roughness: 0.9, metalness: 0.05
+    color: color, roughness: 0.85, metalness: 0.1
   });
 
-  const clayGroup = new THREE.Group();
-  scene.add(clayGroup);
+  // Scale down the entire group by 0.8 to fit better next to the text
+  const masterGroup = new THREE.Group();
+  masterGroup.scale.set(0.85, 0.85, 0.85);
+  scene.add(masterGroup);
 
-  // Map Base (Soft Green)
-  const baseGeo = new THREE.CylinderGeometry(9, 9, 1.5, 64);
-  const baseMat = createClayMat(0xa8d5ba);
+  const clayGroup = new THREE.Group();
+  masterGroup.add(clayGroup);
+
+  // Map Base (Richer Pastel Green)
+  const baseGeo = new THREE.CylinderGeometry(8, 8, 1, 64);
+  const baseMat = createClayMat(0x81c784);
   const base = new THREE.Mesh(baseGeo, baseMat);
-  base.position.y = -0.75;
+  base.position.y = -0.5;
   base.receiveShadow = true;
   base.castShadow = true;
   clayGroup.add(base);
 
-  // Map Pin (Matte Red)
+  // Map Pin (Elegant Matte Red)
   const pinGroup = new THREE.Group();
-  const pinTopGeo = new THREE.SphereGeometry(1.2, 32, 32);
-  const pinTopMat = createClayMat(0xff6b6b);
+  const pinTopGeo = new THREE.SphereGeometry(1.0, 32, 32);
+  const pinTopMat = createClayMat(0xff5252);
   const pinTop = new THREE.Mesh(pinTopGeo, pinTopMat);
-  pinTop.position.y = 1.5;
+  pinTop.position.y = 1.3;
   pinTop.castShadow = true;
   pinGroup.add(pinTop);
   
-  const pinBotGeo = new THREE.ConeGeometry(1.2, 2.5, 32);
+  const pinBotGeo = new THREE.ConeGeometry(1.0, 2.2, 32);
   const pinBot = new THREE.Mesh(pinBotGeo, pinTopMat);
   pinBot.position.y = 0;
   pinBot.rotation.x = Math.PI;
   pinBot.castShadow = true;
   pinGroup.add(pinBot);
   
-  // White dot inside pin
-  const pinDotGeo = new THREE.SphereGeometry(0.5, 16, 16);
+  const pinDotGeo = new THREE.SphereGeometry(0.4, 16, 16);
   const pinDotMat = createClayMat(0xffffff);
   const pinDot = new THREE.Mesh(pinDotGeo, pinDotMat);
-  pinDot.position.set(0, 1.5, 1);
+  pinDot.position.set(0, 1.3, 0.8);
   pinGroup.add(pinDot);
 
-  pinGroup.position.set(0, 1.25, 0);
+  pinGroup.position.set(0, 1.0, 0);
   clayGroup.add(pinGroup);
 
-  // Houses (Pastel Colors)
-  const colors = [0xffd93d, 0x6bc4ff, 0xffa3a3];
-  for(let i=0; i<5; i++) {
+  // Cuter Houses (Better Proportions and Pastel Colors)
+  const colors = [0xffe082, 0x81d4fa, 0xf48fb1, 0xbcaaa4];
+  for(let i=0; i<4; i++) {
     const hGroup = new THREE.Group();
-    const hBaseGeo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+    // House body
+    const hBaseGeo = new THREE.BoxGeometry(1.2, 1.0, 1.2);
     const hBaseMat = createClayMat(colors[i % colors.length]);
     const hBase = new THREE.Mesh(hBaseGeo, hBaseMat);
-    hBase.position.y = 0.75;
+    hBase.position.y = 0.5;
     hBase.castShadow = true;
+    hBase.receiveShadow = true;
     hGroup.add(hBase);
     
-    const hRoofGeo = new THREE.ConeGeometry(1.2, 1.2, 4);
-    const hRoofMat = createClayMat(0xff9f43);
+    // House roof
+    const hRoofGeo = new THREE.ConeGeometry(1.0, 1.0, 4);
+    const hRoofMat = createClayMat(0xff8a65); // soft terracotta roof
     const hRoof = new THREE.Mesh(hRoofGeo, hRoofMat);
-    hRoof.position.y = 2.1;
+    hRoof.position.y = 1.5;
     hRoof.rotation.y = Math.PI/4;
     hRoof.castShadow = true;
     hGroup.add(hRoof);
     
-    const angle = (i / 5) * Math.PI * 2;
-    const radius = 5 + Math.random();
+    // Position on the map
+    const angle = (i / 4) * Math.PI * 2 + (Math.PI/4);
+    const radius = 5;
     hGroup.position.set(Math.cos(angle)*radius, 0, Math.sin(angle)*radius);
-    
-    // Face the center (pin)
     hGroup.lookAt(0, 0, 0);
     clayGroup.add(hGroup);
   }
@@ -4865,31 +4871,31 @@ function initScene1(scene, camera, renderer) {
   // Magnifying Glass
   const magGroup = new THREE.Group();
   
-  // Lens Ring (Matte Blue)
-  const ringGeo = new THREE.TorusGeometry(3, 0.6, 32, 64);
-  const ringMat = createClayMat(0x4aa3ff);
+  // Lens Ring (Thinner, more elegant Matte Blue)
+  const ringGeo = new THREE.TorusGeometry(2.5, 0.4, 32, 64);
+  const ringMat = createClayMat(0x29b6f6);
   const ring = new THREE.Mesh(ringGeo, ringMat);
   ring.castShadow = true;
   magGroup.add(ring);
   
-  // Handle (Wood/Clay Brown)
-  const handleGeo = new THREE.CylinderGeometry(0.6, 0.6, 4.5, 32);
-  const handleMat = createClayMat(0xcd9a5b);
+  // Handle (Better position and thickness)
+  const handleGeo = new THREE.CylinderGeometry(0.3, 0.3, 3.5, 32);
+  const handleMat = createClayMat(0xd7ccc8); // Soft clay wood color
   const handle = new THREE.Mesh(handleGeo, handleMat);
-  handle.position.set(3.5, -3.5, 0);
+  handle.position.set(2.5, -2.5, 0);
   handle.rotation.z = Math.PI / 4;
   handle.castShadow = true;
   magGroup.add(handle);
   
-  // Glass Lens (Transmission)
-  const lensGeo = new THREE.CylinderGeometry(2.9, 2.9, 0.1, 32);
+  // Glass Lens (Improved Physical Material for better realism)
+  const lensGeo = new THREE.CylinderGeometry(2.4, 2.4, 0.05, 32);
   const lensMat = new THREE.MeshPhysicalMaterial({
     color: 0xffffff,
     metalness: 0,
-    roughness: 0.1,
-    transmission: 0.9,
-    ior: 1.5,
-    thickness: 1.0,
+    roughness: 0.0, // perfectly smooth glass
+    transmission: 1.0, // fully transparent
+    ior: 1.3, // slight refraction
+    thickness: 0.5,
     transparent: true,
     opacity: 1
   });
@@ -4897,8 +4903,8 @@ function initScene1(scene, camera, renderer) {
   lens.rotation.x = Math.PI / 2;
   magGroup.add(lens);
   
-  magGroup.position.set(-2, 7, 5);
-  scene.add(magGroup);
+  magGroup.position.set(-2, 5, 4);
+  masterGroup.add(magGroup);
 
   return () => {
     // Gentle floating of the whole map
@@ -4906,14 +4912,14 @@ function initScene1(scene, camera, renderer) {
     clayGroup.rotation.y = Math.sin(Date.now() * 0.0005) * 0.1;
     
     // Pin bouncing slightly
-    pinGroup.position.y = 1.25 + Math.abs(Math.sin(Date.now() * 0.002)) * 0.5;
+    pinGroup.position.y = 1.0 + Math.abs(Math.sin(Date.now() * 0.002)) * 0.4;
     
     // Magnifying glass hovering and scanning
-    magGroup.position.x = -2 + Math.sin(Date.now() * 0.001) * 3;
-    magGroup.position.y = 7 + Math.sin(Date.now() * 0.0015) * 0.5;
-    magGroup.position.z = 5 + Math.cos(Date.now() * 0.001) * 2;
-    magGroup.rotation.x = Math.sin(Date.now() * 0.0008) * 0.2;
-    magGroup.rotation.y = Math.cos(Date.now() * 0.0009) * 0.2;
+    magGroup.position.x = -1.5 + Math.sin(Date.now() * 0.001) * 2.5;
+    magGroup.position.y = 5 + Math.sin(Date.now() * 0.0015) * 0.4;
+    magGroup.position.z = 4 + Math.cos(Date.now() * 0.001) * 1.5;
+    magGroup.rotation.x = Math.sin(Date.now() * 0.0008) * 0.15;
+    magGroup.rotation.y = Math.cos(Date.now() * 0.0009) * 0.15;
   };
 }
 
