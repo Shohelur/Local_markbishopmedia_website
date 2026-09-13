@@ -2075,6 +2075,85 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   }
 
   #btn-rerun { position:fixed; bottom:20px; right:20px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:8px 16px; border-radius:6px; cursor:pointer; font-family:'JetBrains Mono'; font-size:11px; z-index:100; }
+
+
+
+/* ─── PHASE 5: SCI-FI / MATRIX AESTHETIC CSS ─── */
+
+/* Clay Image CSS Animation */
+.clay-image-anim {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 20px;
+  animation: floatClay 5s ease-in-out infinite;
+  filter: drop-shadow(0 30px 40px rgba(0,0,0,0.4));
+  /* Ensure it looks good if it has a background */
+  mix-blend-mode: normal; 
+}
+
+@keyframes floatClay {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(2deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.p5-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 60px; position: relative; z-index: 5; }
+.p5-step-card { width: 45%; margin-bottom: 0 !important; }
+.p5-visual-container { width: 45%; height: 350px; position: relative; }
+
+.scifi-webgl-container {
+  width: 100%; height: 100%;
+  position: absolute; top: 0; left: 0; z-index: 2;
+  filter: drop-shadow(0 0 20px rgba(184, 255, 87, 0.2));
+}
+
+.scifi-bg-canvas {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+  opacity: 0.3; border-radius: 20px;
+}
+
+/* Sci-Fi HUD Overlays */
+.scifi-hud {
+  position: absolute; top: 10px; left: 10px; z-index: 3;
+  font-family: 'Courier New', Courier, monospace; font-size: 10px;
+  color: #b8ff57; background: rgba(0,0,0,0.6); padding: 4px 8px;
+  border: 1px solid rgba(184, 255, 87, 0.3); border-radius: 4px;
+  text-shadow: 0 0 5px #b8ff57;
+}
+.scifi-hud.top-right { left: auto; right: 10px; color: #00d4ff; border-color: rgba(0, 212, 255, 0.3); text-shadow: 0 0 5px #00d4ff; }
+.scifi-hud.bottom-left { top: auto; bottom: 10px; }
+
+.scifi-hud-box {
+  position: absolute; bottom: 10px; left: 10px; z-index: 3;
+  background: rgba(10, 12, 16, 0.8); border: 1px solid rgba(0, 212, 255, 0.4);
+  padding: 10px; border-radius: 8px; box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+  backdrop-filter: blur(5px);
+}
+.scifi-hud-box.right { left: auto; right: 10px; border-color: rgba(184, 255, 87, 0.4); box-shadow: 0 0 15px rgba(184, 255, 87, 0.2); }
+.sh-title { font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 700; color: #fff; margin-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 3px; }
+.sh-code { font-family: 'Courier New', Courier, monospace; font-size: 11px; color: #00d4ff; }
+.scifi-hud-box.right .sh-code, .scifi-hud-box.right .sh-text { color: #b8ff57; font-family: 'Courier New', monospace; font-size: 11px; }
+
+
+.clay-webgl-container {
+  width: 100%; height: 100%;
+  position: absolute; top: 0; left: 0; z-index: 2;
+  border-radius: 20px;
+  overflow: visible;
+  background: transparent; /* Removed background */
+}
+.clay-webgl-container canvas { border-radius: 20px; outline: none; }
+
+@media(max-width: 860px) {
+  .p5-row { flex-direction: column; text-align: center; }
+  .p5-step-card { width: 90% !important; order: 1; margin: 20px 0 !important; float: none !important;}
+  .p5-visual-container { width: 100%; order: 2; margin-bottom: 40px; }
+  .p5-glow-line { left: 5% !important; }
+}
+
 </style>
 </head>
 <body>
@@ -2116,8 +2195,8 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         <div class="sonar-radar-wave"></div>
         <div class="sonar-radar-wave"></div>
       </div>
-      <img src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg brand-logo-full" />
-      <img src="../assets/logos/mbm-icon.svg" alt="Mark Bishop Media Icon" class="brand-logo-mobile-icon" />
+      <img src="./assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg brand-logo-full" />
+      <img src="./assets/logos/mbm-icon.svg" alt="Mark Bishop Media Icon" class="brand-logo-mobile-icon" />
     </a>
 
     <!-- 2. CENTER NAVIGATION LIST -->
@@ -2368,7 +2447,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   <!-- DRAWER HEADER (PURE ICON + BRAND MARK) -->
   <div class="mob-drawer-header">
     <div style="display: flex; align-items: center; gap: 10px;">
-      <img src="../assets/logos/mbm-icon.svg" alt="Mark Bishop Media" style="height: 36px; width: auto;" />
+      <img src="./assets/logos/mbm-icon.svg" alt="Mark Bishop Media" style="height: 36px; width: auto;" />
       <span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 800; color: #fff; letter-spacing: 0.05em;">MBM <span style="color: var(--cyan-glow);">OS</span></span>
     </div>
     <button class="mob-drawer-close-btn" id="mob-drawer-close-btn" aria-label="Close Menu">✕</button>
@@ -2584,6 +2663,9 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
     </div>
   </div>
+
+
+
 </main>
 
 <!-- ═══════════════════════════════════════════════════════════
@@ -2630,7 +2712,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 <section id="phase3-radar-container" style="position:relative; width:100%; min-height:100vh; overflow:hidden; border-top:1px solid rgba(0,255,102,0.15); background:#010a05; z-index:30;">
   <canvas id="audit-canvas"></canvas>
 <!-- BULLETPROOF HTML OVERLAY FOR SVG LOGO -->
-<img id="center-logo-html" src="../assets/logos/mbm-icon.svg" style="position:absolute; top:50%; left:50%; width:100px; height:100px; transform:translate(-50%, -50%); z-index:10; pointer-events:none; filter: drop-shadow(0 0 15px rgba(0,255,102,0.6));">
+<img id="center-logo-html" src="./assets/logos/mbm-icon.svg" style="position:absolute; top:50%; left:50%; width:100px; height:100px; transform:translate(-50%, -50%); z-index:10; pointer-events:none; filter: drop-shadow(0 0 15px rgba(0,255,102,0.6));">
 
 <div class="radar-ui-container">
   <div class="engine-badge"><div class="pulse"></div> AI LOCAL SEO SCAN ENGINE</div>
@@ -2654,7 +2736,131 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       .radar-cards-wrapper { flex-direction: column !important; width: 90% !important; bottom: 2% !important; }
       .radar-cards-wrapper > div { width: 100% !important; flex: none !important; margin-bottom: 20px; }
     }
-  </style>
+  
+
+/* Phase 5 New Layout Classes */
+.p5-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 60px; position: relative; z-index: 5; }
+.p5-step-card { width: 45%; margin-bottom: 0 !important; }
+.p5-visual-container { width: 45%; display: flex; justify-content: center; align-items: center; position: relative; }
+
+/* ─── CLAY.COM STYLE UI CARDS (BENTO BOX AESTHETIC) ─── */
+.clay-card {
+  width: 100%; max-width: 420px;
+  background: rgba(10, 12, 16, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03) inset;
+  backdrop-filter: blur(10px);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+.clay-card:hover { transform: translateY(-5px); }
+/* Subtle top glow */
+.clay-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(184, 255, 87, 0.5), transparent);
+}
+.clay-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex; align-items: center;
+  background: rgba(255,255,255,0.02);
+}
+.clay-dots { display: flex; gap: 6px; margin-right: 12px; }
+.clay-dots .dot { width: 10px; height: 10px; border-radius: 50%; opacity: 0.8; }
+.dot.r { background: #ff5f56; }
+.dot.y { background: #ffbd2e; }
+.dot.g { background: #27c93f; }
+.clay-title { font-size: 12px; font-family: monospace; color: #8892b0; letter-spacing: 1px; }
+.clay-body { padding: 20px; position: relative; min-height: 250px; }
+
+/* 01: Audit Map */
+.audit-grid {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.audit-radar-sweep {
+  position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: conic-gradient(from 0deg, transparent 70%, rgba(184, 255, 87, 0.05) 100%);
+  border-radius: 50%;
+  animation: radarSpin 6s linear infinite;
+}
+.map-node {
+  position: absolute; padding: 6px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(4px);
+}
+.map-node.you { background: rgba(184, 255, 87, 0.1); border-color: rgba(184, 255, 87, 0.4); color: #fff; box-shadow: 0 0 15px rgba(184, 255, 87, 0.2); }
+.map-node.competitor { color: #8892b0; }
+.badge { padding: 2px 6px; border-radius: 10px; font-size: 10px; }
+.badge.red { background: rgba(255, 95, 86, 0.2); color: #ff5f56; }
+.badge.green { background: rgba(184, 255, 87, 0.2); color: #b8ff57; }
+
+/* 02: Dashboard Settings */
+.setting-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); }
+.set-title { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.set-sub { font-size: 11px; color: #8892b0; }
+.toggle { width: 40px; height: 22px; border-radius: 20px; background: rgba(255,255,255,0.1); position: relative; transition: 0.3s; }
+.toggle.active { background: rgba(184, 255, 87, 0.4); box-shadow: 0 0 10px rgba(184, 255, 87, 0.2); }
+.toggle .knob { width: 18px; height: 18px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: 0.3s; }
+.toggle.active .knob { left: 20px; background: #b8ff57; }
+
+/* 03: Citation Network */
+.sync-network { display: flex; justify-content: center; align-items: center; position: relative; }
+.sync-core { width: 80px; height: 80px; background: rgba(184, 255, 87, 0.1); border: 1px solid #b8ff57; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: 700; color: #b8ff57; box-shadow: 0 0 20px rgba(184, 255, 87, 0.3); z-index: 2; }
+.sync-node { position: absolute; padding: 6px 12px; border-radius: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: #fff; z-index: 2; }
+.sync-node.n1 { top: 20px; left: 20px; }
+.sync-node.n2 { bottom: 20px; left: 50px; }
+.sync-node.n3 { top: 40px; right: 20px; }
+.sync-line { position: absolute; top: 50%; left: 50%; height: 1px; background: repeating-linear-gradient(90deg, rgba(184, 255, 87, 0.5) 0, rgba(184, 255, 87, 0.5) 4px, transparent 4px, transparent 8px); transform-origin: left center; z-index: 1; animation: dashMove 10s linear infinite; }
+.sync-line.l1 { width: 120px; transform: rotate(-135deg); }
+.sync-line.l2 { width: 100px; transform: rotate(120deg); }
+.sync-line.l3 { width: 130px; transform: rotate(-30deg); }
+
+/* 04: Local Pack */
+.search-bar { padding: 10px 16px; background: rgba(255,255,255,0.05); border-radius: 20px; font-size: 13px; color: #fff; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+.pack-list { display: flex; flex-direction: column; gap: 10px; }
+.pack-item { display: flex; align-items: center; gap: 15px; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); transition: 0.3s; }
+.pack-item.highlighted { background: rgba(184, 255, 87, 0.05); border-color: rgba(184, 255, 87, 0.4); box-shadow: 0 0 20px rgba(184, 255, 87, 0.1); }
+.pack-rank { font-size: 16px; font-weight: 700; color: #8892b0; }
+.pack-item.highlighted .pack-rank { color: #b8ff57; }
+.pack-name { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.pack-rating { font-size: 11px; color: #8892b0; }
+.pack-verified { margin-left: auto; color: #b8ff57; font-weight: bold; }
+
+/* 05: Chat UI */
+.chat-ui { display: flex; flex-direction: column; gap: 15px; }
+.chat-bubble { padding: 12px 16px; border-radius: 16px; font-size: 13px; max-width: 80%; line-height: 1.4; opacity: 0; /* animation: chatFade 10s infinite; */ }
+.chat-bubble.incoming { background: rgba(255,255,255,0.05); color: #fff; align-self: flex-start; border-bottom-left-radius: 4px; }
+.chat-bubble.outgoing { background: rgba(0, 212, 255, 0.15); color: #00d4ff; border: 1px solid rgba(0,212,255,0.3); align-self: flex-end; border-bottom-right-radius: 4px; }
+.chat-bubble.booked { background: rgba(184, 255, 87, 0.15); color: #b8ff57; border-color: rgba(184, 255, 87, 0.4); font-weight: 600; }
+.cb-1 { animation-delay: 0s; }
+.cb-2 { animation-delay: 1.5s; }
+.cb-3 { animation-delay: 4s; }
+.cb-4 { animation-delay: 5.5s; }
+
+/* Subtle Animations */
+@keyframes radarSpin { 100% { transform: rotate(360deg); } }
+@keyframes dashMove { 100% { background-position: 50px 0; } }
+@keyframes chatFade {
+  0% { opacity: 0; transform: translateY(10px); }
+  5% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  95% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 0; }
+}
+
+@media(max-width: 860px) {
+  .p5-row { flex-direction: column; text-align: center; }
+  .p5-step-card { width: 90% !important; order: 1; margin: 20px 0 !important; float: none !important;}
+  .p5-visual-container { width: 100%; order: 2; margin-bottom: 40px; }
+  .p5-glow-line { left: 5% !important; }
+}
+
+</style>
   <div style="width: 100%; padding-left: 7%; padding-right: 7%; display: flex; margin-top: -160px; position: relative; z-index: 40; box-sizing: border-box;">
     <div class="radar-cards-wrapper" style="display:flex; flex-direction:row; gap:40px; align-items:stretch; width: 100%;">
 <div style="flex: 0 1 480px;"></div>
@@ -2669,7 +2875,138 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       .eq-bar:nth-child(4n+3) { background:#b8ff57; animation-delay: 0.2s; height:100%; box-shadow:0 0 10px rgba(184,255,87,0.5); }
       .eq-bar:nth-child(4n) { background:rgba(0,212,255,0.6); animation-delay: 0.5s; height:50%; }
       .eq-bar:nth-child(7n) { background:rgba(0,212,255,0.9); animation-delay: 0.7s; height:90%; }
-    </style>
+    
+/* ─── PHASE 5 CSS: NAVY BACKGROUND & PIPELINE ─── */
+.p5-section {
+  margin-top: -150px;
+  position: relative;
+  width: 100%;
+  padding: 120px 20px;
+  background: radial-gradient(circle at center, #060C1A 0%, #02040A 100%);
+  border-top: 1px solid rgba(0,212,255,0.1);
+  border-bottom: 1px solid rgba(0,212,255,0.1);
+  overflow: hidden;
+  z-index: 30;
+}
+.p5-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.p5-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3.5rem;
+  color: #ffffff;
+  font-weight: 800;
+  margin: 20px 0;
+  text-shadow: 0 0 20px rgba(0,212,255,0.3);
+}
+.p5-header p {
+  color: rgba(255,255,255,0.7);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.p5-pipeline-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+.p5-glow-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: rgba(255,255,255,0.05);
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+.p5-glow-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--scroll-height, 0%);
+  background: linear-gradient(180deg, #00d4ff, #b8ff57);
+  box-shadow: 0 0 20px #00d4ff, 0 0 40px #b8ff57;
+  border-radius: 4px;
+  transition: height 0.3s ease-out;
+}
+.p5-step-card {
+  position: relative;
+  width: 45%;
+  background: rgba(10, 15, 30, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 16px;
+  padding: 30px;
+  margin-bottom: 60px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,212,255,0.05);
+  opacity: 0.2;
+  transform: translateY(40px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.p5-step-card.active {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: rgba(0, 212, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0,212,255,0.1), inset 0 0 30px rgba(0,212,255,0.1);
+}
+.p5-step-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: #b8ff57;
+}
+.p5-left {
+  float: left;
+}
+.p5-right {
+  float: right;
+}
+@keyframes numberPop {
+  0% { transform: translateY(30px) scale(0.2) rotate(-10deg); opacity: 0; text-shadow: 0 0 0px transparent; }
+  50% { transform: translateY(-10px) scale(1.3) rotate(5deg); opacity: 1; text-shadow: 0 0 40px #b8ff57; color: #b8ff57; }
+  100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; text-shadow: 0 0 20px rgba(0,212,255,0.5); color: transparent; }
+}
+.p5-step-number {
+  position: absolute;
+  top: -30px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4rem;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(0,212,255,0.1);
+  opacity: 0;
+}
+.p5-step-card.active .p5-step-number {
+  animation: numberPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+}
+.p5-left .p5-step-number { right: -10px; }
+.p5-right .p5-step-number { left: -10px; }
+
+.p5-step-content h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(20px, 2vw, 28px);
+    font-weight: 800;
+    margin-bottom: 12px;
+    margin-top: 10px;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+  }
+  .p5-step-content p {
+    font-size: clamp(14px, 1.2vw, 16px);
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+  }
+
+@media(max-width: 860px) {
+  .p5-glow-line { left: 20px; }
+  .p5-step-card { width: 85%; float: right !important; margin-bottom: 40px; }
+  .p5-step-card .p5-step-number { left: -20px !important; right: auto !important; }
+}
+
+</style>
     
     <div style="display:flex; justify-content:space-between; align-items:center;">
       <div style="font-family:'JetBrains Mono'; font-size:9px; color:rgba(255,255,255,0.5); letter-spacing:0.15em;">6D ALGORITHM STATUS</div>
@@ -2716,10 +3053,10 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 .p4-card { background: #020205; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 0; text-align: center; cursor: pointer; text-decoration: none; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s ease, box-shadow 0.4s ease; display: flex; flex-direction: column; overflow: hidden; }
 .p4-card-img-wrapper { width: 100%; aspect-ratio: 1/1; overflow: hidden; display: flex; align-items: center; justify-content: center; border-radius: 24px 24px 0 0; }
 @keyframes floatWave {
-  0%, 100% { transform: scale(1.08) translateY(0); }
-  50% { transform: scale(1.08) translateY(-10px); }
+  0%, 100% { transform: scale(0.85) translateY(15px); }
+  50% { transform: scale(0.85) translateY(5px); }
 }
-.p4-card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); animation: floatWave 4s ease-in-out infinite; }
+.p4-card-img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); animation: floatWave 4s ease-in-out infinite; }
 .p4-card:nth-child(1) .p4-card-img { animation-delay: 0s; }
 .p4-card:nth-child(2) .p4-card-img { animation-delay: 0.3s; }
 .p4-card:nth-child(3) .p4-card-img { animation-delay: 0.6s; }
@@ -2727,7 +3064,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 .p4-card:nth-child(5) .p4-card-img { animation-delay: 1.2s; }
 .p4-card-text-wrapper { padding: 32px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
 .p4-card:hover { border-color: rgba(255,255,255,0.2); box-shadow: 0 30px 60px rgba(0,0,0,0.8); z-index: 10; }
-.p4-card:hover .p4-card-img { transform: scale(1.05); }
+.p4-card:hover .p4-card-img { transform: scale(0.9) translateY(15px); }
 .p4-card-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(16px, 1.5vw, 20px); font-weight: 700; color: #fff; margin-bottom: 8px; }
 .p4-card-desc { font-size: clamp(12px, 1vw, 13px); color: rgba(255,255,255,0.6); line-height: 1.5; }
 
@@ -2760,6 +3097,137 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   .p4-section, .p4-section.alt { flex-direction: column; text-align: center; gap: 40px; margin-bottom: 100px; }
   .p4-visual-img { max-width: 100%; }
 }
+
+/* ─── PHASE 5 CSS: NAVY BACKGROUND & PIPELINE ─── */
+.p5-section {
+  margin-top: -150px;
+  position: relative;
+  width: 100%;
+  padding: 120px 20px;
+  background: radial-gradient(circle at center, #060C1A 0%, #02040A 100%);
+  border-top: 1px solid rgba(0,212,255,0.1);
+  border-bottom: 1px solid rgba(0,212,255,0.1);
+  overflow: hidden;
+  z-index: 30;
+}
+.p5-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.p5-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3.5rem;
+  color: #ffffff;
+  font-weight: 800;
+  margin: 20px 0;
+  text-shadow: 0 0 20px rgba(0,212,255,0.3);
+}
+.p5-header p {
+  color: rgba(255,255,255,0.7);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.p5-pipeline-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+.p5-glow-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: rgba(255,255,255,0.05);
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+.p5-glow-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--scroll-height, 0%);
+  background: linear-gradient(180deg, #00d4ff, #b8ff57);
+  box-shadow: 0 0 20px #00d4ff, 0 0 40px #b8ff57;
+  border-radius: 4px;
+  transition: height 0.3s ease-out;
+}
+.p5-step-card {
+  position: relative;
+  width: 45%;
+  background: rgba(10, 15, 30, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 16px;
+  padding: 30px;
+  margin-bottom: 60px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,212,255,0.05);
+  opacity: 0.2;
+  transform: translateY(40px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.p5-step-card.active {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: rgba(0, 212, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0,212,255,0.1), inset 0 0 30px rgba(0,212,255,0.1);
+}
+.p5-step-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: #b8ff57;
+}
+.p5-left {
+  float: left;
+}
+.p5-right {
+  float: right;
+}
+@keyframes numberPop {
+  0% { transform: translateY(30px) scale(0.2) rotate(-10deg); opacity: 0; text-shadow: 0 0 0px transparent; }
+  50% { transform: translateY(-10px) scale(1.3) rotate(5deg); opacity: 1; text-shadow: 0 0 40px #b8ff57; color: #b8ff57; }
+  100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; text-shadow: 0 0 20px rgba(0,212,255,0.5); color: transparent; }
+}
+.p5-step-number {
+  position: absolute;
+  top: -30px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4rem;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(0,212,255,0.1);
+  opacity: 0;
+}
+.p5-step-card.active .p5-step-number {
+  animation: numberPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+}
+.p5-left .p5-step-number { right: -10px; }
+.p5-right .p5-step-number { left: -10px; }
+
+.p5-step-content h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(20px, 2vw, 28px);
+    font-weight: 800;
+    margin-bottom: 12px;
+    margin-top: 10px;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+  }
+  .p5-step-content p {
+    font-size: clamp(14px, 1.2vw, 16px);
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+  }
+
+@media(max-width: 860px) {
+  .p5-glow-line { left: 20px; }
+  .p5-step-card { width: 85%; float: right !important; margin-bottom: 40px; }
+  .p5-step-card .p5-step-number { left: -20px !important; right: auto !important; }
+}
+
 </style>
 
 <section id="phase4-services" style="background: linear-gradient(180deg, #020205 0%, #060c18 100%); position: relative; z-index: 10; border-top: 1px solid rgba(255,255,255,0.05);">
@@ -2782,7 +3250,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     <div class="p4-cards-grid">
       <a href="#three-pack" class="p4-card" style="background: linear-gradient(180deg, rgba(0, 100, 255, 0.12), rgba(0, 5, 20, 0.95)); border: 1px solid rgba(0, 150, 255, 0.25);">
         <div class="p4-card-img-wrapper">
-          <img src="../assets/images/card_maps.jpg" class="p4-card-img" alt="Google Maps">
+          <img src="assets/images/google_maps_transparent_clean.png" class="p4-card-img" alt="Google Maps">
         </div>
         <div class="p4-card-text-wrapper">
           <div class="p4-card-title" style="color: #00d4ff;">Google Maps Top 3</div>
@@ -2791,7 +3259,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </a>
       <a href="#reviews" class="p4-card" style="background: linear-gradient(180deg, rgba(255, 200, 0, 0.12), rgba(20, 15, 0, 0.95)); border: 1px solid rgba(255, 200, 0, 0.25);">
         <div class="p4-card-img-wrapper">
-          <img src="../assets/images/card_reviews.jpg" class="p4-card-img" alt="5-Star Reviews">
+          <img src="assets/images/service_reviews_transparent_clean.png" class="p4-card-img" alt="5-Star Reviews">
         </div>
         <div class="p4-card-text-wrapper">
           <div class="p4-card-title" style="color: #ffd700;">5-Star Reviews</div>
@@ -2800,7 +3268,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </a>
       <a href="#citations" class="p4-card" style="background: linear-gradient(180deg, rgba(0, 255, 100, 0.12), rgba(0, 20, 5, 0.95)); border: 1px solid rgba(0, 255, 100, 0.25);">
         <div class="p4-card-img-wrapper">
-          <img src="../assets/images/card_citations.jpg" class="p4-card-img" alt="100+ Citations">
+          <img src="assets/images/service_citations_transparent_clean.png" class="p4-card-img" alt="100+ Citations">
         </div>
         <div class="p4-card-text-wrapper">
           <div class="p4-card-title" style="color: #b8ff57;">100+ Citations</div>
@@ -2809,7 +3277,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </a>
       <a href="#website" class="p4-card" style="background: linear-gradient(180deg, rgba(255, 0, 100, 0.12), rgba(20, 0, 5, 0.95)); border: 1px solid rgba(255, 0, 100, 0.25);">
         <div class="p4-card-img-wrapper">
-          <img src="../assets/images/card_website.jpg" class="p4-card-img" alt="3D Website">
+          <img src="assets/images/service_website_transparent_clean.png" class="p4-card-img" alt="3D Website">
         </div>
         <div class="p4-card-text-wrapper">
           <div class="p4-card-title" style="color: #bd00ff;">3D Website</div>
@@ -2818,7 +3286,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </a>
       <a href="#missed-call-ai" class="p4-card" style="background: linear-gradient(180deg, rgba(255, 106, 0, 0.12), rgba(20, 5, 0, 0.95)); border: 1px solid rgba(255, 106, 0, 0.25);">
         <div class="p4-card-img-wrapper">
-          <img src="../assets/images/card_missedcall.png" class="p4-card-img" alt="Missed-Call AI">
+          <img src="assets/images/card_missedcall.png" class="p4-card-img" alt="Missed-Call AI">
         </div>
         <div class="p4-card-text-wrapper">
           <div class="p4-card-title" style="color: #ff6a00;">Missed-Call AI</div>
@@ -2837,7 +3305,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #00d4ff;"></div>
-        <img src="../assets/images/google_maps_transparent_clean.png" class="p4-visual-img" alt="Google Maps Top 3 Visual">
+        <img src="assets/images/google_maps_transparent_clean.png" class="p4-visual-img" alt="Google Maps Top 3 Visual">
       </div>
     </div>
 
@@ -2851,7 +3319,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #ffd700;"></div>
-        <img src="../assets/images/service_reviews_transparent_clean.png" class="p4-visual-img" alt="5-Star Reviews Visual">
+        <img src="assets/images/service_reviews_transparent_clean.png" class="p4-visual-img" alt="5-Star Reviews Visual">
       </div>
     </div>
 
@@ -2865,7 +3333,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #b8ff57;"></div>
-        <img src="../assets/images/service_citations_transparent_clean.png" class="p4-visual-img citations-image" alt="Citations Visual">
+        <img src="assets/images/service_citations_transparent_clean.png" class="p4-visual-img citations-image" alt="Citations Visual">
       </div>
     </div>
 
@@ -2879,7 +3347,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #bd00ff;"></div>
-        <img src="../assets/images/service_website_transparent_clean.png" class="p4-visual-img" alt="Website Visual">
+        <img src="assets/images/service_website_transparent_clean.png" class="p4-visual-img" alt="Website Visual">
       </div>
     </div>
 
@@ -2893,7 +3361,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #ff6a00;"></div>
-        <img src="../assets/images/card_missedcall.png" class="p4-visual-img" alt="Missed-Call AI Visual">
+        <img src="assets/images/card_missedcall.png" class="p4-visual-img" alt="Missed-Call AI Visual">
       </div>
     </div>
 
@@ -2903,6 +3371,96 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 <!-- ═══════════════════════════════════════════════════════════
      MASTER JAVASCRIPT CONTROLLER
      ═══════════════════════════════════════════════════════════ -->
+
+<!-- ========================================= -->
+<!-- PHASE 5: 5-STEP LOCAL SEO PROCESS ENGINE  -->
+<!-- ========================================= -->
+<section id="phase5-process-engine" class="p5-section">
+  <div class="p5-header">
+    <div class="engine-badge" style="margin: 0 auto; display: inline-flex;"><div class="pulse"></div> OPERATING SYSTEM PIPELINE</div>
+    <h2>HOW WE DOMINATE YOUR MARKET</h2>
+    <p>Our 5-step local SEO visibility engine is engineered to turn your Google Business Profile into a lead-generating machine.</p>
+  </div>
+  
+          <div class="p5-pipeline-container">
+      <div class="p5-glow-line" id="p5-scroll-line"></div>
+      <!-- Wave Directional Line -->
+    
+    
+    <!-- STEP 1: Deep Audit (Claymorphism) -->
+    <div class="p5-row">
+      <div class="p5-step-card p5-left">
+        <div class="p5-step-number">01</div>
+        <div class="p5-step-content">
+          <h3 style="color: #00d4ff; text-shadow: 0 0 20px rgba(0,212,255,0.3);">THE 9-MILE DEEP AUDIT</h3>
+          <p>We map the battlefield. We deploy our 6D AI scanner to find exactly which competitors are stealing your calls and where your local visibility is bleeding money.</p>
+        </div>
+      </div>
+      <div class="p5-visual-container p5-right-vis">
+        <!-- Replaced WebGL with High-Quality CSS Animated Image -->
+        <img src="assets/images/step1-audit.png" class="clay-image-anim" alt="Deep Audit 3D Map">
+      </div>
+    </div>
+
+    <!-- STEP 2: Asset Optimization (Claymorphism) -->
+    <div class="p5-row">
+      <div class="p5-visual-container p5-left-vis">
+        <!-- Replaced WebGL with High-Quality CSS Animated Image -->
+        <img src="assets/images/step2-gbp.png" class="clay-image-anim" style="animation-delay: 1s;" alt="Google Business Profile 3D Card">
+      </div>
+      <div class="p5-step-card p5-right">
+        <div class="p5-step-number">02</div>
+        <div class="p5-step-content">
+          <h3 style="color: #ffd700; text-shadow: 0 0 20px rgba(255,215,0,0.3);">ASSET OPTIMIZATION</h3>
+          <p>We weaponize your Google Business Profile. We rewrite your local schema, optimize images with EXIF geo-data, and structure your profile to trigger Google's local ranking algorithm.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- STEP 3: Citation Syndication -->
+    <div class="p5-row">
+      <div class="p5-step-card p5-left">
+        <div class="p5-step-number">03</div>
+        <div class="p5-step-content">
+          <h3 style="color: #b8ff57; text-shadow: 0 0 20px rgba(184,255,87,0.3);">CITATION SYNDICATION</h3>
+          <p>We lock your authority. Our engine synchronizes your business NAP (Name, Address, Phone) across 100+ premium directories like Apple Maps, Yelp, and Bing to build massive trust.</p>
+        </div>
+      </div>
+      <div class="p5-visual-container p5-right-vis">
+        <img src="assets/images/step3-citation.png" class="clay-image-anim" style="animation-delay: 2s; width: 85%; margin: 0 auto;" alt="Citation Syndication Globe">
+      </div>
+    </div>
+    
+    <!-- STEP 4: Local SEO Dominance -->
+    <div class="p5-row">
+      <div class="p5-visual-container p5-left-vis">
+        <img src="assets/images/step4-seo.png" class="clay-image-anim" style="animation-delay: 1.5s; width: 85%; margin: 0 auto;" alt="SEO Vortex Radar">
+      </div>
+      <div class="p5-step-card p5-right">
+        <div class="p5-step-number">04</div>
+        <div class="p5-step-content">
+          <h3 style="color: #bd00ff; text-shadow: 0 0 20px rgba(189,0,255,0.3);">LOCAL SEO DOMINANCE</h3>
+          <p>We hijack the search algorithm. By securing hyperlocal backlinks and geo-targeted signals, we push your business past the competitors into the highly coveted Top 3 Local Pack.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- STEP 5: Lead Conversion -->
+    <div class="p5-row">
+      <div class="p5-step-card p5-left">
+        <div class="p5-step-number">05</div>
+        <div class="p5-step-content">
+          <h3 style="color: #ff6a00; text-shadow: 0 0 20px rgba(255,106,0,0.3);">AUTOMATED LEAD CONVERSION</h3>
+          <p>You take the revenue. As SEO traffic pours in, our Missed-Call AI and Review Automation systems capture every lead, turning organic traffic into booked jobs 24/7.</p>
+        </div>
+      </div>
+      <div class="p5-visual-container p5-right-vis">
+        <img src="assets/images/step5-conversion.png" class="clay-image-anim" style="animation-delay: 3s; width: 85%; margin: 0 auto;" alt="Lead Conversion Magnet">
+      </div>
+    </div>
+  </div>
+</section>
+
 <script>
 /* ─── 1. THREE.JS MASTER UNIVERSE INITIALIZATION ─── */
 const canvas = document.getElementById('master-3d-canvas');
@@ -3908,7 +4466,7 @@ scene.fog = new THREE.FogExp2(0x010a05, 0.02);
 
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(0, 35, 30); // Top-down angled view
-camera.lookAt(0, 0, 0);
+camera.lookAt(0, 2, 0);
 
 const COLOR_PRIMARY = new THREE.Color('#00ff66');
 const COLOR_ACCENT  = new THREE.Color('#ffcc00');
@@ -4090,7 +4648,7 @@ function animate() {
   
   camera.position.x += (mx * 10 - camera.position.x) * 0.05;
   camera.position.z += (30 + my * 10 - camera.position.z) * 0.05;
-  camera.lookAt(0, 0, 0);
+  camera.lookAt(0, 2, 0);
   
   // Sync HTML Logo Overlay with 3D Center Anchor
   centerAnchor.getWorldPosition(tempV);
@@ -4147,6 +4705,559 @@ document.querySelectorAll('.p4-card').forEach(card => {
   });
 });
 </script>
+
+<script>
+/* ─── PHASE 5: PROCESS ENGINE PIPELINE SCROLL LOGIC ─── */
+function initPhase5ScrollPipeline() {
+  const container = document.querySelector('.p5-pipeline-container');
+  const scrollLine = document.getElementById('p5-scroll-line');
+  const cards = document.querySelectorAll('.p5-step-card');
+  
+  if(!container) return;
+
+  window.addEventListener('scroll', () => {
+    const rect = container.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    
+    const startFill = windowHeight * 0.7; 
+    let scrollProgress = (startFill - rect.top) / rect.height;
+    scrollProgress = Math.max(0, Math.min(1, scrollProgress));
+    
+    if(scrollLine) {
+      scrollLine.style.setProperty('--scroll-height', `${scrollProgress * 100}%`);
+    }
+    
+    cards.forEach((card) => {
+        const cardRect = card.getBoundingClientRect();
+        
+        // Trigger exactly when the top of the card hits the scroll line's active edge (startFill)
+        // startFill is windowHeight * 0.7. We check if the card is above this line on the screen.
+        if(cardRect.top < startFill) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+  });
+}
+document.addEventListener('DOMContentLoaded', initPhase5ScrollPipeline);
+</script>
+<script>
+
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+/* ─── PHASE 5: HYPER-COMPLEX SCI-FI WEBGL ENGINE ─── */
+const scifiRenderers = [];
+
+function createScifiScene(containerId, initFn) {
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  container.appendChild(renderer.domElement);
+  
+  const animateFn = initFn(scene, camera, renderer, container);
+  
+  let isVisible = false;
+  const observer = new IntersectionObserver(entries => {
+    isVisible = entries[0].isIntersecting;
+  }, { threshold: 0.1 });
+  observer.observe(container);
+  
+  scifiRenderers.push(renderer);
+  
+  function renderLoop() {
+    requestAnimationFrame(renderLoop);
+    if(isVisible) {
+      if(animateFn) animateFn();
+      renderer.render(scene, camera);
+    }
+  }
+  renderLoop();
+}
+
+// Scene 1: 3D Claymorphism Audit Map
+function initScene1(scene, camera, renderer) {
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  
+  // Moved camera back and up to make elements look smaller
+  camera.position.set(0, 15, 25);
+  camera.lookAt(0, 2, 0);
+  
+  // Lighting (Adjusted for richer colors, less blow-out)
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+  scene.add(ambientLight);
+  
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.3);
+  hemiLight.position.set(0, 20, 0);
+  scene.add(hemiLight);
+  
+  const dirLight = new THREE.DirectionalLight(0xffeedd, 0.8);
+  dirLight.position.set(15, 25, 10);
+  dirLight.castShadow = true;
+  dirLight.shadow.mapSize.width = 1024;
+  dirLight.shadow.mapSize.height = 1024;
+  dirLight.shadow.camera.near = 0.5;
+  dirLight.shadow.camera.far = 50;
+  dirLight.shadow.camera.left = -12;
+  dirLight.shadow.camera.right = 12;
+  dirLight.shadow.camera.top = 12;
+  dirLight.shadow.camera.bottom = -12;
+  dirLight.shadow.bias = -0.001;
+  scene.add(dirLight);
+
+  // Soft Clay Material Helper
+  const createClayMat = (color) => new THREE.MeshStandardMaterial({
+    color: color, roughness: 0.85, metalness: 0.1
+  });
+
+  // Scale down the entire group by 0.8 to fit better next to the text
+  const masterGroup = new THREE.Group();
+  masterGroup.scale.set(1.0, 1.0, 1.0);
+  scene.add(masterGroup);
+
+  const clayGroup = new THREE.Group();
+  masterGroup.add(clayGroup);
+
+  // Map Base (Richer Pastel Green)
+  const baseGeo = new THREE.CylinderGeometry(8, 8, 1, 64);
+  const baseMat = createClayMat(0x81c784);
+  const base = new THREE.Mesh(baseGeo, baseMat);
+  base.position.y = -0.5;
+  base.receiveShadow = true;
+  base.castShadow = true;
+  clayGroup.add(base);
+
+  // Map Pin (Elegant Matte Red)
+  const pinGroup = new THREE.Group();
+  const pinTopGeo = new THREE.SphereGeometry(1.0, 32, 32);
+  const pinTopMat = createClayMat(0xff5252);
+  const pinTop = new THREE.Mesh(pinTopGeo, pinTopMat);
+  pinTop.position.y = 1.3;
+  pinTop.castShadow = true;
+  pinGroup.add(pinTop);
+  
+  const pinBotGeo = new THREE.ConeGeometry(1.0, 2.2, 32);
+  const pinBot = new THREE.Mesh(pinBotGeo, pinTopMat);
+  pinBot.position.y = 0;
+  pinBot.rotation.x = Math.PI;
+  pinBot.castShadow = true;
+  pinGroup.add(pinBot);
+  
+  const pinDotGeo = new THREE.SphereGeometry(0.4, 16, 16);
+  const pinDotMat = createClayMat(0xffffff);
+  const pinDot = new THREE.Mesh(pinDotGeo, pinDotMat);
+  pinDot.position.set(0, 1.3, 0.8);
+  pinGroup.add(pinDot);
+
+  pinGroup.position.set(0, 1.0, 0);
+  clayGroup.add(pinGroup);
+
+  // Cuter Houses (Better Proportions and Pastel Colors)
+  const colors = [0xffe082, 0x81d4fa, 0xf48fb1, 0xbcaaa4];
+  for(let i=0; i<4; i++) {
+    const hGroup = new THREE.Group();
+    // House body
+    const hBaseGeo = new THREE.BoxGeometry(1.2, 1.0, 1.2);
+    const hBaseMat = createClayMat(colors[i % colors.length]);
+    const hBase = new THREE.Mesh(hBaseGeo, hBaseMat);
+    hBase.position.y = 0.5;
+    hBase.castShadow = true;
+    hBase.receiveShadow = true;
+    hGroup.add(hBase);
+    
+    // House roof
+    const hRoofGeo = new THREE.ConeGeometry(1.0, 1.0, 4);
+    const hRoofMat = createClayMat(0xff8a65); // soft terracotta roof
+    const hRoof = new THREE.Mesh(hRoofGeo, hRoofMat);
+    hRoof.position.y = 1.5;
+    hRoof.rotation.y = Math.PI/4;
+    hRoof.castShadow = true;
+    hGroup.add(hRoof);
+    
+    // Position on the map
+    const angle = (i / 4) * Math.PI * 2 + (Math.PI/4);
+    const radius = 5;
+    hGroup.position.set(Math.cos(angle)*radius, 0, Math.sin(angle)*radius);
+    hGroup.lookAt(0, 0, 0);
+    clayGroup.add(hGroup);
+  }
+
+  // Magnifying Glass
+  const magGroup = new THREE.Group();
+  
+  // Lens Ring (Thinner, more elegant Matte Blue)
+  const ringGeo = new THREE.TorusGeometry(2.5, 0.4, 32, 64);
+  const ringMat = createClayMat(0x29b6f6);
+  const ring = new THREE.Mesh(ringGeo, ringMat);
+  ring.castShadow = true;
+  magGroup.add(ring);
+  
+  // Handle (Better position and thickness)
+  const handleGeo = new THREE.CylinderGeometry(0.3, 0.3, 3.5, 32);
+  const handleMat = createClayMat(0xd7ccc8); // Soft clay wood color
+  const handle = new THREE.Mesh(handleGeo, handleMat);
+  handle.position.set(2.5, -2.5, 0);
+  handle.rotation.z = Math.PI / 4;
+  handle.castShadow = true;
+  magGroup.add(handle);
+  
+  // Glass Lens (Improved Physical Material for better realism)
+  const lensGeo = new THREE.CylinderGeometry(2.4, 2.4, 0.05, 32);
+  const lensMat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: 0,
+    roughness: 0.0, // perfectly smooth glass
+    transmission: 1.0, // fully transparent
+    ior: 1.3, // slight refraction
+    thickness: 0.5,
+    transparent: true,
+    opacity: 1
+  });
+  const lens = new THREE.Mesh(lensGeo, lensMat);
+  lens.rotation.x = Math.PI / 2;
+  magGroup.add(lens);
+  
+  magGroup.position.set(-2, 5, 4);
+  masterGroup.add(magGroup);
+
+  return () => {
+    // Gentle floating of the whole map
+    clayGroup.position.y = Math.sin(Date.now() * 0.001) * 0.3;
+    clayGroup.rotation.y = Math.sin(Date.now() * 0.0005) * 0.1;
+    
+    // Pin bouncing slightly
+    pinGroup.position.y = 1.0 + Math.abs(Math.sin(Date.now() * 0.002)) * 0.4;
+    
+    // Magnifying glass hovering and scanning
+    magGroup.position.x = -1.5 + Math.sin(Date.now() * 0.001) * 2.5;
+    magGroup.position.y = 5 + Math.sin(Date.now() * 0.0015) * 0.4;
+    magGroup.position.z = 4 + Math.cos(Date.now() * 0.001) * 1.5;
+    magGroup.rotation.x = Math.sin(Date.now() * 0.0008) * 0.15;
+    magGroup.rotation.y = Math.cos(Date.now() * 0.0009) * 0.15;
+  };
+}
+
+// Scene 2: 3D Claymorphism Highly Detailed GBP Profile
+function initScene2(scene, camera, renderer) {
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  
+  camera.position.set(0, 15, 25);
+  camera.lookAt(0, 2, 0);
+  
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+  scene.add(ambientLight);
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.3);
+  hemiLight.position.set(0, 20, 0);
+  scene.add(hemiLight);
+  const dirLight = new THREE.DirectionalLight(0xffeedd, 0.8);
+  dirLight.position.set(15, 25, 10);
+  dirLight.castShadow = true;
+  dirLight.shadow.mapSize.width = 1024;
+  dirLight.shadow.mapSize.height = 1024;
+  dirLight.shadow.camera.near = 0.5;
+  dirLight.shadow.camera.far = 50;
+  dirLight.shadow.camera.left = -12;
+  dirLight.shadow.camera.right = 12;
+  dirLight.shadow.camera.top = 12;
+  dirLight.shadow.camera.bottom = -12;
+  dirLight.shadow.bias = -0.001;
+  scene.add(dirLight);
+
+  const createClayMat = (color) => new THREE.MeshStandardMaterial({ color: color, roughness: 0.85, metalness: 0.1 });
+
+  const masterGroup = new THREE.Group();
+  masterGroup.scale.set(1.0, 1.0, 1.0);
+  scene.add(masterGroup);
+
+  const clayGroup = new THREE.Group();
+  masterGroup.add(clayGroup);
+
+  // Base (Soft Pastel Blue)
+  const baseGeo = new THREE.CylinderGeometry(8, 8, 1, 64);
+  const base = new THREE.Mesh(baseGeo, createClayMat(0x90caf9));
+  base.position.y = -0.5;
+  base.receiveShadow = true;
+  base.castShadow = true;
+  clayGroup.add(base);
+
+  // GBP UI Card (Detailed Google Profile)
+  const cardGroup = new THREE.Group();
+  
+  // The Phone/Card Body (White Clay)
+  const cardGeo = new THREE.BoxGeometry(6.5, 9.5, 0.6);
+  const cardMesh = new THREE.Mesh(cardGeo, createClayMat(0xffffff));
+  cardMesh.castShadow = true;
+  cardGroup.add(cardMesh);
+  
+  const zOffset = 0.35; // Surface of the card
+  
+  // 1. Cover Photo Image (Light Blue/Grey box at the top)
+  const coverGeo = new THREE.BoxGeometry(6.1, 2.8, 0.2);
+  const coverMesh = new THREE.Mesh(coverGeo, createClayMat(0xcfe8fc));
+  coverMesh.position.set(0, 3.1, zOffset);
+  cardGroup.add(coverMesh);
+
+  // 1.5 Business Profile Icon (Circle overlapping cover photo)
+  const iconGeo = new THREE.CylinderGeometry(0.6, 0.6, 0.2, 32);
+  const iconMesh = new THREE.Mesh(iconGeo, createClayMat(0xffffff));
+  iconMesh.rotation.x = Math.PI / 2;
+  iconMesh.position.set(-1.8, 1.8, zOffset + 0.1);
+  iconMesh.castShadow = true;
+  cardGroup.add(iconMesh);
+  
+  // Inner colored circle for the icon
+  const innerIconGeo = new THREE.CylinderGeometry(0.4, 0.4, 0.22, 32);
+  const innerIconMesh = new THREE.Mesh(innerIconGeo, createClayMat(0x4caf50)); // Green icon center
+  innerIconMesh.rotation.x = Math.PI / 2;
+  innerIconMesh.position.set(-1.8, 1.8, zOffset + 0.1);
+  cardGroup.add(innerIconMesh);
+  
+  
+  // 2. Business Name (Dark thick bar)
+  const titleMesh = new THREE.Mesh(new THREE.BoxGeometry(3.5, 0.4, 0.2), createClayMat(0x333333));
+  titleMesh.position.set(-1.1, 1.2, zOffset);
+  cardGroup.add(titleMesh);
+  
+  // 3. Reviews (5 Stars + Number)
+  const starsGroup = new THREE.Group();
+  const starGeo = new THREE.CylinderGeometry(0.15, 0.15, 0.1, 5); 
+  const starMat = createClayMat(0xffca28);
+  for(let i=0; i<5; i++) {
+    const star = new THREE.Mesh(starGeo, starMat);
+    star.rotation.x = Math.PI / 2;
+    star.position.set(i * 0.4, 0, 0);
+    star.castShadow = true;
+    starsGroup.add(star);
+  }
+  starsGroup.position.set(-2.5, 0.6, zOffset);
+  cardGroup.add(starsGroup);
+  
+  // Review Count Box
+  const revCount = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.2, 0.1), createClayMat(0xe0e0e0));
+  revCount.position.set(-0.1, 0.6, zOffset);
+  cardGroup.add(revCount);
+  
+  // 4. Action Buttons (Call, Directions, Share)
+  const actionCols = [-1.8, 0, 1.8];
+  const btnMat = createClayMat(0x4285f4); // Google Blue
+  actionCols.forEach(x => {
+    // Circle button
+    const btn = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.15, 32), btnMat);
+    btn.rotation.x = Math.PI / 2;
+    btn.position.set(x, -0.3, zOffset);
+    btn.castShadow = true;
+    cardGroup.add(btn);
+    // Button label
+    const label = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.15, 0.1), createClayMat(0xb0bec5));
+    label.position.set(x, -0.9, zOffset);
+    cardGroup.add(label);
+  });
+  
+  // 5. Info Rows (Location, Hours, Phone)
+  const infoStartY = -1.8;
+  const infoGap = -0.7;
+  const iconColors = [0xff5252, 0x66bb6a, 0x4285f4]; // Red pin, Green clock, Blue phone
+  
+  for(let i=0; i<3; i++) {
+    // Small icon
+    const icon = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 0.1), createClayMat(iconColors[i]));
+    icon.position.set(-2.5, infoStartY + (infoGap * i), zOffset);
+    cardGroup.add(icon);
+    
+    // Text bar
+    const barWidth = 3 + Math.random() * 1.5; // Random lengths
+    const textBar = new THREE.Mesh(new THREE.BoxGeometry(barWidth, 0.2, 0.1), createClayMat(0xe0e0e0));
+    textBar.position.set(-2.2 + (barWidth/2), infoStartY + (infoGap * i), zOffset);
+    cardGroup.add(textBar);
+  }
+  
+  cardGroup.position.set(-1, 5, 0);
+  cardGroup.rotation.x = -Math.PI / 12; // Tilted slightly upwards
+  cardGroup.rotation.y = Math.PI / 16;
+  clayGroup.add(cardGroup);
+
+  // Floating Green Checkmark (Optimization Success Badge)
+  const checkGroup = new THREE.Group();
+  const checkBase = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, 0.5, 32), createClayMat(0x66bb6a));
+  checkBase.rotation.x = Math.PI / 2;
+  checkBase.castShadow = true;
+  checkGroup.add(checkBase);
+  
+  // White checkmark shape
+  const checkMat = createClayMat(0xffffff);
+  const tick1 = new THREE.Mesh(new THREE.BoxGeometry(0.3, 1.2, 0.2), checkMat);
+  tick1.position.set(0.3, 0, 0.3);
+  tick1.rotation.z = -Math.PI / 6;
+  checkGroup.add(tick1);
+  const tick2 = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.6, 0.2), checkMat);
+  tick2.position.set(-0.3, -0.3, 0.3);
+  tick2.rotation.z = Math.PI / 4;
+  checkGroup.add(tick2);
+
+  checkGroup.position.set(4, 5, 2);
+  checkGroup.rotation.y = -Math.PI / 6;
+  clayGroup.add(checkGroup);
+
+  return () => {
+    // Gentle floating
+    clayGroup.position.y = Math.sin(Date.now() * 0.001) * 0.3;
+    clayGroup.rotation.y = Math.sin(Date.now() * 0.0005) * 0.1;
+    
+    // Badge floating and rotating slowly
+    checkGroup.position.y = 5 + Math.sin(Date.now() * 0.002) * 0.4;
+    checkGroup.rotation.z = Math.sin(Date.now() * 0.001) * 0.15;
+    
+    // Light tilt on the card
+    cardGroup.rotation.x = -Math.PI / 12 + Math.sin(Date.now() * 0.001) * 0.05;
+  };
+}
+
+// Scene 3: Global Command Center (Laser Beams)
+function initScene3(scene, camera) {
+  camera.position.set(0, 10, 25);
+  camera.lookAt(0, 2, 0);
+  
+  const earthGroup = new THREE.Group();
+  scene.add(earthGroup);
+  
+  const earthGeo = new THREE.IcosahedronGeometry(7, 2);
+  const earthMat = new THREE.MeshBasicMaterial({ color: 0x0044ff, wireframe: true, transparent: true, opacity: 0.3 });
+  const earth = new THREE.Mesh(earthGeo, earthMat);
+  earthGroup.add(earth);
+  
+  // Core server inside earth
+  const serverGeo = new THREE.BoxGeometry(2, 4, 2);
+  const serverMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57 });
+  const server = new THREE.Mesh(serverGeo, serverMat);
+  earthGroup.add(server);
+  
+  // Laser lines shooting out
+  const vertices = earthGeo.attributes.position.array;
+  const lineMat = new THREE.LineBasicMaterial({ color: 0xb8ff57, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending });
+  for(let i=0; i<30; i+=3) {
+    const idx = Math.floor(Math.random() * (vertices.length/3)) * 3;
+    const endPoint = new THREE.Vector3(vertices[idx], vertices[idx+1], vertices[idx+2]);
+    const geo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), endPoint]);
+    const line = new THREE.Line(geo, lineMat);
+    earthGroup.add(line);
+  }
+
+  return () => {
+    earthGroup.rotation.y += 0.01;
+    earthGroup.rotation.z += 0.005;
+  };
+}
+
+// Scene 4: Algorithm Hijack (Particle Vortex)
+function initScene4(scene, camera) {
+  camera.position.set(0, 15, 30);
+  camera.lookAt(0, 5, 0);
+  
+  // Dominance Crystal
+  const crysGeo = new THREE.OctahedronGeometry(4, 0);
+  const crysMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true });
+  const crystal = new THREE.Mesh(crysGeo, crysMat);
+  crystal.position.y = 12;
+  scene.add(crystal);
+  
+  // Massive Particle Vortex
+  const pGeo = new THREE.BufferGeometry();
+  const count = 1000;
+  const pos = new Float32Array(count * 3);
+  const angles = [];
+  const radiis = [];
+  for(let i=0; i<count; i++) {
+    angles.push(Math.random() * Math.PI * 2);
+    radiis.push(Math.random() * 15 + 2);
+    pos[i*3+1] = Math.random() * 20; // Y
+  }
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  const pMat = new THREE.PointsMaterial({ color: 0xb8ff57, size: 0.2, transparent: true, blending: THREE.AdditiveBlending });
+  const vortex = new THREE.Points(pGeo, pMat);
+  scene.add(vortex);
+
+  return () => {
+    crystal.rotation.y -= 0.05;
+    crystal.position.y = 12 + Math.sin(Date.now()*0.005) * 1;
+    
+    // Animate vortex
+    const positions = vortex.geometry.attributes.position.array;
+    for(let i=0; i<count; i++) {
+      angles[i] += 0.02 + (20 - radiis[i])*0.001; // Closer spins faster
+      positions[i*3] = Math.cos(angles[i]) * radiis[i]; // X
+      positions[i*3+2] = Math.sin(angles[i]) * radiis[i]; // Z
+      positions[i*3+1] += 0.1; // Move up
+      if(positions[i*3+1] > 20) positions[i*3+1] = 0; // Reset Y
+    }
+    vortex.geometry.attributes.position.needsUpdate = true;
+  };
+}
+
+// Scene 5: The Neural Brain (Phone + Network)
+function initScene5(scene, camera) {
+  camera.position.set(0, 5, 25);
+  camera.lookAt(0, 5, 0);
+  
+  // Sci-Fi Phone
+  const phoneGeo = new THREE.BoxGeometry(6, 12, 0.5);
+  const phoneMat = new THREE.MeshBasicMaterial({ color: 0x004444, wireframe: true });
+  const phone = new THREE.Mesh(phoneGeo, phoneMat);
+  phone.rotation.x = -Math.PI / 6;
+  scene.add(phone);
+  
+  // Neural Network Brain floating above
+  const brainGroup = new THREE.Group();
+  brainGroup.position.y = 10;
+  scene.add(brainGroup);
+  
+  const bGeo = new THREE.IcosahedronGeometry(4, 1);
+  const bMat = new THREE.PointsMaterial({ color: 0x00d4ff, size: 0.3 });
+  const brainPoints = new THREE.Points(bGeo, bMat);
+  brainGroup.add(brainPoints);
+  const lMat = new THREE.LineBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.2 });
+  const brainLines = new THREE.LineSegments(bGeo, lMat);
+  brainGroup.add(brainLines);
+  
+  // Data flowing from Brain to Phone
+  const flowGeo = new THREE.CylinderGeometry(0.5, 3, 10, 8, 1, true);
+  const flowMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57, wireframe: true, transparent: true, opacity: 0.1 });
+  const flow = new THREE.Mesh(flowGeo, flowMat);
+  flow.position.y = 5;
+  scene.add(flow);
+
+  return () => {
+    phone.rotation.y = Math.sin(Date.now()*0.001) * 0.2;
+    brainGroup.rotation.y += 0.01;
+    brainGroup.rotation.x += 0.005;
+    flow.rotation.y -= 0.05;
+  };
+}
+
+window.addEventListener('load', () => {
+  // createScifiScene('p5-canvas-1', initScene1);
+  // createScifiScene('p5-canvas-2', initScene2);
+  // createScifiScene('p5-canvas-3', initScene3);
+  // createScifiScene('p5-canvas-4', initScene4);
+  // createScifiScene('p5-canvas-5', initScene5);
+});
+</script>
+
 </body>
 
 </html>
