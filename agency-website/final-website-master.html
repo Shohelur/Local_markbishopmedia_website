@@ -2232,6 +2232,129 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   .p5-glow-line { left: 5% !important; }
 }
 
+
+/* ─── PHASE 5: LIVE MOTION GRAPHICS CSS ─── */
+.p5-visual-container { perspective: 1000px; }
+
+/* 1. Radar */
+.mg-radar {
+  width: 250px; height: 250px;
+  position: relative;
+  border-radius: 50%;
+  background: rgba(0, 212, 255, 0.05);
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.2), inset 0 0 30px rgba(0, 212, 255, 0.2);
+  transform: rotateX(60deg) rotateY(10deg);
+  animation: float3D 6s infinite ease-in-out;
+}
+.mg-radar-ring {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px dashed rgba(184, 255, 87, 0.5);
+  border-radius: 50%;
+}
+.mg-radar-ring.r1 { width: 100%; height: 100%; border-style: solid; border-color: rgba(0, 212, 255, 0.5); }
+.mg-radar-ring.r2 { width: 70%; height: 70%; animation: spinRotate 10s linear infinite reverse; }
+.mg-radar-ring.r3 { width: 40%; height: 40%; border-style: dotted; border-width: 2px; }
+.mg-radar-sweep {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 70%, rgba(184, 255, 87, 0.1) 90%, rgba(184, 255, 87, 0.8) 100%);
+  animation: spinRotate 4s linear infinite;
+}
+
+/* 2. Asset Sphere */
+.mg-sphere-container { animation: float3D 5s infinite ease-in-out; transform-style: preserve-3d; }
+.mg-sphere {
+  width: 200px; height: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: spinRotate 15s linear infinite;
+}
+.mg-ring {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  border-radius: 50%;
+  border: 3px solid rgba(0, 212, 255, 0.6);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.4), inset 0 0 15px rgba(0, 212, 255, 0.4);
+}
+.mg-ring.x { transform: rotateX(90deg); border-color: rgba(184, 255, 87, 0.6); }
+.mg-ring.y { transform: rotateY(90deg); }
+.mg-ring.z { transform: rotateZ(90deg); }
+.mg-core {
+  position: absolute; top: 50%; left: 50%; width: 40px; height: 40px;
+  background: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 40px 20px rgba(0, 212, 255, 0.8);
+  animation: pulseCore 2s infinite alternate;
+}
+
+/* 3. Citation Canvas */
+.mg-canvas {
+  filter: drop-shadow(0 0 20px rgba(184, 255, 87, 0.4));
+  animation: float3D 7s infinite ease-in-out;
+}
+
+/* 4. Trophy Badge */
+.mg-trophy-container {
+  position: relative; width: 200px; height: 250px;
+  animation: float3D 4s infinite ease-in-out;
+  display: flex; flex-direction: column; align-items: center;
+}
+.mg-trophy {
+  position: relative; width: 140px; height: 160px;
+  background: rgba(0, 212, 255, 0.1);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  border: 2px solid #00d4ff;
+  box-shadow: 0 0 30px rgba(0,212,255,0.5);
+  display: flex; justify-content: center; align-items: center;
+  backdrop-filter: blur(5px);
+}
+.mg-trophy-number {
+  font-size: 5rem; font-family: 'Space Grotesk', sans-serif;
+  font-weight: 900; color: #b8ff57;
+  text-shadow: 0 0 20px #b8ff57;
+}
+.mg-trophy-base {
+  width: 100px; height: 20px;
+  background: rgba(184, 255, 87, 0.2);
+  border-radius: 50%;
+  margin-top: 30px;
+  box-shadow: 0 0 20px rgba(184, 255, 87, 0.8);
+}
+
+/* 5. Lead Pulse */
+.mg-pulse-container {
+  position: relative; width: 250px; height: 250px;
+  transform: rotateX(45deg);
+  transform-style: preserve-3d;
+  animation: float3D 6s infinite ease-in-out;
+}
+.mg-pulse-ring {
+  position: absolute; top: 50%; left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 4px solid rgba(184, 255, 87, 0.8);
+  box-shadow: 0 0 20px rgba(184, 255, 87, 0.5);
+  animation: pulseOut 3s infinite cubic-bezier(0.21, 0.53, 0.56, 1);
+}
+.mg-pulse-ring.p1 { animation-delay: 0s; }
+.mg-pulse-ring.p2 { animation-delay: 1s; }
+.mg-pulse-ring.p3 { animation-delay: 2s; }
+.mg-pulse-core {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotateX(-45deg); /* Counter rotate to face camera */
+  font-size: 4rem; font-weight: 900; color: #fff;
+  text-shadow: 0 0 30px rgba(0, 212, 255, 1);
+}
+
+@keyframes spinRotate { 100% { transform: rotate(360deg); } }
+@keyframes pulseCore { 100% { transform: translate(-50%, -50%) scale(1.2); box-shadow: 0 0 60px 30px rgba(184, 255, 87, 0.8); } }
+@keyframes pulseOut {
+  0% { width: 0; height: 0; opacity: 1; }
+  100% { width: 100%; height: 100%; opacity: 0; }
+}
+
 </style>
 </head>
 <body>
@@ -3459,14 +3582,26 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         </div>
       </div>
       <div class="p5-visual-container p5-right-vis">
-        <img src="assets/images/p5_audit_radar_1789286017311.jpg" alt="Deep Audit 3D Radar" class="p5-float-img">
+        <div class="mg-radar">
+          <div class="mg-radar-sweep"></div>
+          <div class="mg-radar-ring r1"></div>
+          <div class="mg-radar-ring r2"></div>
+          <div class="mg-radar-ring r3"></div>
+       </div>
       </div>
     </div>
     
     <!-- STEP 2 -->
     <div class="p5-row">
       <div class="p5-visual-container p5-left-vis">
-        <img src="assets/images/p5_asset_pin_1789286029608.jpg" alt="Asset Optimization 3D Pin" class="p5-float-img">
+        <div class="mg-sphere-container">
+          <div class="mg-sphere">
+             <div class="mg-ring x"></div>
+             <div class="mg-ring y"></div>
+             <div class="mg-ring z"></div>
+             <div class="mg-core"></div>
+          </div>
+       </div>
       </div>
       <div class="p5-step-card p5-right">
         <div class="p5-step-number">02</div>
@@ -3487,14 +3622,21 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         </div>
       </div>
       <div class="p5-visual-container p5-right-vis">
-        <img src="assets/images/p5_citation_nodes_1789286043735.jpg" alt="Citation Network 3D Nodes" class="p5-float-img">
+        <canvas id="mg-network-canvas" width="300" height="300" class="mg-canvas"></canvas>
       </div>
     </div>
     
     <!-- STEP 4 -->
     <div class="p5-row">
       <div class="p5-visual-container p5-left-vis">
-        <img src="assets/images/p5_seo_trophy_1789286053441.jpg" alt="Local SEO Dominance 3D Trophy" class="p5-float-img">
+        <div class="mg-trophy-container">
+          <div class="mg-trophy">
+             <div class="mg-trophy-top"></div>
+             <div class="mg-trophy-bottom"></div>
+             <div class="mg-trophy-number">1</div>
+          </div>
+          <div class="mg-trophy-base"></div>
+       </div>
       </div>
       <div class="p5-step-card p5-right">
         <div class="p5-step-number">04</div>
@@ -3515,7 +3657,12 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         </div>
       </div>
       <div class="p5-visual-container p5-right-vis">
-        <img src="assets/images/p5_lead_phone_1789286252262.jpg" alt="Lead Conversion 3D Smartphone" class="p5-float-img">
+        <div class="mg-pulse-container">
+          <div class="mg-pulse-ring p1"></div>
+          <div class="mg-pulse-ring p2"></div>
+          <div class="mg-pulse-ring p3"></div>
+          <div class="mg-pulse-core">$$$</div>
+       </div>
       </div>
     </div>
   </div>
@@ -4800,6 +4947,52 @@ function initPhase5ScrollPipeline() {
   });
 }
 document.addEventListener('DOMContentLoaded', initPhase5ScrollPipeline);
+</script>
+<script>
+
+/* ─── PHASE 5: PARTICLE NETWORK GRAPHICS ─── */
+function initMgNetwork() {
+  const canvas = document.getElementById('mg-network-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const particles = [];
+  for(let i=0; i<40; i++) {
+    particles.push({
+      x: Math.random() * 300, y: Math.random() * 300,
+      vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5
+    });
+  }
+  function animate() {
+    ctx.clearRect(0, 0, 300, 300);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < 0 || p.x > 300) p.vx *= -1;
+      if(p.y < 0 || p.y > 300) p.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 2, 0, Math.PI*2);
+      ctx.fillStyle = '#00d4ff';
+      ctx.fill();
+    });
+    for(let i=0; i<particles.length; i++) {
+      for(let j=i+1; j<particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < 70) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(184, 255, 87, ${1 - dist/70})`;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+document.addEventListener('DOMContentLoaded', initMgNetwork);
+
 </script>
 </body>
 
