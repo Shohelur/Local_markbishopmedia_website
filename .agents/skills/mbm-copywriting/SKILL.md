@@ -107,3 +107,4 @@ After the user reviews the copy:
 - LinkedIn posts must NOT end with a question. Close with a strong declarative statement. (2026-03-13)
 - Website hero sections: lead with outcome, not process. (2026-08-26)
 - CTA buttons on agency site: never use "Buy Now" — use "Get Free Audit" or "See How It Works". (2026-08-26)
+- ABSOLUTE HARD RULE: NEVER use a long dash / em-dash (—) or en-dash (–) in any copy. Use natural human phrasing, commas, or standard hyphens instead. (2026-09-13)

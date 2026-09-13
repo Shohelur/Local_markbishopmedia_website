@@ -2075,6 +2075,129 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   }
 
   #btn-rerun { position:fixed; bottom:20px; right:20px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:8px 16px; border-radius:6px; cursor:pointer; font-family:'JetBrains Mono'; font-size:11px; z-index:100; }
+
+/* ─── PHASE 5 CSS: NAVY BACKGROUND & PIPELINE ─── */
+.p5-section {
+  position: relative;
+  width: 100%;
+  padding: 120px 20px;
+  background: radial-gradient(circle at center, #060C1A 0%, #02040A 100%);
+  border-top: 1px solid rgba(0,212,255,0.1);
+  border-bottom: 1px solid rgba(0,212,255,0.1);
+  overflow: hidden;
+  z-index: 30;
+}
+.p5-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.p5-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3.5rem;
+  color: #ffffff;
+  font-weight: 800;
+  margin: 20px 0;
+  text-shadow: 0 0 20px rgba(0,212,255,0.3);
+}
+.p5-header p {
+  color: rgba(255,255,255,0.7);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.p5-pipeline-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+.p5-glow-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: rgba(255,255,255,0.05);
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+.p5-glow-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--scroll-height, 0%);
+  background: linear-gradient(180deg, #00d4ff, #b8ff57);
+  box-shadow: 0 0 20px #00d4ff, 0 0 40px #b8ff57;
+  border-radius: 4px;
+  transition: height 0.3s ease-out;
+}
+.p5-step-card {
+  position: relative;
+  width: 45%;
+  background: rgba(10, 15, 30, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 16px;
+  padding: 30px;
+  margin-bottom: 60px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,212,255,0.05);
+  opacity: 0.2;
+  transform: translateY(40px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.p5-step-card.active {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: rgba(0, 212, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0,212,255,0.1), inset 0 0 30px rgba(0,212,255,0.1);
+}
+.p5-step-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: #b8ff57;
+}
+.p5-left {
+  float: left;
+}
+.p5-right {
+  float: right;
+}
+.p5-step-number {
+  position: absolute;
+  top: -20px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,212,255,0.3);
+  transition: all 0.3s ease;
+}
+.p5-step-card.active .p5-step-number {
+  -webkit-text-stroke: 1px #00d4ff;
+  text-shadow: 0 0 20px rgba(0,212,255,0.4);
+}
+.p5-left .p5-step-number { right: -10px; }
+.p5-right .p5-step-number { left: -10px; }
+
+.p5-step-content h3 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  margin-top: 10px;
+}
+.p5-step-content p {
+  color: rgba(255,255,255,0.7);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media(max-width: 860px) {
+  .p5-glow-line { left: 20px; }
+  .p5-step-card { width: 85%; float: right !important; margin-bottom: 40px; }
+  .p5-step-card .p5-step-number { left: -20px !important; right: auto !important; }
+}
+
 </style>
 </head>
 <body>
@@ -2584,6 +2707,73 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
     </div>
   </div>
+
+<!-- ========================================= -->
+<!-- PHASE 5: 5-STEP LOCAL SEO PROCESS ENGINE  -->
+<!-- ========================================= -->
+<section id="phase5-process-engine" class="p5-section">
+  <div class="p5-header">
+    <div class="engine-badge" style="margin: 0 auto; display: inline-flex;"><div class="pulse"></div> OPERATING SYSTEM PIPELINE</div>
+    <h2>HOW WE DOMINATE YOUR MARKET</h2>
+    <p>Our 5-step local SEO visibility engine is engineered to turn your Google Business Profile into a lead-generating machine.</p>
+  </div>
+  
+  <div class="p5-pipeline-container">
+    <div class="p5-glow-line" id="p5-scroll-line"></div>
+    
+    <!-- STEP 1 -->
+    <div class="p5-step-card p5-left">
+      <div class="p5-step-number">01</div>
+      <div class="p5-step-content">
+        <h3>THE 9-MILE DEEP AUDIT</h3>
+        <p>We map the battlefield. We deploy our 6D AI scanner to find exactly which competitors are stealing your calls and where your local visibility is bleeding money.</p>
+      </div>
+    </div>
+    <div style="clear:both;"></div>
+    
+    <!-- STEP 2 -->
+    <div class="p5-step-card p5-right">
+      <div class="p5-step-number">02</div>
+      <div class="p5-step-content">
+        <h3>ASSET OPTIMIZATION</h3>
+        <p>We weaponize your Google Business Profile. We rewrite your local schema, optimize images with EXIF geo-data, and structure your profile to trigger Google's local ranking algorithm.</p>
+      </div>
+    </div>
+    <div style="clear:both;"></div>
+    
+    <!-- STEP 3 -->
+    <div class="p5-step-card p5-left">
+      <div class="p5-step-number">03</div>
+      <div class="p5-step-content">
+        <h3>CITATION SYNDICATION</h3>
+        <p>We lock your authority. Our engine synchronizes your business NAP (Name, Address, Phone) across 100+ premium directories like Apple Maps, Yelp, and Bing to build massive trust.</p>
+      </div>
+    </div>
+    <div style="clear:both;"></div>
+    
+    <!-- STEP 4 -->
+    <div class="p5-step-card p5-right">
+      <div class="p5-step-number">04</div>
+      <div class="p5-step-content">
+        <h3>LOCAL SEO DOMINANCE</h3>
+        <p>We hijack the search algorithm. By securing hyperlocal backlinks and geo-targeted signals, we push your business past the competitors into the highly coveted Top 3 Local Pack.</p>
+      </div>
+    </div>
+    <div style="clear:both;"></div>
+    
+    <!-- STEP 5 -->
+    <div class="p5-step-card p5-left">
+      <div class="p5-step-number">05</div>
+      <div class="p5-step-content">
+        <h3>AUTOMATED LEAD CONVERSION</h3>
+        <p>You take the revenue. As SEO traffic pours in, our Missed-Call AI and Review Automation systems capture every lead, turning organic traffic into booked jobs 24/7.</p>
+      </div>
+    </div>
+    <div style="clear:both;"></div>
+
+  </div>
+</section>
+
 </main>
 
 <!-- ═══════════════════════════════════════════════════════════
@@ -2654,7 +2844,130 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       .radar-cards-wrapper { flex-direction: column !important; width: 90% !important; bottom: 2% !important; }
       .radar-cards-wrapper > div { width: 100% !important; flex: none !important; margin-bottom: 20px; }
     }
-  </style>
+  
+/* ─── PHASE 5 CSS: NAVY BACKGROUND & PIPELINE ─── */
+.p5-section {
+  position: relative;
+  width: 100%;
+  padding: 120px 20px;
+  background: radial-gradient(circle at center, #060C1A 0%, #02040A 100%);
+  border-top: 1px solid rgba(0,212,255,0.1);
+  border-bottom: 1px solid rgba(0,212,255,0.1);
+  overflow: hidden;
+  z-index: 30;
+}
+.p5-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.p5-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3.5rem;
+  color: #ffffff;
+  font-weight: 800;
+  margin: 20px 0;
+  text-shadow: 0 0 20px rgba(0,212,255,0.3);
+}
+.p5-header p {
+  color: rgba(255,255,255,0.7);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.p5-pipeline-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+.p5-glow-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: rgba(255,255,255,0.05);
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+.p5-glow-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--scroll-height, 0%);
+  background: linear-gradient(180deg, #00d4ff, #b8ff57);
+  box-shadow: 0 0 20px #00d4ff, 0 0 40px #b8ff57;
+  border-radius: 4px;
+  transition: height 0.3s ease-out;
+}
+.p5-step-card {
+  position: relative;
+  width: 45%;
+  background: rgba(10, 15, 30, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 16px;
+  padding: 30px;
+  margin-bottom: 60px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,212,255,0.05);
+  opacity: 0.2;
+  transform: translateY(40px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.p5-step-card.active {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: rgba(0, 212, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0,212,255,0.1), inset 0 0 30px rgba(0,212,255,0.1);
+}
+.p5-step-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: #b8ff57;
+}
+.p5-left {
+  float: left;
+}
+.p5-right {
+  float: right;
+}
+.p5-step-number {
+  position: absolute;
+  top: -20px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,212,255,0.3);
+  transition: all 0.3s ease;
+}
+.p5-step-card.active .p5-step-number {
+  -webkit-text-stroke: 1px #00d4ff;
+  text-shadow: 0 0 20px rgba(0,212,255,0.4);
+}
+.p5-left .p5-step-number { right: -10px; }
+.p5-right .p5-step-number { left: -10px; }
+
+.p5-step-content h3 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  margin-top: 10px;
+}
+.p5-step-content p {
+  color: rgba(255,255,255,0.7);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media(max-width: 860px) {
+  .p5-glow-line { left: 20px; }
+  .p5-step-card { width: 85%; float: right !important; margin-bottom: 40px; }
+  .p5-step-card .p5-step-number { left: -20px !important; right: auto !important; }
+}
+
+</style>
   <div style="width: 100%; padding-left: 7%; padding-right: 7%; display: flex; margin-top: -160px; position: relative; z-index: 40; box-sizing: border-box;">
     <div class="radar-cards-wrapper" style="display:flex; flex-direction:row; gap:40px; align-items:stretch; width: 100%;">
 <div style="flex: 0 1 480px;"></div>
@@ -2669,7 +2982,130 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       .eq-bar:nth-child(4n+3) { background:#b8ff57; animation-delay: 0.2s; height:100%; box-shadow:0 0 10px rgba(184,255,87,0.5); }
       .eq-bar:nth-child(4n) { background:rgba(0,212,255,0.6); animation-delay: 0.5s; height:50%; }
       .eq-bar:nth-child(7n) { background:rgba(0,212,255,0.9); animation-delay: 0.7s; height:90%; }
-    </style>
+    
+/* ─── PHASE 5 CSS: NAVY BACKGROUND & PIPELINE ─── */
+.p5-section {
+  position: relative;
+  width: 100%;
+  padding: 120px 20px;
+  background: radial-gradient(circle at center, #060C1A 0%, #02040A 100%);
+  border-top: 1px solid rgba(0,212,255,0.1);
+  border-bottom: 1px solid rgba(0,212,255,0.1);
+  overflow: hidden;
+  z-index: 30;
+}
+.p5-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.p5-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3.5rem;
+  color: #ffffff;
+  font-weight: 800;
+  margin: 20px 0;
+  text-shadow: 0 0 20px rgba(0,212,255,0.3);
+}
+.p5-header p {
+  color: rgba(255,255,255,0.7);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.p5-pipeline-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+.p5-glow-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: rgba(255,255,255,0.05);
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+.p5-glow-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--scroll-height, 0%);
+  background: linear-gradient(180deg, #00d4ff, #b8ff57);
+  box-shadow: 0 0 20px #00d4ff, 0 0 40px #b8ff57;
+  border-radius: 4px;
+  transition: height 0.3s ease-out;
+}
+.p5-step-card {
+  position: relative;
+  width: 45%;
+  background: rgba(10, 15, 30, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 16px;
+  padding: 30px;
+  margin-bottom: 60px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,212,255,0.05);
+  opacity: 0.2;
+  transform: translateY(40px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.p5-step-card.active {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: rgba(0, 212, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0,212,255,0.1), inset 0 0 30px rgba(0,212,255,0.1);
+}
+.p5-step-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: #b8ff57;
+}
+.p5-left {
+  float: left;
+}
+.p5-right {
+  float: right;
+}
+.p5-step-number {
+  position: absolute;
+  top: -20px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,212,255,0.3);
+  transition: all 0.3s ease;
+}
+.p5-step-card.active .p5-step-number {
+  -webkit-text-stroke: 1px #00d4ff;
+  text-shadow: 0 0 20px rgba(0,212,255,0.4);
+}
+.p5-left .p5-step-number { right: -10px; }
+.p5-right .p5-step-number { left: -10px; }
+
+.p5-step-content h3 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  margin-top: 10px;
+}
+.p5-step-content p {
+  color: rgba(255,255,255,0.7);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media(max-width: 860px) {
+  .p5-glow-line { left: 20px; }
+  .p5-step-card { width: 85%; float: right !important; margin-bottom: 40px; }
+  .p5-step-card .p5-step-number { left: -20px !important; right: auto !important; }
+}
+
+</style>
     
     <div style="display:flex; justify-content:space-between; align-items:center;">
       <div style="font-family:'JetBrains Mono'; font-size:9px; color:rgba(255,255,255,0.5); letter-spacing:0.15em;">6D ALGORITHM STATUS</div>
@@ -2760,6 +3196,129 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   .p4-section, .p4-section.alt { flex-direction: column; text-align: center; gap: 40px; margin-bottom: 100px; }
   .p4-visual-img { max-width: 100%; }
 }
+
+/* ─── PHASE 5 CSS: NAVY BACKGROUND & PIPELINE ─── */
+.p5-section {
+  position: relative;
+  width: 100%;
+  padding: 120px 20px;
+  background: radial-gradient(circle at center, #060C1A 0%, #02040A 100%);
+  border-top: 1px solid rgba(0,212,255,0.1);
+  border-bottom: 1px solid rgba(0,212,255,0.1);
+  overflow: hidden;
+  z-index: 30;
+}
+.p5-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.p5-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3.5rem;
+  color: #ffffff;
+  font-weight: 800;
+  margin: 20px 0;
+  text-shadow: 0 0 20px rgba(0,212,255,0.3);
+}
+.p5-header p {
+  color: rgba(255,255,255,0.7);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.p5-pipeline-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+.p5-glow-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: rgba(255,255,255,0.05);
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+.p5-glow-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--scroll-height, 0%);
+  background: linear-gradient(180deg, #00d4ff, #b8ff57);
+  box-shadow: 0 0 20px #00d4ff, 0 0 40px #b8ff57;
+  border-radius: 4px;
+  transition: height 0.3s ease-out;
+}
+.p5-step-card {
+  position: relative;
+  width: 45%;
+  background: rgba(10, 15, 30, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 16px;
+  padding: 30px;
+  margin-bottom: 60px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,212,255,0.05);
+  opacity: 0.2;
+  transform: translateY(40px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.p5-step-card.active {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: rgba(0, 212, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0,212,255,0.1), inset 0 0 30px rgba(0,212,255,0.1);
+}
+.p5-step-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: #b8ff57;
+}
+.p5-left {
+  float: left;
+}
+.p5-right {
+  float: right;
+}
+.p5-step-number {
+  position: absolute;
+  top: -20px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,212,255,0.3);
+  transition: all 0.3s ease;
+}
+.p5-step-card.active .p5-step-number {
+  -webkit-text-stroke: 1px #00d4ff;
+  text-shadow: 0 0 20px rgba(0,212,255,0.4);
+}
+.p5-left .p5-step-number { right: -10px; }
+.p5-right .p5-step-number { left: -10px; }
+
+.p5-step-content h3 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  margin-top: 10px;
+}
+.p5-step-content p {
+  color: rgba(255,255,255,0.7);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media(max-width: 860px) {
+  .p5-glow-line { left: 20px; }
+  .p5-step-card { width: 85%; float: right !important; margin-bottom: 40px; }
+  .p5-step-card .p5-step-number { left: -20px !important; right: auto !important; }
+}
+
 </style>
 
 <section id="phase4-services" style="background: linear-gradient(180deg, #020205 0%, #060c18 100%); position: relative; z-index: 10; border-top: 1px solid rgba(255,255,255,0.05);">
@@ -4147,6 +4706,41 @@ document.querySelectorAll('.p4-card').forEach(card => {
   });
 });
 </script>
+
+/* ─── PHASE 5: PROCESS ENGINE PIPELINE SCROLL LOGIC ─── */
+function initPhase5ScrollPipeline() {
+  const container = document.querySelector('.p5-pipeline-container');
+  const scrollLine = document.getElementById('p5-scroll-line');
+  const cards = document.querySelectorAll('.p5-step-card');
+  
+  if(!container) return;
+
+  window.addEventListener('scroll', () => {
+    const rect = container.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    
+    const startFill = windowHeight * 0.7; 
+    let scrollProgress = (startFill - rect.top) / rect.height;
+    scrollProgress = Math.max(0, Math.min(1, scrollProgress));
+    
+    if(scrollLine) {
+      scrollLine.style.setProperty('--scroll-height', `${scrollProgress * 100}%`);
+    }
+    
+    cards.forEach((card) => {
+      const cardTop = card.offsetTop;
+      const threshold = cardTop / rect.height;
+      
+      if(scrollProgress > threshold - 0.1) {
+        card.classList.add('active');
+      } else {
+        card.classList.remove('active');
+      }
+    });
+  });
+}
+document.addEventListener('DOMContentLoaded', initPhase5ScrollPipeline);
+
 </body>
 
 </html>
