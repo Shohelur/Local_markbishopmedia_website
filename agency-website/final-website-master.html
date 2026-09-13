@@ -2199,6 +2199,39 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   .p5-step-card .p5-step-number { left: -20px !important; right: auto !important; }
 }
 
+
+/* Phase 5 New Layout Classes for Visuals */
+.p5-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 5;
+}
+.p5-step-card { width: 45%; margin-bottom: 0 !important; }
+.p5-visual-container {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.p5-float-img {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 20px;
+  mix-blend-mode: screen; 
+  animation: float3D 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.4));
+}
+@media(max-width: 860px) {
+  .p5-row { flex-direction: column; text-align: center; }
+  .p5-step-card { width: 90% !important; order: 1; margin: 20px 0 !important; float: none !important;}
+  .p5-visual-container { width: 90%; order: 2; margin-bottom: 40px; }
+  .p5-glow-line { left: 5% !important; }
+}
+
 </style>
 </head>
 <body>
@@ -3413,59 +3446,78 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     <p>Our 5-step local SEO visibility engine is engineered to turn your Google Business Profile into a lead-generating machine.</p>
   </div>
   
-  <div class="p5-pipeline-container">
+    <div class="p5-pipeline-container">
     <div class="p5-glow-line" id="p5-scroll-line"></div>
     
     <!-- STEP 1 -->
-    <div class="p5-step-card p5-left">
-      <div class="p5-step-number">01</div>
-      <div class="p5-step-content">
-        <h3>THE 9-MILE DEEP AUDIT</h3>
-        <p>We map the battlefield. We deploy our 6D AI scanner to find exactly which competitors are stealing your calls and where your local visibility is bleeding money.</p>
+    <div class="p5-row">
+      <div class="p5-step-card p5-left">
+        <div class="p5-step-number">01</div>
+        <div class="p5-step-content">
+          <h3>THE 9-MILE DEEP AUDIT</h3>
+          <p>We map the battlefield. We deploy our 6D AI scanner to find exactly which competitors are stealing your calls and where your local visibility is bleeding money.</p>
+        </div>
+      </div>
+      <div class="p5-visual-container p5-right-vis">
+        <img src="assets/images/p5_audit_radar_1789286017311.jpg" alt="Deep Audit 3D Radar" class="p5-float-img">
       </div>
     </div>
-    <div style="clear:both;"></div>
     
     <!-- STEP 2 -->
-    <div class="p5-step-card p5-right">
-      <div class="p5-step-number">02</div>
-      <div class="p5-step-content">
-        <h3>ASSET OPTIMIZATION</h3>
-        <p>We weaponize your Google Business Profile. We rewrite your local schema, optimize images with EXIF geo-data, and structure your profile to trigger Google's local ranking algorithm.</p>
+    <div class="p5-row">
+      <div class="p5-visual-container p5-left-vis">
+        <img src="assets/images/p5_asset_pin_1789286029608.jpg" alt="Asset Optimization 3D Pin" class="p5-float-img">
+      </div>
+      <div class="p5-step-card p5-right">
+        <div class="p5-step-number">02</div>
+        <div class="p5-step-content">
+          <h3>ASSET OPTIMIZATION</h3>
+          <p>We weaponize your Google Business Profile. We rewrite your local schema, optimize images with EXIF geo-data, and structure your profile to trigger Google's local ranking algorithm.</p>
+        </div>
       </div>
     </div>
-    <div style="clear:both;"></div>
     
     <!-- STEP 3 -->
-    <div class="p5-step-card p5-left">
-      <div class="p5-step-number">03</div>
-      <div class="p5-step-content">
-        <h3>CITATION SYNDICATION</h3>
-        <p>We lock your authority. Our engine synchronizes your business NAP (Name, Address, Phone) across 100+ premium directories like Apple Maps, Yelp, and Bing to build massive trust.</p>
+    <div class="p5-row">
+      <div class="p5-step-card p5-left">
+        <div class="p5-step-number">03</div>
+        <div class="p5-step-content">
+          <h3>CITATION SYNDICATION</h3>
+          <p>We lock your authority. Our engine synchronizes your business NAP (Name, Address, Phone) across 100+ premium directories like Apple Maps, Yelp, and Bing to build massive trust.</p>
+        </div>
+      </div>
+      <div class="p5-visual-container p5-right-vis">
+        <img src="assets/images/p5_citation_nodes_1789286043735.jpg" alt="Citation Network 3D Nodes" class="p5-float-img">
       </div>
     </div>
-    <div style="clear:both;"></div>
     
     <!-- STEP 4 -->
-    <div class="p5-step-card p5-right">
-      <div class="p5-step-number">04</div>
-      <div class="p5-step-content">
-        <h3>LOCAL SEO DOMINANCE</h3>
-        <p>We hijack the search algorithm. By securing hyperlocal backlinks and geo-targeted signals, we push your business past the competitors into the highly coveted Top 3 Local Pack.</p>
+    <div class="p5-row">
+      <div class="p5-visual-container p5-left-vis">
+        <img src="assets/images/p5_seo_trophy_1789286053441.jpg" alt="Local SEO Dominance 3D Trophy" class="p5-float-img">
+      </div>
+      <div class="p5-step-card p5-right">
+        <div class="p5-step-number">04</div>
+        <div class="p5-step-content">
+          <h3>LOCAL SEO DOMINANCE</h3>
+          <p>We hijack the search algorithm. By securing hyperlocal backlinks and geo-targeted signals, we push your business past the competitors into the highly coveted Top 3 Local Pack.</p>
+        </div>
       </div>
     </div>
-    <div style="clear:both;"></div>
     
     <!-- STEP 5 -->
-    <div class="p5-step-card p5-left">
-      <div class="p5-step-number">05</div>
-      <div class="p5-step-content">
-        <h3>AUTOMATED LEAD CONVERSION</h3>
-        <p>You take the revenue. As SEO traffic pours in, our Missed-Call AI and Review Automation systems capture every lead, turning organic traffic into booked jobs 24/7.</p>
+    <div class="p5-row">
+      <div class="p5-step-card p5-left">
+        <div class="p5-step-number">05</div>
+        <div class="p5-step-content">
+          <h3>AUTOMATED LEAD CONVERSION</h3>
+          <p>You take the revenue. As SEO traffic pours in, our Missed-Call AI and Review Automation systems capture every lead, turning organic traffic into booked jobs 24/7.</p>
+        </div>
+      </div>
+      <div class="p5-visual-container p5-right-vis">
+        <img src="assets/images/p5_lead_phone_1789286252262.jpg" alt="Lead Conversion 3D Smartphone" class="p5-float-img">
       </div>
     </div>
-    <div style="clear:both;"></div>
-
   </div>
 </section>
 
