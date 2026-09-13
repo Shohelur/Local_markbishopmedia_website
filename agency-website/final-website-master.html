@@ -2558,19 +2558,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   <div class="engine-badge"><div class="pulse"></div> AI LOCAL SEO SCAN ENGINE</div>
   <h2>WE DON'T GUESS.<br><span>WE MEASURE.</span></h2>
   <p>Our proprietary 6D Scan Engine scans your 9-mile radius, extracting live citation and ranking data to reveal exactly where you are losing customers.</p>
-  
-
-</div>
-
-  <style>
-    @media(max-width: 860px) {
-      .radar-cards-wrapper { flex-direction: column !important; width: 90% !important; bottom: 2% !important; }
-      .radar-cards-wrapper > div { width: 100% !important; flex: none !important; margin-bottom: 20px; }
-    }
-  </style>
-  <div style="width: 100%; padding-left: 7%; padding-right: 7%; display: flex; margin-top: 380px; position: relative; z-index: 40; box-sizing: border-box;">
-    <div class="radar-cards-wrapper" style="display:flex; flex-direction:row; gap:40px; align-items:stretch; width: 100%;">
-  <div class="outcome-box" id="outcome-ui" style="flex: 0 1 480px; border: 1px solid rgba(0, 212, 255, 0.4); box-shadow: 0 0 30px rgba(0, 212, 255, 0.15), inset 0 0 20px rgba(0, 212, 255, 0.05); background: rgba(2, 6, 15, 0.85); backdrop-filter: blur(12px); display: flex; flex-direction: column; justify-content: space-between; padding: 24px; margin: 0; border-radius: 12px; box-sizing: border-box;">
+    <div class="outcome-box" id="outcome-ui" style="flex: 0 1 480px; border: 1px solid rgba(0, 212, 255, 0.4); box-shadow: 0 0 30px rgba(0, 212, 255, 0.15), inset 0 0 20px rgba(0, 212, 255, 0.05); background: rgba(2, 6, 15, 0.85); backdrop-filter: blur(12px); display: flex; flex-direction: column; justify-content: space-between; padding: 24px; margin: 0; border-radius: 12px; box-sizing: border-box;">
     <div class="outcome-title" style="color: #00d4ff; text-shadow: 0 0 10px rgba(0,212,255,0.6);">▶ THE VISIBILITY GAP</div>
     <div class="outcome-text" style="font-size: 16px; letter-spacing: -0.01em; color: rgba(255,255,255,0.9);">Stop guessing why the phone isn't ringing. We deploy an AI-driven local scan across a 9-mile radius, processing over <span style="color:#b8ff57; font-weight:600;">12,000 live data points</span> to reveal exactly where competitors are stealing your calls.</div>
     <div style="display:flex; justify-content:space-between; align-items:flex-end; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; margin-top: 8px;">
@@ -2581,9 +2569,20 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       <a href="#audit" class="btn-action" style="background: linear-gradient(135deg, #00d4ff, #b8ff57); color: #020205; text-shadow: none; box-shadow: 0 0 25px rgba(0,212,255,0.4); font-family: 'Space Grotesk', sans-serif; font-weight: 800; letter-spacing: 0.05em; transition: all 0.3s ease; text-decoration: none; padding: 12px 24px; border-radius: 100px;">RUN FREE LOCAL SCAN</a>
     </div>
   </div>
+</div>
+
+  <style>
+    @media(max-width: 860px) {
+      .radar-cards-wrapper { flex-direction: column !important; width: 90% !important; bottom: 2% !important; }
+      .radar-cards-wrapper > div { width: 100% !important; flex: none !important; margin-bottom: 20px; }
+    }
+  </style>
+  <div style="width: 100%; padding-left: 7%; padding-right: 7%; display: flex; margin-top: -160px; position: relative; z-index: 40; box-sizing: border-box;">
+    <div class="radar-cards-wrapper" style="display:flex; flex-direction:row; gap:40px; align-items:stretch; width: 100%;">
+<div style="flex: 0 1 480px;"></div>
 
   <!-- LIVE DATA STREAM GRAPHIC (RIGHT SIDE) -->
-  <div id="engine-status-widget" style="flex: 1; border: 1px solid rgba(184, 255, 87, 0.2); background: rgba(2, 6, 15, 0.75); backdrop-filter: blur(12px); padding: 24px; margin: 0; border-radius: 12px; box-sizing: border-box; z-index: 20; display:flex; flex-direction:column; justify-content: space-between; gap: 14px; box-shadow: 0 0 30px rgba(184, 255, 87, 0.1);">
+  <div id="engine-status-widget" style="flex: 1; padding: 24px; margin: 0; box-sizing: border-box; z-index: 20; display:flex; flex-direction:column; justify-content: space-between; gap: 14px;">
     <style>
       @keyframes barPulse { 0% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } 100% { transform: scaleY(0.4); } }
       .eq-bar { flex:1; border-radius:2px; transform-origin: bottom; animation: barPulse 1.5s infinite ease-in-out; }
