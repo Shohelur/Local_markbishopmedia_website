@@ -2077,55 +2077,51 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   #btn-rerun { position:fixed; bottom:20px; right:20px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:8px 16px; border-radius:6px; cursor:pointer; font-family:'JetBrains Mono'; font-size:11px; z-index:100; }
 
 
-/* Phase 5 New Layout Classes for WebGL Visuals */
-.p5-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 60px;
-  position: relative;
-  z-index: 5;
-}
+
+/* ─── PHASE 5: SCI-FI / MATRIX AESTHETIC CSS ─── */
+.p5-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 60px; position: relative; z-index: 5; }
 .p5-step-card { width: 45%; margin-bottom: 0 !important; }
-.p5-visual-container {
-  width: 45%; height: 350px;
-  display: flex; justify-content: center; align-items: center;
-  position: relative;
+.p5-visual-container { width: 45%; height: 350px; position: relative; }
+
+.scifi-webgl-container {
+  width: 100%; height: 100%;
+  position: absolute; top: 0; left: 0; z-index: 2;
+  filter: drop-shadow(0 0 20px rgba(184, 255, 87, 0.2));
 }
-.p5-visual-container canvas {
-  width: 100% !important; height: 100% !important;
-  border-radius: 20px;
-  outline: none;
-  filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.2));
+
+.scifi-bg-canvas {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+  opacity: 0.3; border-radius: 20px;
 }
+
+/* Sci-Fi HUD Overlays */
+.scifi-hud {
+  position: absolute; top: 10px; left: 10px; z-index: 3;
+  font-family: 'Courier New', Courier, monospace; font-size: 10px;
+  color: #b8ff57; background: rgba(0,0,0,0.6); padding: 4px 8px;
+  border: 1px solid rgba(184, 255, 87, 0.3); border-radius: 4px;
+  text-shadow: 0 0 5px #b8ff57;
+}
+.scifi-hud.top-right { left: auto; right: 10px; color: #00d4ff; border-color: rgba(0, 212, 255, 0.3); text-shadow: 0 0 5px #00d4ff; }
+.scifi-hud.bottom-left { top: auto; bottom: 10px; }
+
+.scifi-hud-box {
+  position: absolute; bottom: 10px; left: 10px; z-index: 3;
+  background: rgba(10, 12, 16, 0.8); border: 1px solid rgba(0, 212, 255, 0.4);
+  padding: 10px; border-radius: 8px; box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+  backdrop-filter: blur(5px);
+}
+.scifi-hud-box.right { left: auto; right: 10px; border-color: rgba(184, 255, 87, 0.4); box-shadow: 0 0 15px rgba(184, 255, 87, 0.2); }
+.sh-title { font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 700; color: #fff; margin-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 3px; }
+.sh-code { font-family: 'Courier New', Courier, monospace; font-size: 11px; color: #00d4ff; }
+.scifi-hud-box.right .sh-code, .scifi-hud-box.right .sh-text { color: #b8ff57; font-family: 'Courier New', monospace; font-size: 11px; }
+
 @media(max-width: 860px) {
   .p5-row { flex-direction: column; text-align: center; }
   .p5-step-card { width: 90% !important; order: 1; margin: 20px 0 !important; float: none !important;}
   .p5-visual-container { width: 100%; order: 2; margin-bottom: 40px; }
   .p5-glow-line { left: 5% !important; }
 }
-
-
-/* ─── LIVE UI MOCKUP ANIMATIONS ─── */
-.cursor-blink { animation: blink 1s step-end infinite; font-weight: bold; }
-@keyframes blink { 50% { opacity: 0; } }
-
-.toggle { transition: background 0.4s ease; box-shadow: 0 0 0 rgba(184, 255, 87, 0); }
-.toggle.active { background: rgba(184, 255, 87, 0.5); box-shadow: 0 0 15px rgba(184, 255, 87, 0.3); }
-.toggle .knob { transition: left 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.4s; }
-.toggle.active .knob { left: 20px; background: #b8ff57; }
-
-.sync-node { transition: all 0.3s ease; }
-.sync-node.active-sync { 
-  background: rgba(184, 255, 87, 0.2); 
-  border-color: #b8ff57; 
-  box-shadow: 0 0 20px rgba(184, 255, 87, 0.4); 
-  transform: scale(1.1); 
-  color: #b8ff57;
-}
-
-.chat-bubble { opacity: 0; transform: translateY(15px); transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
-.chat-bubble.show-msg { opacity: 1; transform: translateY(0); }
 
 </style>
 </head>
@@ -3341,7 +3337,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     <p>Our 5-step local SEO visibility engine is engineered to turn your Google Business Profile into a lead-generating machine.</p>
   </div>
   
-        <div class="p5-pipeline-container">
+          <div class="p5-pipeline-container">
     <div class="p5-glow-line" id="p5-scroll-line"></div>
     
     <!-- STEP 1: Deep Audit -->
@@ -3354,53 +3350,20 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         </div>
       </div>
       <div class="p5-visual-container p5-right-vis">
-        <div class="clay-card">
-          <div class="clay-header">
-            <div class="clay-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-            <div class="clay-title">6D_Scanner.exe</div>
-          </div>
-          <div class="clay-body audit-map">
-            <div class="audit-grid"></div>
-            <div class="audit-radar-sweep"></div>
-            <div class="map-node competitor" style="top:20%; left:20%;">Competitor A <span class="badge red">#12</span></div>
-            <div class="map-node competitor" style="bottom:30%; right:20%;">Competitor B <span class="badge red">#8</span></div>
-            <div class="map-node you" style="top:45%; left:40%;">Your Business <span class="badge green">#1</span></div>
-          </div>
-        </div>
+        <!-- Matrix Canvas Behind WebGL -->
+        <canvas id="matrix-canvas-1" class="scifi-bg-canvas"></canvas>
+        <div id="p5-canvas-1" class="scifi-webgl-container"></div>
+        <div class="scifi-hud">SYS.AUDIT.INIT // GEO_SCAN_ACTIVE // THREATS_DETECTED: 12</div>
       </div>
     </div>
     
     <!-- STEP 2: Asset Optimization -->
     <div class="p5-row">
       <div class="p5-visual-container p5-left-vis">
-        <div class="clay-card">
-          <div class="clay-header">
-            <div class="clay-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-            <div class="clay-title">GBP_Optimization_Engine</div>
-          </div>
-          <div class="clay-body dashboard">
-            <div class="setting-row">
-              <div class="setting-info">
-                <div class="set-title">Local Schema Injection</div>
-                <div class="set-sub">Injecting structured data markup</div>
-              </div>
-              <div class="toggle auto-toggle"><div class="knob"></div></div>
-            </div>
-            <div class="setting-row">
-              <div class="setting-info">
-                <div class="set-title">EXIF Geo-data Optimization</div>
-                <div class="set-sub">Tagging images with local coordinates</div>
-              </div>
-              <div class="toggle auto-toggle"><div class="knob"></div></div>
-            </div>
-            <div class="setting-row">
-              <div class="setting-info">
-                <div class="set-title">Authority Sync</div>
-                <div class="set-sub">Aligning NAP consistency</div>
-              </div>
-              <div class="toggle auto-toggle"><div class="knob"></div></div>
-            </div>
-          </div>
+        <div id="p5-canvas-2" class="scifi-webgl-container"></div>
+        <div class="scifi-hud-box">
+          <div class="sh-title">GBP_REACTOR_CORE</div>
+          <div class="sh-code" id="hacker-code">0x00A1F...</div>
         </div>
       </div>
       <div class="p5-step-card p5-right">
@@ -3422,59 +3385,16 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         </div>
       </div>
       <div class="p5-visual-container p5-right-vis">
-        <div class="clay-card">
-          <div class="clay-body sync-network">
-            <div class="sync-core">MBM OS</div>
-            <div class="sync-line l1"></div>
-            <div class="sync-line l2"></div>
-            <div class="sync-line l3"></div>
-            <div class="sync-node n1">Apple Maps</div>
-            <div class="sync-node n2">Yelp</div>
-            <div class="sync-node n3">Bing Local</div>
-            <div class="sync-glow"></div>
-          </div>
-        </div>
+        <div id="p5-canvas-3" class="scifi-webgl-container"></div>
+        <div class="scifi-hud top-right">GLOBAL_SYNC: ENGAGED // NODES: 104/104</div>
       </div>
     </div>
     
     <!-- STEP 4: Local SEO Dominance -->
     <div class="p5-row">
       <div class="p5-visual-container p5-left-vis">
-        <div class="clay-card">
-          <div class="clay-header">
-            <div class="clay-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-            <div class="clay-title">Google Local Pack</div>
-          </div>
-          <div class="clay-body local-pack">
-            <div class="search-bar">
-              <span class="search-icon">🔍</span> "best local service near me"<span class="cursor-blink">|</span>
-            </div>
-            <div class="pack-list">
-              <div class="pack-item highlighted">
-                 <div class="pack-rank">1</div>
-                 <div class="pack-details">
-                   <div class="pack-name">Your Business</div>
-                   <div class="pack-rating">⭐⭐⭐⭐⭐ (245)</div>
-                 </div>
-                 <div class="pack-verified">✓</div>
-              </div>
-              <div class="pack-item">
-                 <div class="pack-rank">2</div>
-                 <div class="pack-details">
-                   <div class="pack-name">Competitor LLC</div>
-                   <div class="pack-rating">⭐⭐⭐⭐ (42)</div>
-                 </div>
-              </div>
-              <div class="pack-item">
-                 <div class="pack-rank">3</div>
-                 <div class="pack-details">
-                   <div class="pack-name">Other Company</div>
-                   <div class="pack-rating">⭐⭐⭐ (12)</div>
-                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div id="p5-canvas-4" class="scifi-webgl-container"></div>
+        <div class="scifi-hud bottom-left">ALGORITHM_HIJACK: SUCCESS // RANK: #1</div>
       </div>
       <div class="p5-step-card p5-right">
         <div class="p5-step-number">04</div>
@@ -3495,17 +3415,10 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         </div>
       </div>
       <div class="p5-visual-container p5-right-vis">
-        <div class="clay-card phone-ui">
-          <div class="clay-header">
-            <div class="clay-dots"><span class="dot r"></span></div>
-            <div class="clay-title">Missed-Call AI Bot</div>
-          </div>
-          <div class="clay-body chat-ui">
-            <div class="chat-bubble incoming cb-1">Missed Call from (520) 555-0199</div>
-            <div class="chat-bubble outgoing cb-2">Hi! Sorry we missed your call. Do you need a quote for our services?</div>
-            <div class="chat-bubble incoming cb-3">Yes, available tomorrow?</div>
-            <div class="chat-bubble outgoing booked cb-4">✅ Appointment Booked!</div>
-          </div>
+        <div id="p5-canvas-5" class="scifi-webgl-container"></div>
+        <div class="scifi-hud-box right">
+          <div class="sh-title">NEURAL_NET_AI</div>
+          <div class="sh-text">LEAD_CONVERSION: MAX // ROI: +450%</div>
         </div>
       </div>
     </div>
@@ -4801,40 +4714,277 @@ document.addEventListener('DOMContentLoaded', initPhase5ScrollPipeline);
 
 
 
+
+
+
 <script>
-/* ─── PHASE 5 LIVE UI LOGIC ─── */
-document.addEventListener('DOMContentLoaded', () => {
-  // Step 2: Auto Toggles Animation Sequence
-  const toggles = document.querySelectorAll('.auto-toggle');
-  let toggleInterval = setInterval(() => {
-    toggles.forEach(t => t.classList.remove('active')); // Reset all
-    setTimeout(() => { if(toggles[0]) toggles[0].classList.add('active'); }, 500);
-    setTimeout(() => { if(toggles[1]) toggles[1].classList.add('active'); }, 1200);
-    setTimeout(() => { if(toggles[2]) toggles[2].classList.add('active'); }, 1900);
-  }, 4000);
+/* ─── PHASE 5: HYPER-COMPLEX SCI-FI WEBGL ENGINE ─── */
+const scifiRenderers = [];
 
-  // Step 3: Sync Nodes Pulsing
-  const syncNodes = document.querySelectorAll('.sync-node');
-  let syncIndex = 0;
-  setInterval(() => {
-    syncNodes.forEach(n => n.classList.remove('active-sync'));
-    if(syncNodes.length > 0) {
-      syncNodes[syncIndex].classList.add('active-sync');
-      syncIndex = (syncIndex + 1) % syncNodes.length;
+function createScifiScene(containerId, initFn) {
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  container.appendChild(renderer.domElement);
+  
+  const animateFn = initFn(scene, camera, renderer, container);
+  
+  let isVisible = false;
+  const observer = new IntersectionObserver(entries => {
+    isVisible = entries[0].isIntersecting;
+  }, { threshold: 0.1 });
+  observer.observe(container);
+  
+  scifiRenderers.push(renderer);
+  
+  function renderLoop() {
+    requestAnimationFrame(renderLoop);
+    if(isVisible) {
+      if(animateFn) animateFn();
+      renderer.render(scene, camera);
     }
-  }, 800);
-
-  // Step 5: Chat UI Sequence (iMessage style typing delay)
-  const chatBubbles = document.querySelectorAll('.chat-bubble');
-  function playChatSequence() {
-    chatBubbles.forEach(b => b.classList.remove('show-msg'));
-    setTimeout(() => { if(chatBubbles[0]) chatBubbles[0].classList.add('show-msg'); }, 800);
-    setTimeout(() => { if(chatBubbles[1]) chatBubbles[1].classList.add('show-msg'); }, 2500);
-    setTimeout(() => { if(chatBubbles[2]) chatBubbles[2].classList.add('show-msg'); }, 5000);
-    setTimeout(() => { if(chatBubbles[3]) chatBubbles[3].classList.add('show-msg'); }, 6500);
   }
-  playChatSequence();
-  setInterval(playChatSequence, 10000); // loop every 10 seconds
+  renderLoop();
+}
+
+// Scene 1: 3D Battlefield Scanner (Topographical Grid + Radar)
+function initScene1(scene, camera) {
+  camera.position.set(0, 20, 25);
+  camera.lookAt(0, 0, 0);
+  
+  // Dense Wireframe Terrain
+  const planeGeo = new THREE.PlaneGeometry(50, 50, 20, 20);
+  const pos = planeGeo.attributes.position.array;
+  for(let i=0; i<pos.length; i+=3) {
+    pos[i+2] = Math.random() * 2; // Add noise for topography
+  }
+  const planeMat = new THREE.MeshBasicMaterial({ color: 0x004444, wireframe: true, transparent: true, opacity: 0.6 });
+  const terrain = new THREE.Mesh(planeGeo, planeMat);
+  terrain.rotation.x = -Math.PI / 2;
+  scene.add(terrain);
+  
+  // Radar Sweep Cone
+  const coneGeo = new THREE.ConeGeometry(25, 20, 32, 1, true, 0, Math.PI/4);
+  const coneMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57, transparent: true, opacity: 0.2, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
+  const radar = new THREE.Mesh(coneGeo, coneMat);
+  radar.rotation.x = -Math.PI / 2;
+  radar.position.y = 10;
+  scene.add(radar);
+  
+  // Competitor Threat Nodes (Red)
+  const nodes = new THREE.Group();
+  for(let i=0; i<15; i++) {
+    const geo = new THREE.BoxGeometry(1, 1, 1);
+    const mat = new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.8 });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.set((Math.random()-0.5)*30, 0.5, (Math.random()-0.5)*30);
+    nodes.add(mesh);
+  }
+  scene.add(nodes);
+
+  // Background Matrix Canvas logic
+  const mCanvas = document.getElementById('matrix-canvas-1');
+  if(mCanvas) {
+    const ctx = mCanvas.getContext('2d');
+    mCanvas.width = 400; mCanvas.height = 350;
+    const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    const drops = [];
+    for(let i=0; i<mCanvas.width/10; i++) drops[i] = 1;
+    setInterval(() => {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.fillRect(0, 0, mCanvas.width, mCanvas.height);
+      ctx.fillStyle = '#0f0';
+      ctx.font = '10px monospace';
+      for(let i=0; i<drops.length; i++) {
+        const text = chars[Math.floor(Math.random()*chars.length)];
+        ctx.fillText(text, i*10, drops[i]*10);
+        if(drops[i]*10 > mCanvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }, 50);
+  }
+
+  return () => {
+    radar.rotation.z -= 0.04;
+    terrain.rotation.z += 0.002;
+    nodes.rotation.y += 0.002;
+  };
+}
+
+// Scene 2: GBP Reactor (Overclocked Rings)
+function initScene2(scene, camera) {
+  camera.position.set(0, 0, 20);
+  
+  // Floating Core
+  const coreGeo = new THREE.IcosahedronGeometry(3, 1);
+  const coreMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true });
+  const core = new THREE.Mesh(coreGeo, coreMat);
+  scene.add(core);
+  
+  // High-speed Reactor Rings
+  const rings = [];
+  for(let i=0; i<4; i++) {
+    const geo = new THREE.TorusGeometry(6 + (i*0.8), 0.05, 16, 100);
+    const mat = new THREE.MeshBasicMaterial({ color: 0xb8ff57, transparent: true, opacity: 0.6 });
+    const ring = new THREE.Mesh(geo, mat);
+    ring.rotation.x = Math.random() * Math.PI;
+    ring.rotation.y = Math.random() * Math.PI;
+    scene.add(ring);
+    rings.push({ mesh: ring, speedX: (Math.random()-0.5)*0.2, speedY: (Math.random()-0.5)*0.2 });
+  }
+
+  // Hacker HUD logic
+  const hackerCode = document.getElementById('hacker-code');
+  if(hackerCode) {
+    setInterval(() => {
+      let code = '';
+      for(let i=0; i<15; i++) code += Math.random()>0.5 ? '1' : '0';
+      hackerCode.innerText = '0x' + Math.random().toString(16).substr(2, 6).toUpperCase() + ' ' + code;
+    }, 100);
+  }
+
+  return () => {
+    core.rotation.y += 0.02;
+    core.rotation.x += 0.01;
+    rings.forEach(r => {
+      r.mesh.rotation.x += r.speedX;
+      r.mesh.rotation.y += r.speedY;
+    });
+  };
+}
+
+// Scene 3: Global Command Center (Laser Beams)
+function initScene3(scene, camera) {
+  camera.position.set(0, 10, 25);
+  camera.lookAt(0, 0, 0);
+  
+  const earthGroup = new THREE.Group();
+  scene.add(earthGroup);
+  
+  const earthGeo = new THREE.IcosahedronGeometry(7, 2);
+  const earthMat = new THREE.MeshBasicMaterial({ color: 0x0044ff, wireframe: true, transparent: true, opacity: 0.3 });
+  const earth = new THREE.Mesh(earthGeo, earthMat);
+  earthGroup.add(earth);
+  
+  // Core server inside earth
+  const serverGeo = new THREE.BoxGeometry(2, 4, 2);
+  const serverMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57 });
+  const server = new THREE.Mesh(serverGeo, serverMat);
+  earthGroup.add(server);
+  
+  // Laser lines shooting out
+  const vertices = earthGeo.attributes.position.array;
+  const lineMat = new THREE.LineBasicMaterial({ color: 0xb8ff57, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending });
+  for(let i=0; i<30; i+=3) {
+    const idx = Math.floor(Math.random() * (vertices.length/3)) * 3;
+    const endPoint = new THREE.Vector3(vertices[idx], vertices[idx+1], vertices[idx+2]);
+    const geo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), endPoint]);
+    const line = new THREE.Line(geo, lineMat);
+    earthGroup.add(line);
+  }
+
+  return () => {
+    earthGroup.rotation.y += 0.01;
+    earthGroup.rotation.z += 0.005;
+  };
+}
+
+// Scene 4: Algorithm Hijack (Particle Vortex)
+function initScene4(scene, camera) {
+  camera.position.set(0, 15, 30);
+  camera.lookAt(0, 5, 0);
+  
+  // Dominance Crystal
+  const crysGeo = new THREE.OctahedronGeometry(4, 0);
+  const crysMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true });
+  const crystal = new THREE.Mesh(crysGeo, crysMat);
+  crystal.position.y = 12;
+  scene.add(crystal);
+  
+  // Massive Particle Vortex
+  const pGeo = new THREE.BufferGeometry();
+  const count = 1000;
+  const pos = new Float32Array(count * 3);
+  const angles = [];
+  const radiis = [];
+  for(let i=0; i<count; i++) {
+    angles.push(Math.random() * Math.PI * 2);
+    radiis.push(Math.random() * 15 + 2);
+    pos[i*3+1] = Math.random() * 20; // Y
+  }
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  const pMat = new THREE.PointsMaterial({ color: 0xb8ff57, size: 0.2, transparent: true, blending: THREE.AdditiveBlending });
+  const vortex = new THREE.Points(pGeo, pMat);
+  scene.add(vortex);
+
+  return () => {
+    crystal.rotation.y -= 0.05;
+    crystal.position.y = 12 + Math.sin(Date.now()*0.005) * 1;
+    
+    // Animate vortex
+    const positions = vortex.geometry.attributes.position.array;
+    for(let i=0; i<count; i++) {
+      angles[i] += 0.02 + (20 - radiis[i])*0.001; // Closer spins faster
+      positions[i*3] = Math.cos(angles[i]) * radiis[i]; // X
+      positions[i*3+2] = Math.sin(angles[i]) * radiis[i]; // Z
+      positions[i*3+1] += 0.1; // Move up
+      if(positions[i*3+1] > 20) positions[i*3+1] = 0; // Reset Y
+    }
+    vortex.geometry.attributes.position.needsUpdate = true;
+  };
+}
+
+// Scene 5: The Neural Brain (Phone + Network)
+function initScene5(scene, camera) {
+  camera.position.set(0, 5, 25);
+  camera.lookAt(0, 5, 0);
+  
+  // Sci-Fi Phone
+  const phoneGeo = new THREE.BoxGeometry(6, 12, 0.5);
+  const phoneMat = new THREE.MeshBasicMaterial({ color: 0x004444, wireframe: true });
+  const phone = new THREE.Mesh(phoneGeo, phoneMat);
+  phone.rotation.x = -Math.PI / 6;
+  scene.add(phone);
+  
+  // Neural Network Brain floating above
+  const brainGroup = new THREE.Group();
+  brainGroup.position.y = 10;
+  scene.add(brainGroup);
+  
+  const bGeo = new THREE.IcosahedronGeometry(4, 1);
+  const bMat = new THREE.PointsMaterial({ color: 0x00d4ff, size: 0.3 });
+  const brainPoints = new THREE.Points(bGeo, bMat);
+  brainGroup.add(brainPoints);
+  const lMat = new THREE.LineBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.2 });
+  const brainLines = new THREE.LineSegments(bGeo, lMat);
+  brainGroup.add(brainLines);
+  
+  // Data flowing from Brain to Phone
+  const flowGeo = new THREE.CylinderGeometry(0.5, 3, 10, 8, 1, true);
+  const flowMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57, wireframe: true, transparent: true, opacity: 0.1 });
+  const flow = new THREE.Mesh(flowGeo, flowMat);
+  flow.position.y = 5;
+  scene.add(flow);
+
+  return () => {
+    phone.rotation.y = Math.sin(Date.now()*0.001) * 0.2;
+    brainGroup.rotation.y += 0.01;
+    brainGroup.rotation.x += 0.005;
+    flow.rotation.y -= 0.05;
+  };
+}
+
+window.addEventListener('load', () => {
+  createScifiScene('p5-canvas-1', initScene1);
+  createScifiScene('p5-canvas-2', initScene2);
+  createScifiScene('p5-canvas-3', initScene3);
+  createScifiScene('p5-canvas-4', initScene4);
+  createScifiScene('p5-canvas-5', initScene5);
 });
 </script>
 
