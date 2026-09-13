@@ -3365,14 +3365,10 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
     </div>
 
-    <!-- STEP 2: Asset Optimization -->
+    <!-- STEP 2: Asset Optimization (Claymorphism) -->
     <div class="p5-row">
       <div class="p5-visual-container p5-left-vis">
-        <div id="p5-canvas-2" class="scifi-webgl-container"></div>
-        <div class="scifi-hud-box">
-          <div class="sh-title">GBP_REACTOR_CORE</div>
-          <div class="sh-code" id="hacker-code">0x00A1F...</div>
-        </div>
+        <div id="p5-canvas-2" class="clay-webgl-container"></div>
       </div>
       <div class="p5-step-card p5-right">
         <div class="p5-step-number">02</div>
@@ -4923,45 +4919,110 @@ function initScene1(scene, camera, renderer) {
   };
 }
 
-// Scene 2: GBP Reactor (Overclocked Rings)
-function initScene2(scene, camera) {
-  camera.position.set(0, 0, 20);
+// Scene 2: 3D Claymorphism GBP Storefront
+function initScene2(scene, camera, renderer) {
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   
-  // Floating Core
-  const coreGeo = new THREE.IcosahedronGeometry(3, 1);
-  const coreMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true });
-  const core = new THREE.Mesh(coreGeo, coreMat);
-  scene.add(core);
+  camera.position.set(0, 18, 30);
+  camera.lookAt(0, 0, 0);
   
-  // High-speed Reactor Rings
-  const rings = [];
-  for(let i=0; i<4; i++) {
-    const geo = new THREE.TorusGeometry(6 + (i*0.8), 0.05, 16, 100);
-    const mat = new THREE.MeshBasicMaterial({ color: 0xb8ff57, transparent: true, opacity: 0.6 });
-    const ring = new THREE.Mesh(geo, mat);
-    ring.rotation.x = Math.random() * Math.PI;
-    ring.rotation.y = Math.random() * Math.PI;
-    scene.add(ring);
-    rings.push({ mesh: ring, speedX: (Math.random()-0.5)*0.2, speedY: (Math.random()-0.5)*0.2 });
-  }
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+  scene.add(ambientLight);
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.3);
+  hemiLight.position.set(0, 20, 0);
+  scene.add(hemiLight);
+  const dirLight = new THREE.DirectionalLight(0xffeedd, 0.8);
+  dirLight.position.set(15, 25, 10);
+  dirLight.castShadow = true;
+  dirLight.shadow.mapSize.width = 1024;
+  dirLight.shadow.mapSize.height = 1024;
+  dirLight.shadow.camera.near = 0.5;
+  dirLight.shadow.camera.far = 50;
+  dirLight.shadow.camera.left = -12;
+  dirLight.shadow.camera.right = 12;
+  dirLight.shadow.camera.top = 12;
+  dirLight.shadow.camera.bottom = -12;
+  dirLight.shadow.bias = -0.001;
+  scene.add(dirLight);
 
-  // Hacker HUD logic
-  const hackerCode = document.getElementById('hacker-code');
-  if(hackerCode) {
-    setInterval(() => {
-      let code = '';
-      for(let i=0; i<15; i++) code += Math.random()>0.5 ? '1' : '0';
-      hackerCode.innerText = '0x' + Math.random().toString(16).substr(2, 6).toUpperCase() + ' ' + code;
-    }, 100);
+  const createClayMat = (color) => new THREE.MeshStandardMaterial({ color: color, roughness: 0.85, metalness: 0.1 });
+
+  const masterGroup = new THREE.Group();
+  masterGroup.scale.set(0.85, 0.85, 0.85);
+  scene.add(masterGroup);
+
+  const clayGroup = new THREE.Group();
+  masterGroup.add(clayGroup);
+
+  // Base (Soft Pastel Blue)
+  const baseGeo = new THREE.CylinderGeometry(8, 8, 1, 64);
+  const base = new THREE.Mesh(baseGeo, createClayMat(0x90caf9));
+  base.position.y = -0.5;
+  base.receiveShadow = true;
+  base.castShadow = true;
+  clayGroup.add(base);
+
+  // Storefront (Cute Shop representing Google Business Profile)
+  const shopGroup = new THREE.Group();
+  
+  // Main building
+  const shopBase = new THREE.Mesh(new THREE.BoxGeometry(4.5, 3.5, 3.5), createClayMat(0xfff59d));
+  shopBase.position.y = 1.75;
+  shopBase.castShadow = true;
+  shopBase.receiveShadow = true;
+  shopGroup.add(shopBase);
+  
+  // Awning (Soft Red)
+  const awning = new THREE.Mesh(new THREE.BoxGeometry(4.8, 0.6, 2.5), createClayMat(0xff8a80));
+  awning.position.set(0, 3.5, 1.2);
+  awning.rotation.x = -Math.PI / 8;
+  awning.castShadow = true;
+  shopGroup.add(awning);
+
+  // Store window (Glassy light blue)
+  const windowMesh = new THREE.Mesh(new THREE.BoxGeometry(2.5, 1.5, 0.2), createClayMat(0x81d4fa));
+  windowMesh.position.set(0, 1.5, 1.76);
+  shopGroup.add(windowMesh);
+  
+  // Door
+  const doorMesh = new THREE.Mesh(new THREE.BoxGeometry(1, 2, 0.2), createClayMat(0xffb74d));
+  doorMesh.position.set(-1, 1, 1.76);
+  shopGroup.add(doorMesh);
+
+  clayGroup.add(shopGroup);
+
+  // Floating Gear (Representing Optimization)
+  const gearGroup = new THREE.Group();
+  const gearCore = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, 0.6, 16), createClayMat(0xb39ddb));
+  gearCore.castShadow = true;
+  gearGroup.add(gearCore);
+  
+  for(let i=0; i<8; i++) {
+    const tooth = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.6, 0.8), createClayMat(0xb39ddb));
+    const angle = (i/8)*Math.PI*2;
+    tooth.position.set(Math.cos(angle)*1.7, 0, Math.sin(angle)*1.7);
+    tooth.rotation.y = -angle;
+    tooth.castShadow = true;
+    gearGroup.add(tooth);
   }
+  
+  // Center hole in gear (trick by adding a dark cylinder inside)
+  const hole = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 0.62, 16), createClayMat(0x2c3e50));
+  gearGroup.add(hole);
+
+  gearGroup.position.set(4, 5, 2);
+  gearGroup.rotation.x = Math.PI/3;
+  clayGroup.add(gearGroup);
 
   return () => {
-    core.rotation.y += 0.02;
-    core.rotation.x += 0.01;
-    rings.forEach(r => {
-      r.mesh.rotation.x += r.speedX;
-      r.mesh.rotation.y += r.speedY;
-    });
+    // Gentle floating of the whole scene
+    clayGroup.position.y = Math.sin(Date.now() * 0.001) * 0.3;
+    clayGroup.rotation.y = Math.sin(Date.now() * 0.0005) * 0.1;
+    
+    // Spinning optimization gear
+    gearGroup.rotation.y -= 0.02;
+    gearGroup.position.y = 5 + Math.sin(Date.now() * 0.002) * 0.5;
   };
 }
 
