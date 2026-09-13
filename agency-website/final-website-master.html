@@ -3369,7 +3369,11 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   </div>
   
           <div class="p5-pipeline-container">
-    <div class="p5-glow-line" id="p5-scroll-line"></div>
+    <!-- Wave Directional Line -->
+      <svg class="p5-wave-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path class="p5-wave-path-bg" d="M 50 0 C 50 10, 25 10, 25 20 C 25 30, 75 30, 75 40 C 75 50, 25 50, 25 60 C 25 70, 75 70, 75 80 C 75 90, 50 90, 50 100" vector-effect="non-scaling-stroke"></path>
+        <path class="p5-wave-path-active" id="p5-wave-active" d="M 50 0 C 50 10, 25 10, 25 20 C 25 30, 75 30, 75 40 C 75 50, 25 50, 25 60 C 25 70, 75 70, 75 80 C 75 90, 50 90, 50 100" vector-effect="non-scaling-stroke"></path>
+      </svg>
     
     
     <!-- STEP 1: Deep Audit (Claymorphism) -->
@@ -4695,10 +4699,14 @@ document.querySelectorAll('.p4-card').forEach(card => {
 /* ─── PHASE 5: PROCESS ENGINE PIPELINE SCROLL LOGIC ─── */
 function initPhase5ScrollPipeline() {
   const container = document.querySelector('.p5-pipeline-container');
-  const scrollLine = document.getElementById('p5-scroll-line');
+  const waveActive = document.getElementById('p5-wave-active');
   const cards = document.querySelectorAll('.p5-step-card');
   
-  if(!container) return;
+  if(!container || !waveActive) return;
+  
+  const pathLength = waveActive.getTotalLength();
+  waveActive.style.strokeDasharray = pathLength;
+  waveActive.style.strokeDashoffset = pathLength;
 
   window.addEventListener('scroll', () => {
     const rect = container.getBoundingClientRect();
@@ -4708,9 +4716,8 @@ function initPhase5ScrollPipeline() {
     let scrollProgress = (startFill - rect.top) / rect.height;
     scrollProgress = Math.max(0, Math.min(1, scrollProgress));
     
-    if(scrollLine) {
-      scrollLine.style.setProperty('--scroll-height', `${scrollProgress * 100}%`);
-    }
+    // Draw SVG path
+    waveActive.style.strokeDashoffset = pathLength - (scrollProgress * pathLength);
     
     cards.forEach((card) => {
       const cardTop = card.offsetTop;
