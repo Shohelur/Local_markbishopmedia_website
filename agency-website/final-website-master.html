@@ -2079,6 +2079,27 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 
 
 /* ─── PHASE 5: SCI-FI / MATRIX AESTHETIC CSS ─── */
+
+/* Clay Image CSS Animation */
+.clay-image-anim {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 20px;
+  animation: floatClay 5s ease-in-out infinite;
+  filter: drop-shadow(0 30px 40px rgba(0,0,0,0.4));
+  /* Ensure it looks good if it has a background */
+  mix-blend-mode: normal; 
+}
+
+@keyframes floatClay {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(2deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
 .p5-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 60px; position: relative; z-index: 5; }
 .p5-step-card { width: 45%; margin-bottom: 0 !important; }
 .p5-visual-container { width: 45%; height: 350px; position: relative; }
@@ -3361,14 +3382,16 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         </div>
       </div>
       <div class="p5-visual-container p5-right-vis">
-        <div id="p5-canvas-1" class="clay-webgl-container"></div>
+        <!-- Replaced WebGL with High-Quality CSS Animated Image -->
+        <img src="assets/images/step1-audit.png" class="clay-image-anim" alt="Deep Audit 3D Map">
       </div>
     </div>
 
     <!-- STEP 2: Asset Optimization (Claymorphism) -->
     <div class="p5-row">
       <div class="p5-visual-container p5-left-vis">
-        <div id="p5-canvas-2" class="clay-webgl-container"></div>
+        <!-- Replaced WebGL with High-Quality CSS Animated Image -->
+        <img src="assets/images/step2-gbp.jpg" class="clay-image-anim" style="animation-delay: 1s;" alt="Google Business Profile 3D Card">
       </div>
       <div class="p5-step-card p5-right">
         <div class="p5-step-number">02</div>
@@ -5217,8 +5240,8 @@ function initScene5(scene, camera) {
 }
 
 window.addEventListener('load', () => {
-  createScifiScene('p5-canvas-1', initScene1);
-  createScifiScene('p5-canvas-2', initScene2);
+  // createScifiScene('p5-canvas-1', initScene1);
+  // createScifiScene('p5-canvas-2', initScene2);
   createScifiScene('p5-canvas-3', initScene3);
   createScifiScene('p5-canvas-4', initScene4);
   createScifiScene('p5-canvas-5', initScene5);
