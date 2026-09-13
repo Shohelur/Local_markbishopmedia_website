@@ -2634,15 +2634,15 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 .p4-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(40px, 5vw, 65px); font-weight: 800; color: #fff; line-height: 1.1; letter-spacing: -0.02em; }
 .p4-title span { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.2); }
 
-.p4-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 150px; }
+.p4-cards-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 150px; }
 .p4-card { background: #020205; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 0; text-align: center; cursor: pointer; text-decoration: none; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; flex-direction: column; overflow: hidden; }
 .p4-card-img-wrapper { width: 100%; aspect-ratio: 1/1; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .p4-card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .p4-card-text-wrapper { padding: 32px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
 .p4-card:hover { transform: translateY(-10px); border-color: rgba(255,255,255,0.2); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
 .p4-card:hover .p4-card-img { transform: scale(1.05); }
-.p4-card-title { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 12px; }
-.p4-card-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+.p4-card-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(16px, 1.5vw, 20px); font-weight: 700; color: #fff; margin-bottom: 8px; }
+.p4-card-desc { font-size: clamp(12px, 1vw, 13px); color: rgba(255,255,255,0.6); line-height: 1.5; }
 
 @media (max-width: 1024px) { .p4-cards-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .p4-cards-grid { grid-template-columns: 1fr; } }
@@ -2729,6 +2729,15 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <div class="p4-card-desc">High-converting digital storefronts.</div>
         </div>
       </a>
+      <a href="#missed-call-ai" class="p4-card" style="background: linear-gradient(180deg, rgba(255, 106, 0, 0.12), rgba(20, 5, 0, 0.95)); border: 1px solid rgba(255, 106, 0, 0.25);">
+        <div class="p4-card-img-wrapper">
+          <img src="assets/images/card_reviews.jpg" class="p4-card-img" alt="Missed-Call AI" style="filter: hue-rotate(280deg) brightness(1.2);">
+        </div>
+        <div class="p4-card-text-wrapper">
+          <div class="p4-card-title" style="color: #ff6a00;">Missed-Call AI</div>
+          <div class="p4-card-desc">Instantly text back every missed call 24/7.</div>
+        </div>
+      </a>
     </div>
 
     <!-- SECTION 1: MAPS -->
@@ -2784,6 +2793,20 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #bd00ff;"></div>
         <img src="assets/images/service_website_transparent_clean.png" class="p4-visual-img" alt="Website Visual">
+      </div>
+    </div>
+
+    <!-- SECTION 5: MISSED CALL AI -->
+    <div class="p4-section" id="missed-call-ai">
+      <div class="p4-content">
+        <div class="p4-tag" style="background: #ff6a00; color: #fff;">CORE ENGINE 05</div>
+        <h3 class="p4-h3"><span style="color: #ff6a00;">Missed-Call</span> AI System</h3>
+        <p class="p4-p">Over 60% of local customers will call the next business on Google if you don't answer. We deploy an intelligent AI receptionist that instantly texts back every missed call, engages the lead, and books the appointment automatically. Never lose another high-ticket job to voicemail again.</p>
+        <a href="#audit" class="p4-btn" style="border-color: #ff6a00; color: #ff6a00;">See AI In Action</a>
+      </div>
+      <div class="p4-visual">
+        <div class="p4-visual-glow" style="background: #ff6a00;"></div>
+        <img src="assets/images/service_reviews_transparent_clean.png" class="p4-visual-img" alt="Missed-Call AI Visual" style="filter: hue-rotate(280deg) brightness(1.2);">
       </div>
     </div>
 

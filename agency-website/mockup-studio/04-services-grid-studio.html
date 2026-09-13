@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5 Cards Grid Prototype</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #020205;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      padding: 50px;
+      margin: 0;
+    }
+    .p4-cards-grid { 
+      display: grid; 
+      /* CHANGED TO 5 COLUMNS */
+      grid-template-columns: repeat(5, 1fr); 
+      /* DECREASED GAP FOR 5 CARDS */
+      gap: 16px; 
+      margin-bottom: 150px; 
+    }
+    .p4-card { 
+      background: #020205; 
+      border: 1px solid rgba(255, 255, 255, 0.08); 
+      border-radius: 20px; /* slightly smaller border radius */
+      padding: 0; 
+      text-align: center; 
+      cursor: pointer; 
+      text-decoration: none; 
+      transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); 
+      display: flex; 
+      flex-direction: column; 
+      overflow: hidden; 
+    }
+    .p4-card-img-wrapper { 
+      width: 100%; 
+      aspect-ratio: 1/1; 
+      overflow: hidden; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+    }
+    .p4-card-img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); 
+    }
+    .p4-card-text-wrapper { 
+      padding: 24px 16px; /* reduced padding for narrower cards */
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center; 
+      flex: 1; 
+    }
+    .p4-card:hover { 
+      transform: translateY(-10px); 
+      border-color: rgba(255,255,255,0.2); 
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5); 
+    }
+    .p4-card:hover .p4-card-img { 
+      transform: scale(1.05); 
+    }
+    /* FLUID TYPOGRAPHY SO IT SHRINKS NICELY */
+    .p4-card-title { 
+      font-family: 'Space Grotesk', sans-serif; 
+      font-size: clamp(16px, 1.5vw, 20px); 
+      font-weight: 700; 
+      color: #fff; 
+      margin-bottom: 8px; 
+    }
+    .p4-card-desc { 
+      font-size: clamp(12px, 1vw, 13px); 
+      color: rgba(255,255,255,0.6); 
+      line-height: 1.5; 
+    }
+
+    @media (max-width: 1024px) { .p4-cards-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+    @media (max-width: 768px) { .p4-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+    @media (max-width: 480px) { .p4-cards-grid { grid-template-columns: 1fr; } }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .demo-header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-header">
+    <h1>5-Card Grid Prototype</h1>
+    <p style="color: rgba(255,255,255,0.6);">Testing 5 columns side by side using clamp() typography and flexible gaps.</p>
+  </div>
+
+  <div class="p4-cards-grid">
+    <!-- Card 1 -->
+    <a href="#" class="p4-card" style="background: linear-gradient(180deg, rgba(0, 100, 255, 0.12), rgba(0, 5, 20, 0.95)); border: 1px solid rgba(0, 150, 255, 0.25);">
+      <div class="p4-card-img-wrapper">
+        <img src="../assets/images/card_maps.jpg" class="p4-card-img" alt="Google Maps">
+      </div>
+      <div class="p4-card-text-wrapper">
+        <div class="p4-card-title" style="color: #00d4ff;">Google Maps Top 3</div>
+        <div class="p4-card-desc">Dominate local search in your 9-mile radius.</div>
+      </div>
+    </a>
+    <!-- Card 2 -->
+    <a href="#" class="p4-card" style="background: linear-gradient(180deg, rgba(255, 200, 0, 0.12), rgba(20, 15, 0, 0.95)); border: 1px solid rgba(255, 200, 0, 0.25);">
+      <div class="p4-card-img-wrapper">
+        <img src="../assets/images/card_reviews.jpg" class="p4-card-img" alt="5-Star Reviews">
+      </div>
+      <div class="p4-card-text-wrapper">
+        <div class="p4-card-title" style="color: #ffd700;">5-Star Reviews</div>
+        <div class="p4-card-desc">Automated reputation capture system.</div>
+      </div>
+    </a>
+    <!-- Card 3 -->
+    <a href="#" class="p4-card" style="background: linear-gradient(180deg, rgba(0, 255, 100, 0.12), rgba(0, 20, 5, 0.95)); border: 1px solid rgba(0, 255, 100, 0.25);">
+      <div class="p4-card-img-wrapper">
+        <img src="../assets/images/card_citations.jpg" class="p4-card-img" alt="100+ Citations">
+      </div>
+      <div class="p4-card-text-wrapper">
+        <div class="p4-card-title" style="color: #b8ff57;">100+ Citations</div>
+        <div class="p4-card-desc">Instant NAP sync across premium directories.</div>
+      </div>
+    </a>
+    <!-- Card 4 -->
+    <a href="#" class="p4-card" style="background: linear-gradient(180deg, rgba(255, 0, 100, 0.12), rgba(20, 0, 5, 0.95)); border: 1px solid rgba(255, 0, 100, 0.25);">
+      <div class="p4-card-img-wrapper">
+        <img src="../assets/images/card_website.jpg" class="p4-card-img" alt="3D Website">
+      </div>
+      <div class="p4-card-text-wrapper">
+        <div class="p4-card-title" style="color: #bd00ff;">3D Website</div>
+        <div class="p4-card-desc">High-converting digital storefronts.</div>
+      </div>
+    </a>
+    <!-- Card 5 (NEW) -->
+    <a href="#" class="p4-card" style="background: linear-gradient(180deg, rgba(255, 100, 0, 0.12), rgba(20, 5, 0, 0.95)); border: 1px solid rgba(255, 100, 0, 0.25);">
+      <div class="p4-card-img-wrapper">
+        <img src="../assets/images/card_website.jpg" class="p4-card-img" alt="New Service Placeholder" style="filter: hue-rotate(90deg);">
+      </div>
+      <div class="p4-card-text-wrapper">
+        <div class="p4-card-title" style="color: #ff6a00;">New Core Engine</div>
+        <div class="p4-card-desc">Placeholder for the 5th powerful service offering.</div>
+      </div>
+    </a>
+  </div>
+
+</body>
+</html>
