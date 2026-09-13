@@ -4919,7 +4919,7 @@ function initScene1(scene, camera, renderer) {
   };
 }
 
-// Scene 2: 3D Claymorphism GBP Storefront
+// Scene 2: 3D Claymorphism GBP Profile Interface
 function initScene2(scene, camera, renderer) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -4963,66 +4963,104 @@ function initScene2(scene, camera, renderer) {
   base.castShadow = true;
   clayGroup.add(base);
 
-  // Storefront (Cute Shop representing Google Business Profile)
-  const shopGroup = new THREE.Group();
+  // GBP UI Card (Looks like a clean Google Profile on a phone)
+  const cardGroup = new THREE.Group();
   
-  // Main building
-  const shopBase = new THREE.Mesh(new THREE.BoxGeometry(4.5, 3.5, 3.5), createClayMat(0xfff59d));
-  shopBase.position.y = 1.75;
-  shopBase.castShadow = true;
-  shopBase.receiveShadow = true;
-  shopGroup.add(shopBase);
+  // The Phone/Card Body (White Clay)
+  const cardGeo = new THREE.BoxGeometry(5.5, 7, 0.8);
+  const cardMesh = new THREE.Mesh(cardGeo, createClayMat(0xffffff));
+  cardMesh.castShadow = true;
+  cardGroup.add(cardMesh);
   
-  // Awning (Soft Red)
-  const awning = new THREE.Mesh(new THREE.BoxGeometry(4.8, 0.6, 2.5), createClayMat(0xff8a80));
-  awning.position.set(0, 3.5, 1.2);
-  awning.rotation.x = -Math.PI / 8;
-  awning.castShadow = true;
-  shopGroup.add(awning);
-
-  // Store window (Glassy light blue)
-  const windowMesh = new THREE.Mesh(new THREE.BoxGeometry(2.5, 1.5, 0.2), createClayMat(0x81d4fa));
-  windowMesh.position.set(0, 1.5, 1.76);
-  shopGroup.add(windowMesh);
+  // Map Section on the card (Soft Green)
+  const mapGeo = new THREE.BoxGeometry(4.5, 2.5, 0.2);
+  const mapMesh = new THREE.Mesh(mapGeo, createClayMat(0xa8d5ba));
+  mapMesh.position.set(0, 1.5, 0.45);
+  mapMesh.castShadow = true;
+  cardGroup.add(mapMesh);
   
-  // Door
-  const doorMesh = new THREE.Mesh(new THREE.BoxGeometry(1, 2, 0.2), createClayMat(0xffb74d));
-  doorMesh.position.set(-1, 1, 1.76);
-  shopGroup.add(doorMesh);
-
-  clayGroup.add(shopGroup);
-
-  // Floating Gear (Representing Optimization)
-  const gearGroup = new THREE.Group();
-  const gearCore = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, 0.6, 16), createClayMat(0xb39ddb));
-  gearCore.castShadow = true;
-  gearGroup.add(gearCore);
+  // Map Pin on the Map (Matte Red)
+  const pinGroup = new THREE.Group();
+  const pinTop = new THREE.Mesh(new THREE.SphereGeometry(0.5, 32, 32), createClayMat(0xff5252));
+  pinTop.position.y = 0.6;
+  pinGroup.add(pinTop);
+  const pinBot = new THREE.Mesh(new THREE.ConeGeometry(0.5, 1, 32), createClayMat(0xff5252));
+  pinBot.position.y = 0;
+  pinBot.rotation.x = Math.PI;
+  pinGroup.add(pinBot);
+  const pinDot = new THREE.Mesh(new THREE.SphereGeometry(0.2, 16, 16), createClayMat(0xffffff));
+  pinDot.position.set(0, 0.6, 0.4);
+  pinGroup.add(pinDot);
+  pinGroup.position.set(0, 1.8, 0.6);
+  pinGroup.scale.set(0.7, 0.7, 0.7);
+  cardGroup.add(pinGroup);
   
-  for(let i=0; i<8; i++) {
-    const tooth = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.6, 0.8), createClayMat(0xb39ddb));
-    const angle = (i/8)*Math.PI*2;
-    tooth.position.set(Math.cos(angle)*1.7, 0, Math.sin(angle)*1.7);
-    tooth.rotation.y = -angle;
-    tooth.castShadow = true;
-    gearGroup.add(tooth);
+  // 5 Stars (Gold)
+  const starsGroup = new THREE.Group();
+  const starGeo = new THREE.CylinderGeometry(0.2, 0.2, 0.1, 5); // Simple pentagon for star shape
+  const starMat = createClayMat(0xffca28);
+  for(let i=0; i<5; i++) {
+    const star = new THREE.Mesh(starGeo, starMat);
+    star.rotation.x = Math.PI / 2;
+    star.position.set((i - 2) * 0.7, 0, 0);
+    star.castShadow = true;
+    starsGroup.add(star);
   }
+  starsGroup.position.set(0, -0.5, 0.45);
+  cardGroup.add(starsGroup);
   
-  // Center hole in gear (trick by adding a dark cylinder inside)
-  const hole = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 0.62, 16), createClayMat(0x2c3e50));
-  gearGroup.add(hole);
+  // Fake Text Lines (Gray bars)
+  const line1 = new THREE.Mesh(new THREE.BoxGeometry(3, 0.3, 0.1), createClayMat(0xe0e0e0));
+  line1.position.set(-0.75, -1.2, 0.45);
+  cardGroup.add(line1);
+  const line2 = new THREE.Mesh(new THREE.BoxGeometry(2, 0.3, 0.1), createClayMat(0xe0e0e0));
+  line2.position.set(-1.25, -1.7, 0.45);
+  cardGroup.add(line2);
+  
+  // Optimize Button (Google Blue)
+  const btnGeo = new THREE.BoxGeometry(4.5, 0.8, 0.3);
+  const btnMesh = new THREE.Mesh(btnGeo, createClayMat(0x4285f4));
+  btnMesh.position.set(0, -2.6, 0.45);
+  btnMesh.castShadow = true;
+  cardGroup.add(btnMesh);
+  
+  cardGroup.position.set(0, 4, 0);
+  cardGroup.rotation.x = -Math.PI / 8; // Tilted slightly upwards
+  cardGroup.rotation.y = -Math.PI / 12;
+  clayGroup.add(cardGroup);
 
-  gearGroup.position.set(4, 5, 2);
-  gearGroup.rotation.x = Math.PI/3;
-  clayGroup.add(gearGroup);
+  // Floating Green Checkmark (Optimization Success)
+  const checkGroup = new THREE.Group();
+  const checkBase = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, 0.5, 32), createClayMat(0x66bb6a));
+  checkBase.rotation.x = Math.PI / 2;
+  checkBase.castShadow = true;
+  checkGroup.add(checkBase);
+  // White checkmark shape
+  const checkMat = createClayMat(0xffffff);
+  const tick1 = new THREE.Mesh(new THREE.BoxGeometry(0.3, 1.2, 0.2), checkMat);
+  tick1.position.set(0.3, 0, 0.3);
+  tick1.rotation.z = -Math.PI / 6;
+  checkGroup.add(tick1);
+  const tick2 = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.6, 0.2), checkMat);
+  tick2.position.set(-0.3, -0.3, 0.3);
+  tick2.rotation.z = Math.PI / 4;
+  checkGroup.add(tick2);
+
+  checkGroup.position.set(4, 5, 2);
+  checkGroup.rotation.y = -Math.PI / 6;
+  clayGroup.add(checkGroup);
 
   return () => {
-    // Gentle floating of the whole scene
+    // Gentle floating
     clayGroup.position.y = Math.sin(Date.now() * 0.001) * 0.3;
     clayGroup.rotation.y = Math.sin(Date.now() * 0.0005) * 0.1;
     
-    // Spinning optimization gear
-    gearGroup.rotation.y -= 0.02;
-    gearGroup.position.y = 5 + Math.sin(Date.now() * 0.002) * 0.5;
+    // Pin bouncing on the card
+    pinGroup.position.y = 1.8 + Math.abs(Math.sin(Date.now() * 0.003)) * 0.2;
+    
+    // Checkmark floating and rotating slowly
+    checkGroup.position.y = 5 + Math.sin(Date.now() * 0.002) * 0.4;
+    checkGroup.rotation.z = Math.sin(Date.now() * 0.001) * 0.2;
   };
 }
 
