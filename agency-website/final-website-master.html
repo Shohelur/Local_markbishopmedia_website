@@ -2559,16 +2559,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   <h2>WE DON'T GUESS.<br><span>WE MEASURE.</span></h2>
   <p>Our proprietary 6D Scan Engine scans your 9-mile radius, extracting live citation and ranking data to reveal exactly where you are losing customers.</p>
   
-  <div class="terminal-box" id="terminal-ui">
-    <div class="terminal-header"><span>[ 6D ENGINE ]</span> <span id="status-text">ANALYZING CAPABILITIES...</span></div>
-    
-    <div class="metric-row"><span class="metric-label">IMPACT</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-impact"></div></div><span class="metric-value" id="val-impact">--</span></div>
-    <div class="metric-row"><span class="metric-label">CONFIDENCE</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-confidence"></div></div><span class="metric-value" id="val-confidence">--</span></div>
-    <div class="metric-row"><span class="metric-label">GAP</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-gap"></div></div><span class="metric-value" id="val-gap">--</span></div>
-    <div class="metric-row"><span class="metric-label">URGENCY</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-urgency"></div></div><span class="metric-value" id="val-urgency">--</span></div>
-    <div class="metric-row"><span class="metric-label">FIXABILITY</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-fixability"></div></div><span class="metric-value" id="val-fixability">--</span></div>
-    <div class="metric-row"><span class="metric-label">RELEVANCE</span><div class="metric-bar-bg"><div class="metric-bar-fill" id="bar-relevance"></div></div><span class="metric-value" id="val-relevance">--</span></div>
-  </div>
+
 </div>
 
   <style>
@@ -3915,15 +3906,7 @@ function startAuditSequence() {
   });
   
   document.getElementById('outcome-ui').style.display = 'none';
-  document.getElementById('status-text').innerText = 'BROADCASTING SONAR...';
-  document.getElementById('status-text').style.color = '#00ff66';
-  
-  const metrics = ['impact', 'confidence', 'gap', 'urgency', 'fixability', 'relevance'];
-  metrics.forEach(m => {
-    document.getElementById(`val-${m}`).innerText = '--';
-    document.getElementById(`bar-${m}`).style.width = '0%';
-    document.getElementById(`bar-${m}`).style.background = '#00ff66';
-  });
+
 
   // Continuous Sonar Waves (INFINITE REPEAT)
   sonarRings.forEach((ring, idx) => {
@@ -3961,28 +3944,10 @@ function startAuditSequence() {
   
   // Terminal Logic
   auditTimeline = gsap.timeline();
-  const targetScores = { impact: 95, confidence: 100, gap: 82, urgency: 98, fixability: 90, relevance: 100 };
-  
-  metrics.forEach((m, index) => {
-    let obj = { val: 0 };
-    auditTimeline.to(obj, {
-      val: targetScores[m], duration: 1.5, delay: index * 0.2 + 1, ease: "power2.out",
-      onUpdate: () => {
-        const current = Math.floor(obj.val);
-        document.getElementById(`val-${m}`).innerText = current;
-        document.getElementById(`bar-${m}`).style.width = current + '%';
-        if(current > 90 && (m==='impact' || m==='urgency' || m==='gap')) {
-          document.getElementById(`bar-${m}`).style.background = '#ff3333';
-        } else if (current > 80) {
-          document.getElementById(`bar-${m}`).style.background = '#ffcc00';
-        }
-      }
-    }, 0.5);
-  });
+
   
   auditTimeline.add(() => {
-    document.getElementById('status-text').innerText = 'READY FOR DEPLOYMENT';
-    document.getElementById('status-text').style.color = '#b8ff57';
+
     const outcomeBox = document.getElementById('outcome-ui');
     outcomeBox.style.display = 'block';
     gsap.fromTo(outcomeBox, { opacity:0, y:20 }, { opacity:1, y:0, duration:0.5 });
