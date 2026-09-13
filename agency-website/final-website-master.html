@@ -2076,131 +2076,8 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 
   #btn-rerun { position:fixed; bottom:20px; right:20px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:8px 16px; border-radius:6px; cursor:pointer; font-family:'JetBrains Mono'; font-size:11px; z-index:100; }
 
-/* ─── PHASE 5 CSS: NAVY BACKGROUND & PIPELINE ─── */
-.p5-section {
-  margin-top: -150px;
-  position: relative;
-  width: 100%;
-  padding: 120px 20px;
-  background: radial-gradient(circle at center, #060C1A 0%, #02040A 100%);
-  border-top: 1px solid rgba(0,212,255,0.1);
-  border-bottom: 1px solid rgba(0,212,255,0.1);
-  overflow: hidden;
-  z-index: 30;
-}
-.p5-header {
-  text-align: center;
-  margin-bottom: 80px;
-}
-.p5-header h2 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 3.5rem;
-  color: #ffffff;
-  font-weight: 800;
-  margin: 20px 0;
-  text-shadow: 0 0 20px rgba(0,212,255,0.3);
-}
-.p5-header p {
-  color: rgba(255,255,255,0.7);
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin: 0 auto;
-}
-.p5-pipeline-container {
-  position: relative;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 0;
-}
-.p5-glow-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 4px;
-  background: rgba(255,255,255,0.05);
-  transform: translateX(-50%);
-  border-radius: 4px;
-}
-.p5-glow-line::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: var(--scroll-height, 0%);
-  background: linear-gradient(180deg, #00d4ff, #b8ff57);
-  box-shadow: 0 0 20px #00d4ff, 0 0 40px #b8ff57;
-  border-radius: 4px;
-  transition: height 0.3s ease-out;
-}
-.p5-step-card {
-  position: relative;
-  width: 45%;
-  background: rgba(10, 15, 30, 0.6);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 212, 255, 0.15);
-  border-radius: 16px;
-  padding: 30px;
-  margin-bottom: 60px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,212,255,0.05);
-  opacity: 0.2;
-  transform: translateY(40px);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.p5-step-card.active {
-  opacity: 1;
-  transform: translateY(0);
-  border-color: rgba(0, 212, 255, 0.5);
-  box-shadow: 0 10px 30px rgba(0,212,255,0.1), inset 0 0 30px rgba(0,212,255,0.1);
-}
-.p5-step-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  border-color: #b8ff57;
-}
-.p5-left {
-  float: left;
-}
-.p5-right {
-  float: right;
-}
-.p5-step-number {
-  position: absolute;
-  top: -20px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 3rem;
-  font-weight: 900;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(0,212,255,0.3);
-  transition: all 0.3s ease;
-}
-.p5-step-card.active .p5-step-number {
-  -webkit-text-stroke: 1px #00d4ff;
-  text-shadow: 0 0 20px rgba(0,212,255,0.4);
-}
-.p5-left .p5-step-number { right: -10px; }
-.p5-right .p5-step-number { left: -10px; }
 
-.p5-step-content h3 {
-  color: #ffffff;
-  font-size: 1.5rem;
-  margin-bottom: 12px;
-  margin-top: 10px;
-}
-.p5-step-content p {
-  color: rgba(255,255,255,0.7);
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-@media(max-width: 860px) {
-  .p5-glow-line { left: 20px; }
-  .p5-step-card { width: 85%; float: right !important; margin-bottom: 40px; }
-  .p5-step-card .p5-step-number { left: -20px !important; right: auto !important; }
-}
-
-
-/* Phase 5 New Layout Classes for Visuals */
+/* Phase 5 New Layout Classes for WebGL Visuals */
 .p5-row {
   display: flex;
   align-items: center;
@@ -2211,148 +2088,21 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 }
 .p5-step-card { width: 45%; margin-bottom: 0 !important; }
 .p5-visual-container {
-  width: 45%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 45%; height: 350px;
+  display: flex; justify-content: center; align-items: center;
+  position: relative;
 }
-.p5-float-img {
-  width: 100%;
-  max-width: 420px;
+.p5-visual-container canvas {
+  width: 100% !important; height: 100% !important;
   border-radius: 20px;
-  mix-blend-mode: screen; 
-  animation: float3D 6s ease-in-out infinite;
-  transform-style: preserve-3d;
-  filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.4));
+  outline: none;
+  filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.2));
 }
 @media(max-width: 860px) {
   .p5-row { flex-direction: column; text-align: center; }
   .p5-step-card { width: 90% !important; order: 1; margin: 20px 0 !important; float: none !important;}
-  .p5-visual-container { width: 90%; order: 2; margin-bottom: 40px; }
+  .p5-visual-container { width: 100%; order: 2; margin-bottom: 40px; }
   .p5-glow-line { left: 5% !important; }
-}
-
-
-/* ─── PHASE 5: LIVE MOTION GRAPHICS CSS ─── */
-.p5-visual-container { perspective: 1000px; }
-
-/* 1. Radar */
-.mg-radar {
-  width: 250px; height: 250px;
-  position: relative;
-  border-radius: 50%;
-  background: rgba(0, 212, 255, 0.05);
-  border: 2px solid rgba(0, 212, 255, 0.3);
-  box-shadow: 0 0 30px rgba(0, 212, 255, 0.2), inset 0 0 30px rgba(0, 212, 255, 0.2);
-  transform: rotateX(60deg) rotateY(10deg);
-  animation: float3D 6s infinite ease-in-out;
-}
-.mg-radar-ring {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px dashed rgba(184, 255, 87, 0.5);
-  border-radius: 50%;
-}
-.mg-radar-ring.r1 { width: 100%; height: 100%; border-style: solid; border-color: rgba(0, 212, 255, 0.5); }
-.mg-radar-ring.r2 { width: 70%; height: 70%; animation: spinRotate 10s linear infinite reverse; }
-.mg-radar-ring.r3 { width: 40%; height: 40%; border-style: dotted; border-width: 2px; }
-.mg-radar-sweep {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg, transparent 70%, rgba(184, 255, 87, 0.1) 90%, rgba(184, 255, 87, 0.8) 100%);
-  animation: spinRotate 4s linear infinite;
-}
-
-/* 2. Asset Sphere */
-.mg-sphere-container { animation: float3D 5s infinite ease-in-out; transform-style: preserve-3d; }
-.mg-sphere {
-  width: 200px; height: 200px;
-  position: relative;
-  transform-style: preserve-3d;
-  animation: spinRotate 15s linear infinite;
-}
-.mg-ring {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  border-radius: 50%;
-  border: 3px solid rgba(0, 212, 255, 0.6);
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.4), inset 0 0 15px rgba(0, 212, 255, 0.4);
-}
-.mg-ring.x { transform: rotateX(90deg); border-color: rgba(184, 255, 87, 0.6); }
-.mg-ring.y { transform: rotateY(90deg); }
-.mg-ring.z { transform: rotateZ(90deg); }
-.mg-core {
-  position: absolute; top: 50%; left: 50%; width: 40px; height: 40px;
-  background: #fff;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 40px 20px rgba(0, 212, 255, 0.8);
-  animation: pulseCore 2s infinite alternate;
-}
-
-/* 3. Citation Canvas */
-.mg-canvas {
-  filter: drop-shadow(0 0 20px rgba(184, 255, 87, 0.4));
-  animation: float3D 7s infinite ease-in-out;
-}
-
-/* 4. Trophy Badge */
-.mg-trophy-container {
-  position: relative; width: 200px; height: 250px;
-  animation: float3D 4s infinite ease-in-out;
-  display: flex; flex-direction: column; align-items: center;
-}
-.mg-trophy {
-  position: relative; width: 140px; height: 160px;
-  background: rgba(0, 212, 255, 0.1);
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  border: 2px solid #00d4ff;
-  box-shadow: 0 0 30px rgba(0,212,255,0.5);
-  display: flex; justify-content: center; align-items: center;
-  backdrop-filter: blur(5px);
-}
-.mg-trophy-number {
-  font-size: 5rem; font-family: 'Space Grotesk', sans-serif;
-  font-weight: 900; color: #b8ff57;
-  text-shadow: 0 0 20px #b8ff57;
-}
-.mg-trophy-base {
-  width: 100px; height: 20px;
-  background: rgba(184, 255, 87, 0.2);
-  border-radius: 50%;
-  margin-top: 30px;
-  box-shadow: 0 0 20px rgba(184, 255, 87, 0.8);
-}
-
-/* 5. Lead Pulse */
-.mg-pulse-container {
-  position: relative; width: 250px; height: 250px;
-  transform: rotateX(45deg);
-  transform-style: preserve-3d;
-  animation: float3D 6s infinite ease-in-out;
-}
-.mg-pulse-ring {
-  position: absolute; top: 50%; left: 50%;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  border: 4px solid rgba(184, 255, 87, 0.8);
-  box-shadow: 0 0 20px rgba(184, 255, 87, 0.5);
-  animation: pulseOut 3s infinite cubic-bezier(0.21, 0.53, 0.56, 1);
-}
-.mg-pulse-ring.p1 { animation-delay: 0s; }
-.mg-pulse-ring.p2 { animation-delay: 1s; }
-.mg-pulse-ring.p3 { animation-delay: 2s; }
-.mg-pulse-core {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%) rotateX(-45deg); /* Counter rotate to face camera */
-  font-size: 4rem; font-weight: 900; color: #fff;
-  text-shadow: 0 0 30px rgba(0, 212, 255, 1);
-}
-
-@keyframes spinRotate { 100% { transform: rotate(360deg); } }
-@keyframes pulseCore { 100% { transform: translate(-50%, -50%) scale(1.2); box-shadow: 0 0 60px 30px rgba(184, 255, 87, 0.8); } }
-@keyframes pulseOut {
-  0% { width: 0; height: 0; opacity: 1; }
-  100% { width: 100%; height: 100%; opacity: 0; }
 }
 
 </style>
@@ -3569,7 +3319,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     <p>Our 5-step local SEO visibility engine is engineered to turn your Google Business Profile into a lead-generating machine.</p>
   </div>
   
-    <div class="p5-pipeline-container">
+      <div class="p5-pipeline-container">
     <div class="p5-glow-line" id="p5-scroll-line"></div>
     
     <!-- STEP 1 -->
@@ -3581,28 +3331,12 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <p>We map the battlefield. We deploy our 6D AI scanner to find exactly which competitors are stealing your calls and where your local visibility is bleeding money.</p>
         </div>
       </div>
-      <div class="p5-visual-container p5-right-vis">
-        <div class="mg-radar">
-          <div class="mg-radar-sweep"></div>
-          <div class="mg-radar-ring r1"></div>
-          <div class="mg-radar-ring r2"></div>
-          <div class="mg-radar-ring r3"></div>
-       </div>
-      </div>
+      <div class="p5-visual-container p5-right-vis" id="p5-canvas-1"></div>
     </div>
     
     <!-- STEP 2 -->
     <div class="p5-row">
-      <div class="p5-visual-container p5-left-vis">
-        <div class="mg-sphere-container">
-          <div class="mg-sphere">
-             <div class="mg-ring x"></div>
-             <div class="mg-ring y"></div>
-             <div class="mg-ring z"></div>
-             <div class="mg-core"></div>
-          </div>
-       </div>
-      </div>
+      <div class="p5-visual-container p5-left-vis" id="p5-canvas-2"></div>
       <div class="p5-step-card p5-right">
         <div class="p5-step-number">02</div>
         <div class="p5-step-content">
@@ -3621,23 +3355,12 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <p>We lock your authority. Our engine synchronizes your business NAP (Name, Address, Phone) across 100+ premium directories like Apple Maps, Yelp, and Bing to build massive trust.</p>
         </div>
       </div>
-      <div class="p5-visual-container p5-right-vis">
-        <canvas id="mg-network-canvas" width="300" height="300" class="mg-canvas"></canvas>
-      </div>
+      <div class="p5-visual-container p5-right-vis" id="p5-canvas-3"></div>
     </div>
     
     <!-- STEP 4 -->
     <div class="p5-row">
-      <div class="p5-visual-container p5-left-vis">
-        <div class="mg-trophy-container">
-          <div class="mg-trophy">
-             <div class="mg-trophy-top"></div>
-             <div class="mg-trophy-bottom"></div>
-             <div class="mg-trophy-number">1</div>
-          </div>
-          <div class="mg-trophy-base"></div>
-       </div>
-      </div>
+      <div class="p5-visual-container p5-left-vis" id="p5-canvas-4"></div>
       <div class="p5-step-card p5-right">
         <div class="p5-step-number">04</div>
         <div class="p5-step-content">
@@ -3656,14 +3379,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <p>You take the revenue. As SEO traffic pours in, our Missed-Call AI and Review Automation systems capture every lead, turning organic traffic into booked jobs 24/7.</p>
         </div>
       </div>
-      <div class="p5-visual-container p5-right-vis">
-        <div class="mg-pulse-container">
-          <div class="mg-pulse-ring p1"></div>
-          <div class="mg-pulse-ring p2"></div>
-          <div class="mg-pulse-ring p3"></div>
-          <div class="mg-pulse-core">$$$</div>
-       </div>
-      </div>
+      <div class="p5-visual-container p5-right-vis" id="p5-canvas-5"></div>
     </div>
   </div>
 </section>
@@ -4950,50 +4666,234 @@ document.addEventListener('DOMContentLoaded', initPhase5ScrollPipeline);
 </script>
 <script>
 
-/* ─── PHASE 5: PARTICLE NETWORK GRAPHICS ─── */
-function initMgNetwork() {
-  const canvas = document.getElementById('mg-network-canvas');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const particles = [];
-  for(let i=0; i<40; i++) {
-    particles.push({
-      x: Math.random() * 300, y: Math.random() * 300,
-      vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5
-    });
-  }
-  function animate() {
-    ctx.clearRect(0, 0, 300, 300);
-    particles.forEach(p => {
-      p.x += p.vx; p.y += p.vy;
-      if(p.x < 0 || p.x > 300) p.vx *= -1;
-      if(p.y < 0 || p.y > 300) p.vy *= -1;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, 2, 0, Math.PI*2);
-      ctx.fillStyle = '#00d4ff';
-      ctx.fill();
-    });
-    for(let i=0; i<particles.length; i++) {
-      for(let j=i+1; j<particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if(dist < 70) {
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(184, 255, 87, ${1 - dist/70})`;
-          ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(animate);
-  }
-  animate();
-}
-document.addEventListener('DOMContentLoaded', initMgNetwork);
-
 </script>
+
+<script>
+/* ─── PHASE 5: ADVANCED THREE.JS WEBGL ENGINE ─── */
+const p5Animators = [];
+const p5Renderers = [];
+
+function createP5Scene(containerId, initFn) {
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  container.appendChild(renderer.domElement);
+  
+  const animateFn = initFn(scene, camera, renderer);
+  
+  let isVisible = false;
+  const observer = new IntersectionObserver(entries => {
+    isVisible = entries[0].isIntersecting;
+  }, { threshold: 0.1 });
+  observer.observe(container);
+  
+  p5Renderers.push(renderer);
+  
+  function renderLoop() {
+    requestAnimationFrame(renderLoop);
+    if(isVisible) {
+      animateFn();
+      renderer.render(scene, camera);
+    }
+  }
+  renderLoop();
+}
+
+// Scene 1: 3D City Radar
+function initP5Scene1(scene, camera, renderer) {
+  camera.position.set(0, 30, 30);
+  camera.lookAt(0, 0, 0);
+  
+  const grid = new THREE.GridHelper(40, 20, 0x00d4ff, 0x004444);
+  scene.add(grid);
+  
+  // Radar Sweep
+  const sweepGeo = new THREE.CircleGeometry(15, 32, 0, Math.PI / 4);
+  const sweepMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57, side: THREE.DoubleSide, transparent: true, opacity: 0.3 });
+  const sweep = new THREE.Mesh(sweepGeo, sweepMat);
+  sweep.rotation.x = -Math.PI / 2;
+  scene.add(sweep);
+  
+  // Buildings
+  const buildings = new THREE.Group();
+  for(let i=0; i<30; i++){
+    const h = Math.random() * 8 + 2;
+    const geo = new THREE.BoxGeometry(1.5, h, 1.5);
+    const mat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.5 });
+    const b = new THREE.Mesh(geo, mat);
+    b.position.set((Math.random()-0.5)*30, h/2, (Math.random()-0.5)*30);
+    buildings.add(b);
+  }
+  scene.add(buildings);
+
+  return () => {
+    sweep.rotation.z -= 0.05;
+    buildings.children.forEach(b => {
+      // Light up if inside radar angle
+      let angle = Math.atan2(b.position.z, b.position.x);
+      if(angle < 0) angle += Math.PI * 2;
+      let sweepAngle = -sweep.rotation.z % (Math.PI * 2);
+      if(sweepAngle < 0) sweepAngle += Math.PI * 2;
+      if(Math.abs(angle - sweepAngle) < 0.5) b.material.opacity = 1;
+      else b.material.opacity = 0.3;
+    });
+    scene.rotation.y += 0.005;
+  };
+}
+
+// Scene 2: GBP Asset Pin
+function initP5Scene2(scene, camera, renderer) {
+  camera.position.set(0, 10, 25);
+  camera.lookAt(0, 0, 0);
+  
+  const pinGroup = new THREE.Group();
+  
+  const coreGeo = new THREE.SphereGeometry(2, 16, 16);
+  const coreMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57, wireframe: true });
+  const core = new THREE.Mesh(coreGeo, coreMat);
+  pinGroup.add(core);
+  
+  const ringGeo = new THREE.TorusGeometry(3.5, 0.1, 16, 64);
+  const ringMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff });
+  const ring1 = new THREE.Mesh(ringGeo, ringMat);
+  ring1.rotation.x = Math.PI / 2;
+  pinGroup.add(ring1);
+  const ring2 = new THREE.Mesh(ringGeo, ringMat);
+  pinGroup.add(ring2);
+  
+  scene.add(pinGroup);
+  
+  const particlesGeo = new THREE.BufferGeometry();
+  const count = 200;
+  const positions = new Float32Array(count * 3);
+  for(let i=0; i<count*3; i++) positions[i] = (Math.random()-0.5)*15;
+  particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const pMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.2 });
+  const particles = new THREE.Points(particlesGeo, pMat);
+  scene.add(particles);
+
+  return () => {
+    pinGroup.rotation.y += 0.02;
+    ring1.rotation.y += 0.04;
+    ring2.rotation.x += 0.04;
+    pinGroup.position.y = Math.sin(Date.now()*0.003) * 1.5;
+    particles.rotation.y -= 0.01;
+  };
+}
+
+// Scene 3: Citation Network
+function initP5Scene3(scene, camera, renderer) {
+  camera.position.set(0, 0, 20);
+  
+  const group = new THREE.Group();
+  scene.add(group);
+  
+  const globeGeo = new THREE.IcosahedronGeometry(7, 2);
+  const globeMat = new THREE.MeshBasicMaterial({ color: 0x0044ff, wireframe: true, transparent: true, opacity: 0.2 });
+  const globe = new THREE.Mesh(globeGeo, globeMat);
+  group.add(globe);
+  
+  const nodesGeo = new THREE.BufferGeometry();
+  const positions = globeGeo.attributes.position.array;
+  nodesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const nMat = new THREE.PointsMaterial({ color: 0xb8ff57, size: 0.4 });
+  const nodes = new THREE.Points(nodesGeo, nMat);
+  group.add(nodes);
+  
+  const linesMat = new THREE.LineBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.4 });
+  const lines = new THREE.LineSegments(globeGeo, linesMat);
+  group.add(lines);
+
+  return () => {
+    group.rotation.y += 0.008;
+    group.rotation.x += 0.005;
+  };
+}
+
+// Scene 4: SEO Dominance Podium
+function initP5Scene4(scene, camera, renderer) {
+  camera.position.set(0, 15, 25);
+  camera.lookAt(0, 5, 0);
+  
+  const baseGeo = new THREE.CylinderGeometry(8, 9, 2, 32);
+  const baseMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true });
+  const base = new THREE.Mesh(baseGeo, baseMat);
+  scene.add(base);
+  
+  const diamondGeo = new THREE.OctahedronGeometry(5, 0);
+  const diamondMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57, wireframe: true });
+  const diamond = new THREE.Mesh(diamondGeo, diamondMat);
+  diamond.position.y = 8;
+  scene.add(diamond);
+  
+  // Floating stars
+  const sGeo = new THREE.BufferGeometry();
+  const pos = new Float32Array(50*3);
+  for(let i=0; i<50*3; i++) pos[i] = (Math.random()-0.5)*15;
+  sGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  const sMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.2 });
+  const stars = new THREE.Points(sGeo, sMat);
+  stars.position.y = 8;
+  scene.add(stars);
+
+  return () => {
+    diamond.rotation.y += 0.03;
+    diamond.position.y = 8 + Math.sin(Date.now()*0.004) * 1.5;
+    stars.rotation.y -= 0.01;
+  };
+}
+
+// Scene 5: Lead Machine
+function initP5Scene5(scene, camera, renderer) {
+  camera.position.set(0, 10, 20);
+  camera.lookAt(0, 0, 0);
+  
+  // Phone Base
+  const phoneGeo = new THREE.BoxGeometry(8, 14, 0.5);
+  const phoneMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true });
+  const phone = new THREE.Mesh(phoneGeo, phoneMat);
+  phone.rotation.x = -Math.PI / 4;
+  scene.add(phone);
+  
+  // Bubbles bursting out
+  const bubbles = [];
+  const bGeo = new THREE.SphereGeometry(0.8, 8, 8);
+  const bMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57 });
+  for(let i=0; i<15; i++) {
+    const b = new THREE.Mesh(bGeo, bMat);
+    b.position.set((Math.random()-0.5)*6, (Math.random())*10, (Math.random()-0.5)*6);
+    b.userData = { vy: Math.random()*0.1 + 0.1, vx: (Math.random()-0.5)*0.1 };
+    scene.add(b);
+    bubbles.push(b);
+  }
+
+  return () => {
+    phone.rotation.z = Math.sin(Date.now()*0.002) * 0.1;
+    bubbles.forEach(b => {
+      b.position.y += b.userData.vy;
+      b.position.x += b.userData.vx;
+      if(b.position.y > 15) {
+        b.position.y = 0;
+        b.position.x = (Math.random()-0.5)*6;
+      }
+    });
+  };
+}
+
+window.addEventListener('load', () => {
+  createP5Scene('p5-canvas-1', initP5Scene1);
+  createP5Scene('p5-canvas-2', initP5Scene2);
+  createP5Scene('p5-canvas-3', initP5Scene3);
+  createP5Scene('p5-canvas-4', initP5Scene4);
+  createP5Scene('p5-canvas-5', initP5Scene5);
+});
+</script>
+
 </body>
 
 </html>
