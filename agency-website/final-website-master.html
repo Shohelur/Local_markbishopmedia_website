@@ -2105,6 +2105,28 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   .p5-glow-line { left: 5% !important; }
 }
 
+
+/* ─── LIVE UI MOCKUP ANIMATIONS ─── */
+.cursor-blink { animation: blink 1s step-end infinite; font-weight: bold; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.toggle { transition: background 0.4s ease; box-shadow: 0 0 0 rgba(184, 255, 87, 0); }
+.toggle.active { background: rgba(184, 255, 87, 0.5); box-shadow: 0 0 15px rgba(184, 255, 87, 0.3); }
+.toggle .knob { transition: left 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.4s; }
+.toggle.active .knob { left: 20px; background: #b8ff57; }
+
+.sync-node { transition: all 0.3s ease; }
+.sync-node.active-sync { 
+  background: rgba(184, 255, 87, 0.2); 
+  border-color: #b8ff57; 
+  box-shadow: 0 0 20px rgba(184, 255, 87, 0.4); 
+  transform: scale(1.1); 
+  color: #b8ff57;
+}
+
+.chat-bubble { opacity: 0; transform: translateY(15px); transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.chat-bubble.show-msg { opacity: 1; transform: translateY(0); }
+
 </style>
 </head>
 <body>
@@ -2784,7 +2806,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 
 /* 05: Chat UI */
 .chat-ui { display: flex; flex-direction: column; gap: 15px; }
-.chat-bubble { padding: 12px 16px; border-radius: 16px; font-size: 13px; max-width: 80%; line-height: 1.4; opacity: 0; animation: chatFade 10s infinite; }
+.chat-bubble { padding: 12px 16px; border-radius: 16px; font-size: 13px; max-width: 80%; line-height: 1.4; opacity: 0; /* animation: chatFade 10s infinite; */ }
 .chat-bubble.incoming { background: rgba(255,255,255,0.05); color: #fff; align-self: flex-start; border-bottom-left-radius: 4px; }
 .chat-bubble.outgoing { background: rgba(0, 212, 255, 0.15); color: #00d4ff; border: 1px solid rgba(0,212,255,0.3); align-self: flex-end; border-bottom-right-radius: 4px; }
 .chat-bubble.booked { background: rgba(184, 255, 87, 0.15); color: #b8ff57; border-color: rgba(184, 255, 87, 0.4); font-weight: 600; }
@@ -3362,21 +3384,21 @@ body.mobile-drawer-open .mobile-drawer-sheet {
                 <div class="set-title">Local Schema Injection</div>
                 <div class="set-sub">Injecting structured data markup</div>
               </div>
-              <div class="toggle active"><div class="knob"></div></div>
+              <div class="toggle auto-toggle"><div class="knob"></div></div>
             </div>
             <div class="setting-row">
               <div class="setting-info">
                 <div class="set-title">EXIF Geo-data Optimization</div>
                 <div class="set-sub">Tagging images with local coordinates</div>
               </div>
-              <div class="toggle active"><div class="knob"></div></div>
+              <div class="toggle auto-toggle"><div class="knob"></div></div>
             </div>
             <div class="setting-row">
               <div class="setting-info">
                 <div class="set-title">Authority Sync</div>
                 <div class="set-sub">Aligning NAP consistency</div>
               </div>
-              <div class="toggle active"><div class="knob"></div></div>
+              <div class="toggle auto-toggle"><div class="knob"></div></div>
             </div>
           </div>
         </div>
@@ -3425,7 +3447,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           </div>
           <div class="clay-body local-pack">
             <div class="search-bar">
-              <span class="search-icon">🔍</span> "best local service near me"
+              <span class="search-icon">🔍</span> "best local service near me"<span class="cursor-blink">|</span>
             </div>
             <div class="pack-list">
               <div class="pack-item highlighted">
@@ -4777,6 +4799,44 @@ document.addEventListener('DOMContentLoaded', initPhase5ScrollPipeline);
 
 
 
+
+
+<script>
+/* ─── PHASE 5 LIVE UI LOGIC ─── */
+document.addEventListener('DOMContentLoaded', () => {
+  // Step 2: Auto Toggles Animation Sequence
+  const toggles = document.querySelectorAll('.auto-toggle');
+  let toggleInterval = setInterval(() => {
+    toggles.forEach(t => t.classList.remove('active')); // Reset all
+    setTimeout(() => { if(toggles[0]) toggles[0].classList.add('active'); }, 500);
+    setTimeout(() => { if(toggles[1]) toggles[1].classList.add('active'); }, 1200);
+    setTimeout(() => { if(toggles[2]) toggles[2].classList.add('active'); }, 1900);
+  }, 4000);
+
+  // Step 3: Sync Nodes Pulsing
+  const syncNodes = document.querySelectorAll('.sync-node');
+  let syncIndex = 0;
+  setInterval(() => {
+    syncNodes.forEach(n => n.classList.remove('active-sync'));
+    if(syncNodes.length > 0) {
+      syncNodes[syncIndex].classList.add('active-sync');
+      syncIndex = (syncIndex + 1) % syncNodes.length;
+    }
+  }, 800);
+
+  // Step 5: Chat UI Sequence (iMessage style typing delay)
+  const chatBubbles = document.querySelectorAll('.chat-bubble');
+  function playChatSequence() {
+    chatBubbles.forEach(b => b.classList.remove('show-msg'));
+    setTimeout(() => { if(chatBubbles[0]) chatBubbles[0].classList.add('show-msg'); }, 800);
+    setTimeout(() => { if(chatBubbles[1]) chatBubbles[1].classList.add('show-msg'); }, 2500);
+    setTimeout(() => { if(chatBubbles[2]) chatBubbles[2].classList.add('show-msg'); }, 5000);
+    setTimeout(() => { if(chatBubbles[3]) chatBubbles[3].classList.add('show-msg'); }, 6500);
+  }
+  playChatSequence();
+  setInterval(playChatSequence, 10000); // loop every 10 seconds
+});
+</script>
 
 </body>
 
