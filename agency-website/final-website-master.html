@@ -2688,127 +2688,127 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       .radar-cards-wrapper > div { width: 100% !important; flex: none !important; margin-bottom: 20px; }
     }
   
-/* ─── PHASE 5 CSS: NAVY BACKGROUND & PIPELINE ─── */
-.p5-section {
-  margin-top: -150px;
-  position: relative;
-  width: 100%;
-  padding: 120px 20px;
-  background: radial-gradient(circle at center, #060C1A 0%, #02040A 100%);
-  border-top: 1px solid rgba(0,212,255,0.1);
-  border-bottom: 1px solid rgba(0,212,255,0.1);
-  overflow: hidden;
-  z-index: 30;
-}
-.p5-header {
-  text-align: center;
-  margin-bottom: 80px;
-}
-.p5-header h2 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 3.5rem;
-  color: #ffffff;
-  font-weight: 800;
-  margin: 20px 0;
-  text-shadow: 0 0 20px rgba(0,212,255,0.3);
-}
-.p5-header p {
-  color: rgba(255,255,255,0.7);
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin: 0 auto;
-}
-.p5-pipeline-container {
-  position: relative;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 0;
-}
-.p5-glow-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 4px;
-  background: rgba(255,255,255,0.05);
-  transform: translateX(-50%);
-  border-radius: 4px;
-}
-.p5-glow-line::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: var(--scroll-height, 0%);
-  background: linear-gradient(180deg, #00d4ff, #b8ff57);
-  box-shadow: 0 0 20px #00d4ff, 0 0 40px #b8ff57;
-  border-radius: 4px;
-  transition: height 0.3s ease-out;
-}
-.p5-step-card {
-  position: relative;
-  width: 45%;
-  background: rgba(10, 15, 30, 0.6);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 212, 255, 0.15);
-  border-radius: 16px;
-  padding: 30px;
-  margin-bottom: 60px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,212,255,0.05);
-  opacity: 0.2;
-  transform: translateY(40px);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.p5-step-card.active {
-  opacity: 1;
-  transform: translateY(0);
-  border-color: rgba(0, 212, 255, 0.5);
-  box-shadow: 0 10px 30px rgba(0,212,255,0.1), inset 0 0 30px rgba(0,212,255,0.1);
-}
-.p5-step-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  border-color: #b8ff57;
-}
-.p5-left {
-  float: left;
-}
-.p5-right {
-  float: right;
-}
-.p5-step-number {
-  position: absolute;
-  top: -20px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 3rem;
-  font-weight: 900;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(0,212,255,0.3);
-  transition: all 0.3s ease;
-}
-.p5-step-card.active .p5-step-number {
-  -webkit-text-stroke: 1px #00d4ff;
-  text-shadow: 0 0 20px rgba(0,212,255,0.4);
-}
-.p5-left .p5-step-number { right: -10px; }
-.p5-right .p5-step-number { left: -10px; }
 
-.p5-step-content h3 {
-  color: #ffffff;
-  font-size: 1.5rem;
-  margin-bottom: 12px;
-  margin-top: 10px;
+/* Phase 5 New Layout Classes */
+.p5-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 60px; position: relative; z-index: 5; }
+.p5-step-card { width: 45%; margin-bottom: 0 !important; }
+.p5-visual-container { width: 45%; display: flex; justify-content: center; align-items: center; position: relative; }
+
+/* ─── CLAY.COM STYLE UI CARDS (BENTO BOX AESTHETIC) ─── */
+.clay-card {
+  width: 100%; max-width: 420px;
+  background: rgba(10, 12, 16, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03) inset;
+  backdrop-filter: blur(10px);
+  position: relative;
+  transition: transform 0.3s ease;
 }
-.p5-step-content p {
-  color: rgba(255,255,255,0.7);
-  font-size: 1rem;
-  line-height: 1.6;
+.clay-card:hover { transform: translateY(-5px); }
+/* Subtle top glow */
+.clay-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(184, 255, 87, 0.5), transparent);
+}
+.clay-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex; align-items: center;
+  background: rgba(255,255,255,0.02);
+}
+.clay-dots { display: flex; gap: 6px; margin-right: 12px; }
+.clay-dots .dot { width: 10px; height: 10px; border-radius: 50%; opacity: 0.8; }
+.dot.r { background: #ff5f56; }
+.dot.y { background: #ffbd2e; }
+.dot.g { background: #27c93f; }
+.clay-title { font-size: 12px; font-family: monospace; color: #8892b0; letter-spacing: 1px; }
+.clay-body { padding: 20px; position: relative; min-height: 250px; }
+
+/* 01: Audit Map */
+.audit-grid {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.audit-radar-sweep {
+  position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: conic-gradient(from 0deg, transparent 70%, rgba(184, 255, 87, 0.05) 100%);
+  border-radius: 50%;
+  animation: radarSpin 6s linear infinite;
+}
+.map-node {
+  position: absolute; padding: 6px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(4px);
+}
+.map-node.you { background: rgba(184, 255, 87, 0.1); border-color: rgba(184, 255, 87, 0.4); color: #fff; box-shadow: 0 0 15px rgba(184, 255, 87, 0.2); }
+.map-node.competitor { color: #8892b0; }
+.badge { padding: 2px 6px; border-radius: 10px; font-size: 10px; }
+.badge.red { background: rgba(255, 95, 86, 0.2); color: #ff5f56; }
+.badge.green { background: rgba(184, 255, 87, 0.2); color: #b8ff57; }
+
+/* 02: Dashboard Settings */
+.setting-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); }
+.set-title { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.set-sub { font-size: 11px; color: #8892b0; }
+.toggle { width: 40px; height: 22px; border-radius: 20px; background: rgba(255,255,255,0.1); position: relative; transition: 0.3s; }
+.toggle.active { background: rgba(184, 255, 87, 0.4); box-shadow: 0 0 10px rgba(184, 255, 87, 0.2); }
+.toggle .knob { width: 18px; height: 18px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: 0.3s; }
+.toggle.active .knob { left: 20px; background: #b8ff57; }
+
+/* 03: Citation Network */
+.sync-network { display: flex; justify-content: center; align-items: center; position: relative; }
+.sync-core { width: 80px; height: 80px; background: rgba(184, 255, 87, 0.1); border: 1px solid #b8ff57; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: 700; color: #b8ff57; box-shadow: 0 0 20px rgba(184, 255, 87, 0.3); z-index: 2; }
+.sync-node { position: absolute; padding: 6px 12px; border-radius: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: #fff; z-index: 2; }
+.sync-node.n1 { top: 20px; left: 20px; }
+.sync-node.n2 { bottom: 20px; left: 50px; }
+.sync-node.n3 { top: 40px; right: 20px; }
+.sync-line { position: absolute; top: 50%; left: 50%; height: 1px; background: repeating-linear-gradient(90deg, rgba(184, 255, 87, 0.5) 0, rgba(184, 255, 87, 0.5) 4px, transparent 4px, transparent 8px); transform-origin: left center; z-index: 1; animation: dashMove 10s linear infinite; }
+.sync-line.l1 { width: 120px; transform: rotate(-135deg); }
+.sync-line.l2 { width: 100px; transform: rotate(120deg); }
+.sync-line.l3 { width: 130px; transform: rotate(-30deg); }
+
+/* 04: Local Pack */
+.search-bar { padding: 10px 16px; background: rgba(255,255,255,0.05); border-radius: 20px; font-size: 13px; color: #fff; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+.pack-list { display: flex; flex-direction: column; gap: 10px; }
+.pack-item { display: flex; align-items: center; gap: 15px; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); transition: 0.3s; }
+.pack-item.highlighted { background: rgba(184, 255, 87, 0.05); border-color: rgba(184, 255, 87, 0.4); box-shadow: 0 0 20px rgba(184, 255, 87, 0.1); }
+.pack-rank { font-size: 16px; font-weight: 700; color: #8892b0; }
+.pack-item.highlighted .pack-rank { color: #b8ff57; }
+.pack-name { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.pack-rating { font-size: 11px; color: #8892b0; }
+.pack-verified { margin-left: auto; color: #b8ff57; font-weight: bold; }
+
+/* 05: Chat UI */
+.chat-ui { display: flex; flex-direction: column; gap: 15px; }
+.chat-bubble { padding: 12px 16px; border-radius: 16px; font-size: 13px; max-width: 80%; line-height: 1.4; opacity: 0; animation: chatFade 10s infinite; }
+.chat-bubble.incoming { background: rgba(255,255,255,0.05); color: #fff; align-self: flex-start; border-bottom-left-radius: 4px; }
+.chat-bubble.outgoing { background: rgba(0, 212, 255, 0.15); color: #00d4ff; border: 1px solid rgba(0,212,255,0.3); align-self: flex-end; border-bottom-right-radius: 4px; }
+.chat-bubble.booked { background: rgba(184, 255, 87, 0.15); color: #b8ff57; border-color: rgba(184, 255, 87, 0.4); font-weight: 600; }
+.cb-1 { animation-delay: 0s; }
+.cb-2 { animation-delay: 1.5s; }
+.cb-3 { animation-delay: 4s; }
+.cb-4 { animation-delay: 5.5s; }
+
+/* Subtle Animations */
+@keyframes radarSpin { 100% { transform: rotate(360deg); } }
+@keyframes dashMove { 100% { background-position: 50px 0; } }
+@keyframes chatFade {
+  0% { opacity: 0; transform: translateY(10px); }
+  5% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  95% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 0; }
 }
 
 @media(max-width: 860px) {
-  .p5-glow-line { left: 20px; }
-  .p5-step-card { width: 85%; float: right !important; margin-bottom: 40px; }
-  .p5-step-card .p5-step-number { left: -20px !important; right: auto !important; }
+  .p5-row { flex-direction: column; text-align: center; }
+  .p5-step-card { width: 90% !important; order: 1; margin: 20px 0 !important; float: none !important;}
+  .p5-visual-container { width: 100%; order: 2; margin-bottom: 40px; }
+  .p5-glow-line { left: 5% !important; }
 }
 
 </style>
@@ -3319,10 +3319,10 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     <p>Our 5-step local SEO visibility engine is engineered to turn your Google Business Profile into a lead-generating machine.</p>
   </div>
   
-      <div class="p5-pipeline-container">
+        <div class="p5-pipeline-container">
     <div class="p5-glow-line" id="p5-scroll-line"></div>
     
-    <!-- STEP 1 -->
+    <!-- STEP 1: Deep Audit -->
     <div class="p5-row">
       <div class="p5-step-card p5-left">
         <div class="p5-step-number">01</div>
@@ -3331,12 +3331,56 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <p>We map the battlefield. We deploy our 6D AI scanner to find exactly which competitors are stealing your calls and where your local visibility is bleeding money.</p>
         </div>
       </div>
-      <div class="p5-visual-container p5-right-vis" id="p5-canvas-1"></div>
+      <div class="p5-visual-container p5-right-vis">
+        <div class="clay-card">
+          <div class="clay-header">
+            <div class="clay-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+            <div class="clay-title">6D_Scanner.exe</div>
+          </div>
+          <div class="clay-body audit-map">
+            <div class="audit-grid"></div>
+            <div class="audit-radar-sweep"></div>
+            <div class="map-node competitor" style="top:20%; left:20%;">Competitor A <span class="badge red">#12</span></div>
+            <div class="map-node competitor" style="bottom:30%; right:20%;">Competitor B <span class="badge red">#8</span></div>
+            <div class="map-node you" style="top:45%; left:40%;">Your Business <span class="badge green">#1</span></div>
+          </div>
+        </div>
+      </div>
     </div>
     
-    <!-- STEP 2 -->
+    <!-- STEP 2: Asset Optimization -->
     <div class="p5-row">
-      <div class="p5-visual-container p5-left-vis" id="p5-canvas-2"></div>
+      <div class="p5-visual-container p5-left-vis">
+        <div class="clay-card">
+          <div class="clay-header">
+            <div class="clay-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+            <div class="clay-title">GBP_Optimization_Engine</div>
+          </div>
+          <div class="clay-body dashboard">
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="set-title">Local Schema Injection</div>
+                <div class="set-sub">Injecting structured data markup</div>
+              </div>
+              <div class="toggle active"><div class="knob"></div></div>
+            </div>
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="set-title">EXIF Geo-data Optimization</div>
+                <div class="set-sub">Tagging images with local coordinates</div>
+              </div>
+              <div class="toggle active"><div class="knob"></div></div>
+            </div>
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="set-title">Authority Sync</div>
+                <div class="set-sub">Aligning NAP consistency</div>
+              </div>
+              <div class="toggle active"><div class="knob"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="p5-step-card p5-right">
         <div class="p5-step-number">02</div>
         <div class="p5-step-content">
@@ -3346,7 +3390,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
     </div>
     
-    <!-- STEP 3 -->
+    <!-- STEP 3: Citation Syndication -->
     <div class="p5-row">
       <div class="p5-step-card p5-left">
         <div class="p5-step-number">03</div>
@@ -3355,12 +3399,61 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <p>We lock your authority. Our engine synchronizes your business NAP (Name, Address, Phone) across 100+ premium directories like Apple Maps, Yelp, and Bing to build massive trust.</p>
         </div>
       </div>
-      <div class="p5-visual-container p5-right-vis" id="p5-canvas-3"></div>
+      <div class="p5-visual-container p5-right-vis">
+        <div class="clay-card">
+          <div class="clay-body sync-network">
+            <div class="sync-core">MBM OS</div>
+            <div class="sync-line l1"></div>
+            <div class="sync-line l2"></div>
+            <div class="sync-line l3"></div>
+            <div class="sync-node n1">Apple Maps</div>
+            <div class="sync-node n2">Yelp</div>
+            <div class="sync-node n3">Bing Local</div>
+            <div class="sync-glow"></div>
+          </div>
+        </div>
+      </div>
     </div>
     
-    <!-- STEP 4 -->
+    <!-- STEP 4: Local SEO Dominance -->
     <div class="p5-row">
-      <div class="p5-visual-container p5-left-vis" id="p5-canvas-4"></div>
+      <div class="p5-visual-container p5-left-vis">
+        <div class="clay-card">
+          <div class="clay-header">
+            <div class="clay-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+            <div class="clay-title">Google Local Pack</div>
+          </div>
+          <div class="clay-body local-pack">
+            <div class="search-bar">
+              <span class="search-icon">🔍</span> "best local service near me"
+            </div>
+            <div class="pack-list">
+              <div class="pack-item highlighted">
+                 <div class="pack-rank">1</div>
+                 <div class="pack-details">
+                   <div class="pack-name">Your Business</div>
+                   <div class="pack-rating">⭐⭐⭐⭐⭐ (245)</div>
+                 </div>
+                 <div class="pack-verified">✓</div>
+              </div>
+              <div class="pack-item">
+                 <div class="pack-rank">2</div>
+                 <div class="pack-details">
+                   <div class="pack-name">Competitor LLC</div>
+                   <div class="pack-rating">⭐⭐⭐⭐ (42)</div>
+                 </div>
+              </div>
+              <div class="pack-item">
+                 <div class="pack-rank">3</div>
+                 <div class="pack-details">
+                   <div class="pack-name">Other Company</div>
+                   <div class="pack-rating">⭐⭐⭐ (12)</div>
+                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="p5-step-card p5-right">
         <div class="p5-step-number">04</div>
         <div class="p5-step-content">
@@ -3370,7 +3463,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
     </div>
     
-    <!-- STEP 5 -->
+    <!-- STEP 5: Lead Conversion -->
     <div class="p5-row">
       <div class="p5-step-card p5-left">
         <div class="p5-step-number">05</div>
@@ -3379,7 +3472,20 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <p>You take the revenue. As SEO traffic pours in, our Missed-Call AI and Review Automation systems capture every lead, turning organic traffic into booked jobs 24/7.</p>
         </div>
       </div>
-      <div class="p5-visual-container p5-right-vis" id="p5-canvas-5"></div>
+      <div class="p5-visual-container p5-right-vis">
+        <div class="clay-card phone-ui">
+          <div class="clay-header">
+            <div class="clay-dots"><span class="dot r"></span></div>
+            <div class="clay-title">Missed-Call AI Bot</div>
+          </div>
+          <div class="clay-body chat-ui">
+            <div class="chat-bubble incoming cb-1">Missed Call from (520) 555-0199</div>
+            <div class="chat-bubble outgoing cb-2">Hi! Sorry we missed your call. Do you need a quote for our services?</div>
+            <div class="chat-bubble incoming cb-3">Yes, available tomorrow?</div>
+            <div class="chat-bubble outgoing booked cb-4">✅ Appointment Booked!</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -4669,200 +4775,7 @@ document.addEventListener('DOMContentLoaded', initPhase5ScrollPipeline);
 </script>
 
 
-<script>
-/* ─── PHASE 5: HYPER-PREMIUM 2.5D WEBGL ENGINE ─── */
-const p5Animators = [];
-const p5Renderers = [];
 
-function createP5Scene(containerId, initFn) {
-  const container = document.getElementById(containerId);
-  if(!container) return;
-  
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
-  container.appendChild(renderer.domElement);
-  
-  const animateFn = initFn(scene, camera, renderer);
-  
-  let isVisible = false;
-  const observer = new IntersectionObserver(entries => {
-    isVisible = entries[0].isIntersecting;
-  }, { threshold: 0.1 });
-  observer.observe(container);
-  
-  p5Renderers.push(renderer);
-  
-  function renderLoop() {
-    requestAnimationFrame(renderLoop);
-    if(isVisible) {
-      if(animateFn) animateFn();
-      renderer.render(scene, camera);
-    }
-  }
-  renderLoop();
-}
-
-const textureLoader = new THREE.TextureLoader();
-
-// Helper to create 2.5D Sprite
-function createHologramPlane(scene, imgPath, size) {
-  const tex = textureLoader.load(imgPath);
-  const geo = new THREE.PlaneGeometry(size, size);
-  const mat = new THREE.MeshBasicMaterial({
-    map: tex,
-    transparent: true,
-    blending: THREE.AdditiveBlending, // Magic! Makes black transparent
-    depthWrite: false
-  });
-  const plane = new THREE.Mesh(geo, mat);
-  scene.add(plane);
-  return plane;
-}
-
-// Scene 1: Deep Audit (Radar Hologram + 3D Scan Lines)
-function initP5Scene1(scene, camera) {
-  camera.position.set(0, 0, 25);
-  
-  // The photorealistic radar image
-  const plane = createHologramPlane(scene, 'assets/images/p5_audit_radar_1789286017311.jpg', 18);
-  
-  // 3D Particles around it
-  const pGeo = new THREE.BufferGeometry();
-  const count = 100;
-  const pos = new Float32Array(count * 3);
-  for(let i=0; i<count*3; i++) pos[i] = (Math.random()-0.5)*20;
-  pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  const pMat = new THREE.PointsMaterial({ color: 0xb8ff57, size: 0.2, transparent: true, opacity: 0.6 });
-  const particles = new THREE.Points(pGeo, pMat);
-  scene.add(particles);
-
-  return () => {
-    plane.position.y = Math.sin(Date.now()*0.002) * 0.5;
-    particles.rotation.z += 0.002;
-    particles.rotation.y += 0.005;
-  };
-}
-
-// Scene 2: Asset Optimization (Pin Hologram + 3D Torus)
-function initP5Scene2(scene, camera) {
-  camera.position.set(0, 0, 25);
-  
-  const plane = createHologramPlane(scene, 'assets/images/p5_asset_pin_1789286029608.jpg', 18);
-  
-  // 3D Energy Rings orbiting the pin
-  const ringGeo = new THREE.TorusGeometry(8, 0.05, 16, 100);
-  const ringMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.5 });
-  const ring1 = new THREE.Mesh(ringGeo, ringMat);
-  ring1.rotation.x = Math.PI / 2.5;
-  scene.add(ring1);
-  
-  const ring2 = new THREE.Mesh(ringGeo, ringMat);
-  ring2.rotation.x = Math.PI / 1.5;
-  scene.add(ring2);
-
-  return () => {
-    plane.position.y = Math.sin(Date.now()*0.003) * 0.8;
-    ring1.rotation.z -= 0.01;
-    ring2.rotation.z += 0.015;
-    ring1.rotation.y = Math.sin(Date.now()*0.001) * 0.2;
-  };
-}
-
-// Scene 3: Citation Network (Nodes Hologram + 3D Connectors)
-function initP5Scene3(scene, camera) {
-  camera.position.set(0, 0, 25);
-  
-  const plane = createHologramPlane(scene, 'assets/images/p5_citation_nodes_1789286043735.jpg', 20);
-  
-  // 3D Constellation sphere in background
-  const group = new THREE.Group();
-  scene.add(group);
-  const geo = new THREE.IcosahedronGeometry(12, 1);
-  const mat = new THREE.LineBasicMaterial({ color: 0xb8ff57, transparent: true, opacity: 0.1 });
-  const lines = new THREE.LineSegments(geo, mat);
-  group.add(lines);
-
-  return () => {
-    plane.rotation.z = Math.sin(Date.now()*0.001) * 0.05;
-    group.rotation.y += 0.002;
-    group.rotation.x += 0.001;
-  };
-}
-
-// Scene 4: SEO Dominance (Trophy Hologram + 3D Light)
-function initP5Scene4(scene, camera) {
-  camera.position.set(0, 0, 25);
-  
-  const plane = createHologramPlane(scene, 'assets/images/p5_seo_trophy_1789286053441.jpg', 20);
-  
-  // 3D Star particles floating up
-  const pGeo = new THREE.BufferGeometry();
-  const count = 50;
-  const pos = new Float32Array(count * 3);
-  const speeds = [];
-  for(let i=0; i<count; i++) {
-    pos[i*3] = (Math.random()-0.5)*15;
-    pos[i*3+1] = (Math.random()-0.5)*20;
-    pos[i*3+2] = (Math.random()-0.5)*10;
-    speeds.push(Math.random()*0.05 + 0.02);
-  }
-  pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  const pMat = new THREE.PointsMaterial({ color: 0x00d4ff, size: 0.3, transparent: true, opacity: 0.8 });
-  const stars = new THREE.Points(pGeo, pMat);
-  scene.add(stars);
-
-  return () => {
-    plane.position.y = Math.sin(Date.now()*0.002) * 0.6;
-    const positions = stars.geometry.attributes.position.array;
-    for(let i=0; i<count; i++) {
-      positions[i*3+1] += speeds[i];
-      if(positions[i*3+1] > 10) positions[i*3+1] = -10;
-    }
-    stars.geometry.attributes.position.needsUpdate = true;
-  };
-}
-
-// Scene 5: Lead Machine (Phone Hologram + 3D Burst)
-function initP5Scene5(scene, camera) {
-  camera.position.set(0, 0, 25);
-  
-  const plane = createHologramPlane(scene, 'assets/images/p5_lead_phone_1789286252262.jpg', 20);
-  
-  // 3D Pulse Rings bursting from center
-  const rings = [];
-  const rMat = new THREE.MeshBasicMaterial({ color: 0xb8ff57, transparent: true, opacity: 0.8, side: THREE.DoubleSide });
-  for(let i=0; i<3; i++) {
-    const rGeo = new THREE.RingGeometry(0.1, 0.2, 32);
-    const ring = new THREE.Mesh(rGeo, rMat);
-    ring.position.z = -2;
-    ring.userData = { scale: i * 5, opacity: 1 };
-    scene.add(ring);
-    rings.push(ring);
-  }
-
-  return () => {
-    plane.position.y = Math.sin(Date.now()*0.0025) * 0.5;
-    rings.forEach(r => {
-      r.userData.scale += 0.1;
-      r.userData.opacity = 1 - (r.userData.scale / 15);
-      if(r.userData.scale > 15) { r.userData.scale = 0.1; r.userData.opacity = 1; }
-      r.scale.set(r.userData.scale, r.userData.scale, 1);
-      r.material.opacity = r.userData.opacity;
-    });
-  };
-}
-
-window.addEventListener('load', () => {
-  createP5Scene('p5-canvas-1', initP5Scene1);
-  createP5Scene('p5-canvas-2', initP5Scene2);
-  createP5Scene('p5-canvas-3', initP5Scene3);
-  createP5Scene('p5-canvas-4', initP5Scene4);
-  createP5Scene('p5-canvas-5', initP5Scene5);
-});
-</script>
 
 
 </body>
