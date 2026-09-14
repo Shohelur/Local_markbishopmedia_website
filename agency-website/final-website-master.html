@@ -227,6 +227,13 @@ body::before {
 /* ═══════════════════════════════════════════════════════════
    CORE MASTER NAVIGATION CONTAINER (PERMANENTLY FIXED & FROZEN)
    ═══════════════════════════════════════════════════════════ */
+
+/* SMART NAV HIDDEN STATE */
+.master-nav-wrapper.nav-hidden {
+  transform: translateY(-150%) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
 .master-nav-wrapper {
   position: fixed !important;
   top: 16px;
@@ -2154,7 +2161,10 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   .p5-glow-line { left: 5% !important; }
 }
 
+
+
 </style>
+
 </head>
 <body>
 
@@ -3708,6 +3718,1114 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   </div>
 </section>
 
+
+
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   PHASE 8: SOCIAL PROOF (INFINITE TESTIMONIAL MARQUEE)
+   ═══════════════════════════════════════════════════════════ */
+#phase8-testimonials {
+  position: relative;
+  width: 100%;
+  padding: 80px 0;
+  background: radial-gradient(ellipse at top, #0a1128 0%, #010409 100%);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+  z-index: 10;
+  overflow: hidden;
+}
+
+#phase8-testimonials .section-header {
+  text-align: center;
+  margin-bottom: 50px;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#phase8-testimonials .section-subtitle {
+  color: #00e5ff;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+#phase8-testimonials .section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.1;
+  /* Brand color gradient: White to Cyan */
+  background: linear-gradient(135deg, #ffffff 0%, #00e5ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 24px;
+  letter-spacing: -1px;
+}
+
+#phase8-testimonials .carousel-container {
+  width: 100%;
+  padding: 20px 0;
+  position: relative;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+
+#phase8-testimonials .carousel-track {
+  display: flex;
+  gap: 24px;
+  width: fit-content;
+  animation: scroll-testimonials 40s linear infinite;
+}
+
+#phase8-testimonials .carousel-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-testimonials {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-2020px); }
+}
+
+#phase8-testimonials .review-card {
+  background: rgba(15, 20, 35, 0.6);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  border-radius: 24px;
+  padding: 40px 32px;
+  position: relative;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  flex-shrink: 0;
+}
+
+#phase8-testimonials .review-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 229, 255, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
+              0 0 30px rgba(0, 229, 255, 0.1);
+}
+
+#phase8-testimonials .quote-bg {
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  width: 120px;
+  height: 120px;
+  opacity: 0.03;
+  fill: #ffffff;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#phase8-testimonials .review-card:hover .quote-bg {
+  opacity: 0.08;
+  fill: #00e5ff;
+}
+
+#phase8-testimonials .stars-container {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+#phase8-testimonials .star {
+  width: 20px;
+  height: 20px;
+  fill: #ffc107; /* Fixed black stars bug */
+  filter: drop-shadow(0 0 6px rgba(255, 193, 7, 0.4));
+}
+
+#phase8-testimonials .review-content-wrapper {
+  flex-grow: 1;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 32px;
+}
+
+#phase8-testimonials .review-text {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #c0c6d0;
+  font-weight: 300;
+  
+  max-height: 110px;
+  overflow: hidden;
+  transition: max-height 0.3s ease 0s;
+}
+
+
+
+/* Force expanded class for JS click */
+#phase8-testimonials .review-text.force-expand {
+  max-height: 800px;
+  transition: max-height 0.5s ease 0s !important;
+}
+
+#phase8-testimonials .highlight-text {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+#phase8-testimonials .see-more-btn {
+  background: none;
+  border: none;
+  color: #00e5ff;
+  font-family: var(--font-body);
+  font-weight: 300; /* Non-bold */
+  font-size: 13px;
+  margin-top: 8px;
+  display: block;
+  opacity: 0.7;
+  transition: opacity 0.3s ease 0s;
+  cursor: pointer;
+  padding: 0;
+}
+
+
+
+#phase8-testimonials .client-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 24px;
+  margin-top: auto;
+}
+
+#phase8-testimonials .client-photo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(0, 229, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+#phase8-testimonials .client-info h4 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+#phase8-testimonials .client-info p {
+  font-size: 11px;
+  color: #8b95a5;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+
+
+
+
+
+
+/* CELEBRATION FLOAT (Smooth Organic Google-Style) */
+#phase8-testimonials .celebration-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.float-wrapper {
+  position: absolute;
+  bottom: -100px;
+  will-change: transform, opacity;
+  animation: floatUp var(--duration, 7s) linear both;
+  /* Add slight delay so they don't all start instantly */
+  animation-delay: var(--delay);
+}
+.float-inner-emoji {
+  will-change: transform;
+  animation: swayX var(--sway-time) ease-in-out infinite alternate;
+}
+.float-inner-confetti {
+  width: var(--width);
+  height: var(--height);
+  background-color: var(--color);
+  will-change: transform;
+  /* Spin and sway at the same time for confetti */
+  animation: swayX var(--sway-time) ease-in-out infinite alternate, spin var(--spin-time) linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 0; }
+  5% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-1600px); opacity: 0; }
+}
+@keyframes swayX {
+  0% { transform: translateX(calc(var(--sway) * -1)); }
+  100% { transform: translateX(var(--sway)); }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+
+<section id="phase8-testimonials">
+  <div class="celebration-container" id="phase8-celebration"></div>
+  <div class="section-header">
+    <div class="section-subtitle">The MBM Standard</div>
+    <h2 class="section-title">Client Success Stories</h2>
+  </div>
+
+  <div class="carousel-container">
+    <div class="carousel-track">
+
+      <!-- CARD 1: Jaime (client-5) -->
+      <div class="review-card" onmouseleave="collapseReview(this)">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <div class="review-text">
+            "Mark has helped me achieve success with new business clients in a way traditional marketing could never do! <span class="highlight-text">My business continues to grow double digits</span> even through this pandemic. I am thrilled with my business results from Mark Bishop Media. Mark is a thorough professional and is constantly working with me to be my best. I love the feedback from all the new acquaintances I am making and, especially, the new business I am enjoying for my Farmers' Agency. Thank you, Mark!"
+          </div>
+          <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
+        </div>
+        <div class="client-profile">
+          <img src="assets/images/testimonials/client-5.png" alt="Jaime Overturf" class="client-photo">
+          <div class="client-info">
+            <h4>Jaime Overturf</h4>
+            <p>Owner, Jamie Overturf Agency</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: Jessica (client-3) -->
+      <div class="review-card" onmouseleave="collapseReview(this)">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <div class="review-text">
+            "What a dynamic and inspiring individual Mark Bishop is. When we met, he explained how his local marketing strategies would be a tool to grow my business not just digitally, but <span class="highlight-text">with lead generation directly from our target area.</span> This has become a stable part of our monthly lead generation plan. It has become a 24/7/365 doorway to our expertise for interested current, and future, clients. It's a winner for us!"
+          </div>
+          <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
+        </div>
+        <div class="client-profile">
+          <img src="assets/images/testimonials/client-3.png" alt="Jessica Badowski" class="client-photo">
+          <div class="client-info">
+            <h4>Jessica Badowski</h4>
+            <p>Owner, Too Busy Gals</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- CARD 3: Amber (client-1) -->
+      <div class="review-card" onmouseleave="collapseReview(this)">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <div class="review-text">
+            "The Tucson Metro Chamber worked closely with Mark. <span class="highlight-text">This is a fantastic way to introduce new business and generate massive local visibility.</span> It's a tremendous asset to the local business community."
+          </div>
+          <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
+        </div>
+        <div class="client-profile">
+          <img src="assets/images/testimonials/client-1.png" alt="Amber Smith" class="client-photo">
+          <div class="client-info">
+            <h4>Amber Smith</h4>
+            <p>CEO, Metro Chamber</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4: Chuck (client-2) -->
+      <div class="review-card" onmouseleave="collapseReview(this)">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <div class="review-text">
+            "My experience with Mark Bishop was different than other professionals I have worked with. There wasn't a formula script that was old and tired. <span class="highlight-text">This had a fresh and honest exchange of ideas, information, and quality engagement.</span> Mark doesn't ambush you, but rather, he creates an environment where I was able to share and discuss real growth issues. Thank you, Mark, for being an inspirational leader!"
+          </div>
+          <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
+        </div>
+        <div class="client-profile">
+          <img src="assets/images/testimonials/client-2.png" alt="Chuck Zaepfel" class="client-photo">
+          <div class="client-info">
+            <h4>Chuck Zaepfel</h4>
+            <p>Director, Junior Achievement</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5: Ted (client-4) -->
+      <div class="review-card" onmouseleave="collapseReview(this)">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <div class="review-text">
+            "When I get requests for Mark to help business owners, I know when I have a winner. For three years this cultured Aussie has worked with a diverse collection of American business execs, thought leaders and decision makers. <span class="highlight-text">I highly enjoy his professionalism and absolute reliability.</span>"
+          </div>
+          <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
+        </div>
+        <div class="client-profile">
+          <img src="assets/images/testimonials/client-4.png" alt="Ted Birkey" class="client-photo">
+          <div class="client-info">
+            <h4>Ted Birkey</h4>
+            <p>Exec Producer, MultiVu</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DUPLICATE FOR INFINITE LOOP -->
+
+      <!-- CARD 1: Jaime (client-5) -->
+      <div class="review-card" onmouseleave="collapseReview(this)">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <div class="review-text">
+            "Mark has helped me achieve success with new business clients in a way traditional marketing could never do! <span class="highlight-text">My business continues to grow double digits</span> even through this pandemic. I am thrilled with my business results from Mark Bishop Media. Mark is a thorough professional and is constantly working with me to be my best. I love the feedback from all the new acquaintances I am making and, especially, the new business I am enjoying for my Farmers' Agency. Thank you, Mark!"
+          </div>
+          <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
+        </div>
+        <div class="client-profile">
+          <img src="assets/images/testimonials/client-5.png" alt="Jaime Overturf" class="client-photo">
+          <div class="client-info">
+            <h4>Jaime Overturf</h4>
+            <p>Owner, Jamie Overturf Agency</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: Jessica (client-3) -->
+      <div class="review-card" onmouseleave="collapseReview(this)">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <div class="review-text">
+            "What a dynamic and inspiring individual Mark Bishop is. When we met, he explained how his local marketing strategies would be a tool to grow my business not just digitally, but <span class="highlight-text">with lead generation directly from our target area.</span> This has become a stable part of our monthly lead generation plan. It has become a 24/7/365 doorway to our expertise for interested current, and future, clients. It's a winner for us!"
+          </div>
+          <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
+        </div>
+        <div class="client-profile">
+          <img src="assets/images/testimonials/client-3.png" alt="Jessica Badowski" class="client-photo">
+          <div class="client-info">
+            <h4>Jessica Badowski</h4>
+            <p>Owner, Too Busy Gals</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- CARD 3: Amber (client-1) -->
+      <div class="review-card" onmouseleave="collapseReview(this)">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <div class="review-text">
+            "The Tucson Metro Chamber worked closely with Mark. <span class="highlight-text">This is a fantastic way to introduce new business and generate massive local visibility.</span> It's a tremendous asset to the local business community."
+          </div>
+          <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
+        </div>
+        <div class="client-profile">
+          <img src="assets/images/testimonials/client-1.png" alt="Amber Smith" class="client-photo">
+          <div class="client-info">
+            <h4>Amber Smith</h4>
+            <p>CEO, Metro Chamber</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4: Chuck (client-2) -->
+      <div class="review-card" onmouseleave="collapseReview(this)">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <div class="review-text">
+            "My experience with Mark Bishop was different than other professionals I have worked with. There wasn't a formula script that was old and tired. <span class="highlight-text">This had a fresh and honest exchange of ideas, information, and quality engagement.</span> Mark doesn't ambush you, but rather, he creates an environment where I was able to share and discuss real growth issues. Thank you, Mark, for being an inspirational leader!"
+          </div>
+          <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
+        </div>
+        <div class="client-profile">
+          <img src="assets/images/testimonials/client-2.png" alt="Chuck Zaepfel" class="client-photo">
+          <div class="client-info">
+            <h4>Chuck Zaepfel</h4>
+            <p>Director, Junior Achievement</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5: Ted (client-4) -->
+      <div class="review-card" onmouseleave="collapseReview(this)">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <div class="review-text">
+            "When I get requests for Mark to help business owners, I know when I have a winner. For three years this cultured Aussie has worked with a diverse collection of American business execs, thought leaders and decision makers. <span class="highlight-text">I highly enjoy his professionalism and absolute reliability.</span>"
+          </div>
+          <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
+        </div>
+        <div class="client-profile">
+          <img src="assets/images/testimonials/client-4.png" alt="Ted Birkey" class="client-photo">
+          <div class="client-info">
+            <h4>Ted Birkey</h4>
+            <p>Exec Producer, MultiVu</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     PHASE 9: INTERACTIVE ROI CALCULATOR
+     ======================================================== -->
+<style>
+
+/* ========================================================
+   PHASE 9: INTERACTIVE ROI CALCULATOR
+   ======================================================== */
+.roi-section {
+  position: relative;
+  width: 100%;
+  padding: 120px 20px;
+  /* Ultimate Premium: Fully transparent to show the 3D canvas, but blurred massively so it looks like abstract glowing colors */
+  background: transparent;
+  backdrop-filter: blur(120px) saturate(150%);
+  -webkit-backdrop-filter: blur(120px) saturate(150%);
+  border-top: 1px solid rgba(0, 212, 255, 0.15);
+  border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  z-index: 10;
+}
+
+/* Premium lighting sheen on the background grid */
+.roi-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% -20%, rgba(0, 212, 255, 0.15) 0%, transparent 70%),
+              radial-gradient(circle at 50% 120%, rgba(255, 215, 0, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+.roi-header {
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 2;
+}
+.roi-subtitle {
+  color: var(--cyan-glow);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: clamp(12px, 1.2vw, 14px);
+  margin-bottom: 15px;
+  display: inline-block;
+  padding: 5px 15px;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 50px;
+  background: rgba(0, 212, 255, 0.05);
+}
+.roi-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.roi-title span {
+  color: var(--gold-accent);
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+/* Dashboard Container */
+.roi-dashboard {
+  width: min(1100px, 100%);
+  /* Very vibrant, colorful holographic glass gradient instead of navy black */
+  background: linear-gradient(135deg, 
+      rgba(0, 212, 255, 0.25) 0%, 
+      rgba(100, 50, 255, 0.25) 50%, 
+      rgba(184, 255, 87, 0.15) 100%
+  );
+  backdrop-filter: blur(40px) saturate(250%);
+  -webkit-backdrop-filter: blur(40px) saturate(250%);
+  border-radius: 30px;
+  /* Neon glowing edges */
+  border-top: 1px solid rgba(0, 212, 255, 0.5);
+  border-left: 1px solid rgba(0, 212, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 
+    0 40px 100px -10px rgba(0, 0, 0, 0.6),
+    inset 0 0 40px rgba(100, 50, 255, 0.2),
+    0 0 60px rgba(0, 212, 255, 0.15);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  position: relative;
+  z-index: 2;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.roi-dashboard:hover {
+  /* No more tilt, just a beautiful neon glow expansion on hover */
+  box-shadow: 
+    0 40px 100px -10px rgba(0, 0, 0, 0.8),
+    inset 0 0 60px rgba(100, 50, 255, 0.3),
+    0 0 100px rgba(0, 212, 255, 0.3);
+  border-top-color: rgba(0, 212, 255, 0.8);
+  border-left-color: rgba(0, 212, 255, 0.8);
+}
+@media (max-width: 860px) {
+  .roi-dashboard {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Grid Lines inside Dashboard */
+.roi-dashboard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  width: 1px; height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+@media (max-width: 860px) {
+  .roi-dashboard::before {
+    top: 50%; left: 0;
+    width: 100%; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+  }
+}
+
+/* Controls Panel (Left) */
+.roi-controls {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.roi-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.roi-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.roi-label {
+  color: #a0aec0;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.roi-value-display {
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--cyan-glow);
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
+}
+
+/* Custom Range Slider */
+.roi-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  outline: none;
+  position: relative;
+  cursor: pointer;
+}
+/* Fill track using CSS variables updated by JS */
+.roi-slider {
+  background: linear-gradient(to right, var(--cyan-glow) var(--fill, 50%), rgba(255, 255, 255, 0.05) var(--fill, 50%));
+}
+.roi-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--cyan-glow);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.roi-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* Results Panel (Right) */
+.roi-results {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+  position: relative;
+}
+.roi-result-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 25px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  position: relative;
+  overflow: hidden;
+}
+.roi-result-box.leaking {
+  border-left: 3px solid #ff3366;
+}
+.roi-result-box.potential {
+  border-left: 3px solid var(--gold-accent);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(0, 0, 0, 0.2) 100%);
+}
+.roi-result-label {
+  color: #a0aec0;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.roi-result-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 800;
+  line-height: 1;
+}
+.roi-result-box.leaking .roi-result-value {
+  color: #ff3366;
+  text-shadow: 0 0 20px rgba(255, 51, 102, 0.4);
+}
+.roi-result-box.potential .roi-result-value {
+  color: var(--gold-accent);
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+.roi-cta-wrapper {
+  margin-top: 20px;
+}
+
+/* Ambient Background Glows */
+.roi-glow-1 {
+  position: absolute;
+  top: -10%; left: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+.roi-glow-2 {
+  position: absolute;
+  bottom: -10%; right: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+</style>
+
+<section class="roi-section" id="phase9-roi">
+  <div class="roi-glow-1"></div>
+  <div class="roi-glow-2"></div>
+
+  <div class="roi-header">
+    <div class="roi-subtitle">The Cost of Invisibility</div>
+    <h2 class="roi-title">Calculate Your <span>Lost Revenue</span></h2>
+    <p style="color: #a0aec0; font-family: 'Inter', sans-serif; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+      When you don't rank in the Google Local 3-Pack, your competitors take your customers. 
+      See exactly how much revenue you're leaking every month.
+    </p>
+  </div>
+
+  <div class="roi-dashboard">
+    
+    <!-- LEFT: CONTROLS -->
+    <div class="roi-controls">
+      
+      <!-- Control 1 -->
+      <div class="roi-control-group">
+        <div class="roi-label-row">
+          <div class="roi-label">People Searching For Your Services</div>
+          <div class="roi-value-display" id="val-searches">800</div>
+        </div>
+        <input type="range" class="roi-slider" id="slider-searches" min="100" max="3000" step="50" value="800">
+      </div>
+
+      <!-- Control 2 -->
+      <div class="roi-control-group">
+        <div class="roi-label-row">
+          <div class="roi-label">How Many Callers Become Customers?</div>
+          <div class="roi-value-display" id="val-conversion">30%</div>
+        </div>
+        <input type="range" class="roi-slider" id="slider-conversion" min="5" max="80" step="5" value="30">
+      </div>
+
+      <!-- Control 3 -->
+      <div class="roi-control-group">
+        <div class="roi-label-row">
+          <div class="roi-label">Average Value Per Job</div>
+          <div class="roi-value-display" id="val-ticket">$500</div>
+        </div>
+        <input type="range" class="roi-slider" id="slider-ticket" min="100" max="5000" step="100" value="500">
+      </div>
+
+    </div>
+
+    <!-- RIGHT: RESULTS -->
+    <div class="roi-results">
+      
+      <!-- Result 1 -->
+      <div class="roi-result-box leaking">
+        <div class="roi-result-label">Monthly Revenue Leaking to Competitors</div>
+        <div class="roi-result-value" id="res-leaking">$0</div>
+        <div style="font-family: 'Inter', sans-serif; font-size: 12px; color: #718096; margin-top: 5px;">
+          (Because 60% of people only call the <span style="color: var(--cyan-glow); font-weight: 700; text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);">Top 3 businesses on Google Maps</span>)
+        </div>
+      </div>
+
+      <!-- Result 2 -->
+      <div class="roi-result-box potential">
+        <div class="roi-result-label">New Annual Revenue Potential</div>
+        <div class="roi-result-value" id="res-annual">$0</div>
+        <div style="font-family: 'Inter', sans-serif; font-size: 12px; color: #718096; margin-top: 5px;">
+          (With MBM Local Visibility System)
+        </div>
+      </div>
+
+      <div class="roi-cta-wrapper">
+        <a href="#" class="btn-cta-glow" style="width: 100%; text-align: center; justify-content: center;">
+          STOP THE LEAK — FREE AUDIT
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+
+// ROI Calculator Logic
+document.addEventListener('DOMContentLoaded', () => {
+  const sliderSearches = document.getElementById('slider-searches');
+  const sliderConversion = document.getElementById('slider-conversion');
+  const sliderTicket = document.getElementById('slider-ticket');
+  
+  const valSearches = document.getElementById('val-searches');
+  const valConversion = document.getElementById('val-conversion');
+  const valTicket = document.getElementById('val-ticket');
+  
+  const resLeaking = document.getElementById('res-leaking');
+  const resAnnual = document.getElementById('res-annual');
+
+  if (!sliderSearches) return; // Prevent errors on other pages
+
+  // Format currency
+  const formatMoney = (num) => {
+    return '$' + num.toLocaleString('en-US', { maximumFractionDigits: 0 });
+  };
+  
+  // Format numbers
+  const formatNum = (num) => {
+    return num.toLocaleString('en-US');
+  };
+
+  // Animation states for smooth counting
+  let currentLeaking = 0;
+  let targetLeaking = 0;
+  let currentAnnual = 0;
+  let targetAnnual = 0;
+
+  function calculateROI() {
+    const searches = parseInt(sliderSearches.value);
+    const convRate = parseFloat(sliderConversion.value) / 100;
+    const ticket = parseInt(sliderTicket.value);
+
+    // Update labels
+    valSearches.textContent = formatNum(searches);
+    valConversion.textContent = sliderConversion.value + '%';
+    valTicket.textContent = formatMoney(ticket);
+
+    // Update Slider Track Fills (CSS Variables)
+    const updateFill = (slider) => {
+      const min = slider.min || 0;
+      const max = slider.max || 100;
+      const val = slider.value;
+      const percent = ((val - min) / (max - min)) * 100;
+      slider.style.setProperty('--fill', `${percent}%`);
+    };
+    updateFill(sliderSearches);
+    updateFill(sliderConversion);
+    updateFill(sliderTicket);
+
+    // Math Logic (Evidence based)
+    // If they rank top 3, they get ~35% of the total search volume
+    const newVisitors = searches * 0.60;
+    const newCustomers = newVisitors * convRate;
+    
+    targetLeaking = newCustomers * ticket; // Monthly lost
+    targetAnnual = targetLeaking * 12; // Annual potential
+  }
+
+  // Smooth number counter loop
+  function animateNumbers() {
+    // Lerp (Linear Interpolation) for smooth counting
+    currentLeaking += (targetLeaking - currentLeaking) * 0.1;
+    currentAnnual += (targetAnnual - currentAnnual) * 0.1;
+    
+    // Snap to target if very close
+    if (Math.abs(targetLeaking - currentLeaking) < 1) currentLeaking = targetLeaking;
+    if (Math.abs(targetAnnual - currentAnnual) < 1) currentAnnual = targetAnnual;
+
+    if (resLeaking && resAnnual) {
+      resLeaking.textContent = formatMoney(Math.round(currentLeaking));
+      resAnnual.textContent = formatMoney(Math.round(currentAnnual));
+    }
+
+    requestAnimationFrame(animateNumbers);
+  }
+
+  // Event Listeners
+  sliderSearches.addEventListener('input', calculateROI);
+  sliderConversion.addEventListener('input', calculateROI);
+  sliderTicket.addEventListener('input', calculateROI);
+
+  // Initialize
+  calculateROI();
+  animateNumbers();
+});
+
+</script>
+
+
+<script>
+  
+  function forceExpandReview(btn) {
+    const card = btn.closest('.review-card');
+    const p = card.querySelector('.review-text');
+    p.classList.add('force-expand');
+    btn.style.opacity = '0';
+    btn.style.pointerEvents = 'none';
+    const track = card.closest('.carousel-track');
+    if (track) track.style.animationPlayState = 'paused';
+  }
+
+  function collapseReview(card) {
+    const p = card.querySelector('.review-text');
+    const btn = card.querySelector('.see-more-btn');
+    if (p) p.classList.remove('force-expand');
+    if (btn) {
+      btn.style.opacity = '0.7';
+      btn.style.pointerEvents = 'auto';
+    }
+    const track = card.closest('.carousel-track');
+    if (track) track.style.animationPlayState = '';
+  }
+
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('#phase8-testimonials .review-content-wrapper').forEach(wrapper => {
+        const text = wrapper.querySelector('.review-text');
+        const btn = wrapper.querySelector('.see-more-btn');
+        // Button is explicitly forced to remain visible on all cards per user request
+        // if (btn && text.scrollHeight <= text.clientHeight + 5) {
+        //   btn.style.display = 'none';
+        // }
+      });
+    }, 200);
+  });
+
+  // Celebration Float (Smooth Organic Google-Style) Logic
+  function startCelebration() {
+    const container = document.getElementById('phase8-celebration');
+    if (!container) return;
+    container.innerHTML = ''; 
+    
+    // Helper for Bell Curve distribution (starts slow, peaks middle, ends slow)
+    const bellRandom = () => (Math.random() + Math.random() + Math.random()) / 3;
+    
+    // Emojis (Smooth sway, no spin)
+    const stickers = ['🎉', '🎈', '🏆', '💎', '🔥'];
+    for (let i = 0; i < 20; i++) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'float-wrapper';
+      
+      const inner = document.createElement('div');
+      inner.className = 'float-inner-emoji';
+      inner.textContent = stickers[Math.floor(Math.random() * stickers.length)];
+      
+      const left = Math.random() * 100;
+      const delay = bellRandom() * 7; // Bell curve spread over 7 seconds
+      const duration = 6 + Math.random() * 3; // Float takes 6 to 9 seconds
+      const sway = 30 + Math.random() * 70; 
+      const swayTime = 2 + Math.random() * 2; 
+      
+      wrapper.style.left = `${left}%`;
+      wrapper.style.setProperty('--delay', `${delay}s`);
+      wrapper.style.setProperty('--duration', `${duration}s`);
+      
+      inner.style.setProperty('--sway', `${sway}px`);
+      inner.style.setProperty('--sway-time', `${swayTime}s`);
+      inner.style.fontSize = `${20 + Math.random() * 20}px`;
+      
+      wrapper.appendChild(inner);
+      container.appendChild(wrapper);
+    }
+
+    // Tiny Plastic Confetti Pieces
+    const colors = ['#00e5ff', '#ff0055', '#bd00ff', '#ffc107', '#00ff88'];
+    for (let i = 0; i < 150; i++) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'float-wrapper';
+      
+      const inner = document.createElement('div');
+      inner.className = 'float-inner-confetti';
+      
+      const left = Math.random() * 100;
+      const delay = bellRandom() * 7; // Bell curve spread over 7 seconds
+      const duration = 6 + Math.random() * 4; // Float takes 6 to 10 seconds
+      const sway = 40 + Math.random() * 100; 
+      const swayTime = 1.5 + Math.random() * 2; 
+      const spinTime = 1 + Math.random() * 2; 
+      
+      const width = 4 + Math.random() * 6; 
+      const height = 6 + Math.random() * 8; 
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      
+      wrapper.style.left = `${left}%`;
+      wrapper.style.setProperty('--delay', `${delay}s`);
+      wrapper.style.setProperty('--duration', `${duration}s`);
+      
+      inner.style.setProperty('--sway', `${sway}px`);
+      inner.style.setProperty('--sway-time', `${swayTime}s`);
+      inner.style.setProperty('--spin-time', `${spinTime}s`);
+      inner.style.setProperty('--width', `${width}px`);
+      inner.style.setProperty('--height', `${height}px`);
+      inner.style.setProperty('--color', color);
+      
+      wrapper.appendChild(inner);
+      container.appendChild(wrapper);
+    }
+    
+    // Clear DOM after 18 seconds (7s max delay + 10s max duration + 1s buffer)
+    setTimeout(() => {
+      if (container) container.innerHTML = '';
+    }, 18000);
+  }
+
+  window.addEventListener('load', () => {
+    const section = document.getElementById('phase8-testimonials');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          startCelebration();
+        }
+      });
+    }, { threshold: 0.2 });
+    
+    if (section) observer.observe(section);
+  });
+
+
+  
+
+
+</script>
+
+
 <script>
 /* ─── 1. THREE.JS MASTER UNIVERSE INITIALIZATION ─── */
 const canvas = document.getElementById('master-3d-canvas');
@@ -4246,11 +5364,34 @@ function triggerSeamlessIntro() {
 
 /* ─── 4. APPROVED MASTER 3D NAVIGATION INTERACTION CONTROLLER ─── */
 /* ─── 1. SMART SCROLL FREEZE & FLOAT ─── */
+let lastScrollTop = window.scrollY || document.documentElement.scrollTop;
+const masterNav = document.getElementById('master-nav-wrapper');
+
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 5) {
+  let currentScroll = window.scrollY || document.documentElement.scrollTop;
+  
+  // Scrolled state for visual changes (glassmorphism)
+  if (currentScroll > 5) {
     document.body.classList.add('is-scrolled');
   } else {
     document.body.classList.remove('is-scrolled');
+  }
+  
+  // Smart Nav logic (Hide on scroll down, show on scroll up)
+  if (masterNav) {
+    if (Math.abs(currentScroll - lastScrollTop) > 10) {
+      if (currentScroll > lastScrollTop && currentScroll > 300) {
+        masterNav.classList.add('nav-hidden'); // Scroll Down -> Hide
+      } else {
+        masterNav.classList.remove('nav-hidden'); // Scroll Up -> Show
+      }
+      lastScrollTop = currentScroll;
+    }
+    
+    // Always ensure it's visible at the very top
+    if (currentScroll <= 10) {
+      masterNav.classList.remove('nav-hidden');
+    }
   }
 });
 

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase 8 - Testimonials (Carousel)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #01050a;
+      --card-bg: rgba(15, 20, 35, 0.6);
+      --card-border: rgba(0, 229, 255, 0.15);
+      --cyan-glow: #00e5ff;
+      --gold-star: #ffc107;
+      
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: #fff;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 24px;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Glow for Studio */
+    .ambient-glow {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(0,229,255,0.05) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+      max-width: 800px;
+      z-index: 10;
+      position: relative;
+    }
+
+    .section-subtitle {
+      color: var(--cyan-glow);
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.1;
+      background: linear-gradient(180deg, #FFFFFF 0%, #a0a5aa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+
+    /* Carousel Container */
+    .carousel-container {
+      width: 100%;
+      max-width: 1400px;
+      z-index: 10;
+      position: relative;
+      overflow: hidden;
+      padding: 20px 0;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 30px;
+      /* Hide scrollbar */
+      scrollbar-width: none; 
+      -ms-overflow-style: none;
+    }
+    
+    .carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Individual Card */
+    .review-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px 32px;
+      position: relative;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 380px; /* Fixed width for carousel */
+      scroll-snap-align: center;
+    }
+
+    .review-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(0, 229, 255, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
+                  0 0 30px rgba(0, 229, 255, 0.1);
+    }
+
+    /* Quote Background */
+    .quote-bg {
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      width: 120px;
+      height: 120px;
+      opacity: 0.03;
+      fill: #ffffff;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    
+    .review-card:hover .quote-bg {
+      opacity: 0.08;
+      fill: var(--cyan-glow);
+    }
+
+    /* Stars */
+    .stars-container {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 24px;
+    }
+
+    .star {
+      width: 20px;
+      height: 20px;
+      fill: var(--gold-star);
+      filter: drop-shadow(0 0 6px rgba(255, 193, 7, 0.4));
+    }
+
+    /* Review Text with Read More */
+    .review-content-wrapper {
+      flex-grow: 1;
+      position: relative;
+      z-index: 2;
+      margin-bottom: 32px;
+    }
+
+    .review-text {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #c0c6d0;
+      font-weight: 300;
+      transition: max-height 0.3s ease;
+    }
+    
+    .highlight-text {
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .text-collapsed {
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .read-more-btn {
+      background: none;
+      border: none;
+      color: var(--cyan-glow);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 8px;
+      padding: 0;
+      display: inline-block;
+      transition: color 0.2s;
+    }
+    
+    .read-more-btn:hover {
+      color: #fff;
+    }
+
+    /* Client Profile */
+    .client-profile {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 24px;
+      margin-top: auto;
+    }
+
+    .client-photo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(0, 229, 255, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .client-info h4 {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .client-info p {
+      font-size: 11px;
+      color: #8b95a5;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+    
+    /* Navigation Controls */
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 20px;
+      z-index: 10;
+      position: relative;
+    }
+    
+    .ctrl-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .ctrl-btn:hover {
+      background: rgba(0, 229, 255, 0.1);
+      border-color: rgba(0, 229, 255, 0.4);
+      color: var(--cyan-glow);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .review-card {
+        flex: 0 0 85vw;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+
+  <div class="section-header">
+    <div class="section-subtitle">The MBM Standard</div>
+    <h2 class="section-title">Client Success Stories</h2>
+  </div>
+
+  <div class="carousel-container">
+    <div class="carousel-track" id="testimonialTrack">
+      
+      <!-- CARD 1: Jaime (client-5) -->
+      <div class="review-card">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <!-- 5 Stars -->
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <p class="review-text text-collapsed">
+            "Mark has helped me achieve success with new business clients in a way traditional marketing could never do! <span class="highlight-text">My business continues to grow double digits</span> even through this pandemic. I am thrilled with my business results from Mark Bishop Media. Mark is a thorough professional and is constantly working with me to be my best. I love the feedback from all the new acquaintances I am making and, especially, the new business I am enjoying for my Farmers' Agency. Thank you, Mark!"
+          </p>
+          <button class="read-more-btn" onclick="toggleReadMore(this)">Read More</button>
+        </div>
+        <div class="client-profile">
+          <img src="../assets/images/testimonials/client-5.png" alt="Jaime Overturf" class="client-photo">
+          <div class="client-info">
+            <h4>Jaime Overturf</h4>
+            <p>Owner, Jamie Overturf Agency</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: Jessica (client-3) -->
+      <div class="review-card">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <!-- 5 Stars -->
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <p class="review-text text-collapsed">
+            "What a dynamic and inspiring individual Mark Bishop is. When we met, he explained how his local marketing strategies would be a tool to grow my business not just digitally, but <span class="highlight-text">with lead generation directly from our target area.</span> This has become a stable part of our monthly lead generation plan. It has become a 24/7/365 doorway to our expertise for interested current, and future, clients. It's a winner for us!"
+          </p>
+          <button class="read-more-btn" onclick="toggleReadMore(this)">Read More</button>
+        </div>
+        <div class="client-profile">
+          <img src="../assets/images/testimonials/client-3.png" alt="Jessica Badowski" class="client-photo">
+          <div class="client-info">
+            <h4>Jessica Badowski</h4>
+            <p>Owner, Too Busy Gals</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- CARD 3: Chuck (client-2) -->
+      <div class="review-card">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <p class="review-text text-collapsed">
+            "My experience with Mark Bishop was different than other professionals I have worked with. There wasn't a formula script that was old and tired. <span class="highlight-text">This had a fresh and honest exchange of ideas, information, and quality engagement.</span> Mark doesn't ambush you, but rather, he creates an environment where I was able to share and discuss real growth issues. Thank you, Mark, for being an inspirational leader!"
+          </p>
+          <button class="read-more-btn" onclick="toggleReadMore(this)">Read More</button>
+        </div>
+        <div class="client-profile">
+          <img src="../assets/images/testimonials/client-2.png" alt="Chuck Zaepfel" class="client-photo">
+          <div class="client-info">
+            <h4>Chuck Zaepfel</h4>
+            <p>Director, Junior Achievement</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4: Ted (client-4) -->
+      <div class="review-card">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <p class="review-text text-collapsed">
+            "When I get requests for Mark to help business owners, I know when I have a winner. For three years this cultured Aussie has worked with a diverse collection of American business execs, thought leaders and decision makers. <span class="highlight-text">I highly enjoy his professionalism and absolute reliability.</span>"
+          </p>
+          <!-- No read more needed here since it's short -->
+        </div>
+        <div class="client-profile">
+          <img src="../assets/images/testimonials/client-4.png" alt="Ted Birkey" class="client-photo">
+          <div class="client-info">
+            <h4>Ted Birkey</h4>
+            <p>Exec Producer, MultiVu</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5: Amber (client-1) -->
+      <div class="review-card">
+        <svg class="quote-bg" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <div class="stars-container">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        </div>
+        <div class="review-content-wrapper">
+          <p class="review-text text-collapsed">
+            "The Tucson Metro Chamber worked closely with Mark. <span class="highlight-text">This is a fantastic way to introduce new business and generate massive local visibility.</span> It's a tremendous asset to the local business community."
+          </p>
+        </div>
+        <div class="client-profile">
+          <img src="../assets/images/testimonials/client-1.png" alt="Amber Smith" class="client-photo">
+          <div class="client-info">
+            <h4>Amber Smith</h4>
+            <p>CEO, Metro Chamber</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="carousel-controls">
+    <button class="ctrl-btn" onclick="scrollTrack(-1)">←</button>
+    <button class="ctrl-btn" onclick="scrollTrack(1)">→</button>
+  </div>
+
+  <script>
+    function scrollTrack(direction) {
+      const track = document.getElementById('testimonialTrack');
+      const scrollAmount = 404; // card width (380) + gap (24)
+      track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+    }
+
+    function toggleReadMore(btn) {
+      const p = btn.previousElementSibling;
+      if (p.classList.contains('text-collapsed')) {
+        p.classList.remove('text-collapsed');
+        btn.textContent = 'Read Less';
+      } else {
+        p.classList.add('text-collapsed');
+        btn.textContent = 'Read More';
+      }
+    }
+    
+    // Auto hide Read More button if text is short
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.review-content-wrapper').forEach(wrapper => {
+        const text = wrapper.querySelector('.review-text');
+        const btn = wrapper.querySelector('.read-more-btn');
+        if (btn) {
+          // Check if the scrollHeight is greater than the visible height
+          if (text.scrollHeight <= text.clientHeight) {
+            btn.style.display = 'none';
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
