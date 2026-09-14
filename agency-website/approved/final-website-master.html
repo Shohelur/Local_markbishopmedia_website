@@ -5011,13 +5011,13 @@ async function typeTextPenStyle(span) {
   for (let i = 0; i < fullText.length; i++) {
     span.textContent += fullText[i];
     // Fast, organic pen-like speed (10ms to 25ms per character)
-    const speed = Math.floor(Math.random() * 15) + 10; 
+    const speed = Math.floor(Math.random() * 25) + 30; // Slower, human reading speed (30-55ms) 
     await new Promise(r => setTimeout(r, speed));
   }
   
   span.classList.remove('typing-cursor');
   // Pause slightly before jumping to the next line to let the user read
-  await new Promise(r => setTimeout(r, 400));
+  await new Promise(r => setTimeout(r, 1200)); // Longer pause (1.2s) to digest the point
 }
 
 // Trigger when the section scrolls into view
