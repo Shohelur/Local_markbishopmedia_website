@@ -4930,21 +4930,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   100% { transform: translate(-50%, -50%) scale(15); opacity: 0; border-width: 0; }
 }
 
-.p10-spark {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 6px; height: 30px;
-  background: var(--lime-glow);
-  border-radius: 6px;
-  transform: translate(-50%, -50%) rotate(var(--rot, 0deg));
-  opacity: 1;
-  z-index: 9999;
-  box-shadow: 0 0 20px var(--lime-glow), 0 0 40px #fff;
-  animation: spark-shoot 1.5s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
-  pointer-events: none;
-}
-@keyframes spark-shoot {
-  0% { transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(1); opacity: 1; }
+
   100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) rotate(var(--rot, 0deg)) scale(0); opacity: 0; }
 }
 @keyframes spark-shoot {
@@ -5046,6 +5032,8 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   </div>
 </section>
 
+<!-- Canvas Confetti for Fireworks -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
 // --- PHASE 10: SEQUENTIAL TYPEWRITER EFFECT ---
 async function startPhase10Typewriter() {
@@ -5082,9 +5070,10 @@ function triggerPhase10Victory() {
   const mbmCard = document.querySelector('.card-mbm');
   if (!mbmCard) return;
 
-  // Create a dedicated overlay that is NOT bound by overflow: hidden
+  // 1. Shockwave
+  const compareContainer = document.querySelector('.compare-container');
   let overlay = document.querySelector('.p10-victory-overlay');
-  if (!overlay) {
+  if (!overlay && compareContainer) {
     overlay = document.createElement('div');
     overlay.className = 'p10-victory-overlay';
     overlay.style.position = 'absolute';
@@ -5092,55 +5081,48 @@ function triggerPhase10Victory() {
     overlay.style.width = '100%'; overlay.style.height = '100%';
     overlay.style.pointerEvents = 'none';
     overlay.style.zIndex = '9999';
-    // Append to the compare-container, which has no overflow constraints
-    const compareContainer = document.querySelector('.compare-container');
-    if (compareContainer) compareContainer.appendChild(overlay);
+    compareContainer.appendChild(overlay);
   }
 
-  // 1. Shockwave (Append to overlay, position over MBM card center)
-  const wave = document.createElement('div');
-  wave.className = 'p10-shockwave';
-  if(window.innerWidth > 860) {
-     wave.style.left = '75%'; 
-  } else {
-     wave.style.top = '75%'; 
-  }
-  overlay.appendChild(wave);
-
-  // 2. MASSIVE Sparks Explosion
-  for(let i = 0; i < 80; i++) {
-    const spark = document.createElement('div');
-    spark.className = 'p10-spark';
-    
+  if (overlay) {
+    const wave = document.createElement('div');
+    wave.className = 'p10-shockwave';
     if(window.innerWidth > 860) {
-       spark.style.left = '75%'; 
+       wave.style.left = '75%'; 
     } else {
-       spark.style.top = '75%'; 
+       wave.style.top = '75%'; 
     }
-
-    const angle = Math.random() * Math.PI * 2;
-    const velocity = 200 + Math.random() * 600; 
-    const tx = Math.cos(angle) * velocity;
-    const ty = Math.sin(angle) * velocity;
-    
-    spark.style.setProperty('--tx', `${tx}px`);
-    spark.style.setProperty('--ty', `${ty}px`);
-    
-    const rot = (angle * 180) / Math.PI + 90;
-    spark.style.setProperty('--rot', `${rot}deg`);
-    
-    const colors = ['var(--lime-glow)', 'var(--cyan-glow)', '#fff', '#00ffaa'];
-    spark.style.background = colors[Math.floor(Math.random() * colors.length)];
-    spark.style.boxShadow = `0 0 20px ${spark.style.background}`;
-    
-    if (Math.random() > 0.5) {
-      spark.style.width = '10px';
-      spark.style.height = '10px';
-      spark.style.borderRadius = '50%';
-    }
-    
-    overlay.appendChild(spark);
+    overlay.appendChild(wave);
   }
+
+  // 2. REALISTIC FIREWORKS (Using canvas-confetti)
+  // Calculate center of MBM card relative to viewport
+  const rect = mbmCard.getBoundingClientRect();
+  const originX = (rect.left + rect.width / 2) / window.innerWidth;
+  const originY = (rect.top + rect.height / 2) / window.innerHeight;
+
+  const duration = 2500;
+  const animationEnd = Date.now() + duration;
+  const defaults = { 
+    startVelocity: 30, 
+    spread: 360, 
+    ticks: 60, 
+    zIndex: 9999, 
+    colors: ['#00d4ff', '#b8ff57', '#ffffff'] // Cyan, Lime, White
+  };
+
+  const interval = setInterval(function() {
+    const timeLeft = animationEnd - Date.now();
+    if (timeLeft <= 0) {
+      return clearInterval(interval);
+    }
+    const particleCount = 40 * (timeLeft / duration);
+    // Spawn realistic firework bursts with slightly random origins around the card
+    confetti(Object.assign({}, defaults, { 
+      particleCount, 
+      origin: { x: originX + (Math.random()-0.5)*0.1, y: originY + (Math.random()-0.5)*0.1 } 
+    }));
+  }, 250);
 
   // 3. Winner Stamp
   setTimeout(() => {
