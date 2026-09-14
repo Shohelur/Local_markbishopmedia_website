@@ -57,8 +57,9 @@ This file is automatically loaded by Antigravity IDE & Antigravity CLI (`agy`) a
   - Phase 5 (Approved): 5-Step Process Pipeline with Claymorphic Scrolling Timeline.
   - Phase 8 (Approved): Client Testimonials Carousel with Organic Confetti/Balloon Celebration & Smart Navigation.
   - Phase 9 (Approved): Interactive ROI Calculator with Holographic Glass UI & High-Intent MBM Math.
+  - Phase 10 (Approved): MBM vs Typical Agency Comparison with Exclusivity Pitch and Canvas-Confetti Fireworks.
 - **Immediate Task:**
-  1. Add booking links to all CTAs across all sections (Pending: User wants to do this after all phases are built).
+  1. Phase 11: Kinetic Final CTA and Discovery Form (Booking Section).
 
 ---
 
@@ -84,6 +85,7 @@ This file is automatically loaded by Antigravity IDE & Antigravity CLI (`agy`) a
 - Always use exact literal string replacement with `String.prototype.replace()` via Node.js scripts.
 - After any Node.js script injection, verify with `new Function(extractedScript)` to catch syntax errors before opening in browser.
 - Duplicate `const` declarations crash the entire script — always check for existing declarations before injecting variables.
+- **Python Regex Gotcha:** `html.replace()` or strict `re.sub` will fail silently if there are hidden newlines or encoded characters (like em-dash `?"`) in the HTML file. Always use `re.sub` with `flags=re.DOTALL` and regex `\s*` instead of exact whitespace matching to ensure robust multi-line updates.
 
 ### Localhost Server
 - Server runs from `d:\Agentic OS` root: `python -m http.server 8080`
