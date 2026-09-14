@@ -4738,22 +4738,15 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   border-radius: 20px;
   padding: 2px;
   transform-style: preserve-3d;
+  background: linear-gradient(90deg, var(--cyan-glow), var(--lime-glow), #0055ff, var(--cyan-glow));
+  background-size: 300% 100%;
+  animation: pan-border 3s linear infinite;
 }
 
-/* Spinning Holographic Border */
-.card-mbm-wrapper::before {
-  content: '';
-  position: absolute;
-  top: -50%; left: -50%; width: 200%; height: 200%;
-  background: conic-gradient(from 0deg, transparent 60%, var(--cyan-glow) 80%, var(--lime-glow) 100%);
-  animation: rotate-border 4s linear infinite;
-  z-index: 0;
-  border-radius: 20px;
-  transform: translateZ(-5px); /* Keep border flat behind card */
+@keyframes pan-border {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-
-@keyframes rotate-border {
-  0% { transform: rotate(0deg) translateZ(-5px); }
   100% { transform: rotate(360deg) translateZ(-5px); }
 }
 
@@ -5029,24 +5022,35 @@ document.querySelectorAll('.p10-tilt-card').forEach(card => {
 
 // --- PHASE 10: SEQUENTIAL TYPEWRITER EFFECT ---
 async function startPhase10Typewriter() {
-  const texts = document.querySelectorAll('#phase10-comparison .typewriter-text');
+  const reds = document.querySelectorAll('.card-typical .typewriter-text');
+  const greens = document.querySelectorAll('.card-mbm .typewriter-text');
   
-  for (let span of texts) {
-    const fullText = span.getAttribute('data-text');
-    span.textContent = ''; // clear first
-    span.classList.add('typing-cursor');
+  for (let i = 0; i < reds.length; i++) {
+    // Type out the Typical Agency point
+    await typeTextPenStyle(reds[i]);
     
-    for (let i = 0; i < fullText.length; i++) {
-      span.textContent += fullText[i];
-      // Randomize typing speed slightly for human feel (15ms to 35ms)
-      const speed = Math.floor(Math.random() * 20) + 15; 
-      await new Promise(r => setTimeout(r, speed));
+    // Immediately compare with the MBM Agency point
+    if (greens[i]) {
+      await typeTextPenStyle(greens[i]);
     }
-    
-    span.classList.remove('typing-cursor');
-    // Pause briefly before typing the next bullet point
-    await new Promise(r => setTimeout(r, 300));
   }
+}
+
+async function typeTextPenStyle(span) {
+  const fullText = span.getAttribute('data-text');
+  span.textContent = ''; 
+  span.classList.add('typing-cursor');
+  
+  for (let i = 0; i < fullText.length; i++) {
+    span.textContent += fullText[i];
+    // Fast, organic pen-like speed (10ms to 25ms per character)
+    const speed = Math.floor(Math.random() * 15) + 10; 
+    await new Promise(r => setTimeout(r, speed));
+  }
+  
+  span.classList.remove('typing-cursor');
+  // Pause slightly before jumping to the next line to let the user read
+  await new Promise(r => setTimeout(r, 400));
 }
 
 // Trigger when the section scrolls into view
