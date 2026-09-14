@@ -5689,11 +5689,9 @@ let rippleProgress = 0;
 // === 3D SMART AUTO-PAUSE (PERFORMANCE OPTIMIZATION) ===
 let isMasterCanvasVisible = true;
 const masterObserver = new IntersectionObserver((entries) => {
-  let anyVisible = false;
   entries.forEach(e => {
-    if (e.isIntersecting) anyVisible = true;
+    isMasterCanvasVisible = e.isIntersecting;
   });
-  isMasterCanvasVisible = anyVisible;
   
   // Hide canvas to save compositor memory when off-screen
   const canvas = document.getElementById('master-3d-canvas');
@@ -5702,12 +5700,9 @@ const masterObserver = new IntersectionObserver((entries) => {
   }
 }, { rootMargin: "100px", threshold: 0.01 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const intro = document.getElementById('intro-viewport');
-  const hero = document.getElementById('hero-viewport');
-  if (intro) masterObserver.observe(intro);
-  if (hero) masterObserver.observe(hero);
-});
+// Attach observer directly to the hero wrapper (script is at bottom of body, DOM exists)
+const heroWrapper = document.querySelector('.hero-wrapper');
+if (heroWrapper) masterObserver.observe(heroWrapper);
 
 function animate() {
   requestAnimationFrame(animate);
