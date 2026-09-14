@@ -5048,32 +5048,39 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 
 <script>
 // --- PHASE 10: SEQUENTIAL TYPEWRITER EFFECT ---
-
 async function startPhase10Typewriter() {
   const reds = document.querySelectorAll('.card-typical .typewriter-text');
   const greens = document.querySelectorAll('.card-mbm .typewriter-text');
   
   for (let i = 0; i < reds.length; i++) {
-    // Type out the Typical Agency point
     await typeTextPenStyle(reds[i]);
-    
-    // Immediately compare with the MBM Agency point
     if (greens[i]) {
       await typeTextPenStyle(greens[i]);
     }
   }
+  
   // Trigger Victory Sequence when typing finishes
   setTimeout(triggerPhase10Victory, 500);
+}
+
+async function typeTextPenStyle(span) {
+  const fullText = span.getAttribute('data-text');
+  span.textContent = ''; 
+  span.classList.add('typing-cursor');
+  
+  for (let i = 0; i < fullText.length; i++) {
+    span.textContent += fullText[i];
+    const speed = Math.floor(Math.random() * 25) + 30; // 30-55ms
+    await new Promise(r => setTimeout(r, speed));
+  }
+  
+  span.classList.remove('typing-cursor');
+  await new Promise(r => setTimeout(r, 1200)); // 1.2s pause
 }
 
 function triggerPhase10Victory() {
   const mbmCard = document.querySelector('.card-mbm');
   if (!mbmCard) return;
-
-  // 1. Shockwave
-  const wave = document.createElement('div');
-  wave.className = 'p10-shockwave';
-  mbmCard.appendChild(wave);
 
   // Create a dedicated overlay that is NOT bound by overflow: hidden
   let overlay = document.querySelector('.p10-victory-overlay');
@@ -5093,11 +5100,10 @@ function triggerPhase10Victory() {
   // 1. Shockwave (Append to overlay, position over MBM card center)
   const wave = document.createElement('div');
   wave.className = 'p10-shockwave';
-  // Adjust position to the right side of the container (where MBM card is)
   if(window.innerWidth > 860) {
      wave.style.left = '75%'; 
   } else {
-     wave.style.top = '75%'; // on mobile it's stacked
+     wave.style.top = '75%'; 
   }
   overlay.appendChild(wave);
 
@@ -5106,7 +5112,6 @@ function triggerPhase10Victory() {
     const spark = document.createElement('div');
     spark.className = 'p10-spark';
     
-    // Position sparks at the same origin as shockwave
     if(window.innerWidth > 860) {
        spark.style.left = '75%'; 
     } else {
@@ -5114,7 +5119,7 @@ function triggerPhase10Victory() {
     }
 
     const angle = Math.random() * Math.PI * 2;
-    const velocity = 200 + Math.random() * 600; // Explode HUGE
+    const velocity = 200 + Math.random() * 600; 
     const tx = Math.cos(angle) * velocity;
     const ty = Math.sin(angle) * velocity;
     
@@ -5124,12 +5129,10 @@ function triggerPhase10Victory() {
     const rot = (angle * 180) / Math.PI + 90;
     spark.style.setProperty('--rot', `${rot}deg`);
     
-    // Randomize colors for a cooler firework effect
     const colors = ['var(--lime-glow)', 'var(--cyan-glow)', '#fff', '#00ffaa'];
     spark.style.background = colors[Math.floor(Math.random() * colors.length)];
     spark.style.boxShadow = `0 0 20px ${spark.style.background}`;
     
-    // Randomize shape (some circles, some streaks)
     if (Math.random() > 0.5) {
       spark.style.width = '10px';
       spark.style.height = '10px';
@@ -5145,24 +5148,7 @@ function triggerPhase10Victory() {
     stamp.className = 'p10-winner-stamp';
     stamp.innerHTML = '🏆 CLEAR WINNER';
     mbmCard.appendChild(stamp);
-  }, 600); // Stamp hits after shockwave clears
-}
-
-async function typeTextPenStyle(span) {
-  const fullText = span.getAttribute('data-text');
-  span.textContent = ''; 
-  span.classList.add('typing-cursor');
-  
-  for (let i = 0; i < fullText.length; i++) {
-    span.textContent += fullText[i];
-    // Fast, organic pen-like speed (10ms to 25ms per character)
-    const speed = Math.floor(Math.random() * 25) + 30; // Slower, human reading speed (30-55ms) 
-    await new Promise(r => setTimeout(r, speed));
-  }
-  
-  span.classList.remove('typing-cursor');
-  // Pause slightly before jumping to the next line to let the user read
-  await new Promise(r => setTimeout(r, 1200)); // Longer pause (1.2s) to digest the point
+  }, 600);
 }
 
 // Trigger when the section scrolls into view
@@ -5171,7 +5157,6 @@ const p10Observer = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) {
       if (!entry.target.hasAttribute('data-typed')) {
         entry.target.setAttribute('data-typed', 'true');
-        // Clear all text immediately before typing starts
         document.querySelectorAll('#phase10-comparison .typewriter-text').forEach(t => t.textContent = '');
         startPhase10Typewriter();
       }
