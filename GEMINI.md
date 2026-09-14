@@ -55,8 +55,10 @@ This file is automatically loaded by Antigravity IDE & Antigravity CLI (`agy`) a
   - Phase 3 (Approved): Interactive 3D Geo-Grid Radar Instant Scan Section.
   - Phase 4 (Approved): Core Services Grid & Detail Sections with 3D Transparent Assets.
   - Phase 5 (Approved): 5-Step Process Pipeline with Claymorphic Scrolling Timeline.
+  - Phase 8 (Approved): Client Testimonials Carousel with Organic Confetti/Balloon Celebration & Smart Navigation.
+  - Phase 9 (Approved): Interactive ROI Calculator with Holographic Glass UI & High-Intent MBM Math.
 - **Immediate Task:**
-  1. Design and implement Phase 6: Social Proof / Case Studies or Final CTA.
+  1. Add booking links to all CTAs across all sections (Pending: User wants to do this after all phases are built).
 
 ---
 
@@ -99,6 +101,11 @@ This file is automatically loaded by Antigravity IDE & Antigravity CLI (`agy`) a
 - **mix-blend-mode isolation:** Setting `perspective` on a parent container creates an isolated stacking context. If a child inside uses `mix-blend-mode: screen`, it will blend with the parent's *transparent* background (resulting in a black box) rather than the page background. Remove `perspective` or move the blend mode to the parent.
 - **JPG Artifacts in Alpha Masking:** When using math to convert a black-background JPG into a transparent PNG (`alpha = max(R,G,B)`), JPG compression noise causes faint dark grey pixels that become semi-transparent artifacts (bounding boxes). ALWAYS apply a strict alpha threshold (e.g., `black_level = 25/255`) and linearly remap the remaining alpha values to completely crush the noise floor before exporting the PNG.
 - **3D Transform & Overflow Clipping Conflict:** Using `transform-style: preserve-3d` on a container often breaks `overflow: hidden` in WebKit/Blink browsers, causing child elements to spill out of rounded borders. If you need border-radius clipping on children inside a 3D-rotated card, apply the `border-radius` directly to the child/wrapper and remove `preserve-3d` from the parent (unless children need independent Z-depth).
+
+### CSS Animation & UX Learnings
+- **Staggered Animations:** When creating particle systems (confetti/balloons) using CSS `animation-delay` and random JS delays, ALWAYS apply `animation-fill-mode: both` (or `backwards`). Without it, elements will sit at `opacity: 1` (default state) before the delay starts, completely ruining the stagger effect.
+- **Organic Floating Motion:** To create a perfectly smooth, organic, balloon-like floating effect (instead of rigid zigzags), separate the X and Y axes across two DOM layers: a `wrapper` that continuously translates Y-axis linearly, and an `inner` element that oscillates X-axis using an `ease-in-out alternate infinite` sine-wave animation.
+- **Smart Navigation:** A nav bar that hides on downward scroll and appears on upward scroll uses a simple `currentScroll > lastScrollTop` threshold check attached to the `window.onscroll` event. Adding a simple `-150% translateY` transform on the `.nav-hidden` class is sufficient.
 ### UI & Layout Learnings
 - **Scroll Triggers:** `element.offsetTop` fails when elements are nested in `position: relative` flex wrappers. Always use `element.getBoundingClientRect().top` to reliably trigger scroll animations when an element hits a specific viewport height (e.g., `< window.innerHeight * 0.7`).
 - **Transparency & Artifacts:** Never use JPGs with `mix-blend-mode: screen` for 3D elements on dark gradient backgrounds. JPG compression noise creates faint dark grey bounding boxes. Always swap to transparent PNGs for seamless blending in premium UI.
