@@ -4596,142 +4596,236 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 </section>
 
 
+
 <!-- ========================================================
-     PHASE 10: COMPARISON MATRIX (US VS THEM)
+     PHASE 10: COMPARISON MATRIX (ULTRA PREMIUM)
      ======================================================== -->
 <style>
 .phase10-section {
   position: relative;
   width: 100%;
-  padding: 120px 20px;
+  padding: 140px 20px;
   background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 10;
+  overflow: hidden;
+}
+
+/* Background Ambient Glow */
+.p10-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0,212,255,0.05) 0%, transparent 60%);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .p10-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
+  position: relative;
+  z-index: 2;
 }
 
 .p10-subtitle {
   color: var(--cyan-glow);
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 3px;
+  font-weight: 800;
+  letter-spacing: 4px;
   text-transform: uppercase;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
 }
 
 .p10-title {
-  font-size: clamp(32px, 5vw, 48px);
+  font-size: clamp(36px, 6vw, 56px);
   font-weight: 800;
   color: #fff;
   line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+.p10-title span {
+  color: #555;
 }
 
 .compare-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  width: min(1100px, 100%);
+  gap: 40px;
+  width: min(1200px, 100%);
   position: relative;
+  z-index: 2;
 }
 
 @media (max-width: 860px) {
   .compare-container {
     grid-template-columns: 1fr;
-    /* Visual trick: make the MBM card appear first on mobile to emphasize the solution */
     display: flex;
     flex-direction: column;
+    gap: 60px;
   }
 }
 
-/* Card Base */
-.compare-card {
-  padding: 50px 40px;
-  border-radius: 24px;
-  backdrop-filter: blur(35px);
-  -webkit-backdrop-filter: blur(35px);
+/* 🔴 TYPICAL AGENCY CARD (CORRUPTED) */
+.card-typical {
   position: relative;
+  padding: 50px 40px;
+  border-radius: 20px;
+  background: #050202;
+  border: 1px solid rgba(255, 50, 50, 0.15);
+  box-shadow: inset 0 0 50px rgba(255, 0, 0, 0.03);
+  transition: all 0.3s ease;
   overflow: hidden;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Left Card: Typical Agency */
-.card-typical {
-  background: linear-gradient(145deg, rgba(30, 10, 15, 0.4) 0%, rgba(10, 5, 10, 0.6) 100%);
-  border: 1px solid rgba(255, 50, 50, 0.15);
-  box-shadow: inset 0 0 40px rgba(255, 50, 50, 0.05);
+.card-typical::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,50,50,0.02) 3px, rgba(255,50,50,0.02) 3px);
+  pointer-events: none;
+}
+
+.card-typical:hover {
+  animation: glitch-anim 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+  border-color: rgba(255, 50, 50, 0.4);
+  box-shadow: inset 0 0 30px rgba(255, 0, 0, 0.1);
+}
+
+@keyframes glitch-anim {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 1px) }
+  40% { transform: translate(-1px, -1px) }
+  60% { transform: translate(2px, 1px) }
+  80% { transform: translate(1px, -1px) }
+  100% { transform: translate(0) }
 }
 
 .card-typical .card-header {
   font-size: 24px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 30px;
-  border-bottom: 1px solid rgba(255, 50, 50, 0.2);
+  color: #666;
+  margin-bottom: 40px;
+  border-bottom: 1px dashed rgba(255, 50, 50, 0.3);
   padding-bottom: 15px;
-}
-
-.compare-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.compare-list li {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 24px;
   display: flex;
-  align-items: flex-start;
-  line-height: 1.5;
+  align-items: center;
+  gap: 12px;
 }
 
-.compare-list li i {
-  font-style: normal;
-  font-size: 18px;
-  margin-right: 15px;
-  margin-top: 3px;
-  flex-shrink: 0;
+.card-typical .card-header svg {
+  width: 24px; height: 24px;
+  fill: rgba(255,50,50,0.6);
 }
 
-.card-typical .compare-list li i {
-  color: #ff4757;
-  text-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+/* 🟢 MBM VISIBILITY ENGINE (PREMIUM) */
+.card-mbm-wrapper {
+  position: relative;
+  border-radius: 20px;
+  padding: 2px; /* Space for the glowing border */
+  overflow: hidden;
 }
 
-/* Right Card: MBM */
+/* Spinning Holographic Border */
+.card-mbm-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  background: conic-gradient(from 0deg, transparent 60%, var(--cyan-glow) 80%, var(--lime-glow) 100%);
+  animation: rotate-border 4s linear infinite;
+  z-index: 0;
+}
+
+@keyframes rotate-border {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .card-mbm {
-  background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(100, 50, 255, 0.15) 50%, rgba(184, 255, 87, 0.05) 100%);
-  border: 1px solid rgba(0, 212, 255, 0.4);
-  box-shadow: 
-    0 30px 60px rgba(0,0,0,0.6),
-    inset 0 0 40px rgba(100, 50, 255, 0.2),
-    0 0 40px rgba(0, 212, 255, 0.05);
+  position: relative;
+  padding: 48px 38px;
+  border-radius: 18px;
+  background: #02040a;
+  z-index: 1;
+  height: 100%;
+  overflow: hidden;
+  box-shadow: inset 0 0 60px rgba(0, 212, 255, 0.05);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.card-mbm:hover {
-  transform: translateY(-5px);
-  box-shadow: 
-    0 40px 80px rgba(0,0,0,0.8),
-    inset 0 0 60px rgba(100, 50, 255, 0.3),
-    0 0 80px rgba(0, 212, 255, 0.2);
-  border-color: rgba(0, 212, 255, 0.7);
+/* Laser Scan Element */
+.laser-scan {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,212,255,0.1) 90%, rgba(184,255,87,0.8) 100%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 0.3s ease;
+}
+
+.card-mbm-wrapper:hover .card-mbm {
+  transform: scale(1.02);
+}
+
+.card-mbm-wrapper:hover .laser-scan {
+  opacity: 1;
+  animation: scan-down 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes scan-down {
+  0% { top: -150px; }
+  100% { top: 100%; }
 }
 
 .card-mbm .card-header {
   font-size: 28px;
   font-weight: 800;
   color: #fff;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   border-bottom: 1px solid rgba(0, 212, 255, 0.3);
   padding-bottom: 15px;
-  text-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+.card-mbm .card-header svg {
+  width: 28px; height: 28px;
+}
+
+/* Lists */
+.compare-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.compare-list li {
+  font-size: 16px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: flex-start;
+  line-height: 1.6;
+}
+
+.card-typical .compare-list li {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .card-mbm .compare-list li {
@@ -4739,73 +4833,161 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   font-weight: 500;
 }
 
-.card-mbm .compare-list li i {
-  color: var(--lime-glow);
-  text-shadow: 0 0 12px rgba(184, 255, 87, 0.6);
+/* Custom SVG Icons */
+.icon-box {
+  width: 24px;
+  height: 24px;
+  margin-right: 16px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* VS Badge in the center */
-.vs-badge {
+.icon-red svg {
+  width: 14px; height: 14px;
+  stroke: #ff4757;
+  stroke-width: 3;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 5px rgba(255, 71, 87, 0.8));
+}
+
+.icon-cyan svg {
+  width: 16px; height: 16px;
+  stroke: var(--lime-glow);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  filter: drop-shadow(0 0 8px rgba(184, 255, 87, 1));
+}
+
+/* Central Combat Badge */
+.vs-combat-badge {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  background: #020611;
-  border: 1px solid rgba(255,255,255,0.1);
+  width: 80px;
+  height: 80px;
+  background: #020205;
+  border: 1px solid rgba(0, 212, 255, 0.3);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 800;
-  font-size: 20px;
-  color: rgba(255,255,255,0.5);
-  z-index: 5;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  font-style: italic;
+  font-size: 24px;
+  color: #fff;
+  z-index: 10;
+  box-shadow: 
+    0 0 30px rgba(0,0,0,0.8),
+    inset 0 0 20px rgba(0, 212, 255, 0.2);
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
 }
 
 @media (max-width: 860px) {
-  .vs-badge {
-    display: none;
+  .vs-combat-badge {
+    position: relative;
+    top: auto; left: auto;
+    transform: none;
+    margin: -30px auto;
+    width: 60px; height: 60px;
+    font-size: 18px;
   }
 }
 </style>
 
 <section class="phase10-section" id="phase10-comparison">
+  <div class="p10-ambient-glow"></div>
+  
   <div class="p10-header">
     <div class="p10-subtitle">The Industry Standard vs Us</div>
-    <h2 class="p10-title">Why Settle For Slow?</h2>
+    <h2 class="p10-title">Why Settle For <span>Slow?</span></h2>
   </div>
 
   <div class="compare-container">
-    <div class="vs-badge">VS</div>
     
     <!-- Left Card: Typical Agency -->
-    <div class="compare-card card-typical">
-      <div class="card-header">Typical SEO Agency</div>
+    <div class="card-typical">
+      <div class="card-header">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        Typical SEO Agency
+      </div>
       <ul class="compare-list">
-        <li><i>❌</i> Takes 6-12 months just to see the needle move on Google Maps.</li>
-        <li><i>❌</i> Sends confusing automated PDFs filled with fake "traffic" metrics.</li>
-        <li><i>❌</i> Hides behind an account manager, no direct accountability.</li>
-        <li><i>❌</i> Charges you a hefty retainer forever with zero performance guarantees.</li>
+        <li>
+          <div class="icon-box icon-red">
+            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
+          </div>
+          Takes 6-12 months just to see the needle move on Google Maps.
+        </li>
+        <li>
+          <div class="icon-box icon-red">
+            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
+          </div>
+          Sends confusing automated PDFs filled with fake "traffic" metrics.
+        </li>
+        <li>
+          <div class="icon-box icon-red">
+            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
+          </div>
+          Hides behind an account manager, no direct accountability.
+        </li>
+        <li>
+          <div class="icon-box icon-red">
+            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
+          </div>
+          Charges you a hefty retainer forever with zero performance guarantees.
+        </li>
       </ul>
     </div>
 
+    <!-- Center Badge (Desktop) / Divider (Mobile) -->
+    <div class="vs-combat-badge">VS</div>
+
     <!-- Right Card: MBM -->
-    <div class="compare-card card-mbm">
-      <div class="card-header">MBM Visibility Engine</div>
-      <ul class="compare-list">
-        <li><i>✅</i> Engineered to dominate the Google 3-Pack in your 9-mile radius.</li>
-        <li><i>✅</i> We track actual customer actions: Direct phone calls, direction requests, and website visits.</li>
-        <li><i>✅</i> Direct 1-on-1 partnership with Mark Bishop (Lead Visibility Engineer).</li>
-        <li><i>✅</i> Data-backed local dominance logic—we bring results or we don't take you on.</li>
-      </ul>
+    <div class="card-mbm-wrapper">
+      <div class="card-mbm">
+        <div class="laser-scan"></div>
+        <div class="card-header">
+          <svg viewBox="0 0 24 24" fill="var(--cyan-glow)"><path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13h-13L12 6.5zM11 10v5h2v-5h-2zm0 7v2h2v-2h-2z" stroke="var(--cyan-glow)" stroke-width="1"/></svg>
+          MBM Visibility Engine
+        </div>
+        <ul class="compare-list">
+          <li>
+            <div class="icon-box icon-cyan">
+              <svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>
+            </div>
+            Engineered to dominate the Google 3-Pack in your 9-mile radius.
+          </li>
+          <li>
+            <div class="icon-box icon-cyan">
+              <svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>
+            </div>
+            We track actual customer actions: Direct phone calls, direction requests, and website visits.
+          </li>
+          <li>
+            <div class="icon-box icon-cyan">
+              <svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>
+            </div>
+            Direct 1-on-1 partnership with Mark Bishop (Lead Visibility Engineer).
+          </li>
+          <li>
+            <div class="icon-box icon-cyan">
+              <svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>
+            </div>
+            Data-backed local dominance logic—we bring results or we don't take you on.
+          </li>
+        </ul>
+      </div>
     </div>
 
   </div>
 </section>
+
 
 
 <script>
