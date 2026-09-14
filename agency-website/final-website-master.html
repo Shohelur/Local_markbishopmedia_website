@@ -5686,8 +5686,33 @@ window.addEventListener('mousemove', (e) => {
 const clock = new THREE.Clock();
 let rippleProgress = 0;
 
+// === 3D SMART AUTO-PAUSE (PERFORMANCE OPTIMIZATION) ===
+let isMasterCanvasVisible = true;
+const masterObserver = new IntersectionObserver((entries) => {
+  let anyVisible = false;
+  entries.forEach(e => {
+    if (e.isIntersecting) anyVisible = true;
+  });
+  isMasterCanvasVisible = anyVisible;
+  
+  // Hide canvas to save compositor memory when off-screen
+  const canvas = document.getElementById('master-3d-canvas');
+  if (canvas) {
+    canvas.style.display = isMasterCanvasVisible ? 'block' : 'none';
+  }
+}, { rootMargin: "100px", threshold: 0.01 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const intro = document.getElementById('intro-viewport');
+  const hero = document.getElementById('hero-viewport');
+  if (intro) masterObserver.observe(intro);
+  if (hero) masterObserver.observe(hero);
+});
+
 function animate() {
   requestAnimationFrame(animate);
+  if (!isMasterCanvasVisible) return; // 0% GPU USAGE WHEN PAUSED
+
   const time = clock.getElapsedTime();
 
   const isMob = window.innerWidth < 768;
