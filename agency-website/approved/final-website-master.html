@@ -4686,8 +4686,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   border: 1px solid rgba(255, 50, 50, 0.15);
   box-shadow: inset 0 0 50px rgba(255, 0, 0, 0.03);
   overflow: hidden;
-  transform-style: preserve-3d;
-  transition: transform 0.1s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .card-typical::before {
@@ -4696,13 +4695,12 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   top: 0; left: 0; width: 100%; height: 100%;
   background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,50,50,0.02) 3px, rgba(255,50,50,0.02) 3px);
   pointer-events: none;
-  transform: translateZ(-1px);
 }
 
 .card-typical:hover {
   animation: glitch-anim 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
   border-color: rgba(255, 50, 50, 0.4);
-  box-shadow: inset 0 0 30px rgba(255, 0, 0, 0.1), 0 20px 40px rgba(0,0,0,0.5);
+  box-shadow: inset 0 0 30px rgba(255, 0, 0, 0.1);
 }
 
 @keyframes glitch-anim {
@@ -4724,7 +4722,6 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   display: flex;
   align-items: center;
   gap: 12px;
-  transform: translateZ(20px); /* 3D pop out */
 }
 
 .card-typical .card-header svg {
@@ -4737,17 +4734,22 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   position: relative;
   border-radius: 20px;
   padding: 2px;
-  transform-style: preserve-3d;
-  background: linear-gradient(90deg, var(--cyan-glow), var(--lime-glow), #0055ff, var(--cyan-glow));
-  background-size: 300% 100%;
-  animation: pan-border 3s linear infinite;
+  overflow: hidden; /* We can safely use overflow hidden now since no 3D tilt */
 }
 
-@keyframes pan-border {
-  0% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Spinning Holographic Border */
+.card-mbm-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  background: conic-gradient(from 0deg, transparent 60%, var(--cyan-glow) 80%, var(--lime-glow) 100%);
+  animation: rotate-border 4s linear infinite;
+  z-index: 0;
 }
-  100% { transform: rotate(360deg) translateZ(-5px); }
+
+@keyframes rotate-border {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .card-mbm {
@@ -4759,8 +4761,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   height: 100%;
   overflow: hidden;
   box-shadow: inset 0 0 60px rgba(0, 212, 255, 0.05);
-  transform-style: preserve-3d;
-  transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
 }
 
 /* Laser Scan Element */
@@ -4770,21 +4771,15 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   left: 0;
   width: 100%;
   height: 150px;
-  background: linear-gradient(to bottom, transparent 0%, rgba(0,212,255,0.1) 90%, rgba(184,255,87,0.8) 100%);
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,212,255,0.05) 50%, rgba(184,255,87,0.3) 100%);
   opacity: 0;
   pointer-events: none;
-  z-index: 5;
+  z-index: 0; /* Behind the text (text is z-index: 2) */
   transition: opacity 0.3s ease;
-  transform: translateZ(5px);
 }
 
 .card-mbm-wrapper:hover .card-mbm {
-  /* Scale is handled by JS 3D tilt now, but we enhance shadow on hover */
-  box-shadow: 
-    0 40px 80px rgba(0,0,0,0.8),
-    inset 0 0 60px rgba(100, 50, 255, 0.3),
-    0 0 80px rgba(0, 212, 255, 0.2);
-  border-color: rgba(0, 212, 255, 0.7);
+  box-shadow: inset 0 0 80px rgba(0, 212, 255, 0.1);
 }
 
 .card-mbm-wrapper:hover .laser-scan {
@@ -4808,7 +4803,8 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   align-items: center;
   gap: 12px;
   text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-  transform: translateZ(30px); /* 3D pop out */
+  position: relative;
+  z-index: 2;
 }
 
 .card-mbm .card-header svg {
@@ -4821,8 +4817,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   padding: 0;
   margin: 0;
   position: relative;
-  z-index: 2;
-  transform: translateZ(25px); /* Entire list pops out in 3D */
+  z-index: 2; /* Keeps text above laser scan */
 }
 
 .compare-list li {
@@ -4991,36 +4986,8 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 </section>
 
 <script>
-// --- PHASE 10: 3D TILT EFFECT ---
-document.querySelectorAll('.p10-tilt-card').forEach(card => {
-  // Find the interactive wrapper (or just use the card itself)
-  const interactiveTarget = card.closest('.p10-tilt-wrapper') || card;
-  
-  interactiveTarget.addEventListener('mousemove', (e) => {
-    // If it's a glitch card, don't apply smooth 3D tilt, or apply it gently
-    if (card.classList.contains('card-typical')) return; 
-    
-    const rect = interactiveTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    // Max rotation 12deg
-    const rotateX = ((y - centerY) / centerY) * -12; 
-    const rotateY = ((x - centerX) / centerX) * 12;
-    
-    // Apply to the actual card inside the wrapper
-    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-  });
-  
-  interactiveTarget.addEventListener('mouseleave', () => {
-    if (card.classList.contains('card-typical')) return;
-    card.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-  });
-});
-
 // --- PHASE 10: SEQUENTIAL TYPEWRITER EFFECT ---
+
 async function startPhase10Typewriter() {
   const reds = document.querySelectorAll('.card-typical .typewriter-text');
   const greens = document.querySelectorAll('.card-mbm .typewriter-text');
