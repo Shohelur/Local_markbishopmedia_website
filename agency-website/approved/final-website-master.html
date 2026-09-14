@@ -4597,8 +4597,9 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 
 
 
+
 <!-- ========================================================
-     PHASE 10: COMPARISON MATRIX (ULTRA PREMIUM)
+     PHASE 10: COMPARISON MATRIX (ULTRA PREMIUM 3D)
      ======================================================== -->
 <style>
 .phase10-section {
@@ -4664,6 +4665,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   width: min(1200px, 100%);
   position: relative;
   z-index: 2;
+  perspective: 1200px; /* Enable 3D Space */
 }
 
 @media (max-width: 860px) {
@@ -4683,8 +4685,9 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   background: #050202;
   border: 1px solid rgba(255, 50, 50, 0.15);
   box-shadow: inset 0 0 50px rgba(255, 0, 0, 0.03);
-  transition: all 0.3s ease;
   overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .card-typical::before {
@@ -4693,12 +4696,13 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   top: 0; left: 0; width: 100%; height: 100%;
   background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,50,50,0.02) 3px, rgba(255,50,50,0.02) 3px);
   pointer-events: none;
+  transform: translateZ(-1px);
 }
 
 .card-typical:hover {
   animation: glitch-anim 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
   border-color: rgba(255, 50, 50, 0.4);
-  box-shadow: inset 0 0 30px rgba(255, 0, 0, 0.1);
+  box-shadow: inset 0 0 30px rgba(255, 0, 0, 0.1), 0 20px 40px rgba(0,0,0,0.5);
 }
 
 @keyframes glitch-anim {
@@ -4720,6 +4724,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   display: flex;
   align-items: center;
   gap: 12px;
+  transform: translateZ(20px); /* 3D pop out */
 }
 
 .card-typical .card-header svg {
@@ -4731,8 +4736,8 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 .card-mbm-wrapper {
   position: relative;
   border-radius: 20px;
-  padding: 2px; /* Space for the glowing border */
-  overflow: hidden;
+  padding: 2px;
+  transform-style: preserve-3d;
 }
 
 /* Spinning Holographic Border */
@@ -4743,11 +4748,13 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   background: conic-gradient(from 0deg, transparent 60%, var(--cyan-glow) 80%, var(--lime-glow) 100%);
   animation: rotate-border 4s linear infinite;
   z-index: 0;
+  border-radius: 20px;
+  transform: translateZ(-5px); /* Keep border flat behind card */
 }
 
 @keyframes rotate-border {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% { transform: rotate(0deg) translateZ(-5px); }
+  100% { transform: rotate(360deg) translateZ(-5px); }
 }
 
 .card-mbm {
@@ -4759,7 +4766,8 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   height: 100%;
   overflow: hidden;
   box-shadow: inset 0 0 60px rgba(0, 212, 255, 0.05);
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out, box-shadow 0.3s ease;
 }
 
 /* Laser Scan Element */
@@ -4774,10 +4782,16 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   pointer-events: none;
   z-index: 5;
   transition: opacity 0.3s ease;
+  transform: translateZ(5px);
 }
 
 .card-mbm-wrapper:hover .card-mbm {
-  transform: scale(1.02);
+  /* Scale is handled by JS 3D tilt now, but we enhance shadow on hover */
+  box-shadow: 
+    0 40px 80px rgba(0,0,0,0.8),
+    inset 0 0 60px rgba(100, 50, 255, 0.3),
+    0 0 80px rgba(0, 212, 255, 0.2);
+  border-color: rgba(0, 212, 255, 0.7);
 }
 
 .card-mbm-wrapper:hover .laser-scan {
@@ -4801,6 +4815,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   align-items: center;
   gap: 12px;
   text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+  transform: translateZ(30px); /* 3D pop out */
 }
 
 .card-mbm .card-header svg {
@@ -4814,6 +4829,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   margin: 0;
   position: relative;
   z-index: 2;
+  transform: translateZ(25px); /* Entire list pops out in 3D */
 }
 
 .compare-list li {
@@ -4868,7 +4884,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) translateZ(40px);
   width: 80px;
   height: 80px;
   background: #020205;
@@ -4899,6 +4915,15 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     font-size: 18px;
   }
 }
+
+/* Typewriter Cursor */
+.typing-cursor::after {
+  content: '|';
+  animation: blink 0.8s step-end infinite;
+  color: var(--cyan-glow);
+  margin-left: 2px;
+}
+@keyframes blink { 50% { opacity: 0; } }
 </style>
 
 <section class="phase10-section" id="phase10-comparison">
@@ -4912,45 +4937,37 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   <div class="compare-container">
     
     <!-- Left Card: Typical Agency -->
-    <div class="card-typical">
+    <div class="card-typical p10-tilt-card">
       <div class="card-header">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
         Typical SEO Agency
       </div>
       <ul class="compare-list">
         <li>
-          <div class="icon-box icon-red">
-            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
-          </div>
-          Takes 6-12 months just to see the needle move on Google Maps.
+          <div class="icon-box icon-red"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg></div>
+          <span class="typewriter-text" data-text="Takes 6-12 months just to see the needle move on Google Maps."></span>
         </li>
         <li>
-          <div class="icon-box icon-red">
-            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
-          </div>
-          Sends confusing automated PDFs filled with fake "traffic" metrics.
+          <div class="icon-box icon-red"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg></div>
+          <span class="typewriter-text" data-text="Sends confusing automated PDFs filled with fake 'traffic' metrics."></span>
         </li>
         <li>
-          <div class="icon-box icon-red">
-            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
-          </div>
-          Hides behind an account manager, no direct accountability.
+          <div class="icon-box icon-red"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg></div>
+          <span class="typewriter-text" data-text="Hides behind an account manager, no direct accountability."></span>
         </li>
         <li>
-          <div class="icon-box icon-red">
-            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
-          </div>
-          Charges you a hefty retainer forever with zero performance guarantees.
+          <div class="icon-box icon-red"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg></div>
+          <span class="typewriter-text" data-text="Charges you a hefty retainer forever with zero performance guarantees."></span>
         </li>
       </ul>
     </div>
 
-    <!-- Center Badge (Desktop) / Divider (Mobile) -->
+    <!-- Center Badge -->
     <div class="vs-combat-badge">VS</div>
 
     <!-- Right Card: MBM -->
-    <div class="card-mbm-wrapper">
-      <div class="card-mbm">
+    <div class="card-mbm-wrapper p10-tilt-wrapper">
+      <div class="card-mbm p10-tilt-card">
         <div class="laser-scan"></div>
         <div class="card-header">
           <svg viewBox="0 0 24 24" fill="var(--cyan-glow)"><path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13h-13L12 6.5zM11 10v5h2v-5h-2zm0 7v2h2v-2h-2z" stroke="var(--cyan-glow)" stroke-width="1"/></svg>
@@ -4958,28 +4975,20 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         </div>
         <ul class="compare-list">
           <li>
-            <div class="icon-box icon-cyan">
-              <svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>
-            </div>
-            Engineered to dominate the Google 3-Pack in your 9-mile radius.
+            <div class="icon-box icon-cyan"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div>
+            <span class="typewriter-text" data-text="Engineered to dominate the Google 3-Pack in your 9-mile radius."></span>
           </li>
           <li>
-            <div class="icon-box icon-cyan">
-              <svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>
-            </div>
-            We track actual customer actions: Direct phone calls, direction requests, and website visits.
+            <div class="icon-box icon-cyan"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div>
+            <span class="typewriter-text" data-text="We track actual customer actions: Direct phone calls, direction requests, and website visits."></span>
           </li>
           <li>
-            <div class="icon-box icon-cyan">
-              <svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>
-            </div>
-            Direct 1-on-1 partnership with Mark Bishop (Lead Visibility Engineer).
+            <div class="icon-box icon-cyan"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div>
+            <span class="typewriter-text" data-text="Direct 1-on-1 partnership with Mark Bishop (Lead Visibility Engineer)."></span>
           </li>
           <li>
-            <div class="icon-box icon-cyan">
-              <svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>
-            </div>
-            Data-backed local dominance logic—we bring results or we don't take you on.
+            <div class="icon-box icon-cyan"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div>
+            <span class="typewriter-text" data-text="Data-backed local dominance logic—we bring results or we don't take you on."></span>
           </li>
         </ul>
       </div>
@@ -4987,6 +4996,77 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 
   </div>
 </section>
+
+<script>
+// --- PHASE 10: 3D TILT EFFECT ---
+document.querySelectorAll('.p10-tilt-card').forEach(card => {
+  // Find the interactive wrapper (or just use the card itself)
+  const interactiveTarget = card.closest('.p10-tilt-wrapper') || card;
+  
+  interactiveTarget.addEventListener('mousemove', (e) => {
+    // If it's a glitch card, don't apply smooth 3D tilt, or apply it gently
+    if (card.classList.contains('card-typical')) return; 
+    
+    const rect = interactiveTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    // Max rotation 12deg
+    const rotateX = ((y - centerY) / centerY) * -12; 
+    const rotateY = ((x - centerX) / centerX) * 12;
+    
+    // Apply to the actual card inside the wrapper
+    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+  });
+  
+  interactiveTarget.addEventListener('mouseleave', () => {
+    if (card.classList.contains('card-typical')) return;
+    card.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+  });
+});
+
+// --- PHASE 10: SEQUENTIAL TYPEWRITER EFFECT ---
+async function startPhase10Typewriter() {
+  const texts = document.querySelectorAll('#phase10-comparison .typewriter-text');
+  
+  for (let span of texts) {
+    const fullText = span.getAttribute('data-text');
+    span.textContent = ''; // clear first
+    span.classList.add('typing-cursor');
+    
+    for (let i = 0; i < fullText.length; i++) {
+      span.textContent += fullText[i];
+      // Randomize typing speed slightly for human feel (15ms to 35ms)
+      const speed = Math.floor(Math.random() * 20) + 15; 
+      await new Promise(r => setTimeout(r, speed));
+    }
+    
+    span.classList.remove('typing-cursor');
+    // Pause briefly before typing the next bullet point
+    await new Promise(r => setTimeout(r, 300));
+  }
+}
+
+// Trigger when the section scrolls into view
+const p10Observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      if (!entry.target.hasAttribute('data-typed')) {
+        entry.target.setAttribute('data-typed', 'true');
+        // Clear all text immediately before typing starts
+        document.querySelectorAll('#phase10-comparison .typewriter-text').forEach(t => t.textContent = '');
+        startPhase10Typewriter();
+      }
+    }
+  });
+}, { threshold: 0.3 });
+
+const p10Section = document.getElementById('phase10-comparison');
+if (p10Section) p10Observer.observe(p10Section);
+</script>
+
 
 
 
