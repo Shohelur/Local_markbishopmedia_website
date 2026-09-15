@@ -8694,7 +8694,7 @@ function closeFaqModal() {
         </div>
         <div class="audit-input-group">
           <label>What is your biggest local visibility challenge?</label>
-          <textarea placeholder="e.g., We rank #7 on Maps and competitors are getting all the calls..." style="width: 100%; padding: 14px 16px; background: rgba(4, 11, 20, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: white; font-size: 1rem; outline: none; transition: all 0.3s ease; resize: vertical; min-height: 80px; font-family: inherit;"></textarea>
+          <textarea placeholder="e.g., We rank #7 on Maps and competitors are getting all the calls..." style="resize: vertical; min-height: 80px; font-family: inherit;"></textarea>
         </div>
         <button type="submit" class="p11-submit-btn" style="width: 100%; margin-top: 15px;" id="audit-submit-btn">
           ⚡ Initialize Scan
@@ -8741,7 +8741,9 @@ function closeFaqModal() {
         0 0 40px rgba(255, 0, 255, 0.15), 
         inset 0 2px 10px rgba(255, 255, 255, 0.1) !important;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
+      max-height: 90vh;
       z-index: 1;
     }
     
@@ -8786,6 +8788,12 @@ function closeFaqModal() {
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       color: white;
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1rem;
+      box-sizing: border-box;
+      outline: none;
+      transition: all 0.3s ease;
     }
     
     .audit-modal-header {
