@@ -7543,7 +7543,7 @@ window.addEventListener('load', () => {
       <div class="p11-form-glass" id="p11-form-container">
         <div class="p11-form-header">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-glow)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-          Let's <span>Connect</span>
+          How can we <span>Help?</span>
         </div>
         
         <form id="p11-booking-form" onsubmit="handlePhase11Submit(event)">
@@ -7602,6 +7602,8 @@ function toggleAuditCTA(checkbox) {
     const btn = document.getElementById('p11-submit-btn');
     const dynamicGroup = document.getElementById('dynamic-city-zip-group');
     const cityZipInput = document.getElementById('dyn-city-zip');
+    const msgLabel = document.getElementById('dyn-message-label');
+    const msgInput = document.getElementById('dyn-message-input');
     
     if (!btn || !dynamicGroup || !cityZipInput) return;
     
@@ -7610,16 +7612,20 @@ function toggleAuditCTA(checkbox) {
       btn.style.boxShadow = '0 0 30px rgba(184, 255, 87, 0.4)';
       dynamicGroup.style.display = 'block';
       cityZipInput.setAttribute('required', 'true');
+      if (msgLabel) msgLabel.innerHTML = 'What is your biggest local visibility challenge?';
+      if (msgInput) msgInput.placeholder = 'e.g., We rank #7 on Maps and competitors are getting all the calls...';
     } else {
       btn.innerHTML = '📞 Request a call';
       btn.style.boxShadow = '';
       dynamicGroup.style.display = 'none';
       cityZipInput.removeAttribute('required');
       cityZipInput.value = '';
+      if (msgLabel) msgLabel.innerHTML = 'How can Mark help you grow your business?';
+      if (msgInput) msgInput.placeholder = "e.g., I'd like to discuss a custom marketing plan...";
     }
   }
 
-function handlePhase11Submit(e) {
+  function handlePhase11Submit(e) {
   e.preventDefault();
   
   const btn = document.getElementById('p11-submit-btn');
@@ -7637,6 +7643,8 @@ function handlePhase11Submit(e) {
 
   setTimeout(() => {
       document.getElementById('p11-booking-form').style.display = 'none';
+      const header = document.querySelector('.p11-form-header');
+      if(header) header.style.display = 'none';
       
       const checkbox = document.getElementById('request-audit-check');
       const successTitle = document.getElementById('p11-success-title');
