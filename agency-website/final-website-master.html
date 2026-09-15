@@ -7855,16 +7855,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 <!-- ==============================================
-     PHASE 13: MAGNETIC V2 DASHBOARD (SLIM)
+     PHASE 13: MAGNETIC V2 DASHBOARD (ULTRA SLIM)
 =============================================== -->
 <style>
   #phase13-cyber-footer {
     position: relative;
     width: 100%;
     min-height: auto;
-    padding: 60px 20px 40px; /* Slim outer padding */
+    padding: 40px 20px; /* Slimmer outer padding */
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
     border-top: 1px solid rgba(0, 212, 255, 0.1);
     z-index: 10;
@@ -7881,7 +7881,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pointer-events: none; 
   }
 
-  /* The V2 Frosted Glass Dashboard - SLIM */
+  /* The V2 Frosted Glass Dashboard - ULTRA SLIM */
   .v2-dashboard {
     position: relative;
     z-index: 10;
@@ -7892,13 +7892,12 @@ document.addEventListener('DOMContentLoaded', () => {
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 30px;
-    padding: 40px 50px; /* SLIM PADDING */
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr;
-    gap: 50px;
+    padding: 40px 50px 20px 50px; /* Slimmer padding, tighter bottom */
+    display: flex;
+    flex-direction: column;
     box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
     
-    /* Glow tracking effect setup */
+    /* Glow tracking */
     background-image: radial-gradient(
       circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
       rgba(0, 212, 255, 0.1) 0%, 
@@ -7906,15 +7905,21 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  /* Brand Section with Liquid Metal */
+  .v2-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.2fr;
+    gap: 40px; /* Tighter gap */
+  }
+
+  /* Brand Section */
   .v2-brand .p13-brand-logo {
     display: flex;
     align-items: center;
-    gap: 15px;
-    font-size: 2.2rem;
+    gap: 12px;
+    font-size: 2rem;
     font-weight: 800;
     letter-spacing: -1px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     
     /* Liquid Metal Gradient Text */
     background: linear-gradient(135deg, #ffffff 0%, #b8ff57 50%, #00d4ff 100%);
@@ -7930,38 +7935,38 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   .v2-brand .p13-brand-logo svg {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     filter: drop-shadow(0 0 10px var(--cyan-glow));
   }
   
   .v2-brand .p13-tagline {
     color: var(--text-muted);
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1.6;
     max-width: 350px;
   }
 
   /* Links Section */
   .p13-col-title {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--text-muted);
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     font-weight: 600;
   }
   
   .p13-links-col {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
   }
   
   .p13-link-item {
     color: var(--text-main);
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 400;
     transition: all 0.3s ease;
     position: relative;
@@ -7992,7 +7997,7 @@ document.addEventListener('DOMContentLoaded', () => {
   .p13-contact-col {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px; /* Tighter */
   }
   
   .magnetic-wrap {
@@ -8005,22 +8010,22 @@ document.addEventListener('DOMContentLoaded', () => {
   .magnetic-btn {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 14px 24px;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 12px 20px; /* Slimmer padding inside button */
     border-radius: 12px;
     color: var(--text-main);
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 500;
     text-decoration: none;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s, box-shadow 0.3s;
     will-change: transform; 
   }
   
   .magnetic-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     color: var(--cyan-glow);
     transition: all 0.3s;
   }
@@ -8036,28 +8041,30 @@ document.addEventListener('DOMContentLoaded', () => {
     filter: drop-shadow(0 0 8px var(--cyan-glow));
   }
 
-  /* Neon Horizon Bottom Bar */
+  /* Neon Horizon Bottom Bar (NOW INSIDE THE DASHBOARD) */
   .p13-bottom-bar {
-    position: relative;
     width: 100%;
-    max-width: 1200px;
-    margin: 40px auto 0;
+    margin-top: 40px;
     padding-top: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    z-index: 10;
+  }
+  
+  .p13-copyright, .p13-status {
+    color: var(--text-muted);
+    font-size: 0.85rem;
   }
 
   @media (max-width: 960px) {
-    .v2-dashboard {
+    .v2-dashboard-grid {
       grid-template-columns: 1fr;
       gap: 40px;
     }
     .p13-bottom-bar {
       flex-direction: column;
-      gap: 20px;
+      gap: 15px;
       text-align: center;
     }
   }
@@ -8067,55 +8074,55 @@ document.addEventListener('DOMContentLoaded', () => {
   <canvas id="p13-ribbon-canvas"></canvas>
 
   <div class="v2-dashboard" id="v2-dashboard">
-    
-    <!-- Brand -->
-    <div class="v2-brand">
-      <div class="p13-brand-logo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        Mark Bishop Media
+    <div class="v2-dashboard-grid">
+      <!-- Brand -->
+      <div class="v2-brand">
+        <div class="p13-brand-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Mark Bishop Media
+        </div>
+        <div class="p13-tagline">
+          The Local Visibility Operating System. <br>We build dominance for local businesses through data, strategy, and execution.
+        </div>
       </div>
-      <div class="p13-tagline">
-        The Local Visibility Operating System. <br>We build dominance for local businesses through data, strategy, and execution.
+
+      <!-- Quick Links -->
+      <div class="p13-links-col">
+        <div class="p13-col-title">Navigation</div>
+        <a href="#" class="p13-link-item">Free Audit</a>
+        <a href="#" class="p13-link-item">Local SEO Strategy</a>
+        <a href="#" class="p13-link-item">Client Results</a>
+        <a href="#" class="p13-link-item">About Mark</a>
       </div>
-    </div>
 
-    <!-- Quick Links -->
-    <div class="p13-links-col">
-      <div class="p13-col-title">Navigation</div>
-      <a href="#" class="p13-link-item">Free Audit</a>
-      <a href="#" class="p13-link-item">Local SEO Strategy</a>
-      <a href="#" class="p13-link-item">Client Results</a>
-      <a href="#" class="p13-link-item">About Mark</a>
-    </div>
-
-    <!-- Contact Nodes (Magnetic Buttons) -->
-    <div class="p13-contact-col">
-      <div class="p13-col-title">Connect</div>
-      
-      <div class="magnetic-wrap">
-        <a href="#" class="magnetic-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-          Tucson, Arizona, USA
-        </a>
+      <!-- Contact Nodes (Magnetic Buttons) -->
+      <div class="p13-contact-col">
+        <div class="p13-col-title">Connect</div>
+        
+        <div class="magnetic-wrap">
+          <a href="#" class="magnetic-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Tucson, Arizona, USA
+          </a>
+        </div>
+        
+        <div class="magnetic-wrap">
+          <a href="#" class="magnetic-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            mark@markbishopmedia.com
+          </a>
+        </div>
       </div>
-      
-      <div class="magnetic-wrap">
-        <a href="#" class="magnetic-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-          mark@markbishopmedia.com
-        </a>
+    </div> <!-- END GRID -->
+
+    <!-- BOTTOM BAR INSIDE THE GLASS BOX -->
+    <div class="p13-bottom-bar">
+      <div class="p13-copyright">
+        © 2026 Mark Bishop Media. All rights reserved.
       </div>
-    </div>
-
-  </div>
-
-  <div class="p13-bottom-bar">
-    <div class="p13-copyright">
-      © 2026 Mark Bishop Media. All rights reserved.
-    </div>
-    <div class="p13-status">
-      <div class="p13-status-dot"></div>
-      All systems operational
+      <div class="p13-status">
+        Designed for Dominance.
+      </div>
     </div>
   </div>
 </footer>
