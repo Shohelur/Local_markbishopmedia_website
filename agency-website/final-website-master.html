@@ -5129,7 +5129,7 @@ function triggerPhase10Victory() {
     startVelocity: 30, 
     spread: 360, 
     ticks: 60, 
-    zIndex: 9999, 
+    zIndex: 99999999, 
     colors: ['#ffbe0b', '#fb5607', '#ff006e', '#8338ec', '#3a86ff', '#00d4ff', '#b8ff57', '#ff00ff', '#ffff00', '#00ff00'] // Multicolored
   };
 
@@ -7708,7 +7708,7 @@ function toggleAuditCTA(checkbox) {
   
         const duration = 6000;
         const animationEnd = Date.now() + duration;
-        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 99999999 };
   
         const interval = setInterval(function() {
           const timeLeft = animationEnd - Date.now();
@@ -8980,7 +8980,7 @@ function closeFaqModal() {
   
         const duration = 6000;
         const animationEnd = Date.now() + duration;
-        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 99999999 };
   
         const interval = setInterval(function() {
           const timeLeft = animationEnd - Date.now();
