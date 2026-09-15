@@ -13,8 +13,8 @@ css_injection = """
   #phase13-cyber-footer {
     position: relative;
     width: 100%;
-    min-height: auto; /* Allow content to dictate height */
-    padding: 60px 20px; /* Slimmer padding */
+    min-height: auto;
+    padding: 60px 20px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -40,7 +40,7 @@ css_injection = """
     font-weight: 800;
     letter-spacing: -1px;
     margin-bottom: 20px;
-    color: #ffffff; /* Solid white as per screenshot */
+    color: #ffffff;
   }
 
   .p13-brand-col .p13-brand-logo svg {
@@ -180,15 +180,8 @@ css_injection = """
   }
 """
 
-# Replace old CSS for Phase 13
-# We need to find the old Phase 13 CSS block and replace it.
-css_start = html.find('/* =========================================\n     PHASE 13: CYBER FOOTER (ULTRA-PREMIUM)\n     ========================================= */')
-css_end = html.find('</style>', css_start)
-
-if css_start != -1 and css_end != -1:
-    html = html[:css_start] + css_injection + "\n" + html[css_end:]
-else:
-    print("Could not find Phase 13 CSS block.")
+# Replace old CSS for Phase 13 using robust regex
+html = re.sub(r'/\* =+[\s\S]*?PHASE 13: CYBER FOOTER[\s\S]*?</style>', css_injection + '\n</style>', html)
 
 # 2. Update HTML for Phase 13
 new_html = """<footer id="phase13-cyber-footer">
@@ -246,13 +239,8 @@ new_html = """<footer id="phase13-cyber-footer">
   </div>
 </footer>"""
 
-html_start = html.find('<footer id="phase13-cyber-footer">')
-html_end = html.find('</footer>', html_start) + len('</footer>')
-
-if html_start != -1 and html_end != -1:
-    html = html[:html_start] + new_html + html[html_end:]
-else:
-    print("Could not find Phase 13 HTML block.")
+# Ensure we replace ONLY the footer HTML up to its end tag
+html = re.sub(r'<footer id="phase13-cyber-footer">.*?</footer>', new_html, html, flags=re.DOTALL)
 
 # 3. Inject JS for Magnetic Physics
 magnetic_js = """
@@ -283,13 +271,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 """
+
 # Inject JS right before </script> of Phase 13
-js_end = html.find('</script>\n<!-- ==============================================\n     END PHASE 13')
-if js_end != -1:
-    html = html[:js_end] + magnetic_js + html[js_end:]
-else:
-    print("Could not find JS insertion point.")
+html = re.sub(r'</script>\s*<!-- =+[\s\S]*?END PHASE 13', magnetic_js + '\n</script>\n<!-- ==============================================\n     END PHASE 13', html)
 
 with open(master_path, 'w', encoding='utf-8') as f:
     f.write(html)
-print("Magnetic Slim Footer injected.")
+print("Magnetic Slim Footer injected successfully.")
