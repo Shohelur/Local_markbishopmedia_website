@@ -8068,19 +8068,12 @@ document.addEventListener('DOMContentLoaded', () => {
 </style>
 
 <footer id="phase13-cyber-footer">
-  <canvas id="p13-ribbon-canvas"></canvas>
-  
-  <!-- Massive Background Watermark -->
-  <div class="p13-footer-watermark">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-  </div>
-
   <div class="p13-footer-content">
     
     <!-- Brand -->
     <div class="p13-brand-col">
       <div class="p13-brand-logo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan-glow)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         Mark Bishop Media
       </div>
       <div class="p13-tagline">
@@ -8097,18 +8090,22 @@ document.addEventListener('DOMContentLoaded', () => {
       <a href="#" class="p13-link-item">About Mark</a>
     </div>
 
-    <!-- Contact Nodes -->
+    <!-- Contact Nodes (Magnetic Buttons) -->
     <div class="p13-contact-col">
       <div class="p13-col-title">Connect</div>
       
-      <div class="p13-contact-node">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-        Tucson, Arizona, USA
+      <div class="magnetic-wrap">
+        <a href="#" class="magnetic-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Tucson, Arizona, USA
+        </a>
       </div>
       
-      <div class="p13-contact-node">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-        mark@markbishopmedia.com
+      <div class="magnetic-wrap">
+        <a href="#" class="magnetic-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          mark@markbishopmedia.com
+        </a>
       </div>
     </div>
 
@@ -8270,6 +8267,60 @@ document.addEventListener('DOMContentLoaded', () => {
     resize();
     animate();
   }, 100);
+});
+
+// --- MAGNETIC BUTTON PHYSICS ---
+document.addEventListener('DOMContentLoaded', () => {
+  const magneticWrappers = document.querySelectorAll('.magnetic-wrap');
+  
+  magneticWrappers.forEach(wrap => {
+    const btn = wrap.querySelector('.magnetic-btn');
+    if (!btn) return;
+    
+    wrap.addEventListener('mousemove', (e) => {
+      const rect = wrap.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      
+      const pullX = x * 0.4;
+      const pullY = y * 0.4;
+      
+      btn.style.transition = 'none';
+      btn.style.transform = `translate(${pullX}px, ${pullY}px)`;
+    });
+    
+    wrap.addEventListener('mouseleave', () => {
+      btn.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+      btn.style.transform = 'translate(0px, 0px)';
+    });
+  });
+});
+
+// --- MAGNETIC BUTTON PHYSICS ---
+document.addEventListener('DOMContentLoaded', () => {
+  const magneticWrappers = document.querySelectorAll('.magnetic-wrap');
+  
+  magneticWrappers.forEach(wrap => {
+    const btn = wrap.querySelector('.magnetic-btn');
+    if (!btn) return;
+    
+    wrap.addEventListener('mousemove', (e) => {
+      const rect = wrap.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      
+      const pullX = x * 0.4;
+      const pullY = y * 0.4;
+      
+      btn.style.transition = 'none';
+      btn.style.transform = `translate(${pullX}px, ${pullY}px)`;
+    });
+    
+    wrap.addEventListener('mouseleave', () => {
+      btn.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+      btn.style.transform = 'translate(0px, 0px)';
+    });
+  });
 });
 </script>
 <!-- ==============================================
