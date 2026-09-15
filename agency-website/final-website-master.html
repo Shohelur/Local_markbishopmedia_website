@@ -7547,13 +7547,15 @@ window.addEventListener('load', () => {
         </div>
         
         <form id="p11-booking-form" onsubmit="handlePhase11Submit(event)">
-            <div class="p11-input-group">
-              <label>Full Name</label>
-              <input type="text" class="p11-input" required placeholder="John Doe">
-            </div>
-            <div class="p11-input-group">
-              <label>Business Name</label>
-              <input type="text" class="p11-input" required placeholder="Doe Plumbing & HVAC">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div class="p11-input-group">
+                <label>Full Name</label>
+                <input type="text" class="p11-input" required placeholder="John Doe">
+              </div>
+              <div class="p11-input-group">
+                <label>Business Name</label>
+                <input type="text" class="p11-input" required placeholder="Doe Plumbing & HVAC">
+              </div>
             </div>
             
             <!-- Dynamic Audit Field (Hidden by default) -->
