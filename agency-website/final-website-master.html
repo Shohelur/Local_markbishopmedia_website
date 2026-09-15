@@ -7855,32 +7855,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 <!-- ==============================================
-     PHASE 13: MAGNETIC SLIM FOOTER
+     PHASE 13: MAGNETIC V2 DASHBOARD (SLIM)
 =============================================== -->
 <style>
   #phase13-cyber-footer {
     position: relative;
     width: 100%;
     min-height: auto;
-    padding: 60px 20px; 
+    padding: 60px 20px 40px; /* Slim outer padding */
     display: flex;
     flex-direction: column;
     align-items: center;
     border-top: 1px solid rgba(0, 212, 255, 0.1);
     z-index: 10;
+    overflow: hidden;
   }
   
-  .p13-footer-content {
+  #p13-ribbon-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 1300px;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 60px;
-    z-index: 10;
+    height: 100%;
+    z-index: 0; 
+    pointer-events: none; 
   }
 
-  /* Brand Section */
-  .p13-brand-col .p13-brand-logo {
+  /* The V2 Frosted Glass Dashboard - SLIM */
+  .v2-dashboard {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1200px;
+    background: rgba(10, 15, 30, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 30px;
+    padding: 40px 50px; /* SLIM PADDING */
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 50px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+    
+    /* Glow tracking effect setup */
+    background-image: radial-gradient(
+      circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+      rgba(0, 212, 255, 0.1) 0%, 
+      transparent 50%
+    );
+  }
+
+  /* Brand Section with Liquid Metal */
+  .v2-brand .p13-brand-logo {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -7888,17 +7915,27 @@ document.addEventListener('DOMContentLoaded', () => {
     font-weight: 800;
     letter-spacing: -1px;
     margin-bottom: 20px;
-    color: #ffffff;
+    
+    /* Liquid Metal Gradient Text */
+    background: linear-gradient(135deg, #ffffff 0%, #b8ff57 50%, #00d4ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradientShift 5s ease infinite;
+  }
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 
-  .p13-brand-col .p13-brand-logo svg {
+  .v2-brand .p13-brand-logo svg {
     width: 40px;
     height: 40px;
-    stroke: var(--cyan-glow);
     filter: drop-shadow(0 0 10px var(--cyan-glow));
   }
   
-  .p13-brand-col .p13-tagline {
+  .v2-brand .p13-tagline {
     color: var(--text-muted);
     font-size: 1.1rem;
     line-height: 1.6;
@@ -7979,8 +8016,6 @@ document.addEventListener('DOMContentLoaded', () => {
     text-decoration: none;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s, box-shadow 0.3s;
     will-change: transform; 
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
   }
   
   .magnetic-btn svg {
@@ -8005,18 +8040,18 @@ document.addEventListener('DOMContentLoaded', () => {
   .p13-bottom-bar {
     position: relative;
     width: 100%;
-    max-width: 1300px;
+    max-width: 1200px;
     margin: 40px auto 0;
     padding-top: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid rgba(0, 212, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     z-index: 10;
   }
 
   @media (max-width: 960px) {
-    .p13-footer-content {
+    .v2-dashboard {
       grid-template-columns: 1fr;
       gap: 40px;
     }
@@ -8029,12 +8064,14 @@ document.addEventListener('DOMContentLoaded', () => {
 </style>
 
 <footer id="phase13-cyber-footer">
-  <div class="p13-footer-content">
+  <canvas id="p13-ribbon-canvas"></canvas>
+
+  <div class="v2-dashboard" id="v2-dashboard">
     
     <!-- Brand -->
-    <div class="p13-brand-col">
+    <div class="v2-brand">
       <div class="p13-brand-logo">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         Mark Bishop Media
       </div>
       <div class="p13-tagline">
@@ -8051,7 +8088,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <a href="#" class="p13-link-item">About Mark</a>
     </div>
 
-    <!-- Contact Nodes -->
+    <!-- Contact Nodes (Magnetic Buttons) -->
     <div class="p13-contact-col">
       <div class="p13-col-title">Connect</div>
       
@@ -8213,31 +8250,39 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 100);
 });
 
-// --- MAGNETIC BUTTON PHYSICS ---
+// --- MAGNETIC BUTTON & GLOW TRACKING PHYSICS ---
 document.addEventListener('DOMContentLoaded', () => {
+  // Magnetic Buttons
   const magneticWrappers = document.querySelectorAll('.magnetic-wrap');
-  
   magneticWrappers.forEach(wrap => {
     const btn = wrap.querySelector('.magnetic-btn');
     if (!btn) return;
-    
     wrap.addEventListener('mousemove', (e) => {
       const rect = wrap.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
-      
       const pullX = x * 0.4;
       const pullY = y * 0.4;
-      
       btn.style.transition = 'none';
       btn.style.transform = `translate(${pullX}px, ${pullY}px)`;
     });
-    
     wrap.addEventListener('mouseleave', () => {
       btn.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
       btn.style.transform = 'translate(0px, 0px)';
     });
   });
+
+  // Glow Tracking for V2 Dashboard
+  const dashboard = document.getElementById('v2-dashboard');
+  if (dashboard) {
+    dashboard.addEventListener('mousemove', e => {
+      const rect = dashboard.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      dashboard.style.setProperty('--mouse-x', `${x}%`);
+      dashboard.style.setProperty('--mouse-y', `${y}%`);
+    });
+  }
 });
 </script>
 <!-- ==============================================
