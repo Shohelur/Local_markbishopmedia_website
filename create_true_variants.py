@@ -1,0 +1,327 @@
+import os
+
+dir_path = r'D:\Agentic OS\agency-website\mockup-studio'
+
+# Common Fluid Ocean JS Engine
+fluid_ocean_js = """
+  <script>
+    // --- V4: FLUID PARTICLE OCEAN (REPULSION PHYSICS) ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('p13-ribbon-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      
+      let width, height;
+      let particles = [];
+      
+      const NUM_PARTICLES = window.innerWidth > 768 ? 500 : 250;
+      const MOUSE_RADIUS = 150; 
+      const SPRING_FORCE = 0.02; 
+      const FRICTION = 0.85; 
+      const REPULSION_STRENGTH = 4;
+      const MAX_CONNECT_DISTANCE = 100; 
+      
+      let mouse = { x: -1000, y: -1000 };
+
+      const resize = () => {
+        const wrapper = document.getElementById('footer-wrapper');
+        width = canvas.width = wrapper.offsetWidth;
+        height = canvas.height = wrapper.offsetHeight;
+        initParticles(); 
+      };
+      
+      window.addEventListener('resize', resize);
+
+      const footer = document.getElementById('footer-wrapper');
+      footer.addEventListener('mousemove', (e) => {
+        const rect = footer.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+      
+      footer.addEventListener('mouseleave', () => {
+        mouse.x = -1000;
+        mouse.y = -1000;
+      });
+
+      class Particle {
+        constructor(x, y) {
+          this.originX = x;
+          this.originY = y;
+          this.x = x;
+          this.y = y;
+          this.vx = 0;
+          this.vy = 0;
+          this.baseRadius = Math.random() * 1.5 + 0.5;
+          this.color = Math.random() > 0.3 ? '#00d4ff' : '#b8ff57'; 
+        }
+        
+        update() {
+          let dx = mouse.x - this.x;
+          let dy = mouse.y - this.y;
+          let distanceToMouse = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distanceToMouse < MOUSE_RADIUS) {
+            let force = (MOUSE_RADIUS - distanceToMouse) / MOUSE_RADIUS;
+            let angle = Math.atan2(dy, dx);
+            let pushX = Math.cos(angle) * force * REPULSION_STRENGTH;
+            let pushY = Math.sin(angle) * force * REPULSION_STRENGTH;
+            this.vx -= pushX;
+            this.vy -= pushY;
+          }
+          
+          let springDx = this.originX - this.x;
+          let springDy = this.originY - this.y;
+          this.vx += springDx * SPRING_FORCE;
+          this.vy += springDy * SPRING_FORCE;
+          this.vx *= FRICTION;
+          this.vy *= FRICTION;
+          
+          this.x += this.vx;
+          this.y += this.vy;
+        }
+        
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.baseRadius, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+      }
+
+      function initParticles() {
+        particles = [];
+        for (let i = 0; i < NUM_PARTICLES; i++) {
+          let x = Math.random() * width;
+          let y = Math.random() * height;
+          particles.push(new Particle(x, y));
+        }
+      }
+
+      function connectParticles() {
+        for (let a = 0; a < particles.length; a++) {
+          for (let b = a + 1; b < particles.length; b++) {
+            let dx = particles[a].x - particles[b].x;
+            let dy = particles[a].y - particles[b].y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < MAX_CONNECT_DISTANCE) {
+              let opacity = 1 - (distance / MAX_CONNECT_DISTANCE);
+              ctx.beginPath();
+              ctx.moveTo(particles[a].x, particles[a].y);
+              ctx.lineTo(particles[b].x, particles[b].y);
+              ctx.strokeStyle = `rgba(0, 212, 255, ${opacity * 0.15})`; 
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      const animate = () => {
+        ctx.clearRect(0, 0, width, height);
+        connectParticles();
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        requestAnimationFrame(animate);
+      };
+      
+      setTimeout(() => {
+        resize();
+        animate();
+      }, 100);
+    });
+  </script>
+"""
+
+# ==========================================
+# VARIANT A: ULTRA-MINIMALIST PRO
+# ==========================================
+va_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Variant A: Ultra-Minimalist Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {{ margin: 0; padding-top: 50vh; background: #02050f; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }}
+    
+    #footer-wrapper {{ position: relative; width: 100%; min-height: 500px; padding: 100px 20px 40px 20px; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.05); }}
+    
+    /* Particles render over text */
+    #p13-ribbon-canvas {{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }}
+    
+    .footer-content {{ position: relative; z-index: 1; max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; }}
+    
+    /* Typography Upgrades */
+    .brand-logo {{ display: flex; align-items: center; gap: 15px; font-size: 2.5rem; font-weight: 300; letter-spacing: -1px; margin-bottom: 30px; }}
+    .brand-logo svg {{ width: 40px; height: 40px; stroke: #00d4ff; }}
+    .tagline {{ color: #8892b0; font-size: 1.1rem; line-height: 1.8; font-weight: 300; max-width: 380px; }}
+    
+    h4 {{ font-size: 0.9rem; font-weight: 300; letter-spacing: 4px; text-transform: uppercase; color: #556285; margin-bottom: 30px; }}
+    
+    ul {{ list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 20px; }}
+    
+    /* Minimalist Hover Underline */
+    .footer-link {{ color: #fff; text-decoration: none; font-size: 1.1rem; font-weight: 300; position: relative; display: inline-block; width: fit-content; transition: color 0.3s; }}
+    .footer-link::after {{ content: ''; position: absolute; left: 0; bottom: -5px; width: 0%; height: 1px; background: #00d4ff; transition: width 0.4s ease; }}
+    .footer-link:hover {{ color: #00d4ff; }}
+    .footer-link:hover::after {{ width: 100%; }}
+    
+    .contact-item {{ display: flex; align-items: center; gap: 15px; background: transparent; color: #fff; padding: 0; font-size: 1.1rem; font-weight: 300; }}
+    .contact-item svg {{ width: 22px; height: 22px; color: #b8ff57; stroke-width: 1.5; }}
+    
+    .bottom-bar {{ position: relative; z-index: 1; max-width: 1300px; margin: 80px auto 0 auto; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; display: flex; justify-content: space-between; color: #556285; font-size: 0.9rem; font-weight: 300; }}
+
+    @media (max-width: 960px) {{
+      .footer-content {{ grid-template-columns: 1fr; gap: 60px; }}
+      .bottom-bar {{ flex-direction: column; gap: 20px; text-align: center; }}
+    }}
+  </style>
+</head>
+<body>
+  <div id="footer-wrapper">
+    <canvas id="p13-ribbon-canvas"></canvas>
+    
+    <div class="footer-content">
+      <div>
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Mark Bishop Media
+        </div>
+        <div class="tagline">The Local Visibility Operating System. <br>We build dominance for local businesses through data, strategy, and execution.</div>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#" class="footer-link">Free Audit</a></li>
+          <li><a href="#" class="footer-link">Local SEO Strategy</a></li>
+          <li><a href="#" class="footer-link">Client Results</a></li>
+          <li><a href="#" class="footer-link">About Mark</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Tucson, Arizona, USA
+          </li>
+          <li class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            mark@markbishopmedia.com
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom-bar">
+      <div>&copy; 2026 Mark Bishop Media. All rights reserved.</div>
+      <div>Designed for Dominance.</div>
+    </div>
+  </div>
+{fluid_ocean_js}
+</body>
+</html>"""
+
+# ==========================================
+# VARIANT B: HOLOGRAPHIC HIGH-CONTRAST
+# ==========================================
+vb_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Variant B: Holographic High-Contrast</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {{ margin: 0; padding-top: 50vh; background: #02050f; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }}
+    
+    #footer-wrapper {{ position: relative; width: 100%; min-height: 500px; padding: 100px 20px 40px 20px; overflow: hidden; }}
+    
+    /* Particles render over text */
+    #p13-ribbon-canvas {{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }}
+    
+    .footer-content {{ position: relative; z-index: 1; max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; text-shadow: 0 0 10px rgba(0,0,0,0.8); }}
+    
+    /* High Contrast Upgrades */
+    .brand-logo {{ display: flex; align-items: center; gap: 15px; font-size: 2.5rem; font-weight: 900; letter-spacing: -2px; margin-bottom: 25px; }}
+    
+    /* Liquid Metal Text */
+    .brand-text {{ background: linear-gradient(135deg, #ffffff 0%, #b8ff57 50%, #00d4ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% 200%; animation: gradientShift 5s ease infinite; }}
+    @keyframes gradientShift {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
+    
+    .brand-logo svg {{ width: 45px; height: 45px; stroke: #fff; filter: drop-shadow(0 0 8px rgba(255,255,255,0.8)); }}
+    .tagline {{ color: #e2e8f0; font-size: 1.15rem; line-height: 1.7; font-weight: 400; max-width: 380px; text-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }}
+    
+    h4 {{ font-size: 1rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #b8ff57; margin-bottom: 25px; text-shadow: 0 0 10px rgba(184, 255, 87, 0.4); }}
+    
+    ul {{ list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 20px; }}
+    
+    /* Glow Icons */
+    .footer-link {{ display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-size: 1.1rem; font-weight: 600; transition: all 0.3s; }}
+    .footer-link svg {{ width: 18px; height: 18px; stroke: #00d4ff; opacity: 0; transform: translateX(-10px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }}
+    .footer-link:hover {{ color: #00d4ff; text-shadow: 0 0 10px rgba(0, 212, 255, 0.6); transform: translateX(10px); }}
+    .footer-link:hover svg {{ opacity: 1; transform: translateX(0); filter: drop-shadow(0 0 5px #00d4ff); }}
+    
+    .contact-item {{ display: flex; align-items: center; gap: 15px; color: #fff; font-size: 1.1rem; font-weight: 600; text-shadow: 0 0 10px rgba(0, 212, 255, 0.3); }}
+    .contact-item svg {{ width: 22px; height: 22px; color: #fff; stroke-width: 2; filter: drop-shadow(0 0 5px #b8ff57); }}
+    
+    .bottom-bar {{ position: relative; z-index: 1; max-width: 1300px; margin: 80px auto 0 auto; border-top: 1px solid rgba(0,212,255,0.2); padding-top: 30px; display: flex; justify-content: space-between; color: #8892b0; font-size: 0.95rem; font-weight: 600; text-shadow: none; }}
+
+    @media (max-width: 960px) {{
+      .footer-content {{ grid-template-columns: 1fr; gap: 60px; }}
+      .bottom-bar {{ flex-direction: column; gap: 20px; text-align: center; }}
+    }}
+  </style>
+</head>
+<body>
+  <div id="footer-wrapper">
+    <canvas id="p13-ribbon-canvas"></canvas>
+    
+    <div class="footer-content">
+      <div>
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <span class="brand-text">Mark Bishop Media</span>
+        </div>
+        <div class="tagline">The Local Visibility Operating System. <br>We build dominance for local businesses through data, strategy, and execution.</div>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#" class="footer-link"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Free Audit</a></li>
+          <li><a href="#" class="footer-link"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Local SEO Strategy</a></li>
+          <li><a href="#" class="footer-link"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Client Results</a></li>
+          <li><a href="#" class="footer-link"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>About Mark</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Tucson, Arizona, USA
+          </li>
+          <li class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            mark@markbishopmedia.com
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom-bar">
+      <div>&copy; 2026 Mark Bishop Media. All rights reserved.</div>
+      <div>Designed for Dominance.</div>
+    </div>
+  </div>
+{fluid_ocean_js}
+</body>
+</html>"""
+
+with open(os.path.join(dir_path, '13-footer-variant-a.html'), 'w', encoding='utf-8') as f:
+    f.write(va_html)
+with open(os.path.join(dir_path, '13-footer-variant-b.html'), 'w', encoding='utf-8') as f:
+    f.write(vb_html)
+
+print("Generated Variant A and B successfully!")
