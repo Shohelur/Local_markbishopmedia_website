@@ -8096,23 +8096,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* Live Neon Text Animation */
-  @keyframes liveNeonPulse {
-    0% {
-      color: var(--lime-glow);
-      text-shadow: 0 0 5px var(--lime-glow), 0 0 15px rgba(184, 255, 87, 0.8), 0 0 25px rgba(184, 255, 87, 0.5);
-    }
-    33% {
-      color: #ffffff;
-      text-shadow: 0 0 8px #ffffff, 0 0 20px var(--cyan-glow), 0 0 35px var(--cyan-glow);
-    }
-    66% {
-      color: var(--cyan-glow);
-      text-shadow: 0 0 5px var(--cyan-glow), 0 0 15px rgba(0, 212, 255, 0.8), 0 0 25px rgba(0, 212, 255, 0.5);
-    }
-    100% {
-      color: var(--lime-glow);
-      text-shadow: 0 0 5px var(--lime-glow), 0 0 15px rgba(184, 255, 87, 0.8), 0 0 25px rgba(184, 255, 87, 0.5);
+  /* Flowing Light Text Animation */
+  @keyframes textFlowLight {
+    to {
+      background-position: 200% center;
     }
   }
 
@@ -8121,8 +8108,16 @@ document.addEventListener('DOMContentLoaded', () => {
     font-size: 1.55rem; 
     font-weight: 800; 
     letter-spacing: -0.5px;
-    animation: liveNeonPulse 4s ease-in-out infinite;
-    will-change: text-shadow, color;
+    
+    /* Flowing Gradient */
+    background: linear-gradient(90deg, var(--lime-glow) 0%, var(--cyan-glow) 50%, var(--lime-glow) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textFlowLight 3s linear infinite;
+    
+    /* Static glow that doesn't wash out the text */
+    filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.5));
   }
 </style>
 
