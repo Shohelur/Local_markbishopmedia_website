@@ -7946,6 +7946,34 @@ document.addEventListener('DOMContentLoaded', () => {
     max-width: 350px;
   }
 
+  .v2-brand .p13-address {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-top: 15px;
+    padding-left: 12px;
+    border-left: 2px solid rgba(0, 212, 255, 0.3);
+  }
+
+  .v2-brand .p13-parent-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 25px;
+    padding: 10px 15px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    width: fit-content;
+  }
+  .v2-brand .p13-parent-brand svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--cyan-glow);
+  }
+
   /* Links Section */
   .p13-col-title {
     font-size: 0.85rem;
@@ -8078,10 +8106,20 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="v2-brand">
         <div class="p13-brand-logo">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          Mark Bishop Media
+          Local Mark Bishop Media
         </div>
         <div class="p13-tagline">
-          The Local Visibility Operating System. <br>We build dominance for local businesses through data, strategy, and execution.
+          Mark Bishop Media Local Visibility Growth.
+        </div>
+        
+        <div class="p13-address">
+          3939 E Broadway Blvd<br>
+          Tucson, AZ 85711
+        </div>
+
+        <div class="p13-parent-brand">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          A local growth division of Mark Bishop Media
         </div>
       </div>
 
