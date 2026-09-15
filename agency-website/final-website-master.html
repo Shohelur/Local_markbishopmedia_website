@@ -2163,7 +2163,13 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 
 
 
-</style>
+
+    @keyframes pulseGreen {
+      0% { box-shadow: 0 0 0 0 rgba(184, 255, 87, 0.4); }
+      70% { box-shadow: 0 0 0 20px rgba(184, 255, 87, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(184, 255, 87, 0); }
+    }
+  </style>
 
 </head>
 <body>
@@ -8694,9 +8700,26 @@ function closeFaqModal() {
           ⚡ Initialize Scan
         </button>
       </form>
-      <div class="p11-success-msg" id="audit-success-msg" style="display: none; text-align: center; margin-top: 30px;">
-        <h3 style="color: #b8ff57; margin-bottom: 10px;">Scan Initiated!</h3>
-        <p style="color: var(--text-muted);">We are locating your business. Mark Bishop will send the 9-mile visibility report to your email shortly.</p>
+      <div class="audit-success-wrapper" id="audit-success-msg" style="display: none; text-align: center; padding: 10px 0;">
+        <!-- Glowing Checkmark Icon -->
+        <div class="success-icon-wrapper" style="margin: 0 auto 25px auto; width: 80px; height: 80px; background: rgba(184, 255, 87, 0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(184, 255, 87, 0.3); box-shadow: 0 0 40px rgba(184, 255, 87, 0.2); animation: pulseGreen 2s infinite;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#b8ff57" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width: 40px; height: 40px; filter: drop-shadow(0 0 10px rgba(184, 255, 87, 0.8));">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        
+        <h2 style="font-size: 2.2rem; margin-bottom: 10px; color: white;">Thank You!</h2>
+        <h3 style="color: #b8ff57; margin-bottom: 25px; font-size: 1.3rem; letter-spacing: 1px; text-transform: uppercase;">Scan Initiated</h3>
+        
+        <div class="success-details-box" style="background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.2); padding: 25px 20px; border-radius: 12px; margin-bottom: 30px; box-shadow: inset 0 0 20px rgba(0,212,255,0.05);">
+          <p style="color: #cbd5e1; font-size: 1.05rem; line-height: 1.6; margin: 0;">
+            We are currently locating your business footprint. Mark Bishop will compile and send your personalized 9-mile visibility report to your email shortly.
+          </p>
+        </div>
+        
+        <button class="btn-cta-glow" onclick="closeAuditModal()" type="button" style="width: 100%; justify-content: center; font-size: 1rem; padding: 14px 24px; background: rgba(255,255,255,0.05);">
+          RETURN TO SITE
+        </button>
       </div>
     </div>
   </div>
