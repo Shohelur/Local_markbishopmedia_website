@@ -2434,7 +2434,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     <!-- 3. RIGHT ACTION GROUP -->
     <div class="nav-actions">
       <a href="#contact" class="nav-contact-link">Talk to Mark</a>
-      <a href="#audit" class="btn-cta-glow" id="mag-cta-btn">
+      <a href="javascript:void(0)" onclick="openAuditModal()" class="btn-cta-glow" id="mag-cta-btn">
         <span>⚡ FREE AUDIT</span>
         <span class="arrow-circle-badge"><span>↗</span></span>
       </a>
@@ -2585,16 +2585,16 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       <div class="mob-dropdown-cards-drawer">
         
         <!-- RESOURCE 1: FREE AUDIT SCAN -->
-        <a href="audit.html" class="mob-service-card" onclick="closeMobileDrawer()">
-          <div class="mob-card-info">
-            <div class="icon-box-maps">
-              <div class="maps-sonar-ring-1"></div>
-              <span class="pin-3d-glyph">⚡</span>
+        <a href="javascript:void(0)" class="mob-service-card" onclick="closeMobileDrawer(); openAuditModal();">
+            <div class="mob-card-info">
+              <div class="icon-box-maps">
+                <div class="maps-sonar-ring-1"></div>
+                <span class="pin-3d-glyph">⚡</span>
+              </div>
+              <span class="mob-card-title">Free 9-Mile Visibility Audit</span>
             </div>
-            <span class="mob-card-title">Free 9-Mile Visibility Audit</span>
-          </div>
-          <span class="master-metric-badge">FREE SCAN</span>
-        </a>
+            <span class="master-metric-badge">FREE SCAN</span>
+          </a>
 
         <!-- RESOURCE 2: BLOG -->
         <a href="blog.html" class="mob-service-card" onclick="closeMobileDrawer()">
@@ -4586,9 +4586,9 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
 
       <div class="roi-cta-wrapper">
-        <a href="#" class="btn-cta-glow" style="width: 100%; text-align: center; justify-content: center;">
-          STOP THE LEAK — FREE AUDIT
-        </a>
+        <a href="javascript:void(0)" onclick="openAuditModal()" class="btn-cta-glow" style="width: 100%; text-align: center; justify-content: center;">
+            STOP THE LEAK — FREE AUDIT
+          </a>
       </div>
 
     </div>
@@ -8656,6 +8656,148 @@ function closeFaqModal() {
     filter: drop-shadow(0 0 8px var(--cyan-glow));
   }
 </style>
+
+  <!-- ==============================================
+       HOLOGRAPHIC AUDIT MODAL
+  =============================================== -->
+  <div id="audit-modal-overlay" class="faq-modal-overlay">
+    <div class="faq-modal-content audit-modal-content">
+      <button class="faq-modal-close" onclick="closeAuditModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <div class="audit-modal-header">
+        <h2 class="p12-title" style="margin-bottom: 15px;">Initialize <span style="color: var(--cyan-glow);">Radar Scan</span></h2>
+        <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.5;">Just type your business name and city, our AI system will automatically locate your Google profile on the map.</p>
+      </div>
+      <form class="audit-modal-form" id="audit-modal-form" onsubmit="handleAuditSubmit(event)">
+        <div class="audit-input-group">
+          <label>Your Name</label>
+          <input type="text" required placeholder="John Doe">
+        </div>
+        <div class="audit-input-group">
+          <label>Business Name</label>
+          <input type="text" required placeholder="e.g., Bob's Plumbing">
+        </div>
+        <div class="audit-input-group">
+          <label>City / Zip Code</label>
+          <input type="text" required placeholder="e.g., Tucson, AZ">
+        </div>
+        <div class="audit-input-group">
+          <label>Email Address</label>
+          <input type="email" required placeholder="john@example.com">
+        </div>
+        <button type="submit" class="p11-submit-btn" style="width: 100%; margin-top: 15px;" id="audit-submit-btn">
+          ⚡ Initialize Scan
+        </button>
+      </form>
+      <div class="p11-success-msg" id="audit-success-msg" style="display: none; text-align: center; margin-top: 30px;">
+        <h3 style="color: #b8ff57; margin-bottom: 10px;">Scan Initiated!</h3>
+        <p style="color: var(--text-muted);">We are locating your business. Mark Bishop will send the 9-mile visibility report to your email shortly.</p>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .audit-modal-content {
+      max-width: 500px !important;
+      padding: 50px 40px !important;
+      border: 1px solid var(--cyan-glow) !important;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(0, 212, 255, 0.15), inset 0 0 20px rgba(0, 212, 255, 0.05) !important;
+    }
+    .audit-modal-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .audit-modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .audit-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .audit-input-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .audit-input-group input {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(4, 11, 20, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    .audit-input-group input:focus {
+      border-color: var(--cyan-glow);
+      box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+      background: rgba(0, 212, 255, 0.05);
+    }
+    @media (max-width: 768px) {
+      .audit-modal-content {
+        padding: 40px 20px !important;
+      }
+    }
+  </style>
+
+  <script>
+  function openAuditModal() {
+    const overlay = document.getElementById('audit-modal-overlay');
+    if(overlay) {
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  
+  function closeAuditModal() {
+    const overlay = document.getElementById('audit-modal-overlay');
+    if(overlay) {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+      // Reset form on close
+      setTimeout(() => {
+        document.getElementById('audit-modal-form').style.display = 'flex';
+        document.getElementById('audit-success-msg').style.display = 'none';
+        document.getElementById('audit-submit-btn').innerHTML = '⚡ Initialize Scan';
+        document.getElementById('audit-submit-btn').style.opacity = '1';
+        document.getElementById('audit-submit-btn').style.pointerEvents = 'all';
+      }, 300);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const auditOverlay = document.getElementById('audit-modal-overlay');
+    if(auditOverlay) {
+      auditOverlay.addEventListener('click', (e) => {
+        if (e.target === auditOverlay) {
+          closeAuditModal();
+        }
+      });
+    }
+  });
+
+  function handleAuditSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('audit-submit-btn');
+    btn.innerHTML = 'Locating Profile... <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin-icon"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>';
+    btn.style.opacity = '0.8';
+    btn.style.pointerEvents = 'none';
+    
+    // Simulate network delay
+    setTimeout(() => {
+      document.getElementById('audit-modal-form').style.display = 'none';
+      document.getElementById('audit-success-msg').style.display = 'block';
+    }, 1500);
+  }
+  </script>
 </body>
 
 </html>
