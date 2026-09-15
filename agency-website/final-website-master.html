@@ -7876,7 +7876,7 @@ document.addEventListener('DOMContentLoaded', () => {
   height: 100%;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.9;
+  opacity: 0.8;
   mix-blend-mode: screen;
 }
 
@@ -8124,15 +8124,29 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </footer>
 <script>
-// --- V2: STRIPE-BEATER HOLOGRAPHIC MESH ENGINE ---
+// --- V3: INTERACTIVE 3D PARTICLE SPHERE ENGINE ---
 document.addEventListener('DOMContentLoaded', () => {
   const canvas = document.getElementById('p13-ribbon-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   
   let width, height;
-  let time = 0;
   
+  // 3D Engine Constants
+  const FOV = 800; // Field of view
+  const NUM_PARTICLES = 600;
+  const GLOBE_RADIUS = 350; // Size of the sphere
+  
+  let particles = [];
+  
+  // Mouse interaction state
+  let mouseX = 0;
+  let mouseY = 0;
+  let targetRotationX = 0;
+  let targetRotationY = 0;
+  let currentRotationX = 0;
+  let currentRotationY = 0;
+
   const resize = () => {
     width = canvas.width = canvas.offsetWidth;
     height = canvas.height = canvas.offsetHeight;
@@ -8140,67 +8154,121 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', resize);
   resize();
 
+  // Track mouse over the footer
+  const footer = document.getElementById('phase13-cyber-footer');
+  footer.addEventListener('mousemove', (e) => {
+    const rect = footer.getBoundingClientRect();
+    // Normalize mouse position from -1 to 1
+    const x = (e.clientX - rect.left) / rect.width * 2 - 1;
+    const y = (e.clientY - rect.top) / rect.height * 2 - 1;
+    
+    // Set target rotation (limit max rotation angle)
+    targetRotationY = x * 1.5; // Look left/right
+    targetRotationX = -y * 1.5; // Look up/down
+  });
+  
+  footer.addEventListener('mouseleave', () => {
+    targetRotationX = 0;
+    targetRotationY = 0;
+  });
+
+  // Particle Class
+  class Particle {
+    constructor() {
+      // Golden ratio Fibonacci sphere distribution for even spacing
+      // Alternatively, random spherical coordinates
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos((Math.random() * 2) - 1);
+      
+      // Calculate 3D coordinates on a sphere
+      this.x = GLOBE_RADIUS * Math.sin(phi) * Math.cos(theta);
+      this.y = GLOBE_RADIUS * Math.sin(phi) * Math.sin(theta);
+      this.z = GLOBE_RADIUS * Math.cos(phi);
+      
+      // Assign random color (Cyan or Lime)
+      this.color = Math.random() > 0.3 ? '#00d4ff' : '#b8ff57';
+      this.baseRadius = Math.random() * 1.5 + 0.5;
+    }
+    
+    project(rotX, rotY) {
+      // 1. Rotate around X axis
+      let y1 = this.y * Math.cos(rotX) - this.z * Math.sin(rotX);
+      let z1 = this.y * Math.sin(rotX) + this.z * Math.cos(rotX);
+      
+      // 2. Rotate around Y axis
+      let x2 = this.x * Math.cos(rotY) + z1 * Math.sin(rotY);
+      let z2 = -this.x * Math.sin(rotY) + z1 * Math.cos(rotY);
+      let y2 = y1;
+      
+      // 3. Project to 2D screen
+      const scaleProjected = FOV / (FOV + z2);
+      const xProjected = (x2 * scaleProjected) + (width / 2);
+      const yProjected = (y2 * scaleProjected) + (height / 2);
+      
+      return {
+        x: xProjected,
+        y: yProjected,
+        scale: scaleProjected,
+        z: z2 // Keep Z for depth sorting
+      };
+    }
+  }
+
+  // Initialize particles
+  for (let i = 0; i < NUM_PARTICLES; i++) {
+    particles.push(new Particle());
+  }
+
+  let autoRotation = 0;
+
   const draw = () => {
-    // Clear and set composite operation
     ctx.globalCompositeOperation = 'source-over';
     ctx.clearRect(0, 0, width, height);
     
-    // Use screen blending for intense neon light overlap
+    // Smoothly interpolate current rotation towards target mouse rotation (Easing)
+    currentRotationX += (targetRotationX - currentRotationX) * 0.05;
+    currentRotationY += (targetRotationY - currentRotationY) * 0.05;
+    
+    // Add constant slow auto-rotation
+    autoRotation += 0.002;
+    
+    const finalRotX = currentRotationX;
+    const finalRotY = currentRotationY + autoRotation;
+
+    // Project and sort particles by depth (Z) so closer particles render on top
+    const projectedParticles = particles.map(p => {
+      const proj = p.project(finalRotX, finalRotY);
+      return { ...proj, color: p.color, baseRadius: p.baseRadius };
+    });
+    
+    projectedParticles.sort((a, b) => b.z - a.z);
+
+    // Render
     ctx.globalCompositeOperation = 'screen';
     
-    const lines = 65; // Massive density increase
-    const yOffset = height * 0.65; 
-    
-    for (let i = 0; i < lines; i++) {
-      ctx.beginPath();
+    projectedParticles.forEach(p => {
+      // Fade out particles that are far away (back of the sphere)
+      const alpha = Math.max(0.05, Math.min(1, p.scale * 1.5 - 0.5));
       
-      // Calculate depth (0.0 to 1.0)
-      const depth = i / lines; 
-      
-      const gradient = ctx.createLinearGradient(0, 0, width, 0);
-      
-      // Rich, intense colors matching MBM and Stripe's vibrancy
-      // Depth controls opacity to create atmospheric perspective
-      const alpha = 0.05 + (depth * 0.4); 
-      
-      gradient.addColorStop(0, `rgba(0, 212, 255, 0)`);
-      gradient.addColorStop(0.15, `rgba(0, 212, 255, ${alpha})`); // Cyan
-      gradient.addColorStop(0.5, `rgba(255, 0, 255, ${alpha * 0.8})`); // Magenta Core
-      gradient.addColorStop(0.85, `rgba(184, 255, 87, ${alpha})`); // Lime
-      gradient.addColorStop(1, `rgba(184, 255, 87, 0)`);
-      
-      ctx.strokeStyle = gradient;
-      
-      // Lines in "front" are thicker, lines in "back" are hair-thin (3D effect)
-      ctx.lineWidth = 0.5 + (depth * 2.5);
-      
-      const phase = i * 0.15; 
-      const speed1 = 0.008 + (depth * 0.005);
-      const speed2 = 0.012 + (depth * 0.003);
-      
-      // Complex multi-frequency wave math for liquid flow
-      const freq1 = 0.0015;
-      const freq2 = 0.0025;
-      const freq3 = 0.001;
-      
-      const amp1 = height * 0.15 * (0.5 + depth);
-      const amp2 = height * 0.1 * (0.8 + depth * 0.2);
-      const amp3 = height * 0.05;
-
-      for (let x = 0; x <= width; x += 10) {
-        // Combining 3 frequencies creates organic, non-repeating folds
-        const y = yOffset 
-                + Math.sin(x * freq1 + time * speed1 + phase) * amp1
-                + Math.cos(x * freq2 - time * speed2 + phase) * amp2
-                + Math.sin(x * freq3 + time * speed1 * 0.5) * amp3;
-                
-        if (x === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+      if (alpha > 0.05) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.baseRadius * p.scale, 0, Math.PI * 2);
+        
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = alpha;
+        
+        // Add subtle glow to front particles
+        if (p.z < 0) {
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = p.color;
+        } else {
+          ctx.shadowBlur = 0;
+        }
+        
+        ctx.fill();
       }
-      ctx.stroke();
-    }
+    });
     
-    time += 1;
     requestAnimationFrame(draw);
   };
   
