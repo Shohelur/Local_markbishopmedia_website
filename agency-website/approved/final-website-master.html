@@ -7874,7 +7874,7 @@ document.addEventListener('DOMContentLoaded', () => {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: 2;
   pointer-events: none;
   opacity: 0.8;
   mix-blend-mode: screen;
@@ -7907,15 +7907,8 @@ document.addEventListener('DOMContentLoaded', () => {
   grid-template-columns: 2fr 1fr 1fr;
   gap: 80px;
   z-index: 1;
-  background: rgba(2, 5, 15, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 24px;
-  padding: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-
 }
+
 
 .p13-brand-col {
   display: flex;
@@ -8142,7 +8135,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let particles = [];
   
   // Physics Constants
-  const NUM_PARTICLES = window.innerWidth > 768 ? 300 : 150;
+  const NUM_PARTICLES = window.innerWidth > 768 ? 500 : 250;
   const MOUSE_RADIUS = 150; // How far the "water" parts
   const SPRING_FORCE = 0.02; // How fast they snap back
   const FRICTION = 0.85; // How bouncy/fluid it feels
