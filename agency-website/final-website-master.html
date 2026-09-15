@@ -7575,9 +7575,15 @@ window.addEventListener('load', () => {
               </div>
             </div>
             <div class="p11-input-group">
-              <label id="dyn-message-label">How can Mark help you grow your business?</label>
-              <textarea class="p11-textarea" id="dyn-message-input" required placeholder="e.g., I'd like to discuss a custom marketing plan..."></textarea>
-            </div>
+                <label>How can Mark help you grow your business?</label>
+                <textarea class="p11-textarea" required placeholder="e.g., I'd like to discuss a custom marketing plan..."></textarea>
+              </div>
+              
+              <!-- Dynamic Challenge Field (Hidden by default) -->
+              <div class="p11-input-group" id="dynamic-challenge-group" style="display: none; animation: fadeIn 0.4s ease forwards; background: rgba(184,255,87,0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(184,255,87,0.2); margin-top: -10px; margin-bottom: 20px;">
+                <label style="color: #b8ff57;">What is your biggest local visibility challenge?</label>
+                <textarea class="p11-textarea" id="dyn-challenge-input" placeholder="e.g., We rank #7 on Maps and competitors are getting all the calls..." style="border-color: rgba(184,255,87,0.3); margin-top: 10px;"></textarea>
+              </div>
             <div class="p11-checkbox-group" style="margin-top: 10px; padding: 12px; background: rgba(184, 255, 87, 0.05); border-radius: 8px; border: 1px solid rgba(184, 255, 87, 0.1);">
               <input type="checkbox" id="request-audit-check" onclick="toggleAuditCTA(this)">
               <label for="request-audit-check" style="font-weight: 600; color: #b8ff57;">Also request an audit.</label>
@@ -7600,28 +7606,29 @@ window.addEventListener('load', () => {
 <script>
 function toggleAuditCTA(checkbox) {
     const btn = document.getElementById('p11-submit-btn');
-    const dynamicGroup = document.getElementById('dynamic-city-zip-group');
+    const dynamicCity = document.getElementById('dynamic-city-zip-group');
     const cityZipInput = document.getElementById('dyn-city-zip');
-    const msgLabel = document.getElementById('dyn-message-label');
-    const msgInput = document.getElementById('dyn-message-input');
+    const dynamicChallenge = document.getElementById('dynamic-challenge-group');
+    const challengeInput = document.getElementById('dyn-challenge-input');
     
-    if (!btn || !dynamicGroup || !cityZipInput) return;
+    if (!btn || !dynamicCity || !cityZipInput || !dynamicChallenge) return;
     
     if(checkbox.checked) {
       btn.innerHTML = '⚡ Claim free audit';
       btn.style.boxShadow = '0 0 30px rgba(184, 255, 87, 0.4)';
-      dynamicGroup.style.display = 'block';
+      dynamicCity.style.display = 'block';
+      dynamicChallenge.style.display = 'block';
       cityZipInput.setAttribute('required', 'true');
-      if (msgLabel) msgLabel.innerHTML = 'What is your biggest local visibility challenge?';
-      if (msgInput) msgInput.placeholder = 'e.g., We rank #7 on Maps and competitors are getting all the calls...';
+      challengeInput.setAttribute('required', 'true');
     } else {
       btn.innerHTML = '📞 Request a call';
       btn.style.boxShadow = '';
-      dynamicGroup.style.display = 'none';
+      dynamicCity.style.display = 'none';
+      dynamicChallenge.style.display = 'none';
       cityZipInput.removeAttribute('required');
+      challengeInput.removeAttribute('required');
       cityZipInput.value = '';
-      if (msgLabel) msgLabel.innerHTML = 'How can Mark help you grow your business?';
-      if (msgInput) msgInput.placeholder = "e.g., I'd like to discuss a custom marketing plan...";
+      challengeInput.value = '';
     }
   }
 
