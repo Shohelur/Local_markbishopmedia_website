@@ -8318,8 +8318,15 @@ document.addEventListener('DOMContentLoaded', () => {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
     </button>
     <section id="phase12-premium-faq">
-  <div class="p12-header">
-    <h2 class="p12-title">Frequently Asked <span>Questions</span></h2>
+  <div class="faq-founder-header">
+    <div class="faq-founder-avatar">
+      <img src="assets/images/mark_bishop_avatar.jpg" alt="Mark Bishop">
+      <div class="founder-status-dot"></div>
+    </div>
+    <div class="faq-founder-text">
+      <div class="founder-tag">Direct from Mark Bishop</div>
+      <h2 class="p12-title" style="text-align: left; margin: 0; line-height: 1.1;">Frequently Asked <span>Questions</span></h2>
+    </div>
   </div>
 
   <div class="p12-faq-container">
@@ -8531,8 +8538,64 @@ function closeFaqModal() {
   #faq-modal-overlay .p12-faq-icon::after {
     width: 2px; height: 16px;
   }
+
+  .faq-founder-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 35px;
+  }
+  .faq-founder-avatar {
+    position: relative;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, #00d4ff, #b8ff57);
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+  }
+  .faq-founder-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #0a0f19;
+  }
+  .founder-status-dot {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 14px;
+    height: 14px;
+    background: #b8ff57;
+    border: 2px solid #0a0f19;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #b8ff57;
+  }
+  .founder-tag {
+    font-size: 11px;
+    color: var(--cyan-glow);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  @media (max-width: 768px) {
+    .faq-founder-header {
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    .faq-founder-avatar {
+      width: 50px;
+      height: 50px;
+    }
+    .founder-tag {
+      font-size: 9px;
+    }
+  }
 </style>
-\n</body>
+</body>
 
 </html>
 
