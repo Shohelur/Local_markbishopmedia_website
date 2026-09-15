@@ -7888,8 +7888,7 @@ document.addEventListener('DOMContentLoaded', () => {
     width: 100%;
     max-width: 1200px;
     background: rgba(10, 15, 30, 0.6);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    /* backdrop-filter removed for performance since particles overlay it */
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 30px;
     padding: 40px 50px 20px 50px; /* Slimmer padding, tighter bottom */
@@ -8137,7 +8136,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let width, height;
   let particles = [];
   
-  const NUM_PARTICLES = window.innerWidth > 768 ? 400 : 150;
+  const NUM_PARTICLES = window.innerWidth > 768 ? 150 : 80; /* Reduced density for slim height */
   const MOUSE_RADIUS = 150; 
   const SPRING_FORCE = 0.03; 
   const FRICTION = 0.88; 
@@ -8224,6 +8223,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function connectParticles() {
     for (let a = 0; a < particles.length; a++) {
       for (let b = a + 1; b < particles.length; b++) {
+        // High-performance optimization: skip sqrt if physically impossible
+        if (Math.abs(particles[a].x - particles[b].x) > MAX_CONNECT_DISTANCE) continue;
+        if (Math.abs(particles[a].y - particles[b].y) > MAX_CONNECT_DISTANCE) continue;
+
         let dx = particles[a].x - particles[b].x;
         let dy = particles[a].y - particles[b].y;
         let distance = Math.sqrt(dx * dx + dy * dy);
