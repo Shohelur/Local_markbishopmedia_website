@@ -2368,7 +2368,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         <div class="dropdown-panel-spatial" id="resources-spatial-panel">
           <ul class="spatial-cards-column">
             <li>
-              <a href="#audit" class="dropdown-card-master" data-story="audit">
+              <a href="javascript:void(0)" onclick="openAuditModal()" class="dropdown-card-master" data-story="audit">
                 <div class="card-inner-left">
                   <div class="icon-box-maps">
                     <div class="maps-sonar-ring-1"></div>
@@ -2634,7 +2634,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   <!-- DRAWER STICKY FOOTER ACTIONS -->
   <div class="mob-drawer-footer-actions">
     <a href="#contact" class="mob-btn-talk" onclick="closeMobileDrawer()">💬 Talk to Mark Bishop</a>
-    <a href="#audit" class="mob-btn-audit-glow" onclick="closeMobileDrawer()">
+    <a href="javascript:void(0)" class="mob-btn-audit-glow" onclick="closeMobileDrawer(); openAuditModal();">
       <span>⚡ CLAIM FREE 9-MILE AUDIT</span>
       <span>↗</span>
     </a>
@@ -3317,7 +3317,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         <div class="p4-tag" style="background: #00d4ff;">CORE ENGINE 01</div>
         <h3 class="p4-h3">Rank in Google Maps <span style="color: #00d4ff;">Top 3</span></h3>
         <p class="p4-p">When local customers search for your services, they don't look past the top 3 results. Our system optimizes your Google Business Profile with real-time GPS grid signals, ensuring you dominate the 9-mile radius and capture the highest-intent inbound calls before your competitors even know what happened.</p>
-        <a href="#audit" class="p4-btn" style="border-color: #00d4ff; color: #00d4ff;">Scan Your Visibility</a>
+        <a href="javascript:void(0)" onclick="openAuditModal()" class="p4-btn" style="border-color: #00d4ff; color: #00d4ff;">Scan Your Visibility</a>
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #00d4ff;"></div>
@@ -3331,7 +3331,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         <div class="p4-tag" style="background: #ffd700;">CORE ENGINE 02</div>
         <h3 class="p4-h3">Automated <span style="color: #ffd700;">5-Star</span> Reviews</h3>
         <p class="p4-p">Visibility without trust is useless. We deploy automated review capture systems that intercept unhappy customers before they post, while seamlessly routing your happiest clients to Google. Build an unbreakable 5-star reputation that makes choosing your business the only logical option.</p>
-        <a href="#audit" class="p4-btn" style="border-color: #ffd700; color: #ffd700;">Analyze Reputation</a>
+        <a href="javascript:void(0)" onclick="openAuditModal()" class="p4-btn" style="border-color: #ffd700; color: #ffd700;">Analyze Reputation</a>
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #ffd700;"></div>
@@ -3345,7 +3345,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         <div class="p4-tag" style="background: #b8ff57;">CORE ENGINE 03</div>
         <h3 class="p4-h3">100+ Directory <span style="color: #b8ff57;">Citations</span></h3>
         <p class="p4-p">Inconsistent business data destroys local rankings. We instantly sync your NAP (Name, Address, Phone) across 100+ premium directories, GPS networks, and voice search engines. Lock down your digital footprint and feed Google the exact authority signals it needs to rank you #1.</p>
-        <a href="#audit" class="p4-btn" style="border-color: #b8ff57; color: #b8ff57;">Check Citations</a>
+        <a href="javascript:void(0)" onclick="openAuditModal()" class="p4-btn" style="border-color: #b8ff57; color: #b8ff57;">Check Citations</a>
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #b8ff57;"></div>
@@ -3359,7 +3359,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         <div class="p4-tag" style="background: #bd00ff; color: #fff;">CORE ENGINE 04</div>
         <h3 class="p4-h3">High-Converting <span style="color: #bd00ff;">Website</span></h3>
         <p class="p4-p">A generic website bleeds money. We engineer lightning-fast, high-converting digital storefronts designed specifically to turn local traffic into booked appointments. No fluff-just a ruthless conversion machine built on the exact psychological triggers that make local customers buy.</p>
-        <a href="#audit" class="p4-btn" style="border-color: #bd00ff; color: #bd00ff;">View Templates</a>
+        <a href="javascript:void(0)" onclick="openAuditModal()" class="p4-btn" style="border-color: #bd00ff; color: #bd00ff;">View Templates</a>
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #bd00ff;"></div>
@@ -3373,7 +3373,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         <div class="p4-tag" style="background: #ff6a00; color: #fff;">CORE ENGINE 05</div>
         <h3 class="p4-h3"><span style="color: #ff6a00;">Missed-Call</span> AI System</h3>
         <p class="p4-p">Over 60% of local customers will call the next business on Google if you don't answer. We deploy an intelligent AI receptionist that instantly texts back every missed call, engages the lead, and books the appointment automatically. Never lose another high-ticket job to voicemail again.</p>
-        <a href="#audit" class="p4-btn" style="border-color: #ff6a00; color: #ff6a00;">See AI In Action</a>
+        <a href="javascript:void(0)" onclick="openAuditModal()" class="p4-btn" style="border-color: #ff6a00; color: #ff6a00;">See AI In Action</a>
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #ff6a00;"></div>
@@ -8112,7 +8112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <!-- Quick Links -->
       <div class="p13-links-col">
           <div class="p13-col-title">Navigation</div>
-          <a href="#phase11-final-cta" class="p13-link-item" style="color: var(--cyan-glow); font-weight: 700; text-shadow: 0 0 10px rgba(0,212,255,0.3);">Free Audit</a>
+          <a href="javascript:void(0)" onclick="openAuditModal()" class="p13-link-item" style="color: var(--cyan-glow); font-weight: 700; text-shadow: 0 0 10px rgba(0,212,255,0.3);">Free Audit</a>
           <a href="#phase4-service-matrix" class="p13-link-item">What We Do</a>
           <a href="#phase8-testimonials" class="p13-link-item">Client Testimonials</a>
           <a href="about.html" class="p13-link-item">About MBM</a>
