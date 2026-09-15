@@ -8666,7 +8666,7 @@ function closeFaqModal() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
       <div class="audit-modal-header">
-        <h2 class="p12-title" style="margin-bottom: 15px;">Initialize <span style="color: var(--cyan-glow);">Radar Scan</span></h2>
+        <h2 class="p12-title" style="margin-bottom: 15px;">Unlock Your <span style="color: var(--cyan-glow);">Local Growth Report</span></h2>
         <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.5;">Just type your business name and city, our AI system will automatically locate your Google profile on the map.</p>
       </div>
       <form class="audit-modal-form" id="audit-modal-form" onsubmit="handleAuditSubmit(event)">
@@ -8685,6 +8685,10 @@ function closeFaqModal() {
         <div class="audit-input-group">
           <label>Email Address</label>
           <input type="email" required placeholder="john@example.com">
+        </div>
+        <div class="audit-input-group">
+          <label>What is your biggest local visibility challenge? <span style="color: var(--text-muted); font-size: 0.75rem; font-weight: 400; text-transform: none;">(Optional)</span></label>
+          <textarea placeholder="e.g., We rank #7 on Maps and competitors are getting all the calls..." style="width: 100%; padding: 14px 16px; background: rgba(4, 11, 20, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: white; font-size: 1rem; outline: none; transition: all 0.3s ease; resize: vertical; min-height: 80px; font-family: inherit;"></textarea>
         </div>
         <button type="submit" class="p11-submit-btn" style="width: 100%; margin-top: 15px;" id="audit-submit-btn">
           ⚡ Initialize Scan
@@ -8736,7 +8740,7 @@ function closeFaqModal() {
       outline: none;
       transition: all 0.3s ease;
     }
-    .audit-input-group input:focus {
+    .audit-input-group input:focus, .audit-input-group textarea:focus {
       border-color: var(--cyan-glow);
       box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
       background: rgba(0, 212, 255, 0.05);
@@ -8764,6 +8768,7 @@ function closeFaqModal() {
       document.body.style.overflow = '';
       // Reset form on close
       setTimeout(() => {
+        document.querySelector('.audit-modal-header').style.display = 'block';
         document.getElementById('audit-modal-form').style.display = 'flex';
         document.getElementById('audit-success-msg').style.display = 'none';
         document.getElementById('audit-submit-btn').innerHTML = '⚡ Initialize Scan';
@@ -8793,8 +8798,35 @@ function closeFaqModal() {
     
     // Simulate network delay
     setTimeout(() => {
+      document.querySelector('.audit-modal-header').style.display = 'none';
       document.getElementById('audit-modal-form').style.display = 'none';
-      document.getElementById('audit-success-msg').style.display = 'block';
+      
+      const successMsg = document.getElementById('audit-success-msg');
+      successMsg.style.display = 'block';
+      
+      // Trigger Confetti
+      if (typeof confetti !== 'undefined') {
+        const rect = successMsg.getBoundingClientRect();
+        const originX = (rect.left + rect.width / 2) / window.innerWidth;
+        const originY = (rect.top + rect.height / 2) / window.innerHeight;
+  
+        const duration = 3000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 99999999 };
+  
+        const interval = setInterval(function() {
+          const timeLeft = animationEnd - Date.now();
+          if (timeLeft <= 0) {
+            return clearInterval(interval);
+          }
+          const particleCount = 50 * (timeLeft / duration);
+          confetti(Object.assign({}, defaults, { 
+            particleCount, 
+            origin: { x: originX, y: originY },
+            colors: ['#ffbe0b', '#fb5607', '#ff006e', '#8338ec', '#3a86ff', '#00d4ff', '#b8ff57', '#ff00ff', '#ffff00', '#00ff00']
+          }));
+        }, 250);
+      }
     }, 1500);
   }
   </script>
