@@ -34,7 +34,7 @@
 }
 
 html {
-  /* Removed scroll-behavior: smooth; to fix tight/laggy scroll feel on desktop */
+  scroll-behavior: smooth;
 }
 
 body {
@@ -8136,7 +8136,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let width, height;
   let particles = [];
   
-  const NUM_PARTICLES = window.innerWidth > 768 ? 150 : 80; /* Reduced density for slim height */
+  const NUM_PARTICLES = window.innerWidth > 768 ? 250 : 120; /* Increased density */
   const MOUSE_RADIUS = 150; 
   const SPRING_FORCE = 0.03; 
   const FRICTION = 0.88; 
