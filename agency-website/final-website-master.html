@@ -8971,30 +8971,40 @@ function closeFaqModal() {
       
       const successMsg = document.getElementById('audit-success-msg');
       successMsg.style.display = 'block';
+
+        // Allow DOM to layout before calculating bounds
+        setTimeout(() => {
+          if (typeof confetti !== 'undefined') {
+            const rect = successMsg.getBoundingClientRect();
+            let originX = 0.5; // Default center
+            let originY = 0.5; // Default center
+            
+            if (rect.width > 0 && rect.height > 0) {
+              originX = (rect.left + rect.width / 2) / window.innerWidth;
+              originY = (rect.top + rect.height / 2) / window.innerHeight;
+            }
       
-      // Trigger Confetti
-      if (typeof confetti !== 'undefined') {
-        const rect = successMsg.getBoundingClientRect();
-        const originX = (rect.left + rect.width / 2) / window.innerWidth;
-        const originY = (rect.top + rect.height / 2) / window.innerHeight;
-  
-        const duration = 6000;
-        const animationEnd = Date.now() + duration;
-        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 99999999 };
-  
-        const interval = setInterval(function() {
-          const timeLeft = animationEnd - Date.now();
-          if (timeLeft <= 0) {
-            return clearInterval(interval);
+            const duration = 6000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 999999999 };
+      
+            const interval = setInterval(function() {
+              const timeLeft = animationEnd - Date.now();
+              if (timeLeft <= 0) {
+                return clearInterval(interval);
+              }
+              const particleCount = 50 * (timeLeft / duration);
+              confetti(Object.assign({}, defaults, { 
+                particleCount, 
+                origin: { x: originX, y: originY },
+                colors: ['#ffbe0b', '#fb5607', '#ff006e', '#8338ec', '#3a86ff', '#00d4ff', '#b8ff57', '#ff00ff', '#ffff00', '#00ff00']
+              }));
+            }, 250);
           }
-          const particleCount = 50 * (timeLeft / duration);
-          confetti(Object.assign({}, defaults, { 
-            particleCount, 
-            origin: { x: originX, y: originY },
-            colors: ['#ffbe0b', '#fb5607', '#ff006e', '#8338ec', '#3a86ff', '#00d4ff', '#b8ff57', '#ff00ff', '#ffff00', '#00ff00']
-          }));
-        }, 250);
-      }
+        }, 50);
+
+      
+      
     }, 1500);
   }
   </script>
