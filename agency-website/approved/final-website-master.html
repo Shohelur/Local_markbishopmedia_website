@@ -7470,6 +7470,24 @@ window.addEventListener('load', () => {
   line-height: 1.6;
 }
 
+
+.p11-checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.p11-checkbox-group input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--cyan-glow);
+}
+.p11-checkbox-group label {
+  color: #a0aec0;
+  font-size: 14px;
+  cursor: pointer;
+}
 @media (max-width: 860px) {
   .p11-container {
     grid-template-columns: 1fr;
@@ -7546,6 +7564,10 @@ window.addEventListener('load', () => {
             <label>What is your biggest local visibility challenge?</label>
             <textarea class="p11-textarea" required placeholder="e.g., We rank #7 on Maps and competitors are getting all the calls..."></textarea>
           </div>
+          <div class="p11-checkbox-group">
+            <input type="checkbox" id="skip-audit-check" onchange="toggleAuditCTA(this)">
+            <label for="skip-audit-check">Skip the audit. I just want to talk to Mark directly.</label>
+          </div>
           <button type="submit" class="p11-submit-btn" id="p11-submit-btn">
             ⚡ Claim Free Audit
           </button>
@@ -7562,6 +7584,15 @@ window.addEventListener('load', () => {
 </section>
 
 <script>
+function toggleAuditCTA(checkbox) {
+  const btn = document.getElementById('p11-submit-btn');
+  if(checkbox.checked) {
+    btn.innerHTML = '📞 Request a Call';
+  } else {
+    btn.innerHTML = '⚡ Claim Free Audit';
+  }
+}
+
 function handlePhase11Submit(e) {
   e.preventDefault();
   
