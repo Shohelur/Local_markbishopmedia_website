@@ -7543,7 +7543,7 @@ window.addEventListener('load', () => {
       <div class="p11-form-glass" id="p11-form-container">
         <div class="p11-form-header">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-glow)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-          Discovery <span>Application</span>
+          Let's <span>Connect</span>
         </div>
         
         <form id="p11-booking-form" onsubmit="handlePhase11Submit(event)">
@@ -7575,8 +7575,8 @@ window.addEventListener('load', () => {
               </div>
             </div>
             <div class="p11-input-group">
-              <label>What is your biggest local visibility challenge?</label>
-              <textarea class="p11-textarea" required placeholder="e.g., We rank #7 on Maps and competitors are getting all the calls..."></textarea>
+              <label id="dyn-message-label">How can Mark help you grow your business?</label>
+              <textarea class="p11-textarea" id="dyn-message-input" required placeholder="e.g., I'd like to discuss a custom marketing plan..."></textarea>
             </div>
             <div class="p11-checkbox-group" style="margin-top: 10px; padding: 12px; background: rgba(184, 255, 87, 0.05); border-radius: 8px; border: 1px solid rgba(184, 255, 87, 0.1);">
               <input type="checkbox" id="request-audit-check" onclick="toggleAuditCTA(this)">
@@ -7588,9 +7588,9 @@ window.addEventListener('load', () => {
           </form>
 
         <div class="p11-success-msg" id="p11-success-msg">
-          <h3>Request Received!</h3>
-          <p>We are analyzing your local market data. Mark Bishop or a top-class Local Visibility Expert will be in touch shortly in your email.</p>
-        </div>
+            <h3 id="p11-success-title">Message Received!</h3>
+            <p id="p11-success-desc">Thanks for reaching out! Mark will review your message and get back to you shortly.</p>
+          </div>
       </div>
     </div>
 
@@ -7636,9 +7636,22 @@ function handlePhase11Submit(e) {
   }
 
   setTimeout(() => {
-    document.getElementById('p11-booking-form').style.display = 'none';
-    const successMsg = document.getElementById('p11-success-msg');
-    successMsg.style.display = 'block';
+      document.getElementById('p11-booking-form').style.display = 'none';
+      
+      const checkbox = document.getElementById('request-audit-check');
+      const successTitle = document.getElementById('p11-success-title');
+      const successDesc = document.getElementById('p11-success-desc');
+      
+      if (checkbox && checkbox.checked) {
+         if(successTitle) successTitle.innerHTML = 'Scan Initialized!';
+         if(successDesc) successDesc.innerHTML = 'We are analyzing your local market data. Mark Bishop or a top-class Local Visibility Expert will be in touch shortly in your email.';
+      } else {
+         if(successTitle) successTitle.innerHTML = 'Message Received!';
+         if(successDesc) successDesc.innerHTML = 'Thanks for reaching out! Mark will review your message and get back to you shortly.';
+      }
+      
+      const successMsg = document.getElementById('p11-success-msg');
+      successMsg.style.display = 'block';
     
     // Trigger Confetti
     if (typeof confetti !== 'undefined') {
