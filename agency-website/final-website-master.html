@@ -8116,8 +8116,8 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="p13-contact-col">
         <div class="p13-col-title">Frequently Asked Questions</div>
         
-        <div class="magnetic-wrap" style="margin-top: 10px;">
-          <a href="javascript:void(0)" class="magnetic-btn" onclick="document.getElementById('faq-modal-overlay').classList.add('active')" style="background: rgba(0, 212, 255, 0.05); border-color: rgba(0, 212, 255, 0.2);">
+        <div class="faq-trigger-wrap" style="margin-top: 10px;">
+          <a href="javascript:void(0)" class="faq-trigger-btn" onclick="openFaqModal()">
             <svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan-glow)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
             <span style="color: white; font-weight: 600;">Open FAQ Menu</span>
           </a>
@@ -8314,7 +8314,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- FAQ MODAL OVERLAY -->
 <div id="faq-modal-overlay" class="faq-modal-overlay">
   <div class="faq-modal-content">
-    <button class="faq-modal-close" onclick="document.getElementById('faq-modal-overlay').classList.remove('active')">
+    <button class="faq-modal-close" onclick="closeFaqModal()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
     </button>
     <section id="phase12-premium-faq">
@@ -8440,6 +8440,96 @@ document.addEventListener('DOMContentLoaded', () => {
   .faq-modal-content::-webkit-scrollbar-thumb {
     background: var(--cyan-glow);
     border-radius: 10px;
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const modalOverlay = document.getElementById('faq-modal-overlay');
+  if(modalOverlay) {
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        closeFaqModal();
+      }
+    });
+  }
+});
+
+function openFaqModal() {
+  const overlay = document.getElementById('faq-modal-overlay');
+  if(overlay) {
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  }
+}
+
+function closeFaqModal() {
+  const overlay = document.getElementById('faq-modal-overlay');
+  if(overlay) {
+    overlay.classList.remove('active');
+    document.body.style.overflow = ''; // Restore background scrolling
+  }
+}
+</script>
+
+<style>
+  /* Static FAQ Button Style (No Magnetic Movement) */
+  .faq-trigger-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0, 212, 255, 0.05);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    padding: 12px 20px;
+    border-radius: 12px;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .faq-trigger-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(0, 212, 255, 0.4);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 0 20px rgba(0, 212, 255, 0.1);
+  }
+  .faq-trigger-btn svg {
+    width: 18px;
+    height: 18px;
+    color: var(--cyan-glow);
+    transition: all 0.3s;
+  }
+  .faq-trigger-btn:hover svg {
+    filter: drop-shadow(0 0 8px var(--cyan-glow));
+  }
+
+  /* Smaller Font Sizes inside Modal */
+  #faq-modal-overlay #phase12-premium-faq {
+    padding: 20px 0;
+  }
+  #faq-modal-overlay .p12-header {
+    margin-bottom: 30px;
+  }
+  #faq-modal-overlay .p12-title {
+    font-size: clamp(24px, 4vw, 36px);
+  }
+  #faq-modal-overlay .p12-faq-question {
+    font-size: 16px;
+    padding: 20px 24px;
+  }
+  #faq-modal-overlay .p12-faq-answer p {
+    font-size: 14.5px;
+    padding-bottom: 20px;
+  }
+  #faq-modal-overlay .p12-faq-icon {
+    width: 20px;
+    height: 20px;
+  }
+  #faq-modal-overlay .p12-faq-icon::before {
+    width: 16px; height: 2px;
+  }
+  #faq-modal-overlay .p12-faq-icon::after {
+    width: 2px; height: 16px;
   }
 </style>
 \n</body>
