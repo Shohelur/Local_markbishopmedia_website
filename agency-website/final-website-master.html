@@ -2433,7 +2433,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 
     <!-- 3. RIGHT ACTION GROUP -->
     <div class="nav-actions">
-      <a href="#contact" class="nav-contact-link">Talk to Mark</a>
+      <a href="javascript:void(0)" class="nav-contact-link" onclick="document.getElementById('faq-modal-overlay').classList.add('active')">Frequently Asked Questions</a>
       <a href="#audit" class="btn-cta-glow" id="mag-cta-btn">
         <span>⚡ FREE AUDIT</span>
         <span class="arrow-circle-badge"><span>↗</span></span>
@@ -7781,59 +7781,7 @@ function handlePhase11Submit(e) {
 }
 </style>
 
-<section id="phase12-premium-faq">
-  <div class="p12-header">
-    <h2 class="p12-title">Frequently Asked <span>Questions</span></h2>
-  </div>
-
-  <div class="p12-faq-container">
-    <div class="p12-faq-item">
-      <div class="p12-faq-question">
-        What exactly is a "Local Visibility Audit"?
-        <div class="p12-faq-icon"></div>
-      </div>
-      <div class="p12-faq-answer">
-        <p>It's a deep-dive scan of your 9-mile radius. We don't just guess; we use raw geo-grid data to show exactly where you rank against local competitors on Google Maps and search. You'll see the exact leaks where you're losing phone calls and revenue.</p>
-      </div>
-    </div>
-    <div class="p12-faq-item">
-      <div class="p12-faq-question">
-        How long does it take to see results?
-        <div class="p12-faq-icon"></div>
-      </div>
-      <div class="p12-faq-answer">
-        <p>Unlike typical SEO agencies that string you along for 6-12 months, our approach is designed for efficiency. Our clients usually see a noticeable surge in Google Business Profile rankings and incoming calls within <strong>1 to 3 months</strong>.</p>
-      </div>
-    </div>
-    <div class="p12-faq-item">
-      <div class="p12-faq-question">
-        Do I need a completely new website?
-        <div class="p12-faq-icon"></div>
-      </div>
-      <div class="p12-faq-answer">
-        <p>Not necessarily. If your current site is fast and converts well, <strong>we will build a custom local Visibility strategy and go through our proven optimization process to maximize its potential.</strong> If your site is outdated and costing you customers, we'll recommend an upgrade. We only suggest what actually drives ROI.</p>
-      </div>
-    </div>
-    <div class="p12-faq-item">
-      <div class="p12-faq-question">
-        Do I have to sign a long-term contract?
-        <div class="p12-faq-icon"></div>
-      </div>
-      <div class="p12-faq-answer">
-        <p>No. We don't trap local businesses in 12-month retainers. We believe in earning your business every single month through clear communication, hard data, and undeniable ROI.</p>
-      </div>
-    </div>
-    <div class="p12-faq-item">
-      <div class="p12-faq-question">
-        What makes Mark Bishop Media different?
-        <div class="p12-faq-icon"></div>
-      </div>
-      <div class="p12-faq-answer">
-        <p>We are specialized local operators, not a massive faceless corporation. We use high-intent local math, and we strictly cap the number of clients we take per city. This ensures we never work with your direct competitors. It's an exclusive partnership.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- FAQ Section moved to Modal -->
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -8176,7 +8124,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         
         <div class="magnetic-wrap">
-          <a href="#" class="magnetic-btn">
+          <a href="mailto:mark@markbishopmedia.com" class="magnetic-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
             mark@markbishopmedia.com
           </a>
@@ -8369,7 +8317,139 @@ document.addEventListener('DOMContentLoaded', () => {
      END PHASE 13
 =============================================== -->
 
-</body>
+
+<!-- FAQ MODAL OVERLAY -->
+<div id="faq-modal-overlay" class="faq-modal-overlay">
+  <div class="faq-modal-content">
+    <button class="faq-modal-close" onclick="document.getElementById('faq-modal-overlay').classList.remove('active')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <section id="phase12-premium-faq">
+  <div class="p12-header">
+    <h2 class="p12-title">Frequently Asked <span>Questions</span></h2>
+  </div>
+
+  <div class="p12-faq-container">
+    <div class="p12-faq-item">
+      <div class="p12-faq-question">
+        What exactly is a "Local Visibility Audit"?
+        <div class="p12-faq-icon"></div>
+      </div>
+      <div class="p12-faq-answer">
+        <p>It's a deep-dive scan of your 9-mile radius. We don't just guess; we use raw geo-grid data to show exactly where you rank against local competitors on Google Maps and search. You'll see the exact leaks where you're losing phone calls and revenue.</p>
+      </div>
+    </div>
+    <div class="p12-faq-item">
+      <div class="p12-faq-question">
+        How long does it take to see results?
+        <div class="p12-faq-icon"></div>
+      </div>
+      <div class="p12-faq-answer">
+        <p>Unlike typical SEO agencies that string you along for 6-12 months, our approach is designed for efficiency. Our clients usually see a noticeable surge in Google Business Profile rankings and incoming calls within <strong>1 to 3 months</strong>.</p>
+      </div>
+    </div>
+    <div class="p12-faq-item">
+      <div class="p12-faq-question">
+        Do I need a completely new website?
+        <div class="p12-faq-icon"></div>
+      </div>
+      <div class="p12-faq-answer">
+        <p>Not necessarily. If your current site is fast and converts well, <strong>we will build a custom local Visibility strategy and go through our proven optimization process to maximize its potential.</strong> If your site is outdated and costing you customers, we'll recommend an upgrade. We only suggest what actually drives ROI.</p>
+      </div>
+    </div>
+    <div class="p12-faq-item">
+      <div class="p12-faq-question">
+        Do I have to sign a long-term contract?
+        <div class="p12-faq-icon"></div>
+      </div>
+      <div class="p12-faq-answer">
+        <p>No. We don't trap local businesses in 12-month retainers. We believe in earning your business every single month through clear communication, hard data, and undeniable ROI.</p>
+      </div>
+    </div>
+    <div class="p12-faq-item">
+      <div class="p12-faq-question">
+        What makes Mark Bishop Media different?
+        <div class="p12-faq-icon"></div>
+      </div>
+      <div class="p12-faq-answer">
+        <p>We are specialized local operators, not a massive faceless corporation. We use high-intent local math, and we strictly cap the number of clients we take per city. This ensures we never work with your direct competitors. It's an exclusive partnership.</p>
+      </div>
+    </div>
+  </div>
+</section>
+  </div>
+</div>
+
+<style>
+  .faq-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(4, 11, 20, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .faq-modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .faq-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: linear-gradient(145deg, rgba(16, 26, 40, 0.9), rgba(10, 15, 25, 0.95));
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(0, 212, 255, 0.1);
+    transform: translateY(30px) scale(0.95);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .faq-modal-overlay.active .faq-modal-content {
+    transform: translateY(0) scale(1);
+  }
+  .faq-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--cyan-glow);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+  .faq-modal-close:hover {
+    background: rgba(0, 212, 255, 0.1);
+    transform: rotate(90deg);
+  }
+  /* Custom scrollbar for modal */
+  .faq-modal-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  .faq-modal-content::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.02);
+  }
+  .faq-modal-content::-webkit-scrollbar-thumb {
+    background: var(--cyan-glow);
+    border-radius: 10px;
+  }
+</style>
+\n</body>
 
 </html>
 
