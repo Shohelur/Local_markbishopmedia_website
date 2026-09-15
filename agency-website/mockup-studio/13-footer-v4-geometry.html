@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>V4: Abstract Geometric Orbit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; padding-top: 50vh; background: #050505; color: #fff; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
+    .footer-wrapper { position: relative; width: 100%; min-height: 600px; padding: 100px 20px; display: flex; align-items: center; justify-content: center; }
+    canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .minimal-glass { position: relative; z-index: 1; max-width: 1400px; width: 100%; display: flex; justify-content: space-between; align-items: flex-end; padding: 40px; background: rgba(255,255,255,0.02); backdrop-filter: blur(40px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.05); }
+    h1 { font-size: 3rem; margin: 0; font-weight: 600; letter-spacing: -1px; background: linear-gradient(90deg, #fff, #b8ff57); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .links-group { display: flex; gap: 40px; }
+    .links-group div { display: flex; flex-direction: column; gap: 10px; }
+    .links-group h4 { color: #666; margin-bottom: 10px; font-weight: 600; letter-spacing: 1px; }
+    .links-group a { color: #ccc; text-decoration: none; font-size: 1.1rem; transition: color 0.3s; }
+    .links-group a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="footer-wrapper" id="v4-wrapper">
+    <canvas id="v4-canvas"></canvas>
+    <div class="minimal-glass">
+      <div>
+        <h4 style="color:#666; letter-spacing:2px; margin-bottom:10px;">OPERATING SYSTEM</h4>
+        <h1>Mark Bishop Media</h1>
+      </div>
+      <div class="links-group">
+        <div>
+          <h4>NAVIGATION</h4>
+          <a href="#">Free Audit</a>
+          <a href="#">Strategy</a>
+        </div>
+        <div>
+          <h4>CONNECT</h4>
+          <a href="#">Tucson, AZ</a>
+          <a href="#">Email Mark</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const canvas = document.getElementById('v4-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    
+    let mouse = { x: -1000, y: -1000 };
+    document.getElementById('v4-wrapper').addEventListener('mousemove', e => {
+      const r = canvas.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+    });
+    
+    const resize = () => { width = canvas.width = canvas.offsetWidth; height = canvas.height = canvas.offsetHeight; };
+    window.addEventListener('resize', resize); resize();
+    
+    // Create random 3D points
+    let points = [];
+    for(let i=0; i<60; i++) {
+      points.push({
+        ox: (Math.random()-0.5)*600, oy: (Math.random()-0.5)*600, oz: (Math.random()-0.5)*600,
+        x:0, y:0, z:0, vx:0, vy:0, vz:0
+      });
+    }
+
+    let rotY = 0;
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+      rotY += 0.005;
+      
+      const cx = width/2; const cy = height/2;
+      
+      let projPoints = [];
+      points.forEach(p => {
+        // Rotate
+        let x1 = p.ox * Math.cos(rotY) - p.oz * Math.sin(rotY);
+        let z1 = p.ox * Math.sin(rotY) + p.oz * Math.cos(rotY);
+        let y1 = p.oy;
+        
+        // Interaction (Shatter)
+        let screenX = cx + x1; let screenY = cy + y1;
+        let dx = mouse.x - screenX; let dy = mouse.y - screenY;
+        let dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 200) {
+           p.vx -= (dx/dist) * 2; p.vy -= (dy/dist) * 2;
+        }
+        
+        // Spring back
+        p.vx += (0 - p.x) * 0.05; p.vy += (0 - p.y) * 0.05;
+        p.vx *= 0.8; p.vy *= 0.8;
+        p.x += p.vx; p.y += p.vy;
+        
+        // Final
+        let fx = x1 + p.x; let fy = y1 + p.y; let fz = z1;
+        let scale = 800 / (800 + fz);
+        projPoints.push({ x: cx + fx*scale, y: cy + fy*scale, z: fz });
+      });
+      
+      ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+      ctx.lineWidth = 1;
+      // Draw lines between close points
+      for(let i=0; i<projPoints.length; i++) {
+        for(let j=i+1; j<projPoints.length; j++) {
+           let dx = projPoints[i].x - projPoints[j].x;
+           let dy = projPoints[i].y - projPoints[j].y;
+           if(dx*dx + dy*dy < 15000) {
+             ctx.beginPath(); ctx.moveTo(projPoints[i].x, projPoints[i].y); ctx.lineTo(projPoints[j].x, projPoints[j].y); ctx.stroke();
+           }
+        }
+      }
+      
+      requestAnimationFrame(draw);
+    };
+    draw();
+  </script>
+</body>
+</html>

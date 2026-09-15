@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>V5: Local Dominance Radar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; padding-top: 50vh; background: #03080c; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .footer-wrapper { position: relative; width: 100%; min-height: 500px; padding: 60px 20px; display: flex; align-items: center; justify-content: space-between; }
+    canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+    .radar-ui { position: relative; z-index: 1; max-width: 500px; background: rgba(0,0,0,0.7); padding: 40px; border-left: 4px solid #b8ff57; backdrop-filter: blur(10px); }
+    h2 { font-size: 2.5rem; color: #b8ff57; margin: 0 0 10px 0; }
+    .radar-stats { display: flex; gap: 20px; margin-top: 30px; }
+    .stat-box { background: rgba(184, 255, 87, 0.1); padding: 15px; border-radius: 8px; flex: 1; }
+    .stat-box span { display: block; font-size: 1.5rem; font-weight: bold; color: #b8ff57; }
+    .stat-box small { color: #8892b0; font-size: 0.8rem; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <div class="footer-wrapper" id="v5-wrapper">
+    <canvas id="v5-canvas"></canvas>
+    
+    <!-- Push UI to right side -->
+    <div style="flex:1;"></div>
+    
+    <div class="radar-ui">
+      <h2>Mark Bishop Media</h2>
+      <p style="color:#8892b0; line-height:1.6;">Scanning 9-Mile Radius.<br>Locating local business dominance opportunities in Tucson, AZ.</p>
+      
+      <div class="radar-stats">
+        <div class="stat-box">
+          <span>9 MI</span>
+          <small>Scan Radius</small>
+        </div>
+        <div class="stat-box">
+          <span id="pin-count">0</span>
+          <small>Targets Found</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const canvas = document.getElementById('v5-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    
+    const resize = () => { width = canvas.width = canvas.offsetWidth; height = canvas.height = canvas.offsetHeight; };
+    window.addEventListener('resize', resize); resize();
+    
+    let angle = 0;
+    
+    // Generate map pins
+    let pins = [];
+    for(let i=0; i<50; i++) {
+      pins.push({
+        x: Math.random() * 2000 - 1000, 
+        y: Math.random() * 2000 - 1000,
+        active: 0
+      });
+    }
+
+    const draw = () => {
+      ctx.fillStyle = 'rgba(3, 8, 12, 0.1)';
+      ctx.fillRect(0, 0, width, height);
+      
+      const cx = width * 0.3; // Radar center on left
+      const cy = height * 0.5;
+      
+      // Draw radar rings
+      ctx.strokeStyle = 'rgba(184, 255, 87, 0.2)';
+      ctx.lineWidth = 1;
+      for(let r=100; r<=800; r+=150) {
+        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
+      }
+      
+      // Draw Sweep
+      angle += 0.03;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, 800, angle, angle + 0.5);
+      ctx.lineTo(cx, cy);
+      ctx.fillStyle = 'rgba(184, 255, 87, 0.15)';
+      ctx.fill();
+      
+      // Draw Pins
+      let activeCount = 0;
+      pins.forEach(p => {
+        let px = cx + p.x; let py = cy + p.y;
+        
+        // Check if pin is inside the sweep angle
+        let pa = Math.atan2(p.y, p.x);
+        if (pa < 0) pa += Math.PI*2;
+        let normAngle = angle % (Math.PI*2);
+        
+        // Light up
+        if (Math.abs(pa - normAngle) < 0.2 || Math.abs((pa+Math.PI*2) - normAngle) < 0.2) {
+          p.active = 1;
+        }
+        
+        if (p.active > 0) {
+          ctx.beginPath(); ctx.arc(px, py, 4 + p.active*3, 0, Math.PI*2);
+          ctx.fillStyle = `rgba(184, 255, 87, ${p.active})`;
+          ctx.fill();
+          p.active -= 0.02;
+          activeCount++;
+        } else {
+          ctx.beginPath(); ctx.arc(px, py, 2, 0, Math.PI*2);
+          ctx.fillStyle = 'rgba(255,255,255,0.2)';
+          ctx.fill();
+        }
+      });
+      
+      document.getElementById('pin-count').innerText = activeCount;
+      
+      requestAnimationFrame(draw);
+    };
+    draw();
+  </script>
+</body>
+</html>
