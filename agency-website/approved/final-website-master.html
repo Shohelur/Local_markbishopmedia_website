@@ -2386,7 +2386,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
               </a>
             </li>
             <li>
-              <a href="#faq" class="dropdown-card-master" data-story="faq">
+              <a href="javascript:void(0)" onclick="openFaqModal();" class="dropdown-card-master" data-story="faq">
                 <div class="card-inner-left">
                   <div class="icon-box-citations">
                     <div class="synapse-node-ring"></div>
@@ -2609,7 +2609,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         </a>
 
         <!-- RESOURCE 3: FAQS -->
-        <a href="faq.html" class="mob-service-card" onclick="closeMobileDrawer()">
+        <a href="javascript:void(0)" class="mob-service-card" onclick="closeMobileDrawer(); setTimeout(openFaqModal, 300);">
           <div class="mob-card-info">
             <div class="icon-box-citations">
               <div class="synapse-node-ring"></div>
