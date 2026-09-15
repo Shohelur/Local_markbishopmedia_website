@@ -7547,36 +7547,43 @@ window.addEventListener('load', () => {
         </div>
         
         <form id="p11-booking-form" onsubmit="handlePhase11Submit(event)">
-          <div class="p11-input-group">
-            <label>Full Name</label>
-            <input type="text" class="p11-input" required placeholder="John Doe">
-          </div>
-          <div class="p11-input-group">
-            <label>Business Name</label>
-            <input type="text" class="p11-input" required placeholder="Doe Plumbing & HVAC">
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="p11-input-group">
-              <label>Phone Number</label>
-              <input type="tel" class="p11-input" required placeholder="(555) 123-4567">
+              <label>Full Name</label>
+              <input type="text" class="p11-input" required placeholder="John Doe">
             </div>
             <div class="p11-input-group">
-              <label>Email Address</label>
-              <input type="email" class="p11-input" required placeholder="john@example.com">
+              <label>Business Name</label>
+              <input type="text" class="p11-input" required placeholder="Doe Plumbing & HVAC">
             </div>
-          </div>
-          <div class="p11-input-group">
-            <label>What is your biggest local visibility challenge?</label>
-            <textarea class="p11-textarea" required placeholder="e.g., We rank #7 on Maps and competitors are getting all the calls..."></textarea>
-          </div>
-          <div class="p11-checkbox-group">
-            <input type="checkbox" id="skip-audit-check" onchange="toggleAuditCTA(this)">
-            <label for="skip-audit-check">Skip the audit. I just want to talk to Mark directly.</label>
-          </div>
-          <button type="submit" class="p11-submit-btn" id="p11-submit-btn">
-            ⚡ Claim Free Audit
-          </button>
-        </form>
+            
+            <!-- Dynamic Audit Field (Hidden by default) -->
+            <div class="p11-input-group" id="dynamic-city-zip-group" style="display: none; animation: fadeIn 0.4s ease forwards; background: rgba(0,212,255,0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(0,212,255,0.2); margin-bottom: 20px;">
+              <label style="color: #00d4ff;">City and Zip (Required for Audit)</label>
+              <input type="text" class="p11-input" id="dyn-city-zip" placeholder="e.g., Tucson, AZ 85701" style="border-color: rgba(0,212,255,0.3); margin-top: 10px;">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div class="p11-input-group">
+                <label>Phone Number</label>
+                <input type="tel" class="p11-input" required placeholder="(555) 123-4567">
+              </div>
+              <div class="p11-input-group">
+                <label>Email Address</label>
+                <input type="email" class="p11-input" required placeholder="john@example.com">
+              </div>
+            </div>
+            <div class="p11-input-group">
+              <label>What is your biggest local visibility challenge?</label>
+              <textarea class="p11-textarea" required placeholder="e.g., We rank #7 on Maps and competitors are getting all the calls..."></textarea>
+            </div>
+            <div class="p11-checkbox-group" style="margin-top: 10px; padding: 12px; background: rgba(184, 255, 87, 0.05); border-radius: 8px; border: 1px solid rgba(184, 255, 87, 0.1);">
+              <input type="checkbox" id="request-audit-check" onclick="toggleAuditCTA(this)">
+              <label for="request-audit-check" style="font-weight: 600; color: #b8ff57;">Also request an audit.</label>
+            </div>
+            <button type="submit" class="p11-submit-btn" id="p11-submit-btn">
+              📞 Request a call
+            </button>
+          </form>
 
         <div class="p11-success-msg" id="p11-success-msg">
           <h3>Request Received!</h3>
@@ -7590,9 +7597,24 @@ window.addEventListener('load', () => {
 
 <script>
 function toggleAuditCTA(checkbox) {
-  const btn = document.getElementById('p11-submit-btn');
-  if(checkbox.checked) {
-    btn.innerHTML = '📞 Request a Call';
+    const btn = document.getElementById('p11-submit-btn');
+    const dynamicGroup = document.getElementById('dynamic-city-zip-group');
+    const cityZipInput = document.getElementById('dyn-city-zip');
+    
+    if (!btn || !dynamicGroup || !cityZipInput) return;
+    
+    if(checkbox.checked) {
+      btn.innerHTML = '⚡ Claim free audit';
+      btn.style.boxShadow = '0 0 30px rgba(184, 255, 87, 0.4)';
+      dynamicGroup.style.display = 'block';
+      cityZipInput.setAttribute('required', 'true');
+    } else {
+      btn.innerHTML = '📞 Request a call';
+      btn.style.boxShadow = '';
+      dynamicGroup.style.display = 'none';
+      cityZipInput.removeAttribute('required');
+      cityZipInput.value = '';
+    }
   } else {
     btn.innerHTML = '⚡ Claim Free Audit';
   }
