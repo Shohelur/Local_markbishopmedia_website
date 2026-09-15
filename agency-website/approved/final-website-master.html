@@ -7621,6 +7621,10 @@ function handlePhase11Submit(e) {
     
     // Trigger Confetti
     if (typeof confetti !== 'undefined') {
+      const rect = successMsg.getBoundingClientRect();
+      const originX = (rect.left + rect.width / 2) / window.innerWidth;
+      const originY = (rect.top + rect.height / 2) / window.innerHeight;
+
       const duration = 3000;
       const animationEnd = Date.now() + duration;
       const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
@@ -7633,7 +7637,7 @@ function handlePhase11Submit(e) {
         const particleCount = 50 * (timeLeft / duration);
         confetti(Object.assign({}, defaults, { 
           particleCount, 
-          origin: { x: 0.5, y: 0.5 },
+          origin: { x: originX, y: originY },
           colors: ['#00d4ff', '#b8ff57', '#ffffff']
         }));
       }, 250);
