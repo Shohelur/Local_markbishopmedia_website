@@ -8316,7 +8316,7 @@ document.addEventListener('DOMContentLoaded', () => {
   <div class="faq-modal-content">
   <!-- Cartoon Avatar -->
   <div class="floating-cartoon-avatar">
-    <img src="../assets/images/cartoon_avatar.jpg" alt="Animated Avatar">
+    <img src="../assets/images/cartoon_avatar_transparent.png" alt="Animated Avatar">
   </div>
     <button class="faq-modal-close" onclick="closeFaqModal()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -8543,9 +8543,8 @@ function closeFaqModal() {
     width: 140px;
     height: 140px;
     z-index: 100;
-    pointer-events: none; /* So it doesn't block clicks */
+    pointer-events: none;
     animation: floatAvatar 4s ease-in-out infinite;
-    mix-blend-mode: screen; /* Removes black background */
   }
   .floating-cartoon-avatar img {
     width: 100%;
