@@ -122,7 +122,16 @@
       gap: 8vw;
     }
     #about-mark .am-row.reverse { flex-direction: row-reverse; }
-    #about-mark .am-row-text { flex: 1; }
+    #about-mark .am-row-text { 
+      flex: 1; 
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 40px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+    }
     #about-mark .am-row-visual {
       flex: 0 0 40%;
       display: flex; align-items: center; justify-content: center;
@@ -328,6 +337,7 @@
     #about-mark.theme-green { color: #f3f4f6; }
     #about-mark.theme-green .am-headline, #about-mark.theme-green .am-big-quote { color: #ffffff; }
     #about-mark.theme-green .am-body-text, #about-mark.theme-green .am-subhead, #about-mark.theme-green .am-accent-desc { color: #9ca3af; text-shadow: 0 1px 12px rgba(0,0,0, 0.8), 0 1px 2px rgba(0,0,0, 1); }
+    #about-mark.theme-green .am-row-text { background: rgba(0, 0, 0, 0.05); border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
 
     #about-mark.theme-green .am-accent-title { color: #f3f4f6; }
     #about-mark.theme-green .am-label { background: linear-gradient(135deg, #34d399, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -368,7 +378,16 @@
     #about-mark.theme-purple .text-gradient-cyan { background: linear-gradient(135deg, #a855f7, #c084fc); -webkit-background-clip: text; filter: drop-shadow(0 4px 16px rgba(192, 132, 252, 0.3)); }
     #about-mark.theme-purple .am-big-quote em { background: linear-gradient(135deg, #7e22ce, #a855f7); -webkit-background-clip: text; filter: drop-shadow(0 4px 12px rgba(168, 85, 247, 0.3)); }
 
-    /* ── Word flow animation ── */
+    /* Clear default glass on accent boxes & stats to prevent overlapping glass effects */
+    #about-mark .am-accent-box, #about-mark .am-stat {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    /* ✧ Word flow animation ✧ */
     #about-mark .fw {
       display: inline-block; opacity: 0;
       transform: translateY(14px);
@@ -383,6 +402,7 @@
       #about-mark .am-hero { flex-direction: column-reverse; padding: 120px 6vw 60px; gap: 32px; }
       #about-mark .am-hero-photo { max-width: 280px; margin: 0 auto; }
       #about-mark .am-row { flex-direction: column; padding: 60px 6vw; gap: 40px; min-height: auto; }
+      #about-mark .am-row-text { padding: 24px; }
       #about-mark .am-row.reverse { flex-direction: column; }
       #about-mark .am-row-visual { width: 100%; }
       #about-mark .am-stats { flex-direction: column; gap: 12px; }
