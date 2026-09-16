@@ -2151,13 +2151,41 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 
   </section>
 
+  <style>
+    .theme-dot { position: relative; }
+    .theme-dot::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%) translateX(10px);
+      background: rgba(4, 7, 16, 0.9);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-family: inherit;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .theme-dot:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(-50%) translateX(0);
+    }
+  </style>
   <div style="position: fixed; top: 80px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 12px;">
-    <div id="btn-1" class="theme-dot active" title="Click to change Blue" style="width: 20px; height: 20px; border-radius: 50%; background: #0ea5e9; cursor: pointer; border: 2px solid rgba(255,255,255,0.8); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(1)"></div>
-    <div id="btn-2" class="theme-dot" title="Click to change Orange" style="width: 20px; height: 20px; border-radius: 50%; background: #f59e0b; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(2)"></div>
-    <div id="btn-3" class="theme-dot" title="Click to change Mint" style="width: 20px; height: 20px; border-radius: 50%; background: #14b8a6; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(3)"></div>
-    <div id="btn-4" class="theme-dot" title="Click to change Green" style="width: 20px; height: 20px; border-radius: 50%; background: #10b981; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(4)"></div>
-    <div id="btn-5" class="theme-dot" title="Click to change Pink" style="width: 20px; height: 20px; border-radius: 50%; background: #f43f5e; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(5)"></div>
-    <div id="btn-6" class="theme-dot" title="Click to change Purple" style="width: 20px; height: 20px; border-radius: 50%; background: #a855f7; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(6)"></div>
+    <div id="btn-1" class="theme-dot active" data-tooltip="Click to change Blue" style="width: 20px; height: 20px; border-radius: 50%; background: #0ea5e9; cursor: pointer; border: 2px solid rgba(255,255,255,0.8); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(1)"></div>
+    <div id="btn-2" class="theme-dot" data-tooltip="Click to change Orange" style="width: 20px; height: 20px; border-radius: 50%; background: #f59e0b; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(2)"></div>
+    <div id="btn-3" class="theme-dot" data-tooltip="Click to change Mint" style="width: 20px; height: 20px; border-radius: 50%; background: #14b8a6; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(3)"></div>
+    <div id="btn-4" class="theme-dot" data-tooltip="Click to change Green" style="width: 20px; height: 20px; border-radius: 50%; background: #10b981; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(4)"></div>
+    <div id="btn-5" class="theme-dot" data-tooltip="Click to change Pink" style="width: 20px; height: 20px; border-radius: 50%; background: #f43f5e; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(5)"></div>
+    <div id="btn-6" class="theme-dot" data-tooltip="Click to change Purple" style="width: 20px; height: 20px; border-radius: 50%; background: #a855f7; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(6)"></div>
   </div>
 
   <div class="mock-content">
