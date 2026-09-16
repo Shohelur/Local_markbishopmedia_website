@@ -110,7 +110,7 @@
     #about-mark .am-subhead {
       font-size: 1.25rem; color: #000000;
       line-height: 1.8; max-width: 540px; font-weight: 600;
-      text-shadow: 0 1px 12px rgba(255,255,255, 0.8), 0 1px 2px rgba(255,255,255, 1);
+      text-shadow: 0 0 12px rgba(255,255,255,1), 0 0 24px rgba(255,255,255,0.9), 0 0 36px rgba(255,255,255,0.8);
     }
 
     /* ── Content Row (Section 2, 3, 4 ...) ── */
@@ -124,13 +124,6 @@
     #about-mark .am-row.reverse { flex-direction: row-reverse; }
     #about-mark .am-row-text { 
       flex: 1; 
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 24px;
-      padding: 40px;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.01);
     }
     #about-mark .am-row-visual {
       flex: 0 0 40%;
@@ -155,7 +148,7 @@
       font-size: 1.18rem; line-height: 1.9;
       color: #000000; max-width: 580px; font-weight: 500;
       letter-spacing: -0.2px;
-      text-shadow: 0 1px 12px rgba(255,255,255, 0.8), 0 1px 2px rgba(255,255,255, 1);
+      text-shadow: 0 0 12px rgba(255,255,255,1), 0 0 24px rgba(255,255,255,0.9), 0 0 36px rgba(255,255,255,0.8);
     }
     #about-mark .am-body-text + .am-body-text { margin-top: 20px; }
 
@@ -336,8 +329,7 @@
     /* Theme 4: Matrix (Green) - DARK MODE */
     #about-mark.theme-green { color: #f3f4f6; }
     #about-mark.theme-green .am-headline, #about-mark.theme-green .am-big-quote { color: #ffffff; }
-    #about-mark.theme-green .am-body-text, #about-mark.theme-green .am-subhead, #about-mark.theme-green .am-accent-desc { color: #9ca3af; text-shadow: 0 1px 12px rgba(0,0,0, 0.8), 0 1px 2px rgba(0,0,0, 1); }
-    #about-mark.theme-green .am-row-text { background: rgba(0, 0, 0, 0.03); border: 1px solid rgba(255, 255, 255, 0.02); box-shadow: 0 10px 40px rgba(0,0,0,0.05); }
+    #about-mark.theme-green .am-body-text, #about-mark.theme-green .am-subhead, #about-mark.theme-green .am-accent-desc { color: #9ca3af; text-shadow: 0 0 12px rgba(0,0,0,1), 0 0 24px rgba(0,0,0,0.9), 0 0 36px rgba(0,0,0,0.8); }
 
     #about-mark.theme-green .am-accent-title { color: #f3f4f6; }
     #about-mark.theme-green .am-label { background: linear-gradient(135deg, #34d399, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
