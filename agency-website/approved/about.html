@@ -2151,13 +2151,13 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 
   </section>
 
-  <div style="position: fixed; top: 100px; right: 24px; z-index: 9999; display: flex; gap: 8px;">
-    <div id="btn-1" class="theme-dot active" style="width: 14px; height: 14px; border-radius: 50%; background: #0ea5e9; cursor: pointer; border: 2px solid rgba(255,255,255,0.5);" onclick="loadTheme(1)"></div>
-    <div id="btn-2" class="theme-dot" style="width: 14px; height: 14px; border-radius: 50%; background: #f59e0b; cursor: pointer; border: 2px solid rgba(255,255,255,0.2);" onclick="loadTheme(2)"></div>
-    <div id="btn-3" class="theme-dot" style="width: 14px; height: 14px; border-radius: 50%; background: #14b8a6; cursor: pointer; border: 2px solid rgba(255,255,255,0.2);" onclick="loadTheme(3)"></div>
-    <div id="btn-4" class="theme-dot" style="width: 14px; height: 14px; border-radius: 50%; background: #10b981; cursor: pointer; border: 2px solid rgba(255,255,255,0.2);" onclick="loadTheme(4)"></div>
-    <div id="btn-5" class="theme-dot" style="width: 14px; height: 14px; border-radius: 50%; background: #f43f5e; cursor: pointer; border: 2px solid rgba(255,255,255,0.2);" onclick="loadTheme(5)"></div>
-    <div id="btn-6" class="theme-dot" style="width: 14px; height: 14px; border-radius: 50%; background: #a855f7; cursor: pointer; border: 2px solid rgba(255,255,255,0.2);" onclick="loadTheme(6)"></div>
+  <div style="position: fixed; top: 50%; transform: translateY(-50%); right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 12px; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 30px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);">
+    <div id="btn-1" class="theme-dot active" title="Theme: Platinum & Indigo" style="width: 20px; height: 20px; border-radius: 50%; background: #0ea5e9; cursor: pointer; border: 2px solid rgba(255,255,255,0.8); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(1)"></div>
+    <div id="btn-2" class="theme-dot" title="Theme: Champagne Luxury" style="width: 20px; height: 20px; border-radius: 50%; background: #f59e0b; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(2)"></div>
+    <div id="btn-3" class="theme-dot" title="Theme: Glacial Mint" style="width: 20px; height: 20px; border-radius: 50%; background: #14b8a6; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(3)"></div>
+    <div id="btn-4" class="theme-dot" title="Theme: Neon Obsidian" style="width: 20px; height: 20px; border-radius: 50%; background: #10b981; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(4)"></div>
+    <div id="btn-5" class="theme-dot" title="Theme: Sunset Titanium" style="width: 20px; height: 20px; border-radius: 50%; background: #f43f5e; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(5)"></div>
+    <div id="btn-6" class="theme-dot" title="Theme: MBM Signature" style="width: 20px; height: 20px; border-radius: 50%; background: #a855f7; cursor: pointer; border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="loadTheme(6)"></div>
   </div>
 
   <div class="mock-content">
