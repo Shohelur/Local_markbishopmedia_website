@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MBM Background Demos</title>
+  <style>
+    :root {
+      --bg: #020205;
+      --cyan: #00d4ff;
+      --purple: #bd00ff;
+      --lime: #b8ff57;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: #fff; font-family: 'Inter', system-ui, sans-serif; overflow: hidden; height: 100vh; }
+    
+    /* UI PANEL */
+    #ui-panel {
+      position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
+      background: rgba(10,15,30,0.8); backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 12px;
+      padding: 15px 25px; z-index: 1000; display: flex; gap: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    button {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      color: #fff; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer;
+      transition: all 0.3s;
+    }
+    button.active { background: rgba(0, 212, 255, 0.2); border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
+    button:hover:not(.active) { background: rgba(255,255,255,0.1); }
+
+    /* MOCK CONTENT */
+    .mock-content {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      text-align: center; z-index: 500; pointer-events: none;
+    }
+    h1 { font-size: 4rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 10px; text-shadow: 0 5px 20px rgba(0,0,0,0.8); }
+    h1 span { background: linear-gradient(135deg, var(--cyan), var(--lime)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    p { font-size: 1.2rem; color: #a0b0c0; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+
+    /* LAYERS */
+    .layer { position: fixed; inset: 0; opacity: 0; pointer-events: none; transition: opacity 0.8s ease; }
+    .layer.active { opacity: 1; pointer-events: auto; }
+
+    /* 1. FLUID AURORA */
+    #layer-fluid { overflow: hidden; background: #02040a; }
+    .fluid-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; mix-blend-mode: screen; animation: float 15s infinite ease-in-out alternate; }
+    .orb-1 { width: 60vw; height: 60vw; background: var(--purple); top: -10%; left: -10%; animation-delay: 0s; }
+    .orb-2 { width: 50vw; height: 50vw; background: var(--cyan); bottom: -10%; right: -10%; animation-delay: -5s; }
+    .orb-3 { width: 40vw; height: 40vw; background: var(--lime); top: 20%; left: 40%; animation-delay: -10s; opacity: 0.3; }
+    @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(100px, 150px) scale(1.2); } }
+
+    /* 2. PARTICLES */
+    #layer-particles { background: #010205; }
+    
+    /* 3. CYBER WAVE */
+    #layer-cyber { background: #000; }
+  </style>
+
+  <!-- External Libs -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.0/tsparticles.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <div id="ui-panel">
+    <button id="btn-1" class="active" onclick="switchLayer(1)">1. Fluid Aurora</button>
+    <button id="btn-2" onclick="switchLayer(2)">2. Visibility Constellation</button>
+    <button id="btn-3" onclick="switchLayer(3)">3. Cyber-Matrix Wave</button>
+  </div>
+
+  <div class="mock-content">
+    <h1>About <span>Mark Bishop</span></h1>
+    <p>40 Years Behind the Mic. One Mission: Your Local Dominance.</p>
+  </div>
+
+  <!-- LAYER 1 -->
+  <div id="layer-fluid" class="layer active">
+    <div class="fluid-orb orb-1"></div>
+    <div class="fluid-orb orb-2"></div>
+    <div class="fluid-orb orb-3"></div>
+  </div>
+
+  <!-- LAYER 2 -->
+  <div id="layer-particles" class="layer"></div>
+
+  <!-- LAYER 3 -->
+  <div id="layer-cyber" class="layer"></div>
+
+  <script>
+    // --- UI LOGIC ---
+    function switchLayer(num) {
+      document.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      document.getElementById('btn-' + num).classList.add('active');
+      document.querySelectorAll('.layer').forEach(l => l.classList.remove('active'));
+      if(num === 1) document.getElementById('layer-fluid').classList.add('active');
+      if(num === 2) document.getElementById('layer-particles').classList.add('active');
+      if(num === 3) document.getElementById('layer-cyber').classList.add('active');
+    }
+
+    // --- ENGINE 2: PARTICLES ---
+    tsParticles.load("layer-particles", {
+      background: { color: "#010205" },
+      fpsLimit: 60,
+      interactivity: {
+        events: { onHover: { enable: true, mode: "grab" }, resize: true },
+        modes: { grab: { distance: 200, links: { opacity: 0.8, color: "#00d4ff" } } }
+      },
+      particles: {
+        color: { value: ["#00d4ff", "#b8ff57"] },
+        links: { color: "#bd00ff", distance: 150, enable: true, opacity: 0.2, width: 1 },
+        move: { enable: true, speed: 1.5, direction: "none", random: true, outModes: "bounce" },
+        number: { density: { enable: true, area: 800 }, value: 80 },
+        opacity: { value: 0.5 },
+        shape: { type: "circle" },
+        size: { value: { min: 1, max: 3 } }
+      }
+    });
+
+    // --- ENGINE 3: CYBER WAVE ---
+    (function initCyber() {
+      const container = document.getElementById('layer-cyber');
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x000000, 0.002);
+      
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 1000);
+      camera.position.set(0, 30, 80);
+      camera.lookAt(0, 0, 0);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      container.appendChild(renderer.domElement);
+
+      // Create Terrain
+      const geometry = new THREE.PlaneGeometry(300, 300, 60, 60);
+      geometry.rotateX(-Math.PI / 2);
+      
+      // We will manipulate vertices in animation loop
+      const material = new THREE.MeshBasicMaterial({ 
+        color: 0x00d4ff, 
+        wireframe: true,
+        transparent: true,
+        opacity: 0.3
+      });
+      const plane = new THREE.Mesh(geometry, material);
+      scene.add(plane);
+
+      let time = 0;
+      const vertices = plane.geometry.attributes.position.array;
+      
+      function animate() {
+        requestAnimationFrame(animate);
+        time += 0.01;
+        
+        for ( let i = 0; i < vertices.length; i += 3 ) {
+          const x = vertices[i];
+          const z = vertices[i+2];
+          // Simple wave math
+          vertices[i+1] = Math.sin(x * 0.05 + time) * 8 + Math.cos(z * 0.05 + time) * 8;
+        }
+        plane.geometry.attributes.position.needsUpdate = true;
+        
+        camera.position.x = Math.sin(time * 0.2) * 20;
+        camera.lookAt(0,0,0);
+        
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    })();
+  </script>
+</body>
+</html>

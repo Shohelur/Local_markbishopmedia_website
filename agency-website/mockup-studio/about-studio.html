@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>About Mark Bishop | Mark Bishop Media</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050510;
+      --neon-cyan: #00d4ff;
+      --toxic-green: #b8ff57;
+      --text-main: #f0f4f8;
+      --text-muted: #8b9cb8;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    #glass-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    /* VERY Subtle grain over the top to emulate the film look */
+    .about-grain {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+    }
+
+    .about-progress {
+      position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--toxic-green));
+      z-index: 200; transition: width 0.1s linear;
+    }
+
+    .about-content { position: relative; z-index: 10; pointer-events: none; }
+    .about-content > * { pointer-events: auto; }
+
+    /* NAV */
+    .about-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 5%; display: flex; align-items: center; justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(5,5,16,0.85) 0%, rgba(5,5,16,0) 100%);
+      transition: transform 0.4s;
+    }
+    .about-nav.is-hidden { transform: translateY(-110%); }
+    .about-nav__brand { font-family: 'Space Grotesk', sans-serif; font-weight: 900; font-size: 1.4rem; color: var(--text-main); text-decoration: none; }
+    .about-nav__brand span { color: var(--neon-cyan); }
+    .about-nav__links { display: flex; align-items: center; gap: 24px; }
+    .about-nav__links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.3s; }
+    .about-nav__links a:hover { color: var(--text-main); }
+    .about-nav__cta {
+      padding: 10px 22px; background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.25);
+      border-radius: 8px; color: var(--neon-cyan) !important; font-weight: 600 !important; transition: all 0.3s !important;
+    }
+    .about-nav__cta:hover { background: rgba(0, 212, 255, 0.2) !important; box-shadow: 0 0 20px rgba(0, 212, 255, 0.15); }
+
+    /* HERO */
+    .about-hero { min-height: 100vh; display: flex; align-items: center; padding: 140px 5% 100px; text-align: center; }
+    .about-hero__inner { max-width: 800px; margin: 0 auto; }
+    .about-hero__label {
+      display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;
+    }
+    .about-hero__title {
+      font-family: 'Space Grotesk', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 900;
+      line-height: 1.05; letter-spacing: -2px; margin-bottom: 24px; text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+    .about-hero__title em {
+      font-style: normal; background: linear-gradient(135deg, var(--neon-cyan), var(--toxic-green));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .about-hero__sub { font-size: clamp(1.05rem, 1.8vw, 1.25rem); color: #b0c0d8; line-height: 1.65; max-width: 650px; margin: 0 auto 40px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+
+    /* STORY TIMELINE */
+    .about-story { padding: 100px 5% 140px; }
+    .about-story__container { max-width: 880px; margin: 0 auto; position: relative; }
+    .about-story__head { text-align: center; margin-bottom: 80px; text-shadow: 0 4px 20px rgba(0,0,0,0.9); }
+    .about-story__head h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -1px; }
+    .about-story__head p { color: var(--text-muted); font-size: 1.1rem; margin-top: 12px; }
+
+    .about-story__track { position: absolute; top: 200px; bottom: 60px; left: 39px; width: 2px; background: rgba(255,255,255,0.04); }
+    .about-story__track-fill { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(to bottom, var(--neon-cyan), #7b2ff7, var(--toxic-green)); box-shadow: 0 0 12px rgba(0, 212, 255, 0.4); transition: height 0.15s linear; }
+
+    .about-block { position: relative; padding-left: 90px; margin-bottom: 80px; opacity: 0; transform: translateY(40px); transition: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .about-block.is-visible { opacity: 1; transform: translateY(0); }
+    .about-block__node { position: absolute; left: 30px; top: 5px; width: 20px; height: 20px; background: var(--bg); border: 2px solid rgba(255,255,255,0.12); border-radius: 50%; z-index: 5; transition: all 0.5s ease; }
+    .about-block.is-visible .about-block__node { border-color: var(--neon-cyan); background: var(--neon-cyan); box-shadow: 0 0 16px rgba(0, 212, 255, 0.5); }
+    .about-block__era { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; padding: 4px 12px; background: rgba(0, 0, 0, 0.4); border-radius: 4px; border: 1px solid rgba(0, 212, 255, 0.15); backdrop-filter: blur(4px); }
+    .about-block h3 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; margin-bottom: 14px; letter-spacing: -0.5px; text-shadow: 0 4px 10px rgba(0,0,0,0.8); }
+    .about-block p { font-size: 1.05rem; line-height: 1.7; color: #cbd5e1; margin-bottom: 16px; text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
+
+    @media (max-width: 860px) {
+      .about-nav__links a:not(.about-nav__cta) { display: none; }
+      .about-story__track { left: 19px; }
+      .about-block__node { left: 10px; }
+      .about-block { padding-left: 55px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- THE EXACT NATHAN HERK PROPRIETARY ENGINE (Loaded via assets/glass.js) -->
+  <canvas id="glass-canvas" aria-hidden="true"></canvas>
+  <div class="about-grain" aria-hidden="true"></div>
+  <div class="about-progress" id="about-progress" aria-hidden="true"></div>
+
+  <!-- PAGE CONTENT -->
+  <div class="about-content">
+    <nav class="about-nav" id="about-nav">
+      <a class="about-nav__brand" href="final-website-master.html">MARK BISHOP <span>MEDIA</span></a>
+      <div class="about-nav__links">
+        <a href="final-website-master.html">Home</a>
+        <a class="about-nav__cta" href="final-website-master.html#mbm-booking-section">⚡ FREE AUDIT</a>
+      </div>
+    </nav>
+
+    <section class="about-hero">
+      <div class="about-hero__inner">
+        <div class="about-hero__label">About Mark Bishop</div>
+        <h1 class="about-hero__title">
+          40 Years Behind the Mic.<br>
+          <em>One Mission: Your Local Dominance.</em>
+        </h1>
+        <p class="about-hero__sub">
+          I've interviewed over a thousand executives, built a media empire across television, radio, and podcasting. Now I'm building a Local Visibility Operating System.
+        </p>
+      </div>
+    </section>
+
+    <section class="about-story">
+      <div class="about-story__container">
+        <div class="about-story__head">
+          <h2>The Story Behind the Brand</h2>
+          <p>From broadcast veteran to local visibility architect.</p>
+        </div>
+        <div class="about-story__track"><div class="about-story__track-fill" id="about-track-fill"></div></div>
+        
+        <div class="about-block">
+          <div class="about-block__node"></div>
+          <span class="about-block__era">The Foundation</span>
+          <h3>The Voice Behind the Mic</h3>
+          <p>For over 40 years, Mark Bishop has been a force in professional television, radio, and podcasting. Hailing from Australia, his journey took him across continents.</p>
+        </div>
+        <div class="about-block">
+          <div class="about-block__node"></div>
+          <span class="about-block__era">The Evolution</span>
+          <h3>Podcasting &amp; The Digital Shift</h3>
+          <p>He created the Tucson Business Channel, realizing that a digital footprint wasn't just a marketing tool — it was a 24/7 doorway for lead generation.</p>
+        </div>
+        <div class="about-block">
+          <div class="about-block__node"></div>
+          <span class="about-block__era">The Current Mission</span>
+          <h3>The Local Visibility Operating System</h3>
+          <p>Today, Mark Bishop Media uses state-of-the-art AI technology to ensure your media assets reach the right audience at the right time.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- LOAD EXACT PROPRIETARY SHADER JS -->
+  <script src="../assets/glass.js"></script>
+  
+  <script>
+  (function(){
+    /* =========================================================================
+       INITIALIZE EXACT NATEHERK SHADER (NHGlass)
+       But swap out the light-blue theme for MBM's Dark Premium Palette 
+       and apply a slight architectural twist (tilt).
+    ========================================================================= */
+    
+    // We pass MBM colors here. By passing bright/vibrant colors 
+    // over a navy base, we ensure absolutely NO black patches.
+    var glass = NHGlass.mount(document.getElementById('glass-canvas'), {
+      // Minimalist Palette: Option 5 (Deep Indigo) merged with Brand Background (#020205)
+      colors: ['#020205', '#050814', '#0a1128', '#101a3f', '#1c2d5f', '#101a3f', '#0a1128', '#020205'], 
+      scale: 1.1, 
+      intensity: 0.08, // Very soft, calm lighting
+      paramA: 0.05, // Very thin, elegant glass flutes (chikon)
+      detail: 1.5, // Less distortion
+      contrast: 1.0, 
+      brightness: 0.0, 
+      saturation: 0.8, // Slightly desaturated for elegance
+      grain: 0.02, 
+      seed: 3.0, 
+      oklab: 1.0,
+      
+      // Calibrated to be a dark, quiet background that doesn't distract from the text
+      shadeBase: 0.80, 
+      shadeHighlight: 0.30, 
+      shadeShadow: 0.15,
+      
+      // Exact mouse tracking logic from nateherk, but a bit softer
+      cursorEnabled: true, 
+      cursorEffect: 1.0, 
+      cursorStrength: 4.00, 
+      cursorRadius: 0.20, // Smaller radius per user request
+      faceImage: '../assets/logos/mbm-lens-mask.svg', // Alpha mask for the glass distortion
+      timeScale: 0.3,
+      maxPixels: 1000000, 
+      maxDpr: 1.25
+    });
+
+    // The "Twist" (Subtle diagonal tilt to make it bespoke)
+    if(glass) {
+      glass.set('rotate', 0.1745); // ~10 degree tilt
+    }
+
+    // EXACT nateherk scroll/velocity hook
+    var lastY = window.scrollY, vel = 0, inten = 0.08, intenTarget = 0.08, offY = 0, offX = 0;
+    function glassTick(dt) {
+      if (!glass) return;
+      var y = window.scrollY;
+      var dy = y - lastY; lastY = y;
+      
+      var v = dt > 0 ? Math.abs(dy) / window.innerHeight / dt : 0; 
+      vel += (v - vel) * (v > vel ? 0.35 : 1 - Math.exp(-2.2 * dt));
+      intenTarget = 0.08 + Math.min(0.20, vel * 0.12);
+      
+      inten += (intenTarget - inten) * (1 - Math.exp(-4 * dt));
+      if (!isFinite(inten)) inten = intenTarget = 0.08;
+      if (!isFinite(vel)) vel = 0;
+      var f = 1 - Math.exp(-7 * dt);
+      offY += ((-y / window.innerHeight * 0.22) - offY) * f;
+      offX += ((y / window.innerHeight * 0.03) - offX) * f;
+      
+      glass.set('intensity', +inten.toFixed(4));
+      glass.set('offsetY', +offY.toFixed(4));
+      glass.set('offsetX', +offX.toFixed(4));
+    }
+
+    // Main render loop
+    var last = performance.now();
+    function loop(now) {
+      var dt = Math.min((now - last) / 1000, 0.1); last = now;
+      if (!(dt > 0) || !isFinite(dt)) dt = 1 / 60;
+      glassTick(dt);
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+
+    // ---------------------------------------------------------
+    // Smart Nav & Timeline Logic
+    // ---------------------------------------------------------
+    const nav = document.getElementById('about-nav');
+    const trackFill = document.getElementById('about-track-fill');
+    const blocks = document.querySelectorAll('.about-block');
+    const storySec = document.querySelector('.about-story');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+      let st = window.scrollY;
+      // Nav hide
+      if (st > 100) { nav.classList.toggle('is-hidden', st > lastScroll); } 
+      else { nav.classList.remove('is-hidden'); }
+      lastScroll = st;
+
+      // Progress bar
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      document.getElementById('about-progress').style.width = ((st / docHeight) * 100) + '%';
+
+      // Story nodes
+      const wh = window.innerHeight;
+      blocks.forEach(b => {
+        if (b.getBoundingClientRect().top < wh * 0.8) b.classList.add('is-visible');
+      });
+      if (storySec) {
+        const sRect = storySec.getBoundingClientRect();
+        if (sRect.top < wh * 0.5) {
+          let p = ((wh * 0.5) - sRect.top) / sRect.height;
+          trackFill.style.height = Math.max(0, Math.min(1, p)) * 100 + '%';
+        }
+      }
+    }, { passive: true });
+    window.dispatchEvent(new Event('scroll'));
+
+  })();
+  </script>
+</body>
+</html>

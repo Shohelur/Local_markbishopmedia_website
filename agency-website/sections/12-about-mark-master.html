@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Mark Bishop | Mark Bishop Media</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Space Grotesk', system-ui, sans-serif; overflow-x: hidden; min-height: 100vh; background: linear-gradient(135deg, #e0f7fa, #b2ebf2); color: #0a192f; }
+    
+    #glass-canvas {
+      position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none;
+    }
+    
+
+
+
+
+    /* ═══════════ ABOUT MARK — FULL PAGE SCROLL ═══════════ */
+    #about-mark {
+      position: relative;
+      z-index: 400;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    /* ── Hero Viewport (Section 1) ── */
+    #about-mark .am-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 140px 8vw 80px;
+      gap: 6vw;
+    }
+    #about-mark .am-hero-text {
+      flex: 1;
+    }
+    #about-mark .am-hero-photo {
+      flex: 0 0 42%;
+      max-width: 500px;
+    }
+    #about-mark .am-hero-photo img {
+      width: 100%;
+      border-radius: 0;
+      filter: drop-shadow(0 30px 60px rgba(0,0,0,0.22));
+      transform: translateY(30px); opacity: 0;
+      transition: transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.8s ease;
+    }
+    #about-mark .am-hero-photo img.is-in { transform: translateY(0); opacity: 1; }
+
+    #about-mark .am-label {
+      font-size: 0.85rem; font-weight: 800; letter-spacing: 4px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #4F46E5, #06B6D4);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 24px; display: inline-flex; align-items: center; gap: 12px;
+    }
+    #about-mark .am-label::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: #4F46E5; box-shadow: 0 0 12px #4F46E5;
+    }
+    #about-mark .am-headline {
+      font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -2px; color: #0a192f;
+      margin-bottom: 32px;
+      text-wrap: balance;
+    }
+    #about-mark .text-gradient-rose {
+      background: linear-gradient(135deg, #F43F5E, #F97316);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 16px rgba(244, 63, 94, 0.4));
+    }
+    #about-mark .text-gradient-purple {
+      background: linear-gradient(135deg, #8B5CF6, #C084FC);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 16px rgba(139, 92, 246, 0.4));
+    }
+    #about-mark .text-gradient-cyan {
+      background: linear-gradient(135deg, #06B6D4, #4F46E5);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 16px rgba(6, 182, 212, 0.4));
+    }
+    #about-mark .am-subhead {
+      font-size: 1.25rem; color: #4B5563;
+      line-height: 1.8; max-width: 540px; font-weight: 500;
+    }
+
+    /* ── Content Row (Section 2, 3, 4 ...) ── */
+    #about-mark .am-row {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 8vw;
+      gap: 8vw;
+    }
+    #about-mark .am-row.reverse { flex-direction: row-reverse; }
+    #about-mark .am-row-text { flex: 1; }
+    #about-mark .am-row-visual {
+      flex: 0 0 40%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* big quote / pull-quote style */
+    #about-mark .am-big-quote {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800; line-height: 1.15;
+      letter-spacing: -1px; color: #0a192f;
+      margin-bottom: 32px;
+      text-wrap: balance;
+    }
+    #about-mark .am-big-quote em {
+      font-style: normal;
+      background: linear-gradient(135deg, #4F46E5, #06B6D4);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 12px rgba(79, 70, 229, 0.3));
+    }
+    #about-mark .am-body-text {
+      font-size: 1.18rem; line-height: 1.9;
+      color: #374151; max-width: 580px;
+      letter-spacing: -0.2px;
+    }
+    #about-mark .am-body-text + .am-body-text { margin-top: 20px; }
+
+    /* ── Stats Bar ── */
+    #about-mark .am-stats {
+      display: flex; gap: 4px;
+      margin: 44px 0 0;
+    }
+    #about-mark .am-stat {
+      flex: 1; padding: 24px;
+      background: rgba(79,70,229,0.06);
+      border: 1px solid rgba(79,70,229,0.12);
+      border-radius: 14px; text-align: center;
+    }
+    #about-mark .am-stat-num {
+      font-size: 2.4rem; font-weight: 800;
+      color: #4F46E5; letter-spacing: -1px;
+      line-height: 1;
+    }
+    #about-mark .am-stat-label {
+      font-size: 0.82rem; color: #6B7280;
+      margin-top: 6px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+
+    /* ── Accent Visual Box ── */
+    #about-mark .am-accent-box {
+      width: 100%; aspect-ratio: 4/5;
+      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(79,70,229,0.08), rgba(6,182,212,0.06));
+      border: 1px solid rgba(79,70,229,0.15);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 16px; padding: 40px;
+    }
+    #about-mark .am-accent-icon {
+      font-size: 3rem; line-height: 1;
+    }
+    #about-mark .am-accent-title {
+      font-size: 1.4rem; font-weight: 700;
+      color: #111827; text-align: center;
+    }
+    #about-mark .am-accent-desc {
+      font-size: 0.95rem; color: #6B7280;
+      text-align: center; line-height: 1.6;
+    }
+
+    /* ── CTA Section ── */
+    #about-mark .am-cta-section {
+      min-height: 60vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 80px 8vw;
+    }
+    #about-mark .am-cta-headline {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800; letter-spacing: -1.5px;
+      color: #111827; margin-bottom: 16px;
+    }
+    #about-mark .am-cta-sub {
+      font-size: 1.1rem; color: #6B7280;
+      margin-bottom: 40px;
+    }
+    #about-mark .am-contact-row {
+      display: flex; gap: 24px; flex-wrap: wrap;
+      justify-content: center;
+    }
+    #about-mark .am-contact-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 32px; border-radius: 50px;
+      font-size: 1rem; font-weight: 600;
+      text-decoration: none; transition: all 0.3s;
+    }
+    #about-mark .am-contact-link.primary {
+      background: #4F46E5; color: #fff;
+      box-shadow: 0 8px 30px rgba(79,70,229,0.35);
+    }
+    #about-mark .am-contact-link.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(79,70,229,0.5);
+    }
+    #about-mark .am-contact-link.secondary {
+      border: 2px solid rgba(79,70,229,0.3); color: #4F46E5;
+      background: rgba(79,70,229,0.04);
+    }
+    #about-mark .am-contact-link.secondary:hover {
+      background: rgba(79,70,229,0.08);
+    }
+
+    /* ═══════════ CHAMPAGNE LUXURY OVERRIDES ═══════════ */
+    #about-mark.theme-champagne {
+      color: #272320;
+    }
+    #about-mark.theme-champagne .am-headline,
+    #about-mark.theme-champagne .am-big-quote {
+      color: #1c1815;
+    }
+    #about-mark.theme-champagne .am-body-text,
+    #about-mark.theme-champagne .am-subhead,
+    #about-mark.theme-champagne .am-accent-desc {
+      color: #4a423c;
+    }
+    #about-mark.theme-champagne .am-accent-title {
+      color: #272320;
+    }
+    /* Elegant Gold/Copper Gradients */
+    #about-mark.theme-champagne .text-gradient-rose {
+      background: linear-gradient(135deg, #d48259, #e6b981);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 16px rgba(212, 130, 89, 0.4));
+    }
+    #about-mark.theme-champagne .text-gradient-purple {
+      background: linear-gradient(135deg, #c79a54, #f5d7aa);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 16px rgba(199, 154, 84, 0.4));
+    }
+    #about-mark.theme-champagne .text-gradient-cyan {
+      background: linear-gradient(135deg, #966f40, #cfa878);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 16px rgba(150, 111, 64, 0.4));
+    }
+    #about-mark.theme-champagne .am-label {
+      background: linear-gradient(135deg, #c79a54, #966f40);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    #about-mark.theme-champagne .am-label::before {
+      background: #c79a54; box-shadow: 0 0 12px #c79a54;
+    }
+    #about-mark.theme-champagne .am-big-quote em {
+      background: linear-gradient(135deg, #c79a54, #d48259);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 12px rgba(199, 154, 84, 0.3));
+    }
+    /* Warm Glass Borders */
+    #about-mark.theme-champagne .am-accent-box {
+      background: linear-gradient(145deg, rgba(199, 154, 84, 0.08), rgba(212, 130, 89, 0.04));
+      border: 1px solid rgba(199, 154, 84, 0.25);
+    }
+    #about-mark.theme-champagne .am-stat {
+      background: rgba(199, 154, 84, 0.06);
+      border: 1px solid rgba(199, 154, 84, 0.15);
+    }
+    #about-mark.theme-champagne .am-stat-num {
+      color: #c79a54;
+    }
+    /* Ultra-Premium CTA */
+    #about-mark.theme-champagne .am-contact-link.primary {
+      background: linear-gradient(135deg, #272320, #1c1815);
+      color: #f5d7aa;
+      box-shadow: 0 8px 30px rgba(39, 35, 32, 0.35);
+      border: 1px solid rgba(245, 215, 170, 0.15);
+    }
+    #about-mark.theme-champagne .am-contact-link.secondary {
+      border: 2px solid rgba(199, 154, 84, 0.4);
+      color: #966f40;
+      background: transparent;
+    }
+    #about-mark.theme-champagne .am-contact-link.secondary:hover {
+      background: rgba(199, 154, 84, 0.08);
+    }
+
+    /* ═══════════ COLORFUL THEMES (3-6) BASE ═══════════ */
+    /* Since backgrounds 3-6 are light/pastel, we keep the default dark text colors (#111827) and only override the colorful accents. */
+    
+    /* Theme 3: Deep Sea (Cyan) */
+    #about-mark.theme-cyan .am-label { background: linear-gradient(135deg, #0284c7, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    #about-mark.theme-cyan .am-label::before { background: #06b6d4; box-shadow: 0 0 12px #06b6d4; }
+    #about-mark.theme-cyan .am-stat-num { color: #0284c7; }
+    #about-mark.theme-cyan .am-contact-link.primary { background: linear-gradient(135deg, #0284c7, #06b6d4); color: #fff; box-shadow: 0 8px 30px rgba(6, 182, 212, 0.35); }
+    #about-mark.theme-cyan .am-contact-link.secondary { border: 2px solid rgba(6, 182, 212, 0.4); color: #0284c7; }
+    #about-mark.theme-cyan .am-accent-box { background: rgba(6, 182, 212, 0.05); border: 1px solid rgba(6, 182, 212, 0.2); }
+    #about-mark.theme-cyan .am-stat { background: rgba(6, 182, 212, 0.03); border: 1px solid rgba(6, 182, 212, 0.15); }
+    #about-mark.theme-cyan .text-gradient-rose { background: linear-gradient(135deg, #0284c7, #0ea5e9); -webkit-background-clip: text; filter: drop-shadow(0 4px 16px rgba(14, 165, 233, 0.3)); }
+    #about-mark.theme-cyan .text-gradient-purple { background: linear-gradient(135deg, #0ea5e9, #38bdf8); -webkit-background-clip: text; filter: drop-shadow(0 4px 16px rgba(56, 189, 248, 0.3)); }
+    #about-mark.theme-cyan .text-gradient-cyan { background: linear-gradient(135deg, #06b6d4, #22d3ee); -webkit-background-clip: text; filter: drop-shadow(0 4px 16px rgba(34, 211, 238, 0.3)); }
+    #about-mark.theme-cyan .am-big-quote em { background: linear-gradient(135deg, #0284c7, #06b6d4); -webkit-background-clip: text; filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.3)); }
+
+    /* Theme 4: Matrix (Green) - DARK MODE */
+    #about-mark.theme-green { color: #f3f4f6; }
+    #about-mark.theme-green .am-headline, #about-mark.theme-green .am-big-quote { color: #ffffff; }
+    #about-mark.theme-green .am-body-text, #about-mark.theme-green .am-subhead, #about-mark.theme-green .am-accent-desc { color: #9ca3af; }
+    #about-mark.theme-green .am-accent-title { color: #f3f4f6; }
+    #about-mark.theme-green .am-label { background: linear-gradient(135deg, #34d399, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    #about-mark.theme-green .am-label::before { background: #10b981; box-shadow: 0 0 12px #10b981; }
+    #about-mark.theme-green .am-stat-num { color: #047857; }
+    #about-mark.theme-green .am-contact-link.primary { background: linear-gradient(135deg, #047857, #10b981); color: #fff; box-shadow: 0 8px 30px rgba(16, 185, 129, 0.35); }
+    #about-mark.theme-green .am-contact-link.secondary { border: 2px solid rgba(16, 185, 129, 0.4); color: #047857; }
+    #about-mark.theme-green .am-accent-box { background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); }
+    #about-mark.theme-green .am-stat { background: rgba(16, 185, 129, 0.03); border: 1px solid rgba(16, 185, 129, 0.15); }
+    #about-mark.theme-green .text-gradient-rose { background: linear-gradient(135deg, #047857, #059669); -webkit-background-clip: text; filter: drop-shadow(0 4px 16px rgba(5, 150, 105, 0.3)); }
+    #about-mark.theme-green .text-gradient-purple { background: linear-gradient(135deg, #059669, #10b981); -webkit-background-clip: text; filter: drop-shadow(0 4px 16px rgba(16, 185, 129, 0.3)); }
+    #about-mark.theme-green .text-gradient-cyan { background: linear-gradient(135deg, #10b981, #34d399); -webkit-background-clip: text; filter: drop-shadow(0 4px 16px rgba(52, 211, 153, 0.3)); }
+    #about-mark.theme-green .am-big-quote em { background: linear-gradient(135deg, #047857, #10b981); -webkit-background-clip: text; filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.3)); }
+
+    /* Theme 5: Sunset (Rose/Red) */
+    #about-mark.theme-rose .am-label { background: linear-gradient(135deg, #be123c, #f43f5e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    #about-mark.theme-rose .am-label::before { background: #f43f5e; box-shadow: 0 0 12px #f43f5e; }
+    #about-mark.theme-rose .am-stat-num { color: #be123c; }
+    #about-mark.theme-rose .am-contact-link.primary { background: linear-gradient(135deg, #be123c, #f43f5e); color: #fff; box-shadow: 0 8px 30px rgba(244, 63, 94, 0.35); }
+    #about-mark.theme-rose .am-contact-link.secondary { border: 2px solid rgba(244, 63, 94, 0.4); color: #be123c; }
+    #about-mark.theme-rose .am-accent-box { background: rgba(244, 63, 94, 0.05); border: 1px solid rgba(244, 63, 94, 0.2); }
+    #about-mark.theme-rose .am-stat { background: rgba(244, 63, 94, 0.03); border: 1px solid rgba(244, 63, 94, 0.15); }
+    #about-mark.theme-rose .text-gradient-rose { background: linear-gradient(135deg, #be123c, #e11d48); -webkit-background-clip: text; filter: drop-shadow(0 4px 16px rgba(225, 29, 72, 0.3)); }
+    #about-mark.theme-rose .text-gradient-purple { background: linear-gradient(135deg, #e11d48, #f43f5e); -webkit-background-clip: text; filter: drop-shadow(0 4px 16px rgba(244, 63, 94, 0.3)); }
+    #about-mark.theme-rose .text-gradient-cyan { background: linear-gradient(135deg, #f43f5e, #fb7185); -webkit-background-clip: text; filter: drop-shadow(0 4px 16px rgba(251, 113, 133, 0.3)); }
+    #about-mark.theme-rose .am-big-quote em { background: linear-gradient(135deg, #be123c, #f43f5e); -webkit-background-clip: text; filter: drop-shadow(0 4px 12px rgba(244, 63, 94, 0.3)); }
+
+    /* Theme 6: Cyber (Purple) */
+    #about-mark.theme-purple .am-label { background: linear-gradient(135deg, #7e22ce, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    #about-mark.theme-purple .am-label::before { background: #a855f7; box-shadow: 0 0 12px #a855f7; }
+    #about-mark.theme-purple .am-stat-num { color: #7e22ce; }
+    #about-mark.theme-purple .am-contact-link.primary { background: linear-gradient(135deg, #7e22ce, #a855f7); color: #fff; box-shadow: 0 8px 30px rgba(168, 85, 247, 0.35); }
+    #about-mark.theme-purple .am-contact-link.secondary { border: 2px solid rgba(168, 85, 247, 0.4); color: #7e22ce; }
+    #about-mark.theme-purple .am-accent-box { background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.2); }
+    #about-mark.theme-purple .am-stat { background: rgba(168, 85, 247, 0.03); border: 1px solid rgba(168, 85, 247, 0.15); }
+    #about-mark.theme-purple .text-gradient-rose { background: linear-gradient(135deg, #7e22ce, #9333ea); -webkit-background-clip: text; filter: drop-shadow(0 4px 16px rgba(147, 51, 234, 0.3)); }
+    #about-mark.theme-purple .text-gradient-purple { background: linear-gradient(135deg, #9333ea, #a855f7); -webkit-background-clip: text; filter: drop-shadow(0 4px 16px rgba(168, 85, 247, 0.3)); }
+    #about-mark.theme-purple .text-gradient-cyan { background: linear-gradient(135deg, #a855f7, #c084fc); -webkit-background-clip: text; filter: drop-shadow(0 4px 16px rgba(192, 132, 252, 0.3)); }
+    #about-mark.theme-purple .am-big-quote em { background: linear-gradient(135deg, #7e22ce, #a855f7); -webkit-background-clip: text; filter: drop-shadow(0 4px 12px rgba(168, 85, 247, 0.3)); }
+
+    /* ── Word flow animation ── */
+    #about-mark .fw {
+      display: inline-block; opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1);
+      transition-delay: calc(var(--i) * 30ms);
+    }
+    #about-mark .is-flowed .fw { opacity: 1; transform: translateY(0); }
+    #about-mark [data-flow] { /* observer adds is-flowed */ }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      #about-mark .am-hero { flex-direction: column-reverse; padding: 120px 6vw 60px; gap: 32px; }
+      #about-mark .am-hero-photo { max-width: 280px; margin: 0 auto; }
+      #about-mark .am-row { flex-direction: column; padding: 60px 6vw; gap: 40px; min-height: auto; }
+      #about-mark .am-row.reverse { flex-direction: column; }
+      #about-mark .am-row-visual { width: 100%; }
+      #about-mark .am-stats { flex-direction: column; gap: 12px; }
+      #about-mark .am-contact-row { flex-direction: column; align-items: center; }
+    }
+  </style>
+
+  <!-- Load the EXACT Nathan Herk Engine we fetched earlier -->
+  <script src="../assets/glass.js"></script>
+</head>
+<body>
+
+  <canvas id="glass-canvas"></canvas>
+
+  <!-- ═══════════ ABOUT MARK — MASTER (Theme 3: Glacial Mint) ═══════════ -->
+  <section id="about-mark" class="theme-cyan">
+
+    <!-- SECTION 1: Hero Viewport -->
+    <div class="am-hero">
+      <div class="am-hero-text">
+        <span class="am-label" data-flow>Founder and CEO, Mark Bishop Media &middot; Tucson, Arizona</span>
+        <h1 class="am-headline" data-flow data-flow-delay="150">
+          Local businesses <span class="text-gradient-rose">lose customers</span> every day to <span class="text-gradient-purple">competitors</span> they've never heard of.
+          <em class="text-gradient-cyan" style="font-style:normal;"> I fix that.</em>
+        </h1>
+        <p class="am-subhead" data-flow data-flow-delay="400">
+          I'm Mark Bishop. Decades in media and marketing, building one thing: a system that makes local businesses impossible to miss.
+        </p>
+      </div>
+      <div class="am-hero-photo">
+        <img src="../assets/images/mark-bishop-cutout.svg" alt="Mark Bishop, Founder of Mark Bishop Media" id="am-portrait">
+      </div>
+    </div>
+
+    <!-- SECTION 2: The Problem -->
+    <div class="am-row">
+      <div class="am-row-text">
+        <span class="am-label" data-flow>The Problem</span>
+        <p class="am-big-quote" data-flow data-flow-delay="100">
+          Most local business owners are <em>great</em> at what they do.
+          The problem? Nobody can find them.
+        </p>
+        <p class="am-body-text" data-flow data-flow-delay="300">
+          The dentist who's been practicing for 20 years. The plumber who shows up on time, every time. The HVAC tech who treats every home like their own. None of that matters if nobody can find them when they search "dentist near me" at 9 PM on a Tuesday.
+        </p>
+        <p class="am-body-text" data-flow data-flow-delay="450">
+          That's not a marketing problem. That's a survival problem.
+        </p>
+      </div>
+      <div class="am-row-visual">
+        <div class="am-accent-box" data-flow data-flow-delay="200">
+          <div class="am-accent-icon">📍</div>
+          <div class="am-accent-title">Your 9-Mile Radius</div>
+          <div class="am-accent-desc">Every customer searching your service within 9 miles. How many of them find your competitor first?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: The System -->
+    <div class="am-row reverse">
+      <div class="am-row-text">
+        <span class="am-label" data-flow>The System</span>
+        <p class="am-big-quote" data-flow data-flow-delay="100">
+          Mark Bishop Media is a <em>Local Visibility Operating System.</em>
+        </p>
+        <p class="am-body-text" data-flow data-flow-delay="300">
+          We don't run generic ad campaigns or send monthly PDF reports that nobody reads. We run deep-dive data audits that scan your entire digital footprint: your Google Business Profile, your citations across 100+ directories, and your real competitor landscape.
+        </p>
+        <p class="am-body-text" data-flow data-flow-delay="450">
+          We show you exactly where you're losing customers within your 9-mile radius. Then we fix it, one blind spot at a time.
+        </p>
+      </div>
+      <div class="am-row-visual">
+        <div class="am-accent-box" data-flow data-flow-delay="200">
+          <div class="am-accent-icon">🔍</div>
+          <div class="am-accent-title">Data-Driven Audit</div>
+          <div class="am-accent-desc">100+ directories scanned. Live, verifiable data. Zero guesswork. Just the honest picture of where you stand.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: Track Record -->
+    <div class="am-row">
+      <div class="am-row-text">
+        <span class="am-label" data-flow>The Track Record</span>
+        <p class="am-big-quote" data-flow data-flow-delay="100">
+          Every audit traces back to <em>live, verifiable data.</em>
+          No guesswork. No fear-based selling.
+        </p>
+        <p class="am-body-text" data-flow data-flow-delay="300">
+          Dozens of local businesses across Arizona audited, from solo practitioners to multi-location service companies. Just the honest picture of where you stand, and a clear roadmap to own your local market.
+        </p>
+        <div class="am-stats" data-flow data-flow-delay="500">
+          <div class="am-stat"><div class="am-stat-num">100+</div><div class="am-stat-label">Directories Scanned</div></div>
+          <div class="am-stat"><div class="am-stat-num">9mi</div><div class="am-stat-label">Local Radius Focus</div></div>
+          <div class="am-stat"><div class="am-stat-num">0</div><div class="am-stat-label">Fabricated Numbers</div></div>
+        </div>
+      </div>
+      <div class="am-row-visual">
+        <div class="am-accent-box" data-flow data-flow-delay="200">
+          <div class="am-accent-icon">📊</div>
+          <div class="am-accent-title">Arizona Local Businesses</div>
+          <div class="am-accent-desc">Dentists, plumbers, HVAC companies in every sector and size. Real results from real audits.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: Tra-digital Platform -->
+    <div class="am-row reverse">
+      <div class="am-row-text">
+        <span class="am-label" data-flow>The Media Network</span>
+        <p class="am-big-quote" data-flow data-flow-delay="100">
+          A <em>tra-digital communications</em> platform for businesses, entrepreneurs, and dreamers.
+        </p>
+        <p class="am-body-text" data-flow data-flow-delay="300">
+          Mark Bishop Media is more than just local visibility. We are a tra-digital communications platform hosting a diverse network of live-streamed and recorded podcasts. With over 750 published episodes, our goal is to give genuine, down-to-earth souls a powerful voice.
+        </p>
+        <p class="am-body-text" data-flow data-flow-delay="450">
+          Our lineup includes The Mark Bishop Show (377 episodes), Tucson Means Business, Culture @ Work, and more. Whether you run a local service that needs to be found, or you have a story that deserves to be heard on Apple and Spotify, the work starts the same way. Visibility is everything.
+        </p>
+      </div>
+      <div class="am-row-visual">
+        <div class="am-accent-box" data-flow data-flow-delay="200">
+          <img src="../assets/images/podcast-studio-cutout.svg" alt="MBM Podcast Studio" style="width: 100%; max-width: 240px; margin-bottom: 16px; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2)); transform: scale(1.05);">
+          <div class="am-accent-title">750+ Published Episodes</div>
+          <div class="am-accent-desc">Engaging, informative conversations broadcast across Apple, Google, and Spotify. Real stories from real people.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 6: CTA -->
+    <div class="am-cta-section">
+      <h2 class="am-cta-headline" data-flow>Ready to see your blind spots?</h2>
+      <p class="am-cta-sub" data-flow data-flow-delay="200">One audit. Zero guesswork. A clear roadmap to local dominance.</p>
+      <div class="am-contact-row" data-flow data-flow-delay="400">
+        <a href="tel:+15203496378" class="am-contact-link primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +1 (520) 349-6378
+        </a>
+        <a href="mailto:mark@markbishopmedia.com" class="am-contact-link secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          mark@markbishopmedia.com
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+
+
+  <script>
+    // ═══════════ THEME 3: GLACIAL MINT — STANDALONE ═══════════
+    let canvas = document.getElementById('glass-canvas');
+
+    // Pre-render MBM logo SVG to 256x256 PNG data URL for glass face texture
+    let mbmLogoDataUrl = null;
+    (function preRenderLogo() {
+      const svgText = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 84 76" fill="none" width="256" height="256">
+        <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00d4ff"/><stop offset="60%" stop-color="#38ef7d"/><stop offset="100%" stop-color="#b8ff57"/>
+        </linearGradient></defs>
+        <g transform="translate(0,4)">
+          <path d="M 12 56 L 12 18 L 26 36" stroke="url(#g)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M 58 36 L 72 18 L 72 56" stroke="url(#g)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M 42 57.6 C 34.3 47.1 27.3 40.1 27.3 31.7 A 14.7 14.7 0 1 1 56.7 31.7 C 56.7 40.1 49.7 47.1 42 57.6 Z" stroke="url(#g)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M 33.6 40.8 L 39.2 34.5 L 44.1 39.4 L 51.1 28.2" stroke="url(#g)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M 44.8 27.5 L 51.8 27.5 L 51.8 34.5" stroke="url(#g)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </g>
+      </svg>`;
+      const blob = new Blob([svgText], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      const img = new Image();
+      img.onload = function() {
+        const c = document.createElement('canvas');
+        c.width = 256; c.height = 256;
+        const ctx = c.getContext('2d');
+        ctx.filter = 'blur(3px)';
+        ctx.drawImage(img, 0, 0, 256, 256);
+        URL.revokeObjectURL(url);
+        mbmLogoDataUrl = c.toDataURL('image/png');
+
+        // Theme 3: Glacial Mint — EXACT config from glass-demos.html
+        const config = {
+          colors: ['#F8FAFC', '#F1F5F9', '#E2E8F0', '#0D9488'], 
+          scale: 1.18, intensity: 0.15, paramA: 0.34, detail: 1.824, contrast: 1.0, brightness: 0.0, saturation: 1.0, grain: 0.032, seed: 5.0, oklab: 1.0,
+          shadeBase: 0.9, shadeHighlight: 0.13, shadeShadow: 0.06,
+          cursorEnabled: true, cursorEffect: 1.0, cursorStrength: 0.45, cursorRadius: 0.5, timeScale: 0.3,
+          faceImage: mbmLogoDataUrl
+        };
+
+        NHGlass.mount(canvas, config);
+
+        // Portrait reveal
+        setTimeout(function() {
+          var p = document.getElementById('am-portrait');
+          if (p) p.classList.add('is-in');
+        }, 400);
+
+        initWordFlows();
+      };
+      img.src = url;
+    })();
+
+    // ═══════════ WORD FLOW-IN (Nathan Herk Style) ═══════════
+    const aboutSection = document.getElementById('about-mark');
+    let flowsInitialized = false;
+
+    function wrapWords(el) {
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+      const nodes = [];
+      let n;
+      while ((n = walker.nextNode())) {
+        if (n.nodeValue.trim() && !n.parentNode.closest('svg')) nodes.push(n);
+      }
+      let count = 0;
+      nodes.forEach(function(node) {
+        const frag = document.createDocumentFragment();
+        node.nodeValue.split(/(\s+)/).forEach(function(part) {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+          const w = document.createElement('span');
+          w.className = 'fw';
+          w.textContent = part;
+          w.style.setProperty('--i', count++);
+          frag.appendChild(w);
+        });
+        node.parentNode.replaceChild(frag, node);
+      });
+      return count;
+    }
+
+    function initWordFlows() {
+      if (flowsInitialized) {
+        aboutSection.querySelectorAll('[data-flow]').forEach(function(el) { el.classList.add('is-flowed'); });
+        return;
+      }
+      flowsInitialized = true;
+
+      const flowEls = aboutSection.querySelectorAll('[data-flow]');
+      flowEls.forEach(function(el) {
+        wrapWords(el);
+        const delay = parseInt(el.getAttribute('data-flow-delay')) || 0;
+        if (delay) el.style.setProperty('--flow-base-delay', delay + 'ms');
+      });
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            const delay = parseInt(e.target.getAttribute('data-flow-delay')) || 0;
+            setTimeout(function() { e.target.classList.add('is-flowed'); }, delay);
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+      flowEls.forEach(function(el) { observer.observe(el); });
+    }
+  </script>
+</body>
+</html>

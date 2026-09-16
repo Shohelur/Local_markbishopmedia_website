@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 84 76" width="256" height="256" fill="none">
+  <!-- ICON MARK: GEOMETRIC 'M' + LOCATION PIN + UPWARD GROWTH CHEVRON -->
+  <!-- Made thick for alpha masking in WebGL -->
+  <g transform="translate(0, 4)">
+    <path d="M 12 56 L 12 18 L 26 36" 
+          stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    
+    <path d="M 58 36 L 72 18 L 72 56" 
+          stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+    <path d="M 42 66 
+             C 31 51 21 41 21 29 
+             A 21 21 0 1 1 63 29 
+             C 63 41 53 51 42 66 Z" 
+          stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+    <path d="M 30 42 L 38 33 L 45 40 L 55 24" 
+          stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    
+    <path d="M 46 23 L 56 23 L 56 33" 
+          stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+</svg>
