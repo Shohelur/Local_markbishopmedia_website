@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "agency-website",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
