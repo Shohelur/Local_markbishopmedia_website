@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MBM Growth Insights - Local SEO & Marketing OS</title>
+  
+  <!-- Advanced AEO / SEO Meta Tags -->
+  <meta name="description" content="Actionable strategies, local SEO deep-dives, and real-world insights for local businesses. Learn how Mark Bishop Media helps you dominate your 9-mile radius and increase revenue.">
+  <meta name="keywords" content="Local SEO, AEO, Business Growth, Marketing OS, AI Audits, Mark Bishop Media">
+  <meta property="og:title" content="Growth Insights - Mark Bishop Media">
+  <meta property="og:description" content="Discover how local businesses are dominating their 9-mile radius using our proprietary tra-digital marketing strategies.">
+  
+  <!-- JSON-LD Schema for AEO/SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "headline": "MBM Growth Insights",
+    "description": "Actionable strategies, local SEO deep-dives, and real-world insights on how local businesses are dominating their 9-mile radius.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Mark Bishop Media",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://local.markbishopmedia.com/assets/images/logo.png"
+      }
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Light Theme Variables */
+      --bg-base: #f8fafc;
+      --bg-card: rgba(255, 255, 255, 0.85);
+      --bg-card-hover: rgba(255, 255, 255, 1);
+      
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      
+      --accent-indigo: #4F46E5;
+      --accent-cyan: #06B6D4;
+      
+      --border-glass: rgba(15, 23, 42, 0.06);
+      --border-glow: rgba(79, 70, 229, 0.3);
+      
+      --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.04);
+      --shadow-hover: 0 20px 40px rgba(15, 23, 42, 0.08);
+      
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    /* Background Ambient Mesh */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: 
+        radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.03), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.03), transparent 25%);
+      pointer-events: none;
+    }
+
+    /* SMART NAVIGATION (Light Mode) */
+    .master-nav-wrapper {
+      position: fixed;
+      top: 0; left: 0; width: 100%; z-index: 1000;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .master-nav-wrapper.nav-hidden { transform: translateY(-100%); }
+    .nav-capsule {
+      margin: 20px auto 0;
+      width: min(1200px, 92%);
+      height: 70px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-glass); border-radius: 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.03);
+    }
+    .brand-logo-full { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--text-main); text-decoration: none; letter-spacing: -1px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 15px; transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent-indigo); }
+    .nav-cta {
+      background: var(--text-main); color: #fff; padding: 12px 24px; border-radius: 12px; font-weight: 600; font-size: 14px; text-decoration: none; transition: background 0.3s, transform 0.3s;
+    }
+    .nav-cta:hover { background: var(--accent-indigo); transform: translateY(-2px); }
+
+    /* HERO SECTION (Premium Redesign) */
+    .blog-hero {
+      position: relative;
+      padding: 180px 5% 100px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* Liquid Aurora Effect */
+      background: linear-gradient(120deg, rgba(79, 70, 229, 0.05), rgba(6, 182, 212, 0.08), rgba(225, 29, 72, 0.03));
+      background-size: 200% 200%;
+      animation: aurora 10s ease infinite;
+    }
+    @keyframes aurora {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    
+    /* THEME PANEL */
+    .theme-glass-panel {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 15px 10px;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(15, 23, 42, 0.1);
+      border-radius: 40px;
+      z-index: 9999;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255,255,255,0.5);
+    }
+    .theme-dot { position: relative; }
+    .theme-dot::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      right: 35px;
+      top: 50%;
+      transform: translateY(-50%) translateX(10px);
+      background: rgba(4, 7, 16, 0.9);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      opacity: 0;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .theme-dot:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(-50%) translateX(0);
+    }
+    .theme-glass-panel .theme-dot {
+      width: 20px !important;
+      height: 20px !important;
+      border: none !important;
+      border-radius: 50% !important;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.4), 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .theme-glass-panel .theme-dot::before {
+      content: '';
+      position: absolute;
+      top: -4px; left: -4px; right: -4px; bottom: -4px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    .theme-glass-panel .theme-dot.active::before {
+      border-color: rgba(15, 23, 42, 0.5);
+    }
+    .theme-glass-panel .theme-dot:hover {
+      transform: scale(1.2) !important;
+    }
+
+    /* --- NEW GORGEOUS UI ELEMENTS --- */
+    
+    /* 1. Floating Ambient Orbs */
+    .ambient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      opacity: 0.6;
+      animation: floatOrb 20s infinite ease-in-out alternate;
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(79,70,229,0.4) 0%, transparent 70%);
+      top: -100px; left: -100px;
+    }
+    .orb-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(6,182,212,0.3) 0%, transparent 70%);
+      bottom: -150px; right: -100px;
+      animation-delay: -10s;
+    }
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(100px, 50px) scale(1.2); }
+      100% { transform: translate(-50px, 150px) scale(0.9); }
+    }
+
+    /* 2. Shimmering Text on Insights */
+    .blog-hero h1 span {
+      background: linear-gradient(to right, var(--accent-indigo) 20%, #818cf8 40%, var(--accent-cyan) 60%, var(--accent-indigo) 80%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmerText 4s linear infinite;
+    }
+    @keyframes shimmerText {
+      to { background-position: 200% center; }
+    }
+
+    /* 3. Focus Overlay */
+    .focus-overlay {
+      position: fixed; inset: 0;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 50;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    body.search-focused .focus-overlay {
+      opacity: 1; pointer-events: auto;
+    }
+    .hero-search-wrapper { z-index: 51; } /* Elevate search bar above overlay */
+
+    /* 4. Magnetic Button Helper */
+    .filter-btn {
+      position: relative;
+      /* Remove standard transform transition so JS can control it smoothly */
+      transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
+    }
+    /* -------------------------------- */
+
+    /* CSS Load Animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .blog-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--accent-indigo);
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      border: 1px solid rgba(79, 70, 229, 0.2);
+      box-shadow: 0 5px 15px rgba(79, 70, 229, 0.1);
+    }
+    
+    .blog-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      color: #0f172a;
+      max-width: 900px;
+      position: relative;
+      z-index: 10;
+    }
+    .blog-hero p {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      color: #1e293b;
+      max-width: 700px;
+      margin: 0 auto;
+      font-weight: 500;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Premium Glass Search Bar */
+    .hero-search-wrapper {
+      margin-top: 40px;
+      width: 100%;
+      max-width: 500px;
+      position: relative;
+    }
+    .hero-search-bar {
+      width: 100%;
+      padding: 16px 24px 16px 50px;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(15px);
+      font-size: 15px;
+      font-family: var(--font-body);
+      color: var(--text-main);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.05), inset 0 2px 5px rgba(255,255,255,0.8);
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    .hero-search-bar:focus {
+      border-color: rgba(79, 70, 229, 0.4);
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 15px 35px rgba(79, 70, 229, 0.1), inset 0 2px 5px rgba(255,255,255,1);
+    }
+    .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      stroke: var(--text-muted);
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    /* CATEGORY FILTERS */
+    .blog-filters {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: -30px; /* Overlaps hero slightly */
+      margin-bottom: 60px;
+      padding: 0 5%;
+      position: relative;
+      z-index: 10;
+    }
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-glass);
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-soft);
+    }
+    .filter-btn:hover {
+      border-color: var(--border-glow);
+      color: var(--accent-indigo);
+      transform: translateY(-2px);
+    }
+    .filter-btn.active {
+      background: var(--text-main);
+      color: #fff;
+      border-color: var(--text-main);
+    }
+
+    /* BENTO GRID LAYOUT */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto 120px;
+      padding: 0 5%;
+    }
+
+    /* Blog Card Base */
+    .blog-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .blog-card:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(79, 70, 229, 0.2);
+    }
+
+    /* Featured Card */
+    .card-featured { grid-column: span 12; flex-direction: row; min-height: 400px; }
+    .card-standard { grid-column: span 4; }
+
+    /* Media Area */
+    .card-media { position: relative; overflow: hidden; background: #e2e8f0; }
+    .card-featured .card-media { width: 55%; height: 100%; }
+    .card-standard .card-media { width: 100%; aspect-ratio: 16/10; }
+    
+    .img-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, #e2e8f0, #cbd5e1); transition: transform 0.6s ease; }
+    .blog-card:hover .img-placeholder { transform: scale(1.05); }
+    
+    .grad-1 { background: linear-gradient(135deg, #c7d2fe, #fbcfe8); }
+    .grad-2 { background: linear-gradient(135deg, #bbf7d0, #bfdbfe); }
+    .grad-3 { background: linear-gradient(135deg, #fef08a, #fed7aa); }
+    .grad-4 { background: linear-gradient(135deg, #e9d5ff, #fbcfe8); }
+
+    /* Card Content */
+    .card-content { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+    .card-featured .card-content { width: 45%; }
+    .card-standard .card-content { padding: 30px; flex: 1; }
+
+    .card-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .card-tag { background: rgba(79, 70, 229, 0.1); color: var(--accent-indigo); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-date { color: var(--text-muted); font-size: 13px; font-weight: 500; }
+
+    .card-title { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 12px; line-height: 1.3; letter-spacing: -0.5px; }
+    .card-featured .card-title { font-size: 36px; }
+
+    .card-excerpt { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 24px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+    .card-author { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+    .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: #cbd5e1; }
+    .author-info h4 { font-size: 14px; color: var(--text-main); font-weight: 600; }
+    .author-info p { font-size: 12px; color: var(--text-muted); }
+
+    /* FOOTER */
+    .p11-footer { background: #020205; padding: 80px 20px 40px; color: #fff; font-family: 'Space Grotesk', sans-serif; text-align: center; }
+    .p11-footer h2 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; margin-bottom: 20px; }
+    .p11-footer p { color: rgba(255,255,255,0.7); margin-bottom: 40px; }
+    .p11-footer-cta { background: #fff; color: #020205; padding: 16px 32px; border-radius: 12px; font-weight: 700; text-decoration: none; display: inline-block; transition: transform 0.3s; }
+    .p11-footer-cta:hover { transform: scale(1.05); }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+      .card-featured { flex-direction: column; }
+      .card-featured .card-media, .card-featured .card-content { width: 100%; }
+      .card-standard { grid-column: span 6; }
+    }
+    @media (max-width: 768px) {
+      .card-standard { grid-column: span 12; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Mesh Background & Orbs -->
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-bg"></div>
+
+  
+  <div class="theme-glass-panel">
+    <div id="btn-1" class="theme-dot active" data-tooltip="Platinum & Indigo" style="background: #4F46E5;" onclick="loadTheme(1)"></div>
+    <div id="btn-2" class="theme-dot" data-tooltip="Champagne Luxury" style="background: #D4AF37;" onclick="loadTheme(2)"></div>
+    <div id="btn-3" class="theme-dot" data-tooltip="Glacial Mint" style="background: #0D9488;" onclick="loadTheme(3)"></div>
+    <div id="btn-4" class="theme-dot" data-tooltip="Emerald Growth" style="background: #059669;" onclick="loadTheme(4)"></div>
+    <div id="btn-5" class="theme-dot" data-tooltip="Rose Quartz" style="background: #E11D48;" onclick="loadTheme(5)"></div>
+    <div id="btn-6" class="theme-dot" data-tooltip="Deep Purple" style="background: #9333EA;" onclick="loadTheme(6)"></div>
+  </div>
+
+  <!-- Smart Navigation -->
+  <nav class="master-nav-wrapper" id="master-nav-wrapper">
+    <div class="nav-capsule">
+      <a href="../final-website-master.html" class="brand-logo-full">
+        MarkBishop<span style="color: var(--accent-indigo);">.</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../final-website-master.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html" class="active">Insights</a></li>
+      </ul>
+      <a href="#audit" class="nav-cta">Free Audit</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="blog-hero" style="overflow: hidden; position: relative;">
+    <!-- 3D Glass Canvas from About Page -->
+    <canvas id="glass-canvas" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: auto;"></canvas>
+    
+    <div style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; width: 100%;">
+      <div class="focus-overlay" id="focus-overlay"></div>
+    <div class="blog-badge fade-up delay-1">MBM JOURNAL</div>
+    <h1 class="fade-up delay-2">Growth <span>Insights</span></h1>
+    <p class="fade-up delay-3">Actionable strategies, local SEO deep-dives, and real-world insights on how local businesses are dominating their 9-mile radius.</p>
+    
+    <!-- Premium Glass Search Bar -->
+    <div class="hero-search-wrapper fade-up delay-4">
+      <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" class="hero-search-bar" placeholder="Search for local SEO, AI audits, or growth strategies...">
+    </div>
+      </div>
+  </header>
+
+  <!-- Category Filters (Optimized for SEO/AEO) -->
+  <div class="blog-filters fade-up delay-4">
+    <button class="filter-btn active">All Articles</button>
+    <button class="filter-btn">Local SEO Audits</button>
+    <button class="filter-btn">Google Maps Ranking</button>
+    <button class="filter-btn">Geo-Grid Scans</button>
+    <button class="filter-btn">Local Visibility</button>
+  </div>
+
+  <!-- Blog Grid (Semantic HTML5) -->
+  <main class="blog-grid">
+
+    <!-- Featured Post -->
+    <article class="blog-card card-featured">
+      <div class="card-media">
+        <div class="img-placeholder grad-1"></div>
+      </div>
+      <div class="card-content">
+        <div class="card-meta">
+          <span class="card-tag">Local Visibility</span>
+          <time datetime="2026-09-15" class="card-date">Sep 15, 2026</time>
+        </div>
+        <h2 class="card-title">How a Tucson Plumber Added $40k/mo Using the 9-Mile Radius Strategy</h2>
+        <p class="card-excerpt">Most local businesses bleed customers because their Google Maps listing isn't optimized for hyper-local search intent. Discover the exact 3-step strategy we used to fix a leaky pipeline.</p>
+        <div class="card-author">
+          <div class="author-avatar" style="background-image: url('../assets/images/cartoon_avatar_transparent.png'); background-size: cover; background-position: center;"></div>
+          <div class="author-info">
+            <h4>Mark Bishop</h4>
+            <p>Founder, MBM</p>
+          </div>
+        </div>
+      </div>
+      <a href="#" style="position: absolute; inset: 0; z-index: 1;" aria-label="Read full article"></a>
+    </article>
+
+    <!-- Standard Post 1 -->
+    <article class="blog-card card-standard">
+      <div class="card-media">
+        <div class="img-placeholder grad-2"></div>
+      </div>
+      <div class="card-content">
+        <div class="card-meta">
+          <span class="card-tag">Google Maps Ranking</span>
+          <time datetime="2026-09-10" class="card-date">Sep 10, 2026</time>
+        </div>
+        <h2 class="card-title">Answer Engine Optimization: Ranking on ChatGPT</h2>
+        <p class="card-excerpt">Google isn't the only search engine anymore. Learn how to optimize your local business content to be cited by ChatGPT and Perplexity AI.</p>
+        <div class="card-author">
+          <div class="author-avatar" style="background-image: url('../assets/images/cartoon_avatar_transparent.png'); background-size: cover; background-position: center;"></div>
+          <div class="author-info">
+            <h4>Mark Bishop</h4>
+            <p>Founder, MBM</p>
+          </div>
+        </div>
+      </div>
+      <a href="#" style="position: absolute; inset: 0; z-index: 1;" aria-label="Read full article"></a>
+    </article>
+
+    <!-- Standard Post 2 -->
+    <article class="blog-card card-standard">
+      <div class="card-media">
+        <div class="img-placeholder grad-3"></div>
+      </div>
+      <div class="card-content">
+        <div class="card-meta">
+          <span class="card-tag">Geo-Grid Scans</span>
+          <time datetime="2026-09-05" class="card-date">Sep 05, 2026</time>
+        </div>
+        <h2 class="card-title">What Exactly is a 3D Geo-Grid AI Scan?</h2>
+        <p class="card-excerpt">Stop guessing where you rank. Learn how our proprietary AI scan visualizes your exact market dominance block by block.</p>
+        <div class="card-author">
+          <div class="author-avatar" style="background-image: url('../assets/images/cartoon_avatar_transparent.png'); background-size: cover; background-position: center;"></div>
+          <div class="author-info">
+            <h4>Mark Bishop</h4>
+            <p>Founder, MBM</p>
+          </div>
+        </div>
+      </div>
+      <a href="#" style="position: absolute; inset: 0; z-index: 1;" aria-label="Read full article"></a>
+    </article>
+
+    <!-- Standard Post 3 -->
+    <article class="blog-card card-standard">
+      <div class="card-media">
+        <div class="img-placeholder grad-4"></div>
+      </div>
+      <div class="card-content">
+        <div class="card-meta">
+          <span class="card-tag">Local SEO Audits</span>
+          <time datetime="2026-08-28" class="card-date">Aug 28, 2026</time>
+        </div>
+        <h2 class="card-title">Why "More Leads" is the Wrong Goal (And What to Track)</h2>
+        <p class="card-excerpt">If your closing rate is low, dumping more leads into the top of the funnel is just burning cash. Here is the operational system you need.</p>
+        <div class="card-author">
+          <div class="author-avatar" style="background-image: url('../assets/images/cartoon_avatar_transparent.png'); background-size: cover; background-position: center;"></div>
+          <div class="author-info">
+            <h4>Mark Bishop</h4>
+            <p>Founder, MBM</p>
+          </div>
+        </div>
+      </div>
+      <a href="#" style="position: absolute; inset: 0; z-index: 1;" aria-label="Read full article"></a>
+    </article>
+
+  </main>
+
+  <!-- Dark Footer Contrast -->
+  <footer class="p11-footer">
+    <h2>Ready to Dominate Your Market?</h2>
+    <p>Stop losing customers to competitors with worse service but better SEO.</p>
+    <a href="#" class="p11-footer-cta">Get Your Free 9-Mile Audit</a>
+  </footer>
+
+  <script>
+    /* SMART NAVIGATION LOGIC */
+    const navWrapper = document.getElementById('master-nav-wrapper');
+    let lastScrollTop = 0;
+    
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Hide nav on scroll down, show on scroll up
+      if (currentScroll > lastScrollTop && currentScroll > 100) {
+        navWrapper.classList.add('nav-hidden');
+      } else {
+        navWrapper.classList.remove('nav-hidden');
+      }
+      
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
+
+    /* FILTER LOGIC */
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    /* FOCUS DIMMING LOGIC */
+    const searchBar = document.querySelector('.hero-search-bar');
+    const focusOverlay = document.getElementById('focus-overlay');
+    
+    searchBar.addEventListener('focus', () => { document.body.classList.add('search-focused'); });
+    searchBar.addEventListener('blur', () => { document.body.classList.remove('search-focused'); });
+    focusOverlay.addEventListener('click', () => { searchBar.blur(); });
+
+    /* MAGNETIC BUTTONS LOGIC */
+    const magneticEls = document.querySelectorAll('.filter-btn');
+    magneticEls.forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        // Limit movement magnitude
+        const moveX = x * 0.3;
+        const moveY = y * 0.3;
+        btn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0px, 0px)';
+        btn.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
+      });
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transition = 'none'; // disable transition while moving
+      });
+    });
+  </script>
+
+  <script src="../assets/glass.js"></script>
+  <script>
+    // Dynamic Theme Loader for Blog Hero
+    let activeGlass = null;
+    let mbmLogoDataUrl = null;
+    
+    function loadTheme(num) {
+      document.querySelectorAll('.theme-dot').forEach(b => b.classList.remove('active'));
+      document.getElementById('btn-' + num).classList.add('active');
+
+      const hero = document.querySelector('.blog-hero');
+      let glassCanvas = document.getElementById('glass-canvas');
+      
+      // Destroy existing canvas
+      if (activeGlass) {
+        if (typeof activeGlass.dispose === 'function') activeGlass.dispose();
+        if (glassCanvas && glassCanvas.parentNode) {
+          glassCanvas.parentNode.removeChild(glassCanvas);
+        }
+      } else if (glassCanvas && glassCanvas.parentNode) {
+        glassCanvas.parentNode.removeChild(glassCanvas);
+      }
+      
+      // Create new canvas
+      glassCanvas = document.createElement('canvas');
+      glassCanvas.id = 'glass-canvas';
+      glassCanvas.style.cssText = 'position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: auto;';
+      if (hero) {
+        hero.insertBefore(glassCanvas, hero.firstChild);
+      }
+
+      const root = document.documentElement;
+      let config = {};
+
+      if (num === 1) { // Indigo
+        root.style.setProperty('--accent-indigo', '#4F46E5'); root.style.setProperty('--accent-cyan', '#06B6D4');
+        config = { colors: ['#E5E7EB', '#F3F4F6', '#D1D5DB', '#4F46E5'], scale: 1.18, intensity: 0.15, paramA: 0.34, detail: 1.824, contrast: 1.0, brightness: 0.0, saturation: 1.0, grain: 0.032, seed: 3.0, oklab: 1.0, shadeBase: 0.9, shadeHighlight: 0.13, shadeShadow: 0.06, cursorEnabled: true, cursorEffect: 1.0, cursorStrength: 0.45, cursorRadius: 0.5, timeScale: 0.3 };
+      } else if (num === 2) { // Champagne
+        root.style.setProperty('--accent-indigo', '#D4AF37'); root.style.setProperty('--accent-cyan', '#FBBF24');
+        config = { colors: ['#FAFAF9', '#F5F5F4', '#E7E5E4', '#D4AF37'], scale: 1.18, intensity: 0.15, paramA: 0.34, detail: 1.824, contrast: 1.0, brightness: 0.0, saturation: 0.9, grain: 0.032, seed: 4.0, oklab: 1.0, shadeBase: 0.9, shadeHighlight: 0.13, shadeShadow: 0.06, cursorEnabled: true, cursorEffect: 1.0, cursorStrength: 0.45, cursorRadius: 0.5, timeScale: 0.3 };
+      } else if (num === 3) { // Mint
+        root.style.setProperty('--accent-indigo', '#0D9488'); root.style.setProperty('--accent-cyan', '#2DD4BF');
+        config = { colors: ['#F8FAFC', '#F1F5F9', '#E2E8F0', '#0D9488'], scale: 1.18, intensity: 0.15, paramA: 0.34, detail: 1.824, contrast: 1.0, brightness: 0.0, saturation: 1.0, grain: 0.032, seed: 5.0, oklab: 1.0, shadeBase: 0.9, shadeHighlight: 0.13, shadeShadow: 0.06, cursorEnabled: true, cursorEffect: 1.0, cursorStrength: 0.45, cursorRadius: 0.5, timeScale: 0.3 };
+      } else if (num === 4) { // Green
+        root.style.setProperty('--accent-indigo', '#059669'); root.style.setProperty('--accent-cyan', '#34D399');
+        config = { colors: ['#F8FAFC', '#F1F5F9', '#E2E8F0', '#059669'], scale: 1.18, intensity: 0.15, paramA: 0.34, detail: 1.824, contrast: 1.0, brightness: 0.0, saturation: 1.0, grain: 0.032, seed: 6.0, oklab: 1.0, shadeBase: 0.9, shadeHighlight: 0.13, shadeShadow: 0.06, cursorEnabled: true, cursorEffect: 1.0, cursorStrength: 0.45, cursorRadius: 0.5, timeScale: 0.3 };
+      } else if (num === 5) { // Rose
+        root.style.setProperty('--accent-indigo', '#E11D48'); root.style.setProperty('--accent-cyan', '#FB7185');
+        config = { colors: ['#FFF1F2', '#FFE4E6', '#FECDD3', '#E11D48'], scale: 1.18, intensity: 0.15, paramA: 0.34, detail: 1.824, contrast: 1.0, brightness: 0.0, saturation: 1.0, grain: 0.032, seed: 7.0, oklab: 1.0, shadeBase: 0.9, shadeHighlight: 0.13, shadeShadow: 0.06, cursorEnabled: true, cursorEffect: 1.0, cursorStrength: 0.45, cursorRadius: 0.5, timeScale: 0.3 };
+      } else if (num === 6) { // Purple
+        root.style.setProperty('--accent-indigo', '#9333EA'); root.style.setProperty('--accent-cyan', '#C084FC');
+        config = { colors: ['#FAF5FF', '#F3E8FF', '#E9D5FF', '#9333EA'], scale: 1.18, intensity: 0.15, paramA: 0.34, detail: 1.824, contrast: 1.0, brightness: 0.0, saturation: 1.0, grain: 0.032, seed: 8.0, oklab: 1.0, shadeBase: 0.9, shadeHighlight: 0.13, shadeShadow: 0.06, cursorEnabled: true, cursorEffect: 1.0, cursorStrength: 0.45, cursorRadius: 0.5, timeScale: 0.3 };
+      }
+
+      config.faceImage = mbmLogoDataUrl;
+      
+      if (window.NHGlass) {
+        activeGlass = window.NHGlass.mount(glassCanvas, config);
+      }
+    }
+
+    if (window.NHGlass) {
+      (function preRenderLogo() {
+        const svgText = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 84 76" fill="none" width="256" height="256">
+          <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00d4ff"/><stop offset="60%" stop-color="#38ef7d"/><stop offset="100%" stop-color="#b8ff57"/>
+          </linearGradient></defs>
+          <g transform="translate(0,4)">
+            <path d="M 12 56 L 12 18 L 26 36" stroke="url(#g)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M 58 36 L 72 18 L 72 56" stroke="url(#g)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M 42 57.6 C 34.3 47.1 27.3 40.1 27.3 31.7 A 14.7 14.7 0 1 1 56.7 31.7 C 56.7 40.1 49.7 47.1 42 57.6 Z" stroke="url(#g)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M 33.6 40.8 L 39.2 34.5 L 44.1 39.4 L 51.1 28.2" stroke="url(#g)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M 44.8 27.5 L 51.8 27.5 L 51.8 34.5" stroke="url(#g)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+        </svg>`;
+        const blob = new Blob([svgText], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        const img = new Image();
+        img.onload = function() {
+          const c = document.createElement('canvas');
+          c.width = 256; c.height = 256;
+          const ctx = c.getContext('2d');
+          ctx.filter = 'blur(3px)';
+          ctx.drawImage(img, 0, 0, 256, 256);
+          URL.revokeObjectURL(url);
+          mbmLogoDataUrl = c.toDataURL();
+          
+          loadTheme(1); // Default load
+        };
+        img.src = url;
+      })();
+    }
+</script>
+</body>
+
+</html>
