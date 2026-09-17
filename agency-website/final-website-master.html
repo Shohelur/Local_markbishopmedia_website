@@ -143,6 +143,10 @@ body::before {
 /* ═══════════════════════════════════════════════════════════
    STAGE 2: MASTER 3D CANVAS & CINEMATIC VIGNETTE
    ═══════════════════════════════════════════════════════════ */
+#master-3d-canvas { transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); }
+@media(min-width: 1440px) {
+  body.hero-active #master-3d-canvas { transform: translateX(8%); }
+}
 #master-3d-canvas {
   position: fixed;
   inset: 0;
@@ -6061,6 +6065,7 @@ function triggerSeamlessIntro() {
     x: lookX, y: lookY, z: 0, duration: 1.0, ease: "power3.inOut",
     onComplete: () => {
       isInHeroMode = true;
+      document.body.classList.add('hero-active');
       isHeroPurchasesEnabled = true;
       customerGroup.visible = true;
     }
