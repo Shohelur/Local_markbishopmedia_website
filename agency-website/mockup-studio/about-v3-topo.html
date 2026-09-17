@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V3 — Neon Topographic Map | About Mark Bishop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,800&family=Space+Grotesk:wght@500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    body{background:#050510;color:#f0f4f8;font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    canvas#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+    .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:overlay}
+    .content{position:relative;z-index:10;min-height:200vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:120px 5% 100px}
+    .badge{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:#00d4ff;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px}
+    .badge a{color:#00d4ff;text-decoration:none;border:1px solid rgba(0,212,255,.3);padding:6px 14px;border-radius:20px;margin-right:12px;transition:.3s}
+    .badge a:hover{background:rgba(0,212,255,.15)}
+    h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;letter-spacing:-2px;text-align:center;line-height:1.08;margin-bottom:20px}
+    h1 em{font-style:normal;background:linear-gradient(135deg,#00d4ff,#b8ff57);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .sub{color:#8b9cb8;font-size:1.15rem;max-width:600px;text-align:center;line-height:1.65;margin-bottom:40px}
+    .scroll-hint{margin-top:60px;color:#8b9cb8;font-size:.85rem;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+    .section2{margin-top:100px;max-width:700px;text-align:center}
+    .section2 h2{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:800;margin-bottom:16px}
+    .section2 p{color:#8b9cb8;font-size:1.05rem;line-height:1.7}
+  </style>
+</head>
+<body>
+  <canvas id="bg"></canvas>
+  <div class="grain"></div>
+  <div class="content">
+    <div class="badge"><a href="about-variants.html">← All Variants</a> VARIANT 03 — NEON TOPOGRAPHIC MAP ⭐ RECOMMENDED</div>
+    <h1>40 Years Behind the Mic.<br><em>One Mission: Your Local Dominance.</em></h1>
+    <p class="sub">Mark Bishop — 40+ years of professional broadcasting experience. Founder of Mark Bishop Media, the Local Visibility Operating System.</p>
+    <div class="scroll-hint">↓ Scroll to see terrain morph</div>
+    <div class="section2">
+      <h2>The Story Behind the Brand</h2>
+      <p>From broadcast veteran to local visibility architect. Mark Bishop has interviewed over a thousand executives and built a media empire across television, radio, and podcasting.</p>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const canvas = document.getElementById('bg');
+    const gl = canvas.getContext('webgl',{alpha:false,antialias:false,powerPreference:'low-power'});
+    if(!gl) return;
+
+    // Enable OES_standard_derivatives for fwidth()
+    gl.getExtension('OES_standard_derivatives');
+
+    const VERT = `attribute vec2 a_pos; void main(){gl_Position=vec4(a_pos,0,1);}`;
+    const FRAG = `
+    #ifdef GL_FRAGMENT_PRECISION_HIGH
+    precision highp float;
+    #else
+    precision mediump float;
+    #endif
+    #extension GL_OES_standard_derivatives : enable
+    uniform vec2 u_res;
+    uniform float u_time;
+    uniform vec2 u_mouse;
+    uniform float u_scroll;
+
+    // Value noise
+    float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
+    float noise(vec2 p){
+      vec2 i=floor(p),f=fract(p);
+      f=f*f*(3.-2.*f);
+      return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);
+    }
+    float fbm(vec2 p){
+      float v=0.,a=.5;
+      for(int i=0;i<6;i++){v+=a*noise(p);p=p*2.03+vec2(17.,9.2);a*=.5;}
+      return v;
+    }
+
+    void main(){
+      vec2 uv = gl_FragCoord.xy / u_res;
+      vec2 p = (gl_FragCoord.xy - .5*u_res) / min(u_res.x, u_res.y);
+      float t = u_time * .06;
+      float scrollF = u_scroll * .0003;
+
+      // Mouse influence — warp terrain around cursor
+      vec2 mouse = (u_mouse - .5) * 2.;
+      mouse.y *= -1.;
+      float md = length(p - mouse * .5);
+      float mouseWarp = smoothstep(.6, .0, md) * .3;
+
+      // Generate terrain elevation field
+      vec2 tp = p * 3.5 + vec2(t * .8, -t * .5 + scrollF * 3.);
+      float elevation = fbm(tp);
+      elevation += fbm(tp * 2.1 + vec2(5.2, 1.3)) * .4;
+      elevation += mouseWarp * sin(md * 12. - u_time * 2.);
+
+      // Contour lines using fract
+      float contours = 18.; // number of contour levels
+      float contourVal = elevation * contours;
+      float contourLine = abs(fract(contourVal) - .5) * 2.;
+
+      // Sharp contour lines using derivatives
+      float fw = fwidth(contourVal);
+      float line = smoothstep(fw * 1.5, 0., contourLine - fw * .5);
+
+      // Thicker major contour every 4 levels
+      float majorVal = elevation * (contours / 4.);
+      float majorLine = abs(fract(majorVal) - .5) * 2.;
+      float fwM = fwidth(majorVal);
+      float major = smoothstep(fwM * 2., 0., majorLine - fwM);
+
+      // Color based on elevation
+      vec3 cyan = vec3(0., .83, 1.);
+      vec3 green = vec3(.72, 1., .34);
+      vec3 purple = vec3(.48, .19, .97);
+      vec3 deepBg = vec3(.02, .03, .08);
+
+      // Elevation color gradient
+      vec3 lineColor = mix(cyan, green, smoothstep(.3, .7, elevation));
+      lineColor = mix(lineColor, purple, smoothstep(.6, .9, elevation));
+
+      // Major lines are brighter
+      vec3 majorColor = lineColor * 1.5;
+
+      // Compose
+      vec3 col = deepBg;
+
+      // Subtle elevation glow (terrain ambient)
+      col += lineColor * elevation * .06;
+
+      // Minor contour lines
+      col = mix(col, lineColor * .7, line * .6);
+
+      // Major contour lines (brighter, thicker)
+      col = mix(col, majorColor, major * .9);
+
+      // Glow around lines
+      float glow = smoothstep(.15, 0., contourLine) * .15;
+      col += lineColor * glow;
+
+      // Mouse proximity glow
+      col += cyan * smoothstep(.5, .0, md) * .08;
+
+      // Vignette
+      float vig = 1. - length((uv - .5) * 1.4) * .6;
+      col *= vig;
+
+      // Grain
+      float grain = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898,78.233)) + u_time) * 43758.5453) - .5;
+      col += grain * .02;
+
+      gl_FragColor = vec4(clamp(col, 0., 1.), 1.);
+    }`;
+
+    function compile(type,src){
+      const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);
+      if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))console.warn(gl.getShaderInfoLog(s));
+      return s;
+    }
+    const pg=gl.createProgram();
+    gl.attachShader(pg,compile(gl.VERTEX_SHADER,VERT));
+    gl.attachShader(pg,compile(gl.FRAGMENT_SHADER,FRAG));
+    gl.linkProgram(pg);gl.useProgram(pg);
+
+    const buf=gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+    const loc=gl.getAttribLocation(pg,'a_pos');
+    gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+
+    const uRes=gl.getUniformLocation(pg,'u_res');
+    const uTime=gl.getUniformLocation(pg,'u_time');
+    const uMouse=gl.getUniformLocation(pg,'u_mouse');
+    const uScroll=gl.getUniformLocation(pg,'u_scroll');
+
+    let mx=.5,my=.5,scrollV=0;
+    addEventListener('pointermove',e=>{mx=e.clientX/innerWidth;my=e.clientY/innerHeight},{passive:true});
+    addEventListener('scroll',()=>{scrollV=window.scrollY},{passive:true});
+
+    function resize(){
+      const dpr=Math.min(devicePixelRatio,1.5);
+      canvas.width=Math.round(innerWidth*dpr*.65);
+      canvas.height=Math.round(innerHeight*dpr*.65);
+      gl.viewport(0,0,canvas.width,canvas.height);
+    }
+    resize();addEventListener('resize',resize);
+
+    const start=performance.now();
+    (function loop(){
+      requestAnimationFrame(loop);
+      gl.uniform2f(uRes,canvas.width,canvas.height);
+      gl.uniform1f(uTime,(performance.now()-start)/1000);
+      gl.uniform2f(uMouse,mx,my);
+      gl.uniform1f(uScroll,scrollV);
+      gl.drawArrays(gl.TRIANGLES,0,3);
+    })();
+  })();
+  </script>
+</body>
+</html>

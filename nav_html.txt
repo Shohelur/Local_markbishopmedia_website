@@ -1,0 +1,440 @@
+<div class="master-nav-wrapper" id="master-nav-wrapper">
+  <nav class="nav-capsule" id="nav-capsule">
+    
+    <!-- 1. BRAND LOGO -->
+    <a href="final-website-master.html#" class="brand-link" id="mag-logo" aria-label="Mark Bishop Media Home">
+      <div class="sonar-ring-container">
+        <div class="sonar-radar-wave"></div>
+        <div class="sonar-radar-wave"></div>
+      </div>
+      <img src="./assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg brand-logo-full" />
+      <img src="./assets/logos/mbm-icon.svg" alt="Mark Bishop Media Icon" class="brand-logo-mobile-icon" />
+    </a>
+
+    <!-- 2. CENTER NAVIGATION LIST -->
+    <ul class="nav-menu-list" id="nav-menu-list">
+
+      <!-- WHAT WE DO (CLEAN CARDS ON LEFT + [BEFORE VS AFTER] SPLIT BANNER REVEALS ON CARD HOVER) -->
+      <li class="nav-item has-dropdown" id="nav-item-solutions">
+        <span>What We Do</span>
+        <span class="nav-chevron">▼</span>
+        
+        <!-- THE DUAL-DECK 3D SPATIAL COMMAND ARCHITECTURE -->
+        <div class="dropdown-panel-spatial" id="solutions-spatial-panel">
+          
+          <!-- LEFT DECK: CLEAN SINGLE-LINE 3D CARDS -->
+          <ul class="spatial-cards-column">
+            
+            <!-- SERVICE 1: AUTHENTIC GOOGLE MAPS PIN -->
+            <li>
+              <a href="final-website-master.html#three-pack" class="dropdown-card-master" data-story="maps">
+                <div class="card-inner-left">
+                  <div class="icon-box-maps">
+                    <div class="maps-sonar-ring-1"></div>
+                    <div class="maps-sonar-ring-2"></div>
+                    <div class="maps-incoming-call-badge">📞</div>
+                    
+                    <!-- AUTHENTIC GOOGLE MAPS VECTOR PIN -->
+                    <svg class="google-maps-vector-pin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2Z" fill="url(#gmap-grad-1)"/>
+                      <circle cx="12" cy="9" r="3.2" fill="#020205"/>
+                      <defs>
+                        <linearGradient id="gmap-grad-1" x1="5" y1="2" x2="19" y2="22" gradientUnits="userSpaceOnUse">
+                          <stop stop-color="#00d4ff"/>
+                          <stop offset="1" stop-color="#b8ff57"/>
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                  <span class="master-card-title">Rank in Google Maps Top 3</span>
+                </div>
+                <span class="master-metric-badge">+320% CALLS</span>
+              </a>
+            </li>
+
+            <!-- SERVICE 2: 5-STAR REVIEWS -->
+            <li>
+              <a href="final-website-master.html#reviews" class="dropdown-card-master" data-story="reviews">
+                <div class="card-inner-left">
+                  <div class="icon-box-reviews">
+                    <div class="star-satellite-ring"></div>
+                    <div class="reviews-verified-badge">✓</div>
+                    <span class="star-3d-glyph">⭐</span>
+                  </div>
+                  <span class="master-card-title">Automated 5-Star Reviews</span>
+                </div>
+                <span class="master-metric-badge">★ 4.9 RATING</span>
+              </a>
+            </li>
+
+            <!-- SERVICE 3: DIRECTORY CITATIONS -->
+            <li>
+              <a href="final-website-master.html#citations" class="dropdown-card-master" data-story="citations">
+                <div class="card-inner-left">
+                  <div class="icon-box-citations">
+                    <div class="synapse-node-ring"></div>
+                    <div class="citations-sync-badge">SYNC</div>
+                    <span class="globe-3d-glyph">🌐</span>
+                  </div>
+                  <span class="master-card-title">100+ Directory Citations & Sync</span>
+                </div>
+                <span class="master-metric-badge">100+ DIRS</span>
+              </a>
+            </li>
+
+            <!-- SERVICE 4: HIGH-CONVERTING 3D WEBSITE -->
+            <li>
+              <a href="final-website-master.html#website" class="dropdown-card-master" data-story="website">
+                <div class="card-inner-left">
+                  <div class="icon-box-website">
+                    <div class="viewport-laser-trail"></div>
+                    <div class="website-booked-badge">$ BOOKED</div>
+                    <span class="rocket-3d-glyph">🚀</span>
+                  </div>
+                  <span class="master-card-title">High-Converting 3D Website</span>
+                </div>
+                <span class="master-metric-badge">3.4x BOOKINGS</span>
+              </a>
+            </li>
+
+            <!-- SERVICE 5: MISSED-CALL AI -->
+            <li>
+              <a href="final-website-master.html#missed-call-ai" class="dropdown-card-master" data-story="missedcall">
+                <div class="card-inner-left">
+                  <div class="icon-box-missedcall">
+                    <div class="missedcall-pulse-ring"></div>
+                    <div class="missedcall-text-badge">SMS</div>
+                    <span class="phone-3d-glyph">📱</span>
+                  </div>
+                  <span class="master-card-title">Missed-Call AI System</span>
+                </div>
+                <span class="master-metric-badge">24/7 AUTOPILOT</span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- RIGHT DECK: MASTER [BEFORE VS AFTER] STORYTELLING SPLIT BANNER -->
+          <div class="spatial-story-deck" id="story-banner-display">
+            <div>
+              <div class="story-voice-title" id="story-title">“We engineer your business into <span class="highlight">Google Maps Top 3</span> in 21 days.”</div>
+              <div class="story-voice-narrative" id="story-desc">
+                When nearby local people search for your services, our system positions your verified profile in the local Top 3 before competitors, capturing the dominant share of high-intent inbound phone calls.
+              </div>
+            </div>
+
+            <!-- BEFORE VS AFTER SPLIT SCREEN -->
+            <div class="split-screen-container">
+              <div class="split-card before">
+                <div class="split-header-tag">🔴 WITHOUT MBM</div>
+                <div class="split-main-status" id="split-before-status">Unranked #12+ (Lost Calls)</div>
+                <div class="split-val-metric" id="split-before-val">$12,000 / MO</div>
+              </div>
+              <div class="split-card after">
+                <div class="split-header-tag">🟢 WITH MBM OS</div>
+                <div class="split-main-status" id="split-after-status">Google Maps Top 3 Locked</div>
+                <div class="split-val-metric" id="split-after-val">+$60,000 / MO</div>
+              </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="story-footer-proof">
+              <span class="proof-tag">CLIENT ROI IMPACT:</span>
+              <span class="proof-val" id="story-proof-val">+$48,000 / MO VALUE</span>
+            </div>
+          </div>
+
+        </div>
+      </li>
+
+      <!-- ABOUT MBM (DIRECT) -->
+      <li class="nav-item" id="nav-item-about">
+        <a href="approved/about.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;">About MBM</a>
+      </li>
+
+      <!-- TESTIMONIALS (DIRECT) -->
+      <li class="nav-item" id="nav-item-testimonials">
+        <span>Testimonials</span>
+      </li>
+
+      <!-- RESOURCES DROPDOWN -->
+      <li class="nav-item has-dropdown" id="nav-item-resources">
+        <span>Resources</span>
+        <span class="nav-chevron">▼</span>
+        
+        <div class="dropdown-panel-spatial" id="resources-spatial-panel">
+          <ul class="spatial-cards-column">
+            <li>
+              <a href="javascript:void(0)" onclick="openAuditModal()" class="dropdown-card-master" data-story="audit">
+                <div class="card-inner-left">
+                  <div class="icon-box-maps">
+                    <div class="maps-sonar-ring-1"></div>
+                    <span class="pin-3d-glyph">⚡</span>
+                  </div>
+                  <span class="master-card-title">Free 9-Mile Visibility Audit</span>
+                </div>
+                <span class="master-metric-badge">FREE SCAN</span>
+              </a>
+            </li>
+            <li>
+              <a href="blog.html" class="dropdown-card-master" data-story="blog">
+                <div class="card-inner-left">
+                  <div class="icon-box-website">
+                    <div class="viewport-laser-trail"></div>
+                    <span class="rocket-3d-glyph">📑</span>
+                  </div>
+                  <span class="master-card-title">Local Growth Blog & Insights</span>
+                </div>
+                <span class="master-metric-badge">READ BLOG</span>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" onclick="openFaqModal();" class="dropdown-card-master" data-story="faq">
+                <div class="card-inner-left">
+                  <div class="icon-box-citations">
+                    <div class="synapse-node-ring"></div>
+                    <span class="globe-3d-glyph">❓</span>
+                  </div>
+                  <span class="master-card-title">Frequently Asked Questions</span>
+                </div>
+                <span class="master-metric-badge">FAQS</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="spatial-story-deck" id="resource-story-deck">
+            <div>
+              <div class="story-voice-title" id="res-story-title">“We scan your exact <span class="highlight">9-mile radius in 5 seconds</span>.”</div>
+              <div class="story-voice-narrative" id="res-story-desc">
+                Our street-level radar scan checks 81 GPS grid coordinates around your zip code to show exactly which competitors are stealing your calls and how our system overtakes them.
+              </div>
+            </div>
+
+            <div class="split-screen-container">
+              <div class="split-card before">
+                <div class="split-header-tag">🔴 UNKNOWN RANK</div>
+                <div class="split-main-status" id="res-split-before-status">Blind to Visibility Gaps</div>
+                <div class="split-val-metric" id="res-split-before-val">LOST REVENUE</div>
+              </div>
+              <div class="split-card after">
+                <div class="split-header-tag">🟢 81-POINT AUDIT</div>
+                <div class="split-main-status" id="res-split-after-status">Full Geo-Grid Diagnostic</div>
+                <div class="split-val-metric" id="res-split-after-val">100% FREE SCAN</div>
+              </div>
+            </div>
+
+            <div class="story-footer-proof">
+              <span class="proof-tag">INSTANT ACCESS:</span>
+              <span class="proof-val" id="res-story-proof-val">0 COST / 60 SECONDS</span>
+            </div>
+          </div>
+
+        </div>
+      </li>
+
+    </ul>
+
+    <!-- 3. RIGHT ACTION GROUP -->
+    <div class="nav-actions">
+      <a href="final-website-master.html#phase11-booking" class="nav-contact-link">Talk to Mark</a>
+      <a href="javascript:void(0)" onclick="openAuditModal()" class="btn-cta-glow" id="mag-cta-btn">
+        <span>⚡ FREE AUDIT</span>
+        <span class="arrow-circle-badge"><span>↗</span></span>
+      </a>
+      <!-- 3D CYBER HAMBURGER TRIGGER (MOBILE ONLY) -->
+      <button class="mobile-menu-trigger" id="mobile-menu-trigger" aria-label="Toggle Mobile Command Menu">
+        <span class="mob-burger-line"></span>
+        <span class="mob-burger-line"></span>
+        <span class="mob-burger-line"></span>
+      </button>
+    </div>
+
+  </nav>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     3D FROSTED GLASS MOBILE COMMAND DRAWER (FULLSCREEN SHEET)
+     ═══════════════════════════════════════════════════════════ -->
+<div class="mobile-drawer-sheet" id="mobile-drawer-sheet" aria-modal="true" role="dialog">
+  
+  <!-- DRAWER HEADER (PURE ICON + BRAND MARK) -->
+  <div class="mob-drawer-header">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <img src="./assets/logos/mbm-icon.svg" alt="Mark Bishop Media" style="height: 36px; width: auto;" />
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 800; color: #fff; letter-spacing: 0.05em;">MBM <span style="color: var(--cyan-glow);">OS</span></span>
+    </div>
+    <button class="mob-drawer-close-btn" id="mob-drawer-close-btn" aria-label="Close Menu">✕</button>
+  </div>
+
+  <!-- SCROLLABLE COMMAND AREA -->
+  <div class="mob-drawer-content">
+    
+    <!-- 1. DROPDOWN GROUP: WHAT WE DO (UNBOXED SEAMLESS TOGGLE) -->
+    <div class="mob-dropdown-group" id="mob-group-whatwedo">
+      <button class="mob-dropdown-trigger" onclick="toggleMobDropdown('mob-group-whatwedo')" aria-label="Toggle What We Do dropdown">
+        <div class="mob-trigger-left">
+          <div class="mob-row-icon-box">
+            <span>⚡</span>
+          </div>
+          <span class="mob-trigger-title">What We Do</span>
+          <span class="mob-count-pill">4 SYSTEMS</span>
+        </div>
+        <span class="mob-dropdown-chevron">▼</span>
+      </button>
+
+      <div class="mob-dropdown-cards-drawer">
+        
+        <!-- SERVICE 1: GOOGLE MAPS 3-PACK -->
+        <a href="services/google-maps.html" class="mob-service-card" onclick="closeMobileDrawer()">
+          <div class="mob-card-info">
+            <div class="icon-box-maps">
+              <div class="maps-sonar-ring-1"></div>
+              <div class="maps-sonar-ring-2"></div>
+              <svg class="google-maps-vector-pin" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2Z" fill="url(#gmap-grad-mob)"/>
+                <circle cx="12" cy="9" r="3.2" fill="#ffffff"/>
+                <circle cx="12" cy="9" r="1.6" fill="#00d4ff"/>
+                <defs>
+                  <linearGradient id="gmap-grad-mob" x1="5" y1="2" x2="19" y2="22" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#00d4ff"/>
+                    <stop offset="1" stop-color="#b8ff57"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div class="maps-incoming-call-badge"><span>⚡</span></div>
+            </div>
+            <span class="mob-card-title">Rank in Google Maps Top 3</span>
+          </div>
+          <span class="master-metric-badge">+320% CALLS</span>
+        </a>
+
+        <!-- SERVICE 2: 5-STAR REVIEWS -->
+        <a href="services/automated-reviews.html" class="mob-service-card" onclick="closeMobileDrawer()">
+          <div class="mob-card-info">
+            <div class="icon-box-reviews">
+              <div class="star-satellite-ring"></div>
+              <div class="reviews-verified-badge">✓</div>
+              <span class="star-3d-glyph">⭐</span>
+            </div>
+            <span class="mob-card-title">Automated 5-Star Reviews</span>
+          </div>
+          <span class="master-metric-badge">★ 4.9 RATING</span>
+        </a>
+
+        <!-- SERVICE 3: DIRECTORY CITATIONS -->
+        <a href="services/citations-sync.html" class="mob-service-card" onclick="closeMobileDrawer()">
+          <div class="mob-card-info">
+            <div class="icon-box-citations">
+              <div class="synapse-node-ring"></div>
+              <div class="citations-sync-badge">SYNC</div>
+              <span class="globe-3d-glyph">🌐</span>
+            </div>
+            <span class="mob-card-title">100+ Directory Citations & Sync</span>
+          </div>
+          <span class="master-metric-badge">100+ DIRS</span>
+        </a>
+
+        <!-- SERVICE 4: 3D WEBSITES -->
+        <a href="services/3d-websites.html" class="mob-service-card" onclick="closeMobileDrawer()">
+          <div class="mob-card-info">
+            <div class="icon-box-website">
+              <div class="viewport-laser-trail"></div>
+              <div class="website-booked-badge">$ BOOKED</div>
+              <span class="rocket-3d-glyph">🚀</span>
+            </div>
+            <span class="mob-card-title">High-Converting 3D Website</span>
+          </div>
+          <span class="master-metric-badge">3.4x BOOKINGS</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- 2. DIRECT LINK: ABOUT (FULL-WIDTH SINGLE ROW) -->
+    <a href="approved/about.html" class="mob-direct-nav-link" onclick="closeMobileDrawer()">
+      <div class="mob-trigger-left">
+        <div class="mob-row-icon-box" style="border-color: rgba(184, 255, 87, 0.35); background: rgba(184, 255, 87, 0.12); box-shadow: 0 0 12px rgba(184, 255, 87, 0.25);">
+          <span style="color: var(--lime-glow);">🏆</span>
+        </div>
+        <span class="mob-trigger-title">About Mark Bishop</span>
+      </div>
+      <span style="color: var(--cyan-glow); font-size: 13px; padding-right: 4px;">↗</span>
+    </a>
+
+    <!-- 3. DIRECT LINK: TESTIMONIALS (FULL-WIDTH SINGLE ROW) -->
+    <a href="testimonials.html" class="mob-direct-nav-link" onclick="closeMobileDrawer()">
+      <div class="mob-trigger-left">
+        <div class="mob-row-icon-box" style="border-color: rgba(255, 215, 0, 0.35); background: rgba(255, 215, 0, 0.12); box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);">
+          <span style="color: var(--gold-glow);">💬</span>
+        </div>
+        <span class="mob-trigger-title">Client Testimonials</span>
+      </div>
+      <span style="color: var(--cyan-glow); font-size: 13px; padding-right: 4px;">↗</span>
+    </a>
+
+    <!-- 4. DROPDOWN GROUP: RESOURCES (UNBOXED SEAMLESS TOGGLE) -->
+    <div class="mob-dropdown-group" id="mob-group-resources">
+      <button class="mob-dropdown-trigger" onclick="toggleMobDropdown('mob-group-resources')" aria-label="Toggle Resources dropdown">
+        <div class="mob-trigger-left">
+          <div class="mob-row-icon-box" style="border-color: rgba(0, 212, 255, 0.35); background: rgba(0, 212, 255, 0.12);">
+            <span>📚</span>
+          </div>
+          <span class="mob-trigger-title">Resources</span>
+          <span class="mob-count-pill">3 HUBS</span>
+        </div>
+        <span class="mob-dropdown-chevron">▼</span>
+      </button>
+
+      <div class="mob-dropdown-cards-drawer">
+        
+        <!-- RESOURCE 1: FREE AUDIT SCAN -->
+        <a href="javascript:void(0)" class="mob-service-card" onclick="closeMobileDrawer(); openAuditModal();">
+            <div class="mob-card-info">
+              <div class="icon-box-maps">
+                <div class="maps-sonar-ring-1"></div>
+                <span class="pin-3d-glyph">⚡</span>
+              </div>
+              <span class="mob-card-title">Free 9-Mile Visibility Audit</span>
+            </div>
+            <span class="master-metric-badge">FREE SCAN</span>
+          </a>
+
+        <!-- RESOURCE 2: BLOG -->
+        <a href="blog.html" class="mob-service-card" onclick="closeMobileDrawer()">
+          <div class="mob-card-info">
+            <div class="icon-box-website">
+              <div class="viewport-laser-trail"></div>
+              <span class="rocket-3d-glyph">📑</span>
+            </div>
+            <span class="mob-card-title">Local Growth Blog & Insights</span>
+          </div>
+          <span class="master-metric-badge">READ BLOG</span>
+        </a>
+
+        <!-- RESOURCE 3: FAQS -->
+        <a href="javascript:void(0)" class="mob-service-card" onclick="closeMobileDrawer(); setTimeout(openFaqModal, 300);">
+          <div class="mob-card-info">
+            <div class="icon-box-citations">
+              <div class="synapse-node-ring"></div>
+              <span class="globe-3d-glyph">❓</span>
+            </div>
+            <span class="mob-card-title">Frequently Asked Questions</span>
+          </div>
+          <span class="master-metric-badge">FAQS</span>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DRAWER STICKY FOOTER ACTIONS -->
+  <div class="mob-drawer-footer-actions">
+    <a href="final-website-master.html#phase11-booking" class="mob-btn-talk" onclick="closeMobileDrawer()">💬 Talk to Mark Bishop</a>
+    <a href="javascript:void(0)" class="mob-btn-audit-glow" onclick="closeMobileDrawer(); openAuditModal();">
+      <span>⚡ CLAIM FREE 9-MILE AUDIT</span>
+      <span>↗</span>
+    </a>
+  </div>
+
+</div>
+

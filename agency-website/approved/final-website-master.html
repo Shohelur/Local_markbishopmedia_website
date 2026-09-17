@@ -2171,6 +2171,134 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     }
   </style>
 
+
+  <style>
+    /* PREVENT NAV FLASH BEFORE GSAP INIT */
+    #master-nav-wrapper { opacity: 0; pointer-events: none; transform: translateY(-20px); }
+  </style>
+
+<style>
+/* =============================================
+   FAQ MODAL COMPACT OVERRIDES (FIX SPACING & COLOR)
+   ============================================= */
+.p12-faq-question {
+    padding: 16px 20px !important;
+    color: #ffffff !important;
+    font-size: 1.05rem !important;
+    margin: 0 !important;
+    text-align: left !important;
+    background: transparent !important;
+}
+.p12-faq-item.active .p12-faq-question {
+    color: #00d4ff !important;
+    padding-bottom: 10px !important;
+}
+.p12-faq-answer p {
+    padding: 0 20px 16px 20px !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 0.95rem !important;
+    margin: 0 !important;
+    line-height: 1.5 !important;
+}
+.p12-faq-icon {
+    margin-left: 15px !important;
+}
+.p12-faq-item {
+    margin-bottom: 12px !important;
+}
+</style>
+
+
+<style>
+/* =============================================
+   SLIM TOP-RIGHT THEME PANEL OVERRIDE
+   ============================================= */
+.theme-panel,
+.theme-glass-panel {
+    top: 120px !important;
+    transform: none !important;
+    right: 15px !important;
+    padding: 12px 8px !important;
+    border-radius: 20px !important;
+    gap: 10px !important;
+    width: auto !important;
+}
+.theme-dot {
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 4px !important; /* Slim rounded square */
+}
+.theme-dot::after {
+    border-radius: 6px !important;
+}
+.theme-glass-panel .theme-dot::before {
+    border-radius: 6px !important;
+    top: -3px !important;
+    left: -3px !important;
+    right: -3px !important;
+    bottom: -3px !important;
+}
+</style>
+
+
+<style>
+/* =============================================
+   FOOTER BACKGROUND & FAQ TITLE FIXES
+   ============================================= */
+#phase13-cyber-footer {
+    background: #020205 !important;
+    position: relative;
+    z-index: 100;
+}
+#faq-modal-overlay .p12-title {
+    color: #ffffff !important;
+}
+#faq-modal-overlay .p12-subtitle {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+#faq-modal-overlay .p12-tag {
+    color: #00d4ff !important;
+    border-color: rgba(0, 212, 255, 0.3) !important;
+}
+#audit-modal-overlay h2, #audit-modal-overlay p, #audit-modal-overlay label {
+    color: #ffffff !important;
+}
+#audit-modal-overlay .audit-modal-header p {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+</style>
+
+
+<style>
+/* =============================================
+   FOOTER TEXT COLOR FIXES (FOR LIGHT MODE PAGES)
+   ============================================= */
+#phase13-cyber-footer .p13-link-item {
+    color: #ffffff !important;
+}
+#phase13-cyber-footer .p13-link-item:hover {
+    color: #b8ff57 !important; /* lime glow */
+}
+#phase13-cyber-footer .p13-col-title {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+#phase13-cyber-footer .p13-manifesto,
+#phase13-cyber-footer .p13-copyright,
+#phase13-cyber-footer .p13-legal-links a {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+#phase13-cyber-footer .p13-contact-btn {
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+#phase13-cyber-footer .p13-contact-btn span {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+#phase13-cyber-footer .p13-contact-btn strong {
+    color: #ffffff !important;
+}
+</style>
+
 </head>
 <body>
 
@@ -2211,8 +2339,8 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         <div class="sonar-radar-wave"></div>
         <div class="sonar-radar-wave"></div>
       </div>
-      <img src="../assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg brand-logo-full" />
-      <img src="../assets/logos/mbm-icon.svg" alt="Mark Bishop Media Icon" class="brand-logo-mobile-icon" />
+      <img src="./assets/logos/mbm-logo.svg" alt="Mark Bishop Media" class="brand-logo-svg brand-logo-full" />
+      <img src="./assets/logos/mbm-icon.svg" alt="Mark Bishop Media Icon" class="brand-logo-mobile-icon" />
     </a>
 
     <!-- 2. CENTER NAVIGATION LIST -->
@@ -2357,7 +2485,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 
       <!-- TESTIMONIALS (DIRECT) -->
       <li class="nav-item" id="nav-item-testimonials">
-        <span>Testimonials</span>
+        <a href="#phase8-testimonials" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;">Testimonials</a>
       </li>
 
       <!-- RESOURCES DROPDOWN -->
@@ -2463,7 +2591,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
   <!-- DRAWER HEADER (PURE ICON + BRAND MARK) -->
   <div class="mob-drawer-header">
     <div style="display: flex; align-items: center; gap: 10px;">
-      <img src="../assets/logos/mbm-icon.svg" alt="Mark Bishop Media" style="height: 36px; width: auto;" />
+      <img src="./assets/logos/mbm-icon.svg" alt="Mark Bishop Media" style="height: 36px; width: auto;" />
       <span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 800; color: #fff; letter-spacing: 0.05em;">MBM <span style="color: var(--cyan-glow);">OS</span></span>
     </div>
     <button class="mob-drawer-close-btn" id="mob-drawer-close-btn" aria-label="Close Menu">✕</button>
@@ -2728,7 +2856,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 <section id="phase3-radar-container" style="position:relative; width:100%; min-height:100vh; overflow:hidden; border-top:1px solid rgba(0,255,102,0.15); background:#010a05; z-index:30;">
   <canvas id="audit-canvas"></canvas>
 <!-- BULLETPROOF HTML OVERLAY FOR SVG LOGO -->
-<img id="center-logo-html" src="../assets/logos/mbm-icon.svg" style="position:absolute; top:50%; left:50%; width:100px; height:100px; transform:translate(-50%, -50%); z-index:10; pointer-events:none; filter: drop-shadow(0 0 15px rgba(0,255,102,0.6));">
+<img id="center-logo-html" src="./assets/logos/mbm-icon.svg" style="position:absolute; top:50%; left:50%; width:100px; height:100px; transform:translate(-50%, -50%); z-index:10; pointer-events:none; filter: drop-shadow(0 0 15px rgba(0,255,102,0.6));">
 
 <div class="radar-ui-container">
   <div class="engine-badge"><div class="pulse"></div> AI LOCAL SEO SCAN ENGINE</div>
@@ -3266,7 +3394,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     <div class="p4-cards-grid">
       <a href="#three-pack" class="p4-card" style="background: linear-gradient(180deg, rgba(0, 100, 255, 0.12), rgba(0, 5, 20, 0.95)); border: 1px solid rgba(0, 150, 255, 0.25);">
         <div class="p4-card-img-wrapper">
-          <img src="../assets/images/google_maps_transparent_clean.png" class="p4-card-img" alt="Google Maps">
+          <img src="assets/images/google_maps_transparent_clean.png" class="p4-card-img" alt="Google Maps">
         </div>
         <div class="p4-card-text-wrapper">
           <div class="p4-card-title" style="color: #00d4ff;">Google Maps Top 3</div>
@@ -3275,7 +3403,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </a>
       <a href="#reviews" class="p4-card" style="background: linear-gradient(180deg, rgba(255, 200, 0, 0.12), rgba(20, 15, 0, 0.95)); border: 1px solid rgba(255, 200, 0, 0.25);">
         <div class="p4-card-img-wrapper">
-          <img src="../assets/images/service_reviews_transparent_clean.png" class="p4-card-img" alt="5-Star Reviews">
+          <img src="assets/images/service_reviews_transparent_clean.png" class="p4-card-img" alt="5-Star Reviews">
         </div>
         <div class="p4-card-text-wrapper">
           <div class="p4-card-title" style="color: #ffd700;">5-Star Reviews</div>
@@ -3284,7 +3412,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </a>
       <a href="#citations" class="p4-card" style="background: linear-gradient(180deg, rgba(0, 255, 100, 0.12), rgba(0, 20, 5, 0.95)); border: 1px solid rgba(0, 255, 100, 0.25);">
         <div class="p4-card-img-wrapper">
-          <img src="../assets/images/service_citations_transparent_clean.png" class="p4-card-img" alt="100+ Citations">
+          <img src="assets/images/service_citations_transparent_clean.png" class="p4-card-img" alt="100+ Citations">
         </div>
         <div class="p4-card-text-wrapper">
           <div class="p4-card-title" style="color: #b8ff57;">100+ Citations</div>
@@ -3293,7 +3421,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </a>
       <a href="#website" class="p4-card" style="background: linear-gradient(180deg, rgba(255, 0, 100, 0.12), rgba(20, 0, 5, 0.95)); border: 1px solid rgba(255, 0, 100, 0.25);">
         <div class="p4-card-img-wrapper">
-          <img src="../assets/images/service_website_transparent_clean.png" class="p4-card-img" alt="3D Website">
+          <img src="assets/images/service_website_transparent_clean.png" class="p4-card-img" alt="3D Website">
         </div>
         <div class="p4-card-text-wrapper">
           <div class="p4-card-title" style="color: #bd00ff;">3D Website</div>
@@ -3302,7 +3430,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </a>
       <a href="#missed-call-ai" class="p4-card" style="background: linear-gradient(180deg, rgba(255, 106, 0, 0.12), rgba(20, 5, 0, 0.95)); border: 1px solid rgba(255, 106, 0, 0.25);">
         <div class="p4-card-img-wrapper">
-          <img src="../assets/images/card_missedcall.png" class="p4-card-img" alt="Missed-Call AI">
+          <img src="assets/images/card_missedcall.png" class="p4-card-img" alt="Missed-Call AI">
         </div>
         <div class="p4-card-text-wrapper">
           <div class="p4-card-title" style="color: #ff6a00;">Missed-Call AI</div>
@@ -3321,7 +3449,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #00d4ff;"></div>
-        <img src="../assets/images/google_maps_transparent_clean.png" class="p4-visual-img" alt="Google Maps Top 3 Visual">
+        <img src="assets/images/google_maps_transparent_clean.png" class="p4-visual-img" alt="Google Maps Top 3 Visual">
       </div>
     </div>
 
@@ -3335,7 +3463,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #ffd700;"></div>
-        <img src="../assets/images/service_reviews_transparent_clean.png" class="p4-visual-img" alt="5-Star Reviews Visual">
+        <img src="assets/images/service_reviews_transparent_clean.png" class="p4-visual-img" alt="5-Star Reviews Visual">
       </div>
     </div>
 
@@ -3349,7 +3477,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #b8ff57;"></div>
-        <img src="../assets/images/service_citations_transparent_clean.png" class="p4-visual-img citations-image" alt="Citations Visual">
+        <img src="assets/images/service_citations_transparent_clean.png" class="p4-visual-img citations-image" alt="Citations Visual">
       </div>
     </div>
 
@@ -3363,7 +3491,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #bd00ff;"></div>
-        <img src="../assets/images/service_website_transparent_clean.png" class="p4-visual-img" alt="Website Visual">
+        <img src="assets/images/service_website_transparent_clean.png" class="p4-visual-img" alt="Website Visual">
       </div>
     </div>
 
@@ -3377,7 +3505,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
       <div class="p4-visual">
         <div class="p4-visual-glow" style="background: #ff6a00;"></div>
-        <img src="../assets/images/card_missedcall.png" class="p4-visual-img" alt="Missed-Call AI Visual">
+        <img src="assets/images/card_missedcall.png" class="p4-visual-img" alt="Missed-Call AI Visual">
       </div>
     </div>
 
@@ -3414,7 +3542,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
       <div class="p5-visual-container p5-right-vis">
         <!-- Replaced WebGL with High-Quality CSS Animated Image -->
-        <img src="../assets/images/step1-audit.png" class="clay-image-anim" alt="Deep Audit 3D Map">
+        <img src="assets/images/step1-audit.png" class="clay-image-anim" alt="Deep Audit 3D Map">
       </div>
     </div>
 
@@ -3422,7 +3550,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     <div class="p5-row">
       <div class="p5-visual-container p5-left-vis">
         <!-- Replaced WebGL with High-Quality CSS Animated Image -->
-        <img src="../assets/images/step2-gbp.png" class="clay-image-anim" style="animation-delay: 1s;" alt="Google Business Profile 3D Card">
+        <img src="assets/images/step2-gbp.png" class="clay-image-anim" style="animation-delay: 1s;" alt="Google Business Profile 3D Card">
       </div>
       <div class="p5-step-card p5-right">
         <div class="p5-step-number">02</div>
@@ -3443,14 +3571,14 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         </div>
       </div>
       <div class="p5-visual-container p5-right-vis">
-        <img src="../assets/images/step3-citation.png" class="clay-image-anim" style="animation-delay: 2s; width: 85%; margin: 0 auto;" alt="Citation Syndication Globe">
+        <img src="assets/images/step3-citation.png" class="clay-image-anim" style="animation-delay: 2s; width: 85%; margin: 0 auto;" alt="Citation Syndication Globe">
       </div>
     </div>
     
     <!-- STEP 4: Local SEO Dominance -->
     <div class="p5-row">
       <div class="p5-visual-container p5-left-vis">
-        <img src="../assets/images/step4-seo.png" class="clay-image-anim" style="animation-delay: 1.5s; width: 85%; margin: 0 auto;" alt="SEO Vortex Radar">
+        <img src="assets/images/step4-seo.png" class="clay-image-anim" style="animation-delay: 1.5s; width: 85%; margin: 0 auto;" alt="SEO Vortex Radar">
       </div>
       <div class="p5-step-card p5-right">
         <div class="p5-step-number">04</div>
@@ -3471,7 +3599,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
         </div>
       </div>
       <div class="p5-visual-container p5-right-vis">
-        <img src="../assets/images/step5-conversion.png" class="clay-image-anim" style="animation-delay: 3s; width: 85%; margin: 0 auto;" alt="Lead Conversion Magnet">
+        <img src="assets/images/step5-conversion.png" class="clay-image-anim" style="animation-delay: 3s; width: 85%; margin: 0 auto;" alt="Lead Conversion Magnet">
       </div>
     </div>
   </div>
@@ -4015,7 +4143,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
         </div>
         <div class="client-profile">
-          <img src="../assets/images/testimonials/client-5.png" alt="Jaime Overturf" class="client-photo">
+          <img src="assets/images/testimonials/client-5.png" alt="Jaime Overturf" class="client-photo">
           <div class="client-info">
             <h4>Jaime Overturf</h4>
             <p>Owner, Jamie Overturf Agency</p>
@@ -4040,7 +4168,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
         </div>
         <div class="client-profile">
-          <img src="../assets/images/testimonials/client-3.png" alt="Jessica Badowski" class="client-photo">
+          <img src="assets/images/testimonials/client-3.png" alt="Jessica Badowski" class="client-photo">
           <div class="client-info">
             <h4>Jessica Badowski</h4>
             <p>Owner, Too Busy Gals</p>
@@ -4065,7 +4193,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
         </div>
         <div class="client-profile">
-          <img src="../assets/images/testimonials/client-1.png" alt="Amber Smith" class="client-photo">
+          <img src="assets/images/testimonials/client-1.png" alt="Amber Smith" class="client-photo">
           <div class="client-info">
             <h4>Amber Smith</h4>
             <p>CEO, Metro Chamber</p>
@@ -4090,7 +4218,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
         </div>
         <div class="client-profile">
-          <img src="../assets/images/testimonials/client-2.png" alt="Chuck Zaepfel" class="client-photo">
+          <img src="assets/images/testimonials/client-2.png" alt="Chuck Zaepfel" class="client-photo">
           <div class="client-info">
             <h4>Chuck Zaepfel</h4>
             <p>Director, Junior Achievement</p>
@@ -4115,7 +4243,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
         </div>
         <div class="client-profile">
-          <img src="../assets/images/testimonials/client-4.png" alt="Ted Birkey" class="client-photo">
+          <img src="assets/images/testimonials/client-4.png" alt="Ted Birkey" class="client-photo">
           <div class="client-info">
             <h4>Ted Birkey</h4>
             <p>Exec Producer, MultiVu</p>
@@ -4142,7 +4270,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
         </div>
         <div class="client-profile">
-          <img src="../assets/images/testimonials/client-5.png" alt="Jaime Overturf" class="client-photo">
+          <img src="assets/images/testimonials/client-5.png" alt="Jaime Overturf" class="client-photo">
           <div class="client-info">
             <h4>Jaime Overturf</h4>
             <p>Owner, Jamie Overturf Agency</p>
@@ -4167,7 +4295,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
         </div>
         <div class="client-profile">
-          <img src="../assets/images/testimonials/client-3.png" alt="Jessica Badowski" class="client-photo">
+          <img src="assets/images/testimonials/client-3.png" alt="Jessica Badowski" class="client-photo">
           <div class="client-info">
             <h4>Jessica Badowski</h4>
             <p>Owner, Too Busy Gals</p>
@@ -4192,7 +4320,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
         </div>
         <div class="client-profile">
-          <img src="../assets/images/testimonials/client-1.png" alt="Amber Smith" class="client-photo">
+          <img src="assets/images/testimonials/client-1.png" alt="Amber Smith" class="client-photo">
           <div class="client-info">
             <h4>Amber Smith</h4>
             <p>CEO, Metro Chamber</p>
@@ -4217,7 +4345,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
         </div>
         <div class="client-profile">
-          <img src="../assets/images/testimonials/client-2.png" alt="Chuck Zaepfel" class="client-photo">
+          <img src="assets/images/testimonials/client-2.png" alt="Chuck Zaepfel" class="client-photo">
           <div class="client-info">
             <h4>Chuck Zaepfel</h4>
             <p>Director, Junior Achievement</p>
@@ -4242,7 +4370,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
           <button class="see-more-btn" onmouseenter="forceExpandReview(this)">see more...</button>
         </div>
         <div class="client-profile">
-          <img src="../assets/images/testimonials/client-4.png" alt="Ted Birkey" class="client-photo">
+          <img src="assets/images/testimonials/client-4.png" alt="Ted Birkey" class="client-photo">
           <div class="client-info">
             <h4>Ted Birkey</h4>
             <p>Exec Producer, MultiVu</p>
@@ -5019,7 +5147,7 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       <div class="card-mbm p10-tilt-card">
         <div class="laser-scan"></div>
         <div class="card-header">
-          <img src="../assets/logos/mbm-icon.svg" alt="MBM Logo" style="height: 32px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.4));">
+          <img src="./assets/logos/mbm-icon.svg" alt="MBM Logo" style="height: 32px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.4));">
           MBM Visibility Engine
         </div>
         <ul class="compare-list">
@@ -5940,10 +6068,24 @@ function triggerSeamlessIntro() {
 
   tl.to('#master-nav-wrapper', { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 2.5);
   tl.to('#hero-left', { opacity: 1, visibility: 'visible', x: 0, y: 0, filter: 'blur(0px)', duration: 0.6, ease: "power3.out" }, 2.6);
+
+  // BYPASS INTRO IF USER CAME FROM ANOTHER PAGE VIA ANCHOR LINK
+  if (window.location.hash) {
+    tl.progress(1);
+  }
 }
 
 /* ─── 4. APPROVED MASTER 3D NAVIGATION INTERACTION CONTROLLER ─── */
 /* ─── 1. SMART SCROLL FREEZE & FLOAT ─── */
+
+/* ACTIVE STATE CLICK LOGIC */
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function() {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
 let lastScrollTop = window.scrollY || document.documentElement.scrollTop;
 const masterNav = document.getElementById('master-nav-wrapper');
 
@@ -8165,7 +8307,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="v2-brand">
         <!-- 1. Local Mark Bishop Media + Logo -->
         <div class="p13-brand-logo" style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-          <img src="../assets/logos/mbm-icon.svg" alt="Local MBM Icon" style="width: 35px; height: 35px; filter: drop-shadow(0 0 10px var(--cyan-glow));">
+          <img src="assets/logos/mbm-icon.svg" alt="Local MBM Icon" style="width: 35px; height: 35px; filter: drop-shadow(0 0 10px var(--cyan-glow));">
           <span class="live-neon-text">Local Mark Bishop Media</span>
         </div>
         
@@ -8186,7 +8328,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <!-- 4. Parent Brand Text + Full Logo -->
         <div class="p13-parent-brand" style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 0; background: transparent; border: none;">
           <span style="font-size: 0.85rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px;">A local growth division of</span>
-          <img src="../assets/logos/mbm-full-logo.png" alt="Mark Bishop Media" style="width: 200px;">
+          <img src="assets/logos/mbm-full-logo.png" alt="Mark Bishop Media" style="width: 200px;">
         </div>
       </div>
 
@@ -8194,7 +8336,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="p13-links-col">
           <div class="p13-col-title">Navigation</div>
           <a href="javascript:void(0)" onclick="openAuditModal()" class="p13-link-item" style="color: var(--cyan-glow); font-weight: 700; text-shadow: 0 0 10px rgba(0,212,255,0.3);">Free Audit</a>
-          <a href="#phase4-service-matrix" class="p13-link-item">What We Do</a>
+          <a href="#phase4-services" class="p13-link-item">What We Do</a>
           <a href="#phase8-testimonials" class="p13-link-item">Client Testimonials</a>
           <a href="about.html" class="p13-link-item">About MBM</a>
           <a href="#phase11-booking" class="p13-link-item">Talk to Mark</a>
@@ -8434,10 +8576,10 @@ document.addEventListener('DOMContentLoaded', () => {
   <div class="faq-modal-content">
   <!-- Cartoon Avatar -->
   <div class="floating-cartoon-avatar">
-    <img src="../assets/images/cartoon_avatar_transparent.png" alt="Animated Avatar">
+    <img src="assets/images/cartoon_avatar_transparent.png" alt="Animated Avatar">
   </div>
     <button class="faq-modal-close" onclick="closeFaqModal()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      <svg viewBox="0 0 24 24" fill="none" style="width: 24px; height: 24px; min-width: 24px; min-height: 24px; display: block; overflow: visible;"><line x1="18" y1="6" x2="6" y2="18" style="stroke: #00d4ff !important; stroke-width: 2.5px !important; stroke-linecap: round;"></line><line x1="6" y1="6" x2="18" y2="18" style="stroke: #00d4ff !important; stroke-width: 2.5px !important; stroke-linecap: round;"></line></svg>
     </button>
     <section id="phase12-premium-faq">
   <div class="p12-header">
@@ -8750,7 +8892,7 @@ function closeFaqModal() {
   <div id="audit-modal-overlay" class="faq-modal-overlay">
     <div class="faq-modal-content audit-modal-content">
       <button class="faq-modal-close" onclick="closeAuditModal()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        <svg viewBox="0 0 24 24" fill="none" style="width: 24px; height: 24px; min-width: 24px; min-height: 24px; display: block; overflow: visible;"><line x1="18" y1="6" x2="6" y2="18" style="stroke: #00d4ff !important; stroke-width: 2.5px !important; stroke-linecap: round;"></line><line x1="6" y1="6" x2="18" y2="18" style="stroke: #00d4ff !important; stroke-width: 2.5px !important; stroke-linecap: round;"></line></svg>
       </button>
               <div class="audit-modal-header">
           <h2 style="font-size: 1.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 12px; color: white;">Unlock Your <span style="color: var(--cyan-glow);">Local Growth Report</span></h2>

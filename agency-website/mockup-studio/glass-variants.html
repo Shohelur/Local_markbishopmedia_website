@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Glass Variants</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#050510; color:#f0f4f8; font-family:'Space Grotesk',sans-serif; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 20px; }
+    h1 { font-size:2.5rem; font-weight:900; margin-bottom:8px; letter-spacing:-1px; }
+    h1 span { background:linear-gradient(135deg,#00d4ff,#b8ff57); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    p.sub { color:#8b9cb8; font-size:1.1rem; margin-bottom:50px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px; max-width:1000px; width:100%; }
+    a.card { display:block; text-decoration:none; padding:32px 28px; border-radius:16px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); transition:all 0.4s cubic-bezier(0.16,1,0.3,1); position:relative; overflow:hidden; }
+    a.card:hover { border-color:rgba(0,212,255,0.4); transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,0,0,0.4),0 0 30px rgba(0,212,255,0.08); }
+    a.card .num { font-family:'JetBrains Mono',monospace; font-size:0.85rem; color:#00d4ff; margin-bottom:12px; letter-spacing:2px; }
+    a.card h2 { font-size:1.5rem; font-weight:800; color:#f0f4f8; margin-bottom:8px; }
+    a.card p { font-size:0.95rem; color:#8b9cb8; line-height:1.5; }
+    .tag { display:inline-block; margin-top:14px; padding:4px 12px; border-radius:20px; font-size:0.78rem; font-weight:700; font-family:'JetBrains Mono',monospace; }
+    .tag-blue { background:rgba(0,212,255,0.1); color:#00d4ff; border:1px solid rgba(0,212,255,0.2); }
+  </style>
+</head>
+<body>
+  <h1>🏛️ Premium <span>Glass</span> Variants</h1>
+  <p class="sub">Nathan Herk-এর অরিজিনাল থিম, কিন্তু প্রফেশনাল ভ্যারিয়েশন</p>
+  <div class="grid">
+    <a class="card" href="glass-v1-diagonal.html">
+      <div class="num">VARIANT 01</div>
+      <h2>Diagonal Flutes</h2>
+      <p>সোজা দাগের বদলে ৪৫ ডিগ্রি অ্যাঙ্গেলে দাগ, যা ডিজাইনকে আরও ডায়নামিক এবং মডার্ন করে তোলে।</p>
+      <span class="tag tag-blue">ARCHITECTURAL</span>
+    </a>
+    <a class="card" href="glass-v2-hammered.html">
+      <div class="num">VARIANT 02</div>
+      <h2>Hammered Glass</h2>
+      <p>দাগের বদলে ছোট ছোট স্মুথ টোল (dimples)। দামি পারফিউমের বোতলের মতো প্রিমিয়াম রিফ্র্যাকশন।</p>
+      <span class="tag tag-blue">HIGH-END</span>
+    </a>
+    <a class="card" href="glass-v3-frosted.html">
+      <div class="num">VARIANT 03</div>
+      <h2>Smooth Frosted</h2>
+      <p>কোনো দাগ বা টেক্সচার নেই। Apple এবং Stripe এর মতো একদম ক্লিন এবং স্মুথ ম্যাট ফিনিশ।</p>
+      <span class="tag tag-blue">MINIMAL</span>
+    </a>
+  </div>
+</body>
+</html>

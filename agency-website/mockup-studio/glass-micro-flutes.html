@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MBM Micro-Flutes - Alternate Demos</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Space Grotesk', system-ui, sans-serif; overflow: hidden; height: 100vh; background: #000; color: #fff; }
+    
+    #glass-canvas {
+      position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none;
+    }
+    
+    /* UI PANEL */
+    #ui-panel {
+      position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
+      background: rgba(10,15,30,0.8); backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 12px;
+      padding: 15px 25px; z-index: 1000; display: flex; gap: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+    button {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      color: #fff; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer;
+      transition: all 0.3s; white-space: nowrap;
+    }
+    button.active { background: rgba(0, 212, 255, 0.2); border-color: #00d4ff; color: #00d4ff; box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
+    button:hover:not(.active) { background: rgba(255,255,255,0.1); }
+
+    /* MOCK CONTENT */
+    .mock-content {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      text-align: center; z-index: 500; pointer-events: none;
+      width: 100%;
+    }
+    h1 { font-size: 4rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 10px; text-shadow: 0 5px 30px rgba(0,0,0,0.9); }
+    h1 span { background: linear-gradient(135deg, #00d4ff, #b8ff57); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    p { font-size: 1.2rem; color: #e0e0e0; text-shadow: 0 2px 10px rgba(0,0,0,0.9); font-weight: 500; }
+  </style>
+
+  <script src="../assets/glass.js"></script>
+</head>
+<body>
+
+  <canvas id="glass-canvas"></canvas>
+
+  <div id="ui-panel">
+    <button id="btn-1" class="active" onclick="loadTheme(1)">1. Wave Ripple</button>
+    <button id="btn-2" onclick="loadTheme(2)">2. Swirl Effect</button>
+    <button id="btn-3" onclick="loadTheme(3)">3. Deep Aqua (Giant Ripple)</button>
+    <button id="btn-4" onclick="loadTheme(4)">4. Mark Bishop Imprint</button>
+  </div>
+
+  <div class="mock-content">
+    <h1 id="headline">About <span style="color: #00d4ff;">Mark </span><span style="color: #b8ff57;">Bishop</span></h1>
+    <p id="subline">40 Years Behind the Mic. One Mission: Your Local Dominance.</p>
+  </div>
+
+  <script>
+    let activeGlass = null;
+    let canvas = document.getElementById('glass-canvas');
+    const headline = document.getElementById('headline');
+    const subline = document.getElementById('subline');
+
+    function loadTheme(num) {
+      // Update UI
+      document.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      document.getElementById('btn-' + num).classList.add('active');
+
+      if (activeGlass) {
+        if (typeof activeGlass.dispose === 'function') activeGlass.dispose();
+        if (canvas && canvas.parentNode) {
+          canvas.parentNode.removeChild(canvas);
+        }
+      }
+
+      canvas = document.createElement('canvas');
+      canvas.id = 'glass-canvas';
+      document.body.insertBefore(canvas, document.body.firstChild);
+
+      let config = {};
+
+      if (num === 1) {
+        // Theme 1: Micro-Flute (Thinner lines) + Water Ripple Hover
+        config = {
+          colors: ['#E2E8F0', '#CBD5E1', '#94A3B8', '#38BDF8'], 
+          scale: 1.0, intensity: 0.15, paramA: 0.05, detail: 1.5, contrast: 1.0, brightness: 0.0, saturation: 1.0, grain: 0.032, seed: 9.0, oklab: 1.0,
+          shadeBase: 0.9, shadeHighlight: 0.15, shadeShadow: 0.08,
+          cursorEnabled: true, cursorEffect: 3.0, cursorStrength: 0.9, cursorRadius: 0.6, timeScale: 0.3
+        };
+        headline.style.color = '#0F172A'; subline.style.color = '#334155';
+        headline.style.textShadow = 'none'; subline.style.textShadow = 'none';
+      }
+      else if (num === 2) {
+        // Theme 2: Micro-Flute + Swirl Hover
+        config = {
+          colors: ['#F8FAFC', '#F1F5F9', '#E0E7FF', '#818CF8'], 
+          scale: 1.0, intensity: 0.15, paramA: 0.08, detail: 1.5, contrast: 1.0, brightness: 0.0, saturation: 1.0, grain: 0.032, seed: 10.0, oklab: 1.0,
+          shadeBase: 0.9, shadeHighlight: 0.15, shadeShadow: 0.08,
+          cursorEnabled: true, cursorEffect: 2.0, cursorStrength: 0.8, cursorRadius: 0.5, timeScale: 0.3
+        };
+        headline.style.color = '#1E1B4B'; subline.style.color = '#4338CA';
+        headline.style.textShadow = 'none'; subline.style.textShadow = 'none';
+      }
+      else if (num === 3) {
+        // Theme 3: Micro-Flute + Deep Aqua (Darkish but bright) + Giant Ripple
+        config = {
+          colors: ['#082f49', '#0369a1', '#0ea5e9', '#38bdf8'], 
+          scale: 1.0, intensity: 0.2, paramA: 0.05, detail: 1.5, contrast: 1.1, brightness: 0.0, saturation: 1.0, grain: 0.032, seed: 11.0, oklab: 1.0,
+          shadeBase: 0.7, shadeHighlight: 0.4, shadeShadow: 0.15,
+          cursorEnabled: true, cursorEffect: 3.0, cursorStrength: 1.2, cursorRadius: 0.7, timeScale: 0.35
+        };
+        headline.style.color = '#F0F9FF'; subline.style.color = '#BAE6FD';
+        headline.style.textShadow = '0 5px 30px rgba(0,0,0,0.9)'; subline.style.textShadow = '0 2px 10px rgba(0,0,0,0.9)';
+      }
+      else if (num === 4) {
+        // Theme 4: Face Imprint!
+        config = {
+          colors: ['#0f172a', '#1e293b', '#38bdf8', '#818cf8'], 
+          scale: 1.1, intensity: 0.18, paramA: 0.08, detail: 1.5, contrast: 1.05, brightness: 0.0, saturation: 1.0, grain: 0.032, seed: 12.0, oklab: 1.0,
+          shadeBase: 0.8, shadeHighlight: 0.3, shadeShadow: 0.1,
+          cursorEnabled: true, cursorEffect: 1.0, cursorStrength: 0.8, cursorRadius: 0.5, timeScale: 0.3,
+          faceImage: '../assets/images/mark-bishop-face.jpg' // THIS ACTIVATES THE NEW ENGINE FEATURE!
+        };
+        headline.style.color = '#F8FAFC'; subline.style.color = '#94A3B8';
+        headline.style.textShadow = '0 5px 30px rgba(0,0,0,0.9)'; subline.style.textShadow = 'none';
+      }
+
+      activeGlass = NHGlass.mount(canvas, config);
+    }
+
+    loadTheme(1);
+  </script>
+</body>
+</html>

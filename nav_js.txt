@@ -1,0 +1,727 @@
+/* ─── 4. APPROVED MASTER 3D NAVIGATION INTERACTION CONTROLLER ─── */
+/* ─── 1. SMART SCROLL FREEZE & FLOAT ─── */
+let lastScrollTop = window.scrollY || document.documentElement.scrollTop;
+const masterNav = document.getElementById('master-nav-wrapper');
+
+window.addEventListener('scroll', () => {
+  let currentScroll = window.scrollY || document.documentElement.scrollTop;
+  
+  // Scrolled state for visual changes (glassmorphism)
+  if (currentScroll > 5) {
+    document.body.classList.add('is-scrolled');
+  } else {
+    document.body.classList.remove('is-scrolled');
+  }
+  
+  // Smart Nav logic (Hide on scroll down, show on scroll up)
+  if (masterNav) {
+    if (Math.abs(currentScroll - lastScrollTop) > 10) {
+      if (currentScroll > lastScrollTop && currentScroll > 300) {
+        masterNav.classList.add('nav-hidden'); // Scroll Down -> Hide
+      } else {
+        masterNav.classList.remove('nav-hidden'); // Scroll Up -> Show
+      }
+      lastScrollTop = currentScroll;
+    }
+    
+    // Always ensure it's visible at the very top
+    if (currentScroll <= 10) {
+      masterNav.classList.remove('nav-hidden');
+    }
+  }
+});
+
+/* ─── 2. REFINED STORYTELLING DATABASE (TEAM VOICE + TOP 3 + DUAL REVIEWS) ─── */
+const lockedDatabase = {
+
+  missedcall: {
+    title: '“We instantly <span class="highlight">turn missed calls into booked jobs</span> with AI.”',
+    desc: 'Over 60% of local customers call the next business if you don\'t answer. Our AI receptionist instantly texts back every missed call, engages the lead, and books the appointment 24/7.',
+    beforeStatus: 'Missed Calls Ignored',
+    beforeVal: 'LOST JOBS',
+    afterStatus: 'AI Auto-Texts & Books 24/7',
+    afterVal: '+$24,000 / MO',
+    proof: '0 LOST LEADS'
+  },
+  maps: {
+    title: '“We engineer your business into <span class="highlight">Google Maps Top 3</span> in 21 days.”',
+    desc: 'When nearby local people search for your services, our system positions your verified profile in the local Top 3 before competitors, capturing the dominant share of high-intent inbound phone calls.',
+    beforeStatus: 'Unranked #12+ (Lost Calls)',
+    beforeVal: '$12,000 / MO',
+    afterStatus: 'Google Maps Top 3 Locked',
+    afterVal: '+$60,000 / MO',
+    proof: '+$48,000 / MO VALUE'
+  },
+  reviews: {
+    title: '“We <span class="highlight">actively generate 5-star Google reviews</span> on autopilot.”',
+    desc: 'We do not just collect feedback; our system deploys automated multi-channel generation workflows that systematically convert your customers into verified 5-star Google reviews, building overwhelming local trust and dominating search rankings.',
+    beforeStatus: '12 Reviews (Stagnant Growth)',
+    beforeVal: 'LOW TRUST',
+    afterStatus: '250+ Generated 5-Star Reviews',
+    afterVal: '4.9★ RATING',
+    proof: '94% TRUST RATE'
+  },
+  citations: {
+    title: '“We lock and synchronize your business NAP across <span class="highlight">100+ directories</span>.”',
+    desc: 'Our syndication engine locks your Name, Address & Phone across Apple Maps, Yelp, Bing, Yahoo & 100+ platforms so Google algorithms trust your local authority and boost your Top 3 ranking.',
+    beforeStatus: 'Inconsistent NAP Across Web',
+    beforeVal: 'RANK PENALTY',
+    afterStatus: '100+ High-Authority Dirs Synced',
+    afterVal: '100% TRUST',
+    proof: '100% AUTHORITY'
+  },
+  website: {
+    title: '“We build a lightning-fast 3D website engineered to <span class="highlight">convert clicks into booked calls</span>.”',
+    desc: 'Visitors do not just browse; they get captivated by interactive 3D visual proof, smart local schema, and friction-free click-to-call triggers that convert 3.4x more traffic into paid contracts.',
+    beforeStatus: 'Generic Slow Site (1.2% Conv)',
+    beforeVal: 'LEAKING LEADS',
+    afterStatus: 'Interactive 3D Website (3.4x Conv)',
+    afterVal: '+$75,000 / MO',
+    proof: '3.4x BOOKINGS'
+  },
+  audit: {
+    title: '“We scan your exact <span class="highlight">9-mile radius in 5 seconds</span>.”',
+    desc: 'Our street-level radar scan checks 81 GPS grid coordinates around your zip code to show exactly which competitors are stealing your calls and how our system overtakes them.',
+    beforeStatus: 'Blind to Visibility Gaps',
+    beforeVal: 'LOST REVENUE',
+    afterStatus: 'Full 81-Point Radar Scan',
+    afterVal: '100% FREE SCAN',
+    proof: '0 COST / 60 SECONDS'
+  },
+  blog: {
+    title: '“We publish battle-tested <span class="highlight">Local SEO & Growth Guides</span>.”',
+    desc: 'Deep-dive tactical teardowns, algorithm update breakdowns, and step-by-step visibility playbooks designed specifically for local business owners scaling past 7-figures.',
+    beforeStatus: 'Outdated SEO Tactics',
+    beforeVal: 'RANK DROPS',
+    afterStatus: 'Battle-Tested Playbooks',
+    afterVal: 'TOP 3 STRATEGIES',
+    proof: 'WEEKLY ARTICLES'
+  },
+  faq: {
+    title: '“Everything you need to know about the <span class="highlight">Visibility Operating System</span>.”',
+    desc: 'Transparent answers on timelines, ROI guarantees, directory sync integrations, 3D conversion engines, and how quickly your phone starts ringing with qualified local calls.',
+    beforeStatus: 'Unanswered Questions',
+    beforeVal: 'UNCERTAINTY',
+    afterStatus: '100% Transparent Answers',
+    afterVal: 'CLEAR ROADMAP',
+    proof: 'DIRECT ACCESS'
+  }
+};
+
+/* ─── 3. INTERACTION CONTROLLER (SMART PROGRESSIVE REVEAL + INSTANT HOVER POP) ─── */
+const solutionsPanel = document.getElementById('solutions-spatial-panel');
+const navItemSolutions = document.getElementById('nav-item-solutions');
+const cards = document.querySelectorAll('#solutions-spatial-panel .dropdown-card-master');
+const storyTitle = document.getElementById('story-title');
+const storyDesc = document.getElementById('story-desc');
+const splitBeforeStatus = document.getElementById('split-before-status');
+const splitBeforeVal = document.getElementById('split-before-val');
+const splitAfterStatus = document.getElementById('split-after-status');
+const splitAfterVal = document.getElementById('split-after-val');
+const storyProofVal = document.getElementById('story-proof-val');
+const storyBanner = document.getElementById('story-banner-display');
+
+// Resources DOM Elements
+const resourcesPanel = document.getElementById('resources-spatial-panel');
+const navItemResources = document.getElementById('nav-item-resources');
+const resourceCards = document.querySelectorAll('#resources-spatial-panel .dropdown-card-master');
+const resStoryTitle = document.getElementById('res-story-title');
+const resStoryDesc = document.getElementById('res-story-desc');
+const resSplitBeforeStatus = document.getElementById('res-split-before-status');
+const resSplitBeforeVal = document.getElementById('res-split-before-val');
+const resSplitAfterStatus = document.getElementById('res-split-after-status');
+const resSplitAfterVal = document.getElementById('res-split-after-val');
+const resStoryProofVal = document.getElementById('res-story-proof-val');
+const resourceStoryDeck = document.getElementById('resource-story-deck');
+
+let solutionsTimer = null;
+let resourcesTimer = null;
+
+function renderStoryCard(key) {
+  const data = lockedDatabase[key];
+  if (data && storyBanner) {
+    storyBanner.style.transform = 'perspective(1000px) rotateY(-3deg) translateZ(25px) scale(1.02)';
+    storyBanner.style.borderColor = 'var(--lime-glow)';
+    
+    storyTitle.innerHTML = data.title;
+    storyDesc.innerHTML = data.desc;
+    splitBeforeStatus.innerHTML = data.beforeStatus;
+    splitBeforeVal.innerHTML = data.beforeVal;
+    splitAfterStatus.innerHTML = data.afterStatus;
+    splitAfterVal.innerHTML = data.afterVal;
+    storyProofVal.innerHTML = data.proof;
+    
+    setTimeout(() => {
+      storyBanner.style.transform = 'perspective(1000px) rotateY(-6deg) translateZ(15px) scale(1)';
+      storyBanner.style.borderColor = 'rgba(0, 212, 255, 0.35)';
+    }, 250);
+  }
+}
+
+function renderResourceCard(key) {
+  const data = lockedDatabase[key];
+  if (data && resourceStoryDeck) {
+    resourceStoryDeck.style.transform = 'perspective(1000px) rotateY(-3deg) translateZ(25px) scale(1.02)';
+    resourceStoryDeck.style.borderColor = 'var(--lime-glow)';
+    
+    if (resStoryTitle) resStoryTitle.innerHTML = data.title;
+    if (resStoryDesc) resStoryDesc.innerHTML = data.desc;
+    if (resSplitBeforeStatus) resSplitBeforeStatus.innerHTML = data.beforeStatus;
+    if (resSplitBeforeVal) resSplitBeforeVal.innerHTML = data.beforeVal;
+    if (resSplitAfterStatus) resSplitAfterStatus.innerHTML = data.afterStatus;
+    if (resSplitAfterVal) resSplitAfterVal.innerHTML = data.afterVal;
+    if (resStoryProofVal) resStoryProofVal.innerHTML = data.proof;
+    
+    setTimeout(() => {
+      resourceStoryDeck.style.transform = 'perspective(1000px) rotateY(-6deg) translateZ(15px) scale(1)';
+      resourceStoryDeck.style.borderColor = 'rgba(0, 212, 255, 0.35)';
+    }, 250);
+  }
+}
+
+// 1. WHAT WE DO LOGIC:
+if (navItemSolutions) {
+  navItemSolutions.addEventListener('mouseenter', () => {
+    clearTimeout(solutionsTimer);
+    solutionsTimer = setTimeout(() => {
+      if (solutionsPanel && !solutionsPanel.classList.contains('has-banner-active')) {
+        solutionsPanel.classList.add('has-banner-active');
+        cards[0].classList.add('active-story');
+        renderStoryCard('maps');
+      }
+    }, 6500);
+  });
+
+  navItemSolutions.addEventListener('mouseleave', () => {
+    clearTimeout(solutionsTimer);
+    if (solutionsPanel) solutionsPanel.classList.remove('has-banner-active');
+    cards.forEach(c => c.classList.remove('active-story'));
+  });
+}
+
+cards.forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    clearTimeout(solutionsTimer);
+    if (solutionsPanel) solutionsPanel.classList.add('has-banner-active');
+    cards.forEach(c => c.classList.remove('active-story'));
+    card.classList.add('active-story');
+    
+    const key = card.getAttribute('data-story');
+    renderStoryCard(key);
+  });
+});
+
+// 2. RESOURCES LOGIC:
+if (navItemResources) {
+  navItemResources.addEventListener('mouseenter', () => {
+    clearTimeout(resourcesTimer);
+    resourcesTimer = setTimeout(() => {
+      if (resourcesPanel && !resourcesPanel.classList.contains('has-banner-active')) {
+        resourcesPanel.classList.add('has-banner-active');
+        resourceCards[0].classList.add('active-story');
+        renderResourceCard('audit');
+      }
+    }, 6500);
+  });
+
+  navItemResources.addEventListener('mouseleave', () => {
+    clearTimeout(resourcesTimer);
+    if (resourcesPanel) resourcesPanel.classList.remove('has-banner-active');
+    resourceCards.forEach(c => c.classList.remove('active-story'));
+  });
+}
+
+resourceCards.forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    clearTimeout(resourcesTimer);
+    if (resourcesPanel) resourcesPanel.classList.add('has-banner-active');
+    resourceCards.forEach(c => c.classList.remove('active-story'));
+    card.classList.add('active-story');
+    
+    const key = card.getAttribute('data-story');
+    renderResourceCard(key);
+  });
+});
+
+/* ─── 4. MOBILE DRAWER & TOUCH ACCORDION CONTROLLER ─── */
+const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');
+const mobDrawerCloseBtn = document.getElementById('mob-drawer-close-btn');
+const mobileDrawerSheet = document.getElementById('mobile-drawer-sheet');
+
+function openMobileDrawer() {
+  document.body.classList.add('mobile-drawer-open');
+}
+
+function closeMobileDrawer() {
+  document.body.classList.remove('mobile-drawer-open');
+}
+
+function toggleMobileDrawer() {
+  document.body.classList.toggle('mobile-drawer-open');
+}
+
+if (mobileMenuTrigger) {
+  mobileMenuTrigger.addEventListener('click', toggleMobileDrawer);
+}
+if (mobDrawerCloseBtn) {
+  mobDrawerCloseBtn.addEventListener('click', closeMobileDrawer);
+}
+
+// Close mobile drawer on ESC key
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMobileDrawer();
+});
+
+// Toggle Unboxed Mobile Dropdowns
+function toggleMobDropdown(id) {
+  const group = document.getElementById(id);
+  if (group) {
+    group.classList.toggle('is-collapsed');
+  }
+}
+
+// Toggle Mobile Accordions (backward compatible)
+function toggleMobAccordion(id) {
+  const block = document.getElementById(id);
+  if (block) {
+    block.classList.toggle('is-expanded');
+  }
+}
+
+/* ─── 5. TABLET TOUCHSCREEN TAP HANDLER (POINTEREVENTS) ─── */
+document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+  item.addEventListener('pointerdown', (e) => {
+    if (window.innerWidth <= 1024 && window.innerWidth >= 769) {
+      if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+        const isCurrentActive = item.classList.contains('active');
+        document.querySelectorAll('.nav-item.has-dropdown').forEach(other => other.classList.remove('active'));
+        if (!isCurrentActive) {
+          item.classList.add('active');
+        }
+      }
+    }
+  });
+});
+
+// Close tablet dropdown on outside click
+document.addEventListener('pointerdown', (e) => {
+  if (window.innerWidth <= 1024 && window.innerWidth >= 769) {
+    if (!e.target.closest('.master-nav-wrapper')) {
+      document.querySelectorAll('.nav-item.has-dropdown').forEach(other => other.classList.remove('active'));
+    }
+  }
+});
+
+/* ─── 5. MOUSE TRACKING & RENDER ANIMATE LOOP ─── */
+const mouseVec = new THREE.Vector2();
+window.addEventListener('mousemove', (e) => {
+  mouseVec.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mouseVec.y = -(e.clientY / window.innerHeight) * 2 + 1;
+});
+
+const clock = new THREE.Clock();
+let rippleProgress = 0;
+
+// === 3D SMART AUTO-PAUSE (PERFORMANCE OPTIMIZATION) ===
+let isMasterCanvasVisible = true;
+const masterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    isMasterCanvasVisible = e.isIntersecting;
+  });
+  
+  // Hide canvas to save compositor memory when off-screen
+  const canvas = document.getElementById('master-3d-canvas');
+  if (canvas) {
+    canvas.style.display = isMasterCanvasVisible ? 'block' : 'none';
+  }
+}, { rootMargin: "100px", threshold: 0.01 });
+
+// Attach observer directly to the hero wrapper (script is at bottom of body, DOM exists)
+const heroWrapper = document.querySelector('.hero-wrapper');
+if (heroWrapper) masterObserver.observe(heroWrapper);
+
+function animate() {
+  requestAnimationFrame(animate);
+  if (!isMasterCanvasVisible) return; // 0% GPU USAGE WHEN PAUSED
+
+  const time = clock.getElapsedTime();
+
+  const isMob = window.innerWidth < 768;
+  const targetCamX = isInHeroMode ? (isMob ? 0 : mouseVec.x * 1.2) : mouseVec.x * 2.5;
+  const targetCamY = isInHeroMode ? (isMob ? 0.8 : mouseVec.y * 0.8 + 0.8) : mouseVec.y * 1.8 + 1.2;
+  camera.position.x += (targetCamX - camera.position.x) * 0.04;
+  camera.position.y += (targetCamY - camera.position.y) * 0.04;
+  camera.lookAt(lookAtTarget.x, lookAtTarget.y, lookAtTarget.z);
+
+  pinGroup.rotation.y = time * 0.25;
+
+  if (isHeroPurchasesEnabled) {
+    rippleProgress += 0.012;
+    if (rippleProgress >= 1.0) rippleProgress = 0;
+    const curR = rippleProgress * 5.4;
+    purchaseRipple.scale.set(curR, curR, 1);
+    purchaseRipple.material.opacity = (1.0 - rippleProgress) * 0.95;
+  } else {
+    purchaseRipple.material.opacity = 0;
+  }
+
+
+
+  // Corner Competitor Shops Subtle Drift
+  competitorGroup.rotation.y = time * 0.002;
+
+  // Stardust Ambient Rotation
+  ambientDust.rotation.y = time * 0.025;
+  ambientDust.rotation.x = Math.sin(time * 0.08) * 0.035;
+
+  // Customer Avatars Flocking In
+  const targetY = isInHeroMode ? (pinGroup.position.y + 1.2) : 4.4;
+  // ─── 1. CUSTOMER AVATARS & KEYWORD POPUP LIFECYCLE ───
+  const destX = pinGroup.position.x;
+  const destY = pinGroup.position.y + 0.6;
+
+  customerAvatars.forEach((c, idx) => {
+    c.progress += c.speed;
+
+    if (c.progress >= 1.0) {
+      c.progress = 0;
+      c.angle = Math.random() * Math.PI * 2;
+      c.dist = 18.0 + Math.random() * 8.0;
+      c.startY = (Math.random() - 0.5) * 12.0 - 0.5;
+    }
+
+    // Smooth trajectory from distance towards 3D Storefront Pin
+    const curDist = (1.0 - c.progress) * c.dist + 0.4;
+    const curAngle = c.angle + c.progress * 0.8;
+    const curX = destX + Math.cos(curAngle) * curDist;
+    const curY = (1.0 - c.progress) * c.startY + c.progress * destY + Math.sin(time * 1.5 + c.floatOffset) * 0.2;
+    const curZ = Math.sin(curAngle) * curDist * 0.35 - 1.0;
+
+    c.avatarSprite.position.set(curX, curY, curZ);
+
+    // Avatar visibility: Smooth entry from distance, stays 100% visible, then dissolves inside storefront
+    let avatarAlpha = 1.0;
+    if (c.progress < 0.15) {
+      avatarAlpha = c.progress / 0.15;
+    } else if (c.progress > 0.92) {
+      avatarAlpha = (1.0 - c.progress) / 0.08;
+      // When reaching door (~0.95), trigger purchase burst once per cycle
+      if (isHeroPurchasesEnabled && c.progress >= 0.94 && c.progress < 0.94 + c.speed * 1.5) {
+        triggerStorefrontPurchaseBurst(c.avatarSprite.position);
+      }
+    }
+    c.avatarSprite.material.opacity = Math.max(0, Math.min(1, avatarAlpha * 0.9));
+
+    // Keyword Popup Lifecycle (Starts small in distance, stays readable, dissolves before pin)
+    if (c.hasKeyword && c.keywordSprite) {
+      c.keywordSprite.position.set(curX, curY + 0.75, curZ + 0.2);
+
+      let keyAlpha = 0;
+      let keyScale = 1.0;
+
+      if (c.progress < 0.25) {
+        // Far distance: starts small, gradually fades in
+        const t = c.progress / 0.25;
+        keyAlpha = t;
+        keyScale = 0.5 + t * 0.5;
+      } else if (c.progress >= 0.25 && c.progress <= 0.60) {
+        // Mid-journey: 100% visible & readable
+        keyAlpha = 0.95;
+        keyScale = 1.0;
+      } else if (c.progress > 0.60 && c.progress <= 0.85) {
+        // Approaching 3D Pin: shrinks and dissolves smoothly
+        const t = (c.progress - 0.60) / 0.25;
+        keyAlpha = (1.0 - t) * 0.95;
+        keyScale = 1.0 - t * 0.6; // shrinks to 0.4
+      } else {
+        // Close to pin: completely dissolved
+        keyAlpha = 0;
+      }
+
+      c.keywordSprite.material.opacity = Math.max(0, keyAlpha);
+      c.keywordSprite.scale.set(3.4 * keyScale, 0.85 * keyScale, 1);
+    }
+  });
+
+  // ─── 2. FLOATING WALK-IN PURCHASE BADGES (FLOATS UP FROM DOOR & DISSOLVES) ───
+  for (let i = activePurchaseBadges.length - 1; i >= 0; i--) {
+    const b = activePurchaseBadges[i];
+    b.progress += b.speed;
+    b.sprite.position.y = b.baseY + b.progress * 6.5;
+    b.sprite.position.x = b.baseX + Math.sin(time * 1.4 + b.driftAngle) * 0.25;
+
+    let pAlpha = b.progress < 0.15 ? (b.progress / 0.15) : (b.progress > 0.75 ? (1.0 - b.progress) / 0.25 : 1.0);
+    b.sprite.material.opacity = Math.max(0, pAlpha);
+
+    if (b.progress >= 1.0) {
+      floatingPurchasesGroup.remove(b.sprite);
+      activePurchaseBadges.splice(i, 1);
+    }
+  }
+
+  // 5 Extruded Golden Stars Orbiting Pin + Comet Light Trails
+  const orbitR = 5.4;
+  starMeshes.forEach((star, idx) => {
+    const angle = time * 1.0 + (idx * (Math.PI * 2 / 5));
+    const sx = Math.cos(angle) * orbitR;
+    const sz = Math.sin(angle) * orbitR;
+    const sy = Math.sin(time * 1.8 + idx) * 0.6;
+
+    star.position.set(sx, sy, sz);
+    star.rotation.y = time * 1.4;
+    star.rotation.z = Math.sin(time + idx) * 0.4;
+
+    const trail = starTrails[idx];
+    trail.history.unshift({ x: sx, y: sy, z: sz });
+    if (trail.history.length > TRAIL_LENGTH) trail.history.pop();
+
+    const posArray = trail.points.geometry.attributes.position.array;
+    for (let j = 0; j < TRAIL_LENGTH; j++) {
+      if (j < trail.history.length) {
+        posArray[j * 3] = trail.history[j].x;
+        posArray[j * 3 + 1] = trail.history[j].y;
+        posArray[j * 3 + 2] = trail.history[j].z;
+      }
+    }
+    trail.points.geometry.attributes.position.needsUpdate = true;
+  });
+
+  halo1.rotation.z = time * 0.15;
+  halo2.rotation.y = -time * 0.2;
+
+  renderer.render(scene, camera);
+}
+
+// Start immediately
+animate();
+triggerSeamlessIntro();
+
+function initRadar3D() {
+  // ==========================================
+// 3D SCENE: Variant E: Emerald Matrix
+// ==========================================
+const canvas = document.getElementById('audit-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x010a05, 0.02);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(0, 35, 30); // Top-down angled view
+camera.lookAt(0, 2, 0);
+
+const COLOR_PRIMARY = new THREE.Color('#00ff66');
+const COLOR_ACCENT  = new THREE.Color('#ffcc00');
+const COLOR_PROBLEM = new THREE.Color('#ff3333');
+
+const mainGroup = new THREE.Group();
+mainGroup.position.x = 10;
+scene.add(mainGroup);
+
+// Floor Grid
+const gridHelper = new THREE.GridHelper(200, 200, '#00ff66', '#00ff66');
+gridHelper.material.opacity = 0.08;
+gridHelper.material.transparent = true;
+mainGroup.add(gridHelper);
+
+// ==========================================
+// MBM LOGO (HTML OVERLAY ANCHOR)
+// ==========================================
+const centerAnchor = new THREE.Object3D();
+centerAnchor.position.y = 1.5;
+mainGroup.add(centerAnchor);
+
+// Sonar Rings (Expanding)
+const sonarRings = [];
+for(let i=0; i<4; i++) {
+  const ring = new THREE.Mesh(
+    new THREE.RingGeometry(0.1, 0.2, 64),
+    new THREE.MeshBasicMaterial({ color: COLOR_PRIMARY, transparent: true, opacity: 0, side: THREE.DoubleSide })
+  );
+  ring.rotation.x = -Math.PI / 2;
+  ring.position.y = 0.1;
+  mainGroup.add(ring);
+  sonarRings.push(ring);
+}
+
+// Directories (Equidistant Badges)
+const directories = ['Google', 'Yelp', 'BBB', 'Angi', 'Zocdoc', 'Healthgrades', 'Bing', 'Apple Maps'];
+const nodes = [];
+
+directories.forEach((name, i) => {
+  const angle = (i / directories.length) * Math.PI * 2;
+  const radius = 16; // FIXED DISTANCE as requested
+  
+  const pos = new THREE.Vector3(Math.cos(angle) * radius, 0, Math.sin(angle) * radius);
+  
+  // Custom Letter Badge (First letter as requested)
+  const badgeSprite = createLetterBadge(name.charAt(0), '#444444', '#111111');
+  badgeSprite.position.copy(pos);
+  badgeSprite.position.y = 0.8;
+  mainGroup.add(badgeSprite);
+  
+  // Ripple effect under blip
+  const ripple = new THREE.Mesh(
+    new THREE.RingGeometry(0.5, 0.8, 32),
+    new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, side: THREE.DoubleSide })
+  );
+  ripple.rotation.x = -Math.PI / 2;
+  ripple.position.copy(pos);
+  ripple.position.y = 0.2;
+  mainGroup.add(ripple);
+  
+  nodes.push({
+    mesh: badgeSprite,
+    ripple: ripple,
+    pos: pos,
+    radius: radius,
+    name: name,
+    active: false,
+    isProblem: (name === 'Yelp' || name === 'BBB' || name === 'Angi')
+  });
+});
+
+function createLetterBadge(letter, borderColor, bgColor) {
+  const cv = document.createElement('canvas');
+  cv.width = 128; cv.height = 128;
+  const ctx = cv.getContext('2d');
+  
+  ctx.beginPath();
+  ctx.arc(64, 64, 60, 0, Math.PI * 2);
+  ctx.fillStyle = bgColor;
+  ctx.fill();
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = borderColor;
+  ctx.stroke();
+
+  ctx.fillStyle = borderColor;
+  ctx.font = 'bold 70px "Space Grotesk"';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  // Adjusting Y offset slightly to perfectly center the letter visually
+  ctx.fillText(letter, 64, 70);
+
+  const tex = new THREE.CanvasTexture(cv);
+  const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, blending: THREE.AdditiveBlending });
+  const sprite = new THREE.Sprite(mat);
+  sprite.scale.set(3, 3, 1);
+  return sprite;
+}
+
+// Audit Animation Logic
+let auditTimeline;
+function startAuditSequence() {
+  if(auditTimeline) auditTimeline.kill();
+  
+  nodes.forEach(n => {
+    n.active = false;
+    n.ripple.material.opacity = 0;
+    
+    const resetBadge = createLetterBadge(n.name.charAt(0), '#444444', '#111111');
+    resetBadge.position.copy(n.mesh.position);
+    mainGroup.remove(n.mesh);
+    n.mesh = resetBadge;
+    mainGroup.add(n.mesh);
+  });
+  
+  document.getElementById('outcome-ui').style.visibility = 'hidden';
+  document.getElementById('outcome-ui').style.opacity = '0';
+
+
+  // Continuous Sonar Waves (INFINITE REPEAT)
+  sonarRings.forEach((ring, idx) => {
+    gsap.killTweensOf(ring.scale);
+    gsap.killTweensOf(ring.material);
+    gsap.fromTo(ring.scale, {x:1, y:1}, {x:200, y:200, duration: 4, ease: "linear", repeat: -1, delay: idx * 0.8});
+    gsap.fromTo(ring.material, {opacity: 0.8}, {opacity: 0, duration: 4, ease: "power2.out", repeat: -1, delay: idx * 0.8});
+  });
+
+  // Hit nodes based on their distance
+  // Speed is 200/4 = 50 units/sec. All nodes are at radius=16, so hitTime is 16/50 = 0.32s
+  nodes.forEach((n, idx) => {
+    const hitTime = n.radius / 50; 
+    setTimeout(() => {
+      n.active = true;
+      const finalColorObj = n.isProblem ? COLOR_PROBLEM : COLOR_ACCENT;
+      const finalHex = n.isProblem ? '#ff3333' : '#ffcc00';
+      
+      // Node flash
+      const newBadge = createLetterBadge(n.name.charAt(0), finalHex, '#010a05');
+      newBadge.position.copy(n.mesh.position);
+      mainGroup.remove(n.mesh);
+      n.mesh = newBadge;
+      mainGroup.add(n.mesh);
+      
+      gsap.fromTo(n.mesh.scale, { x: 3, y: 3 }, { x: 4.5, y: 4.5, duration: 0.2, yoyo: true, repeat: 1 });
+      
+      // Ripple effect
+      n.ripple.material.color = finalColorObj;
+      gsap.fromTo(n.ripple.scale, {x:1, y:1}, {x:5, y:5, duration: 1, ease: "power2.out"});
+      gsap.fromTo(n.ripple.material, {opacity: 0.8}, {opacity: 0, duration: 1, ease: "power2.out"});
+      
+    }, hitTime * 1000);
+  });
+  
+  // Terminal Logic
+  auditTimeline = gsap.timeline();
+
+  
+  auditTimeline.add(() => {
+
+    const outcomeBox = document.getElementById('outcome-ui');
+    outcomeBox.style.visibility = 'visible';
+    gsap.fromTo(outcomeBox, { opacity:0, y:20 }, { opacity:1, y:0, duration:0.5 });
+  }, "+=3.5");
+}
+
+const clock = new THREE.Clock();
+let mx = 0, my = 0;
+window.addEventListener('mousemove', e => {
+  mx = (e.clientX / window.innerWidth) * 2 - 1;
+  my = -(e.clientY / window.innerHeight) * 2 + 1;
+});
+
+const tempV = new THREE.Vector3();
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+  
+  mainGroup.rotation.y = t * 0.05; // Circular icons slowly rotate
+  
+  camera.position.x += (mx * 10 - camera.position.x) * 0.05;
+  camera.position.z += (30 + my * 10 - camera.position.z) * 0.05;
+  camera.lookAt(0, 2, 0);
+  
+  // Sync HTML Logo Overlay with 3D Center Anchor
+  centerAnchor.getWorldPosition(tempV);
+  tempV.project(camera);
+  const cx = (tempV.x * 0.5 + 0.5) * window.innerWidth;
+  const cy = -(tempV.y * 0.5 - 0.5) * window.innerHeight;
+  document.getElementById('center-logo-html').style.left = `${cx}px`;
+  document.getElementById('center-logo-html').style.top = `${cy}px`;
+  
+  nodes.forEach((n, i) => {
+    n.mesh.rotation.y = -mainGroup.rotation.y; // Counter-rotate badges so letters face camera
+    if(!n.active) {
+      n.mesh.position.y = 0.8 + Math.sin(t * 3 + i) * 0.2;
+    }
+  });
+
+  renderer.render(scene, camera);
+}
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+animate();
+setTimeout(startAuditSequence, 1000); // Master Animation on load
+}
+initRadar3D();
+
+</script>
+
+<script>
