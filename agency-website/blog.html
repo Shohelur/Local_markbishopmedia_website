@@ -58,11 +58,15 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+    
     body {
       font-family: var(--font-body);
       background-color: var(--bg-base);
       color: var(--text-main);
-      overflow-x: hidden;
       line-height: 1.6;
     }
     
@@ -101,7 +105,7 @@
     .theme-glass-panel {
       position: fixed;
       right: 20px;
-      top: 50%;
+      top: 35%;
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
@@ -311,7 +315,7 @@
     .search-icon {
       position: absolute;
       left: 20px;
-      top: 50%;
+      top: 35%;
       transform: translateY(-50%);
       width: 18px;
       height: 18px;
@@ -388,13 +392,13 @@
     }
 
     /* Featured Card */
-    .card-featured { grid-column: span 12; flex-direction: row; min-height: 400px; }
+    .card-featured { grid-column: span 12; flex-direction: row; min-height: 400px; align-items: center; }
     .card-standard { grid-column: span 4; }
 
     /* Media Area */
-    .card-media { position: relative; overflow: hidden; background: #e2e8f0; }
-    .card-featured .card-media { width: 55%; height: 100%; }
-    .card-standard .card-media { width: 100%; aspect-ratio: 16/10; }
+    .card-media { position: relative; overflow: hidden; background: #e2e8f0; border-radius: 20px 0 0 20px; }
+    .card-featured .card-media { width: 55%; height: auto; aspect-ratio: 16/9; }
+    .card-standard .card-media { width: 100%; aspect-ratio: 16/10; border-radius: 20px 20px 0 0; }
     
     .img-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, #e2e8f0, #cbd5e1); transition: transform 0.6s ease; }
     .blog-card:hover .img-placeholder { transform: scale(1.05); }
@@ -419,7 +423,7 @@
     .card-excerpt { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 24px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
     .card-author { display: flex; align-items: center; gap: 12px; margin-top: auto; }
-    .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: #cbd5e1; }
+    .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: #cbd5e1; object-fit: cover; }
     .author-info h4 { font-size: 14px; color: var(--text-main); font-weight: 600; }
     .author-info p { font-size: 12px; color: var(--text-muted); }
 
@@ -2018,18 +2022,19 @@ body.mobile-drawer-open .mobile-drawer-sheet {
     
 
 
-    /* Scrolled Navigation: Restore text to white against the dark glass background */
+    /* Scrolled Navigation: Restore text to dark against the light glass background */
     body.is-scrolled .nav-item, 
     body.is-scrolled .nav-contact-link,
     body.is-scrolled .mobile-menu-trigger {
-      color: rgba(255, 255, 255, 0.75) !important; 
+      color: #0f172a !important; 
+      font-weight: 600;
     }
     body.is-scrolled .nav-item:hover, 
     body.is-scrolled .nav-item.active {
-      color: #00d4ff !important;
+      color: #0284c7 !important;
     }
     body.is-scrolled .nav-chevron {
-      color: rgba(255, 255, 255, 0.45) !important;
+      color: rgba(15, 23, 42, 0.6) !important;
     }
     
     </style>
@@ -3170,76 +3175,175 @@ body.mobile-drawer-open .mobile-drawer-sheet {
 
   <!-- Category Filters (Optimized for SEO/AEO) -->
   <div class="blog-filters fade-up delay-4">
-    <button class="filter-btn active">All Articles</button>
-    <button class="filter-btn">Local SEO Audits</button>
-    <button class="filter-btn">Google Maps Ranking</button>
-    <button class="filter-btn">Geo-Grid Scans</button>
-    <button class="filter-btn">Local Visibility</button>
+    <button class="filter-btn active" data-filter="all">All Articles</button>
+    <button class="filter-btn" data-filter="google-maps">Google Maps Ranking</button>
+    <button class="filter-btn" data-filter="more-calls">Getting More Calls</button>
+    <button class="filter-btn" data-filter="industry">Industry Guides</button>
+    <button class="filter-btn" data-filter="case-study">Case Studies</button>
   </div>
 
   <!-- Blog Grid (Semantic HTML5) -->
   <main class="blog-grid">
 
-    <!-- Featured Post -->
-    <article class="blog-card card-featured">
+    <!-- Featured Post — POST 001 | Schema: Article | KW: why is my business not showing up on google maps -->
+    <article
+      class="blog-card card-featured"
+      data-category="google-maps"
+      data-post-id="001"
+      itemscope
+      itemtype="https://schema.org/Article"
+    >
+      <!-- THUMBNAIL: real image, descriptive alt, eager load for LCP -->
       <div class="card-media">
-        <div class="img-placeholder grad-1"></div>
+        <a href="./blog/post-001-why-not-showing-on-google-maps.html" tabindex="-1" aria-hidden="true">
+          <img
+            src="./assets/images/blog/post-001-google-maps-invisible.jpg"
+            alt="Frustrated local business owner standing by his work van, looking at his phone which shows no Google Maps results for his business"
+            width="720"
+            height="405"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            itemprop="image"
+            style="width:100%; height:100%; object-fit:cover; object-position:left center; display:block;"
+          >
+        </a>
+        <!-- Hidden schema signals for Google bot + LLMs -->
+        <meta itemprop="datePublished" content="2026-09-17">
+        <meta itemprop="dateModified" content="2026-09-17">
+        <meta itemprop="url" content="https://local.markbishopmedia.com/blog/why-is-my-business-not-showing-on-google-maps">
+        <meta itemprop="keywords" content="why is my business not showing up on google maps, google maps not showing my business, google listing invisible">
+      </div>
+
+      <div class="card-content">
+        <div class="card-meta">
+          <span class="card-tag" itemprop="articleSection">Google Maps Ranking</span>
+          <time datetime="2026-09-17" class="card-date" itemprop="datePublished">Sep 17, 2026</time>
+        </div>
+
+        <!-- H2 with itemprop="headline" for Schema + LLM citation -->
+        <h2 class="card-title" itemprop="headline">
+          <a href="./blog/post-001-why-not-showing-on-google-maps.html" style="color:inherit; text-decoration:none;">
+            Why Is My Business Not Showing Up on Google Maps? (7 Real Reasons)
+          </a>
+        </h2>
+
+        <!-- Rich excerpt for LLM and Google snippet -->
+        <p class="card-excerpt" itemprop="description">
+          You set up your Google listing, filled in the details, and waited. But your business still does not show up. Here are the 7 real reasons your listing is invisible on Google Maps and exactly how to fix each one, for free.
+        </p>
+
+        <!-- Author schema for E-E-A-T signal -->
+        <div class="card-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+          <div class="author-avatar" style="background-image: url('./assets/images/mark-bishop-real.png'); background-size: cover; background-position: center;" role="img" aria-label="Mark Bishop, Founder of Mark Bishop Media"></div>
+          <div class="author-info">
+            <h4 itemprop="name">Mark Bishop</h4>
+            <p itemprop="jobTitle">Founder, MBM</p>
+          </div>
+        </div>
+
+        <!-- Explicit read link for crawlers (not just overlay) -->
+        <a
+          href="./blog/post-001-why-not-showing-on-google-maps.html"
+          class="card-read-link"
+          aria-label="Read: Why Is My Business Not Showing Up on Google Maps?"
+          style="display:inline-block; margin-top:16px; font-weight:700; font-size:0.9rem; color: var(--accent-indigo); text-decoration:none; letter-spacing:0.5px;"
+        >Read Article &rarr;</a>
+      </div>
+
+      <!-- Full-card overlay link for click UX -->
+      <a
+        href="./blog/post-001-why-not-showing-on-google-maps.html"
+        style="position: absolute; inset: 0; z-index: 1;"
+        aria-hidden="true"
+        tabindex="-1"
+      ></a>
+    </article>
+
+    <!-- Standard Post 4 — POST 004 -->
+    <article class="blog-card card-standard" data-category="local-seo">
+      <div class="card-media">
+        <img src="./assets/images/post-004-not-getting-calls-from-google-maps.jpg" alt="I Am Not Getting Calls From Google Maps" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
       </div>
       <div class="card-content">
         <div class="card-meta">
-          <span class="card-tag">Local Visibility</span>
-          <time datetime="2026-09-15" class="card-date">Sep 15, 2026</time>
+          <span class="card-tag">Local Conversions</span>
+          <time datetime="2026-09-17" class="card-date">Sep 17, 2026</time>
         </div>
-        <h2 class="card-title">How a Tucson Plumber Added $40k/mo Using the 9-Mile Radius Strategy</h2>
-        <p class="card-excerpt">Most local businesses bleed customers because their Google Maps listing isn't optimized for hyper-local search intent. Discover the exact 3-step strategy we used to fix a leaky pipeline.</p>
+        <h2 class="card-title">I Am Not Getting Calls From Google Maps. Here Is What Is Actually Happening.</h2>
+        <p class="card-excerpt">You rank on Google Maps, but your phone is not ringing. Discover the visibility versus conversion gap and learn how to turn your rankings into real phone calls.</p>
         <div class="card-author">
-          <div class="author-avatar" style="background-image: url('./assets/images/cartoon_avatar_transparent.png'); background-size: cover; background-position: center;"></div>
+          <div class="author-avatar" style="background-image: url('./assets/images/mark-bishop-real.png'); background-size: cover; background-position: center;"></div>
           <div class="author-info">
             <h4>Mark Bishop</h4>
             <p>Founder, MBM</p>
           </div>
         </div>
       </div>
-      <a href="#" style="position: absolute; inset: 0; z-index: 1;" aria-label="Read full article"></a>
+      <a href="./blog/post-004-not-getting-calls-from-google-maps.html" style="position: absolute; inset: 0; z-index: 1;" aria-label="Read full article"></a>
     </article>
 
-    <!-- Standard Post 1 -->
-    <article class="blog-card card-standard">
+    <!-- Standard Post 3 — POST 003 -->
+    <article class="blog-card card-standard" data-category="google-maps">
       <div class="card-media">
-        <div class="img-placeholder grad-2"></div>
+        <img src="./assets/images/post-003-google-business-profile-0-views.jpg" alt="Top 10 Reasons Your Google Business Profile Is Not Getting Views" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+      </div>
+      <div class="card-content">
+        <div class="card-meta">
+          <span class="card-tag">Google Business Profile</span>
+          <time datetime="2026-09-17" class="card-date">Sep 17, 2026</time>
+        </div>
+        <h2 class="card-title">Top 10 Reasons Your Google Business Profile Is Not Getting Views (And How to Fix Each One)</h2>
+        <p class="card-excerpt">Checking your Google Business Profile insights and seeing zero views? Here are the top 10 reasons your GBP is invisible and exactly how to fix each one.</p>
+        <div class="card-author">
+          <div class="author-avatar" style="background-image: url('./assets/images/mark-bishop-real.png'); background-size: cover; background-position: center;"></div>
+          <div class="author-info">
+            <h4>Mark Bishop</h4>
+            <p>Founder, MBM</p>
+          </div>
+        </div>
+      </div>
+      <a href="./blog/post-003-google-business-profile-not-getting-views.html" style="position: absolute; inset: 0; z-index: 1;" aria-label="Read full article"></a>
+    </article>
+
+
+    <!-- Standard Post 1 — POST 002 -->
+    <article class="blog-card card-standard" data-category="google-maps">
+      <div class="card-media">
+        <img src="./assets/images/post-002-thumbnail.jpg" alt="Why Your Competitor Ranks Higher on Google Maps" style="width: 100%; height: 100%; object-fit: cover; object-position: left center;">
       </div>
       <div class="card-content">
         <div class="card-meta">
           <span class="card-tag">Google Maps Ranking</span>
-          <time datetime="2026-09-10" class="card-date">Sep 10, 2026</time>
+          <time datetime="2026-09-17" class="card-date">Sep 17, 2026</time>
         </div>
-        <h2 class="card-title">Answer Engine Optimization: Ranking on ChatGPT</h2>
-        <p class="card-excerpt">Google isn't the only search engine anymore. Learn how to optimize your local business content to be cited by ChatGPT and Perplexity AI.</p>
+        <h2 class="card-title">Why Your Competitor Ranks Higher on Google Maps (With Worse Service)</h2>
+        <p class="card-excerpt">Is a competitor with fewer reviews and worse service outranking you on Google Maps? Here are the 5 exact signals Google uses to rank them over you, and how to fix it.</p>
         <div class="card-author">
-          <div class="author-avatar" style="background-image: url('./assets/images/cartoon_avatar_transparent.png'); background-size: cover; background-position: center;"></div>
+          <div class="author-avatar" style="background-image: url('./assets/images/mark-bishop-real.png'); background-size: cover; background-position: center;"></div>
           <div class="author-info">
             <h4>Mark Bishop</h4>
             <p>Founder, MBM</p>
           </div>
         </div>
       </div>
-      <a href="#" style="position: absolute; inset: 0; z-index: 1;" aria-label="Read full article"></a>
+      <a href="./blog/post-002-competitor-ranks-higher.html" style="position: absolute; inset: 0; z-index: 1;" aria-label="Read full article"></a>
     </article>
 
-    <!-- Standard Post 2 -->
-    <article class="blog-card card-standard">
+    <!-- Standard Post 2 — POST 003 -->
+    <article class="blog-card card-standard" data-category="google-maps">
       <div class="card-media">
         <div class="img-placeholder grad-3"></div>
       </div>
       <div class="card-content">
         <div class="card-meta">
-          <span class="card-tag">Geo-Grid Scans</span>
-          <time datetime="2026-09-05" class="card-date">Sep 05, 2026</time>
+          <span class="card-tag">Google Maps Ranking</span>
+          <time datetime="2026-09-17" class="card-date">Sep 17, 2026</time>
         </div>
-        <h2 class="card-title">What Exactly is a 3D Geo-Grid AI Scan?</h2>
-        <p class="card-excerpt">Stop guessing where you rank. Learn how our proprietary AI scan visualizes your exact market dominance block by block.</p>
+        <h2 class="card-title">Top 10 Reasons Your Google Business Profile Is Not Getting Views (And How to Fix Each One)</h2>
+        <p class="card-excerpt">You have a Google listing but the views are at zero. Before you give up, read this. Each of these 10 fixes takes under an hour and most are completely free.</p>
         <div class="card-author">
-          <div class="author-avatar" style="background-image: url('./assets/images/cartoon_avatar_transparent.png'); background-size: cover; background-position: center;"></div>
+          <div class="author-avatar" style="background-image: url('./assets/images/mark-bishop-real.png'); background-size: cover; background-position: center;"></div>
           <div class="author-info">
             <h4>Mark Bishop</h4>
             <p>Founder, MBM</p>
@@ -3249,20 +3353,20 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       <a href="#" style="position: absolute; inset: 0; z-index: 1;" aria-label="Read full article"></a>
     </article>
 
-    <!-- Standard Post 3 -->
-    <article class="blog-card card-standard">
+    <!-- Standard Post 3 — POST 004 -->
+    <article class="blog-card card-standard" data-category="more-calls">
       <div class="card-media">
         <div class="img-placeholder grad-4"></div>
       </div>
       <div class="card-content">
         <div class="card-meta">
-          <span class="card-tag">Local SEO Audits</span>
-          <time datetime="2026-08-28" class="card-date">Aug 28, 2026</time>
+          <span class="card-tag">Getting More Calls</span>
+          <time datetime="2026-09-17" class="card-date">Sep 17, 2026</time>
         </div>
-        <h2 class="card-title">Why "More Leads" is the Wrong Goal (And What to Track)</h2>
-        <p class="card-excerpt">If your closing rate is low, dumping more leads into the top of the funnel is just burning cash. Here is the operational system you need.</p>
+        <h2 class="card-title">I Am Not Getting Calls From Google Maps. Here Is What Is Actually Happening.</h2>
+        <p class="card-excerpt">Ranking on Google Maps is step one. Getting your phone to ring is step two. Most businesses only fix step one. Here is why your listing gets views but no calls.</p>
         <div class="card-author">
-          <div class="author-avatar" style="background-image: url('./assets/images/cartoon_avatar_transparent.png'); background-size: cover; background-position: center;"></div>
+          <div class="author-avatar" style="background-image: url('./assets/images/mark-bishop-real.png'); background-size: cover; background-position: center;"></div>
           <div class="author-info">
             <h4>Mark Bishop</h4>
             <p>Founder, MBM</p>
@@ -3271,6 +3375,36 @@ body.mobile-drawer-open .mobile-drawer-sheet {
       </div>
       <a href="#" style="position: absolute; inset: 0; z-index: 1;" aria-label="Read full article"></a>
     </article>
+
+    <!-- Standard Post 4 — Dummy 3 -->
+    <article class="blog-card card-standard" data-category="local-seo">
+      <div class="card-media">
+        <div class="img-placeholder grad-2"></div>
+      </div>
+      <div class="card-content">
+        <div class="card-meta">
+          <span class="card-tag">Local SEO Strategy</span>
+          <time datetime="2026-09-18" class="card-date">Sep 18, 2026</time>
+        </div>
+        <h2 class="card-title">Coming Soon: The Ultimate Guide to Local Visibility</h2>
+        <p class="card-excerpt">We are publishing our complete local SEO playbook. Learn the exact steps we use to rank local businesses in the top 3 on Google Maps.</p>
+        <div class="card-author">
+          <div class="author-avatar" style="background-image: url('./assets/images/mark-bishop-real.png'); background-size: cover; background-position: center;"></div>
+          <div class="author-info">
+            <h4>Mark Bishop</h4>
+            <p>Founder, MBM</p>
+          </div>
+        </div>
+      </div>
+      <a href="#" style="position: absolute; inset: 0; z-index: 1;" aria-label="Read full article"></a>
+    </article>
+
+
+    <!-- Standard Post 1 -->
+
+    <!-- Standard Post 2 -->
+
+    <!-- Standard Post 3 -->
 
   </main>
 
@@ -4417,7 +4551,7 @@ document.addEventListener('DOMContentLoaded', () => {
   <div class="faq-modal-content">
   <!-- Cartoon Avatar -->
   <div class="floating-cartoon-avatar">
-    <img src="assets/images/cartoon_avatar_transparent.png" alt="Animated Avatar">
+    <img src="assets/images/mark-bishop-real.png" alt="Animated Avatar">
   </div>
     <button class="faq-modal-close" onclick="closeFaqModal()">
       <svg viewBox="0 0 24 24" fill="none" style="width: 24px; height: 24px; min-width: 24px; min-height: 24px; display: block; overflow: visible;"><line x1="18" y1="6" x2="6" y2="18" style="stroke: #00d4ff !important; stroke-width: 2.5px !important; stroke-linecap: round;"></line><line x1="6" y1="6" x2="18" y2="18" style="stroke: #00d4ff !important; stroke-width: 2.5px !important; stroke-linecap: round;"></line></svg>

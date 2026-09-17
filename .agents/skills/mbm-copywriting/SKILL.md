@@ -108,3 +108,4 @@ After the user reviews the copy:
 - Website hero sections: lead with outcome, not process. (2026-08-26)
 - CTA buttons on agency site: never use "Buy Now" — use "Get Free Audit" or "See How It Works". (2026-08-26)
 - ABSOLUTE HARD RULE: NEVER use a long dash / em-dash (—) or en-dash (–) in any copy. Use natural human phrasing, commas, or standard hyphens instead. (2026-09-13)
+- ABSOLUTE HARD RULE: ZERO AI WORDS. Never use words like: delve, unlock, testament, crucial, moreover, overarching, tapestry, landscape, navigate. If it sounds like ChatGPT wrote it, rewrite it. Write like a human expert talking directly to a client. (2026-09-17)
