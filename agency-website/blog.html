@@ -84,7 +84,9 @@
     /* HERO SECTION (Premium Redesign) */
     .blog-hero {
       position: relative;
-      padding: 180px 5% 100px;
+      min-height: 80vh;
+      justify-content: center;
+      padding: 120px 5% 60px;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -4245,6 +4247,7 @@ initRadar3D();
     }
 
     if (window.NHGlass) {
+      loadTheme(1); // Immediate load to prevent blank screen delay
       (function preRenderLogo() {
         const svgText = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 84 76" fill="none" width="256" height="256">
           <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
